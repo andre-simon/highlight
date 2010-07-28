@@ -1,0 +1,2267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindowClass</class>
+ <widget class="QMainWindow" name="MainWindowClass">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>674</width>
+    <height>677</height>
+   </rect>
+  </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
+  </property>
+  <property name="windowTitle">
+   <string>Highlight</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../projectfiles/highlight_gui/highlight-gui.qrc">
+    <normaloff>:/hl_icon2.png</normaloff>:/hl_icon2.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_25">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_13">
+      <item>
+       <widget class="QLabel" name="lbPreview">
+        <property name="text">
+         <string>Preview</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextBrowser" name="browserPreview">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_13">
+        <item>
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>Output progress:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progressBar">
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>674</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_Open_files"/>
+    <addaction name="separator"/>
+    <addaction name="action_Exit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_Tips"/>
+    <addaction name="action_Manual"/>
+    <addaction name="action_Changelog"/>
+    <addaction name="action_License"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_translations"/>
+    <addaction name="separator"/>
+    <addaction name="actionVisit_website"/>
+    <addaction name="action_About_Highlight"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Highlighting options</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_16">
+     <item>
+      <widget class="QTabWidget" name="tabIOSelection">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tab_file_io">
+        <attribute name="title">
+         <string>Files</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QPushButton" name="pbOpenFiles">
+           <property name="toolTip">
+            <string>Choose the source code files you want to convert.</string>
+           </property>
+           <property name="whatsThis">
+            <string/>
+           </property>
+           <property name="text">
+            <string>Choose input files</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../projectfiles/highlight_gui/highlight-gui.qrc">
+             <normaloff>:/file.png</normaloff>:/file.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="lvInputFiles">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="acceptDrops">
+            <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>List of input files.</string>
+           </property>
+           <property name="dragDropMode">
+            <enum>QAbstractItemView::DropOnly</enum>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::ExtendedSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QPushButton" name="pbClearSelection">
+             <property name="toolTip">
+              <string>Remove the selected input files.</string>
+             </property>
+             <property name="text">
+              <string>Clear selection</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pbClearAll">
+             <property name="toolTip">
+              <string>Remove all input files.</string>
+             </property>
+             <property name="text">
+              <string>Clear all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_11">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QLabel" name="label_11">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Output destination:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_22">
+             <item>
+              <widget class="QLineEdit" name="leOutputDest">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>Output directory</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pbOutputDest">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>20</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Select the output directory.</string>
+               </property>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbWrite2Src">
+             <property name="toolTip">
+              <string>Save output in the input file directories.</string>
+             </property>
+             <property name="text">
+              <string>Write to source directories</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbStartConversion">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>Start the conversion of your input files.</string>
+           </property>
+           <property name="text">
+            <string>Convert files</string>
+           </property>
+           <property name="default">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbCopyFile2CP">
+           <property name="toolTip">
+            <string>Copy highlighted code of the seleted file into the clipboard.</string>
+           </property>
+           <property name="text">
+            <string>Copy file to clipboard</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_clipboard">
+        <attribute name="title">
+         <string>Clipboard</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_15">
+         <item>
+          <widget class="QPushButton" name="pbPasteFromCB">
+           <property name="toolTip">
+            <string>Paste clipboard content into the preview window.</string>
+           </property>
+           <property name="text">
+            <string>Paste from clipboard</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../projectfiles/highlight_gui/highlight-gui.qrc">
+             <normaloff>:/file.png</normaloff>:/file.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_23">
+           <item>
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Select syntax:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboSelectSyntax">
+             <property name="toolTip">
+              <string>Select the correct syntax of the code snippet.</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_14">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbCopyToCP">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>Copy highlighted code into the clipboard.</string>
+           </property>
+           <property name="text">
+            <string>Copy preview to clipboard</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_12">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>106</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_plugins">
+        <attribute name="title">
+         <string>Plug-ins</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <widget class="QPushButton" name="pbSelectPlugin">
+           <property name="toolTip">
+            <string>Choose a plug-in script.</string>
+           </property>
+           <property name="text">
+            <string>Add plug-in to pool</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../projectfiles/highlight_gui/highlight-gui.qrc">
+             <normaloff>:/plugin.png</normaloff>:/plugin.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="lvPluginScripts">
+           <property name="toolTip">
+            <string>List of plug-ins. Toggle checkbox to enable the scripts.</string>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupPluginDescription">
+           <property name="title">
+            <string>Description</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="0">
+             <widget class="QLabel" name="lblPluginDescription">
+              <property name="toolTip">
+               <string>Shows decription of a selected plug-in script.</string>
+              </property>
+              <property name="text">
+               <string>Plug-In description</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="margin">
+               <number>2</number>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::NoTextInteraction</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_24">
+           <item>
+            <widget class="QPushButton" name="pbClearSelPlugin">
+             <property name="toolTip">
+              <string>Remove the selected plug-ins.</string>
+             </property>
+             <property name="text">
+              <string>Clear selection</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pbClearAllPlugins">
+             <property name="toolTip">
+              <string>Remove all plug-ins.</string>
+             </property>
+             <property name="text">
+              <string>Clear all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line_7">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="tabPosition">
+        <enum>QTabWidget::North</enum>
+       </property>
+       <property name="tabShape">
+        <enum>QTabWidget::Rounded</enum>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="page_general">
+        <attribute name="title">
+         <string>General</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Output format:</string>
+             </property>
+             <property name="buddy">
+              <cstring>comboFormat</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboFormat">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>Choose an output format.</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>HTML</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>XHTML</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>LaTeX</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>TeX</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>RTF</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>SVG</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>BBCode</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_9">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_21">
+           <item>
+            <widget class="QCheckBox" name="cbIncLineNo">
+             <property name="toolTip">
+              <string>Add line numbers to the output.</string>
+             </property>
+             <property name="text">
+              <string>Add line numbers</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>10</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="sbLineNoWidth">
+             <property name="toolTip">
+              <string>Select the line number width.</string>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>6</number>
+             </property>
+             <property name="value">
+              <number>2</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbPadZeroes">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>Fill leading space of line numbers with zeroes.</string>
+           </property>
+           <property name="text">
+            <string>Pad with zeroes</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbFragment">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Generate output without document header and footer.</string>
+           </property>
+           <property name="text">
+            <string>Omit header and footer</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbValidateInput">
+           <property name="toolTip">
+            <string>Test if input data is not binary.
+Removes Unicode BOM mark.</string>
+           </property>
+           <property name="text">
+            <string>Validate input data</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QCheckBox" name="cbEncoding">
+             <property name="toolTip">
+              <string>Set the output file ancoding.</string>
+             </property>
+             <property name="text">
+              <string>Set encoding:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboEncoding">
+             <property name="toolTip">
+              <string>Select or define the encoding.
+The result has to match the input file encoding.</string>
+             </property>
+             <property name="editable">
+              <bool>true</bool>
+             </property>
+             <property name="insertPolicy">
+              <enum>QComboBox::InsertAtBottom</enum>
+             </property>
+             <item>
+              <property name="text">
+               <string>ISO-8859-1</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-2</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-3</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-4</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-5</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-6</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-7</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-8</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-9</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-10</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-11</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-12</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-13</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-14</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ISO-8859-15</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>UTF-8</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_output_spec">
+        <attribute name="title">
+         <string>Output specific</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QStackedWidget" name="stackedSpecificOptions">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="currentIndex">
+            <number>4</number>
+           </property>
+           <widget class="QWidget" name="HTMLOptions">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <widget class="QLabel" name="label_17">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>HTML options</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_12">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTabWidget" name="tabWidget">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>250</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <widget class="QWidget" name="tabWidgetPage1">
+                <attribute name="title">
+                 <string>Stylesheets</string>
+                </attribute>
+                <layout class="QGridLayout" name="gridLayout_4">
+                 <item row="0" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_10">
+                   <item>
+                    <widget class="QCheckBox" name="cbHTMLEmbedStyle">
+                     <property name="toolTip">
+                      <string>Include the style information in each output file.</string>
+                     </property>
+                     <property name="text">
+                      <string>Embed style (CSS)</string>
+                     </property>
+                     <property name="checked">
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="cbHTMLInlineCSS">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="toolTip">
+                      <string>Add CSS information to each tag (do not use CSS class definitions).</string>
+                     </property>
+                     <property name="text">
+                      <string>Inline CSS</string>
+                     </property>
+                     <property name="checkable">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="1" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_14">
+                   <item>
+                    <widget class="QLabel" name="label_19">
+                     <property name="text">
+                      <string>Stylesheet file:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="leHTMLStyleFile">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>Name of the referenced style file.</string>
+                     </property>
+                     <property name="text">
+                      <string>highlight.css</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="2" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_9">
+                   <item>
+                    <widget class="QLabel" name="label_20">
+                     <property name="text">
+                      <string>Include:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="leHTMLStyleIncFile">
+                     <property name="toolTip">
+                      <string>Path of the CSS include file.</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pbHTMLChooseStyleIncFile">
+                     <property name="toolTip">
+                      <string>Select a CSS include file.</string>
+                     </property>
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="3" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="text">
+                      <string>CSS class prefix:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="leHTMLCssPrefix">
+                     <property name="toolTip">
+                      <string>Add a CSS class name prefix to avoid namespace clashes.</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="4" column="0">
+                  <spacer name="verticalSpacer_9">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::MinimumExpanding</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="tabWidgetPage2">
+                <attribute name="title">
+                 <string>Index/ctags</string>
+                </attribute>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QCheckBox" name="cbHTMLIndex">
+                   <property name="toolTip">
+                    <string>Generate an index file with hyperlinks to all outputted files.</string>
+                   </property>
+                   <property name="text">
+                    <string>Generate index file</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="Line" name="line_13">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbHTMLCtags">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="toolTip">
+                    <string>Read a ctags file and add the included metainformation as tooltips.
+See ctags.sf.net for details.</string>
+                   </property>
+                   <property name="text">
+                    <string>Read ctags file:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_12">
+                   <item>
+                    <widget class="QLineEdit" name="leHTMLCtagsFile">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>Path of the ctags file.</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pbHTMLChooseTagsFile">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>Choose a ctags file.</string>
+                     </property>
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_8">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Expanding</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>72</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="tabWidgetPage3">
+                <attribute name="title">
+                 <string>Misc</string>
+                </attribute>
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <item>
+                  <widget class="QLabel" name="label_8">
+                   <property name="font">
+                    <font>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Line numbering options:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbHTMLAnchors">
+                   <property name="toolTip">
+                    <string>Add an achor to each line.</string>
+                   </property>
+                   <property name="text">
+                    <string>Add line anchors</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbHTMLFileNameAnchor">
+                   <property name="toolTip">
+                    <string>Add the filename as prefix to the anchors.</string>
+                   </property>
+                   <property name="text">
+                    <string>Include file name in anchor</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbHTMLOrderedList">
+                   <property name="toolTip">
+                    <string>Output the lines within an ordered list.</string>
+                   </property>
+                   <property name="text">
+                    <string>Output as ordered list</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="Line" name="line_4">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbHTMLEnclosePreTags">
+                   <property name="toolTip">
+                    <string>Add &amp;lt;pre&amp;gt; tags to the output, if the flag &quot;No document header and footer&quot; is selected.</string>
+                   </property>
+                   <property name="text">
+                    <string>Enclose in pre tags</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>24</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="LATEXOptions">
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <item>
+              <widget class="QLabel" name="label_18">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>LaTeX options</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_8">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbLATEXEscQuotes">
+               <property name="toolTip">
+                <string>Replace quotes by dq sequences.</string>
+               </property>
+               <property name="text">
+                <string>Escape quotes</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbLATEXBabel">
+               <property name="toolTip">
+                <string>Make output Babel compatible.</string>
+               </property>
+               <property name="text">
+                <string>Add Babel compatibility</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbLATEXPrettySymbols">
+               <property name="toolTip">
+                <string>Replace default symbols (brackets, tilde) by nice redefinitions.</string>
+               </property>
+               <property name="text">
+                <string>Add pretty symbols</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbLATEXEmbedStyle">
+               <property name="toolTip">
+                <string>Include the style information in each output file.</string>
+               </property>
+               <property name="text">
+                <string>Embed style (defs)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_17">
+               <item>
+                <widget class="QLabel" name="label_21">
+                 <property name="text">
+                  <string>Stylesheet file:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>leLATEXStyleFile</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="leLATEXStyleFile">
+                 <property name="toolTip">
+                  <string>Name of the referenced  style file.</string>
+                 </property>
+                 <property name="text">
+                  <string>highlight.sty</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_15">
+               <item>
+                <widget class="QLabel" name="label_22">
+                 <property name="text">
+                  <string>Stylesheet include file:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_16">
+               <item>
+                <widget class="QLineEdit" name="leLATEXStyleIncFile">
+                 <property name="toolTip">
+                  <string>Path of the style include file.</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pbLATEXChooseStyleIncFile">
+                 <property name="toolTip">
+                  <string>Select a style include file.</string>
+                 </property>
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="TEXOptions">
+            <layout class="QVBoxLayout" name="verticalLayout_14">
+             <item>
+              <widget class="QLabel" name="label_26">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>TeX options</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_10">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbTEXEmbedStyle">
+               <property name="toolTip">
+                <string>Include the style information in each output file.</string>
+               </property>
+               <property name="text">
+                <string>Embed style (macros)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_18">
+               <item>
+                <widget class="QLabel" name="label_24">
+                 <property name="text">
+                  <string>Stylesheet file:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>leTEXStyleFile</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="leTEXStyleFile">
+                 <property name="toolTip">
+                  <string>Name of the referenced style file.</string>
+                 </property>
+                 <property name="text">
+                  <string>highlight.sty</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_19">
+               <item>
+                <widget class="QLabel" name="label_25">
+                 <property name="text">
+                  <string>Stylesheet include file:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_3">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_20">
+               <item>
+                <widget class="QLineEdit" name="leTEXStyleIncFile">
+                 <property name="toolTip">
+                  <string>Path of the style include file.</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pbTEXChooseStyleIncFile">
+                 <property name="toolTip">
+                  <string>Select a style include file.</string>
+                 </property>
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="RTFOptions">
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <widget class="QLabel" name="label_15">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>RTF options</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbRTFCharStyles">
+               <property name="toolTip">
+                <string>Add character stylesheets with formatting information.
+You can select the stylesheets in your word processor to reformat additional text.</string>
+               </property>
+               <property name="text">
+                <string>Add character styles</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_11">
+               <item>
+                <widget class="QLabel" name="label_9">
+                 <property name="text">
+                  <string>Page size:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="comboRTFPageSize">
+                 <property name="toolTip">
+                  <string>Select a page size.</string>
+                 </property>
+                 <property name="currentIndex">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>A3</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>A4</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>A5</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>B4</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>B5</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>B6</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Letter</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Legal</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="SVGOptions">
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item>
+              <widget class="QLabel" name="label_16">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>SVG options</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Image size:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_8">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Width:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>leSVGWidth</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="leSVGWidth">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>Enter the SVG width (may contain units).</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_12">
+                 <property name="text">
+                  <string>Height:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>leSVGHeight</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="leSVGHeight">
+                 <property name="toolTip">
+                  <string>Enter the SVG height (may contain units).</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbSVGEmbedStyle">
+               <property name="toolTip">
+                <string>Include the style information in each output file.</string>
+               </property>
+               <property name="text">
+                <string>Embed style (CSS)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_26">
+               <item>
+                <widget class="QLabel" name="label_29">
+                 <property name="text">
+                  <string>Stylesheet file:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>leSVGStyleFile</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="leSVGStyleFile">
+                 <property name="toolTip">
+                  <string>Name of the referenced style file.</string>
+                 </property>
+                 <property name="text">
+                  <string>highlight.css</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_27">
+               <item>
+                <widget class="QLabel" name="label_30">
+                 <property name="text">
+                  <string>Stylesheet include file:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_28">
+               <item>
+                <widget class="QLineEdit" name="leSVGStyleIncFile">
+                 <property name="toolTip">
+                  <string>Path of the CSS include file.</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pbSVGChooseStyleIncFile">
+                 <property name="toolTip">
+                  <string>Select a style include file.</string>
+                 </property>
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_10">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="EmptyPage">
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>No options defined.</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_formatting">
+        <attribute name="title">
+         <string>Formatting</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Color theme:</string>
+             </property>
+             <property name="buddy">
+              <cstring>comboTheme</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboTheme">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Select a colour theme.</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QCheckBox" name="cbReformat">
+             <property name="toolTip">
+              <string>Reformat and indent your code.
+This feature is enabled tor C, C++, C# and Java code.</string>
+             </property>
+             <property name="text">
+              <string>Reformat:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboReformat">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Choose a formatting scheme.</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Allman</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Banner</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>GNU</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Horstmann</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Java</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>K&amp;R</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Linux</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>OTBS</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Stroustrup</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Whitesmith</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QCheckBox" name="cbKwCase">
+             <property name="toolTip">
+              <string>Change the keyword case.</string>
+             </property>
+             <property name="text">
+              <string>Keyword case:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboKwCase">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Select a keyword case.</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>UPPER</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>lower</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Capitalize</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QLabel" name="label_6">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Tab width:</string>
+             </property>
+             <property name="buddy">
+              <cstring>sbTabWidth</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="sbTabWidth">
+             <property name="toolTip">
+              <string>Enter the number of spaces which replace a tab.
+Set the width to 0 to keep tabs.</string>
+             </property>
+             <property name="maximum">
+              <number>10</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="cbWrapping">
+             <property name="toolTip">
+              <string>Enable line wrapping.</string>
+             </property>
+             <property name="text">
+              <string>Line wrapping</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QSpinBox" name="sbLineLength">
+             <property name="toolTip">
+              <string>Enter the maximum line length.</string>
+             </property>
+             <property name="minimum">
+              <number>60</number>
+             </property>
+             <property name="maximum">
+              <number>120</number>
+             </property>
+             <property name="singleStep">
+              <number>2</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="cbAdvWrapping">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>Indent statements and function parameters after wrapping.</string>
+             </property>
+             <property name="text">
+              <string>Intelligent wrapping</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <spacer name="verticalSpacer_11">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>13</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string>Font name:</string>
+             </property>
+             <property name="buddy">
+              <cstring>comboFontName</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QFontComboBox" name="comboFontName">
+             <property name="toolTip">
+              <string>Select or enter the font name.</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Font size:</string>
+             </property>
+             <property name="buddy">
+              <cstring>leFontSize</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="leFontSize">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Enter the font size.</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="action_Open_files">
+   <property name="text">
+    <string>&amp;Open files</string>
+   </property>
+  </action>
+  <action name="action_Exit">
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="action_Load">
+   <property name="text">
+    <string>&amp;Load</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+  </action>
+  <action name="actionLoad_default_project">
+   <property name="text">
+    <string>Load &amp;default project</string>
+   </property>
+  </action>
+  <action name="action_Manual">
+   <property name="text">
+    <string>Readme</string>
+   </property>
+  </action>
+  <action name="action_Tips">
+   <property name="text">
+    <string>&amp;Tips</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_Changelog">
+   <property name="text">
+    <string>&amp;Changelog</string>
+   </property>
+  </action>
+  <action name="action_License">
+   <property name="text">
+    <string>&amp;License</string>
+   </property>
+  </action>
+  <action name="action_About_Highlight">
+   <property name="text">
+    <string>&amp;About Highlight</string>
+   </property>
+  </action>
+  <action name="actionAbout_translations">
+   <property name="text">
+    <string>About &amp;translations</string>
+   </property>
+  </action>
+  <action name="actionVisit_website">
+   <property name="text">
+    <string>Visit andre-simon.de</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>pbOpenFiles</tabstop>
+  <tabstop>lvInputFiles</tabstop>
+  <tabstop>pbClearSelection</tabstop>
+  <tabstop>pbClearAll</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>comboFormat</tabstop>
+  <tabstop>cbIncLineNo</tabstop>
+  <tabstop>sbLineNoWidth</tabstop>
+  <tabstop>cbPadZeroes</tabstop>
+  <tabstop>cbFragment</tabstop>
+  <tabstop>cbValidateInput</tabstop>
+  <tabstop>cbEncoding</tabstop>
+  <tabstop>comboEncoding</tabstop>
+  <tabstop>cbHTMLEmbedStyle</tabstop>
+  <tabstop>cbHTMLInlineCSS</tabstop>
+  <tabstop>leHTMLStyleFile</tabstop>
+  <tabstop>leHTMLStyleIncFile</tabstop>
+  <tabstop>pbHTMLChooseStyleIncFile</tabstop>
+  <tabstop>leHTMLCssPrefix</tabstop>
+  <tabstop>cbHTMLIndex</tabstop>
+  <tabstop>cbHTMLCtags</tabstop>
+  <tabstop>leHTMLCtagsFile</tabstop>
+  <tabstop>pbHTMLChooseTagsFile</tabstop>
+  <tabstop>cbHTMLAnchors</tabstop>
+  <tabstop>cbHTMLFileNameAnchor</tabstop>
+  <tabstop>cbHTMLOrderedList</tabstop>
+  <tabstop>cbHTMLEnclosePreTags</tabstop>
+  <tabstop>cbLATEXEscQuotes</tabstop>
+  <tabstop>cbLATEXBabel</tabstop>
+  <tabstop>cbLATEXPrettySymbols</tabstop>
+  <tabstop>cbLATEXEmbedStyle</tabstop>
+  <tabstop>leLATEXStyleFile</tabstop>
+  <tabstop>leLATEXStyleIncFile</tabstop>
+  <tabstop>pbLATEXChooseStyleIncFile</tabstop>
+  <tabstop>cbTEXEmbedStyle</tabstop>
+  <tabstop>leTEXStyleFile</tabstop>
+  <tabstop>leTEXStyleIncFile</tabstop>
+  <tabstop>pbTEXChooseStyleIncFile</tabstop>
+  <tabstop>cbRTFCharStyles</tabstop>
+  <tabstop>comboRTFPageSize</tabstop>
+  <tabstop>leSVGWidth</tabstop>
+  <tabstop>leSVGHeight</tabstop>
+  <tabstop>cbSVGEmbedStyle</tabstop>
+  <tabstop>leSVGStyleFile</tabstop>
+  <tabstop>leSVGStyleIncFile</tabstop>
+  <tabstop>pbSVGChooseStyleIncFile</tabstop>
+  <tabstop>comboTheme</tabstop>
+  <tabstop>cbReformat</tabstop>
+  <tabstop>comboReformat</tabstop>
+  <tabstop>cbKwCase</tabstop>
+  <tabstop>comboKwCase</tabstop>
+  <tabstop>sbTabWidth</tabstop>
+  <tabstop>cbWrapping</tabstop>
+  <tabstop>sbLineLength</tabstop>
+  <tabstop>cbAdvWrapping</tabstop>
+  <tabstop>comboFontName</tabstop>
+  <tabstop>leFontSize</tabstop>
+  <tabstop>browserPreview</tabstop>
+  <tabstop>pbStartConversion</tabstop>
+  <tabstop>pbCopyFile2CP</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../projectfiles/highlight_gui/highlight-gui.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>pbClearAll</sender>
+   <signal>clicked()</signal>
+   <receiver>lvInputFiles</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>285</x>
+     <y>420</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>218</x>
+     <y>228</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

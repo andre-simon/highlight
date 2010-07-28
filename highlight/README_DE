@@ -1,0 +1,751 @@
+-------------------------------------------------------------------------------
+---  HIGHLIGHT MANUAL - Version 3.1 beta2  ---------------------- Juni 2010 ---
+-------------------------------------------------------------------------------
+
+OSI Certified Open Source Software
+
+English manual: README
+
+-------------------------------------------------------------------------------
+
+Highlight konvertiert Sourcecode in XHTML, HTML, RTF, TeX, LaTeX, SVG, BBCode
+und Terminal Escape-Sequenzen mit farbiger Syntaxhervorhebung.
+Sprachdefinitionen und Farbstile sind konfigurierbar.
+
+
+INHALT
+-------------------------------------------------------------------------------
+
+1.  SCHNELLSTART
+2.  PAKETE
+3.  UNTERSTUETZTE PROGRAMMIER- UND AUSZEICHNUNGSSPRACHEN
+4.  FUNKTIONEN
+5.  EIN- UND AUSGABE
+6.  HIGHLIGHT DATEIFORMAT
+7.  SPRACHDEFINITIONEN
+8.  FARBSTILE
+9.  SCHLUESSELWORTGRUPPEN
+10. DATEIZUORDNUNGEN
+11. PLUG-IN SKRIPTE
+12. FORTGESCHRITTENE OPTIONEN
+13. SCRIPTE UND PLUGINS FUER WEB-APPS
+14. SWIG SCHNITTSTELLE
+15. GNU SOURCE-HIGHLIGHT KOMPATIBILITAET
+16. KONTAKT
+
+
+
+1.  SCHNELLSTART
+-------------------------------------------------------------------------------
+
+Folgende Beispiele zeigen, wie man die hervorgehobene Ausgabe einer C++-Datei
+namens main.cpp erzeugt:
+
+- HTML ausgeben:
+  highlight -i main.cpp -o main.cpp.html
+  highlight < main.cpp > main.cpp.html --syntax cpp
+
+  Sie werden die HTML-Datei und die CSS-Datei highlight.css im aktuellen
+  Verzeichnis finden. Falls Sie Eingabe-Umleitung verwenden, geben Sie den Typ
+  der Programmiersprache mit --syntax an.
+
+- HTML mit eingebetteter CSS Definition und Zeilennummerierung ausgeben:
+  highlight -i main.cpp -o main.cpp.html --include-style --line-numbers
+
+- HTML mit direkter CSS-Formatierung ausgeben:
+  highlight -i main.cpp -o main.cpp.html --inline-css
+
+- HTML mit Code-Formatierung im "horstmann"-Stil und dem Farbschema "Neon"
+  ausgeben:
+  highlight -i main.cpp -o main.cpp.html --reformat horstmann --style neon
+
+- LaTeX ausgeben:
+  highlight --latex -i main.cpp -o main.cpp.tex
+
+  Folgende Ausgabeformate können mit --out-format bestimmt werden:
+  xhtml:    XHTML 1.1
+  tex:      Plain TeX
+  latex:    LaTeX
+  rtf:      RTF
+  ansi:     Terminal 16 color escape codes
+  xterm256: Terminal 256 color escape codes
+  svg:      SVG
+  bbcode:   BBCode
+
+  HTML wird als Standard ausgegeben, wenn kein anderes Format mit --out-format
+  angegeben ist.
+
+- Font und Schriftgroesse anpassen:
+  highlight --syntax ada --out-format=xhtml --font-size 12 --font Verdana
+  highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
+
+- Ausgabeverzeichnis definieren:
+  highlight -O some/target/dir/ *.cpp *.h
+
+Geben Sie "highlight --help" bzw "man highlight" ein, um mehr Details zu
+erfahren.
+
+
+
+2. PAKETE
+-------------------------------------------------------------------------------
+
+Highlight ist in ISO C++ geschrieben. Es existieren folgende Pakete:
+- UNIX Kommandozeilen- und GUI-Anwendung
+- W32 Kommandozeilen- und GUI-Anwendung
+- Statische/dynamische Bibliothek
+
+Auf der Website www.andre-simon.de sind Links auf vorkompilierte Pakete fuer
+weitere Betriebssysteme vorhanden (z.B. Debian, Arch Linux, Ubuntu, Darwin,
+FreeBSD).
+Auf der Website sind immer die aktuellsten Source-Pakete (upstream) verfuegbar.
+
+Die optionale GUI und die Blibliotheken sind nicht in allen vorkompilierten
+Paketen enthalten. Um die GUI zu kompilieren, wird das Qt4 devel-Paket benoetigt.
+Siehe INSTALL, um weitere Informationen zu erhalten.
+
+
+
+3. UNTERSTUETZTE PROGRAMMIER- UND AUSZEICHNUNGSSPRACHEN:
+-------------------------------------------------------------------------------
+
+Die Liste aller unterstuetzten Sprachen befindet sich in README_LANGLIST.
+Das Kommando "highlight --list-langs" zeigt eine Liste aller Sprachen und
+Dateiendungen.
+
+
+
+4. FUNKTIONEN:
+-------------------------------------------------------------------------------
+
+* Hervorhebung von Schluesselwoertern, Typbezeichnern, Strings, Zahlen,
+  Escapesequenzen, Operatoren, Praeprozessor-Direktiven und Kommentaren
+* Farbige Ausgabe in HTML, XHTML, RTF, TeX, LaTeX, SVG, BBCode und Terminal-
+  Escapesequenzen
+* Speichern von Stylesheets wahlweise in separater Datei oder innerhalb der
+  Ausgabedatei (HTML, LaTeX, TeX, SVG)
+* Syntax-Elemente werden als Regelaere Ausdruecke oder als Stringlisten
+  beschrieben
+* Erweiterbare Schluesselwort-Gruppen
+* Erkennung eingebetteter Sprachen innerhalb einer Datei
+* Alle Konfigurationsdateien sind Lua-Skripte
+* Unterstuetzt Plug-In Skripte
+* Neuformatierung und Einrueckung von C, C++, C# und Java Code
+* Umbrechen von ueberlangen Zeilen
+* Ausgabe von Zeilennummern
+
+
+
+
+5. EIN- UND AUSGABE:
+-------------------------------------------------------------------------------
+
+Wenn kein Dateiname mit --input bzw. --output angegeben wird, benutzt highlight
+stdin bzw. stdout fuer die Ein- und Ausgabe.
+
+Wird die Eingabedatei nicht direkt auf der Kommandozeile als Argument bzw. mit
+--input angegeben, kann Highlight die passende Sprachinformation nicht
+automatisch anhand der Dateiendung bestimmen. Lediglich einige Skriptsprachen
+werden anhand des Shebangs in der ersten Zeile erkannt.
+Mit der Option --syntax muss dann der Typ der Datei vom Benutzer angegeben
+werden (das Argument ist normalerweise die fuer die Programmiersprache uebliche
+Dateierweiterung).
+Beispiel: Wenn Sie eine Python-Datei konvertieren wollen, muss highlight die
+Sprachdefinition py.lang einlesen. Das korrekte Argument fuer --syntax ist
+also "py".
+
+highlight test.py                   # Option --syntax nicht noetig
+highlight < test.py --syntax py     # --syntax muss angegeben werden
+cat test.py | highlight --syntax py
+
+Sollte es mehrere Dateierweiterungen fuer Dateien einer Programmiersprache
+geben (wie z.B. C, cc, cpp, h bei C++), werden diese in der Datei
+$CONF_DIR/filetypes.conf einer Sprachdefinition zugewiesen.
+
+Wenn mehrere Eingabedateien an Highlight uebergeben werden oder --batch-rcursive
+gesetzt ist, wechselt das Tool in den Batch-Modus. In diesem Modus werden die
+Ausgabedateien unter dem Namen der Eingabedateien gespeichert, lediglich die
+Dateierweiterung des gewaehlten Ausgabeformats wird angehangen.
+Die --outdir Option ist im Batch Modus besonders nuetzlich. In Skripten sollte
+--quiet angegeben werden, um die Geschwindigkeit der Verarbeitung zu erhoehen.
+
+
+HTML, TeX, LaTeX und SVG Ausgabe:
+--------------------------------
+
+Die HTML, TeX, LaTeX und SVG-Formate erlauben die Einbindung von externen Dateien,
+welche die Formatierungsinformationen enthalten ("Stylesheets").
+
+Bei der HTML- und SVG-Ausgabe enthaelt diese Datei CSS-Definitionen und wird, wenn
+nicht anders angegeben, als "highlight.css" gespeichert.
+
+Bei TeX und LaTeX enthaelt die Datei Makros, und wird per Default als
+"highlight.sty" gespeichert.
+
+Name und Pfad des Stylesheets werden mit --style-outfile bestimmt.
+Wenn --outdir definiert ist, wird auch das Stylesheet im angegebenen
+Ausgabeverzeichnis gespeichert.
+
+Mit --include-style fuegt Highlight die Formatierungsangaben direkt in die
+Ausgabedokumente ein, statt einen Verweis auf externe Stylesheets zu setzen.
+
+Der Verweis auf externe Dateien hat den Vorteil, die Formatierung an einer
+zentralen Stelle verwalten zu koennen, auf die alle Ausgabedokumente verweisen.
+
+Mit --style-infile kann eine Datei mit zusaetzlichen Formatierungsangaben in
+die Ausgabedateien eingebunden werden, welche die vorgegebene highlight-
+Formatierung erweitert oder ueberschreibt.
+
+Beispiel:
+
+ /* Inhalt von user.css (fuege Rahmen und Line an der
+    Zeilennummerierung hinzu) */
+ pre.hl {
+   border-width: 1px;
+   border-style:solid;
+   border-left-color: silver;
+   border-top-color: silver;
+   border-right-color: gray;
+   border-bottom-color: gray;
+ }
+
+ .hl.lin {
+   border-right:1px solid #555555;
+   padding-left:0.5em;
+   padding-right:0.5em;
+   margin-right:1em;
+   text-decoration:none;
+ }
+
+Aufruf: highlight -l --style-infile user.css main.cpp
+
+
+Terminal-Ausgabe:
+--------------------
+
+Da es nur wenige Farben zur ANSI-Ausgabe im Terminal gibt, existiert nur ein
+hartkodiertes Farbschema fuer --out-format=ansi. Daher sollte nach Moeglichkeit
+--out-format=xterm256 verwendet werden, um eine Ausgabe in 256 Farben zu erhalten.
+Der 256 Farb-Modus wird z.B. von den aktuellen Versionen von xterm, rxvt und Putty
+unterstuetzt.
+
+highlight --out-format=ansi <inputfile> | less -R
+highlight --out-format=xterm256 <inputfile> | less -R
+
+Text-Ausgabe:
+-------------
+
+Wird als Sprachdefinition txt angegeben, findet keine Syntaxhervorhebung statt.
+
+Beispiel:
+
+highlight -S txt --out-format=latex README > readme.tex
+
+
+Beispiele:
+----------
+
+Die folgenden Kommandos schreiben den Inhalt von hello.c nach hello.html:
+
+highlight -o hello.html -i hello.c
+highlight -o hello.html hello.c
+highlight -o hello.html --syntax c < hello.c
+highlight --syntax c < hello.c > hello.html
+
+Neben hello.html wird highlight.css im aktuellen Verzeichnis erzeugt.
+
+highlight --out-format=xhtml --batch-recursive '*.cpp' --outdir ~/html_code/
+Dieses Kommando konvertiert alle *.cpp Dateien im aktuellen Verzeichnis und den
+Unterverzeichnissen in XHTML-Dateien, und speichert die Ausgabe in
+/home/you/html_code.
+
+highlight -out-format=latex  * --outdir /home/you/latex_code/
+Dieses Kommando konvertiert alle Dateien in LaTeX, und speichert sie in
+/home/you/latex_code/.
+
+highlight -c stdout -s seashell --print-style
+Dieses Kommando gibt nur die CSS-Informationen des angegebenen Stils (hier:
+Seashell) nach stdout aus.
+
+
+
+6. HIGHLIGHT DATEIFORMAT
+-------------------------------------------------------------------------------
+
+Die Konfigurationsdateien sind Lua Skripte. Folgende Syntax-Elemente genuegen,
+um die Skripte anzupassen:
+
+Wertzuweisung an Variablen:
+name = value
+(Variablen haben keinen Typ, nur Werte haben einen)
+
+Strings:
+string1="string-Literal mit Escape-Sequenzen: \n"
+string2=[[Raw String ohne Escape-Sequenzen]]
+
+Wenn ein raw String mit "[" beginnt oder mit "]" endet, muss die Klammer mit
+Leerzeichen von den Begrenzern getrennt werden, um Syntaxfehler zu vermeiden.
+
+Kommentare:
+-- Einzeiliger Kommentar
+--[[ Blockkommentar ]]
+
+Arrays:
+array = { first=1, second="2", 3, { 4,5 } }
+Arrays koennen Variablen enthalten und verschachtelt werden.
+
+Das vollstaendige Lua-Handbuch befindet sich hier:
+http://www.lua.org/manual/5.1/manual.html
+
+
+7. SPRACHDEFINITIONEN
+-------------------------------------------------------------------------------
+
+Eine Sprachdefinition beschreibt die Elemente einer Programmiersprache, die
+durch verschiedene Farben und Schrifttypen hervorgehoben werden.
+Die Datei muss in $HL_DIR/langDefs/ unter folgendem Namen gespeichert werden:
+
+<ueliche Erweiterung der Sourcecodedateien>.lang
+
+Beispiele: PHP -> php.lang, Java -> java.lang
+
+Sollte es mehrere gebrauechliche Erweiterungen geben, werden diese in der Datei
+$HL_DIR/filetypes.conf einer Sprachdefinition zugeordnet.
+
+
+Syntax-Elemente:
+
+Keywords = { Id, List|Regex, Group? }
+
+  Id:    Integer, ID der Schluesselwortgruppe (Werte 1-4, die mehrfach verwendet
+	werden koennen)
+  List:  Liste, Auflistung von Schluesselwoertern
+  Regex: String, Regulaerer Ausdruck
+  Group: Integer, Capturing Group ID der Regex, bestimmt den Teil des gefundenen
+	Ausdrucks, der als Schluesselwort hervorgehoben werden soll (optional,
+	wenn nicht gesetzt wird der Match mit der hoechsten Group-ID zurueck-
+	gegeben (gezaehlt wird von links nach rechts))
+
+
+Comments = { {Block, Nested?, Delimiter} }
+
+  Block:     Boolean, true wenn der Kommentar ein Blockkommentar ist
+  Nested:    Boolean, true wenn der Blockkommentar verschachtelt werden darf (optional)
+  Delimiter: Liste, enthaelt Regex der oeffnenden Begrenzer (Zeilenkommentar) oder
+	    Regex des oeffnenden und des schliessenden Begrenzers (Blockkommentar)
+
+
+Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, RawPrefix? }
+
+  Delimiter:      String, Regulaerer Ausdruck der Begrenzer
+  DelimiterPairs: Liste, enthaelt Ausdruecke der oeffnenden und der schliessenden
+		  Begrenzer wenn diese nicht gleich sind und optional ein Raw-
+		  String Flag
+  Escape:         String, Regulaerer Ausdruck der Escapsesequenzen (optional)
+  RawPrefix:      String, Definiert Raw String Prefix (optional)
+
+
+PreProcessor = { Prefix, Continuation? }
+
+  Prefix:        String, Regulaerer Ausdruck der oeffnenden Begrenzer
+  Continuation:  String, Definiert Fortsetzungsindikator (optional)
+
+
+NestedSections = {Lang, Delimiter= {} }
+
+  Lang:      String, Name der eingebetteten Sprache
+  Delimiter: Liste, Ausdruecke der oeffnenden und der schliessenden Begrenzer
+
+
+Description:       String, Beschreibung der Syntax
+
+Digits:            String, Regulaerer Ausdruck fuer Zahlenliterale (optional)
+
+Identifiers:       String, Regulaerer Ausdruck fuer Bezeichner (optional)
+
+Operators:         String, Regulaerer Ausdruck fuer Operatoren
+
+EnableIndentation: Boolean, True wenn Syntax formatiert und eingerueckt werden kann
+
+IgnoreCase:        Boolean, True wenn Sprache nicht case-sesitive ist
+
+
+Globale Variablen:
+
+Die folgenden Variablen sind in einer Sprachbeschreibung verfuegbar:
+
+hl_lang_dir: Verzeichnis der Sprachdefinitionen (Parameter von dofile)
+
+Identifiers: Default regex fuer Bezeichner
+Digits:      Default regex fuer Zahlenliterale
+
+In der Datei README_REGEX finden Sie detaillierte Informationen zu regulaeren
+Ausdruecken.
+
+
+Diese Integer-Variablen beschreiben die internen Zustaende des highlight-Parsers:
+
+HL_STANDARD
+HL_STRING
+HL_NUMBER
+HL_LINE_COMMENT
+HL_BLOCK_COMMENT
+HL_ESC_SEQ
+HL_PREPROC
+HL_PREPROC_STRING
+HL_OPERATOR
+HL_LINENUMBER
+HL_KEYWORD
+HL_STRING_END
+HL_LINE_COMMENT_END
+HL_BLOCK_COMMENT_END
+HL_ESC_SEQ_END
+HL_PREPROC_END
+HL_OPERATOR_END
+HL_KEYWORD_END
+HL_EMBEDDED_CODE_BEGIN
+HL_EMBEDDED_CODE_END
+HL_IDENTIFIER_BEGIN
+HL_IDENTIFIER_END
+HL_UNKNOWN
+
+
+Hook-Funktionen:
+
+OnStateChange(oldState, newState, token)
+
+  Hook Event: Wechsel des Parser-Zustandes
+  Input:      Alter Zustand, geplanter neuer Zustand und das Token das zum
+	      neuen Zustand fuehrte
+  Returns:    Korrekter Zustand mit dem fortgefahren wird
+
+
+Beispiel:
+---------
+
+Description="C and C++"
+
+Keywords={
+  {  Id=1,
+   List={"goto", "break", "return", "continue", "asm", "case", "default",
+         -- [..]
+        }
+  },
+  -- [..]
+}
+
+Strings = {
+  Delimiter=[["|']],
+  RawPrefix="R",
+}
+
+Comments = {
+   { Block=true,
+     Nested=false,
+     Delimiter = { [[\/\*]], [[\*\/]] }  },
+   { Block=false,
+     Delimiter = { [[//]] } }
+}
+
+IgnoreCase=false
+
+PreProcessor = {
+  Prefix=[[#]],
+  Continuation="\\",
+}
+
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~]]
+
+EnableIndentation=true
+
+
+
+8. FARBSTILE
+-------------------------------------------------------------------------------
+
+Farbstile legen die Formatierung der Sprachelemente fest, die in den Sprach-
+definitionen beschrieben wurden.
+
+Die Dateien muessen mit der Endung .theme in $HL_DIR/themes (siehe Abschnitt 1)
+gespeichert werden. Mit der --style (-s) Option wird das Farbschema angewandt.
+
+Formatattribute:
+
+AttrList = {Colour, Bold?, Italic?, Underline? }
+
+Colour:    String, Farbe in Hex-Notation ("#rrggbb")
+Bold:      Boolean, True wenn Font bold sein soll (optional)
+Italic:    Boolean, True wenn Font kursiv sein soll (optional)
+Underline: Boolean, True wenn Font unterstrichen sein soll (optional)
+
+
+Theme-Elemente:
+
+Description:   String, Theme-Beschreibung
+
+Default        = AttrList
+AttrList: Liste, Farbe des nicht hervorgehobenen Texts
+
+Canvas         = AttrList
+AttrList: Liste, Hintergrundfarbe
+
+Number         = AttrList
+AttrList: Liste, Formatierung von Zahlen
+
+Escape         = AttrList
+AttrList: Liste, Formatierung von Escape Sequenzen
+
+String         = AttrList
+AttrList: Liste, Formatierung von Strings
+
+PreProcessor   = AttrList
+AttrList: Liste, Formatierung von Praeprozessor-Direktiven
+
+StringPreProc  = AttrList
+AttrList: Liste, Formatierung von Strimngs in Praeprozessor-Direktiven
+
+BlockComment   = AttrList
+AttrList: Liste, Formatierung von Blockkommentaren
+
+LineComment    = AttrList
+AttrList: Liste, Formatierung von Zeilenkommentaren
+
+LineNum        = AttrList
+AttrList: Liste, Formatierung von Zeilennummern
+
+Operator       = AttrList
+AttrList: Liste, Formatierung von Operatoren
+
+Keywords= {
+  AttrListe,
+  AttrListe,
+  AttrListe,
+  AttrListe,
+}
+AttrList: Liste, Formatierung von Schluesselwoertgruppen. Es sollten mindestens
+          vier Elemente angegeben werden, um mit der Anzahl von Schluessel-
+          wortgruppen in den Sprachdefinitionen uebereinzustimmen.
+
+
+Beispiel:
+
+Default        = { Colour="#000000" }
+Canvas         = { Colour="#ffffff" }
+Number         = { Colour="#000000" }
+Escape         = { Colour="#bd8d8b" }
+String         = { Colour="#bd8d8b" }
+StringPreProc  = { Colour="#bd8d8b" }
+BlockComment   = { Colour="#ac2020", Italic=true }
+PreProcessor   = { Colour="#000000" }
+LineNum        = { Colour="#555555" }
+Operator       = { Colour="#000000" }
+LineComment = BlockComment
+
+Keywords = {
+  { Colour= "#9c20ee", Bold=true },
+  { Colour= "#208920" },
+  { Colour= "#0000ff" },
+  { Colour= "#000000" },
+}
+
+
+
+9. SCHLUESSELWORTGRUPPEN
+-------------------------------------------------------------------------------
+
+Sie koennen eigene Schluesselwort-Gruppen festlegen und jeder Gruppe eine eigene
+Formatierung zuweisen. Das ist nuetzlich wenn Sie z.B. Bibliotheksfunktionen,
+Makros oder Konstanten gesondert hervorheben moechten.
+
+Eine Gruppe wird in zwei Schritten definiert:
+
+
+ 1. Beschreibung der Gruppe in der Sprachdefinition (Lang-Datei):
+
+    Keywords = {
+      -- fuegen Sie die Beschreibung an:
+      {Id=5, List = {"ERROR", "DEBUG", "WARN"} }
+    }
+
+ 2. Festlegung des dazugehoerigen Farbstils im Farb-Schema (Theme-Datei)
+
+    Keywords= {
+      --Stil als fuenften Eintrag hinterlegen:
+      { Colour= "#ff0000", Bold=true },
+    }
+
+Es wird empfohlen, eigene Keyword-Gruppen in Plugin-Skripten zu definieren,
+um keine Original-Dateien veraendern uzu muessen.
+Siehe den Abschnitt PLUG-IN SKRIPTE.
+
+
+
+10. DATEIZUORDNUNGEN
+-------------------------------------------------------------------------------
+
+In filetypes.conf werden alle Dateizuordnungen und Shebang-Definitionen
+eingetragen.
+
+Format:
+
+FileMapping={
+  {  Lang, Extensions|Shebang },
+}
+
+Lang:       String, Name der Sprachdefinition
+Extensions: Liste, enthaelt alle Dateiendungen, die "Lang" zugeordnet werden
+Shebang:    String, Regulaerer Ausdruck der mit der ersten Zeile der Eingabe
+            verglichen wird
+
+
+
+11. PLUG-IN SKRIPTE
+-------------------------------------------------------------------------------
+
+Die --plug-in Option erwartet den Names eines Lua Skripts, das Elemente einer
+Sprachdefintion oder eines Themes ueberschreiben oder erweitern kann.
+Mit Hilfe dieser Plugins kann die Ausgabe angepasst werden, ohne installierte
+Konfigurations-Dateien aendern zu muessen.
+
+
+Format:
+
+-- Funktionen, Variablen etc
+
+-- Plugin liste:
+Plugins={
+  { Type, Chunk },
+}
+
+Type:  String, ist eins von ["theme", "lang"]
+Chunk: Name einer Lua-Funktion
+
+Wenn type "theme" ist, wird die Funktion auf ein Farbschma angewandt.
+Wenn type "lang" ist, wird die Funktion auf eine Sprachdefinition angewandt.
+
+Die "Chunk"-Funktion erhaelt einen optionalen Parameter mit der Beschreibung
+des Farbschemas bzw. der Sprachdefinition ("Description"-Parameter).
+Die Funktionen werden nach dem Laden der KOnfigurationsskripte ausgefuehrt,
+daher kann auf die Elemente dieser Skripte zugegriffen werden.
+
+
+Example:
+
+Description="Add syslog and kernel log levels to C and C++ keywords"
+
+-- function to update language definition with syslog levels
+function syntaxUpdate(desc)
+  if desc=="C and C++" then
+    table.insert( Keywords,
+                  { Id=5, List={"LOG_EMERG", "LOG_CRIT", "LOG_ALERT",
+                    "LOG_ERR", "LOG_WARNING","LOG_NOTICE","LOG_INFO",
+                    "LOG_DEBUG"}
+                  } )
+  end
+end
+
+-- function to update theme definition
+function themeUpdate(desc)
+  if desc=="Kwrite Editor" then
+    Canvas={ Colour="#E0EAEE" }
+  end
+  table.insert(Keywords, {Colour= "#ff0000", Bold=true})
+end
+
+Plugins={
+  { Type="theme", Chunk=themeUpdate },
+  { Type="lang", Chunk=syntaxUpdate },
+}
+
+
+
+12. FORTGESCHRITTENE OPTIONEN
+-------------------------------------------------------------------------------
+
+Exuberant Ctags Informationen hinzufuegen
+
+Die HTML-Ausgabe kann um beschreibende Tooltips mit ctags Daten erweitert werden:
+ctags *.*
+highlight --ctags-file *.cpp
+
+Der Default-Parameter von ctags-file ist "tags", daher konnte er im obigen
+Beispiel weggelassen werden.
+Dises Kommando fuegt den Typ, den Namespace und den Pfad zur Definition des
+erkannten Tokens hinzu.
+Beispiel:  "member | class:highlight::HtmlGenerator | htmlgenerator.h"
+
+
+Parsen von Binaerdaten vermeiden
+
+Wenn highlight mit einer unbestimmten Menge von Eingabedaten aufgerufen wird,
+kann die Verarbeitung von binaeren Daten mit --validate-input verhindert werden.
+Dieser Schalter fuehrt zu einem Vergleich der Datei-Haeder mit einer Liste von
+"Magic Numbers". Wenn ein Binaer-Typ erkannt wird, bricht highlight die
+Verarbeitungmit einer Fehlermeldung ab.
+Mit --validate-input wird zusaetzlich der UTF-8 BOM unterdrueckt.
+
+
+Hervorbung von eingebettetem Code ohne oeffnenden Delimiter
+
+Wenn eine Datei mit eingebettetem Code ohne den einleitenden Delimiter beginnt,
+kann mit der --start-nested Option in diese Sprache gewechselt werden.
+Dies kann bei LuaTeX Dateien passieren:
+highlight luatex.tex --latex -t4 -semacs --start-nested=inc_luatex
+
+Die inc_luatex Definition ist eine Lua-Beschreibung mit TeX Kommentaren.
+Beachten Sie, dass die Code-Sektion mit dem in der Host-Beschreibung
+aufgelisteten End-Delimiter abgeschlossen werden muss.
+
+
+
+13. SCRIPTE UND PLUGINS FUER WEB-APPS
+-------------------------------------------------------------------------------
+
+Im /examples/web_plugins Unterverzeichnis der highlight Installation befinden
+sich einige Plugins, die Highlight in Webanwendungen integrieren:
+
+-DokuWiki
+-MovableType
+-Wordpress
+-Serendipity
+
+
+
+14. SWIG SCHNITTSTELLE
+-------------------------------------------------------------------------------
+
+Eine SWIG Interface-Datei befindet sich in /examples/swig.
+Installationshinweise finden Sie in README_SWIG, Programmierbeispiele in
+den vorhandenen Skripten.
+
+
+
+15. GNU SOURCE-HIGHLIGHT KOMPATIBILITAET
+-------------------------------------------------------------------------------
+
+Die Kommandozeilenschnittstelle ueberschneidet sich zu einem grossen Teil mit
+source-highlight (http://www.gnu.org/software/src-highlite/).
+
+Diese highlight-Optionen haben dieselbe Bedeutung wie bei source-highlight:
+ --input, --output, --help, --version, --out-format, --title, --data-dir,
+ --verbose, --quiet, --ctags-file
+
+Diese Optionen wurden hinzugefuegt, um die Kompatibilitaet zu verbessern:
+ --css, --doc, --failsafe, --line-number, --line-number-ref, --no-doc, --tab,
+ --output-dir, --src-lang
+
+Die obigen Optionen bilden eine gemeinsame Highlighter-Schnittstelle fuer
+Skripte, Plugins etc.
+
+
+
+16. KONTAKT
+-------------------------------------------------------------------------------
+Andre Simon
+andre.simon1@gmx.de
+as@andre-simon.de
+http://www.andre-simon.de
+http://wiki.andre-simon.de/
+
+Wegen wiederholtem Spamming ist das Wiki passwortgeschuetzt.
+Der Zugang lautet: user, Password h1gHL1te

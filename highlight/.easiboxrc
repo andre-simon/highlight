@@ -1,0 +1,32 @@
+boxFormats = ['tar.gz', 'tar.bz2']
+archiveDestination = "~/archive/"
+
+include("*") 
+include(".easiboxrc") 
+include("examples/*", SUBDIRS) 
+include("src/*", SUBDIRS) 
+exclude("src/*.o", SUBDIRS)
+include("themes/*") 
+include("plugins/*")
+include("langDefs/*") 
+include("man/*") 
+include("gui_files/*", SUBDIRS) 
+
+exclude("*.kdevelop*")
+exclude("*.kdev4*")
+exclude("*.kdevses")
+exclude("*.cbp")
+exclude("*.layout")
+exclude("src/highlight")
+exclude("src/highlight-gui")
+exclude("src/libhighlight*")
+exclude("src/gui-qt/qrc*")
+exclude("*.css")
+exclude("*.html")
+
+exclude("*.Debug", SUBDIRS)
+exclude("*.Release", SUBDIRS)
+exclude("*.pro.user", SUBDIRS)
+exclude("src/gui-qt/highlight-gui.gch/*")
+
+exclude("*~", SUBDIRS)
