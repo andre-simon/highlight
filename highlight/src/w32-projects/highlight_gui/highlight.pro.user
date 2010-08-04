@@ -1,0 +1,338 @@
+<!DOCTYPE QtCreatorProject>
+<qtcreator>
+ <data>
+  <variable>RunConfiguration0-BaseEnvironmentBase</variable>
+  <value type="int">2</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-CommandLineArguments</variable>
+  <valuelist type="QVariantList"/>
+ </data>
+ <data>
+  <variable>RunConfiguration0-ProFile</variable>
+  <value type="QString">highlight.pro</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-RunConfiguration.name</variable>
+  <value type="QString">highlight-gui</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UseDyldImageSuffix</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UseTerminal</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UserEnvironmentChanges</variable>
+  <valuelist type="QVariantList"/>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UserSetName</variable>
+  <value type="bool">true</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UserSetWorkingDirectory</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UserWorkingDirectory</variable>
+  <value type="QString"></value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-type</variable>
+  <value type="QString">Qt4ProjectManager.Qt4RunConfiguration</value>
+ </data>
+ <data>
+  <variable>activeRunConfiguration</variable>
+  <value type="int">0</value>
+ </data>
+ <data>
+  <variable>activebuildconfiguration</variable>
+  <value type="QString">Release</value>
+ </data>
+ <data>
+  <variable>buildConfiguration-Debug</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <value key="QtVersionId" type="int">0</value>
+   <value key="ToolChain" type="int">2</value>
+   <value key="addQDumper" type=""></value>
+   <value key="buildConfiguration" type="int">0</value>
+   <value key="buildDirectory" type="QString">F:\CPP\highlight\highlight-w32\src\gui-qt</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildConfiguration-Release</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
+   <value key="QtVersionId" type="int">0</value>
+   <value key="ToolChain" type="int">2</value>
+   <value key="addQDumper" type=""></value>
+   <value key="buildConfiguration" type="int">0</value>
+   <value key="buildDirectory" type="QString">F:\CPP\highlight\highlight-w32\src\gui-qt</value>
+   <value key="useShadowBuild" type="bool">false</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Debug-buildstep0</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <value key="buildConfiguration" type=""></value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Debug-buildstep1</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList">
+    <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
+    <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
+    <value type="QString">APR_ICONV_PATH=F:\Subversion\iconv</value>
+    <value type="QString">CLASSPATH=C:\Programme\Java\jre1.5.0_10\lib\ext\QTJava.zip</value>
+    <value type="QString">CLIENTNAME=Console</value>
+    <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
+    <value type="QString">COMPUTERNAME=GILDOR</value>
+    <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
+    <value type="QString">DEVMGR_SHOW_NONPRESENT_DEVICES=1</value>
+    <value type="QString">FP_NO_HOST_CHECK=NO</value>
+    <value type="QString">HOMEDRIVE=C:</value>
+    <value type="QString">HOMEPATH=\Dokumente und Einstellungen\André</value>
+    <value type="QString">LANG=de</value>
+    <value type="QString">LOGONSERVER=\\GILDOR</value>
+    <value type="QString">NUMBER_OF_PROCESSORS=1</value>
+    <value type="QString">OS=Windows_NT</value>
+    <value type="QString">PATH=F:\MinGW\bin;F:\qt-win\qt45\bin;F:\MiKTeX\miktex\bin;F:\Delphi7\Bin;F:\Delphi7\Projects\Bpl\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Programme\GnuPG;F:\GTK\2.0\bin;f:\cygwin\bin;f:\dev-cpp-4992\bin;F:\Subversion\bin;C:\Programme\Haufe\iDesk\iDeskService;C:\Programme\QuickTime\QTSystem;f:\CPP\highlight\highlight_console\trunk;C:\Programme\Gemeinsame Dateien\GTK\2.0\bin;C:\Programme\Haufe\iDesk\iDeskService\;F:\jEdit;C:\Programme\GnuPG\pub;F:\qt-win\2009.01\qt\lib;;F:\fpc\bin\i386-Win32;F:\qt-win\qt-win-opensource-src-4.3.4\bin;;F:\CodeBlocks802\MinGW\libexec\gcc\mingw32</value>
+    <value type="QString">PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH</value>
+    <value type="QString">PROCESSOR_ARCHITECTURE=x86</value>
+    <value type="QString">PROCESSOR_IDENTIFIER=x86 Family 15 Model 55 Stepping 2, AuthenticAMD</value>
+    <value type="QString">PROCESSOR_LEVEL=15</value>
+    <value type="QString">PROCESSOR_REVISION=3702</value>
+    <value type="QString">PROGRAMFILES=C:\Programme</value>
+    <value type="QString">QTDIR=F:/qt-win/qt45</value>
+    <value type="QString">SESSIONNAME=Console</value>
+    <value type="QString">SYSTEMDRIVE=C:</value>
+    <value type="QString">SYSTEMROOT=C:\WINDOWS</value>
+    <value type="QString">TEMP=C:\DOKUME~1\ANDR~1\LOKALE~1\Temp</value>
+    <value type="QString">TMP=C:\DOKUME~1\ANDR~1\LOKALE~1\Temp</value>
+    <value type="QString">USERDOMAIN=GILDOR</value>
+    <value type="QString">USERNAME=André</value>
+    <value type="QString">USERPROFILE=C:\Dokumente und Einstellungen\André</value>
+    <value type="QString">WINDIR=C:\WINDOWS</value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList">
+    <value type="QString">F:/CPP/highlight/highlight-w32/src/gui-qt/highlight.pro</value>
+    <value type="QString">-spec</value>
+    <value type="QString">win32-g++</value>
+    <value type="QString">-r</value>
+    <value type="QString">CONFIG+=debug_and_release</value>
+    <value type="QString">CONFIG+=debug</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString">F:/qt-win/qt45/bin/qmake.exe</value>
+   <value key="abstractProcess.enabled" type="bool">true</value>
+   <value key="abstractProcess.workingDirectory" type="QString">F:/CPP/highlight/highlight-w32/src/gui-qt</value>
+   <value key="buildConfiguration" type="int">10</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Debug-cleanstep0</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Release-buildstep0</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList">
+    <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
+    <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
+    <value type="QString">CLIENTNAME=Console</value>
+    <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
+    <value type="QString">COMPUTERNAME=SAALEN</value>
+    <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
+    <value type="QString">FP_NO_HOST_CHECK=NO</value>
+    <value type="QString">HOMEDRIVE=C:</value>
+    <value type="QString">HOMEPATH=\Dokumente und Einstellungen\André</value>
+    <value type="QString">LOGONSERVER=\\SAALEN</value>
+    <value type="QString">NUMBER_OF_PROCESSORS=1</value>
+    <value type="QString">OS=Windows_NT</value>
+    <value type="QString">PATH=F:\qt-win\qt46\mingw\bin;F:\qt-win\qt46\qt\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\system32\WindowsPowerShell\v1.0;C:\Programme\TortoiseSVN\bin;f:\cygwin\bin</value>
+    <value type="QString">PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.PSC1</value>
+    <value type="QString">PROCESSOR_ARCHITECTURE=x86</value>
+    <value type="QString">PROCESSOR_IDENTIFIER=x86 Family 15 Model 55 Stepping 2, AuthenticAMD</value>
+    <value type="QString">PROCESSOR_LEVEL=15</value>
+    <value type="QString">PROCESSOR_REVISION=3702</value>
+    <value type="QString">PROGRAMFILES=C:\Programme</value>
+    <value type="QString">QTDIR=F:/qt-win/qt46/qt</value>
+    <value type="QString">SESSIONNAME=Console</value>
+    <value type="QString">SYSTEMDRIVE=C:</value>
+    <value type="QString">SYSTEMROOT=C:\WINDOWS</value>
+    <value type="QString">TEMP=C:\DOKUME~1\ANDR~1\LOKALE~1\Temp</value>
+    <value type="QString">TMP=C:\DOKUME~1\ANDR~1\LOKALE~1\Temp</value>
+    <value type="QString">USERDOMAIN=SAALEN</value>
+    <value type="QString">USERNAME=André</value>
+    <value type="QString">USERPROFILE=C:\Dokumente und Einstellungen\André</value>
+    <value type="QString">VBOX_INSTALL_PATH=C:\Programme\VirtualBox\</value>
+    <value type="QString">WINDIR=C:\WINDOWS</value>
+    <value type="QString">__COMPAT_LAYER=EnableNXShowUI </value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList">
+    <value type="QString">F:/cpp/syntaxhighlight/src/w32-projects/highlight_gui/highlight.pro</value>
+    <value type="QString">-spec</value>
+    <value type="QString">win32-g++</value>
+    <value type="QString">-r</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString">f:/qt-win/qt46/qt/bin/qmake.exe</value>
+   <value key="abstractProcess.enabled" type="bool">false</value>
+   <value key="abstractProcess.workingDirectory" type="QString">F:/cpp/syntaxhighlight/src/w32-projects/highlight_gui</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Release-buildstep1</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList">
+    <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
+    <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
+    <value type="QString">CLIENTNAME=Console</value>
+    <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
+    <value type="QString">COMPUTERNAME=SAALEN</value>
+    <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
+    <value type="QString">FP_NO_HOST_CHECK=NO</value>
+    <value type="QString">HOMEDRIVE=C:</value>
+    <value type="QString">HOMEPATH=\Dokumente und Einstellungen\André</value>
+    <value type="QString">LOGONSERVER=\\SAALEN</value>
+    <value type="QString">NUMBER_OF_PROCESSORS=1</value>
+    <value type="QString">OS=Windows_NT</value>
+    <value type="QString">PATH=F:\qt-win\qt46\mingw\bin;F:\qt-win\qt46\qt\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\system32\WindowsPowerShell\v1.0;C:\Programme\TortoiseSVN\bin;f:\cygwin\bin</value>
+    <value type="QString">PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.PSC1</value>
+    <value type="QString">PROCESSOR_ARCHITECTURE=x86</value>
+    <value type="QString">PROCESSOR_IDENTIFIER=x86 Family 15 Model 55 Stepping 2, AuthenticAMD</value>
+    <value type="QString">PROCESSOR_LEVEL=15</value>
+    <value type="QString">PROCESSOR_REVISION=3702</value>
+    <value type="QString">PROGRAMFILES=C:\Programme</value>
+    <value type="QString">QTDIR=F:/qt-win/qt46/qt</value>
+    <value type="QString">SESSIONNAME=Console</value>
+    <value type="QString">SYSTEMDRIVE=C:</value>
+    <value type="QString">SYSTEMROOT=C:\WINDOWS</value>
+    <value type="QString">TEMP=C:\DOKUME~1\ANDR~1\LOKALE~1\Temp</value>
+    <value type="QString">TMP=C:\DOKUME~1\ANDR~1\LOKALE~1\Temp</value>
+    <value type="QString">USERDOMAIN=SAALEN</value>
+    <value type="QString">USERNAME=André</value>
+    <value type="QString">USERPROFILE=C:\Dokumente und Einstellungen\André</value>
+    <value type="QString">VBOX_INSTALL_PATH=C:\Programme\VirtualBox\</value>
+    <value type="QString">WINDIR=C:\WINDOWS</value>
+    <value type="QString">__COMPAT_LAYER=EnableNXShowUI </value>
+   </valuelist>
+   <value key="abstractProcess.IgnoreReturnValue" type="bool">false</value>
+   <valuelist key="abstractProcess.arguments" type="QVariantList">
+    <value type="QString">-w</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString">F:/qt-win/qt46/mingw/bin/mingw32-make.exe</value>
+   <value key="abstractProcess.enabled" type="bool">true</value>
+   <value key="abstractProcess.workingDirectory" type="QString">F:/cpp/syntaxhighlight/src/w32-projects/highlight_gui</value>
+   <value key="buildConfiguration" type="int">8</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Release-cleanstep0</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList">
+    <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
+    <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
+    <value type="QString">CLIENTNAME=Console</value>
+    <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
+    <value type="QString">COMPUTERNAME=SAALEN</value>
+    <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
+    <value type="QString">FP_NO_HOST_CHECK=NO</value>
+    <value type="QString">HOMEDRIVE=C:</value>
+    <value type="QString">HOMEPATH=\Dokumente und Einstellungen\André</value>
+    <value type="QString">LOGONSERVER=\\SAALEN</value>
+    <value type="QString">NUMBER_OF_PROCESSORS=1</value>
+    <value type="QString">OS=Windows_NT</value>
+    <value type="QString">PATH=F:\qt-win\qt46\mingw\bin;F:\qt-win\qt46\qt\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\system32\WindowsPowerShell\v1.0;C:\Programme\TortoiseSVN\bin;f:\cygwin\bin</value>
+    <value type="QString">PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.PSC1</value>
+    <value type="QString">PROCESSOR_ARCHITECTURE=x86</value>
+    <value type="QString">PROCESSOR_IDENTIFIER=x86 Family 15 Model 55 Stepping 2, AuthenticAMD</value>
+    <value type="QString">PROCESSOR_LEVEL=15</value>
+    <value type="QString">PROCESSOR_REVISION=3702</value>
+    <value type="QString">PROGRAMFILES=C:\Programme</value>
+    <value type="QString">QTDIR=F:/qt-win/qt46/qt</value>
+    <value type="QString">SESSIONNAME=Console</value>
+    <value type="QString">SYSTEMDRIVE=C:</value>
+    <value type="QString">SYSTEMROOT=C:\WINDOWS</value>
+    <value type="QString">TEMP=C:\DOKUME~1\ANDR~1\LOKALE~1\Temp</value>
+    <value type="QString">TMP=C:\DOKUME~1\ANDR~1\LOKALE~1\Temp</value>
+    <value type="QString">USERDOMAIN=SAALEN</value>
+    <value type="QString">USERNAME=André</value>
+    <value type="QString">USERPROFILE=C:\Dokumente und Einstellungen\André</value>
+    <value type="QString">VBOX_INSTALL_PATH=C:\Programme\VirtualBox\</value>
+    <value type="QString">WINDIR=C:\WINDOWS</value>
+    <value type="QString">__COMPAT_LAYER=EnableNXShowUI </value>
+   </valuelist>
+   <value key="abstractProcess.IgnoreReturnValue" type="bool">true</value>
+   <valuelist key="abstractProcess.arguments" type="QVariantList">
+    <value type="QString">clean</value>
+    <value type="QString">-w</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString">F:/qt-win/qt46/mingw/bin/mingw32-make.exe</value>
+   <value key="abstractProcess.enabled" type="bool">true</value>
+   <value key="abstractProcess.workingDirectory" type="QString">F:/cpp/syntaxhighlight/src/w32-projects/highlight_gui</value>
+   <value key="cleanConfig" type="bool">true</value>
+   <valuelist key="makeargs" type="QVariantList">
+    <value type="QString">clean</value>
+   </valuelist>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfigurations</variable>
+  <valuelist type="QVariantList">
+   <value type="QString">Debug</value>
+   <value type="QString">Release</value>
+  </valuelist>
+ </data>
+ <data>
+  <variable>buildstep0</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString"></value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildstep1</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString"></value>
+   <value key="mkspec" type="QString"></value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildsteps</variable>
+  <valuelist type="QVariantList">
+   <value type="QString">trolltech.qt4projectmanager.qmake</value>
+   <value type="QString">trolltech.qt4projectmanager.make</value>
+  </valuelist>
+ </data>
+ <data>
+  <variable>cleanstep0</variable>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString"></value>
+   <value key="clean" type="bool">true</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>cleansteps</variable>
+  <valuelist type="QVariantList">
+   <value type="QString">trolltech.qt4projectmanager.make</value>
+  </valuelist>
+ </data>
+ <data>
+  <variable>defaultFileEncoding</variable>
+  <value type="QByteArray">System</value>
+ </data>
+ <data>
+  <variable>project</variable>
+  <valuemap type="QVariantMap"/>
+ </data>
+</qtcreator>
