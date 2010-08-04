@@ -25,8 +25,7 @@ Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "A
 
 [Files]
 Source: "..\..\highlight-gui.exe"; DestDir: "{app}";  Flags: ignoreversion
-Source: "..\..\libgcc_s_dw2-1.dll"; DestDir: "{app}";  Flags: ignoreversion
-Source: "..\..\mingwm10.dll"; DestDir: "{app}";  Flags: ignoreversion
+Source: "dlls\*.dll"; DestDir: "{app}";  Flags: ignoreversion
 Source: "hl_icon_exe.ico"; DestDir: "{app}";  Flags: ignoreversion
 Source: "..\..\langDefs\*.lang"; DestDir: "{app}\langDefs\";  Flags: ignoreversion sortfilesbyextension
 Source: "..\..\themes\*.theme"; DestDir: "{app}\themes\";  Flags: ignoreversion sortfilesbyextension
