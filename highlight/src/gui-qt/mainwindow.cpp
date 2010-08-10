@@ -193,9 +193,14 @@ void MainWindow::on_pbOutputDest_clicked(){
                         "andre-simon.de", "highlight-gui");
 
      settings.beginGroup("MainWindow");
-     settings.setValue("size", size());
-     settings.setValue("pos", pos());
+    // settings.setValue("size", size());
+    // settings.setValue("pos", pos());
+     settings.setValue("geometry", saveGeometry());
+     settings.setValue("windowState", saveState());
      settings.endGroup();
+
+
+
 
      settings.beginGroup("input");
      QStringList inFiles;
@@ -338,8 +343,12 @@ void MainWindow::on_pbOutputDest_clicked(){
      if (!QFile(settings.fileName()).exists()) return;
 
      settings.beginGroup("MainWindow");
-     resize(settings.value("size", QSize(400, 400)).toSize());
-     move(settings.value("pos", QPoint(200, 200)).toPoint());
+     //resize(settings.value("size", QSize(400, 400)).toSize());
+     //move(settings.value("pos", QPoint(200, 200)).toPoint());
+
+     restoreGeometry(settings.value("geometry").toByteArray());
+         restoreState(settings.value("windowState").toByteArray());
+
      settings.endGroup();
 
      settings.beginGroup("input");
