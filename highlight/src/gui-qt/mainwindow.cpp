@@ -140,7 +140,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::openFiles(){
-     QFileDialog dialog(this, "Select one or more files to open",
+     QFileDialog dialog(this, tr("Select one or more files to open"),
                          "",
                          fileOpenFilter);
      dialog.setFileMode(QFileDialog::ExistingFiles);
@@ -180,7 +180,7 @@ void MainWindow::on_pbClearSelection_clicked(){
 }
 
 void MainWindow::on_pbOutputDest_clicked(){
-     QFileDialog dialog(this, "Select destination directory", "");
+     QFileDialog dialog(this, tr("Select destination directory"), "");
      dialog.setFileMode(QFileDialog::Directory);
      if (dialog.exec() && !dialog.selectedFiles().empty()) {
        ui->leOutputDest->setText(dialog.selectedFiles().at(0));
@@ -940,6 +940,7 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
          ui->stackedSpecificOptions->setCurrentIndex(5);
          break;
   }
+     ui->tabWidget->setTabText(1, tr("%1 options").arg(ui->comboFormat->currentText() ));
  }
 
  void MainWindow::updatePreview() {
@@ -986,7 +987,7 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
           ui->lbPreview->setText(tr("Preview (%1):").arg(
                   (getDataFromCP)?tr("clipboard data"):ui->lvInputFiles->currentItem()->text()) );
 
-          statusBar()->showMessage(tr("Current syntax: %1").arg(   QString::fromStdString(pwgenerator.getLanguage().getDescription())));
+          statusBar()->showMessage(tr("Current syntax: %1").arg(QString::fromStdString(pwgenerator.getLanguage().getDescription())));
           QString previewData;
 
           // fix utf-8 data preview - to be improved (other encodings??)

@@ -20,7 +20,7 @@
    <string>Highlight</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../projectfiles/highlight_gui/highlight-gui.qrc">
+   <iconset>
     <normaloff>:/hl_icon2.png</normaloff>:/hl_icon2.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -159,7 +159,7 @@
             <string>Choose input files</string>
            </property>
            <property name="icon">
-            <iconset resource="../projectfiles/highlight_gui/highlight-gui.qrc">
+            <iconset>
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -364,7 +364,7 @@
             <string>Paste from clipboard</string>
            </property>
            <property name="icon">
-            <iconset resource="../projectfiles/highlight_gui/highlight-gui.qrc">
+            <iconset>
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -439,7 +439,7 @@
             <string>Add plug-in to pool</string>
            </property>
            <property name="icon">
-            <iconset resource="../projectfiles/highlight_gui/highlight-gui.qrc">
+            <iconset>
              <normaloff>:/plugin.png</normaloff>:/plugin.png</iconset>
            </property>
           </widget>
@@ -547,7 +547,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -867,36 +867,10 @@ The result has to match the input file encoding.</string>
             </size>
            </property>
            <property name="currentIndex">
-            <number>4</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="HTMLOptions">
             <layout class="QVBoxLayout" name="verticalLayout_5">
-             <item>
-              <widget class="QLabel" name="label_17">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>HTML options</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="Line" name="line_12">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
              <item>
               <widget class="QTabWidget" name="tabWidget">
                <property name="sizePolicy">
@@ -1223,32 +1197,6 @@ See ctags.sf.net for details.</string>
            <widget class="QWidget" name="LATEXOptions">
             <layout class="QVBoxLayout" name="verticalLayout_12">
              <item>
-              <widget class="QLabel" name="label_18">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>LaTeX options</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="Line" name="line_8">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QCheckBox" name="cbLATEXEscQuotes">
                <property name="toolTip">
                 <string>Replace quotes by dq sequences.</string>
@@ -1375,32 +1323,6 @@ See ctags.sf.net for details.</string>
            <widget class="QWidget" name="TEXOptions">
             <layout class="QVBoxLayout" name="verticalLayout_14">
              <item>
-              <widget class="QLabel" name="label_26">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>TeX options</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="Line" name="line_10">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QCheckBox" name="cbTEXEmbedStyle">
                <property name="toolTip">
                 <string>Include the style information in each output file.</string>
@@ -1497,32 +1419,6 @@ See ctags.sf.net for details.</string>
            <widget class="QWidget" name="RTFOptions">
             <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
-              <widget class="QLabel" name="label_15">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>RTF options</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="Line" name="line_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QCheckBox" name="cbRTFCharStyles">
                <property name="toolTip">
                 <string>Add character stylesheets with formatting information.
@@ -1611,32 +1507,6 @@ You can select the stylesheets in your word processor to reformat additional tex
            </widget>
            <widget class="QWidget" name="SVGOptions">
             <layout class="QVBoxLayout" name="verticalLayout_10">
-             <item>
-              <widget class="QLabel" name="label_16">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>SVG options</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="Line" name="line_6">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
              <item>
               <widget class="QLabel" name="label_10">
                <property name="text">
@@ -2243,9 +2113,7 @@ Set the width to 0 to keep tabs.</string>
   <tabstop>pbStartConversion</tabstop>
   <tabstop>pbCopyFile2CP</tabstop>
  </tabstops>
- <resources>
-  <include location="../projectfiles/highlight_gui/highlight-gui.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>pbClearAll</sender>
