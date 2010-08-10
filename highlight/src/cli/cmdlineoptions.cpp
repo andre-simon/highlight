@@ -109,7 +109,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ 'd', OPT_OUTDIR,         Arg_parser::yes },
 		{ 'D', OPT_DATADIR,        Arg_parser::yes },
 		{ 'e', OPT_STYLE_IN,       Arg_parser::yes },
-// 		{ 'E', OPT_ADDDATADIR,     Arg_parser::yes },
+ 		{ 'E', OPT_ADDDATADIR,     Arg_parser::yes },
 		{ 'f', OPT_FRAGMENT,       Arg_parser::no  },
 		{ 'F', OPT_FORMAT,         Arg_parser::yes },
 
@@ -233,9 +233,9 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 			case 'e':
 				styleInFilename = arg;
 				break;
-// 			case 'E':
-// 				additionalDataDir=validateDirPath ( arg );
-// 				break;
+ 			case 'E':
+ 				//additionalDataDir=validateDirPath ( arg );
+ 				break;
 			case 'f':
 			case S_OPT_COMPAT_NODOC:
 				opt_fragment = true;

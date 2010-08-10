@@ -37,6 +37,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 #include "re/Pattern.h"
+#include "syntaxreader.h"
 
 #define MAX_LINE__WIDTH       80
 
@@ -133,6 +134,7 @@ bool HLCmdLineApp::printInstalledLanguages()
 // 		ConfigurationReader lang ( filePaths[i] );
 // 		desc = lang.getParameter ( "description" );
         Diluculum::LuaState ls;
+	highlight::SyntaxReader::initLuaState(ls, filePaths[i]);
         ls.doFile(filePaths[i]);
         desc = ls["Description"].value().asString();
         suffix = ( filePaths[i] ).substr ( directory.length() ) ;
@@ -179,8 +181,6 @@ void HLCmdLineApp::printConfigInfo ( const string& configFile )
 {
     cout << "\nRoot paths (modify with --" OPT_DATADIR "):\n";
     cout << "  Data directory:         "<<dataDir.getDir() <<"\n";
-
-    cout << "\nDefault search paths:\n";
     cout << "  Language definitions:   "<<dataDir.getLangPath ( "" ) <<"\n";
     cout << "  Colour themes:          "<<dataDir.getThemePath ( "") <<"\n";
 

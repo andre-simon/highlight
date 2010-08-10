@@ -59,9 +59,6 @@ namespace highlight
 
 	/**\brief Contains specific data of the programming language being processed.
 
-	   The load() method will only read a new language definition if the given
-	   file path is not equal to the path of the current language definition.
-
 	* @author Andre  Simon
 	*/
 
@@ -100,6 +97,8 @@ namespace highlight
 			int isKeyword ( const string &s ) ;
 
 			/** Load new language definition
+			    Will only read a new language definition if the given
+			      file path is not equal to the path of the current language definition.
 			    \param langDefPath Path of language definition
 			    \param clear Test if current data should be resetted to defaults
 			    \return LoadResult  */
@@ -142,6 +141,9 @@ namespace highlight
 				return delimiterDistinct[delimID];
 			}
 
+			/**  \param delimID delimiter id
+			     \return true,  if delimiter indicates a raw string
+			 */
 			bool delimiterIsRawString ( int delimID )
 			{
 				return rawStringOpenDelims[delimID];
@@ -162,11 +164,11 @@ namespace highlight
 			 */
 			bool matchesOpenDelimiter ( const string& token, State s, int openDelimId);
 
-
+/*
 			string getDelimRegex(const string & lang){
 				return exitDelimiters[lang];
 			}
-
+*/
 			/** initializes end delimiter regex to switch back to host language
 				\param langPath path of embedded language definition
 			*/
@@ -178,15 +180,33 @@ namespace highlight
 			*/
 			string getNewPath(const string& lang);
 
+			/**
+				\return absolute path of currently loaded definition
+			*/
 			string getCurrentPath() const { return currentPath;}
 
+			/**
+				\return pointer to state validation function
+			*/
 			Diluculum::LuaFunction* getValidateStateChangeFct() const {return validateStateChangeFct;}
 
+			/**
+				\return pointer to Lua state
+			*/
 			 Diluculum::LuaState* getLuaState() const { return luaState;}
 
+			/**
+				\param chunk Lua function to be added to the function list
+			*/
 			void addUserChunk(const Diluculum::LuaFunction& chunk){
 			  userChunkFcts.push_back(new Diluculum::LuaFunction(chunk));
 			}
+
+			/**
+				\param ls Lua state to be initialized with constants
+				\param langDefPath absolute path of language definition
+			*/
+			static void initLuaState(Diluculum::LuaState& ls, const string& langDefPath);
 
 		private:
 
@@ -194,7 +214,7 @@ namespace highlight
 			static const string REGEX_NUMBER;
 			static const string REGEX_ESCSEQ;
 
-			// path to laoded language definition
+			// path to loaded language definition
 			string currentPath;
 
 			// Language description
@@ -245,6 +265,7 @@ namespace highlight
 			unsigned int generateNewKWClass ( const string& newClassName );
 
 			bool readFlag(const Diluculum::LuaVariable& var) ;
+
 
 			Diluculum::LuaFunction* validateStateChangeFct;
 

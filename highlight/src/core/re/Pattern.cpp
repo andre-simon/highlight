@@ -26,9 +26,10 @@
 #include "re/Pattern.h"
 #include "re/Matcher.h"
 #include <cstring>
-#include <cstdio>
 #include <algorithm>
 #include <cctype>
+#include <iostream>
+#include <iomanip>
 
 std::map<std::string, Pattern *> Pattern::compiledPatterns;
 std::map<std::string, std::pair<std::string, unsigned long> > Pattern::registeredPatterns;
@@ -69,12 +70,18 @@ void Pattern::raiseError()
   case '?':
   case ']':
   case '}':
+    /* causes compliation error with suncc
     fprintf(stderr, "%s\n%*c^\n", pattern.c_str(), curInd - 1, ' ');
     fprintf(stderr, "Syntax Error near here. Possible unescaped meta character.\n");
+    */
+    std::cerr<< pattern.c_str()<<"\n"<<std::setw(curInd)<<"^";
+    std::cerr<< "\nSyntax Error near here. Possible unescaped meta character.\n";
     break;
   default:
-    fprintf(stderr, "%s\n%*c^\n", pattern.c_str(), curInd - 1, ' ');
-    fprintf(stderr, "Syntax Error near here. \n");
+    //fprintf(stderr, "%s\n%*c^\n", pattern.c_str(), curInd - 1, ' ');
+    //fprintf(stderr, "Syntax Error near here. \n");
+    std::cerr<< pattern.c_str()<<"\n"<<std::setw(curInd)<<"^";
+    std::cerr<< "\nSyntax Error near here.\n";
     break;
   }
   error = 1;

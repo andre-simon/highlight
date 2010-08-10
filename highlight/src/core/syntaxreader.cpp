@@ -106,27 +106,10 @@ bool SyntaxReader::readFlag(const Diluculum::LuaVariable& var) {
 }
 
 
-LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
-{
-    if ( clear )  reset();
-
-    currentPath=langDefPath;
-    disableHighlighting=false;
-
-
-    // this method is not optimized as file formats are not final
-
-    try {
-
-	if (luaState) delete luaState;
-	luaState=new Diluculum::LuaState();
-
-	Diluculum::LuaState& ls=*luaState;
-
-
-        // initialize Lua state with variables which can be read within scripts
-        string::size_type Pos = currentPath.find_last_of ( Platform::pathSeparator );
-        ls["HL_LANG_DIR"] =currentPath.substr ( 0, Pos+1 );
+void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefPath){
+          // initialize Lua state with variables which can be read within scripts
+        string::size_type Pos = langDefPath.find_last_of ( Platform::pathSeparator );
+        ls["HL_LANG_DIR"] =langDefPath.substr ( 0, Pos+1 );
 
         ls["Identifiers"]=REGEX_IDENTIFIER;
         ls["Digits"]=REGEX_NUMBER;
@@ -155,6 +138,27 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
 	ls["HL_IDENTIFIER_BEGIN"]=IDENTIFIER_BEGIN;
 	ls["HL_IDENTIFIER_END"]=IDENTIFIER_END;
 	ls["HL_UNKNOWN"]=_UNKNOWN;
+
+}
+
+LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
+{
+    if ( clear )  reset();
+
+    currentPath=langDefPath;
+    disableHighlighting=false;
+
+
+    // this method is not optimized as file formats are not final
+
+    try {
+
+	if (luaState) delete luaState;
+	luaState=new Diluculum::LuaState();
+
+	Diluculum::LuaState& ls=*luaState;
+
+	initLuaState(ls, langDefPath);
 
         // ececute script and read values
         ls.doFile (langDefPath);

@@ -45,7 +45,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OPT_OUTFORMAT      "out-format"
 #define OPT_ADDCONFDIR     "add-config-dir"
-// #define OPT_ADDDATADIR     "add-data-dir"
+#define OPT_ADDDATADIR     "add-data-dir"
 #define OPT_ANCHORS        "anchors"
 #define OPT_ANCHOR_FN      "anchor-filename"
 #define OPT_ANCHOR_PFX     "anchor-prefix"
