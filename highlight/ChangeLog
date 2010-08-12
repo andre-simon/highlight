@@ -1,5 +1,15 @@
 CHANGELOG Highlight
 
+highlight 3.1 beta3
+
+12.08.2010
+
+-added --config-file option
+-CLI: fixed minor bugs
+-GUI: renamed output specific options tab
+-GUI: remember state of the dock panel
+
+---
 highlight 3.1 beta2
 
 08.07.2010

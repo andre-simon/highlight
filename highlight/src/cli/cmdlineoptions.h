@@ -49,7 +49,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_ANCHORS        "anchors"
 #define OPT_ANCHOR_FN      "anchor-filename"
 #define OPT_ANCHOR_PFX     "anchor-prefix"
-//#define OPT_ANSI           "ansi"
 #define OPT_BABEL          "babel"
 #define OPT_BASE_FONT      "font"
 #define OPT_BASE_FONT_SIZE "font-size"
@@ -65,20 +64,17 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_FORMAT         "reformat"
 #define OPT_FRAGMENT       "fragment"
 #define OPT_HELP           "help"
-// #define OPT_HTML           "html"
 #define OPT_IN             "input"
 #define OPT_INC_STYLE      "include-style"
 #define OPT_INDEXFILE      "print-index"
 #define OPT_INLINE_CSS     "inline-css"
 #define OPT_KW_CASE        "kw-case"
-// #define OPT_LATEX          "latex"
 #define OPT_LINENO         "line-numbers"
 #define OPT_LINE_LEN       "line-length"
 #define OPT_LISTLANGS      "list-langs"
 #define OPT_LISTTHEMES     "list-themes"
 #define OPT_LNR_LEN        "line-number-length"
 #define OPT_LNR_START      "line-number-start"
-// #define OPT_MARK_LINES     "mark-line"
 #define OPT_ORDERED_LIST   "ordered-list"
 #define OPT_OUT            "output"
 #define OPT_OUTDIR         "outdir"
@@ -88,32 +84,26 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_PROGRESSBAR    "progress"
 #define OPT_QUIET          "quiet"
 #define OPT_REPLACE_QUOTES "replace-quotes"
-// #define OPT_RTF            "rtf"
 #define OPT_STYLE          "style"
 #define OPT_STYLE_IN       "style-infile"
 #define OPT_STYLE_OUT      "style-outfile"
 #define OPT_SYNTAX         "syntax"
 #define OPT_TEST_INPUT     "validate-input"
-// #define OPT_TEX            "tex"
 #define OPT_VERBOSE        "verbose"
 #define OPT_VERSION        "version"
 #define OPT_WRAP           "wrap"
 #define OPT_WRAPSIMPLE     "wrap-simple"
-// #define OPT_XHTML          "xhtml"
-// #define OPT_XML            "xml"
-// #define OPT_XTERM256       "xterm256"
-// #define OPT_SVG            "svg"
 #define OPT_SVG_WIDTH      "width"
 #define OPT_SVG_HEIGHT     "height"
 #define OPT_SKIP_UNKNOWN   "skip"
 #define OPT_CTAGS_FILE     "ctags-file"
 #define OPT_PRETTY_SYMBOLS "pretty-symbols"
 #define OPT_EOL_DELIM_CR   "delim-cr"
-// #define OPT_BBCODE         "bbcode"
 #define OPT_START_NESTED   "start-nested"
 #define OPT_PRINT_STYLE    "print-style"
 #define OPT_NO_TRAILING_NL "no-trailing-nl"
 #define OPT_PLUGIN         "plug-in"
+#define OPT_ABS_CFG_PATH   "config-file"
 
 // Improve CLI option compatibility with GNU source-highlight
 #define OPT_COMPAT_DOC       "doc"
@@ -122,7 +112,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_COMPAT_CSS       "css"
 #define OPT_COMPAT_OUTDIR    "output-dir"
 #define OPT_COMPAT_FAILSAFE  "failsafe"
-
 #define OPT_COMPAT_SRCLANG   "src-lang"
 #define OPT_COMPAT_LINENUM   "line-number"
 #define OPT_COMPAT_LINEREF   "line-number-ref"
@@ -335,7 +324,6 @@ class CmdLineOptions
 
 		const vector <string> &getPluginPaths() const;
 
-
 		/** \return True if trailing nl should be omitted */
 		bool disableTrailingNL() const ;
 
@@ -344,6 +332,12 @@ class CmdLineOptions
 
 		/** \return name of nested syntax which starts the input */
 		const string& getStartNestedLang() const ;
+
+		/** \return absolute theme definition path name */
+		const string& getAbsThemePath() const ;
+
+		/** \return absolute language definition path name */
+		const string& getAbsLangPath() const ;
 
 		/** \return line number width */
 		int getNumberWidth();
@@ -396,7 +390,7 @@ class CmdLineOptions
 		string skipArg;
 		string svg_height, svg_width;
 		string ctagsFile;
-		string themeAppend, syntaxAppend;
+		string absThemePath, absLangPath;
 
 		bool opt_syntax;
 		bool opt_include_style;

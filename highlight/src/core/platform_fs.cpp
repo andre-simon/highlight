@@ -48,15 +48,17 @@ namespace Platform
 #ifdef _WIN32
 #include <windows.h>
 	const char pathSeparator = '\\';
-#ifndef QT
-                std::string getAppPath()
+
+	#ifndef QT
+        std::string getAppPath()
         {
                 char pathAndName[MAX_PATH], path[MAX_PATH], drive[3];
                 GetModuleFileName(NULL, pathAndName, MAX_PATH);
                 _splitpath(pathAndName, drive, path, 0, 0);
                 return std::string(drive)+path;
         }
-#endif
+	#endif
+
 #else
 	const char pathSeparator = '/';
 
@@ -84,21 +86,6 @@ namespace Platform
 				wildcard = wildcard.substr ( Pos + 1 );
 			}
 
-			/* old method using dirstream:
-			dirstr::dirstream str( directory_path.c_str(),
-			                          #ifdef USE_FN_MATCH
-			                            dirstr::pred_f(FnMatcher(wildcard.c_str(), 0)),
-			                          #else
-			                            dirstr::pattern_f(wildcard.c_str()),
-			                          #endif
-			                          (recursiveSearch)?dirstr::recursive_yes:dirstr::recursive_no);
-			for(string entry; str >> entry;) {
-				fileList.push_back(dirstr::full_path(entry));
-				//cerr << "1: "<<dirstr::full_path(entry)<<"\n";
-			}
-			*/
-
-			// new method using getFileNames:
 			getFileNames ( directory_path, wildcard, fileList );
 		}
 		return ! ( fileList.empty() );

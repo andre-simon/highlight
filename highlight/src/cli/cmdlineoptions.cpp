@@ -95,7 +95,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		S_OPT_COMPAT_OUTDIR, S_OPT_COMPAT_FAILSAFE,
 		S_OPT_COMPAT_SRCLANG, S_OPT_COMPAT_LINENUM, S_OPT_COMPAT_LINEREF,
 		S_OPT_CTAGS_FILE, S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
-		S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN
+		S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH
 	};
 
 	const Arg_parser::Option options[] =
@@ -182,6 +182,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ S_OPT_PRINT_STYLE,    OPT_PRINT_STYLE, Arg_parser::no },
 		{ S_OPT_NO_TRAILING_NL, OPT_NO_TRAILING_NL, Arg_parser::no },
 		{ S_OPT_PLUGIN, OPT_PLUGIN, Arg_parser::yes },
+		{ S_OPT_ABS_CFG_PATH, OPT_ABS_CFG_PATH,  Arg_parser::yes},
 
 		{ 0,                  0,                Arg_parser::no  }
 	};
@@ -464,6 +465,11 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				break;
 			case S_OPT_NO_TRAILING_NL:
 				opt_no_trailing_nl = true;
+				break;
+			case S_OPT_ABS_CFG_PATH:
+				if (arg.find(".lang")!=string::npos) absLangPath=arg;
+				else if (arg.find(".theme")!=string::npos) absThemePath=arg;
+				else cerr << "highlight: unknown config file type" << endl;
 				break;
 			default:
 				cerr << "highlight: option parsing failed" << endl;
@@ -874,6 +880,13 @@ const string& CmdLineOptions::getTagsFile() const
 const string& CmdLineOptions::getStartNestedLang() const
 {
 	return startNestedLang;
+}
+const string& CmdLineOptions::getAbsThemePath() const {
+	return absThemePath;
+}
+
+const string& CmdLineOptions::getAbsLangPath() const {
+	return absLangPath;
 }
 int CmdLineOptions::getNumberWidth()
 {

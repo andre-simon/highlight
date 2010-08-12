@@ -40,6 +40,7 @@ namespace Help
 		cout<<"                                  (Example: -B '*.cpp')\n";
 		cout<<" -D, --data-dir=<directory>     set path to data directory\n";
 		cout<<"     --add-config-dir=<dir>     set path to an additional config directory\n";
+		cout<<"     --config-file=<file>       set path to a lang or theme file\n";
 		cout<<" -d, --outdir=<directory>       name of output directory\n";
 		cout<<" -h, --help                     print this help\n";
 		cout<<" -i, --input=<file>             name of single input file\n";

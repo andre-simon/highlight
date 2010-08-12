@@ -131,8 +131,6 @@ bool HLCmdLineApp::printInstalledLanguages()
 
     for ( unsigned int i=0;i< filePaths.size(); i++ )
     {
-// 		ConfigurationReader lang ( filePaths[i] );
-// 		desc = lang.getParameter ( "description" );
         Diluculum::LuaState ls;
 	highlight::SyntaxReader::initLuaState(ls, filePaths[i]);
         ls.doFile(filePaths[i]);
@@ -143,7 +141,6 @@ bool HLCmdLineApp::printInstalledLanguages()
         int extCnt=0;
         for (StringMap::iterator it=extensions.begin();it!=extensions.end();it++) {
             if (it->second==suffix ) {
-
                 cout << ((++extCnt==1)?" ( ":" ")<<it->first;
             }
         }
@@ -159,7 +156,6 @@ void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader &lang,
 {
     cerr << "\nLoading language definition:\n" << langDefPath;
     cerr << "\n\nDescription: " << lang.getDescription();
-//	cerr << "\n\nSYMBOLS (followed by states):\n" << lang.getSymbolString();
     cerr << "\n\nREGEX:\n";
     highlight::RegexElement *re=NULL;
     for ( unsigned int i=0; i<lang.getRegexElements().size(); i++ )
@@ -332,6 +328,7 @@ string HLCmdLineApp::analyzeFile ( const string& file )
 
 string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFile )
 {
+    if (suffix.empty()) return "";
     string lcSuffix = StringTools::change_case ( suffix );
     string fileType = ( extensions.count ( lcSuffix ) ) ? extensions[lcSuffix] : lcSuffix ;
     if ( !fileType.empty() ) return fileType;
@@ -392,7 +389,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         return EXIT_FAILURE;
     }
 
-    string themePath=dataDir.getThemePath ( options.getThemeName() );
+    string themePath=options.getAbsThemePath().empty() ? dataDir.getThemePath ( options.getThemeName() ): options.getAbsThemePath();
 
     auto_ptr<highlight::CodeGenerator> generator ( highlight::CodeGenerator::getInstance ( options.getOutputType() ) );
 
@@ -509,17 +506,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     }
     dirTest.close();
 #endif
-/*
-    map <int,string> markedLines = options.getMarkLines();
-    if ( !markedLines.empty() )
-    {
-        map<int, string>::iterator it;
-        for ( it=markedLines.begin(); it!=markedLines.end();it++ )
-        {
-            generator->addMarkedLine ( it->first, it->second );
-        }
-    }
-*/
+
     bool initError=false, IOError=false;
     unsigned int fileCount=inFileList.size(),
                  fileCountWidth=getNumDigits ( fileCount ),
@@ -557,7 +544,8 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
         if ( suffix != lastSuffix )
         {
-            string langDefPath=dataDir.getLangPath ( suffix+".lang" );
+            string langDefPath=options.getAbsLangPath().empty() ? dataDir.getLangPath ( suffix+".lang" ) : options.getAbsLangPath();
+
             highlight::LoadResult loadRes= generator-> loadLanguage( langDefPath );
 
             if ( loadRes==highlight::LOAD_FAILED_REGEX )
