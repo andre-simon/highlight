@@ -56,12 +56,11 @@ namespace highlight
 			              escapeChar, number, directive, line, operators;
 			ElementStyle defaultElem;
 			ElementStyle  canvas;
-			//Colour  markLineColour;
 
 			string errorMsg;
 			string desc;
 
-			vector<Diluculum::LuaFunction*> userChunkFcts;
+			vector<Diluculum::LuaFunction*> pluginChunks;
 
 			bool fileOK;
 
@@ -81,7 +80,7 @@ namespace highlight
 
 			void addUserChunk(const Diluculum::LuaFunction& chunk){
 
-			  userChunkFcts.push_back(new Diluculum::LuaFunction(chunk));
+			  pluginChunks.push_back(new Diluculum::LuaFunction(chunk));
 			}
 
 			/** \return class names defined in the theme file */
@@ -97,10 +96,7 @@ namespace highlight
 
 			/** \return Background colour*/
 			Colour getBgColour() const;
-/*
 
-			Colour getMarkLineColour() const;
-*/
 			/** \return Style of default (unrecognized) strings */
 			ElementStyle getDefaultStyle() const;
 
@@ -131,7 +127,7 @@ namespace highlight
 			/** \return Line number style*/
 			ElementStyle getLineStyle() const;
 
-			/** \return Bracket style*/
+			/** \return Operator style*/
 			ElementStyle getOperatorStyle() const;
 
 			/** \param className Name of keyword class (eg kwa, kwb, .., kwd)

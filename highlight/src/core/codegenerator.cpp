@@ -156,7 +156,6 @@ namespace highlight
 		return themePath;
 	}
 
-
 	void CodeGenerator::setLineNumberWidth ( int w )
 	{
 		lineNumberWidth=w;
@@ -325,12 +324,7 @@ namespace highlight
 		keywordCase = keyCase;
 	}
 
-	/*void CodeGenerator::addMarkedLine ( int lineNo, string& helpTxt )
-	{
-		markLines[lineNo] = helpTxt;
-	}*/
-
-	const SyntaxReader &CodeGenerator::getLanguage()
+	const SyntaxReader &CodeGenerator::getSyntaxReader()
 	{
 		return langInfo;
 	}
@@ -356,23 +350,8 @@ namespace highlight
 	 return  docStyle.getErrorMessage();
 	}
 
-	string CodeGenerator::getUserScriptError(){
+	string CodeGenerator::getPluginScriptError(){
 	    return userScriptError;
-	}
-
-	/** sucht vorwaerts ab Position searchPos Ziffer in s und liefert Integerwert
-	der gefundenen Zahl zurueck.
-	Im SymbolString stehen die den einzelnen Symbolen zugeordneten Konstanten
-	immer HINTER diesen Symbolen*/
-	State CodeGenerator::getState ( const string &s, unsigned int searchPos )
-	{
-		string::size_type pos = s.find_first_of ( "1234567890", searchPos+1 );
-		if ( pos==string::npos ) return _UNKNOWN;
-
-		string::size_type pos2 = s.find ( ' ', pos );
-		int result=_UNKNOWN;
-		StringTools::str2num<int> ( result, s.substr ( pos, pos2-pos ), std::dec );
-		return ( State ) result;
 	}
 
 	unsigned int CodeGenerator::getLineNumber()
@@ -1218,21 +1197,11 @@ namespace highlight
 					}
 					// if delimiters are equal, close the comment by continueing to
 					// ML_COMMENT_END section
-					//if ( langInfo.delimiterIsDistinct ( ML_COMMENT ) )  break;
 					if (langInfo.delimiterIsDistinct(langInfo.getOpenDelimiterID ( token, ML_COMMENT  ))) break;
 
 				case ML_COMMENT_END:
-					// hint: open follows close delimiter if delimiters are not equal
-					//       -> in regex vecor the open regex  preceeds close regex,
-					//          so the id is close index -1
-
-					//if ( delimPairID!= langInfo.getDelimiterID ( token , ML_COMMENT_END)
-					  //                 - (langInfo.delimiterIsDistinct ( ML_COMMENT ))?1:0 ) {
-					  //break;
-				//	}
 
 					if (!langInfo.matchesOpenDelimiter (token,  ML_COMMENT_END, openDelimID)){ break; }
-
 					commentCount--;
 					if ( !commentCount )
 					{
@@ -1365,11 +1334,8 @@ namespace highlight
 		bool returnedFromOtherState=false;
 
 		State myState= ( oldState==DIRECTIVE ) ? DIRECTIVE_STRING : STRING;
-		//int delimPairID = langInfo.getDelimiterID ( token, myState , true);
 
-	//cerr << "delimPairID open="<<delimPairID<<"\n";
 	      int openDelimID=langInfo.getOpenDelimiterID ( token, myState);
-	//cerr << "openDelimID="<<openDelimID<<"\n";
 		string openDelim=token;
 
 		// Test if character before string open delimiter token equals to the
@@ -1379,7 +1345,6 @@ namespace highlight
 		{
 			  isRawString=true;
 		}
-
 
 		openTag ( myState );
 		do
@@ -1403,11 +1368,6 @@ namespace highlight
 					wsBuffer += openTags[myState];
 					break;
 				case STRING_END:
-
- 			  //cerr << "delimPairID exit="<<langInfo.getDelimiterID ( token, STRING_END  )<<"\n";
-			 //cerr << "match? "<<langInfo.matchesOpenDelimiter (token,  STRING_END, openDelimID)<<"\n";
-
-
 					if (langInfo.matchesOpenDelimiter (token,  STRING_END, openDelimID)){
 					  exitState= true;
 					  printMaskedToken();
@@ -1416,12 +1376,7 @@ namespace highlight
 				case STRING:
 					// if there exist multiple string delimiters, close string if
 					// current delimiters is equal to the opening delimiter
-// 					cerr << "delimPairID close="<<langInfo.getDelimiterID ( token, STRING_END, true )<<"\n";
-					//exitState= openDelim==token ;
-					//cerr << "match? "<<langInfo.matchesOpenDelimiter (token,  STRING_END, openDelimID)<<"\n";
-					//exitState= delimPairID==langInfo.getDelimiterID ( token, STRING_END, true ) ;
 					exitState=langInfo.delimiterIsDistinct(langInfo.getOpenDelimiterID ( token, STRING  ))&&token==openDelim;
-					//langInfo.matchesOpenDelimiter (token,  STRING, openDelimID);
 					printMaskedToken();
 					break;
 				case ESC_CHAR:
@@ -1738,7 +1693,7 @@ namespace highlight
 	}
 */
 
-bool CodeGenerator::initUserScript(const string& script){
+bool CodeGenerator::initPluginScript(const string& script){
 
   if (script.empty()) return true;
 

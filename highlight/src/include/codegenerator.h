@@ -139,9 +139,15 @@ namespace highlight
 			*/
 			bool initTheme ( const string& themePath );
 
+			/**
+			 \return description of the theme init error
+			*/
 			string getThemeInitError();
 
-			string getUserScriptError();
+			/**
+			 \return description of the plug-in script error
+			*/
+			string getPluginScriptError();
 
 			/** initialize source code indentation and reformatting scheme;
 			    needs to be called before using a generate* method
@@ -218,16 +224,8 @@ namespace highlight
 			/** \return True if reformatting of current input is possible */
 			bool formattingIsPossible();
 
-			/** \deprecated
-			    \param langDefPath Absolute path to language definition; use loadLanguage instead
-			    \return  LOAD_FAILED: failure,
-			             LOAD_NEW:    Reload necessary,
-			             LOAD_NONE:   no reload necessary
-			*/
-			LoadResult initLanguage ( const string& langDefPath ) { return loadLanguage ( langDefPath );}
-
 			/** \return Language definition*/
-			const SyntaxReader &getLanguage();
+			const SyntaxReader &getSyntaxReader();
 
 			/** output line numbers
 			   \param flag true if line numbers should be printed
@@ -333,10 +331,6 @@ namespace highlight
 			/** \param keyCase Keyword case */
 			void setKeyWordCase ( StringTools::KeywordCase keyCase );
 
-			/** \param lineNo number of line that should be marked
-			    \param helpTxt additional help text */
-// 			void addMarkedLine ( int lineNo, string &helpTxt );
-
 			/** \param delim End of line delimiter (default: NL)
 			*/
 			void setEOLDelimiter(char delim);
@@ -347,7 +341,10 @@ namespace highlight
 			*/
 			void setStartingNestedLang(const string &langName);
 
-			bool initUserScript(const string& script);
+			/** Load the Lua functions og the plug-in script
+				\param script path of the plug-in script
+			*/
+			bool initPluginScript(const string& script);
 
 
 			/** set HTML output anchor flag
@@ -424,11 +421,6 @@ namespace highlight
 			/** \param ss destination stream
 			    \param s string */
 			void maskString ( ostream& ss, const string &s ) ;
-
-			/** \param s Symbol string
-			    \param searchPos Position where search starts
-			    \return Found state (integer value)  */
-			State getState ( const string &s, unsigned int searchPos );
 
 			/** Get current line number
 			  \return line number  */

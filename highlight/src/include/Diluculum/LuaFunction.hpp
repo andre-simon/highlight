@@ -27,6 +27,7 @@
 #ifndef _DILUCULUM_LUA_FUNCTION_HPP_
 #define _DILUCULUM_LUA_FUNCTION_HPP_
 
+#include <string>
 #include <boost/scoped_array.hpp>
 #include <lua.hpp>
 #include <Diluculum/Types.hpp>
@@ -49,6 +50,18 @@ namespace Diluculum
    {
       public:
 
+         /** Constructs a \c LuaFunction from Lua source code (a Lua chunk). The
+          *  default value (a "dummy" chunk, that doesn't return anything) can
+          *  be useful for moments in which a default constructable \c
+          *  LuaFunction is desired.
+          *  @param luaChunk The Lua source of the chunk.
+          *  @note The chunk can be seen as a vararg function. So, if one wants,
+          *        for instance, a chunk corresponding to a function that
+          *        returns its first parameter doubled, the following chunk can
+          *        be used: <tt>"local p = {...}; return p[1]*2"</tt>.
+          */
+         LuaFunction (const::std::string& luaChunk = "");
+
          /** Constructs a \c LuaFunction from Lua bytecode. Typically, this
           *  constructor is not called directly by end users. Instead, end users
           *  use <tt>LuaState::operator[]</tt> to get a \c LuaVariable
@@ -57,12 +70,6 @@ namespace Diluculum
           *  @param data A pointer to the beginning of the memory area
           *         containing Lua bytecode.
           *  @param size The number of bytecode bytes to read.
-          *  @todo Since \c lua_load() is expected to work with both binary and
-          *        text Lua chunks, this implementation should also work if
-          *        \c data points to Lua source code defining a function. If
-          *        this is the case (I haven't tested!), it would be nice to
-          *        have another constructor with a simpler interface for this
-          *        case (say, receiving just a string as parameter).
           */
          LuaFunction (const void* data, size_t size);
 

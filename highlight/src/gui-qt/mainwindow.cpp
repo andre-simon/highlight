@@ -602,9 +602,9 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
 
     for (int i=0;i<ui->lvPluginScripts->count();i++){
        if (ui->lvPluginScripts->item(i)->checkState()==Qt::Checked){
-           if (!generator->initUserScript(ui->lvPluginScripts->item(i)->text().toStdString()) )
+           if (!generator->initPluginScript(ui->lvPluginScripts->item(i)->text().toStdString()) )
            {
-              QMessageBox::critical(this,"Plug-In init error", QString::fromStdString(generator->getUserScriptError()));
+              QMessageBox::critical(this,"Plug-In init error", QString::fromStdString(generator->getPluginScriptError()));
            }
        }
     }
@@ -738,11 +738,11 @@ void MainWindow::on_pbStartConversion_clicked(){
      langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(QDir::currentPath()).arg(QString::fromStdString(suffix)));
 #endif
 
-     loadRes=generator->initLanguage(langDefPath.toStdString());
+     loadRes=generator->loadLanguage(langDefPath.toStdString());
      if (loadRes==highlight::LOAD_FAILED_REGEX){
              QMessageBox::warning(this, tr("Language definition error"),
                          tr("Invalid regular expression in %1:\n%2").arg(langDefPath).arg(
-                         QString::fromStdString( generator->getLanguage().getFailedRegex())));
+                         QString::fromStdString( generator->getSyntaxReader().getFailedRegex())));
              break;
         } else  if (loadRes==highlight::LOAD_FAILED) {
            QMessageBox::warning(this, tr("Unknown syntax"), tr("Could not convert %1").arg(QString::fromStdString(currentFile)));
@@ -865,7 +865,7 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
              QDir::currentPath()).arg(QString::fromStdString(suffix)));
 #endif
 
-     if ( generator->initLanguage(langPath.toStdString()) != highlight::LOAD_FAILED){
+     if ( generator->loadLanguage(langPath.toStdString()) != highlight::LOAD_FAILED){
           QString clipBoardData;
           if (getDataFromCP){
                clipBoardData= QString::fromStdString( generator->generateString(savedClipboardContent.toStdString()));
@@ -991,12 +991,12 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
 #endif
 
 
-     if ( pwgenerator.initLanguage(langPath.toStdString()) != highlight::LOAD_FAILED){
+     if ( pwgenerator.loadLanguage(langPath.toStdString()) != highlight::LOAD_FAILED){
 
           ui->lbPreview->setText(tr("Preview (%1):").arg(
                   (getDataFromCP)?tr("clipboard data"):ui->lvInputFiles->currentItem()->text()) );
 
-          statusBar()->showMessage(tr("Current syntax: %1").arg(QString::fromStdString(pwgenerator.getLanguage().getDescription())));
+          statusBar()->showMessage(tr("Current syntax: %1").arg(QString::fromStdString(pwgenerator.getSyntaxReader().getDescription())));
           QString previewData;
 
           // fix utf-8 data preview - to be improved (other encodings??)

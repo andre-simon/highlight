@@ -248,7 +248,7 @@ class CmdLineOptions
 		bool fillLineNrZeroes() const;
 
 		/** \return programming syntax */
-		const string &getLanguage() const ;
+		const string &getSyntax() const ;
 
 		/** \return Wrapping style*/
 		highlight::WrapMode getWrappingStyle() const;

@@ -29,7 +29,7 @@ Comments={
 }
 
 NestedSections = {
-  { Lang="js", Delimiter= { [[ \<\!\[CDATA\[  ]], [[ \]\]\> ]] } },
+  { Lang="actionscript", Delimiter= { [[ \<\!\[CDATA\[  ]], [[ \]\]\> ]] } },
   { Lang="css", Delimiter= { [[<mx\:Style>]], [[<\/mx\:Style>]] } }
 
 }

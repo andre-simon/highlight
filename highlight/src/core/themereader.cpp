@@ -35,8 +35,8 @@ ThemeReader::ThemeReader() : fileOK ( false )
 
 ThemeReader::~ThemeReader()
 {
-  for (unsigned int i=0;i<userChunkFcts.size();i++){
-      delete userChunkFcts[i];
+  for (unsigned int i=0;i<pluginChunks.size();i++){
+      delete pluginChunks[i];
   }
 }
 
@@ -69,11 +69,11 @@ bool ThemeReader::load ( const string &styleDefinitionPath )
 
 	desc = ls["Description"].value().asString();
 
-	if (userChunkFcts.size()){
+	if (pluginChunks.size()){
 	  Diluculum::LuaValueList params;
 	  params.push_back(desc);
-	  for (unsigned int i=0;i<userChunkFcts.size();i++){
-	    ls.call(*userChunkFcts[i], params, "theme user function");
+	  for (unsigned int i=0;i<pluginChunks.size();i++){
+	    ls.call(*pluginChunks[i], params, "theme user function");
 	  }
 	}
 
@@ -121,56 +121,62 @@ Colour ThemeReader::getBgColour() const
 {
     return canvas.getColour();
 }
-/*
-Colour ThemeReader::getMarkLineColour() const
-{
-    return markLineColour;
-}
-*/
+
 ElementStyle ThemeReader::getDefaultStyle() const
 {
     return defaultElem;
 }
+
 ElementStyle ThemeReader::getCommentStyle() const
 {
     return comment;
 }
+
 ElementStyle ThemeReader::getSingleLineCommentStyle() const
 {
     return slcomment;
 }
+
 ElementStyle ThemeReader::getStringStyle() const
 {
     return str;
 }
+
 ElementStyle ThemeReader::getPreProcStringStyle() const
 {
     return dstr;
 }
+
 ElementStyle ThemeReader::getEscapeCharStyle() const
 {
     return escapeChar;
 }
+
 ElementStyle ThemeReader::getNumberStyle() const
 {
     return number;
 }
+
 ElementStyle ThemeReader::getPreProcessorStyle() const
 {
     return directive;
 }
+
 ElementStyle ThemeReader::getLineStyle() const
 {
     return line;
 }
+
 ElementStyle ThemeReader::getOperatorStyle() const
 {
     return operators;
 }
+
 bool ThemeReader::found () const
 {
     return fileOK;
 }
+
 ElementStyle ThemeReader::getKeywordStyle ( const string &className )
 {
     if ( !keywordStyles.count ( className ) ) return defaultElem;

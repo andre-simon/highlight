@@ -53,7 +53,7 @@ void HLCmdLineApp::printVersionInfo()
          << "\n\n Artistic Style Classes (1.24)"
          << "\n Copyright (C) 2006-2010 by Jim Pattee <jimp03 at email.com>"
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
-         << "\n\n Diluculum Lua wrapper (0.5.1)"
+         << "\n\n Diluculum Lua wrapper (0.5.3)"
          << "\n Copyright (C) 2005-2010 by Leandro Motta Barros"
          << "\n\n Regex library (1.09.00)"
          << "\n Copyright (C) 2003-2008 Jeffery Stuart <stuart at cs.unr.edu>"
@@ -156,7 +156,31 @@ void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader &lang,
 {
     cerr << "\nLoading language definition:\n" << langDefPath;
     cerr << "\n\nDescription: " << lang.getDescription();
-    cerr << "\n\nREGEX:\n";
+
+    Diluculum::LuaState* luaState=lang.getLuaState();
+    if (luaState){
+	cerr << "\n\nLUA GLOBALS:\n" ;
+	Diluculum::LuaValueMap::iterator it;
+	Diluculum::LuaValueMap glob =luaState->globals();
+	for(it = glob.begin(); it != glob.end(); it++)
+	{
+	  Diluculum::LuaValue first = it->first;
+	  Diluculum::LuaValue second = it->second;
+	  std::cerr << first.asString()<<": ";
+	  switch (second.type()) {
+	    case  LUA_TSTRING:	cerr << "string [ "<<second.asString()<<" ]";
+		    break;
+	    case  LUA_TNUMBER:	cerr << "number [ "<<second.asNumber()<<" ]";
+		    break;
+	    case  LUA_TBOOLEAN:	cerr << "boolean [ "<<second.asBoolean()<<" ]";
+		    break;
+	    default: cerr << second.typeName();
+	  }
+	  cerr << endl;
+	}
+
+    }
+    cerr << "\nREGEX:\n";
     highlight::RegexElement *re=NULL;
     for ( unsigned int i=0; i<lang.getRegexElements().size(); i++ )
     {
@@ -437,10 +461,10 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     const  vector <string> pluginFileList=options.getPluginPaths();
     for (unsigned int i=0;i<pluginFileList.size();i++){
-    if ( !generator->initUserScript(pluginFileList[i]) )
+    if ( !generator->initPluginScript(pluginFileList[i]) )
     {
         cerr << "highlight: "
-             << generator->getUserScriptError()
+             << generator->getPluginScriptError()
              << " in "
              << pluginFileList[i]
              <<"\n";
@@ -521,7 +545,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     if ( options.syntaxGiven() )  // user defined language definition, valid for all files
     {
-        suffix = guessFileType ( options.getLanguage() );
+        suffix = guessFileType ( options.getSyntax() );
     }
 
     while ( i < fileCount && !initError )
@@ -551,7 +575,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             if ( loadRes==highlight::LOAD_FAILED_REGEX )
             {
                 cerr << "highlight: Regex error ( "
-                     << generator->getLanguage().getFailedRegex()
+                     << generator->getSyntaxReader().getFailedRegex()
                      << " ) in "<<suffix<<".lang\n";
                 initError = true;
                 break;
@@ -559,7 +583,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             else if ( loadRes==highlight::LOAD_FAILED_LUA )
             {
                 cerr << "highlight: Lua error ( "
-                     << generator->getLanguage().getLuaErrorText()
+                     << generator->getSyntaxReader().getLuaErrorText()
                      << " ) in "<<suffix<<".lang\n";
                 initError = true;
                 break;
@@ -581,7 +605,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             }
             if ( options.printDebugInfo() && loadRes==highlight::LOAD_OK )
             {
-                printDebugInfo ( generator->getLanguage(), langDefPath );
+                printDebugInfo ( generator->getSyntaxReader(), langDefPath );
             }
             lastSuffix = suffix;
         }

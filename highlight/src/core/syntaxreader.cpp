@@ -63,8 +63,8 @@ SyntaxReader::~SyntaxReader()
 {
     reset();
 
-    for (unsigned int i=0;i<userChunkFcts.size();i++){
-      delete userChunkFcts[i];
+    for (unsigned int i=0;i<pluginChunks.size();i++){
+      delete pluginChunks[i];
     }
 }
 
@@ -107,7 +107,7 @@ bool SyntaxReader::readFlag(const Diluculum::LuaVariable& var) {
 
 
 void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefPath){
-          // initialize Lua state with variables which can be read within scripts
+          // initialize Lua state with variables which can be used within scripts
         string::size_type Pos = langDefPath.find_last_of ( Platform::pathSeparator );
         ls["HL_LANG_DIR"] =langDefPath.substr ( 0, Pos+1 );
 
@@ -148,28 +148,26 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
     currentPath=langDefPath;
     disableHighlighting=false;
 
-
-    // this method is not optimized as file formats are not final
-
     try {
 
 	if (luaState) delete luaState;
 	luaState=new Diluculum::LuaState();
 
 	Diluculum::LuaState& ls=*luaState;
-
 	initLuaState(ls, langDefPath);
 
         // ececute script and read values
         ls.doFile (langDefPath);
 
+	Diluculum::LuaValueMap globals = ls.globals();
+
         langDesc = ls["Description"].value().asString();
 
-	if (userChunkFcts.size()){
+	if (pluginChunks.size()){
 	  Diluculum::LuaValueList params;
 	  params.push_back(langDesc);
-	  for (unsigned int i=0;i<userChunkFcts.size();i++){
-	    ls.call(*userChunkFcts[i], params, "syntax user function");
+	  for (unsigned int i=0;i<pluginChunks.size();i++){
+	    ls.call(*pluginChunks[i], params, "syntax user function");
 	  }
 	}
 
@@ -211,7 +209,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
             idx++;
         }
 
-        if (ls["Comments"].value()!=Diluculum::Nil) {
+        if (globals.count("Comments")) {
 
             int listIdx=1;
             int openDelimId=0;
@@ -275,7 +273,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
         regex.push_back ( new RegexElement ( NUMBER, NUMBER_END,
                                              Pattern::compile ( re_digit ) ) );
 
-        if (ls["Strings"].value()!=Diluculum::Nil) {
+        if (globals.count("Strings")) {
 
             if (ls["Strings"]["RawPrefix"].value()!=Diluculum::Nil) {
                 rawStringPrefix=ls["Strings"]["RawPrefix"].value().asString().at(0);
@@ -347,7 +345,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
             }
         }
 
-        if (ls["PreProcessor"].value()!=Diluculum::Nil) {
+        if (globals.count("PreProcessor")) {
             Pattern* p = Pattern::compile ( StringTools::trim(ls["PreProcessor"]["Prefix"].value().asString()) );
             if ( p!=NULL )
                 regex.push_back ( new RegexElement ( DIRECTIVE,DIRECTIVE_END, p, 0, -1 ) );
@@ -360,7 +358,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
             }
         }
 
-        if (ls["Operators"].value()!=Diluculum::Nil) {
+        if (globals.count("Operators")) {
             Pattern* p = Pattern::compile (StringTools::trim( ls["Operators"].value().asString()) );
             if ( p!=NULL )
                 regex.push_back ( new RegexElement ( SYMBOL,SYMBOL_END, p, 0, -1 ) );
@@ -370,7 +368,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
             }
         }
 
-        if (ls["NestedSections"].value()!=Diluculum::Nil) {
+        if (globals.count("NestedSections")) {
 
             int listIdx=1;
             while (ls["NestedSections"][listIdx].value()!=Diluculum::Nil) {
@@ -395,9 +393,8 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
 
         }
 
-
         // load hook functions
-        if (ls["OnStateChange"].value()!=Diluculum::Nil) {
+        if (globals.count("OnStateChange")) {
             validateStateChangeFct=new Diluculum::LuaFunction(ls["OnStateChange"].value().asFunction());
         }
 

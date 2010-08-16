@@ -199,7 +199,7 @@ namespace highlight
 				\param chunk Lua function to be added to the function list
 			*/
 			void addUserChunk(const Diluculum::LuaFunction& chunk){
-			  userChunkFcts.push_back(new Diluculum::LuaFunction(chunk));
+			  pluginChunks.push_back(new Diluculum::LuaFunction(chunk));
 			}
 
 			/**
@@ -271,7 +271,7 @@ namespace highlight
 
 			Diluculum::LuaState* luaState; // make member to allow interaction with codeparser instance
 
-			vector<Diluculum::LuaFunction*> userChunkFcts;
+			vector<Diluculum::LuaFunction*> pluginChunks;
 
 	};
 

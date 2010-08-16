@@ -49,7 +49,8 @@ namespace Diluculum
             return lua_toboolean (state, index) != 0;
 
          case LUA_TSTRING:
-            return lua_tostring (state, index);
+            return std::string(lua_tostring (state, index),
+                               lua_objlen(state, index));
 
          case LUA_TUSERDATA:
          {
@@ -125,8 +126,11 @@ namespace Diluculum
             break;
 
          case LUA_TSTRING:
-            lua_pushstring (state, value.asString().c_str());
+         {
+            const std::string& tmp = value.asString();
+            lua_pushlstring (state, tmp.c_str(), tmp.length());
             break;
+         }
 
          case LUA_TBOOLEAN:
             lua_pushboolean (state, value.asBoolean());

@@ -720,7 +720,7 @@ const string &CmdLineOptions::getAdditionalConfDir() const
 {
 	return additionalConfigDir;
 }
-const string &CmdLineOptions::getLanguage() const
+const string &CmdLineOptions::getSyntax() const
 {
 	return syntax;
 }

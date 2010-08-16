@@ -24,6 +24,7 @@ exclude("src/gui-qt/qrc*")
 exclude("*.css")
 exclude("*.html")
 
+exclude(".svn/", SUBDIRS)
 exclude("*.Debug", SUBDIRS)
 exclude("*.Release", SUBDIRS)
 exclude("*.pro.user", SUBDIRS)
