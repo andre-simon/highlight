@@ -1,11 +1,51 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.1 beta2  ---------------------- Juni 2010 ---
+---  HIGHLIGHT MANUAL - Version 3.1  -------------------------- August 2010 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
 
 English manual: README
 
+INHALT
+-------------------------------------------------------------------------------
+
+1. UEBERSICHT
+   1.1 SINN UND ZWECK
+   1.2 FUNKTIONSLISTE
+   1.3 UNTERSTUETZTE PROGRAMMIER- UND AUSZEICHNUNGSSPRACHEN
+
+2. GEBRAUCH UND OPTIONEN
+   2.1 SCHNELLE EINFUEHRUNG
+   2.2 CLI OPTIONEN
+   2.3 GUI OPTIONEN
+   2.4 EIN- UND AUSGABE
+   2.5 GNU SOURCE-HIGHLIGHT KOMPATIBILITAET
+   2.6 FORTGESCHRITTENE OPTIONEN
+   2.7 TIPS UND TRICKS
+
+3. KONFIGURATION
+   3.1 DATEIFORMAT
+   3.2 REGULAERE AUSDRUECKE
+   3.3 SPRACHDEFINITIONEN
+   3.4 FARBDEFINITIONEN
+   3.5 SCHLUESSELWORTGRUPPEN
+   3.6 PLUG-INS
+   3.7 DATEIZUORDNUNGEN
+
+4. HIGHLIGHT EINBETTEN
+   4.1 BEISPIELSKRIPTE
+   4.2 SWIG SCHNITTSTELLE
+   4.3 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
+
+5. KOMPILIEREN UND INSTALLIEREN
+   5.1 VORKOMPILIERTE PAKETE
+   5.2 KOMPILIER-ABHAENGIGKEITEN
+   5.3 BEISPIELPAKETE
+
+6. ENTWICKLERKONTAKT
+
+
+1. UEBERSICHT
 -------------------------------------------------------------------------------
 
 Highlight konvertiert Sourcecode in XHTML, HTML, RTF, TeX, LaTeX, SVG, BBCode
@@ -13,29 +53,48 @@ und Terminal Escape-Sequenzen mit farbiger Syntaxhervorhebung.
 Sprachdefinitionen und Farbstile sind konfigurierbar.
 
 
-INHALT
+1.1 SINN UND ZWECK
 -------------------------------------------------------------------------------
 
-1.  SCHNELLSTART
-2.  PAKETE
-3.  UNTERSTUETZTE PROGRAMMIER- UND AUSZEICHNUNGSSPRACHEN
-4.  FUNKTIONEN
-5.  EIN- UND AUSGABE
-6.  HIGHLIGHT DATEIFORMAT
-7.  SPRACHDEFINITIONEN
-8.  FARBSTILE
-9.  SCHLUESSELWORTGRUPPEN
-10. DATEIZUORDNUNGEN
-11. PLUG-IN SKRIPTE
-12. FORTGESCHRITTENE OPTIONEN
-13. SCRIPTE UND PLUGINS FUER WEB-APPS
-14. SWIG SCHNITTSTELLE
-15. GNU SOURCE-HIGHLIGHT KOMPATIBILITAET
-16. KONTAKT
+Highlight wurde mit dem Ziel entworfen, einen flexiblen und einfach zu
+bedienenden Syntaxhighlighter fuer mehrere Ausgabeformate anzubieten.
+Statt hartkodierter Sprachbeschreibungen und Farbschemata sind alle wichtigen
+Informationen in Konfigurationsskripten enthalten. Diese Skripte koennen mit
+Plug-Ins angepasst und erweitert werden.
 
 
+1.2 FUNKTIONSLISTE
+-------------------------------------------------------------------------------
 
-1.  SCHNELLSTART
+* Hervorhebung von Schluesselwoertern, Typbezeichnern, Strings, Zahlen,
+  Escapesequenzen, Operatoren, Praeprozessor-Direktiven und Kommentaren
+* Farbige Ausgabe in HTML, XHTML, RTF, TeX, LaTeX, SVG, BBCode und Terminal-
+  Escapesequenzen
+* Speichern von Stylesheets wahlweise in separater Datei oder innerhalb der
+  Ausgabedatei (HTML, LaTeX, TeX, SVG)
+* Syntax-Elemente werden als Regelaere Ausdruecke oder als Stringlisten
+  beschrieben
+* Erweiterbare Schluesselwort-Gruppen
+* Erkennung eingebetteter Sprachen innerhalb einer Datei
+* Alle Konfigurationsdateien sind Lua-Skripte
+* Unterstuetzt Plug-In Skripte
+* Neuformatierung und Einrueckung von C, C++, C# und Java Code
+* Umbrechen von ueberlangen Zeilen
+* Ausgabe von Zeilennummern
+
+
+1.3 UNTERSTUETZTE PROGRAMMIER- UND AUSZEICHNUNGSSPRACHEN
+-------------------------------------------------------------------------------
+
+Die Liste aller unterstuetzten Sprachen befindet sich in README_LANGLIST.
+Das Kommando "highlight --list-langs" zeigt eine Liste aller Sprachen und
+Dateiendungen.
+
+
+2. GEBRAUCH UND OPTIONEN
+-------------------------------------------------------------------------------
+
+2.1 SCHNELLE EINFUEHRUNG
 -------------------------------------------------------------------------------
 
 Folgende Beispiele zeigen, wie man die hervorgehobene Ausgabe einer C++-Datei
@@ -82,62 +141,137 @@ namens main.cpp erzeugt:
 - Ausgabeverzeichnis definieren:
   highlight -O some/target/dir/ *.cpp *.h
 
-Geben Sie "highlight --help" bzw "man highlight" ein, um mehr Details zu
-erfahren.
 
-
-
-2. PAKETE
+2.2 CLI OPTIONEN
 -------------------------------------------------------------------------------
 
-Highlight ist in ISO C++ geschrieben. Es existieren folgende Pakete:
-- UNIX Kommandozeilen- und GUI-Anwendung
-- W32 Kommandozeilen- und GUI-Anwendung
-- Statische/dynamische Bibliothek
+Die Kommandozeilenversion von highlight bietet folgende Optionen:
 
-Auf der Website www.andre-simon.de sind Links auf vorkompilierte Pakete fuer
-weitere Betriebssysteme vorhanden (z.B. Debian, Arch Linux, Ubuntu, Darwin,
-FreeBSD).
-Auf der Website sind immer die aktuellsten Source-Pakete (upstream) verfuegbar.
+USAGE: highlight [OPTIONS]... [FILES]...
 
-Die optionale GUI und die Blibliotheken sind nicht in allen vorkompilierten
-Paketen enthalten. Um die GUI zu kompilieren, wird das Qt4 devel-Paket benoetigt.
-Siehe INSTALL, um weitere Informationen zu erhalten.
+General options:
+
+ -B, --batch-recursive=<wc>     convert all matching files, searches subdirs
+                                  (Example: -B '*.cpp')
+ -D, --data-dir=<directory>     set path to data directory
+     --add-config-dir=<dir>     set path to an additional config directory
+     --config-file=<file>       set path to a lang or theme file
+ -d, --outdir=<directory>       name of output directory
+ -h, --help                     print this help
+ -i, --input=<file>             name of single input file
+ -o, --output=<file>            name of single output file
+ -p, --list-langs               list installed language definitions
+ -P, --progress                 print progress bar in batch mode
+ -q, --quiet                    supress progress info in batch mode
+ -S, --syntax=<type>            specify type of source code
+ -v, --verbose                  print debug info
+ -w, --list-themes              list installed colour themes
+     --force                    generate output if input syntax is unknown
+     --plug-in=<script>         execute Lua plug-in script; repeat option to
+                                  apply multiple plug-ins
+     --print-config             print path configuration
+     --print-style              print stylesheet only (see --style-outfile)
+     --skip=<list>              ignore listed unknown file types
+                                  (Example: --skip='bak;c~;h~')
+     --start-nested=<lang>      define nested language which starts input
+                                  without opening delimiter
+     --validate-input           test if input is text, remove Unicode BOM
+     --version                  print version and copyright information
 
 
+Output formatting options:
 
-3. UNTERSTUETZTE PROGRAMMIER- UND AUSZEICHNUNGSSPRACHEN:
+ -O, --out-format=<format>      output file in given format
+                                  <format>=[html, xhtml, latex, tex,
+                                  rtf, ansi, xterm256, bbcode, svg]
+ -c, --style-outfile=<file>     name of style file or output to stdout, if
+                                  'stdout' is given as file argument
+ -e, --style-infile=<file>      file to be included in style-outfile
+ -f, --fragment                 omit file header and footer
+ -F, --reformat=<style>         reformats and indents output in given style
+                                  <style>=[allman, banner, gnu,
+                                  horstmann, java, kr, linux, otbs,
+                                  stroustrup, whitesmith]
+ -I, --include-style            include style definition
+ -J, --line-length=<num>        line length before wrapping (see -W, -V)
+ -j, --line-number-length=<num> line number width incl. left padding
+ -k, --font=<font>              set font (specific to output format)
+ -K, --font-size=<num?>         set font size (specific to output format)
+ -l, --line-numbers             print line numbers in output file
+ -m, --line-number-start=<cnt>  start line numbering with cnt (assumes -l)
+ -s, --style=<style>            set colour style (see -w)
+ -t, --replace-tabs=<num>       replace tabs by <num> spaces
+ -T, --doc-title=<title>        document title
+ -u, --encoding=<enc>           set output encoding which matches input file
+                                  encoding; omit encoding info if enc=NONE
+ -V, --wrap-simple              wrap long lines without indenting function
+                                  parameters and statements
+ -W, --wrap                     wrap long lines
+ -z, --zeroes                   fill leading space of line numbers with 0's
+     --kw-case=<case>           change case of case insensitive keywords
+                                  <case> =  [upper, lower, capitalize]
+     --delim-cr                 set CR as end-of-line delimiter (MacOS 9)
+     --no-trailing-nl           omit trailing newline
+
+(X)HTML output options:
+
+ -a, --anchors                  attach anchor to line numbers
+ -y, --anchor-prefix=<str>      set anchor name prefix
+ -N, --anchor-filename          use input file name as anchor name
+ -C, --print-index              print index with hyperlinks to output files
+ -n, --ordered-list             print lines as ordered list items
+     --class-name=<str>         set CSS class name prefix
+     --inline-css               output CSS within each tag (verbose output)
+     --enclose-pre              enclose fragmented output with pre tag
+                                  (assumes -f)
+     --ctags-file[=<file>]      read ctags file to include meta information as
+                                  tooltips (default value: tags)
+
+LaTeX output options:
+
+ -b, --babel                    disable Babel package shorthands
+ -r, --replace-quotes           replace double quotes by \dq{}
+     --pretty-symbols           improve appearance of brackets and other symbols
+
+
+RTF output options:
+
+ -x, --page-size=<ps>           set page size
+                                  <ps> = [a3, a4, a5, b4, b5, b6, letter]
+     --char-styles              include character stylesheets
+
+
+SVG output options:
+
+     --height                   set image height (units allowed)
+     --width                    set image width (see --height)
+
+
+GNU source-highlight compatibility options:
+
+     --doc                      create stand alone document
+     --no-doc                   cancel the --doc option
+     --css=filename             the external style sheet filename
+     --src-lang=STRING          source language
+ -t, --tab=INT                  specify tab length
+ -n, --line-number[=0]          number all output lines, optional padding
+     --line-number-ref[=p]      number all output lines and generate an anchor,
+                                  made of the specified prefix p + the line
+                                  number  (default='line')
+     --output-dir=path          output directory
+     --failsafe                 if no language definition is found for the
+                                  input, it is simply copied to the output
+
+
+2.3 GUI OPTIONEN
 -------------------------------------------------------------------------------
 
-Die Liste aller unterstuetzten Sprachen befindet sich in README_LANGLIST.
-Das Kommando "highlight --list-langs" zeigt eine Liste aller Sprachen und
-Dateiendungen.
+Die Graphische Oberflaeche bietet eine Teilmenge der CLI-Version. Sie enthaelt
+eine dynamische Vorschau der sichtbaren Ausgabe. Auf der Projekt-Webseite finden
+Sie Screenshots und Animationen.
 
 
-
-4. FUNKTIONEN:
--------------------------------------------------------------------------------
-
-* Hervorhebung von Schluesselwoertern, Typbezeichnern, Strings, Zahlen,
-  Escapesequenzen, Operatoren, Praeprozessor-Direktiven und Kommentaren
-* Farbige Ausgabe in HTML, XHTML, RTF, TeX, LaTeX, SVG, BBCode und Terminal-
-  Escapesequenzen
-* Speichern von Stylesheets wahlweise in separater Datei oder innerhalb der
-  Ausgabedatei (HTML, LaTeX, TeX, SVG)
-* Syntax-Elemente werden als Regelaere Ausdruecke oder als Stringlisten
-  beschrieben
-* Erweiterbare Schluesselwort-Gruppen
-* Erkennung eingebetteter Sprachen innerhalb einer Datei
-* Alle Konfigurationsdateien sind Lua-Skripte
-* Unterstuetzt Plug-In Skripte
-* Neuformatierung und Einrueckung von C, C++, C# und Java Code
-* Umbrechen von ueberlangen Zeilen
-* Ausgabe von Zeilennummern
-
-
-
-
-5. EIN- UND AUSGABE:
+2.4 EIN- UND AUSGABE
 -------------------------------------------------------------------------------
 
 Wenn kein Dateiname mit --input bzw. --output angegeben wird, benutzt highlight
@@ -196,29 +330,6 @@ Mit --style-infile kann eine Datei mit zusaetzlichen Formatierungsangaben in
 die Ausgabedateien eingebunden werden, welche die vorgegebene highlight-
 Formatierung erweitert oder ueberschreibt.
 
-Beispiel:
-
- /* Inhalt von user.css (fuege Rahmen und Line an der
-    Zeilennummerierung hinzu) */
- pre.hl {
-   border-width: 1px;
-   border-style:solid;
-   border-left-color: silver;
-   border-top-color: silver;
-   border-right-color: gray;
-   border-bottom-color: gray;
- }
-
- .hl.lin {
-   border-right:1px solid #555555;
-   padding-left:0.5em;
-   padding-right:0.5em;
-   margin-right:1em;
-   text-decoration:none;
- }
-
-Aufruf: highlight -l --style-infile user.css main.cpp
-
 
 Terminal-Ausgabe:
 --------------------
@@ -268,8 +379,133 @@ Dieses Kommando gibt nur die CSS-Informationen des angegebenen Stils (hier:
 Seashell) nach stdout aus.
 
 
+2.5 GNU SOURCE-HIGHLIGHT KOMPATIBILITAET
+-------------------------------------------------------------------------------
 
-6. HIGHLIGHT DATEIFORMAT
+Die Kommandozeilenschnittstelle ueberschneidet sich zu einem grossen Teil mit
+source-highlight (http://www.gnu.org/software/src-highlite/).
+
+Diese highlight-Optionen haben dieselbe Bedeutung wie bei source-highlight:
+ --input, --output, --help, --version, --out-format, --title, --data-dir,
+ --verbose, --quiet, --ctags-file
+
+Diese Optionen wurden hinzugefuegt, um die Kompatibilitaet zu verbessern:
+ --css, --doc, --failsafe, --line-number, --line-number-ref, --no-doc, --tab,
+ --output-dir, --src-lang
+
+Die obigen Optionen bilden eine gemeinsame Highlighter-Schnittstelle fuer
+Skripte, Plugins etc.
+
+
+2.6 FORTGESCHRITTENE OPTIONEN
+-------------------------------------------------------------------------------
+
+Exuberant Ctags Informationen hinzufuegen
+-----------------------------------------
+
+Die HTML-Ausgabe kann um beschreibende Tooltips mit ctags Daten erweitert werden:
+ctags *.*
+highlight --ctags-file *.cpp
+
+Der Default-Parameter von ctags-file ist "tags", daher konnte er im obigen
+Beispiel weggelassen werden.
+Dises Kommando fuegt den Typ, den Namespace und den Pfad zur Definition des
+erkannten Tokens hinzu.
+Beispiel:  "member | class:highlight::HtmlGenerator | htmlgenerator.h"
+
+Parsen von Binaerdaten vermeiden
+--------------------------------
+
+Wenn highlight mit einer unbestimmten Menge von Eingabedaten aufgerufen wird,
+kann die Verarbeitung von binaeren Daten mit --validate-input verhindert werden.
+Dieser Schalter fuehrt zu einem Vergleich der Datei-Haeder mit einer Liste von
+"Magic Numbers". Wenn ein Binaer-Typ erkannt wird, bricht highlight die
+Verarbeitungmit einer Fehlermeldung ab.
+Mit --validate-input wird zusaetzlich der UTF-8 BOM unterdrueckt.
+
+Hervorbung von eingebettetem Code ohne oeffnenden Delimiter
+-----------------------------------------------------------
+
+Wenn eine Datei mit eingebettetem Code ohne den einleitenden Delimiter beginnt,
+kann mit der --start-nested Option in diese Sprache gewechselt werden.
+Dies kann bei LuaTeX Dateien passieren:
+highlight luatex.tex --latex -t4 -semacs --start-nested=inc_luatex
+
+Die inc_luatex Definition ist eine Lua-Beschreibung mit TeX Kommentaren.
+Beachten Sie, dass die Code-Sektion mit dem in der Host-Beschreibung
+aufgelisteten End-Delimiter abgeschlossen werden muss.
+
+
+2.7 TIPS UND TRICKS
+-------------------------------------------------------------------------------
+
+Neue Konfigurationsskripte testen:
+----------------------------------
+
+Die Option --config-file ermoeglicht es, neue Skripte vor der Installation zu
+testen. Die Datei muss eine lang- oder theme-Datei sein.
+
+highlight --config-file xxx.lang --config-file yyy.theme -I
+
+Sprachdefinitionen debuggen:
+----------------------------
+
+Benutzen Sie --verbose, um Lua- und Syntax-Daten anzuzeigen.
+
+Anpassen der HTML Zeilennummerierung:
+-------------------------------------
+
+/* content of user.css */
+ pre.hl {
+   border-width: 1px;
+   border-style:solid;
+   border-left-color: silver;
+   border-top-color: silver;
+   border-right-color: gray;
+   border-bottom-color: gray;
+ }
+
+ .hl.lin {
+   border-right:1px solid #555555;
+   padding-left:0.5em;
+   padding-right:0.5em;
+   margin-right:1em;
+   text-decoration:none;
+ }
+
+Aufruf: highlight -l --style-infile user.css main.cpp
+
+HTML Listentricks:
+------------------
+
+Diese Beispiele gehen davon aus, dass HTML mit der Option --ordered-list  als Liste
+ausgegeben wurde. Fuegen Sie die CSS-Schnipsel mit style-infile in Ihre Ausgabe ein.
+
+/* highlight odd lines */
+ol li:nth-child(odd) {
+  background-color: #1f3030;
+}
+
+/* highlight every 5th line*/
+ol li:nth-child(5n) {
+  background-color: #1f3030;
+}
+
+/* highlight every 10th line number*/
+ol li:nth-child(10n) {
+  color: #ffff00;
+}
+
+UTF8 BOM entfernen:
+-------------------
+
+Geben Sie --validate-input an, um das UTF8 Byte Order Mark zu entfernen.
+
+
+3. KONFIGURATION
+-------------------------------------------------------------------------------
+
+3.1 DATEIFORMAT
 -------------------------------------------------------------------------------
 
 Die Konfigurationsdateien sind Lua Skripte. Folgende Syntax-Elemente genuegen,
@@ -298,7 +534,13 @@ Das vollstaendige Lua-Handbuch befindet sich hier:
 http://www.lua.org/manual/5.1/manual.html
 
 
-7. SPRACHDEFINITIONEN
+3.2 REGULAERE AUSDRUECKE
+-------------------------------------------------------------------------------
+
+Die Datei README_REGEX beschreibt alle unterstuetzten Ausdruecke.
+
+
+3.3 SPRACHDEFINITIONEN
 -------------------------------------------------------------------------------
 
 Eine Sprachdefinition beschreibt die Elemente einer Programmiersprache, die
@@ -459,8 +701,7 @@ Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~]]
 EnableIndentation=true
 
 
-
-8. FARBSTILE
+3.4 FARBDEFINITIONEN
 -------------------------------------------------------------------------------
 
 Farbstile legen die Formatierung der Sprachelemente fest, die in den Sprach-
@@ -549,8 +790,7 @@ Keywords = {
 }
 
 
-
-9. SCHLUESSELWORTGRUPPEN
+3.5 SCHLUESSELWORTGRUPPEN
 -------------------------------------------------------------------------------
 
 Sie koennen eigene Schluesselwort-Gruppen festlegen und jeder Gruppe eine eigene
@@ -576,37 +816,16 @@ Eine Gruppe wird in zwei Schritten definiert:
 
 Es wird empfohlen, eigene Keyword-Gruppen in Plugin-Skripten zu definieren,
 um keine Original-Dateien veraendern uzu muessen.
-Siehe den Abschnitt PLUG-IN SKRIPTE.
+Siehe den Abschnitt PLUG-INS.
 
 
-
-10. DATEIZUORDNUNGEN
--------------------------------------------------------------------------------
-
-In filetypes.conf werden alle Dateizuordnungen und Shebang-Definitionen
-eingetragen.
-
-Format:
-
-FileMapping={
-  {  Lang, Extensions|Shebang },
-}
-
-Lang:       String, Name der Sprachdefinition
-Extensions: Liste, enthaelt alle Dateiendungen, die "Lang" zugeordnet werden
-Shebang:    String, Regulaerer Ausdruck der mit der ersten Zeile der Eingabe
-            verglichen wird
-
-
-
-11. PLUG-IN SKRIPTE
+3.6 PLUG-INS
 -------------------------------------------------------------------------------
 
 Die --plug-in Option erwartet den Names eines Lua Skripts, das Elemente einer
 Sprachdefintion oder eines Themes ueberschreiben oder erweitern kann.
 Mit Hilfe dieser Plugins kann die Ausgabe angepasst werden, ohne installierte
 Konfigurations-Dateien aendern zu muessen.
-
 
 Format:
 
@@ -628,8 +847,7 @@ des Farbschemas bzw. der Sprachdefinition ("Description"-Parameter).
 Die Funktionen werden nach dem Laden der KOnfigurationsskripte ausgefuehrt,
 daher kann auf die Elemente dieser Skripte zugegriffen werden.
 
-
-Example:
+Beispiel:
 
 Description="Add syslog and kernel log levels to C and C++ keywords"
 
@@ -658,47 +876,47 @@ Plugins={
 }
 
 
-
-12. FORTGESCHRITTENE OPTIONEN
+3.7 DATEIZUORDNUNGEN
 -------------------------------------------------------------------------------
 
-Exuberant Ctags Informationen hinzufuegen
+In filetypes.conf werden alle Dateizuordnungen und Shebang-Definitionen
+eingetragen.
 
-Die HTML-Ausgabe kann um beschreibende Tooltips mit ctags Daten erweitert werden:
-ctags *.*
-highlight --ctags-file *.cpp
+Format:
 
-Der Default-Parameter von ctags-file ist "tags", daher konnte er im obigen
-Beispiel weggelassen werden.
-Dises Kommando fuegt den Typ, den Namespace und den Pfad zur Definition des
-erkannten Tokens hinzu.
-Beispiel:  "member | class:highlight::HtmlGenerator | htmlgenerator.h"
+FileMapping={
+  {  Lang, Extensions|Shebang },
+}
 
+Lang:       String, Name der Sprachdefinition
+Extensions: Liste, enthaelt alle Dateiendungen, die "Lang" zugeordnet werden
+Shebang:    String, Regulaerer Ausdruck der mit der ersten Zeile der Eingabe
+            verglichen wird
 
-Parsen von Binaerdaten vermeiden
-
-Wenn highlight mit einer unbestimmten Menge von Eingabedaten aufgerufen wird,
-kann die Verarbeitung von binaeren Daten mit --validate-input verhindert werden.
-Dieser Schalter fuehrt zu einem Vergleich der Datei-Haeder mit einer Liste von
-"Magic Numbers". Wenn ein Binaer-Typ erkannt wird, bricht highlight die
-Verarbeitungmit einer Fehlermeldung ab.
-Mit --validate-input wird zusaetzlich der UTF-8 BOM unterdrueckt.
+Tragen Sie neue Dateiendungen in gui_files/ext/fileopenfilter.conf ein, damit
+diese im GUI-Dateiauswahldialog als Filter angezeigt werden
 
 
-Hervorbung von eingebettetem Code ohne oeffnenden Delimiter
+4. HIGHLIGHT EINBETTEN
+-------------------------------------------------------------------------------
 
-Wenn eine Datei mit eingebettetem Code ohne den einleitenden Delimiter beginnt,
-kann mit der --start-nested Option in diese Sprache gewechselt werden.
-Dies kann bei LuaTeX Dateien passieren:
-highlight luatex.tex --latex -t4 -semacs --start-nested=inc_luatex
+4.1 BEISPIELSKRIPTE
+-------------------------------------------------------------------------------
 
-Die inc_luatex Definition ist eine Lua-Beschreibung mit TeX Kommentaren.
-Beachten Sie, dass die Code-Sektion mit dem in der Host-Beschreibung
-aufgelisteten End-Delimiter abgeschlossen werden muss.
-
+Im /examples Unterverzeichnis befinden sich Beispielskripte in PHP, Perl und
+Python, die highlight aufrufen und die Ausgabe als String auswerten. Diese
+Skripte können als Ausgangspunkt fuer neue Plug-ins genutzt werden.
 
 
-13. SCRIPTE UND PLUGINS FUER WEB-APPS
+4.2 SWIG SCHNITTSTELLE
+-------------------------------------------------------------------------------
+
+Eine SWIG Interface-Datei befindet sich in /examples/swig.
+Installationshinweise finden Sie in README_SWIG, Programmierbeispiele in
+den vorhandenen Skripten.
+
+
+4.3 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
 -------------------------------------------------------------------------------
 
 Im /examples/web_plugins Unterverzeichnis der highlight Installation befinden
@@ -709,38 +927,93 @@ sich einige Plugins, die Highlight in Webanwendungen integrieren:
 -Wordpress
 -Serendipity
 
+Sie finden weitere Anwendnungsfaelle im Internet:
+
+MediaWiki plugin
+http://www.mediawiki.org/wiki/Extension:ASHighlight
+
+MacOS X Quicklook plugin
+http://code.google.com/p/qlcolorcode/
+
+CamlHighlight (Ocsigen extension)
+http://camlhighlight.forge.ocamlcore.org/
+
+highlighter package for the R language
+http://cran.r-project.org/web/packages/highlight/index.html
+
+Inkscape plug-in
+http://xico.freeshell.org/inksyntax/index.html
 
 
-14. SWIG SCHNITTSTELLE
+5. KOMPILIEREN UND INSTALLIEREN
 -------------------------------------------------------------------------------
 
-Eine SWIG Interface-Datei befindet sich in /examples/swig.
-Installationshinweise finden Sie in README_SWIG, Programmierbeispiele in
-den vorhandenen Skripten.
-
-
-
-15. GNU SOURCE-HIGHLIGHT KOMPATIBILITAET
+5.1 VORKOMPILIERTE PAKETE
 -------------------------------------------------------------------------------
 
-Die Kommandozeilenschnittstelle ueberschneidet sich zu einem grossen Teil mit
-source-highlight (http://www.gnu.org/software/src-highlite/).
+Highlight ist in ISO C++ geschrieben. Es existieren folgende Pakete:
+- UNIX Kommandozeilen- und GUI-Anwendung
+- W32 Kommandozeilen- und GUI-Anwendung
+- Statische/dynamische Bibliothek
 
-Diese highlight-Optionen haben dieselbe Bedeutung wie bei source-highlight:
- --input, --output, --help, --version, --out-format, --title, --data-dir,
- --verbose, --quiet, --ctags-file
+Auf der Website www.andre-simon.de sind Links auf vorkompilierte Pakete fuer
+weitere Betriebssysteme vorhanden (z.B. Debian, Arch Linux, Ubuntu, Darwin,
+FreeBSD).
+Auf der Website sind immer die aktuellsten Source-Pakete (upstream) verfuegbar.
 
-Diese Optionen wurden hinzugefuegt, um die Kompatibilitaet zu verbessern:
- --css, --doc, --failsafe, --line-number, --line-number-ref, --no-doc, --tab,
- --output-dir, --src-lang
+Source tarball
+Windows W32 executables
+http://www.andre-simon.de
 
-Die obigen Optionen bilden eine gemeinsame Highlighter-Schnittstelle fuer
-Skripte, Plugins etc.
+Arch Linux
+http://aur.archlinux.org/packages.php?ID=15194
+
+Debian GNU/Linux
+http://packages.debian.org/unstable/devel/highlight
+
+Fedora
+http://koji.fedoraproject.org/koji/packageinfo?packageID=2044
+
+FreeBSD
+http://www.freshports.org/textproc/highlight/
+
+Gentoo Portage
+http://www.gentoo-portage.com/app-text/highlight
+
+Mac OS X
+http://www.hmug.org/pub/MacOS_X/BSD/Applications/Text/highlight/
+
+Slackware
+http://sotirov-bg.net/slackpack/search.cgi?q=highlight
+
+SuSE
+http://packman.links2linux.de/package/highlight
+
+Ubuntu
+http://ns2.canonical.com/lucid/highlight
+
+In INSTALL befinden sich weitere Informationen zu Paketinhalt und Installation.
 
 
-
-16. KONTAKT
+5.2 KOMPILIER-ABHAENGIGKEITEN
 -------------------------------------------------------------------------------
+
+Highlight kompiliert zumindest mit gcc und suncc. Zum Kompilieren sind Boost
+Header-Pakete und Lua5.1 Development-Pakete nötig.
+Die optionale GUI benötigt die Qt4 Development-Pakete.
+Das makefile enthaelt weitere Optionen.
+
+
+5.3 BEISPIELPAKETE
+-------------------------------------------------------------------------------
+
+Unter http://andre-simon.de/dokuwiki/doku.php?id=packaging_resources befinden
+sich Beispiele fuer das Paketieren unter Debian und Fedora.
+
+
+6. ENTWICKLERKONTAKT
+-------------------------------------------------------------------------------
+
 Andre Simon
 andre.simon1@gmx.de
 as@andre-simon.de
@@ -748,4 +1021,7 @@ http://www.andre-simon.de
 http://wiki.andre-simon.de/
 
 Wegen wiederholtem Spamming ist das Wiki passwortgeschuetzt.
-Der Zugang lautet: user, Password h1gHL1te
+Wiki login: User "user", Password "h1gHL1te"
+
+sf.net Projekt mit SVN Repository, Download Mirror, Bugtracker, Foren:
+http://sourceforge.net/projects/syntaxhighlight/

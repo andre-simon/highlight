@@ -101,7 +101,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 	const Arg_parser::Option options[] =
 	{
 		{ 'a', OPT_ANCHORS,        Arg_parser::no  },
-// 		{ 'A', OPT_ANSI,           Arg_parser::no  },
 		{ 'b', OPT_BABEL,          Arg_parser::no  },
 		{ 'B', OPT_BATCHREC,       Arg_parser::yes },
 		{ 'c', OPT_STYLE_OUT,      Arg_parser::yes },
@@ -114,7 +113,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ 'F', OPT_FORMAT,         Arg_parser::yes },
 
 		{ 'h', OPT_HELP,           Arg_parser::no  },
-// 		{ 'H', OPT_HTML,           Arg_parser::no  },
 		{ 'i', OPT_IN,             Arg_parser::yes },
 		{ 'I', OPT_INC_STYLE,      Arg_parser::no  },
 		{ 'j', OPT_LNR_LEN,        Arg_parser::yes },
@@ -122,9 +120,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ 'k', OPT_BASE_FONT,      Arg_parser::yes },
 		{ 'K', OPT_BASE_FONT_SIZE, Arg_parser::yes },
 		{ 'l', OPT_LINENO,         Arg_parser::no  },
-// 		{ 'L', OPT_LATEX,          Arg_parser::no  },
 		{ 'm', OPT_LNR_START,      Arg_parser::yes },
-// 		{ 'M', OPT_XTERM256,       Arg_parser::no  },
 		{ 'n', OPT_ORDERED_LIST,   Arg_parser::no  },
 		{ 'N', OPT_ANCHOR_FN,      Arg_parser::no  },
 		{ 'o', OPT_OUT,            Arg_parser::yes },
@@ -134,24 +130,18 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ 'q', OPT_QUIET,          Arg_parser::no  },
 		{ 'Q', OPT_VERSION,        Arg_parser::no  },
 		{ 'r', OPT_REPLACE_QUOTES, Arg_parser::no  },
-// 		{ 'R', OPT_RTF,            Arg_parser::no  },
 		{ 's', OPT_STYLE,          Arg_parser::yes },
 		{ 'S', OPT_SYNTAX,         Arg_parser::yes },
 		{ 't', OPT_DELTABS,        Arg_parser::yes },
 		{ 'T', OPT_DOC_TITLE,      Arg_parser::yes },
-// 		{ 'T', OPT_TEX,            Arg_parser::no  },
 		{ 'u', OPT_ENCODING,       Arg_parser::yes },
 		{ 'v', OPT_VERBOSE,        Arg_parser::no  },
 		{ 'V', OPT_WRAPSIMPLE,     Arg_parser::no  },
 		{ 'w', OPT_LISTTHEMES,     Arg_parser::no  },
 		{ 'W', OPT_WRAP,           Arg_parser::no  },
 		{ 'x', OPT_RTF_PAGE_SIZE,  Arg_parser::yes },
-// 		{ 'X', OPT_XHTML,          Arg_parser::no  },
 		{ 'y', OPT_ANCHOR_PFX,     Arg_parser::yes },
 		{ 'z', OPT_FILLZEROES,     Arg_parser::no  },
-// 		{ 'Z', OPT_XML,            Arg_parser::no  },
-// 		{ 'G', OPT_SVG,            Arg_parser::no  },
-// 		{ 'Y', OPT_BBCODE,         Arg_parser::no  },
 
 		{ S_OPT_CLASSNAME, OPT_CLASSNAME,      Arg_parser::yes },
 		{ S_OPT_SVG_WIDTH,    OPT_SVG_WIDTH,    Arg_parser::yes  },
@@ -161,7 +151,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ S_OPT_FORCE_OUTPUT, OPT_FORCE_OUTPUT, Arg_parser::no  },
 		{ S_OPT_INLINE_CSS,   OPT_INLINE_CSS,   Arg_parser::no  },
 		{ S_OPT_KW_CASE,      OPT_KW_CASE,      Arg_parser::yes },
-// 		{ S_OPT_MARK_LINES,   OPT_MARK_LINES,   Arg_parser::yes },
 		{ S_OPT_PRINT_CONFIG, OPT_PRINT_CONFIG, Arg_parser::no  },
 		{ S_OPT_TEST_INPUT,   OPT_TEST_INPUT,   Arg_parser::no  },
 		{ S_OPT_RTF_CHAR_STYLES, OPT_RTF_CHAR_STYLES, Arg_parser::no  },
@@ -204,11 +193,31 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		if ( !code ) break;					// no more options
 		switch ( code )
 		{
+			case 'O':
+				{
+				const string tmp = StringTools::change_case ( arg );
+				if ( tmp == "xhtml" )
+					outputType = highlight::XHTML;
+				else if ( tmp == "tex" )
+					outputType = highlight::TEX;
+				else if ( tmp == "latex" )
+					outputType = highlight::LATEX;
+				else if ( tmp == "rtf" )
+					outputType = highlight::RTF;
+				else if ( tmp == "ansi" || tmp == "esc" ) // gnu source-highlight esc parameter
+					outputType = highlight::ANSI;
+				else if ( tmp == "xterm256" )
+					outputType = highlight::XTERM256;
+				else if ( tmp == "svg" )
+					outputType = highlight::SVG;
+				else if ( tmp == "bbcode" )
+					outputType = highlight::BBCODE;
+				else
+					outputType = highlight::HTML;
+				}
+				break;
 			case 'a':
 				opt_attach_line_anchors = true;
-				break;
-			case 'A':
-				outputType=highlight::ANSI;
 				break;
 			case 'b':
 				opt_babel=true;
@@ -250,9 +259,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 			case 'h':
 				opt_help = true;
 				break;
-			case 'H':
-				outputType=highlight::HTML;
-				break;
 			case 'i':
 				inputFileNames.push_back ( arg );
 				break;
@@ -275,9 +281,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				if ( arg=="0" ) opt_fill_zeroes=true;
 			case 'l':
 				opt_linenumbers = true;
-				break;
-			case 'L':
-				outputType=highlight::LATEX;
 				break;
 			case 'm':
 				StringTools::str2num<int> ( lineNrStart, arg, std::dec );
@@ -313,9 +316,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 			case 'r':
 				opt_replacequotes=true;
 				break;
-			case 'R':
-				outputType=highlight::RTF;
-				break;
 			case 's':
 				styleName = arg;
 				opt_style = true;
@@ -329,9 +329,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 			case S_OPT_COMPAT_TAB:
 				StringTools::str2num<int> ( numberSpaces, arg, std::dec );
 				break;
-// 			case 'T':
-// 				outputType=highlight::TEX;
-// 				break;
 			case 'u':
 				encodingName = arg;
 				break;
@@ -350,23 +347,11 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 			case 'x':
 				pageSize = arg;
 				break;
-			case 'X':
-				outputType=highlight::XHTML;
-				break;
 			case 'y':
 				anchorPrefix = arg;
 				break;
 			case 'z':
 				opt_fill_zeroes=true;
-				break;
-// 			case 'Z':
-// 				outputType=highlight::XML;
-// 				break;
-			case 'G':
-				outputType=highlight::SVG;
-				break;
-			case 'Y':
-				outputType=highlight::BBCODE;
 				break;
 			case S_OPT_SVG_WIDTH:
 				svg_width = arg;
@@ -398,32 +383,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 					keywordCase = StringTools::CASE_CAPITALIZE;
 			}
 			break;
-			case 'O':
-			{
-				const string tmp = StringTools::change_case ( arg );
-				if ( tmp == "xhtml" )
-					outputType = highlight::XHTML;
-				else if ( tmp == "tex" )
-					outputType = highlight::TEX;
-				else if ( tmp == "latex" )
-					outputType = highlight::LATEX;
-				else if ( tmp == "rtf" )
-					outputType = highlight::RTF;
-				else if ( tmp == "ansi" || tmp == "esc" ) // gnu source-highlight esc parameter
-					outputType = highlight::ANSI;
-				else if ( tmp == "xterm256" )
-					outputType = highlight::XTERM256;
-				else if ( tmp == "svg" )
-					outputType = highlight::SVG;
-				else if ( tmp == "bbcode" )
-					outputType = highlight::BBCODE;
-				else
-					outputType = highlight::HTML;
-			}
-			break;
-// 			case S_OPT_MARK_LINES:
-// 				markLinesArg = arg;
-// 				break;
+
 			case S_OPT_PRINT_CONFIG:
 				opt_print_config = true;
 				break;
@@ -467,7 +427,11 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				opt_no_trailing_nl = true;
 				break;
 			case S_OPT_ABS_CFG_PATH:
-				if (arg.find(".lang")!=string::npos) absLangPath=arg;
+				if (arg.find(".lang")!=string::npos) {
+				    absLangPath=arg;
+				    syntax = arg.substr(0, arg.find_last_of('.'));
+				    opt_syntax = true;
+				}
 				else if (arg.find(".theme")!=string::npos) absThemePath=arg;
 				else cerr << "highlight: unknown config file type" << endl;
 				break;
@@ -902,144 +866,3 @@ int CmdLineOptions::getNumberStart()
 {
 	return lineNrStart;
 }
-/*
-void CmdLineOptions::loadConfigurationFile()
-{
-#ifndef _WIN32
-#ifdef CONFIG_FILE_PATH
-	configFilePath=CONFIG_FILE_PATH;
-#else
-	char* homeEnv=getenv ( "HOME" );
-	if ( homeEnv==NULL ) return;
-	configFilePath=string ( homeEnv ) +"/.highlightrc";
-#endif
-#else
-	configFilePath = Platform::getAppPath() + "highlight.conf";
-#endif
-	ConfigurationReader userConfig ( configFilePath );
-
-	if ( userConfig.found() )
-	{
-		string paramVal;
-		configFileRead=true;
-
-		styleOutFilename = userConfig.getParameter ( OPT_STYLE_OUT );
-		styleInFilename = userConfig.getParameter ( OPT_STYLE_IN );
-		styleName = userConfig.getParameter ( OPT_STYLE );
-		opt_style = !styleName.empty();
-		syntax = userConfig.getParameter ( OPT_SYNTAX );
-		opt_syntax = !syntax.empty();
-		StringTools::str2num<int> ( numberSpaces, userConfig.getParameter ( OPT_DELTABS ), std::dec );
-		indentScheme = userConfig.getParameter ( OPT_FORMAT );
-		baseFontSize = userConfig.getParameter ( OPT_BASE_FONT_SIZE );
-		baseFont = userConfig.getParameter ( OPT_BASE_FONT );
-		skipArg = userConfig.getParameter ( OPT_SKIP_UNKNOWN );
-
-		paramVal = userConfig.getParameter ( OPT_DATADIR );
-		if ( !paramVal.empty() )
-		{
-			dataDir=validateDirPath ( paramVal );
-		}
-		paramVal = userConfig.getParameter ( OPT_ADDDATADIR );
-		if ( !paramVal.empty() )
-		{
-			additionalDataDir=validateDirPath ( paramVal );
-		}
-		paramVal = userConfig.getParameter ( OPT_ADDCONFDIR );
-		if ( !paramVal.empty() )
-		{
-			additionalConfigDir=validateDirPath ( paramVal );
-		}
-		paramVal = userConfig.getParameter ( OPT_OUTDIR );
-		if ( !paramVal.empty() )
-		{
-			outDirectory=validateDirPath ( paramVal );
-		}
-		paramVal = userConfig.getParameter ( OPT_ENCODING );
-		if ( !paramVal.empty() )
-		{
-			encodingName=paramVal;
-		}
-		paramVal = userConfig.getParameter ( OPT_LNR_LEN );
-		if ( !paramVal.empty() )
-		{
-			StringTools::str2num<int> ( lineNrWidth, string ( paramVal ), std::dec );
-		}
-		paramVal = userConfig.getParameter ( OPT_LNR_START );
-		if ( !paramVal.empty() )
-		{
-			StringTools::str2num<int> ( lineNrStart, string ( paramVal ), std::dec );
-		}
-		paramVal = userConfig.getParameter ( OPT_ANCHOR_PFX );
-		if ( !paramVal.empty() )
-		{
-			anchorPrefix=paramVal;
-		}
-
-		opt_include_style=getFlag ( userConfig.getParameter ( OPT_INC_STYLE ) );
-		opt_verbose=getFlag ( userConfig.getParameter ( OPT_VERBOSE ) );
-		opt_ordered_list=getFlag ( userConfig.getParameter ( OPT_ORDERED_LIST ) );
-		opt_linenumbers=opt_ordered_list || getFlag ( userConfig.getParameter ( OPT_LINENO ) );
-		opt_fragment=getFlag ( userConfig.getParameter ( OPT_FRAGMENT ) );
-		opt_attach_line_anchors=getFlag ( userConfig.getParameter ( OPT_ANCHORS ) );
-		opt_printindex=getFlag ( userConfig.getParameter ( OPT_INDEXFILE ) );
-		opt_quiet=getFlag ( userConfig.getParameter ( OPT_QUIET ) );
-		opt_replacequotes=getFlag ( userConfig.getParameter ( OPT_REPLACE_QUOTES ) );
-		opt_print_progress=getFlag ( userConfig.getParameter ( OPT_PROGRESSBAR ) );
-		opt_fill_zeroes=getFlag ( userConfig.getParameter ( OPT_FILLZEROES ) );
-		opt_fnames_as_anchors=getFlag ( userConfig.getParameter ( OPT_ANCHOR_FN ) );
-		opt_validate=getFlag ( userConfig.getParameter ( OPT_TEST_INPUT ) );
-		opt_fnames_as_anchors=getFlag ( userConfig.getParameter ( OPT_ANCHOR_FN ) );
-		opt_inline_css=getFlag ( userConfig.getParameter ( OPT_INLINE_CSS ) );
-		opt_delim_CR=getFlag ( userConfig.getParameter ( OPT_EOL_DELIM_CR) );
-
-		if ( getFlag ( userConfig.getParameter ( OPT_WRAP ) ) )
-		{
-			wrappingStyle=highlight::WRAP_DEFAULT;
-		}
-		if ( getFlag ( userConfig.getParameter ( OPT_WRAPSIMPLE ) ) )
-		{
-			wrappingStyle=highlight::WRAP_SIMPLE;
-		}
-
-		if ( getFlag ( userConfig.getParameter ( OPT_XHTML ) ) )
-		{
-			outputType=highlight::XHTML;
-		}
-		else if ( getFlag ( userConfig.getParameter ( OPT_RTF ) ) )
-		{
-			outputType=highlight::RTF;
-		}
-		else if ( getFlag ( userConfig.getParameter ( OPT_TEX ) ) )
-		{
-			outputType=highlight::TEX;
-		}
-		else if ( getFlag ( userConfig.getParameter ( OPT_LATEX ) ) )
-		{
-			outputType=highlight::LATEX;
-		}
-		else if ( getFlag ( userConfig.getParameter ( OPT_ANSI ) ) )
-		{
-			outputType=highlight::ANSI;
-		}
-		else if ( getFlag ( userConfig.getParameter ( OPT_XML ) ) )
-		{
-			outputType=highlight::XML;
-		}
-		else if ( getFlag ( userConfig.getParameter ( OPT_SVG ) ) )
-		{
-			outputType=highlight::SVG;
-		}
-		else if ( getFlag ( userConfig.getParameter ( OPT_XTERM256 ) ) )
-		{
-			outputType=highlight::XTERM256;
-		}
-		else if ( getFlag ( userConfig.getParameter ( OPT_BBCODE) ) )
-		{
-			outputType=highlight::BBCODE;
-		}
-
-	}
-
-}
-*/

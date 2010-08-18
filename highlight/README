@@ -1,11 +1,51 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.1 beta2   --------------------- June 2010 ---
+---  HIGHLIGHT MANUAL - Version 3.1    ------------------------ August 2010 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
 
 Deutsche Anleitung: README_DE
 
+CONTENT
+-------------------------------------------------------------------------------
+
+1. OVERVIEW
+   1.1 INTENDED PURPOSE
+   1.2 FEATURE LIST
+   1.3 SUPPORTED PROGRAMMING AND MARKUP LANGUAGES
+
+2. USAGE AND OPTIONS
+   2.1 QUICK INTRODUCTION
+   2.2 CLI OPTIONS
+   2.3 GUI OPTIONS
+   2.4 INPUT AND OUTPUT
+   2.5 GNU SOURCE-HIGHLIGHT COMPATIBILITY
+   2.6 ADVANCED OPTIONS
+   2.7 TIPS AND TRICKS
+
+3. CONFIGURATION
+   3.1 FILE FORMAT
+   3.2 REGULAR EXPRESSIONS
+   3.3 LANGUAGE DEFINITIONS
+   3.4 THEME DEFINITIONS
+   3.5 KEYWORD GROUPS
+   3.6 PLUG-INS
+   3.7 FILE MAPPING
+
+4. EMBEDDING HIGHLIGHT
+   4.1 SAMPLE SCRIPTS
+   4.2 SWIG INTERFACE
+   4.3 THIRD PARTY SCRIPTS AND PLUG-INS
+
+5. BUILDING AND INSTALLING
+   5.1 PRECOMPILED PACKAGES
+   5.2 BUILDING DEPENDENCIES
+   5.3 PACKAGING EXAMPLE
+
+6. DEVELOPER CONTACT
+
+
+1. OVERVIEW
 -------------------------------------------------------------------------------
 
 Highlight converts sourcecode to HTML, XHTML, RTF, LaTeX, TeX, SVG, BBCode and
@@ -13,29 +53,45 @@ terminal escape sequences with coloured syntax highlighting.
 Language definitions and colour themes are customizable.
 
 
-CONTENT:
+1.1 INTENDED PURPOSE
 -------------------------------------------------------------------------------
 
-1.  QUICK INTRODUCTION
-2.  PACKAGES
-3.  SUPPORTED PROGRAMMING/MARKUP LANGUAGES
-4.  FEATURES
-5.  INPUT/OUTPUT
-6.  HIGHLIGHT FILE FORMAT
-7.  LANGUAGE DEFINITIONS
-8.  COLOUR THEMES
-9.  KEYWORD GROUPS
-10. FILE MAPPING
-11. PLUG-IN SCRIPTING
-12. ADVANCED OPTIONS
-13. SCRIPTS AND PLUGINS FOR WEB APPLICATIONS
-14. SWIG INTERFACE
-15. GNU SOURCE-HIGHLIGHT COMPATIBILITY
-16. CONTACT
+Highlight was designed to offer a flexible but easy to use syntax highlighter
+for several output formats. Instead of hardcoding syntax or colouring
+information, all relevant data is stored in configuration scripts. These
+scripts may be altered or enhanced with plug-in scripts.
 
 
+1.2 FEATURE LIST
+-------------------------------------------------------------------------------
 
-1.  QUICK INTRODUCTION
+* highlighting of keywords, types, strings, numbers, escape sequences, comments,
+  operators and preprocessor directives
+* coloured output in HTML, XHTML 1.1, RTF, TeX, LaTeX, SVG, BBCode and terminal
+  escape sequences
+* supports referenced stylesheet files for HTML, LaTeX, TeX or SVG output
+* syntax elements are defined as regular expressions or plain string lists
+* customizable keyword groups
+* recognition of nested languages within a file
+* configuration files are Lua scripts
+* supports plug-in scripts for language definitions and themes
+* reformatting and indentation of C, C++, C# and Java source code
+* wrapping of long lines
+* output of line numbers
+
+
+1.3 SUPPORTED PROGRAMMING AND MARKUP LANGUAGES
+-------------------------------------------------------------------------------
+
+Please see README_LANGLIST for the current set of supported languages.
+You may also run "highlight --list-langs" to get a list of supported file
+extensions.
+
+
+2. USAGE AND OPTIONS
+-------------------------------------------------------------------------------
+
+2.1 QUICK INTRODUCTION
 -------------------------------------------------------------------------------
 
 The following examples show how to produce a highlighted C++ file, using an
@@ -62,15 +118,15 @@ input file called main.cpp:
 - Generate LaTeX:
   highlight --out-format=latex -i main.cpp -o main.cpp.tex
 
-  The following output formats may be used with --out-format:
+  The following output formats may be defined with --out-format:
   xhtml:    XHTML 1.1
   tex:      Plain TeX
   latex:    LaTeX
   rtf:      RTF
-  ansi:     Terminal 16 color escape codes
-  xterm256: Terminal 256 color escape codes
   svg:      SVG
   bbcode:   BBCode
+  ansi:     Terminal 16 color escape codes
+  xterm256: Terminal 256 color escape codes
 
   Default output is HTML if no other format is specified.
 
@@ -84,54 +140,136 @@ input file called main.cpp:
 See "highlight --help" or "man highlight" for more details.
 
 
-
-2. PACKAGES:
+2.2 CLI OPTIONS
 -------------------------------------------------------------------------------
 
-Highlight is written in ISO C++. The following packages are available:
-- UNIX console  and GUI application
-- W32 console and GUI application
-- statically and dynamically linked library
+The command line version of highlight offers following options:
 
-The website www.andre-simon.de offers links to precompiled packages for several
-operating systems (like Debian, Arch Linux, Ubuntu, Darwin, FreeBSD).
-The website distributes the latest upstream sources.
+USAGE: highlight [OPTIONS]... [FILES]...
 
-The optional GUI and the libs are not included in all precompiled packages.
-In order to compile the GUI from source, the Qt4 devel package is required.
-See INSTALL for detailed instructions.
+General options:
+
+ -B, --batch-recursive=<wc>     convert all matching files, searches subdirs
+                                  (Example: -B '*.cpp')
+ -D, --data-dir=<directory>     set path to data directory
+     --add-config-dir=<dir>     set path to an additional config directory
+     --config-file=<file>       set path to a lang or theme file
+ -d, --outdir=<directory>       name of output directory
+ -h, --help                     print this help
+ -i, --input=<file>             name of single input file
+ -o, --output=<file>            name of single output file
+ -p, --list-langs               list installed language definitions
+ -P, --progress                 print progress bar in batch mode
+ -q, --quiet                    supress progress info in batch mode
+ -S, --syntax=<type>            specify type of source code
+ -v, --verbose                  print debug info
+ -w, --list-themes              list installed colour themes
+     --force                    generate output if input syntax is unknown
+     --plug-in=<script>         execute Lua plug-in script; repeat option to
+                                  apply multiple plug-ins
+     --print-config             print path configuration
+     --print-style              print stylesheet only (see --style-outfile)
+     --skip=<list>              ignore listed unknown file types
+                                  (Example: --skip='bak;c~;h~')
+     --start-nested=<lang>      define nested language which starts input
+                                  without opening delimiter
+     --validate-input           test if input is text, remove Unicode BOM
+     --version                  print version and copyright information
 
 
+Output formatting options:
 
-3. SUPPORTED PROGRAMMING / MARKUP LANGUAGES:
+ -O, --out-format=<format>      output file in given format
+                                  <format>=[html, xhtml, latex, tex,
+                                  rtf, ansi, xterm256, bbcode, svg]
+ -c, --style-outfile=<file>     name of style file or output to stdout, if
+                                  'stdout' is given as file argument
+ -e, --style-infile=<file>      file to be included in style-outfile
+ -f, --fragment                 omit file header and footer
+ -F, --reformat=<style>         reformats and indents output in given style
+                                  <style>=[allman, banner, gnu,
+                                  horstmann, java, kr, linux, otbs,
+                                  stroustrup, whitesmith]
+ -I, --include-style            include style definition
+ -J, --line-length=<num>        line length before wrapping (see -W, -V)
+ -j, --line-number-length=<num> line number width incl. left padding
+ -k, --font=<font>              set font (specific to output format)
+ -K, --font-size=<num?>         set font size (specific to output format)
+ -l, --line-numbers             print line numbers in output file
+ -m, --line-number-start=<cnt>  start line numbering with cnt (assumes -l)
+ -s, --style=<style>            set colour style (see -w)
+ -t, --replace-tabs=<num>       replace tabs by <num> spaces
+ -T, --doc-title=<title>        document title
+ -u, --encoding=<enc>           set output encoding which matches input file
+                                  encoding; omit encoding info if enc=NONE
+ -V, --wrap-simple              wrap long lines without indenting function
+                                  parameters and statements
+ -W, --wrap                     wrap long lines
+ -z, --zeroes                   fill leading space of line numbers with 0's
+     --kw-case=<case>           change case of case insensitive keywords
+                                  <case> =  [upper, lower, capitalize]
+     --delim-cr                 set CR as end-of-line delimiter (MacOS 9)
+     --no-trailing-nl           omit trailing newline
+
+(X)HTML output options:
+
+ -a, --anchors                  attach anchor to line numbers
+ -y, --anchor-prefix=<str>      set anchor name prefix
+ -N, --anchor-filename          use input file name as anchor name
+ -C, --print-index              print index with hyperlinks to output files
+ -n, --ordered-list             print lines as ordered list items
+     --class-name=<str>         set CSS class name prefix
+     --inline-css               output CSS within each tag (verbose output)
+     --enclose-pre              enclose fragmented output with pre tag
+                                  (assumes -f)
+     --ctags-file[=<file>]      read ctags file to include meta information as
+                                  tooltips (default value: tags)
+
+LaTeX output options:
+
+ -b, --babel                    disable Babel package shorthands
+ -r, --replace-quotes           replace double quotes by \dq{}
+     --pretty-symbols           improve appearance of brackets and other symbols
+
+
+RTF output options:
+
+ -x, --page-size=<ps>           set page size
+                                  <ps> = [a3, a4, a5, b4, b5, b6, letter]
+     --char-styles              include character stylesheets
+
+
+SVG output options:
+
+     --height                   set image height (units allowed)
+     --width                    set image width (see --height)
+
+
+GNU source-highlight compatibility options:
+
+     --doc                      create stand alone document
+     --no-doc                   cancel the --doc option
+     --css=filename             the external style sheet filename
+     --src-lang=STRING          source language
+ -t, --tab=INT                  specify tab length
+ -n, --line-number[=0]          number all output lines, optional padding
+     --line-number-ref[=p]      number all output lines and generate an anchor,
+                                  made of the specified prefix p + the line
+                                  number  (default='line')
+     --output-dir=path          output directory
+     --failsafe                 if no language definition is found for the
+                                  input, it is simply copied to the output
+
+
+2.3 GUI OPTIONS
 -------------------------------------------------------------------------------
 
-Please see README_LANGLIST for the current set of supported languages.
-You may also run "highlight --list-langs" to get a list of supported file
-extensions.
+The Graphical User Interface offers a subset of the CLI's features. It includes
+a dynamic preview of the output file's apperarance. Please see screenshots
+and flash animations on the project website.
 
 
-
-4. FEATURES:
--------------------------------------------------------------------------------
-
-* highlighting of keywords, types, strings, numbers, escape sequences, comments,
-  operators and preprocessor directives
-* coloured output in HTML, XHTML 1.1, RTF, TeX, LaTeX, SVG, BBCode and terminal
-  escape sequences
-* supports referenced stylesheet files for HTML, LaTeX, TeX or SVG output
-* syntax elements are defined as regular expressions or plain string lists
-* customizable keyword groups
-* recognition of nested languages within a file
-* all configuration files are Lua scripts
-* supports plug-in scripts
-* reformatting and indentation of C, C++, C# and Java source code
-* wrapping of long lines
-* output of line numbers
-
-
-
-5. INPUT/OUTPUT:
+2.4 INPUT AND OUTPUT
 -------------------------------------------------------------------------------
 
 If no input or output file name is defined by --input and --output options,
@@ -162,7 +300,6 @@ filename, appending the extension of the chosen output type.
 The --out-dir option is recommended in batch mode. Use --quiet to improve
 performance (recommended for usage in shell scripts).
 
-
 HTML, TeX, LaTeX and SVG output
 -------------------------------
 
@@ -186,28 +323,6 @@ formatting information in a single file, which affects all referencing documents
 With --style-infile you define a file to be included in the final formatting
 information of the document. This way you enhance or redefine the default
 highlight style definitions without editing generated code.
-
-Example:
-
-/* content of user.css (add document frame and a line to linenumbers) */
- pre.hl {
-   border-width: 1px;
-   border-style:solid;
-   border-left-color: silver;
-   border-top-color: silver;
-   border-right-color: gray;
-   border-bottom-color: gray;
- }
-
- .hl.lin {
-   border-right:1px solid #555555;
-   padding-left:0.5em;
-   padding-right:0.5em;
-   margin-right:1em;
-   text-decoration:none;
- }
-Usage: highlight -l --style-infile user.css main.cpp
-
 
 Terminal output:
 ----------------
@@ -252,8 +367,130 @@ highlight -c stdout -s seashell --print-style
 This command prints only the CSS information to stdout (theme: Seashell).
 
 
+2.5 GNU SOURCE-HIGHLIGHT COMPATIBILITY
+-------------------------------------------------------------------------------
 
-6. HIGHLIGHT FILE FORMAT
+The command line interface is extensively harmonised with source-highlight
+(http://www.gnu.org/software/src-highlite/).
+
+The following highlight options have the same meaning as in source-highlight:
+ --input, --output, --help, --version, --out-format, --title, --data-dir,
+ --verbose, --quiet, --ctags-file
+
+These options were added to enhance compatibility:
+ --css, --doc, --failsafe, --line-number, --line-number-ref, --no-doc, --tab,
+ --output-dir, --src-lang
+
+These switches provide a common highlighter interface for scripts, plugins etc.
+
+
+2.6 ADVANCED OPTIONS
+-------------------------------------------------------------------------------
+
+Adding Exuberant Ctags information
+----------------------------------
+
+HTML output can be enhanced with descriptive tooltips based on ctags data:
+ctags *.*
+highlight --ctags-file *.cpp
+
+The default ctags-file parameter is "tags", so it is omitted in this example.
+This command will add the type, namespace and definition file path of recognized
+language tokens.
+Example: "member | class:highlight::HtmlGenerator | htmlgenerator.h"
+
+Prevent parsing of binary input files
+-------------------------------------
+
+If highlight could be invoked with all kinds of input, you can disable parsing
+of binary files using --validate-input. This flag causes highlight to match the
+input file header with a list of magic numbers. If a binary file type is
+detected, highlight quits with an error message. This switch also removes an
+UTF-8 BOM in the output.
+
+Highlight nested code without starting delimiter
+------------------------------------------------
+
+If a file starts with an embedded code section which misses the opening
+delimiter, the --start-nested option will switch to the nested language mode.
+This can happen with LuaTeX files:
+highlight luatex.tex --latex -t4 -semacs --start-nested=inc_luatex
+
+The inc_luatex definition is a Lua language definition with TeX line comments.
+Note that the nested code section has to end with the ending delimiter defined
+in the host language definition.
+
+
+2.7 TIPS AND TRICKS
+-------------------------------------------------------------------------------
+
+Test new configuration scripts:
+-------------------------------
+
+The option --config-file helps to test new config files before installing them.
+The given file must be a lang or theme file.
+
+highlight --config-file xxx.lang --config-file yyy.theme -I
+
+Debug language definitions:
+--------------------------
+
+Use --verbose to display the Lua and syntax data.
+
+Modify HTML line number formatting:
+-----------------------------------
+
+/* content of user.css */
+ pre.hl {
+   border-width: 1px;
+   border-style:solid;
+   border-left-color: silver;
+   border-top-color: silver;
+   border-right-color: gray;
+   border-bottom-color: gray;
+ }
+
+ .hl.lin {
+   border-right:1px solid #555555;
+   padding-left:0.5em;
+   padding-right:0.5em;
+   margin-right:1em;
+   text-decoration:none;
+ }
+
+Usage: highlight -l --style-infile user.css main.cpp
+
+HTML list formatting tricks:
+----------------------------
+
+The following examples assume that HTML was generated as ordered list using
+the --ordered-list switch. Include the CSS snippets with --style-infile.
+
+/* highlight odd lines */
+ol li:nth-child(odd) {
+  background-color: #1f3030;
+}
+
+/* highlight every 5th line*/
+ol li:nth-child(5n) {
+  background-color: #1f3030;
+}
+
+/* highlight every 10th line number*/
+ol li:nth-child(10n) {
+  color: #ffff00;
+}
+
+Remove an UTF8 BOM:
+-------------------
+
+Use --validate-input to get rid of the UTF8 byte order mark.
+
+
+3. CONFIGURATION
+-------------------------------------------------------------------------------
+
+3.1 FILE FORMAT
 -------------------------------------------------------------------------------
 
 The configuration files are Lua scripts. These constructs are sufficient to
@@ -281,9 +518,13 @@ Arrays may contain variables and can be nested.
 Please refer to http://www.lua.org/manual/5.1/manual.html for more details
 about the Lua syntax.
 
+3.2 REGULAR EXPRESSIONS
+-------------------------------------------------------------------------------
+
+Please see README_REGEX for the supported regex constructs.
 
 
-7. LANGUAGE DEFINITIONS:
+3.3 LANGUAGE DEFINITIONS
 -------------------------------------------------------------------------------
 
 A language definition describes all elements of a programming language which
@@ -308,7 +549,7 @@ Keywords = { Id, List|Regex, Group? }
 	with the highest group number is returned (counts from left to right))
 
 
-Comments = { {Block, Nested?, Delimiter=} }
+Comments = { {Block, Nested?, Delimiter={Open, Close?} }
 
   Block:     Boolean, true if comment is a block comment
   Nested:    Boolean, true if block comments can be nested (optional)
@@ -321,7 +562,7 @@ Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, RawPrefix? }
   Delimiter:      String, regular expression which describes string delimiters
   DelimiterPairs: List, includes open and close delimiters if not equal (regex),
 			includes optional Raw flag as boolean which marks
-			delimiter pair as raw string
+			delimiter pair to contain a raw string
   Escape:         String, regular expression of escape sequences (optional)
   RawPrefix:      String, defines raw string indicator (optional)
 
@@ -360,10 +601,6 @@ hl_lang_dir: path of language definition directory (use with dofile)
 
 Identifiers: Default regex for identifiers
 Digits:      Default regex for numbers
-
-See the file README_REGEX for a detailed description of the regular expression
-syntax.
-
 
 The following integer variables represent the internal highlighting states:
 
@@ -441,14 +678,14 @@ Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~]]
 EnableIndentation=true
 
 
-8. THEME DEFINITIONS
+3.4 THEME DEFINITIONS
 -------------------------------------------------------------------------------
 
 Colour themes contain the formatting information of the language elements which
 are described in language definitions.
 
 The files have to be stored as *.theme in HL_DIR/themes*.
-Apply a style with the --style option.
+Apply a theme with the --style option.
 
 
 Format attributes:
@@ -530,8 +767,7 @@ Keywords = {
 }
 
 
-
-9. KEYWORD GROUPS
+3.5 KEYWORD GROUPS
 -------------------------------------------------------------------------------
 
 You may define custom keyword groups and corresponding highlighting styles.
@@ -559,28 +795,10 @@ avoid editing of original highlight files.
 See the PLUG-IN SCRIPT section for details.
 
 
-10. FILE MAPPING
+3.6 PLUG-INS
 -------------------------------------------------------------------------------
 
-The script filetypes.conf assigns file extensions and shebang descriptions to
-language definitions.
-
-Format:
-
-FileMapping={
-  {  Lang, Extensions|Shebang },
-}
-
-Lang:       String, name of language definition
-Extensions: list of strings, contains file extensions referring to "Lang"
-Shebang:    String, Regular expression which matches the first line of the input
-            file
-
-
-11. PLUG-IN SCRIPTING
--------------------------------------------------------------------------------
-
-The --plug-in option receives the name of a Lua script which can override and
+The --plug-in option receives the path of a Lua script which can override and
 enhance the settings of theme and language definition files. Using plug-ins,
 it is possible to apply costum settings without editing installed highlight
 configuration files.
@@ -601,11 +819,11 @@ Chunk: Name of Lua function
 If type is "theme", the chunk will applied to the colour theme.
 If type is "lang", the chunk will applied to the language definition.
 
-The chunk function will receive an optional parameter which contains a string
+The chunk functions receive an optional parameter which contains a string
 with the description of the theme or language ("Description" parameter).
 The chunks are interpreted after the theme or lang file were loaded, so you
-can access elements of these files.
-
+can access variables of these files (the plug-in chunks share the  Lua state
+of the configuration files).
 
 Example:
 
@@ -636,44 +854,47 @@ Plugins={
 }
 
 
-12. ADVANCED OPTIONS
+3.7 FILE MAPPING
 -------------------------------------------------------------------------------
 
-Adding Exuberant Ctags information
+The script filetypes.conf assigns file extensions and shebang descriptions to
+language definitions.
 
-HTML output can be enhanced with descriptive tooltips based on ctags data:
-ctags *.*
-highlight --ctags-file *.cpp
+Format:
 
-The default ctags-file parameter is "tags", so it is omitted in this example.
-This command will add the type, namespace and definition file path of recognized
-language tokens.
-Example: "member | class:highlight::HtmlGenerator | htmlgenerator.h"
+FileMapping={
+  {  Lang, Extensions|Shebang },
+}
 
+Lang:       String, name of language definition
+Extensions: list of strings, contains file extensions referring to "Lang"
+Shebang:    String, Regular expression which matches the first line of the input
+            file
 
-Prevent parsing of binary input files
-
-If highlight could be invoked with all kinds of input, you can disable parsing
-of binary files using --validate-input. This flag causes highlight to match the
-input file header with a list of magic numbers. If a binary file type is
-detected, highlight quits with an error message. This switch also removes an
-UTF-8 BOM.
+Edit the file gui_files/ext/fileopenfilter.conf to add new syntax types to
+the file open filter of the GUI.
 
 
-Highlight nested code without starting delimiter
+4. EMBEDDING HIGHLIGHT
+-------------------------------------------------------------------------------
 
-If a file starts with an embedded code section which misses the opening
-delimiter, the --start-nested option will switch to the nested language mode.
-This can happen with LuaTeX files:
-highlight luatex.tex --latex -t4 -semacs --start-nested=inc_luatex
+4.1 SAMPLE SCRIPTS
+-------------------------------------------------------------------------------
 
-The inc_luatex definition is a Lua language definition with TeX line comments.
-Note that the nested code section has to end with the ending delimiter defined
-in the host language definition.
+See the /examples subdirectory in the highlight source directory for some
+example scripts in PHP, Perl and Python  which invoke highlight and retrieve
+its output as string. These scripts may be used to develop plug-ins for other
+applications.
+
+4.2 SWIG INTERFACE
+-------------------------------------------------------------------------------
+
+A SWIG interface file is located in /examples/swig.
+See README_SWIG for installation instructions and the example scripts as
+programming reference.
 
 
-
-13. SCRIPTS AND PLUGINS FOR WEB APPLICATIONS
+4.3 THIRD PARTY SCRIPTS AND PLUG-INS
 -------------------------------------------------------------------------------
 
 See the /examples/web_plugins subdirectory in the highlight installation for
@@ -684,36 +905,89 @@ some plugins which integrate highlight in Wiki and blogging software:
 -Wordpress
 -Serendipity
 
+Other uses of highlight can be found online:
+
+MediaWiki plugin
+http://www.mediawiki.org/wiki/Extension:ASHighlight
+
+MacOS X Quicklook plugin
+http://code.google.com/p/qlcolorcode/
+
+CamlHighlight (Ocsigen extension)
+http://camlhighlight.forge.ocamlcore.org/
+
+highlighter package for the R language
+http://cran.r-project.org/web/packages/highlight/index.html
+
+Inkscape plug-in
+http://xico.freeshell.org/inksyntax/index.html
 
 
-14. SWIG INTERFACE
+5. BUILDING AND INSTALLING
 -------------------------------------------------------------------------------
 
-A SWIG interface file is located in /examples/swig.
-See README_SWIG for installation instructions and the example scripts as
-programming reference.
-
-
-
-15. GNU SOURCE-HIGHLIGHT COMPATIBILITY
+5.1 PRECOMPILED PACKAGES
 -------------------------------------------------------------------------------
 
-The command line interface is extensively harmonised with source-highlight
-(http://www.gnu.org/software/src-highlite/).
+Highlight is written in ISO C++. The following packages are available:
+- UNIX console  and GUI application
+- W32 console and GUI application
+- statically and dynamically linked library
 
-The following highlight options have the same meaning as in source-highlight:
- --input, --output, --help, --version, --out-format, --title, --data-dir,
- --verbose, --quiet, --ctags-file
+The website www.andre-simon.de offers links to precompiled packages for several
+operating systems (like Debian, Arch Linux, Ubuntu, Darwin, FreeBSD).
+The website distributes the latest upstream sources.
 
-These options were added to enhance compatibility:
- --css, --doc, --failsafe, --line-number, --line-number-ref, --no-doc, --tab,
- --output-dir, --src-lang
+Source tarball
+Windows W32 executables
+http://www.andre-simon.de
 
-These switches provide a common highlighter interface for scripts, plugins etc.
+Arch Linux
+http://aur.archlinux.org/packages.php?ID=15194
+
+Debian GNU/Linux
+http://packages.debian.org/unstable/devel/highlight
+
+Fedora
+http://koji.fedoraproject.org/koji/packageinfo?packageID=2044
+
+FreeBSD
+http://www.freshports.org/textproc/highlight/
+
+Gentoo Portage
+http://www.gentoo-portage.com/app-text/highlight
+
+Mac OS X
+http://www.hmug.org/pub/MacOS_X/BSD/Applications/Text/highlight/
+
+Slackware
+http://sotirov-bg.net/slackpack/search.cgi?q=highlight
+
+SuSE
+http://packman.links2linux.de/package/highlight
+
+Ubuntu
+http://ns2.canonical.com/lucid/highlight
+
+The file INSTALL contains details about package contents and installation.
 
 
+5.2 BUILDING DEPENDENCIES
+-------------------------------------------------------------------------------
 
-16. CONTACT
+Highlight is known to compile with gcc and suncc.
+It depends on Boost headers and Lua 5.1 developer packages.
+The optional GUI depends on Qt4 developer packages.
+Please see the makefile for further options.
+
+5.3 PACKAGING EXAMPLE
+-------------------------------------------------------------------------------
+
+See http://andre-simon.de/dokuwiki/doku.php?id=packaging_resources for
+Debian and Fedora packaging examples.
+
+
+6. DEVELOPER CONTACT
 -------------------------------------------------------------------------------
 
 Andre Simon
@@ -723,4 +997,7 @@ http://www.andre-simon.de/
 
 http://wiki.andre-simon.de/
 Because of repeated spamming abuse, you have to login to edit pages.
-The wiki login: user, Password h1gHL1te
+Wiki login: User "user", Password "h1gHL1te"
+
+sf.net project with SVN repository, download mirror, bug tracker, help forum:
+http://sourceforge.net/projects/syntaxhighlight/
