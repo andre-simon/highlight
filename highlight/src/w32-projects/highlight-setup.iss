@@ -5,7 +5,7 @@
 AppName=Highlight Code Converter
 
 AppVerName=WinHighlight
-OutputBaseFilename=highlight-setup-3.1-beta2
+OutputBaseFilename=highlight-setup-3.1-beta3
 
 AppPublisher=André Simon
 AppPublisherURL=http://www.andre-simon.de
@@ -60,10 +60,10 @@ Source: "..\core\Diluculum\*.*";  Excludes: "*.o"; DestDir: "{app}\src\core\Dilu
 Source: "..\gui-qt\*.*";  Excludes: "*.o,*.Release,*.Debug,ui_*,*.user,*.qm,Makefile"; DestDir: "{app}\src\gui-qt\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\cli\*.*";  Excludes: "*.o"; DestDir: "{app}\src\cli\";  Flags: ignoreversion; Components: sourcecode;
 
-Source: "..\projectfiles\*.iss";   DestDir: "{app}\projectfiles\";  Flags: ignoreversion; Components: sourcecode;
-Source: "..\projectfiles\highlight_cli\*.pro";   DestDir: "{app}\projectfiles\highlight_cli\";  Flags: ignoreversion; Components: sourcecode;
-Source: "..\projectfiles\highlight_lib\*.pro";   DestDir: "{app}\projectfiles\highlight_lib\";  Flags: ignoreversion; Components: sourcecode;
-Source: "..\projectfiles\highlight_gui\*.*"; Excludes: "*.o,*.Release,*.Debug,ui_*,*.user,*.qm,Makefile"; DestDir: "{app}\projectfiles\highlight_gui\";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\w32-projects\*.iss";   DestDir: "{app}\projectfiles\";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\w32-projects\highlight_cli\*.pro";   DestDir: "{app}\projectfiles\highlight_cli\";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\w32-projects\highlight_lib\*.pro";   DestDir: "{app}\projectfiles\highlight_lib\";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\w32-projects\highlight_gui\*.*"; Excludes: "*.o,*.Release,*.Debug,ui_*,*.user,*.qm,Makefile"; DestDir: "{app}\projectfiles\highlight_gui\";  Flags: ignoreversion; Components: sourcecode;
 
 
 

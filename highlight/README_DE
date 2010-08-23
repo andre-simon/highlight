@@ -32,7 +32,7 @@ INHALT
    3.6 PLUG-INS
    3.7 DATEIZUORDNUNGEN
 
-4. HIGHLIGHT EINBETTEN
+4. HIGHLIGHT INTEGRIEREN
    4.1 BEISPIELSKRIPTE
    4.2 SWIG SCHNITTSTELLE
    4.3 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
@@ -547,7 +547,7 @@ Eine Sprachdefinition beschreibt die Elemente einer Programmiersprache, die
 durch verschiedene Farben und Schrifttypen hervorgehoben werden.
 Die Datei muss in $HL_DIR/langDefs/ unter folgendem Namen gespeichert werden:
 
-<ueliche Erweiterung der Sourcecodedateien>.lang
+<uebliche Erweiterung der Sourcecodedateien>.lang
 
 Beispiele: PHP -> php.lang, Java -> java.lang
 
@@ -704,8 +704,8 @@ EnableIndentation=true
 3.4 FARBDEFINITIONEN
 -------------------------------------------------------------------------------
 
-Farbstile legen die Formatierung der Sprachelemente fest, die in den Sprach-
-definitionen beschrieben wurden.
+Farbdefinitionen legen die Formatierung der Sprachelemente fest, die in den 
+Sprachdefinitionen beschrieben wurden.
 
 Die Dateien muessen mit der Endung .theme in $HL_DIR/themes (siehe Abschnitt 1)
 gespeichert werden. Mit der --style (-s) Option wird das Farbschema angewandt.
@@ -844,7 +844,7 @@ Wenn type "lang" ist, wird die Funktion auf eine Sprachdefinition angewandt.
 
 Die "Chunk"-Funktion erhaelt einen optionalen Parameter mit der Beschreibung
 des Farbschemas bzw. der Sprachdefinition ("Description"-Parameter).
-Die Funktionen werden nach dem Laden der KOnfigurationsskripte ausgefuehrt,
+Die Funktionen werden nach dem Laden der Konfigurationsskripte ausgefuehrt,
 daher kann auf die Elemente dieser Skripte zugegriffen werden.
 
 Beispiel:
@@ -927,7 +927,7 @@ sich einige Plugins, die Highlight in Webanwendungen integrieren:
 -Wordpress
 -Serendipity
 
-Sie finden weitere Anwendnungsfaelle im Internet:
+Sie finden weitere Anwendungsfaelle im Internet:
 
 MediaWiki plugin
 http://www.mediawiki.org/wiki/Extension:ASHighlight
