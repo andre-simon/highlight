@@ -1,5 +1,17 @@
 CHANGELOG Highlight
 
+highlight 3.1
+
+24.08.2010
+
+-updated Diluculum to version 0.5.3
+-fixed README
+-fixed conversion without highlighting (--syntax txt)
+-fixed msxml definition (thanks to Andrei Rosca)
+-added edit-flashdevelop theme (thanks to Andrei Rosca)
+-CLI: fixed minor bugs
+
+---
 highlight 3.1 beta3
 
 12.08.2010

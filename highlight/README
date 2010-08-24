@@ -135,7 +135,7 @@ input file called main.cpp:
   highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Define an output directory:
-  highlight -O some/target/dir/ *.cpp *.h
+  highlight -d some/target/dir/ *.cpp *.h
 
 See "highlight --help" or "man highlight" for more details.
 

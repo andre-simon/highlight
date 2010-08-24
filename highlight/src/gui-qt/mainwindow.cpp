@@ -435,16 +435,17 @@ bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap) {
         ls.doFile (filetypesPath.toStdString());
         int idx=1;
         string langName;
-        while (ls["FileMapping"][idx].value() !=Diluculum::Nil) {
-            langName = ls["FileMapping"][idx]["Lang"].value().asString();
-            if (ls["FileMapping"][idx]["Extensions"].value() !=Diluculum::Nil) {
+	Diluculum::LuaValue mapEntry;
+        while ((mapEntry = ls["FileMapping"][idx].value()) !=Diluculum::Nil) {
+            langName = mapEntry["Lang"].asString();
+            if (mapEntry["Extensions"] !=Diluculum::Nil) {
                 int extIdx=1;
-                while (ls["FileMapping"][idx]["Extensions"][extIdx].value() !=Diluculum::Nil) {
-                    extMap->insert ( make_pair ( ls["FileMapping"][idx]["Extensions"][extIdx].value().asString(),  langName ) );
+                while (mapEntry["Extensions"][extIdx] !=Diluculum::Nil) {
+                    extMap->insert ( make_pair ( mapEntry["Extensions"][extIdx].asString(),  langName ) );
                     extIdx++;
                 }
-            } else if (ls["FileMapping"][idx]["Shebang"].value() !=Diluculum::Nil) {
-                shebangMap->insert ( make_pair ( ls["FileMapping"][idx]["Shebang"].value().asString(),  langName ) );
+            } else if (mapEntry["Shebang"] !=Diluculum::Nil) {
+                shebangMap->insert ( make_pair ( mapEntry["Shebang"].asString(),  langName ) );
             }
             idx++;
         }

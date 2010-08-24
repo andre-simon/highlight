@@ -139,7 +139,7 @@ namens main.cpp erzeugt:
   highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Ausgabeverzeichnis definieren:
-  highlight -O some/target/dir/ *.cpp *.h
+  highlight -d some/target/dir/ *.cpp *.h
 
 
 2.2 CLI OPTIONEN

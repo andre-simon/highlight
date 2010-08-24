@@ -2,10 +2,9 @@
                           cmdlineoptions.cpp  -  description
                              -------------------
     begin                : Sun Nov 25 2001
-    copyright            : (C) 2001-2008 by Andre Simon
+    copyright            : (C) 2001-2010 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
-
 
 /*
 This file is part of Highlight.
@@ -24,7 +23,6 @@ You should have received a copy of the GNU General Public License
 along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "cmdlineoptions.h"
 #include "platform_fs.h"
 #include "datadir.h"
@@ -34,7 +32,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "arg_parser.h"
 
 using namespace std;
-
 
 CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		numberSpaces ( 0 ),
@@ -81,9 +78,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		helpLang ( "en" ),
 		encodingName ( "ISO-8859-1" )
 {
-
-// 	loadConfigurationFile();
-
 	enum Optcode
 	{
 		S_OPT_ADDCONFDIR = 256, S_OPT_ENCLOSE_PRE, S_OPT_FORCE_OUTPUT,
@@ -650,11 +644,6 @@ bool CmdLineOptions::getFlag ( const string& paramVal )
 {
 	return StringTools::change_case ( paramVal ) =="true";
 }
-/*
-bool CmdLineOptions::formattingEnabled(){
-    return !indentScheme.empty();
-}
-*/
 bool CmdLineOptions::orderedList() const
 {
 	return opt_ordered_list;
