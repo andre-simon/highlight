@@ -1,5 +1,18 @@
 CHANGELOG Highlight
 
+highlight 3.2
+
+03.11.2010
+
+-added ld to linking options in makefile (thanks to Michael Serrano)
+-added plug-in function AddKeyword (suggested by Michael Serrano)
+-added plug-in bash_functions.lua
+-added keyword group ID parameter to the plug-in function OnStateChange
+
+ todo: update docs
+ todo: theme name in style comment
+
+---
 highlight 3.1
 
 24.08.2010

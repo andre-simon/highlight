@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.1  -------------------------- August 2010 ---
+---  HIGHLIGHT MANUAL - Version 3.2  ------------------------ November 2010 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -654,12 +654,25 @@ HL_UNKNOWN
 
 Hook-Funktionen:
 
-OnStateChange(oldState, newState, token)
+OnStateChange(oldState, newState, token, kwGroupID)
 
   Hook Event: Wechsel des Parser-Zustandes
-  Input:      Alter Zustand, geplanter neuer Zustand und das Token das zum
-	      neuen Zustand fuehrte
+  Parameters: oldState:  alter Zustand
+              newState:  geplanter neuer Zustand
+              token:     aktuelles Token das zum neuen Zustand fuehrte
+              kwGroupID: wenn newState HL_KEYWORD ist,enthaelt der Parameter
+                         die Gruppen-ID des Schluesselworts
   Returns:    Korrekter Zustand mit dem fortgefahren wird
+
+
+Andere Funktionen:
+
+AddKeyword(keyword, kwGroupID)
+
+  Parameters: keyword:   String der zu einer Schluesselwort-Liste hinzugefuegt
+                         werden soll
+              kwGroupID: Gruppen-ID des Schluesselworts
+  Returns:    true wenn erfolgreich
 
 
 Beispiel:
@@ -704,7 +717,7 @@ EnableIndentation=true
 3.4 FARBDEFINITIONEN
 -------------------------------------------------------------------------------
 
-Farbdefinitionen legen die Formatierung der Sprachelemente fest, die in den 
+Farbdefinitionen legen die Formatierung der Sprachelemente fest, die in den
 Sprachdefinitionen beschrieben wurden.
 
 Die Dateien muessen mit der Endung .theme in $HL_DIR/themes (siehe Abschnitt 1)
@@ -846,6 +859,11 @@ Die "Chunk"-Funktion erhaelt einen optionalen Parameter mit der Beschreibung
 des Farbschemas bzw. der Sprachdefinition ("Description"-Parameter).
 Die Funktionen werden nach dem Laden der Konfigurationsskripte ausgefuehrt,
 daher kann auf die Elemente dieser Skripte zugegriffen werden.
+
+Innerhalb einer "lang"-Funktion kann die Funktion AddKeyword verwendet werden.
+Wenn OnStateChange als lokale Funktion definiert wird, wird dieser Hook mit
+dem Plug-In wirksam. Eine vordefinierte OnStateChange-Funktion der Sprach-
+definition wird ueberschrieben.
 
 Beispiel:
 

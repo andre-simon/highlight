@@ -39,16 +39,18 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <Diluculum/LuaState.hpp>
 #include <Diluculum/LuaVariable.hpp>
 #include <Diluculum/LuaFunction.hpp>
+
 #include "platform_fs.h"
 #include "enums.h"
 #include "re/Pattern.h"
 #include "re/Matcher.h"
 
+#define GLOBAL_INSTANCE_NAME "HL_SRInstance"
+
 using namespace std;
 
 namespace highlight
 {
-
 	class RegexElement;
 
 	/** maps keywords and the corresponding class IDs*/
@@ -71,8 +73,8 @@ namespace highlight
 
 			~SyntaxReader();
 
-			/** \return Symbol string, containg all known symbols with the referencing state ids*/
-			//const string &getSymbolString() const { return symbolString; }
+
+
 
 			/** \return Failed regular expression */
 			 string getFailedRegex() const { return failedRegex; }
@@ -164,11 +166,6 @@ namespace highlight
 			 */
 			bool matchesOpenDelimiter ( const string& token, State s, int openDelimId);
 
-/*
-			string getDelimRegex(const string & lang){
-				return exitDelimiters[lang];
-			}
-*/
 			/** initializes end delimiter regex to switch back to host language
 				\param langPath path of embedded language definition
 			*/
@@ -207,6 +204,8 @@ namespace highlight
 				\param langDefPath absolute path of language definition
 			*/
 			static void initLuaState(Diluculum::LuaState& ls, const string& langDefPath);
+
+
 
 		private:
 
@@ -266,13 +265,15 @@ namespace highlight
 
 			bool readFlag(const Diluculum::LuaVariable& var) ;
 
+			static int luaAddKeyword (lua_State *L);
+
+			void addKeyword(unsigned int groupID, const string& kw);
 
 			Diluculum::LuaFunction* validateStateChangeFct;
 
 			Diluculum::LuaState* luaState; // make member to allow interaction with codeparser instance
 
 			vector<Diluculum::LuaFunction*> pluginChunks;
-
 	};
 
 

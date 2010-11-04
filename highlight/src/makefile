@@ -20,7 +20,7 @@ CFLAGS:=-Wall -O2 ${CFLAGS}
 #CFLAGS:=-ggdb ${CFLAGS}
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.0
+SO_VERSION=3.2
 
 
 # Source paths
@@ -51,10 +51,10 @@ ifdef PIC
 	CFLAGS+=-fPIC
 endif
 
+LDFLAGS = -ldl
 # Do not strip by default (Mac OS X lazy pointer issues)
 # Add -static to avoid linking with shared libs (can cause trouble when highlight
 # is run as service)
-#LDFLAGS =
 #LDFLAGS = ${LDFLAGS} -s
 #LDFLAGS= -Wl,--as-needed
 

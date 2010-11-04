@@ -1,20 +1,16 @@
 --[[
-
 Sample plugin file for highlight 3.1
 
 Adds additional keywords to C++ syntax description and corresponding
 formatting in colour theme
-
-USAGE: highlight -I main.cpp --plug-in=plugin.lua
 ]]
 
 Description="Add Qt keywords to C and C++ definition"
 
--- function to update language definition with syslog levels
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
   if desc=="C and C++" then
-    -- insert Qt keywords
+	-- insert Qt keywords
 	table.insert( Keywords,
                   { Id=1, List={"slots" }
                   } )
@@ -30,7 +26,6 @@ function syntaxUpdate(desc)
   end
 end
 
--- function to update theme definition
 -- optional parameter: theme description
 function themeUpdate(desc)
   if table.getn(Keywords)==4 then

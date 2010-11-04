@@ -495,12 +495,12 @@ namespace highlight
 					currentKeywordClass=langInfo.isKeyword ( reservedWord );
 					if ( !currentKeywordClass && regexGroups[oldIndex].state==KEYWORD )
 						currentKeywordClass = regexGroups[oldIndex].kwClass;
-					return validateState(( currentKeywordClass ) ? KEYWORD : STANDARD, oldState);
+					return validateState(( currentKeywordClass ) ? KEYWORD : STANDARD, oldState, currentKeywordClass);
 					//return ( currentKeywordClass ) ? KEYWORD : STANDARD;
 				}
 				else
 				{
-					return validateState(regexGroups[oldIndex].state, oldState);
+					return validateState(regexGroups[oldIndex].state, oldState, 0);
 					//return regexGroups[oldIndex].state;
 				}
 			}
@@ -512,7 +512,7 @@ namespace highlight
 	}
 
 
-	State CodeGenerator::validateState(State newState, State oldState){
+	State CodeGenerator::validateState(State newState, State oldState, unsigned int kwClass){
 
 	    if (langInfo.getValidateStateChangeFct()){
 
@@ -520,6 +520,7 @@ namespace highlight
 			  params.push_back(Diluculum::LuaValue(oldState));
 			  params.push_back(Diluculum::LuaValue(newState));
 			  params.push_back(Diluculum::LuaValue(token));
+			  params.push_back(Diluculum::LuaValue(kwClass));
 
 			  Diluculum::LuaValueList res=
 			      langInfo.getLuaState()->call ( *langInfo.getValidateStateChangeFct(),

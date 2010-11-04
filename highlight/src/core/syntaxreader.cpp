@@ -6,7 +6,6 @@
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
-
 /*
 This file is part of Highlight.
 
@@ -24,18 +23,33 @@ You should have received a copy of the GNU General Public License
 along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include <memory>
 
 #include "syntaxreader.h"
 #include "stringtools.h"
 #include "enums.h"
 
-
 using namespace std;
 
 namespace highlight
 {
+
+int SyntaxReader::luaAddKeyword (lua_State *L) {
+    int retVal=0;
+    if (lua_gettop(L)==2){
+      	const char*keyword=lua_tostring(L, 1);
+      	unsigned int kwgroupID=lua_tonumber(L, 2);
+	lua_getglobal(L, GLOBAL_INSTANCE_NAME);
+	SyntaxReader **a=reinterpret_cast<SyntaxReader **>(lua_touserdata(L, 3));
+	if (*a){
+	  (*a)->addKeyword(kwgroupID, keyword);
+	  retVal=1;
+	}
+    }
+    lua_pushboolean(L, retVal);
+    return 1;
+}
+
 
 const string SyntaxReader::REGEX_IDENTIFIER =
     "[a-zA-Z_]\\w*";
@@ -87,15 +101,16 @@ unsigned int SyntaxReader::generateNewKWClass ( const string& newClassName )
 {
     unsigned int newClassID=0;
     bool found=false;
-    while ( newClassID<keywordClasses.size() && !found )
+    while (!keywordClasses.empty() && newClassID<keywordClasses.size() && !found )
     {
-        found = ( newClassName==keywordClasses[newClassID++] );
+        found = ( newClassName==keywordClasses.at(newClassID++) );
     }
     if ( !found )
     {
         newClassID++;
         keywordClasses.push_back ( newClassName );
     }
+
     return newClassID;
 }
 
@@ -138,7 +153,13 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
 	ls["HL_IDENTIFIER_BEGIN"]=IDENTIFIER_BEGIN;
 	ls["HL_IDENTIFIER_END"]=IDENTIFIER_END;
 	ls["HL_UNKNOWN"]=_UNKNOWN;
+}
 
+
+void SyntaxReader::addKeyword(unsigned int groupID, const string& kw){
+  if (!isKeyword ( kw )){
+    keywords.insert ( make_pair (kw, groupID ) );
+  }
 }
 
 LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
@@ -156,10 +177,14 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
 	Diluculum::LuaState& ls=*luaState;
 	initLuaState(ls, langDefPath);
 
+	lua_register (ls.getState(),"AddKeyword",luaAddKeyword);
+
+	SyntaxReader **s = (SyntaxReader **)lua_newuserdata(ls.getState(), sizeof(SyntaxReader *));
+	*s=this;
+	lua_setglobal(ls.getState(), GLOBAL_INSTANCE_NAME);
+
         // ececute script and read values
         ls.doFile (langDefPath);
-
-	Diluculum::LuaValueMap globals = ls.globals();
 
         langDesc = ls["Description"].value().asString();
 
@@ -170,6 +195,8 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
 	    ls.call(*pluginChunks[i], params, "syntax user function");
 	  }
 	}
+
+	Diluculum::LuaValueMap globals = ls.globals();
 
         ignoreCase=readFlag(ls["IgnoreCase"]);
         reformatCode=readFlag(ls["EnableIndentation"]);

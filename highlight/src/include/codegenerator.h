@@ -709,7 +709,7 @@ namespace highlight
 
 			void loadEmbeddedLang(const string&embedLangDefPath);
 
-			State validateState(State newState, State oldState);
+			State validateState(State newState, State oldState, unsigned int kwClass);
 
 	};
 

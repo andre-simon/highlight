@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.1    ------------------------ August 2010 ---
+---  HIGHLIGHT MANUAL - Version 3.2    ---------------------- November 2010 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -631,13 +631,25 @@ HL_UNKNOWN
 
 Hook functions:
 
-OnStateChange(oldState, newState, token)
+OnStateChange(oldState, newState, token, kwGroupID)
 
   Hook Event: Highlighting parser state change
-  Input:      Old state, intended new state and the current token which led to
-	      the new state
+  Parameters: oldState:  old state
+              newState:  intended new state
+              token:     the current token which triggered
+	                 the new state
+              kwGroupID: if newState is HL_KEYWORD, the parameter
+                         contains the keyword group ID
   Returns:    Correct state to continue
 
+
+Other functions:
+
+AddKeyword(keyword, kwGroupID)
+
+  Parameters: keyword:   string which should be added to a keyword list
+              kwGroupID: keyword group ID of the keyword
+  Returns:    true if successfull
 
 Example:
 --------
@@ -824,6 +836,12 @@ with the description of the theme or language ("Description" parameter).
 The chunks are interpreted after the theme or lang file were loaded, so you
 can access variables of these files (the plug-in chunks share the  Lua state
 of the configuration files).
+
+The function AddKeyword can be invoked within a "lang" chunk.
+If OnStateChange is defined as local function within the chunk, this hook
+will become active. A predefined OnStateChange function of the language
+definition will be overriden.
+
 
 Example:
 
