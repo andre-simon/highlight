@@ -102,7 +102,7 @@ namespace highlight
 
 	string Xterm256Generator::getKeywordOpenTag ( unsigned int styleID )
 	{
-		return getOpenTag ( docStyle.getKeywordStyle ( langInfo.getKeywordClasses() [styleID] ) );
+		return getOpenTag ( docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
 	}
 
 	string Xterm256Generator::getKeywordCloseTag ( unsigned int styleID )

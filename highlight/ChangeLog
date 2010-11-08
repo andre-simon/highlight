@@ -2,15 +2,19 @@ CHANGELOG Highlight
 
 highlight 3.2
 
-03.11.2010
+08.11.2010
 
 -added ld to linking options in makefile (thanks to Michael Serrano)
 -added plug-in function AddKeyword (suggested by Michael Serrano)
+-language definitions are cached instead of being reloaded if input syntax
+  changes
 -added plug-in bash_functions.lua
 -added keyword group ID parameter to the plug-in function OnStateChange
+-added theme description in output style's comment
 
  todo: update docs
  todo: theme name in style comment
+ todo: drop syntaxreader reset
 
 ---
 highlight 3.1

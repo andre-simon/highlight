@@ -214,7 +214,7 @@ namespace highlight
 
 	string SVGGenerator::getKeywordOpenTag ( unsigned int styleID )
 	{
-		return getOpenTag ( langInfo.getKeywordClasses() [styleID] );
+		return getOpenTag ( currentSyntax->getKeywordClasses() [styleID] );
 	}
 
 	string SVGGenerator::getKeywordCloseTag ( unsigned int styleID )

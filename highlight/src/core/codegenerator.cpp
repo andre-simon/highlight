@@ -106,7 +106,8 @@ namespace highlight
 
 
 	CodeGenerator::CodeGenerator ( highlight::OutputType type )
-			:in ( NULL ),
+			:currentSyntax(NULL),
+			in ( NULL ),
 			out ( NULL ),
 			encoding ( "none" ),
 			docTitle ( "Source file" ),
@@ -140,6 +141,10 @@ namespace highlight
 	CodeGenerator::~CodeGenerator()
 	{
 		delete formatter;
+
+		for ( map<string, SyntaxReader*>::iterator it=syntaxReaders.begin(); it!=syntaxReaders.end(); it++ ){
+		  delete it->second;
+		}
 	}
 
 
@@ -324,11 +329,6 @@ namespace highlight
 		keywordCase = keyCase;
 	}
 
-	const SyntaxReader &CodeGenerator::getSyntaxReader()
-	{
-		return langInfo;
-	}
-
 	void CodeGenerator::setEOLDelimiter(char delim){
 		eolDelimiter = delim;
 	}
@@ -352,6 +352,18 @@ namespace highlight
 
 	string CodeGenerator::getPluginScriptError(){
 	    return userScriptError;
+	}
+
+	string CodeGenerator::getSyntaxRegexError(){
+	  return (currentSyntax)? currentSyntax->getFailedRegex(): "syntax undef";
+	}
+	string CodeGenerator::getSyntaxLuaError(){
+	  return (currentSyntax)? currentSyntax->getLuaErrorText(): "syntax undef";
+
+	}
+	string CodeGenerator::getSyntaxDescription(){
+	  return (currentSyntax)? currentSyntax->getDescription(): "syntax undef";
+
 	}
 
 	unsigned int CodeGenerator::getLineNumber()
@@ -387,9 +399,9 @@ namespace highlight
 		int groupID=0;
 
 		// cycle through all regex, save the start and ending indices of matches to report them later
-		for ( unsigned int i=0; i<langInfo.getRegexElements().size(); i++ )
+		for ( unsigned int i=0; i<currentSyntax->getRegexElements().size(); i++ )
 		{
-			RegexElement *regexElem = langInfo.getRegexElements() [i];
+			RegexElement *regexElem = currentSyntax->getRegexElements() [i];
 			auto_ptr<Matcher> matcher ( regexElem->rePattern->createMatcher ( line ) );
 
 			while ( matcher->findNextMatch() )
@@ -486,13 +498,13 @@ namespace highlight
 
 
 				if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN) {
-					embedLangDefPath = langInfo.getNewPath(regexGroups[oldIndex].name);
+					embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
 				}
 
 				if ( regexGroups[oldIndex].state==IDENTIFIER_BEGIN || regexGroups[oldIndex].state==KEYWORD )
 				{
-					string reservedWord= ( langInfo.isIgnoreCase() ) ? StringTools::change_case ( token ) :token;
-					currentKeywordClass=langInfo.isKeyword ( reservedWord );
+					string reservedWord= ( currentSyntax->isIgnoreCase() ) ? StringTools::change_case ( token ) :token;
+					currentKeywordClass=currentSyntax->isKeyword ( reservedWord );
 					if ( !currentKeywordClass && regexGroups[oldIndex].state==KEYWORD )
 						currentKeywordClass = regexGroups[oldIndex].kwClass;
 					return validateState(( currentKeywordClass ) ? KEYWORD : STANDARD, oldState, currentKeywordClass);
@@ -514,27 +526,24 @@ namespace highlight
 
 	State CodeGenerator::validateState(State newState, State oldState, unsigned int kwClass){
 
-	    if (langInfo.getValidateStateChangeFct()){
+	    if (currentSyntax->getValidateStateChangeFct()){
 
-			  Diluculum::LuaValueList params;
-			  params.push_back(Diluculum::LuaValue(oldState));
-			  params.push_back(Diluculum::LuaValue(newState));
-			  params.push_back(Diluculum::LuaValue(token));
-			  params.push_back(Diluculum::LuaValue(kwClass));
+		Diluculum::LuaValueList params;
+		params.push_back(Diluculum::LuaValue(oldState));
+		params.push_back(Diluculum::LuaValue(newState));
+		params.push_back(Diluculum::LuaValue(token));
+		params.push_back(Diluculum::LuaValue(kwClass));
 
-			  Diluculum::LuaValueList res=
-			      langInfo.getLuaState()->call ( *langInfo.getValidateStateChangeFct(),
-							      params,"getValidateStateChangeFct call")  ;
+		Diluculum::LuaValueList res=
+		    currentSyntax->getLuaState()->call ( *currentSyntax->getValidateStateChangeFct(),
+						    params,"getValidateStateChangeFct call")  ;
 
-			     	//cerr << "result fct call:"<<res.size()<<"\n";
-			       //	cerr << "result fct call:"<<res[0].asNumber()<<"\n";
-			  if (res.size()==1){
-				return (State)res[0].asNumber();
-			  }
+		if (res.size()==1){
+		      return (State)res[0].asNumber();
+		}
 	  }
 	  return newState;
 	}
-
 
 	//it is faster to pass ostream reference
 	void CodeGenerator::maskString ( ostream& ss, const string & s )
@@ -638,17 +647,26 @@ namespace highlight
 
 	LoadResult CodeGenerator::loadLanguage ( const string& langDefPath )
 	{
-		bool reloadNecessary= langInfo.needsReload ( langDefPath );
+		bool reloadNecessary= currentSyntax ? currentSyntax->needsReload ( langDefPath ): true;
 		LoadResult result=LOAD_OK;
+
 		if ( reloadNecessary )
 		{
-			result=langInfo.load ( langDefPath );
+			if (syntaxReaders.count(langDefPath)){
+			    currentSyntax=syntaxReaders[langDefPath];
+			    result=LOAD_OK;
+			} else {
+			    currentSyntax=new SyntaxReader();
+			    result=currentSyntax->load(langDefPath);
+			    syntaxReaders[langDefPath]=currentSyntax;
+			}
+
 			if ( result==LOAD_OK )
 			{
-			formattingPossible=langInfo.enableReformatting();
+			    formattingPossible=currentSyntax->enableReformatting();
 
-			if ( openTags.size() >NUMBER_BUILTIN_STATES )
-			{
+			    if ( openTags.size() >NUMBER_BUILTIN_STATES )
+			    {
 				// remove dynamic keyword tag delimiters of the old language definition
 				vector<string>::iterator keyStyleOpenBegin =
 				    openTags.begin() + NUMBER_BUILTIN_STATES;
@@ -656,13 +674,13 @@ namespace highlight
 				    closeTags.begin() + NUMBER_BUILTIN_STATES;
 				openTags.erase ( keyStyleOpenBegin, openTags.end() );
 				closeTags.erase ( keyStyleCloseBegin, closeTags.end() );
-			}
-			// add new keyword tag delimiters
-			for ( unsigned int i=0;i< langInfo.getKeywordClasses().size(); i++ )
-			{
+			    }
+			    // add new keyword tag delimiters
+			    for ( unsigned int i=0;i< currentSyntax->getKeywordClasses().size(); i++ )
+			    {
 				openTags.push_back ( getKeywordOpenTag ( i ) );
 				closeTags.push_back ( getKeywordCloseTag ( i ) );
-			}
+			    }
 			}
 		}
 		return result;
@@ -921,14 +939,14 @@ namespace highlight
 	}
 
 	void CodeGenerator::loadEmbeddedLang(const string&embedLangDefPath){
-			//save path of host language
-			if (hostLangDefPath.empty()) {
-				hostLangDefPath =langInfo.getCurrentPath();
-			}
-			//load syntax of embedded langage
-			loadLanguage(embedLangDefPath);
-			//pass end delimiter regex to syntax description
-			langInfo.restoreLangEndDelim(embedLangDefPath);
+	    //save path of host language
+	    if (hostLangDefPath.empty()) {
+		    hostLangDefPath =currentSyntax->getCurrentPath();
+	    }
+	    //load syntax of embedded langage
+	    loadLanguage(embedLangDefPath);
+	    //pass end delimiter regex to syntax description
+	    currentSyntax->restoreLangEndDelim(embedLangDefPath);
 	}
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -939,7 +957,7 @@ namespace highlight
 		bool eof=false,
 		         firstLine=true; // avoid newline before printing the first output line
 
-		if ( langInfo.highlightingDisabled() )
+		if ( currentSyntax->highlightingDisabled() )
 		{
 			string line;
 			while ( getline ( *in, line ) )
@@ -954,7 +972,7 @@ namespace highlight
 			return;
 		}
 
-		if (!embedLangStart.empty()) loadEmbeddedLang(langInfo.getNewPath(embedLangStart));
+		if (!embedLangStart.empty()) loadEmbeddedLang(currentSyntax->getNewPath(embedLangStart));
 
 		State state=STANDARD;
 
@@ -998,16 +1016,9 @@ namespace highlight
 					openTag ( STANDARD );
 					break;
 				case ESC_CHAR:
-//					if ( langInfo.allowExtEscSeq() )
-//					{
-						closeTag ( STANDARD );
-						eof=processEscapeCharState();
-						openTag ( STANDARD );
-/*					}
-					else
-					{
-						printMaskedToken();
-					}*/
+					closeTag ( STANDARD );
+					eof=processEscapeCharState();
+					openTag ( STANDARD );
 					break;
 				case SYMBOL:
 					closeTag ( STANDARD );
@@ -1052,10 +1063,8 @@ namespace highlight
 		{
 			if (myState==EMBEDDED_CODE_BEGIN) {
 				loadEmbeddedLang(embedLangDefPath);
-
 				//test current line again to match tokens of the embedded language
 				matchRegex(line);
-
 			}
 			else if (myState==EMBEDDED_CODE_END) {
 				// load host language syntax
@@ -1100,7 +1109,7 @@ namespace highlight
 		do
 		{
 			printMaskedToken ( true, newState!=_WS,
-			                   ( langInfo.isIgnoreCase() ) ? keywordCase : StringTools::CASE_UNCHANGED );
+			                   ( currentSyntax->isIgnoreCase() ) ? keywordCase : StringTools::CASE_UNCHANGED );
 			newState= getCurrentState(myState);
 			switch ( newState )
 			{
@@ -1165,10 +1174,9 @@ namespace highlight
 
 	bool CodeGenerator::processMultiLineCommentState()
 	{
-
 		int commentCount=1;
-		//int delimPairID = langInfo.getDelimiterID ( token, ML_COMMENT );
-		int openDelimID=langInfo.getOpenDelimiterID ( token, ML_COMMENT);
+		//int delimPairID = currentSyntax->getDelimiterID ( token, ML_COMMENT );
+		int openDelimID=currentSyntax->getOpenDelimiterID ( token, ML_COMMENT);
 		State newState=STANDARD;
 		bool eof=false, exitState=false;
 		openTag ( ML_COMMENT );
@@ -1192,17 +1200,17 @@ namespace highlight
 					break;
 				case ML_COMMENT:
 
-					if ( langInfo.allowNestedMLComments() )
+					if ( currentSyntax->allowNestedMLComments() )
 					{
 						++commentCount;
 					}
 					// if delimiters are equal, close the comment by continueing to
 					// ML_COMMENT_END section
-					if (langInfo.delimiterIsDistinct(langInfo.getOpenDelimiterID ( token, ML_COMMENT  ))) break;
+					if (currentSyntax->delimiterIsDistinct(currentSyntax->getOpenDelimiterID ( token, ML_COMMENT  ))) break;
 
 				case ML_COMMENT_END:
 
-					if (!langInfo.matchesOpenDelimiter (token,  ML_COMMENT_END, openDelimID)){ break; }
+					if (!currentSyntax->matchesOpenDelimiter (token,  ML_COMMENT_END, openDelimID)){ break; }
 					commentCount--;
 					if ( !commentCount )
 					{
@@ -1293,7 +1301,7 @@ namespace highlight
 					}
 					else
 					{
-						exitState= ( terminatingChar!=langInfo.getContinuationChar() );
+						exitState= ( terminatingChar!=currentSyntax->getContinuationChar() );
 					}
 					if ( !exitState ) wsBuffer += closeTags[DIRECTIVE];
 					insertLineNumber();
@@ -1336,13 +1344,13 @@ namespace highlight
 
 		State myState= ( oldState==DIRECTIVE ) ? DIRECTIVE_STRING : STRING;
 
-	      int openDelimID=langInfo.getOpenDelimiterID ( token, myState);
+	      int openDelimID=currentSyntax->getOpenDelimiterID ( token, myState);
 		string openDelim=token;
 
 		// Test if character before string open delimiter token equals to the
 		// raw string prefix (Example: r" ", r""" """ in Python)
-		bool isRawString=langInfo.delimiterIsRawString(openDelimID);
-		if ( lineIndex>token.length() &&line[lineIndex-token.length()-1]==langInfo.getRawStringPrefix() )
+		bool isRawString=currentSyntax->delimiterIsRawString(openDelimID);
+		if ( lineIndex>token.length() &&line[lineIndex-token.length()-1]==currentSyntax->getRawStringPrefix() )
 		{
 			  isRawString=true;
 		}
@@ -1369,7 +1377,7 @@ namespace highlight
 					wsBuffer += openTags[myState];
 					break;
 				case STRING_END:
-					if (langInfo.matchesOpenDelimiter (token,  STRING_END, openDelimID)){
+					if (currentSyntax->matchesOpenDelimiter (token,  STRING_END, openDelimID)){
 					  exitState= true;
 					  printMaskedToken();
 					}
@@ -1377,7 +1385,7 @@ namespace highlight
 				case STRING:
 					// if there exist multiple string delimiters, close string if
 					// current delimiters is equal to the opening delimiter
-					exitState=langInfo.delimiterIsDistinct(langInfo.getOpenDelimiterID ( token, STRING  ))&&token==openDelim;
+					exitState=currentSyntax->delimiterIsDistinct(currentSyntax->getOpenDelimiterID ( token, STRING  ))&&token==openDelim;
 					printMaskedToken();
 					break;
 				case ESC_CHAR:
@@ -1559,7 +1567,7 @@ namespace highlight
 
 	bool CodeGenerator::printExternalStyle ( const string &outFile )
 	{
-		if ( !includeStyleDef && langInfo.highlightingEnabled() )
+		if ( !includeStyleDef && currentSyntax->highlightingEnabled() )
 		{
 			ostream *cssOutFile = ( outFile.empty() ? &cout :new ofstream ( outFile.c_str() ) );
 			if ( !cssOutFile->fail() )
@@ -1570,7 +1578,7 @@ namespace highlight
 				  << " " << styleCommentClose << "\n";
 
 				*cssOutFile << "\n" << styleCommentOpen
-				  << " Highlighting theme definition: "
+				  << " Highlighting theme: "<<docStyle.getDescription()<<" "
 				  << styleCommentClose << "\n\n"
 				  << getStyleDefinition()
 				  << "\n";
@@ -1613,87 +1621,6 @@ namespace highlight
 		return ostr.str();
 	}
 
-/*
-	bool CodeGenerator::checkSpecialCmd()
-	{
-
-		//cerr << "token: "<<token<< " index"<< lineIndex << " "<<line [ lineIndex ]<<  "sizes: "<<token.size()<<"=="<<line.size()<<endl;
-		string noParseCmd="@highlight";
-		// if single line comment is described with regex, token is equal to line
-		// otherwise start searching after the token, which then consists of comment identifier
-		size_t searchStart= ( token.size() ==line.size() ) ? 0 : lineIndex;
-		size_t cmdPos = line.find ( noParseCmd, searchStart );
-		size_t pos=1;
-		if ( cmdPos!=string::npos )
-		{
-			string res;
-			string replaceVar;
-
-			auto_ptr<Pattern> reDefPattern ( Pattern::compile ( "\\$[-\\w]+" ) );
-			auto_ptr<Matcher> m ( reDefPattern->createMatcher ( line.substr ( noParseCmd.size() +cmdPos ) ) );
-			while ( m.get() &&  m->findNextMatch() )
-			{
-				res+=line.substr ( noParseCmd.size() +cmdPos + pos ,
-				                   m->getStartingIndex ( 0 )-pos );
-				replaceVar = m->getGroup ( 0 );
-				if ( replaceVar=="$nl" )
-				{
-					res+="\n";
-				}
-				else if ( replaceVar=="$infile" )
-				{
-					res+= ( inFile.size() ) ? inFile: "stdin";
-				}
-				else if ( replaceVar=="$outfile" )
-				{
-					res+= ( outFile.size() ) ? outFile: "stdout";
-				}
-				else if ( replaceVar=="$title" )
-				{
-					res+= docTitle;
-				}
-				else if ( replaceVar=="$theme"||replaceVar=="$style" )
-				{
-					res+= getStyleName();
-				}
-				else if ( replaceVar=="$font-face" )
-				{
-					res+= getBaseFont();
-				}
-				else if ( replaceVar=="$font-size" )
-				{
-					res+= getBaseFontSize();
-				}
-				else if ( replaceVar=="$encoding" )
-				{
-					res+= encoding;
-				}
-				else if ( replaceVar=="$linenum" )
-				{
-					char numBuf[10];
-					snprintf ( numBuf, sizeof ( numBuf ), "%d", lineNumber );
-					res+= string ( numBuf );
-				}
-				pos=m->getEndingIndex ( 0 );
-			}
-			res+=line.substr ( noParseCmd.size() +cmdPos + pos );
-
-			*out<<res;
-
-			// hide comment line from output
-			token.clear();
-			lineIndex=line.length();
-			getInputChar();
-			lineNumber--;
-			// end hide
-
-			return true; // do not parse line as comment
-		}
-
-		return false; //parse comment as usual
-	}
-*/
-
 bool CodeGenerator::initPluginScript(const string& script){
 
   if (script.empty()) return true;
@@ -1717,7 +1644,7 @@ bool CodeGenerator::initPluginScript(const string& script){
 	  // Syntax plugins
 	  else if (ls["Plugins"][listIdx]["Type"].value().asString()=="lang"){
 	    if (ls["Plugins"][listIdx]["Chunk"].value().type()==LUA_TFUNCTION) {
-	      langInfo.addUserChunk(ls["Plugins"][listIdx]["Chunk"].value().asFunction());
+	      currentSyntax->addUserChunk(ls["Plugins"][listIdx]["Chunk"].value().asFunction());
 	    }
 	  }
 

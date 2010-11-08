@@ -63,7 +63,7 @@ namespace highlight
 		ostringstream os;
 		os << getHeaderStart ( docTitle );
 
-		if ( langInfo.highlightingEnabled() )
+		if ( currentSyntax->highlightingEnabled() )
 		{
 			if ( includeStyleDef )
 			{

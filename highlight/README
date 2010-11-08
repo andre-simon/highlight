@@ -651,6 +651,9 @@ AddKeyword(keyword, kwGroupID)
               kwGroupID: keyword group ID of the keyword
   Returns:    true if successfull
 
+Keywords added with AddKeyword will remain active for all files of the same
+syntax.
+
 Example:
 --------
 

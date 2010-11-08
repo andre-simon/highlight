@@ -16,8 +16,8 @@ CXX=c++
 
 QMAKE=qmake
 
-CFLAGS:=-Wall -O2 ${CFLAGS}
-#CFLAGS:=-ggdb ${CFLAGS}
+#CFLAGS:=-Wall -O2 ${CFLAGS}
+CFLAGS:=-ggdb ${CFLAGS}
 CFLAGS_DILU=-fno-strict-aliasing
 
 SO_VERSION=3.2

@@ -191,12 +191,12 @@ namespace highlight
 
 	string XmlGenerator::getKeywordOpenTag ( unsigned int styleID )
 	{
-		return getOpenTag ( langInfo.getKeywordClasses() [styleID] );
+		return getOpenTag ( currentSyntax->getKeywordClasses() [styleID] );
 	}
 
 	string XmlGenerator::getKeywordCloseTag ( unsigned int styleID )
 	{
-		return getCloseTag ( langInfo.getKeywordClasses() [styleID] );
+		return getCloseTag ( currentSyntax->getKeywordClasses() [styleID] );
 	}
 
 }

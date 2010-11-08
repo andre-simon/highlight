@@ -151,13 +151,14 @@ bool HLCmdLineApp::printInstalledLanguages()
     return true;
 }
 
-void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader &lang,
+void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader *lang,
                                     const string & langDefPath )
 {
+    if (!lang) return;
     cerr << "\nLoading language definition:\n" << langDefPath;
-    cerr << "\n\nDescription: " << lang.getDescription();
+    cerr << "\n\nDescription: " << lang->getDescription();
 
-    Diluculum::LuaState* luaState=lang.getLuaState();
+    Diluculum::LuaState* luaState=lang->getLuaState();
     if (luaState){
 	cerr << "\n\nLUA GLOBALS:\n" ;
 	Diluculum::LuaValueMap::iterator it;
@@ -182,14 +183,14 @@ void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader &lang,
     }
     cerr << "\nREGEX:\n";
     highlight::RegexElement *re=NULL;
-    for ( unsigned int i=0; i<lang.getRegexElements().size(); i++ )
+    for ( unsigned int i=0; i<lang->getRegexElements().size(); i++ )
     {
-        re = lang.getRegexElements() [i];
+        re = lang->getRegexElements() [i];
         cerr << "State "<<re->open<<":\t"<<re->rePattern->getPattern() <<"\n";
     }
     cerr << "\nKEYWORDS:\n";
     highlight::KeywordMap::iterator it;
-    highlight::KeywordMap keys=lang.getKeywords();
+    highlight::KeywordMap keys=lang->getKeywords();
     for ( it=keys.begin(); it!=keys.end(); it++ )
     {
         cerr << " "<< it->first << "("<< it->second << ")";
@@ -575,7 +576,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             if ( loadRes==highlight::LOAD_FAILED_REGEX )
             {
                 cerr << "highlight: Regex error ( "
-                     << generator->getSyntaxReader().getFailedRegex()
+                     << generator->getSyntaxRegexError()
                      << " ) in "<<suffix<<".lang\n";
                 initError = true;
                 break;
@@ -583,7 +584,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             else if ( loadRes==highlight::LOAD_FAILED_LUA )
             {
                 cerr << "highlight: Lua error ( "
-                     << generator->getSyntaxReader().getLuaErrorText()
+                     << generator->getSyntaxLuaError()
                      << " ) in "<<suffix<<".lang\n";
                 initError = true;
                 break;

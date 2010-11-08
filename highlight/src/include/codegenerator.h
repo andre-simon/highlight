@@ -224,9 +224,6 @@ namespace highlight
 			/** \return True if reformatting of current input is possible */
 			bool formattingIsPossible();
 
-			/** \return Language definition*/
-			const SyntaxReader &getSyntaxReader();
-
 			/** output line numbers
 			   \param flag true if line numbers should be printed
 			   \param startCnt line number starting count
@@ -346,6 +343,11 @@ namespace highlight
 			*/
 			bool initPluginScript(const string& script);
 
+			string getSyntaxRegexError();
+			string getSyntaxLuaError();
+			string getSyntaxDescription();
+
+			SyntaxReader* getSyntaxReader() { return currentSyntax; }
 
 			/** set HTML output anchor flag
 			 */
@@ -433,7 +435,8 @@ namespace highlight
 			ThemeReader docStyle;
 
 			/** Language definition*/
-			SyntaxReader langInfo;
+			//SyntaxReader langInfo;
+			SyntaxReader* currentSyntax;
 
 			/** CTags meta information */
 			CTagsReader metaInfo;
@@ -541,12 +544,8 @@ namespace highlight
 			/** Flag to test if style definition should be included in output document */
 			bool includeStyleDef;
 
-			/** map which saves all lines that should be highlghted */
-			//map <int, string> markLines;
-
 			/** Class for line wrapping and tab replacement*/
 			PreFormatter preFormatter;
-
 
 		private:
 
@@ -699,6 +698,9 @@ namespace highlight
 
 			/** association of matched regexes and the corresponding keyword class ids*/
  			map <int, ReGroup> regexGroups;
+
+			/** association of syntax definitions and their paths*/
+ 			map <string, SyntaxReader*> syntaxReaders;
 
 			/** test for regular expressions
 			    \param line current input line*/

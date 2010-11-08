@@ -93,7 +93,7 @@ namespace highlight
 		ostringstream os;
 		os << styleCommentOpen
 		<< " Document title: " << docTitle << "\n\n";
-		if ( langInfo.highlightingEnabled() )
+		if ( currentSyntax->highlightingEnabled() )
 		{
 			if ( includeStyleDef )
 			{
@@ -256,7 +256,7 @@ namespace highlight
 
 	string TexGenerator::getKeywordOpenTag ( unsigned int styleID )
 	{
-		return "{\\hl"+langInfo.getKeywordClasses() [styleID]+" ";
+		return "{\\hl"+currentSyntax->getKeywordClasses() [styleID]+" ";
 	}
 
 	string TexGenerator::getKeywordCloseTag ( unsigned int styleID )

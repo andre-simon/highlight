@@ -91,7 +91,7 @@ class HLCmdLineApp
 		    \param  lang language definition
 		    \param langDefPath path to language definition
 		*/
-		void printDebugInfo ( const highlight::SyntaxReader &lang,
+		void printDebugInfo ( const highlight::SyntaxReader *lang,
 		                      const string &langDefPath );
 
 		string getFileSuffix ( const string &fileName );

@@ -117,12 +117,12 @@ namespace highlight
 
 	string BBCodeGenerator::getKeywordOpenTag ( unsigned int styleID )
 	{
-		return getOpenTag (docStyle.getKeywordStyle ( langInfo.getKeywordClasses() [styleID] ) );
+		return getOpenTag (docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
 	}
 
 	string BBCodeGenerator::getKeywordCloseTag ( unsigned int styleID )
 	{
-		return getCloseTag ( docStyle.getKeywordStyle ( langInfo.getKeywordClasses() [styleID] ) );
+		return getCloseTag ( docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
 	}
 
 }

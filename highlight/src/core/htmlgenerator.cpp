@@ -447,9 +447,9 @@ namespace highlight
 	{
 		if ( useInlineCSS )
 		{
-			return getOpenTag ( docStyle.getKeywordStyle ( langInfo.getKeywordClasses() [styleID] ) );
+			return getOpenTag ( docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
 		}
-		return getOpenTag ( langInfo.getKeywordClasses() [styleID] );
+		return getOpenTag ( currentSyntax->getKeywordClasses() [styleID] );
 	}
 
 	string HtmlGenerator::getKeywordCloseTag ( unsigned int styleID )

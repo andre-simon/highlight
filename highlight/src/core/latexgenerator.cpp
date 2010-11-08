@@ -95,7 +95,7 @@ namespace highlight
 			os << "\\usepackage{marvosym}\n";
 		}
 
-		if ( langInfo.highlightingEnabled() )
+		if ( currentSyntax->highlightingEnabled() )
 		{
 			if ( includeStyleDef )
 			{
@@ -292,7 +292,7 @@ namespace highlight
 
 	string LatexGenerator::getKeywordOpenTag ( unsigned int styleID )
 	{
-		return "\\hl"+langInfo.getKeywordClasses() [styleID]+"{";
+		return "\\hl"+currentSyntax->getKeywordClasses() [styleID]+"{";
 	}
 
 	string LatexGenerator::getKeywordCloseTag ( unsigned int styleID )

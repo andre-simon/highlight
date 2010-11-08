@@ -674,6 +674,8 @@ AddKeyword(keyword, kwGroupID)
               kwGroupID: Gruppen-ID des Schluesselworts
   Returns:    true wenn erfolgreich
 
+Mit AddKeyword definierte Schluesselwoerter bleiben fuer alle Dateien derselben
+Syntax gueltig.
 
 Beispiel:
 ---------

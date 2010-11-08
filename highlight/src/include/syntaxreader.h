@@ -227,7 +227,8 @@ namespace highlight
 
 			vector <RegexElement*> regex;
 
-			EmbedLangDelimMap exitDelimiters;
+			// collect delimiters or get current delimiter in CodeGenerator::loadEmbeddedLang
+			static EmbedLangDelimMap exitDelimiters;
 
 			// saves if delimiter pair consists of the same delimiter symbol
 			map <int, bool> delimiterDistinct;
@@ -273,7 +274,7 @@ namespace highlight
 
 			Diluculum::LuaState* luaState; // make member to allow interaction with codeparser instance
 
-			vector<Diluculum::LuaFunction*> pluginChunks;
+			static vector<Diluculum::LuaFunction*> pluginChunks;
 	};
 
 

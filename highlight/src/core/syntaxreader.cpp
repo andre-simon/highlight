@@ -60,6 +60,9 @@ const string SyntaxReader::REGEX_NUMBER =
 const string SyntaxReader::REGEX_ESCSEQ =
     "\\\\u\\p{XDigit}{4}|\\\\\\d{3}|\\\\x\\p{XDigit}{2}|\\\\[ntvbrfa\\\\\\?'\"]";
 
+EmbedLangDelimMap SyntaxReader::exitDelimiters;
+vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
+
 int RegexElement::instanceCnt=0;
 
 SyntaxReader::SyntaxReader() :
@@ -76,10 +79,10 @@ SyntaxReader::SyntaxReader() :
 SyntaxReader::~SyntaxReader()
 {
     reset();
-
     for (unsigned int i=0;i<pluginChunks.size();i++){
       delete pluginChunks[i];
     }
+    pluginChunks.clear();
 }
 
 int SyntaxReader::isKeyword ( const string &s )
@@ -88,6 +91,7 @@ int SyntaxReader::isKeyword ( const string &s )
 }
 
 void SyntaxReader::restoreLangEndDelim(const string& langPath) {
+    //TODO exitDelimiters be left static?
     if ( !langPath.empty()&& exitDelimiters.count(langPath) )
     {
         Pattern* p = Pattern::compile ( exitDelimiters[langPath]);

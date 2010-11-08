@@ -157,7 +157,7 @@ namespace highlight
 		   on the order. We access the keyword style with an ID, which is calculated
 		   ignoring the alphabetic order.
 		*/
-		vector<string>  keywordClasses = langInfo.getKeywordClasses();
+		vector<string>  keywordClasses = currentSyntax->getKeywordClasses();
 		for ( unsigned int i=0;i<keywordClasses.size();i++ )
 		{
 			*out << getAttributes ( docStyle.getKeywordStyle ( keywordClasses[i] ) );
@@ -342,12 +342,12 @@ namespace highlight
 	string RtfGenerator::getKeywordOpenTag ( unsigned int styleID )
 	{
 		return getOpenTag ( KEYWORD+styleID,
-		                    docStyle.getKeywordStyle ( langInfo.getKeywordClasses() [styleID] ) );
+		                    docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
 	}
 
 	string RtfGenerator::getKeywordCloseTag ( unsigned int styleID )
 	{
-		return getCloseTag ( docStyle.getKeywordStyle ( langInfo.getKeywordClasses() [styleID] ) );
+		return getCloseTag ( docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
 	}
 
 	void RtfGenerator::setRTFPageSize ( const string & ps )
