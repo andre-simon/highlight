@@ -70,6 +70,8 @@ SyntaxReader::SyntaxReader() :
         disableHighlighting ( false ),
         allowNestedComments ( true ),
         reformatCode ( false ),
+        rawStringPrefix(0),
+        continuationChar(0),
         validateStateChangeFct(NULL),
         luaState(NULL)
 {
@@ -78,7 +80,17 @@ SyntaxReader::SyntaxReader() :
 
 SyntaxReader::~SyntaxReader()
 {
-    reset();
+  // cerr << "reset destr \n";
+    //reset();
+
+    for ( vector<RegexElement*>::iterator it=regex.begin(); it!=regex.end();it++ )
+    {
+        delete *it;
+    }
+    if (validateStateChangeFct) delete validateStateChangeFct;
+
+    if (luaState) delete luaState;
+
     for (unsigned int i=0;i<pluginChunks.size();i++){
       delete pluginChunks[i];
     }
@@ -168,7 +180,10 @@ void SyntaxReader::addKeyword(unsigned int groupID, const string& kw){
 
 LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
 {
-    if ( clear )  reset();
+  /*  if ( clear )  {
+     cerr << "reset load \n";
+      reset();
+    }*/
 
     currentPath=langDefPath;
     disableHighlighting=false;
@@ -233,7 +248,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
                 if ( p!=NULL )
                     regex.push_back ( new RegexElement ( KEYWORD, KEYWORD_END, p, kwId, captGroup ) );
                 else {
-                    failedRegex = reString;
+                    regexErrorMsg = reString;
                     return LOAD_FAILED_REGEX;
                 }
             }
@@ -259,7 +274,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
                         regex.push_back ( elem );
                     }
                     else {
-                        failedRegex = openDelim;
+                        regexErrorMsg = openDelim;
                         return LOAD_FAILED_REGEX;
                     }
 
@@ -271,7 +286,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
                         regex.push_back ( elem);
                     }
                     else {
-                        failedRegex = closeDelim;
+                        regexErrorMsg = closeDelim;
                         return LOAD_FAILED_REGEX;
                     }
 
@@ -285,7 +300,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
                     if ( p6!=NULL )
                         regex.push_back ( new RegexElement ( SL_COMMENT, SL_COMMENT_END, p6, 0, -1 ) );
                     else {
-                        failedRegex = ls["Comments"][listIdx]["Delimiter"][1].value().asString();
+                        regexErrorMsg = ls["Comments"][listIdx]["Delimiter"][1].value().asString();
                         return LOAD_FAILED_REGEX;
                     }
                 }
@@ -318,7 +333,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
                     regex.push_back (elem );
                 }
                 else {
-                    failedRegex = ls["Strings"]["Delimiter"].value().asString();
+                    regexErrorMsg = ls["Strings"]["Delimiter"].value().asString();
                     return LOAD_FAILED_REGEX;
                 }
 
@@ -339,7 +354,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
                         regex.push_back( elem );
                     }
                     else {
-                        failedRegex = openDelim;
+                        regexErrorMsg = openDelim;
                         return LOAD_FAILED_REGEX;
                     }
 
@@ -351,7 +366,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
                         regex.push_back( elem );
                     }
                     else {
-                        failedRegex = closeDelim;
+                        regexErrorMsg = closeDelim;
                         return LOAD_FAILED_REGEX;
                     }
 
@@ -371,7 +386,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
             if ( p2!=NULL )
                 regex.push_back ( new RegexElement ( ESC_CHAR,ESC_CHAR_END, p2, 0, -1 ) );
             else {
-                failedRegex = ls["Strings"]["Escape"].value().asString();
+                regexErrorMsg = ls["Strings"]["Escape"].value().asString();
                 return LOAD_FAILED_REGEX;
             }
         }
@@ -381,7 +396,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
             if ( p!=NULL )
                 regex.push_back ( new RegexElement ( DIRECTIVE,DIRECTIVE_END, p, 0, -1 ) );
             else {
-                failedRegex = ls["PreProcessor"]["Prefix"].value().asString();
+                regexErrorMsg = ls["PreProcessor"]["Prefix"].value().asString();
                 return LOAD_FAILED_REGEX;
             }
             if (ls["PreProcessor"]["Continuation"].value()!=Diluculum::Nil) {
@@ -394,7 +409,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
             if ( p!=NULL )
                 regex.push_back ( new RegexElement ( SYMBOL,SYMBOL_END, p, 0, -1 ) );
             else {
-                failedRegex = ls["Operators"].value().asString();
+                regexErrorMsg = ls["Operators"].value().asString();
                 return LOAD_FAILED_REGEX;
             }
         }
@@ -412,7 +427,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
                     //regex.push_back ( new RegexElement ( ML_COMMENT,ML_COMMENT_END, p4, 0, -1 ) );
                     regex.insert(regex.begin(), 1, new RegexElement(EMBEDDED_CODE_BEGIN, EMBEDDED_CODE_BEGIN, p8, 0, -1, lang));
                 else {
-                    failedRegex = openDelim;
+                    regexErrorMsg = openDelim;
                     return LOAD_FAILED_REGEX;
                 }
 
@@ -430,12 +445,13 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
         }
 
     } catch (Diluculum::LuaError err) {
-        luaError = string(err.what());
+        luaErrorMsg = string(err.what());
         return LOAD_FAILED_LUA;
     }
     return LOAD_OK;
 }
 
+/*
 void SyntaxReader::reset()
 {
     keywords.clear();
@@ -446,6 +462,8 @@ void SyntaxReader::reset()
     allowNestedComments= reformatCode = false;
     rawStringPrefix = continuationChar = '\0';
     disableHighlighting=false;
+    regex.clear();
+    regexErrorMsg.clear();
 
     // TODO eigene methode
     for ( vector<RegexElement*>::iterator it=regex.begin(); it!=regex.end();it++ )
@@ -455,10 +473,8 @@ void SyntaxReader::reset()
     if (validateStateChangeFct) delete validateStateChangeFct; validateStateChangeFct=NULL;
 
     if (luaState) delete luaState; luaState=NULL;
-
-    regex.clear();
-    failedRegex.clear();
 }
+*/
 
 string SyntaxReader::getNewPath(const string& lang) {
     string::size_type Pos = currentPath.find_last_of ( Platform::pathSeparator );

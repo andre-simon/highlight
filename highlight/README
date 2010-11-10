@@ -652,7 +652,7 @@ AddKeyword(keyword, kwGroupID)
   Returns:    true if successfull
 
 Keywords added with AddKeyword will remain active for all files of the same
-syntax.
+syntax if highlight is run in batch mode.
 
 Example:
 --------
@@ -834,11 +834,10 @@ Chunk: Name of Lua function
 If type is "theme", the chunk will applied to the colour theme.
 If type is "lang", the chunk will applied to the language definition.
 
-The chunk functions receive an optional parameter which contains a string
+The chunk function will receive an optional parameter will contain a string
 with the description of the theme or language ("Description" parameter).
 The chunks are interpreted after the theme or lang file were loaded, so you
-can access variables of these files (the plug-in chunks share the  Lua state
-of the configuration files).
+can refer to elements of these files.
 
 The function AddKeyword can be invoked within a "lang" chunk.
 If OnStateChange is defined as local function within the chunk, this hook
@@ -873,6 +872,8 @@ Plugins={
   { Type="theme", Chunk=themeUpdate },
   { Type="lang", Chunk=syntaxUpdate },
 }
+
+See README_PLUGINS for a detailed desription.
 
 
 3.7 FILE MAPPING

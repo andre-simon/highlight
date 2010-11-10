@@ -8,13 +8,12 @@ highlight 3.2
 -added plug-in function AddKeyword (suggested by Michael Serrano)
 -language definitions are cached instead of being reloaded if input syntax
   changes
--added plug-in bash_functions.lua
 -added keyword group ID parameter to the plug-in function OnStateChange
+-added plug-in script bash_functions.lua
 -added theme description in output style's comment
-
- todo: update docs
- todo: theme name in style comment
- todo: drop syntaxreader reset
+-added enum and union keywords in c.lang (thanks to Thiago)
+-added dl linking flag to fix Debian build error (thanks to Michael Serrano)
+-added NDEBUG flag in makefile to disable asserts
 
 ---
 highlight 3.1

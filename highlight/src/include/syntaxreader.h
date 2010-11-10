@@ -77,10 +77,10 @@ namespace highlight
 
 
 			/** \return Failed regular expression */
-			 string getFailedRegex() const { return failedRegex; }
+			 string getFailedRegex() const { return regexErrorMsg; }
 
 			/** \return Failed Lua exception description */
-			 string getLuaErrorText() const { return luaError; }
+			 string getLuaErrorText() const { return luaErrorMsg; }
 
 			/** \return Prefix of raw strings */
 			unsigned char getRawStringPrefix() const { return rawStringPrefix; }
@@ -219,7 +219,7 @@ namespace highlight
 			// Language description
 			string langDesc;
 
-			string failedRegex, luaError;
+			string regexErrorMsg, luaErrorMsg;
 
 			KeywordMap keywords;
 
@@ -259,9 +259,9 @@ namespace highlight
 			continuationChar;
 
 			/* reset members */
-			void reset();
+			//void reset();
 
-			// generate a unique class ID of the class name
+			// generate a unique class ID from the class name
 			unsigned int generateNewKWClass ( const string& newClassName );
 
 			bool readFlag(const Diluculum::LuaVariable& var) ;

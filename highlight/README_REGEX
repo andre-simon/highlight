@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  REGULAR EXPRESSIONS MANUAL -----------------------------------------------
+--- HIGHLIGHT REGULAR EXPRESSIONS MANUAL --------------------------------------
 -------------------------------------------------------------------------------
 
 This file is based on the original API documentation of Jeffery Stuart's
@@ -79,7 +79,7 @@ $               The end of a line. Also matches the end of input.
 \B              A non word boundary
 \A              The beginning of input
 \G              The end of the previous match. Ensures that a "next" match will
-                only happen if it begins with the character immediately 
+                only happen if it begins with the character immediately
                 following the end of the "current" match.
 \Z              The end of input. Will also match if there is a single trailing
                 \r\n, a single trailing \r, or a single trailing \n.
@@ -128,7 +128,7 @@ x|y             x or y
 
 Quoting
 
-\Q              Nothing, but treat every character (including \s) literally 
+\Q              Nothing, but treat every character (including \s) literally
                 until a matching \E
 \E              Nothing, but ends its matching \Q
 
@@ -204,7 +204,7 @@ right. In the expression ((A)(B(C))), for example, there are four such groups:
  3 (B(C))
  4 (C)
 
-Group zero always stands for the entire expression. Note that highlight will 
+Group zero always stands for the entire expression. Note that highlight will
 only evaluate the highest group number to make regular expressions more suitable
 for language definitions. Use (?:) syntax to avoid a capture of the new group.
 

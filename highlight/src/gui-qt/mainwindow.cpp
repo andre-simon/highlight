@@ -743,7 +743,7 @@ void MainWindow::on_pbStartConversion_clicked(){
      if (loadRes==highlight::LOAD_FAILED_REGEX){
              QMessageBox::warning(this, tr("Language definition error"),
                          tr("Invalid regular expression in %1:\n%2").arg(langDefPath).arg(
-                         QString::fromStdString( generator->getSyntaxReader().getFailedRegex())));
+                         QString::fromStdString( generator->getSyntaxRegexError())));
              break;
         } else  if (loadRes==highlight::LOAD_FAILED) {
            QMessageBox::warning(this, tr("Unknown syntax"), tr("Could not convert %1").arg(QString::fromStdString(currentFile)));
@@ -997,7 +997,7 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
           ui->lbPreview->setText(tr("Preview (%1):").arg(
                   (getDataFromCP)?tr("clipboard data"):ui->lvInputFiles->currentItem()->text()) );
 
-          statusBar()->showMessage(tr("Current syntax: %1").arg(QString::fromStdString(pwgenerator.getSyntaxReader().getDescription())));
+          statusBar()->showMessage(tr("Current syntax: %1").arg(QString::fromStdString(pwgenerator.getSyntaxDescription())));
           QString previewData;
 
           // fix utf-8 data preview - to be improved (other encodings??)

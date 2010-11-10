@@ -675,7 +675,7 @@ AddKeyword(keyword, kwGroupID)
   Returns:    true wenn erfolgreich
 
 Mit AddKeyword definierte Schluesselwoerter bleiben fuer alle Dateien derselben
-Syntax gueltig.
+Syntax gueltig, wenn Highlight im Batch-Modus laeuft.
 
 Beispiel:
 ---------
@@ -854,8 +854,9 @@ Plugins={
 Type:  String, ist eins von ["theme", "lang"]
 Chunk: Name einer Lua-Funktion
 
-Wenn type "theme" ist, wird die Funktion auf ein Farbschma angewandt.
-Wenn type "lang" ist, wird die Funktion auf eine Sprachdefinition angewandt.
+Wenn type den Wert "theme" hat, wird die Funktion auf ein Farbschema
+angewandt, bei dem Wert "lang" bezieht sich die Funktion auf eine
+Sprachdefinition.
 
 Die "Chunk"-Funktion erhaelt einen optionalen Parameter mit der Beschreibung
 des Farbschemas bzw. der Sprachdefinition ("Description"-Parameter).
@@ -894,6 +895,8 @@ Plugins={
   { Type="theme", Chunk=themeUpdate },
   { Type="lang", Chunk=syntaxUpdate },
 }
+
+Siehe README_PLUGINS ume mehr darüber zu erfahren.
 
 
 3.7 DATEIZUORDNUNGEN

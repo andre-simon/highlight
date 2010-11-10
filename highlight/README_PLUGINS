@@ -1,0 +1,199 @@
+-------------------------------------------------------------------------------
+---  HIGHLIGHT PLUGIN MANUAL - Version 3.2    --------------- November 2010 ---
+-------------------------------------------------------------------------------
+
+CONTENT
+-------------------------------------------------------------------------------
+
+1. SCRIPT STRUCTURE
+2. SYNTAX DEFINITION ELEMENTS
+   2.1 FUNCTION ONSTATECHANGE
+   2.2 FUNCTION ADDKEYWORD
+3. COLOUR THEME ELEMENTS
+4. EXAMPLES
+
+
+1. SCRIPT STRUCTURE
+-------------------------------------------------------------------------------
+
+The following script contains a minimal plug-in which has no effect on the
+output, since all update functions have empty definitions:
+
+Description="NOOP plugin"
+
+-- optional parameter: syntax description
+function syntaxUpdate(desc)
+end
+
+-- optional parameter: theme description
+function themeUpdate(desc)
+end
+
+Plugins={
+  { Type="theme", Chunk=themeUpdate },
+  { Type="lang", Chunk=syntaxUpdate },
+}
+
+The first line contains a description which gives a short summary of the
+plug-in effects.
+
+The next lines contain function definitions:
+The syntaxUpdate function is applied on syntax definition scripts (*.lang),
+whereas the themeUpdate function is applied on colour themes (*.theme).
+The names of the functions are not mandatory.
+
+The Plugins array connects the functions to the Lua states which are created
+when highlight loads a lang or theme script. In this example, themeUpdate is
+connected to the theme state, and syntaxUpdate to the lang state. It is not
+required to define both connections if your plugin only affects one config
+script.
+
+
+2. SYNTAX DEFINITION ELEMENTS
+-------------------------------------------------------------------------------
+
+Syntax items:
+
+Comments: table
+Description: string
+Digits: string
+EnableIndentation: boolean
+Identifiers: string
+IgnoreCase: boolean
+Keywords: table
+NestedSections: table
+Operators: string
+PreProcessor: table
+Strings: table
+
+Read only constants:
+
+HL_LANG_DIR: string
+HL_BLOCK_COMMENT: number
+HL_BLOCK_COMMENT_END: number
+HL_EMBEDDED_CODE_BEGIN: number
+HL_EMBEDDED_CODE_END: number
+HL_ESC_SEQ: number
+HL_ESC_SEQ_END: number
+HL_IDENTIFIER_BEGIN: number
+HL_IDENTIFIER_END: number
+HL_KEYWORD: number
+HL_KEYWORD_END: number
+HL_LINENUMBER: number
+HL_LINE_COMMENT: number
+HL_LINE_COMMENT_END: number
+HL_NUMBER: number
+HL_OPERATOR: number
+HL_OPERATOR_END: number
+HL_PREPROC: number
+HL_PREPROC_END: number
+HL_PREPROC_STRING: number
+HL_STANDARD: number
+HL_STRING: number
+HL_STRING_END: number
+HL_UNKNOWN: number
+
+Functions:
+
+AddKeyword: function
+OnStateChange: function
+
+IMPORTANT: The functions will only be executed if they are defined as local
+functions within lang chunk function. They will be ignored when defined
+elsewhere in the plug-in script.
+
+
+2.1 FUNCTION ONSTATECHANGE
+-------------------------------------------------------------------------------
+
+This function is a hook which is called if an internal state changes (ie from
+HL_STANDARD to HL_KEYWORD if a keyword is found). It can be used to alter
+the new state or to manipulate syntax elements.
+
+OnStateChange(oldState, newState, token, kwGroupID)
+
+  Hook Event: Highlighting parser state change
+  Parameters: oldState:  old state
+              newState:  intended new state
+              token:     the current token which triggered
+	                 the new state
+              kwGroupID: if newState is HL_KEYWORD, the parameter
+                         contains the keyword group ID
+  Returns:    Correct state to continue
+
+Examples:
+
+function OnStateChange(oldState, newState, token, kwgroup)
+   if newState==HL_KEYWORD and kwgroup==5 then
+      AddKeyword(token, 5)
+   end
+   return newState
+end
+
+This function adds the current keyword to the internal keyword list if
+the keyword belongs to keyword group 5. If keyword group 5 is defined by a regex,
+this token will be recognized later as keyword even if the regular regex does
+not match.
+
+function OnStateChange(oldState, newState, token)
+   if token=="]]" and oldState==HL_STRING and newState==HL_BLOCK_COMMENT_END then
+      return HL_STRING_END
+   end
+   return newState
+end
+
+This function resolves a Lua parsing issue with the "]]" close delimiter which
+ends both comments and strings.
+
+
+2.2 FUNCTION ADDKEYWORD
+-------------------------------------------------------------------------------
+
+This function will add a keyword to one of the the internal keyword lists.
+It has no effect if the keyword was added before.
+Keywords added with AddKeyword will remain active for all files of the same
+syntax if highlight is in batch mode.
+
+AddKeyword(keyword, kwGroupID)
+
+  Parameters: keyword:   string which should be added to a keyword list
+              kwGroupID: keyword group ID of the keyword
+  Returns:    true if successfull
+
+
+
+3. COLOUR THEME ELEMENTS
+-------------------------------------------------------------------------------
+
+Default: table
+Canvas: table
+Number: table
+Escape: table
+String: table
+StringPreProc: table
+BlockComment: table
+PreProcessor: table
+LineNum: table
+Operator: table
+LineComment: table
+Keywords: table
+
+
+4. EXAMPLES
+-------------------------------------------------------------------------------
+
+The plugins directory contains some example scripts which show the functionality
+explained above:
+
+bash_functions.lua
+Description: Add function names to keyword list
+Features: Adds new keyword group based on a regex, defines OnStateChange,
+          uses AddKeyword
+
+cpp_qt.lua, cpp_syslog.lua, cpp_wx.lua, java_library.lua
+Description: *
+Features: Adds and extends keyword groups based on lists and regexes
+
+theme_invert.lua
+Description: Invert colours of the original theme
+Features: Modifies all color attributes of the theme script, uses Lua pattern matching

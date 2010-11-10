@@ -289,7 +289,6 @@ namespace highlight
 			 */
 			void setIncludeStyle ( bool flag );
 
-
 			/** tell parser to omit trailing newline character
 			    \param flag true if no trailing newline should be printed
 			 */
@@ -343,10 +342,16 @@ namespace highlight
 			*/
 			bool initPluginScript(const string& script);
 
+			/** \return Syntaxreader Regex error message */
 			string getSyntaxRegexError();
+
+			/** \return Syntaxreader Lua error message */
 			string getSyntaxLuaError();
+
+			/** \return Syntaxreader description */
 			string getSyntaxDescription();
 
+			/** \return Pointer Syntaxreader, intended for debug output  */
 			SyntaxReader* getSyntaxReader() { return currentSyntax; }
 
 			/** set HTML output anchor flag
@@ -653,9 +658,7 @@ namespace highlight
 			string styleInputPath,   ///< style input file path
 			styleOutputPath;  ///< style output file path
 
-
-			string userScriptError;
-
+			string userScriptError;  ///< Plug-In script error message
 
 			/** end-of-line delimiter*/
 			char eolDelimiter;
@@ -709,8 +712,15 @@ namespace highlight
 			/** \return true if input is no binary stream */
 			bool validateInputStream();
 
+			/** load syntax description of embedded snippet's language
+			 \param embedLangDefPath path to language definition */
 			void loadEmbeddedLang(const string&embedLangDefPath);
 
+			/** call user script OnStateChange function if defined to confirm state change
+			 \param newState new state
+			 \param oldState old state
+			 \param kwClass keyword class ID if newState is KEYWORD
+			 */
 			State validateState(State newState, State oldState, unsigned int kwClass);
 
 	};

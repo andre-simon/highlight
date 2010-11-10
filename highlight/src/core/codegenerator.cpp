@@ -953,7 +953,6 @@ namespace highlight
 
 	void CodeGenerator::processRootState()
 	{
-
 		bool eof=false,
 		         firstLine=true; // avoid newline before printing the first output line
 
@@ -1175,7 +1174,6 @@ namespace highlight
 	bool CodeGenerator::processMultiLineCommentState()
 	{
 		int commentCount=1;
-		//int delimPairID = currentSyntax->getDelimiterID ( token, ML_COMMENT );
 		int openDelimID=currentSyntax->getOpenDelimiterID ( token, ML_COMMENT);
 		State newState=STANDARD;
 		bool eof=false, exitState=false;
