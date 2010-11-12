@@ -7,6 +7,7 @@ TARGET = highlight
 TEMPLATE = lib
 CONFIG += staticlib
 DEFINES -= UNICODE
+DEFINES += NDEBUG
 
 # win32:LIBS += -Lf:/cpp/lua_bin_5.1.4. -llua
 win32:DESTDIR = ../../

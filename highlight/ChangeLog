@@ -4,7 +4,6 @@ highlight 3.2
 
 08.11.2010
 
--added ld to linking options in makefile (thanks to Michael Serrano)
 -added plug-in function AddKeyword (suggested by Michael Serrano)
 -language definitions are cached instead of being reloaded if input syntax
   changes
@@ -12,7 +11,8 @@ highlight 3.2
 -added plug-in script bash_functions.lua
 -added theme description in output style's comment
 -added enum and union keywords in c.lang (thanks to Thiago)
--added dl linking flag to fix Debian build error (thanks to Michael Serrano)
+-added dl linking flag in Makefile to fix Debian build error 
+  (thanks to Michael Serrano)
 -added NDEBUG flag in makefile to disable asserts
 
 ---

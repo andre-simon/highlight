@@ -11,6 +11,7 @@ CONTENT
    2.2 FUNCTION ADDKEYWORD
 3. COLOUR THEME ELEMENTS
 4. EXAMPLES
+5. PLUG-IN USAGE
 
 
 1. SCRIPT STRUCTURE
@@ -41,16 +42,22 @@ The next lines contain function definitions:
 The syntaxUpdate function is applied on syntax definition scripts (*.lang),
 whereas the themeUpdate function is applied on colour themes (*.theme).
 The names of the functions are not mandatory.
+The desc parameter contains the description of the syntax defintion or
+colour theme. This can be used to restrict modifications to certain kinds
+of input (i.e. only C code should be enhanced with syslog keywords).
 
 The Plugins array connects the functions to the Lua states which are created
 when highlight loads a lang or theme script. In this example, themeUpdate is
 connected to the theme state, and syntaxUpdate to the lang state. It is not
-required to define both connections if your plugin only affects one config
-script.
+required to define both connections if your plugin only affects one type of
+config script.
 
 
 2. SYNTAX DEFINITION ELEMENTS
 -------------------------------------------------------------------------------
+
+The following list includes all items you may overwrite or extend to adjust
+the parser's syntax highlighting.
 
 Syntax items:
 
@@ -99,7 +106,7 @@ AddKeyword: function
 OnStateChange: function
 
 IMPORTANT: The functions will only be executed if they are defined as local
-functions within lang chunk function. They will be ignored when defined
+functions within the lang chunk function. They will be ignored when defined
 elsewhere in the plug-in script.
 
 
@@ -165,6 +172,9 @@ AddKeyword(keyword, kwGroupID)
 3. COLOUR THEME ELEMENTS
 -------------------------------------------------------------------------------
 
+The following list includes all items you may overwrite or extend to adjust
+the formatting (colour and font attributes) of the output:
+
 Default: table
 Canvas: table
 Number: table
@@ -182,8 +192,8 @@ Keywords: table
 4. EXAMPLES
 -------------------------------------------------------------------------------
 
-The plugins directory contains some example scripts which show the functionality
-explained above:
+The plugins directory contains some example scripts which show the
+functionality explained above:
 
 bash_functions.lua
 Description: Add function names to keyword list
@@ -196,4 +206,17 @@ Features: Adds and extends keyword groups based on lists and regexes
 
 theme_invert.lua
 Description: Invert colours of the original theme
-Features: Modifies all color attributes of the theme script, uses Lua pattern matching
+Features: Modifies all color attributes of the theme script, uses Lua pattern
+          matching
+
+		  
+5. PLUG-IN USAGE
+-------------------------------------------------------------------------------
+
+Command line interface:
+Use --plug-in to load a pluig-in script file. This option can be applied 
+repeatedly.
+
+GUI:
+Add the plug-in scripts in the plug-in selection tab and enable them using the
+checkboxes.

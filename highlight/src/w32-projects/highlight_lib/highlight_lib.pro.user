@@ -178,7 +178,6 @@
    <valuelist key="abstractProcess.Environment" type="QVariantList">
     <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
     <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
-    <value type="QString">CLIENTNAME=Console</value>
     <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
     <value type="QString">COMPUTERNAME=SAALEN</value>
     <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
@@ -188,7 +187,7 @@
     <value type="QString">LOGONSERVER=\\SAALEN</value>
     <value type="QString">NUMBER_OF_PROCESSORS=1</value>
     <value type="QString">OS=Windows_NT</value>
-    <value type="QString">PATH=F:\qt-win\qt46\mingw\bin;F:\qt-win\qt46\qt\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\system32\WindowsPowerShell\v1.0;C:\Programme\TortoiseSVN\bin;f:\cygwin\bin</value>
+    <value type="QString">PATH=F:\qt-win\qt46\mingw\bin;F:\qt-win\qt46\qt\bin;C:\Programme\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\system32\WindowsPowerShell\v1.0;C:\Programme\TortoiseSVN\bin;f:\cygwin\bin</value>
     <value type="QString">PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.PSC1</value>
     <value type="QString">PROCESSOR_ARCHITECTURE=x86</value>
     <value type="QString">PROCESSOR_IDENTIFIER=x86 Family 15 Model 55 Stepping 2, AuthenticAMD</value>
@@ -226,7 +225,6 @@
    <valuelist key="abstractProcess.Environment" type="QVariantList">
     <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
     <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
-    <value type="QString">CLIENTNAME=Console</value>
     <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
     <value type="QString">COMPUTERNAME=SAALEN</value>
     <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
@@ -236,7 +234,7 @@
     <value type="QString">LOGONSERVER=\\SAALEN</value>
     <value type="QString">NUMBER_OF_PROCESSORS=1</value>
     <value type="QString">OS=Windows_NT</value>
-    <value type="QString">PATH=F:\qt-win\qt46\mingw\bin;F:\qt-win\qt46\qt\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\system32\WindowsPowerShell\v1.0;C:\Programme\TortoiseSVN\bin;f:\cygwin\bin</value>
+    <value type="QString">PATH=F:\qt-win\qt46\mingw\bin;F:\qt-win\qt46\qt\bin;C:\Programme\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\system32\WindowsPowerShell\v1.0;C:\Programme\TortoiseSVN\bin;f:\cygwin\bin</value>
     <value type="QString">PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.PSC1</value>
     <value type="QString">PROCESSOR_ARCHITECTURE=x86</value>
     <value type="QString">PROCESSOR_IDENTIFIER=x86 Family 15 Model 55 Stepping 2, AuthenticAMD</value>
@@ -272,7 +270,6 @@
    <valuelist key="abstractProcess.Environment" type="QVariantList">
     <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
     <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
-    <value type="QString">CLIENTNAME=Console</value>
     <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
     <value type="QString">COMPUTERNAME=SAALEN</value>
     <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
@@ -282,7 +279,7 @@
     <value type="QString">LOGONSERVER=\\SAALEN</value>
     <value type="QString">NUMBER_OF_PROCESSORS=1</value>
     <value type="QString">OS=Windows_NT</value>
-    <value type="QString">PATH=F:\qt-win\qt46\mingw\bin;F:\qt-win\qt46\qt\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\system32\WindowsPowerShell\v1.0;C:\Programme\TortoiseSVN\bin;f:\cygwin\bin</value>
+    <value type="QString">PATH=F:\qt-win\qt46\mingw\bin;F:\qt-win\qt46\qt\bin;C:\Programme\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\system32\WindowsPowerShell\v1.0;C:\Programme\TortoiseSVN\bin;f:\cygwin\bin</value>
     <value type="QString">PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.PSC1</value>
     <value type="QString">PROCESSOR_ARCHITECTURE=x86</value>
     <value type="QString">PROCESSOR_IDENTIFIER=x86 Family 15 Model 55 Stepping 2, AuthenticAMD</value>

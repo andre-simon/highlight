@@ -5,7 +5,7 @@
 AppName=Highlight Code Converter
 
 AppVerName=WinHighlight
-OutputBaseFilename=highlight-setup-3.1-beta3
+OutputBaseFilename=highlight-setup-3.2
 
 AppPublisher=André Simon
 AppPublisherURL=http://www.andre-simon.de
@@ -72,7 +72,7 @@ Name: "{userappdata}\WinHighlight"; Attribs: hidden
 
 [Components]
 Name: "main"; Description: "Highlight GUI"; Types: full compact custom; Flags: fixed
-Name: "cli"; Description: "Highlight Command line interface"; Types: full
+Name: "cli"; Description: "Highlight command line interface"; Types: full
 Name: "sourcecode"; Description: "Source code"; Types: full
 
 [INI]
