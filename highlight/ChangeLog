@@ -14,6 +14,7 @@ highlight 3.2
 -added dl linking flag in Makefile to fix Debian build error 
   (thanks to Michael Serrano)
 -added NDEBUG flag in makefile to disable asserts
+-GUI: Added Czech translation (thanks to Pavel Fric)
 
 ---
 highlight 3.1
