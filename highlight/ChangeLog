@@ -1,5 +1,9 @@
 CHANGELOG Highlight
 
+
+-added DatDir class to SWIG interface (suggested by David Bremner) 
+
+---
 highlight 3.2
 
 08.11.2010

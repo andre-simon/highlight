@@ -6,8 +6,10 @@
 
 %{
 #include "../../src/include/codegenerator.h"
+#include "../../src/include/datadir.h"
 %}
 
 %include "../../src/include/enums.h"
 %include "../../src/include/syntaxreader.h"
 %include "../../src/include/codegenerator.h"
+%include "../../src/include/datadir.h"

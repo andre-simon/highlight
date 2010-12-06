@@ -55,10 +55,12 @@ def highlightFile():
 	(infile, outfile) = args
 	
 	#get a generator instance (for HTML output)
-	gen=highlight.CodeGenerator_getInstance(outFormat);
+	gen=highlight.CodeGenerator.getInstance(outFormat)
+	datadir=highlight.DataDir()
+	datadir.searchDataDir("")
 
 	#initialize the generator with a colour theme and the language definition
-	gen.initTheme("%s/themes/%s.theme" % (HL_DIR, options.theme));
+	gen.initTheme(datadir.getThemePath("%s.theme" % options.theme))
 
 	if options.reformat:
 		gen.initIndentationScheme(options.reformat)
@@ -68,18 +70,18 @@ def highlightFile():
 	else:
 		syntax = infile[infile.rindex(".")+1:]
 
-	gen.loadLanguage("%s/langDefs/%s.lang"% (HL_DIR, syntax))
+	gen.loadLanguage(datadir.getLangPath("%s.lang" % syntax))
 	
-	gen.setIncludeStyle(1);
+	gen.setIncludeStyle(1)
 	gen.setTitle(options.doc_title)
 	gen.setFragmentCode(options.fragment)
 	gen.setPrintLineNumbers(options.linenumbers)
-	gen.setEncoding(options.encoding);
+	gen.setEncoding(options.encoding)
 
 	gen.generateFile(infile, outfile)
 
 	# clear the instance
-	highlight.CodeGenerator_deleteInstance(gen);
+	highlight.CodeGenerator.deleteInstance(gen)
 
 ###############################################################################
 if __name__ == "__main__":

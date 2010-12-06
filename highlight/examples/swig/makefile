@@ -5,6 +5,9 @@ CFLAGS=-g -O2 -fPIC
 HL_INC=../../src/include/
 HL_SRC=../../src/
 
+LUA_CFLAGS=$(shell pkg-config --cflags lua5.1)
+LUA_LIBS=$(shell pkg-config --libs lua5.1)
+
 PYTHON_INC=/usr/include/python2.6/
 
 PERL_INC=`perl -MExtUtils::Embed -eperl_inc`
@@ -16,13 +19,13 @@ lib-stamp:
 
 python: lib-stamp
 	swig -c++ -python -o highlight_wrap.cpp  highlight.i
-	${CXX} ${CFLAGS} -c highlight_wrap.cpp  -I${PYTHON_INC} -I${HL_INC}
-	${CXX} -shared -s highlight_wrap.o  -L${HL_SRC} -lhighlight -llua -o _highlight.so
+	${CXX} ${CFLAGS} -c highlight_wrap.cpp ${LUA_CFLAGS} -I${PYTHON_INC} -I${HL_INC} 
+	${CXX} -shared -s highlight_wrap.o  -L${HL_SRC} -lhighlight ${LUA_LIBS} -o _highlight.so
 
 perl: lib-stamp
 	swig -c++ -perl -o highlight_wrap.cpp  highlight.i
-	${CXX} ${CFLAGS} -c highlight_wrap.cpp ${PERL_INC} -I${HL_INC}
-	${CXX} -shared -s highlight_wrap.o  -L${HL_SRC} -lhighlight -llua -o highlight.so
+	${CXX} ${CFLAGS} -c highlight_wrap.cpp ${LUA_CFLAGS} ${PERL_INC} -I${HL_INC} 
+	${CXX} -shared -s highlight_wrap.o  -L${HL_SRC} -lhighlight ${LUA_LIBS} -o highlight.so
 
 
 clean: python-clean perl-clean

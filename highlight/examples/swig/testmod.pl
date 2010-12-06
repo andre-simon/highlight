@@ -6,12 +6,17 @@
 use highlight;
 
 #get a generator instance (for HTML output)
-my $gen = highlightc::CodeGenerator_getInstance($highlightc::HTML);
+my $gen = highlight::CodeGenerator::getInstance($highlight::CodeGenerator::HTML);
+ 
+my $dir = new highlight::DataDir();
 
+$dir->searchDataDir("");
+my $themepath=$dir->getThemePath("seashell.theme");
+my $langpath=$dir->getLangPath("c.lang");
 
 #initialize the generator with a colour theme and the language definition
-$gen->initTheme("/usr/share/highlight/themes/seashell.theme");
-$gen->loadLanguage("/usr/share/highlight/langDefs/c.lang");
+$gen->initTheme($themepath);
+$gen->loadLanguage($langpath);
 
 #set some parameters
 $gen->setIncludeStyle(1);
@@ -25,4 +30,4 @@ my $output=$gen->generateString("int main(int argc, char **argv) {\n".
 print $output;
 
 # clear the instance
-highlightc::CodeGenerator_deleteInstance($gen);
+highlight::CodeGenerator::deleteInstance($gen);
