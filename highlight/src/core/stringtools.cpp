@@ -129,4 +129,17 @@ namespace StringTools
 		return sum;
 	}
 
+	string getPathAcronym(const string&path, char delim) {
+	  string acronym;
+	  size_t pos=0;
+	  while ((pos=path.find(delim, pos))!=string::npos){
+	    pos++;
+	    if (pos<path.size() && path[pos]!=delim) {
+	      acronym+= path[pos];
+	    }
+	  }
+	  if(!acronym.empty()) acronym.replace(acronym.end()-1, acronym.end(), "_");
+	  return acronym;
+      }
+
 }

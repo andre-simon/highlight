@@ -21,7 +21,7 @@ function syntaxUpdate(desc)
                     "LOG_DEBUG",
                     "KERN_ERR", "KERN_INFO", "KERN_EMERG", "KERN_ALERT",
                     "KERN_CRIT",  "KERN_WARNING",  "KERN_NOTICE",
-                    "KERN_DEBUG"  }
+                    "KERN_DEBUG", "KERN_DEFAULT",  "KERN_CONT" }
                   } )
   end
 end

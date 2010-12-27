@@ -360,7 +360,6 @@ string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFi
     return "";
 }
 
-
 int HLCmdLineApp::run ( const int argc, const char*argv[] )
 {
     CmdLineOptions options ( argc, argv );
@@ -541,6 +540,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
                  numBadOutput=0;
 
     vector<string> badFormattedFiles, badInputFiles, badOutputFiles;
+    set<string> usedFileNames;
     string inFileName, outFilePath;
     string suffix, lastSuffix;
 
@@ -616,6 +616,11 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
         if ( options.enableBatchMode() )
         {
+	    if (usedFileNames.count(inFileName)){
+	      inFileName.insert(0, StringTools::getPathAcronym(inFileList[i], Platform::pathSeparator));
+	    } else {
+	      usedFileNames.insert(inFileName);
+	    }
             outFilePath = outDirectory;
             outFilePath += inFileName;
             outFilePath += options.getOutFileSuffix();

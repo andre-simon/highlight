@@ -89,6 +89,8 @@ namespace StringTools
 
 	int calcWeight(const string&s);
 
+	string getPathAcronym(const string&path, char delim);
+
 }
 
 #endif

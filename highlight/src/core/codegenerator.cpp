@@ -647,6 +647,7 @@ namespace highlight
 
 	LoadResult CodeGenerator::loadLanguage ( const string& langDefPath )
 	{
+
 		bool reloadNecessary= currentSyntax ? currentSyntax->needsReload ( langDefPath ): true;
 		LoadResult result=LOAD_OK;
 

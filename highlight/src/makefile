@@ -32,8 +32,8 @@ GUI_QT_DIR=./gui-qt/
 INCLUDE_DIR=./include/
 
 # Lua paths
-LUA_CFLAGS=/usr/include/lua5.1
-LUA_LIBS=lua5.1
+LUA_CFLAGS=-I/usr/include/lua5.1
+LUA_LIBS=-llua
 #LUA_CFLAGS=$(shell pkg-config --cflags lua5.1)
 #LUA_LIBS=$(shell pkg-config --libs lua5.1)
 
@@ -60,7 +60,7 @@ LDFLAGS = -ldl
 #LDFLAGS = ${LDFLAGS} -s
 #LDFLAGS= -Wl,--as-needed
 
-CXX_COMPILE=${CXX} ${CFLAGS} -c -I ${INCLUDE_DIR} -I ${LUA_CFLAGS}
+CXX_COMPILE=${CXX} ${CFLAGS} -c -I ${INCLUDE_DIR} ${LUA_CFLAGS}
 
 # Data directories (data dir, configuration file dir)
 CXX_DIR=-DHL_DATA_DIR=\"${HL_DATA_DIR}\" -DHL_CONFIG_DIR=\"${HL_CONFIG_DIR}\"
@@ -90,7 +90,7 @@ GUI_OBJECTS:=${GUI_QT_DIR}main.cpp ${GUI_QT_DIR}mainwindow.cpp ${GUI_QT_DIR}io_r
 
 
 cli: libhighlight.a ${CLI_OBJECTS}
-	${CXX} ${LDFLAGS} -o highlight ${CLI_OBJECTS} -L. -lhighlight -l${LUA_LIBS}
+	${CXX} ${LDFLAGS} -o highlight ${CLI_OBJECTS} -L. -lhighlight ${LUA_LIBS}
 
 lib-static libhighlight.a: ${CORE_OBJECTS}
 	${AR} ${ARFLAGS} libhighlight.a ${CORE_OBJECTS} ${DILU_OBJECTS}

@@ -400,10 +400,11 @@ namespace highlight
 		{
 			string inFileName;
 			string inFilePath, newInFilePath;
+			set<string> usedFileNames;
 			indexfile << getHeaderStart ( "Source Index" );
 			indexfile << "</head>\n<body>\n<h1> Source Index</h1>\n"
-			<< hrTag
-			<<  "\n<ul>\n";
+				  << hrTag
+				  <<  "\n<ul>\n";
 			string::size_type pos;
 			for ( unsigned int i=0; i < fileList.size();  i++ )
 			{
@@ -424,6 +425,13 @@ namespace highlight
 					inFilePath=newInFilePath;
 				}
 				inFileName = ( fileList[i] ).substr ( pos+1 );
+
+				if (usedFileNames.count(inFileName)){
+				  inFileName.insert(0, StringTools::getPathAcronym(fileList[i], Platform::pathSeparator));
+				} else {
+				  usedFileNames.insert(inFileName);
+				}
+
 				indexfile << "<li><a href=\"" << inFileName << suffix << "\">";
 				indexfile << inFileName << suffix <<"</a></li>\n";
 			}
