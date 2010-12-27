@@ -2,7 +2,7 @@
                           stringtools.cpp  -  description
                              -------------------
     begin                : Mon Dec 10 2001
-    copyright            : (C) 2001 by Andre Simon
+    copyright            : (C) 2001-2010 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -86,17 +86,6 @@ namespace StringTools
 	  else str.erase(str.begin(), str.end());
 	  return str;
 	}
-
-	/*string getParantheseVal ( const string &s )
-	{
-		string::size_type openPos=s.find ( '(' );
-		string::size_type closePos=s.rfind ( ')' );
-		if ( openPos ==string::npos || closePos==string::npos )
-		{
-			return string();
-		}
-		return s.substr ( openPos+1, closePos-openPos-1 );
-	}*/
 
 	vector<string> splitString ( const string& s, unsigned char delim )
 	{

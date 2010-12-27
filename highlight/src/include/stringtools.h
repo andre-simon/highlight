@@ -64,11 +64,6 @@ namespace StringTools
 
 	string trim(const string& s);
 
-	/** Parse data within parantheses
-	    \param s String, containing a opening and a closing paranthesis
-	    \return value between "(", ")" */
-	//string getParantheseVal ( const string &s );
-
 	/** Split string and return items separated by a delimiter
 	    \param s string containing tokens
 	    \param delim Token delimiter
@@ -90,7 +85,6 @@ namespace StringTools
 	int calcWeight(const string&s);
 
 	string getPathAcronym(const string&path, char delim);
-
 }
 
 #endif

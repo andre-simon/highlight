@@ -40,10 +40,10 @@ namespace highlight
 	{
 		stringstream s;
 		s  << "\\red"<< col.getColour().getRed ( RTF )
-		<< "\\green"<<col.getColour().getGreen ( RTF )
-		<< "\\blue"<<col.getColour().getBlue ( RTF )
-		<< ";";
-		return s.str();
+		  << "\\green"<<col.getColour().getGreen ( RTF )
+		  << "\\blue"<<col.getColour().getBlue ( RTF )
+		  << ";";
+		 return s.str();
 	}
 
 	string  RtfGenerator::getOpenTag ( int styleNumber,const ElementStyle & elem )
@@ -68,7 +68,7 @@ namespace highlight
 	{
 		ostringstream s;
 		s << "{\\*\\cs"<< ( styleNumber+2 ) <<"\\additive\\cf"<< ( styleNumber+2 )
-		<< "\\f1\\fs";
+		  << "\\f1\\fs";
 		int fontSize=0;
 		StringTools::str2num<int> ( fontSize, this->getBaseFontSize(), std::dec );
 		s << ( ( fontSize ) ? fontSize*2: 20 );  // RTF needs double amount
@@ -122,10 +122,10 @@ namespace highlight
 	void RtfGenerator::printBody()
 	{
 		*out << "{\\rtf1\\ansi\\uc0 \\deff1"
-		<< "{\\fonttbl{\\f1\\fmodern\\fprq1\\fcharset0 " ;
+		      << "{\\fonttbl{\\f1\\fmodern\\fprq1\\fcharset0 " ;
 		*out << this->getBaseFont() ;
 		*out << ";}}"
-		<< "{\\colortbl;";
+		      << "{\\colortbl;";
 
 		*out << "\\red"    << ( docStyle.getBgColour().getRed ( RTF ) );
 		*out << "\\green"    << ( docStyle.getBgColour().getGreen ( RTF ) );
@@ -188,8 +188,8 @@ namespace highlight
 		}
 
 		*out  << "\\paperw"<< psMap[pageSize].width <<"\\paperh"<< psMap[pageSize].height
-		<< "\\margl1134\\margr1134\\margt1134\\margb1134\\sectd" // page margins
-		<< "\\plain\\f1\\fs" ;  // Font formatting
+		      << "\\margl1134\\margr1134\\margt1134\\margb1134\\sectd" // page margins
+		      << "\\plain\\f1\\fs" ;  // Font formatting
 		int fontSize=0;
 		StringTools::str2num<int> ( fontSize, this->getBaseFontSize(), std::dec );
 		*out << ( ( fontSize ) ? fontSize*2: 20 );  // RTF needs double amount

@@ -5,8 +5,10 @@ highlight 3.3
 xx.12.2010
 
 -added DataDir class to SWIG interface (suggested by David Bremner)
+-added Andes theme (thanks to Roger Sperberg)
+-dropped oceandeep theme
 -CLI: fixed overwriting of files with the same name in recursive batch mode
-  (thanks to Ramanathan)
+  (thanks to Ramanathan U.)
 
 ---
 highlight 3.2

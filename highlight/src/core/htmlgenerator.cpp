@@ -2,7 +2,7 @@
                      htmlgenerator.cpp  -  description
                              -------------------
     begin                : Wed Nov 28 2001
-    copyright            : (C) 2001-2007 by Andre Simon
+    copyright            : (C) 2001-2010 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -71,11 +71,11 @@ namespace highlight
 			else
 			{
 				os << "<link rel=\"stylesheet\" type=\"text/css\" href=\""
-				<< getStyleOutputPath()
-				<< "\">\n";
+				    << getStyleOutputPath()
+				    << "\">\n";
 			}
 			os << "</head>\n<body class=\"" << cssClassName
-			<< "\">\n";
+			    << "\">\n";
 		}
 		else
 		{
@@ -134,7 +134,6 @@ namespace highlight
 		openTags.push_back ( "" );
 		if ( useInlineCSS )
 		{
-			//embedBlockOpen = "<div  style=\"background-color:#efefef;\">";
 			openTags.push_back ( getOpenTag ( docStyle.getStringStyle() ) );
 			openTags.push_back ( getOpenTag ( docStyle.getNumberStyle() ) );
 			openTags.push_back ( getOpenTag ( docStyle.getSingleLineCommentStyle() ) );
@@ -147,7 +146,6 @@ namespace highlight
 		}
 		else
 		{
-			//embedBlockOpen = "<div  style=\"background-color:#efefef;\">";
 			openTags.push_back ( getOpenTag ( STY_NAME_STR ) );
 			openTags.push_back ( getOpenTag ( STY_NAME_NUM ) );
 			openTags.push_back ( getOpenTag ( STY_NAME_SLC ) );
@@ -164,7 +162,7 @@ namespace highlight
 		{
 			closeTags.push_back ( "</span>" );
 		}
-		//embedBlockClose = "</div>";
+
 	}
 
 	string  HtmlGenerator::getAttributes ( const string & elemName, const ElementStyle & elem )
@@ -243,13 +241,7 @@ namespace highlight
 			<< getAttributes ( STY_NAME_DIR, docStyle.getPreProcessorStyle() )
 			<< getAttributes ( STY_NAME_SYM, docStyle.getOperatorStyle() )
 			<< getAttributes ( STY_NAME_LIN, docStyle.getLineStyle() );
-/*
-			os << "."<<cssClassName<<".mark\t{ background-color:#"
-			<< ( docStyle.getMarkLineColour().getRed ( HTML ) )
-			<< ( docStyle.getMarkLineColour().getGreen ( HTML ) )
-			<< ( docStyle.getMarkLineColour().getBlue ( HTML ) )
-			<< ";}\n";
-*/
+
 			KeywordStyles styles = docStyle.getKeywordStyles();
 			for ( KSIterator it=styles.begin(); it!=styles.end(); it++ )
 			{
@@ -291,14 +283,11 @@ namespace highlight
 
 		string nlStr;
 
-//		if ( markLines.count ( lineNumber-1 ) ) nlStr +="</span>";
-
 		if ( showLineNumbers && orderedList ) nlStr +="</li>";
 		/// set wrapping arrow if previous line was wrapped
 		//else if (preFormatter.isWrappedLine(lineNumber-1)) nlStr += "&crarr;";
 
 		if (printNewLines) nlStr+="\n";
-
 		return nlStr;
 	}
 
@@ -346,29 +335,6 @@ namespace highlight
 			}
 			wsBuffer += numberPrefix.str();
 		}
-/*
-		if ( markLines.count ( lineNumber ) )
-		{
-			if ( useInlineCSS )
-			{
-				ostringstream markingFmt;
-				markingFmt <<"<span style=\""
-				<<"background-color:#"
-				<< ( docStyle.getMarkLineColour().getRed ( HTML ) )
-				<< ( docStyle.getMarkLineColour().getGreen ( HTML ) )
-				<< ( docStyle.getMarkLineColour().getBlue ( HTML ) )
-				<< ";\"";
-				wsBuffer+=markingFmt.str();
-			}
-			else
-			{
-				wsBuffer +="<span class=\""+cssClassName+" mark\"";
-			}
-			if ( !markLines[lineNumber].empty() )
-				wsBuffer +=" title=\""+markLines[lineNumber]+"\"";
-			wsBuffer +=">";
-		}
-*/
 
 	}
 
@@ -383,9 +349,7 @@ namespace highlight
 			<< encoding
 			<< "\">\n";
 		}
-		header << "<title>"
-		<< title
-		<< "</title>\n";
+		header << "<title>" << title << "</title>\n";
 		return header.str();
 	}
 
@@ -475,7 +439,7 @@ namespace highlight
 			tagStream<<" | ";
 		}
 		maskString ( tagStream, info.file ) ;
-		tagStream<<"\">";
+		tagStream << "\">";
 		return tagStream.str();
 	}
 	string  HtmlGenerator::getMetaInfoCloseTag()
