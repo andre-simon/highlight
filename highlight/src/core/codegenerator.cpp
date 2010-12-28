@@ -604,7 +604,7 @@ namespace highlight
 		}
 		else if ( indentScheme=="kr"||indentScheme=="k&r"||indentScheme=="k/r" )
 		{
-			formatter->setFormattingStyle ( astyle::STYLE_KandR );
+			formatter->setFormattingStyle ( astyle::STYLE_KR );
 		}
 		else if ( indentScheme=="java" )
 		{
@@ -1230,6 +1230,10 @@ namespace highlight
 
 	bool CodeGenerator::processSingleLineCommentState()
 	{
+		if ( checkSpecialCmd() )
+		{
+			return in->bad(); // if input stream is bad, report eof to calling method
+		}
 
 		State newState=STANDARD;
 		bool eof=false, exitState=false;
@@ -1654,6 +1658,83 @@ bool CodeGenerator::initPluginScript(const string& script){
         return false;
     }
     return true;
+}
+
+bool CodeGenerator::checkSpecialCmd()
+{
+	string noParseCmd="@highlight";
+	// if single line comment is described with regex, token is equal to line
+	// otherwise start searching after the token, which then consists of comment identifier
+	size_t searchStart= ( token.size() ==line.size() ) ? 0 : lineIndex;
+	size_t cmdPos = line.find ( noParseCmd, searchStart );
+	size_t pos=1;
+	if ( cmdPos!=string::npos )
+	{
+		string res;
+		string replaceVar;
+
+		auto_ptr<Pattern> reDefPattern ( Pattern::compile ( "\\$[-\\w]+" ) );
+		auto_ptr<Matcher> m ( reDefPattern->createMatcher ( line.substr ( noParseCmd.size() +cmdPos ) ) );
+		while ( m.get() &&  m->findNextMatch() )
+		{
+			res+=line.substr ( noParseCmd.size() +cmdPos + pos ,
+					    m->getStartingIndex ( 0 )-pos );
+			replaceVar = m->getGroup ( 0 );
+			if ( replaceVar=="$nl" )
+			{
+				res+="\n";
+			}
+			else if ( replaceVar=="$infile" )
+			{
+				res+= ( inFile.size() ) ? inFile: "stdin";
+			}
+			else if ( replaceVar=="$outfile" )
+			{
+				res+= ( outFile.size() ) ? outFile: "stdout";
+			}
+			else if ( replaceVar=="$title" )
+			{
+				res+= docTitle;
+			}
+			else if ( replaceVar=="$theme"||replaceVar=="$style" )
+			{
+				res+= getStyleName();
+			}
+			else if ( replaceVar=="$font-face" )
+			{
+				res+= getBaseFont();
+			}
+			else if ( replaceVar=="$font-size" )
+			{
+				res+= getBaseFontSize();
+			}
+			else if ( replaceVar=="$encoding" )
+			{
+				res+= encoding;
+			}
+			else if ( replaceVar=="$linenum" )
+			{
+				char numBuf[10];
+				snprintf ( numBuf, sizeof ( numBuf ), "%d", lineNumber );
+				res+= string ( numBuf );
+			}
+			pos=m->getEndingIndex ( 0 );
+		}
+		res+=line.substr ( noParseCmd.size() +cmdPos + pos );
+
+		*out<<res;
+
+		// hide comment line from output
+		token.clear();
+		lineIndex=line.length();
+		getInputChar();
+		lineNumber--;
+		// end hide
+
+		return true; // do not parse line as comment
+	}
+
+	return false; //parse comment as usual
 }
 
 }

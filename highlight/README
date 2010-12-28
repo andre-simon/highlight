@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.2    ---------------------- November 2010 ---
+---  HIGHLIGHT MANUAL - Version 3.3    ---------------------- December 2010 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -297,6 +297,8 @@ Highlight enters the batch processing mode if multiple input files are defined
 or if --batch-recursive is set.
 In batch mode, highlight will save the generated files with the original
 filename, appending the extension of the chosen output type.
+If files in the input directories have the same name, the output files will
+be prefixed with their source path name.
 The --out-dir option is recommended in batch mode. Use --quiet to improve
 performance (recommended for usage in shell scripts).
 

@@ -50,7 +50,7 @@ void HLCmdLineApp::printVersionInfo()
          << "\n Copyright (C) 2002-2010 Andre Simon <andre.simon1 at gmx.de>"
          << "\n\n Argparser class"
          << "\n Copyright (C) 2006-2008 Antonio Diaz Diaz <ant_diaz at teleline.es>"
-         << "\n\n Artistic Style Classes (1.24)"
+         << "\n\n Artistic Style Classes (2.01)"
          << "\n Copyright (C) 2006-2010 by Jim Pattee <jimp03 at email.com>"
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
          << "\n\n Diluculum Lua wrapper (0.5.3)"
@@ -617,7 +617,9 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         if ( options.enableBatchMode() )
         {
 	    if (usedFileNames.count(inFileName)){
-	      inFileName.insert(0, StringTools::getPathAcronym(inFileList[i], Platform::pathSeparator));
+	      string prefix=inFileList[i].substr (0, pos+1 );
+	      replace (prefix.begin(), prefix.end(), Platform::pathSeparator, '_');
+	      inFileName.insert(0, prefix);
 	    } else {
 	      usedFileNames.insert(inFileName);
 	    }

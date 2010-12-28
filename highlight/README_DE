@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.2  ------------------------ November 2010 ---
+---  HIGHLIGHT MANUAL - Version 3.3  ------------------------ Dezember 2010 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -300,6 +300,8 @@ Wenn mehrere Eingabedateien an Highlight uebergeben werden oder --batch-rcursive
 gesetzt ist, wechselt das Tool in den Batch-Modus. In diesem Modus werden die
 Ausgabedateien unter dem Namen der Eingabedateien gespeichert, lediglich die
 Dateierweiterung des gewaehlten Ausgabeformats wird angehangen.
+Sollte es in den Eingabeverzeichnissen Dateien mit identischem Namen geben, so
+werden diese Ausgabedateien mit ihrem Quellverzeichnis als Praefix ausgegeben.  
 Die --outdir Option ist im Batch Modus besonders nuetzlich. In Skripten sollte
 --quiet angegeben werden, um die Geschwindigkeit der Verarbeitung zu erhoehen.
 

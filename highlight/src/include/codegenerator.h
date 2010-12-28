@@ -722,6 +722,9 @@ namespace highlight
 			 \param kwClass keyword class ID if newState is KEYWORD
 			 */
 			State validateState(State newState, State oldState, unsigned int kwClass);
+			
+			/** \deprecated replace by Lua functionality */
+			bool checkSpecialCmd();
 
 	};
 

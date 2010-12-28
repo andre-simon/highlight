@@ -64,38 +64,6 @@ class ASStreamIterator : public ASSourceIterator
 		bool prevLineDeleted;  // the previous input line was deleted
 };
 
-/*
-
-// typename will be istringstream for GUI and istream otherwise
-//template<typename T>
-class ASStreamIterator :
-			public ASSourceIterator
-{
-	public:
-		// function declarations
-		ASStreamIterator(istream *in);
-		virtual ~ASStreamIterator();
-		string nextLine();
-		string peekNextLine();
-		void peekReset();
-		void saveLastInputLine();
-
-		// inline functions
-		bool compareToInputBuffer(const string &nextLine) const { return nextLine == prevBuffer; }
-		const char* getOutputEOL() const { return outputEOL; }
-		bool hasMoreLines() const 	{ return !inStream->eof(); }
-
-	private:
-		istream* inStream;          // pointer to the input stream
-		string buffer;         // current input line
-		string prevBuffer;     // previous input line
-		int eolWindows;        // number of Windows line endings (CRLF)
-		int eolLinux;          // number of Linux line endings (LF)
-		int eolMacOld;         // number of old Mac line endings (CR)
-		char outputEOL[4];     // output end of line char
-		int peekStart;			// starting position for peekNextLine()
-};
-*/
 }
 
 #endif

@@ -24,7 +24,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 
-#include <astyle/astyle.h>
+#include "astyle/astyle.h"
 #include <algorithm>
 
 
@@ -39,6 +39,7 @@ const string ASResource::AS_SWITCH = string("switch");
 const string ASResource::AS_CASE = string("case");
 const string ASResource::AS_DEFAULT = string("default");
 const string ASResource::AS_CLASS = string("class");
+const string ASResource::AS_VOLATILE = string("volatile");
 const string ASResource::AS_STRUCT = string("struct");
 const string ASResource::AS_UNION = string("union");
 const string ASResource::AS_INTERFACE = string("interface");
@@ -114,8 +115,6 @@ const string ASResource::AS_ARROW = string("->");
 const string ASResource::AS_AND = string("&&");
 const string ASResource::AS_OR = string("||");
 const string ASResource::AS_COLON_COLON = string("::");
-const string ASResource::AS_PAREN_PAREN = string("()");
-const string ASResource::AS_BLPAREN_BLPAREN = string("[]");
 
 const string ASResource::AS_PLUS = string("+");
 const string ASResource::AS_MINUS = string("-");
@@ -158,7 +157,7 @@ const string ASResource::AS_STATIC_CAST = string("static_cast");
  *
  * @params the string pointers to be compared.
  */
-bool sortOnLength(const string *a, const string *b)
+bool sortOnLength(const string* a, const string* b)
 {
 	return (*a).length() > (*b).length();
 }
@@ -169,7 +168,7 @@ bool sortOnLength(const string *a, const string *b)
  *
  * @params the string pointers to be compared.
  */
-bool sortOnName(const string *a, const string *b)
+bool sortOnName(const string* a, const string* b)
 {
 	return *a < *b;
 }
@@ -262,6 +261,7 @@ void ASResource::buildHeaders(vector<const string*>* headers, int fileType, bool
 		{
 			headers->push_back(&AS_CONST);
 			headers->push_back(&AS_TEMPLATE);
+			headers->push_back(&AS_VOLATILE);
 		}
 
 		if (fileType == JAVA_TYPE)
@@ -309,6 +309,7 @@ void ASResource::buildNonAssignmentOperators(vector<const string*>* nonAssignmen
 	nonAssignmentOperators->push_back(&AS_ARROW);
 	nonAssignmentOperators->push_back(&AS_AND);
 	nonAssignmentOperators->push_back(&AS_OR);
+	nonAssignmentOperators->push_back(&AS_EQUAL_GR);
 
 	sort(nonAssignmentOperators->begin(), nonAssignmentOperators->end(), sortOnLength);
 }
@@ -349,6 +350,7 @@ void ASResource::buildNonParenHeaders(vector<const string*>* nonParenHeaders, in
 		{
 			nonParenHeaders->push_back(&AS_CONST);
 			nonParenHeaders->push_back(&AS_TEMPLATE);
+			nonParenHeaders->push_back(&AS_VOLATILE);
 		}
 		if (fileType == JAVA_TYPE)
 		{
@@ -507,7 +509,7 @@ void ASResource::buildPreDefinitionHeaders(vector<const string*>* preDefinitionH
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 // check if a specific line position contains a keyword.
-bool ASBase::findKeyword(const string &line, int i, const string &keyword) const
+bool ASBase::findKeyword(const string& line, int i, const string& keyword) const
 {
 	assert(isCharPotentialHeader(line, i));
 	// check the word

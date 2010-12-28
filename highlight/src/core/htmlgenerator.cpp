@@ -28,6 +28,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 #include "htmlgenerator.h"
 #include "version.h"
@@ -391,7 +392,9 @@ namespace highlight
 				inFileName = ( fileList[i] ).substr ( pos+1 );
 
 				if (usedFileNames.count(inFileName)){
-				  inFileName.insert(0, StringTools::getPathAcronym(fileList[i], Platform::pathSeparator));
+				  string prefix=fileList[i].substr (0, pos+1 );
+				  replace (prefix.begin(), prefix.end(), Platform::pathSeparator, '_');
+				  inFileName.insert(0, prefix);
 				} else {
 				  usedFileNames.insert(inFileName);
 				}

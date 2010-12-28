@@ -2,13 +2,15 @@ CHANGELOG Highlight
 
 highlight 3.3
 
-xx.12.2010
+28.12.2010
 
+-updated astyle code to release 2.01
+-fixed overwriting of files with the same name in recursive batch mode
+  (thanks to Ramanathan U.)
 -added DataDir class to SWIG interface (suggested by David Bremner)
 -added Andes theme (thanks to Roger Sperberg)
+-enabled deprecated @highlight pass-through (suggested by David Bremner)
 -dropped oceandeep theme
--CLI: fixed overwriting of files with the same name in recursive batch mode
-  (thanks to Ramanathan U.)
 
 ---
 highlight 3.2

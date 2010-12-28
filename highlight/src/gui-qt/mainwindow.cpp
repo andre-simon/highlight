@@ -2,7 +2,7 @@
                                mainwindow.cpp
                              -------------------
     begin                : Mo 16.03.2009
-    copyright            : (C) 2009 by Andre Simon
+    copyright            : (C) 2009-2010 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -193,14 +193,9 @@ void MainWindow::on_pbOutputDest_clicked(){
                         "andre-simon.de", "highlight-gui");
 
      settings.beginGroup("MainWindow");
-    // settings.setValue("size", size());
-    // settings.setValue("pos", pos());
      settings.setValue("geometry", saveGeometry());
      settings.setValue("windowState", saveState());
      settings.endGroup();
-
-
-
 
      settings.beginGroup("input");
      QStringList inFiles;
@@ -343,8 +338,6 @@ void MainWindow::on_pbOutputDest_clicked(){
      if (!QFile(settings.fileName()).exists()) return;
 
      settings.beginGroup("MainWindow");
-     //resize(settings.value("size", QSize(400, 400)).toSize());
-     //move(settings.value("pos", QPoint(200, 200)).toPoint());
 
      restoreGeometry(settings.value("geometry").toByteArray());
          restoreState(settings.value("windowState").toByteArray());
@@ -495,7 +488,7 @@ void MainWindow::on_action_About_Highlight_triggered()
                          "Highlight GUI %1\n"
                          "(C) 2002-2010 Andre Simon <andre.simon1 at gmx.de>\n\n"
                          "Artistic Style Classes\n(C) 1998-2002 Tal Davidson\n"
-                         "(C) 2006-2009 Jim Pattee <jimp03 at email.com>\n\n"
+                         "(C) 2006-2010 Jim Pattee <jimp03 at email.com>\n\n"
                          "Diluculum Lua wrapper\n"
 			 "(C) 2005-2010 by Leandro Motta Barros\n\n"
                          "Regex library\n(C) 2003-2008 Jeffery Stuart <stuart at cs.unr.edu>\n\n"
@@ -612,7 +605,6 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
 
     if (!generator->initTheme(themePath.toStdString())){
         QMessageBox::critical(this,"Theme init error", QString::fromStdString(generator->getThemeInitError()));
-        //return;
     }
 
     if (ui->cbEncoding->isChecked()) {
@@ -720,23 +712,27 @@ void MainWindow::on_pbStartConversion_clicked(){
     auto_ptr<highlight::CodeGenerator> generator(highlight::CodeGenerator::getInstance(outType));
 
     applyCtrlValues(generator.get(), false);
-    string currentFile, suffix;
+    string currentFile;
     string outfileName;
-    string outfileSuffix = getOutFileSuffix().toStdString();
-    QString langDefPath;
-    QString inFileName, inFilePath;
     highlight::ParseError error;
     highlight::LoadResult loadRes;
+    
+    QString langDefPath;
+    QString inFileName, inFilePath;
+    QSet<QString> usedFileNames;
+
     QStringList inputErrors, outputErrors, reformatErrors;
 
     for (int i=0; i<ui->lvInputFiles->count(); i++){
      inFilePath =  ui->lvInputFiles->item(i)->text();
      currentFile = inFilePath.toStdString();
-     suffix = getFileType(getFileSuffix(currentFile), currentFile);
+     
 #ifdef DATA_DIR
-    langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(DATA_DIR).arg(QString::fromStdString(suffix)));
+    langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(DATA_DIR).arg(
+      QString::fromStdString(getFileType(getFileSuffix(currentFile), currentFile))));
 #else
-     langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(QDir::currentPath()).arg(QString::fromStdString(suffix)));
+     langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(QDir::currentPath()).arg(
+       QString::fromStdString(getFileType(getFileSuffix(currentFile), currentFile))));
 #endif
 
      loadRes=generator->loadLanguage(langDefPath.toStdString());
@@ -746,30 +742,39 @@ void MainWindow::on_pbStartConversion_clicked(){
                          QString::fromStdString( generator->getSyntaxRegexError())));
              break;
         } else  if (loadRes==highlight::LOAD_FAILED) {
-           QMessageBox::warning(this, tr("Unknown syntax"), tr("Could not convert %1").arg(QString::fromStdString(currentFile)));
+           QMessageBox::warning(this, tr("Unknown syntax"), tr("Could not convert %1").arg(inFilePath));
            inputErrors.append(inFilePath);
        } else {
 
           if (ui->cbReformat->isChecked()&& !generator->formattingIsPossible()){
              reformatErrors.append(inFilePath);
           }
-
-          if (ui->cbWrite2Src->isChecked()) {
+          
+          inFileName = QFileInfo(inFilePath).fileName();
+          
+	  if (ui->cbWrite2Src->isChecked()) {
             outfileName = currentFile;
           } else {
               QFileInfo outFileInfo;
-              outFileInfo.setFile(ui->leOutputDest->text(), QFileInfo(inFilePath).fileName());
+	      QString fName=inFileName;
+	      if (usedFileNames.contains(fName)){
+		QString prefix=QFileInfo(inFilePath).canonicalPath()+ QDir::separator();
+		prefix.replace(QDir::separator(), '_');
+		fName.insert(0, prefix);
+	      } else {
+		usedFileNames.insert(fName);
+	      }
+              outFileInfo.setFile(ui->leOutputDest->text(),fName);
               outfileName = outFileInfo.absoluteFilePath().toStdString();
           }
-          outfileName += outfileSuffix;
+          outfileName +=  getOutFileSuffix().toStdString();;
 
-          inFileName = QFileInfo(inFilePath).fileName();
+
           if (ui->cbHTMLFileNameAnchor->isChecked()){
             generator->setHTMLAnchorPrefix(inFileName.toStdString());
           }
           generator->setTitle(inFileName.toStdString());
-          error = generator->generateFile(currentFile,
-                                         outfileName );
+          error = generator->generateFile(currentFile, outfileName );
           if (error != highlight::PARSE_OK){
             if (error == highlight::BAD_INPUT) {
               inputErrors.append(inFilePath);
