@@ -736,7 +736,7 @@ gespeichert werden. Mit der --style (-s) Option wird das Farbschema angewandt.
 
 Formatattribute:
 
-AttrList = {Colour, Bold?, Italic?, Underline? }
+Attributes = {Colour, Bold?, Italic?, Underline? }
 
 Colour:    String, Farbe in Hex-Notation ("#rrggbb")
 Bold:      Boolean, True wenn Font bold sein soll (optional)
@@ -748,49 +748,40 @@ Theme-Elemente:
 
 Description:   String, Theme-Beschreibung
 
-Default        = AttrList
-AttrList: Liste, Farbe des nicht hervorgehobenen Texts
+Default        = Attributes (Farbe des nicht hervorgehobenen Texts)
 
-Canvas         = AttrList
-AttrList: Liste, Hintergrundfarbe
+Canvas         = Attributes (Hintergrundfarbe)
 
-Number         = AttrList
-AttrList: Liste, Formatierung von Zahlen
+Number         = Attributes (Formatierung von Zahlen)
 
-Escape         = AttrList
-AttrList: Liste, Formatierung von Escape Sequenzen
+Escape         = Attributes (Formatierung von Escape-Sequenzen)
 
-String         = AttrList
-AttrList: Liste, Formatierung von Strings
+String         = Attributes (Formatierung von Strings)
 
-PreProcessor   = AttrList
-AttrList: Liste, Formatierung von Praeprozessor-Direktiven
+PreProcessor   = Attributes (Formatierung von Praeprozessor-Direktiven)
 
-StringPreProc  = AttrList
-AttrList: Liste, Formatierung von Strimngs in Praeprozessor-Direktiven
+StringPreProc  = Attributes (Formatierung von Strings in
+                             Praeprozessor-Direktiven)
 
-BlockComment   = AttrList
-AttrList: Liste, Formatierung von Blockkommentaren
+BlockComment   = Attributes (Formatierung von Blockkommentaren)
 
-LineComment    = AttrList
-AttrList: Liste, Formatierung von Zeilenkommentaren
+LineComment    = Attributes (Formatierung von Zeilenkommentaren)
 
-LineNum        = AttrList
-AttrList: Liste, Formatierung von Zeilennummern
+LineNum        = Attributes (Formatierung von Zeilennummern)
 
-Operator       = AttrList
-AttrList: Liste, Formatierung von Operatoren
+Operator       = Attributes (Formatierung von Operatoren)
 
 Keywords= {
-  AttrListe,
-  AttrListe,
-  AttrListe,
-  AttrListe,
+  Attributes1,
+  Attributes2,
+  Attributes3,
+  Attributes4,
 }
-AttrList: Liste, Formatierung von Schluesselwoertgruppen. Es sollten mindestens
-          vier Elemente angegeben werden, um mit der Anzahl von Schluessel-
-          wortgruppen in den Sprachdefinitionen uebereinzustimmen.
 
+AttributesN: Liste, Formatierung von Schluesselwoertgruppen. Es sollten
+             mindestens vier Elemente angegeben werden, um mit der Anzahl
+             von Schluesselwortgruppen in den Sprachdefinitionen
+             uebereinzustimmen.
 
 Beispiel:
 

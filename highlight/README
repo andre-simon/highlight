@@ -276,7 +276,7 @@ If no input or output file name is defined by --input and --output options,
 highlight will use stdin and stdout for file processing.
 
 If no input filename is defined by --input or given at the prompt, highlight is
-not able to determine the language type by means of the file extension (only
+not able to determine the language type by means of the file extension (but
 some scripting languages are determined by the shebang in the first input
 line). In this case you have to pass highlight the given langage with --syntax
 (this should be the file suffix of the source file in most cases).
@@ -707,7 +707,7 @@ Apply a theme with the --style option.
 
 Format attributes:
 
-Atributes = {Colour, Bold?, Italic?, Underline? }
+Attributes = {Colour, Bold?, Italic?, Underline? }
 
 Colour:    String, defines colour in HTML hex notation ("#rrggbb")
 Bold:      Boolean, true if font should be bold (optional)
@@ -719,39 +719,39 @@ Theme elements:
 
 Description:   String, Defines theme description
 
-Default        = Atributes (Colour of unspecified text)
+Default        = Attributes (Colour of unspecified text)
 
-Canvas         = Atributes (Background colour )
+Canvas         = Attributes (Background colour )
 
-Number         = Atributes (Formatting of numbers)
+Number         = Attributes (Formatting of numbers)
 
-Escape         = Atributes (Formatting of escape sequences)
+Escape         = Attributes (Formatting of escape sequences)
 
-String         = Atributes (Formatting of strings)
+String         = Attributes (Formatting of strings)
 
-PreProcessor   = Atributes (Formatting of preprocessor directives)
+PreProcessor   = Attributes (Formatting of preprocessor directives)
 
-StringPreProc  = Atributes (Formatting of strings within
+StringPreProc  = Attributes (Formatting of strings within
                             preprocessor directives)
 
-BlockComment   = Atributes (Formatting of block comments)
+BlockComment   = Attributes (Formatting of block comments)
 
-LineComment    = Atributes (Formatting of line comments)
+LineComment    = Attributes (Formatting of line comments)
 
-LineNum        = Atributes (Formatting of line numbers)
+LineNum        = Attributes (Formatting of line numbers)
 
-Operator       = Atributes (Formatting of operators)
+Operator       = Attributes (Formatting of operators)
 
 Keywords= {
-  Atributes1,
-  Atributes2,
-  Atributes3,
-  Atributes4,
+  Attributes1,
+  Attributes2,
+  Attributes3,
+  Attributes4,
 }
 
-AtributesN: Formatting of keyword group N. There should be at least four items
-            to match the number of keyword groups defined in the language
-            definitions
+AttributesN: Formatting of keyword group N. There should be at least four items
+             to match the number of keyword groups defined in the language
+             definitions
 
 Example:
 
