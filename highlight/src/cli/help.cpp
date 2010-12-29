@@ -70,12 +70,12 @@ namespace Help
 		cout<<" -O, --out-format=<format>      output file in given format\n";
 		cout<<"                                  <format>=[html, xhtml, latex, tex,\n";
 		cout<<"                                  rtf, ansi, xterm256, bbcode, svg]\n";
-		cout<<" -c, --style-outfile=<file>     name of style file or output to stdout, if\n";
+		cout<<" -c, --style-outfile=<file>     name of style file or print to stdout, if\n";
 		cout<<"                                  'stdout' is given as file argument\n";
 
 		cout<<" -e, --style-infile=<file>      file to be included in style-outfile\n";
 
-		cout<<" -f, --fragment                 omit file header and footer\n";
+		cout<<" -f, --fragment                 omit document header and footer\n";
 		cout<<" -F, --reformat=<style>         reformats and indents output in given style\n";
 		cout<<"                                  <style>=[allman, banner, gnu,\n";
 		cout<<"                                  horstmann, java, kr, linux, otbs,\n";
@@ -95,7 +95,7 @@ namespace Help
 		cout<<" -V, --wrap-simple              wrap long lines without indenting function\n";
 		cout<<"                                  parameters and statements\n";
 		cout<<" -W, --wrap                     wrap long lines\n";
-		cout<<" -z, --zeroes                   fill leading space of line numbers with 0's\n";
+		cout<<" -z, --zeroes                   pad line numbers with 0's\n";
 		cout<<"     --kw-case=<case>           change case of case insensitive keywords\n";
 		cout<<"                                  <case> =  [upper, lower, capitalize]\n";
 		cout<<"     --delim-cr                 set CR as end-of-line delimiter (MacOS 9)\n";
@@ -105,7 +105,7 @@ namespace Help
 		cout<<"\n";
 		cout<<" -a, --anchors                  attach anchor to line numbers\n";
 		cout<<" -y, --anchor-prefix=<str>      set anchor name prefix\n";
-		cout<<" -N, --anchor-filename          use input file name as anchor name\n";
+		cout<<" -N, --anchor-filename          use input file name as anchor prefix\n";
 		cout<<" -C, --print-index              print index with hyperlinks to output files\n";
 		cout<<" -n, --ordered-list             print lines as ordered list items\n";
 		cout<<"     --class-name=<str>         set CSS class name prefix\n";

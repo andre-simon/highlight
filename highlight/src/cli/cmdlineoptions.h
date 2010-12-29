@@ -2,7 +2,7 @@
                           cmdlineoptions.h  -  description
                              -------------------
     begin                : Sun Nov 25 2001
-    copyright            : (C) 2001-2007 by Andre Simon
+    copyright            : (C) 2001-2010 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -45,7 +45,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OPT_OUTFORMAT      "out-format"
 #define OPT_ADDCONFDIR     "add-config-dir"
-#define OPT_ADDDATADIR     "add-data-dir"
 #define OPT_ANCHORS        "anchors"
 #define OPT_ANCHOR_FN      "anchor-filename"
 #define OPT_ANCHOR_PFX     "anchor-prefix"
@@ -206,12 +205,8 @@ class CmdLineOptions
 		/** \return True if loutput directory is given*/
 		bool outDirGiven() const;
 
-		/** \return True if refomatting is enabled*/
-//    bool formattingEnabled();
-
 		/** \return True if a new data directory is given*/
 		bool dataDirGiven() const;
-
 
 		/** \return True if index file should be printed*/
 		bool printIndexFile() const;
@@ -386,7 +381,6 @@ class CmdLineOptions
 
 		string baseFont, baseFontSize;
 		string docTitle, className;
-// 		string markLinesArg;
 		string skipArg;
 		string svg_height, svg_width;
 		string ctagsFile;
@@ -426,10 +420,8 @@ class CmdLineOptions
 		bool opt_no_trailing_nl;
 
 		string anchorPrefix;
-
 		string helpLang, encodingName;
 		string configFilePath;
-
 		string pluginPath;
 
 		/** list of all input file names */
@@ -443,9 +435,6 @@ class CmdLineOptions
 
 		/** list of file types which should be ignored */
 		set <string> ignoredFileTypes;
-
-		/* load highlight configuration file */
-// 		void loadConfigurationFile();
 
 		/** \return file suffix */
 		string getFileSuffix ( const string & fileName ) const;

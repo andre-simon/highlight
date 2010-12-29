@@ -130,7 +130,7 @@ input file called main.cpp:
 
   Default output is HTML if no other format is specified.
 
-- Costumize font settings:
+- Customize font settings:
   highlight --syntax ada --out-format=xhtml --font-size 12 --font Verdana
   highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
@@ -182,10 +182,10 @@ Output formatting options:
  -O, --out-format=<format>      output file in given format
                                   <format>=[html, xhtml, latex, tex,
                                   rtf, ansi, xterm256, bbcode, svg]
- -c, --style-outfile=<file>     name of style file or output to stdout, if
+ -c, --style-outfile=<file>     name of style file or print to stdout, if
                                   'stdout' is given as file argument
  -e, --style-infile=<file>      file to be included in style-outfile
- -f, --fragment                 omit file header and footer
+ -f, --fragment                 omit document header and footer
  -F, --reformat=<style>         reformats and indents output in given style
                                   <style>=[allman, banner, gnu,
                                   horstmann, java, kr, linux, otbs,
@@ -205,7 +205,7 @@ Output formatting options:
  -V, --wrap-simple              wrap long lines without indenting function
                                   parameters and statements
  -W, --wrap                     wrap long lines
- -z, --zeroes                   fill leading space of line numbers with 0's
+ -z, --zeroes                   pad line numbers with 0's
      --kw-case=<case>           change case of case insensitive keywords
                                   <case> =  [upper, lower, capitalize]
      --delim-cr                 set CR as end-of-line delimiter (MacOS 9)
@@ -215,7 +215,7 @@ Output formatting options:
 
  -a, --anchors                  attach anchor to line numbers
  -y, --anchor-prefix=<str>      set anchor name prefix
- -N, --anchor-filename          use input file name as anchor name
+ -N, --anchor-filename          use input file name as anchor prefix
  -C, --print-index              print index with hyperlinks to output files
  -n, --ordered-list             print lines as ordered list items
      --class-name=<str>         set CSS class name prefix
@@ -289,7 +289,7 @@ highlight test.py
 highlight < test.py --syntax py       # --syntax option necessary
 cat test.py | highlight --syntax py
 
-If there exist multiple suffixes (like C, cc, cpp, h with C++ - files),
+If there exist multiple suffixes (like C, cc, cpp, h for C++ - files),
 you assign them to the matching language definition in the file
 $CONF_DIR/filetypes.conf.
 
@@ -297,8 +297,8 @@ Highlight enters the batch processing mode if multiple input files are defined
 or if --batch-recursive is set.
 In batch mode, highlight will save the generated files with the original
 filename, appending the extension of the chosen output type.
-If files in the input directories have the same name, the output files will
-be prefixed with their source path name.
+If files in the input directories happen to share the same name, the output
+files will be prefixed with their source path name.
 The --out-dir option is recommended in batch mode. Use --quiet to improve
 performance (recommended for usage in shell scripts).
 
@@ -316,11 +316,11 @@ Name and path of the stylesheet may be modified with --style-outfile.
 If the --outdir option is given, all generated output, including stylesheets,
 are stored in this directory.
 
-Use --include-style to save the style information embedded in the output
-documents without referencing a stylesheet.
+Use --include-style to embed the style information in the output documents
+without referencing a stylesheet.
 
-The usage of referenced style definitions has the advantage to have all
-formatting information in a single file, which affects all referencing documents.
+Referenced style definitions have the advantage to share all formatting
+information in a single file, which affects all referencing documents.
 
 With --style-infile you define a file to be included in the final formatting
 information of the document. This way you enhance or redefine the default
@@ -413,10 +413,10 @@ UTF-8 BOM in the output.
 Highlight nested code without starting delimiter
 ------------------------------------------------
 
-If a file starts with an embedded code section which misses the opening
+If a file starts with an embedded code section which misses an appropriate opening
 delimiter, the --start-nested option will switch to the nested language mode.
 This can happen with LuaTeX files:
-highlight luatex.tex --latex -t4 -semacs --start-nested=inc_luatex
+highlight luatex.tex --latex --start-nested=inc_luatex
 
 The inc_luatex definition is a Lua language definition with TeX line comments.
 Note that the nested code section has to end with the ending delimiter defined
@@ -599,7 +599,7 @@ Global variables:
 
 The following variables are available within a language definition:
 
-hl_lang_dir: path of language definition directory (use with dofile)
+hl_lang_dir: path of language definition directory (use with Lua dofile function)
 
 Identifiers: Default regex for identifiers
 Digits:      Default regex for numbers
@@ -707,7 +707,7 @@ Apply a theme with the --style option.
 
 Format attributes:
 
-AttrList = {Colour, Bold?, Italic?, Underline? }
+Atributes = {Colour, Bold?, Italic?, Underline? }
 
 Colour:    String, defines colour in HTML hex notation ("#rrggbb")
 Bold:      Boolean, true if font should be bold (optional)
@@ -719,48 +719,39 @@ Theme elements:
 
 Description:   String, Defines theme description
 
-Default        = AttrList
-AttrList: List, Colour of unspecified text
+Default        = Atributes (Colour of unspecified text)
 
-Canvas         = AttrList
-AttrList: List, Background colour
+Canvas         = Atributes (Background colour )
 
-Number         = AttrList
-AttrList: List, Formatting of numbers
+Number         = Atributes (Formatting of numbers)
 
-Escape         = AttrList
-AttrList: List, Formatting of escape sequences
+Escape         = Atributes (Formatting of escape sequences)
 
-String         = AttrList
-AttrList: List, Formatting of strings
+String         = Atributes (Formatting of strings)
 
-PreProcessor   = AttrList
-AttrList: List, Formatting of preprocessor directives
+PreProcessor   = Atributes (Formatting of preprocessor directives)
 
-StringPreProc  = AttrList
-AttrList: List, Formatting of strings within preprocessor directives
+StringPreProc  = Atributes (Formatting of strings within
+                            preprocessor directives)
 
-BlockComment   = AttrList
-AttrList: List, Formatting of block comments
+BlockComment   = Atributes (Formatting of block comments)
 
-LineComment    = AttrList
-AttrList: List, Formatting of line comments
+LineComment    = Atributes (Formatting of line comments)
 
-LineNum        = AttrList
-AttrList: List, Formatting of line numbers
+LineNum        = Atributes (Formatting of line numbers)
 
-Operator       = AttrList
-AttrList: List, Formatting of operators
+Operator       = Atributes (Formatting of operators)
 
 Keywords= {
-  AttrList,
-  AttrList,
-  AttrList,
-  AttrList,
+  Atributes1,
+  Atributes2,
+  Atributes3,
+  Atributes4,
 }
-AttrList: List, Formatting of keywords. There should be at least four items
-          to match the number of keyword groups defined in the language
-          definitions
+
+AtributesN: Formatting of keyword group N. There should be at least four items
+            to match the number of keyword groups defined in the language
+            definitions
 
 Example:
 
@@ -815,9 +806,9 @@ See the PLUG-IN SCRIPT section for details.
 3.6 PLUG-INS
 -------------------------------------------------------------------------------
 
-The --plug-in option receives the path of a Lua script which can override and
-enhance the settings of theme and language definition files. Using plug-ins,
-it is possible to apply costum settings without editing installed highlight
+The --plug-in option receives the path of a Lua script which overrides or
+enhances the settings of theme and language definition files. Using plug-ins,
+it is possible to apply costum settings without the need to edit installed
 configuration files.
 You can apply multiple plugins by using the --plug-in option more than once.
 
@@ -896,7 +887,7 @@ Shebang:    String, Regular expression which matches the first line of the input
             file
 
 Edit the file gui_files/ext/fileopenfilter.conf to add new syntax types to
-the file open filter of the GUI.
+the GUI's file open filter.
 
 
 4. EMBEDDING HIGHLIGHT
@@ -961,6 +952,8 @@ Highlight is written in ISO C++. The following packages are available:
 The website www.andre-simon.de offers links to precompiled packages for several
 operating systems (like Debian, Arch Linux, Ubuntu, Darwin, FreeBSD).
 The website distributes the latest upstream sources.
+Threre is also a Sourceforge project available:
+http://sourceforge.net/projects/syntaxhighlight/
 
 Source tarball
 Windows W32 executables

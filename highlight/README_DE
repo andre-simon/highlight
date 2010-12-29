@@ -132,7 +132,7 @@ namens main.cpp erzeugt:
   bbcode:   BBCode
 
   HTML wird als Standard ausgegeben, wenn kein anderes Format mit --out-format
-  angegeben ist.
+  bestimmt wurde.
 
 - Font und Schriftgroesse anpassen:
   highlight --syntax ada --out-format=xhtml --font-size 12 --font Verdana
@@ -184,10 +184,10 @@ Output formatting options:
  -O, --out-format=<format>      output file in given format
                                   <format>=[html, xhtml, latex, tex,
                                   rtf, ansi, xterm256, bbcode, svg]
- -c, --style-outfile=<file>     name of style file or output to stdout, if
+ -c, --style-outfile=<file>     name of style file or print to stdout, if
                                   'stdout' is given as file argument
  -e, --style-infile=<file>      file to be included in style-outfile
- -f, --fragment                 omit file header and footer
+ -f, --fragment                 omit document header and footer
  -F, --reformat=<style>         reformats and indents output in given style
                                   <style>=[allman, banner, gnu,
                                   horstmann, java, kr, linux, otbs,
@@ -207,7 +207,7 @@ Output formatting options:
  -V, --wrap-simple              wrap long lines without indenting function
                                   parameters and statements
  -W, --wrap                     wrap long lines
- -z, --zeroes                   fill leading space of line numbers with 0's
+ -z, --zeroes                   pad line numbers with 0's
      --kw-case=<case>           change case of case insensitive keywords
                                   <case> =  [upper, lower, capitalize]
      --delim-cr                 set CR as end-of-line delimiter (MacOS 9)
@@ -217,7 +217,7 @@ Output formatting options:
 
  -a, --anchors                  attach anchor to line numbers
  -y, --anchor-prefix=<str>      set anchor name prefix
- -N, --anchor-filename          use input file name as anchor name
+ -N, --anchor-filename          use input file name as anchor prefix
  -C, --print-index              print index with hyperlinks to output files
  -n, --ordered-list             print lines as ordered list items
      --class-name=<str>         set CSS class name prefix
@@ -261,6 +261,7 @@ GNU source-highlight compatibility options:
      --output-dir=path          output directory
      --failsafe                 if no language definition is found for the
                                   input, it is simply copied to the output
+
 
 
 2.3 GUI OPTIONEN
@@ -420,18 +421,18 @@ Parsen von Binaerdaten vermeiden
 
 Wenn highlight mit einer unbestimmten Menge von Eingabedaten aufgerufen wird,
 kann die Verarbeitung von binaeren Daten mit --validate-input verhindert werden.
-Dieser Schalter fuehrt zu einem Vergleich der Datei-Haeder mit einer Liste von
+Dieser Schalter fuehrt zu einem Vergleich der Datei-Header mit einer Liste von
 "Magic Numbers". Wenn ein Binaer-Typ erkannt wird, bricht highlight die
-Verarbeitungmit einer Fehlermeldung ab.
+Verarbeitung mit einer Fehlermeldung ab.
 Mit --validate-input wird zusaetzlich der UTF-8 BOM unterdrueckt.
 
 Hervorbung von eingebettetem Code ohne oeffnenden Delimiter
 -----------------------------------------------------------
 
-Wenn eine Datei mit eingebettetem Code ohne den einleitenden Delimiter beginnt,
-kann mit der --start-nested Option in diese Sprache gewechselt werden.
-Dies kann bei LuaTeX Dateien passieren:
-highlight luatex.tex --latex -t4 -semacs --start-nested=inc_luatex
+Wenn eine Datei mit eingebettetem Code ohne einen fuer diese Syntax ueblichen
+einleitenden Delimiter beginnt, kann mit der --start-nested Option in diese
+Sprache gewechselt werden. Dies kann bei LuaTeX Dateien passieren:
+highlight luatex.tex --latex --start-nested=inc_luatex
 
 Die inc_luatex Definition ist eine Lua-Beschreibung mit TeX Kommentaren.
 Beachten Sie, dass die Code-Sektion mit dem in der Host-Beschreibung
@@ -454,7 +455,7 @@ Sprachdefinitionen debuggen:
 
 Benutzen Sie --verbose, um Lua- und Syntax-Daten anzuzeigen.
 
-Anpassen der HTML Zeilennummerierung:
+Anpassen der HTML-Zeilennummerierung:
 -------------------------------------
 
 /* content of user.css */
@@ -480,20 +481,21 @@ Aufruf: highlight -l --style-infile user.css main.cpp
 HTML Listentricks:
 ------------------
 
-Diese Beispiele gehen davon aus, dass HTML mit der Option --ordered-list  als Liste
-ausgegeben wurde. Fuegen Sie die CSS-Schnipsel mit style-infile in Ihre Ausgabe ein.
+Diese Beispiele gehen davon aus, dass HTML mit der Option --ordered-list als
+Liste ausgegeben wurde. Fuegen Sie diese CSS-Schnipsel mit style-infile in
+Ihre Ausgabe ein:
 
-/* highlight odd lines */
+/* Hervorhebung ungerader Zeilen */
 ol li:nth-child(odd) {
   background-color: #1f3030;
 }
 
-/* highlight every 5th line*/
+/* Hervorhebung jeder 5. Zeile */
 ol li:nth-child(5n) {
   background-color: #1f3030;
 }
 
-/* highlight every 10th line number*/
+/* Hervorhebung jeder 10. Zeilennummer */
 ol li:nth-child(10n) {
   color: #ffff00;
 }
@@ -501,7 +503,8 @@ ol li:nth-child(10n) {
 UTF8 BOM entfernen:
 -------------------
 
-Geben Sie --validate-input an, um das UTF8 Byte Order Mark zu entfernen.
+Geben Sie --validate-input an, um das UTF8 Byte Order Mark (Startsequenz) zu
+entfernen.
 
 
 3. KONFIGURATION
@@ -521,8 +524,9 @@ Strings:
 string1="string-Literal mit Escape-Sequenzen: \n"
 string2=[[Raw String ohne Escape-Sequenzen]]
 
-Wenn ein raw String mit "[" beginnt oder mit "]" endet, muss die Klammer mit
+Wenn ein Raw-String mit "[" beginnt oder mit "]" endet, muss die Klammer mit
 Leerzeichen von den Begrenzern getrennt werden, um Syntaxfehler zu vermeiden.
+Highlight entfernt diese Leerzeichen beim Einlesen.
 
 Kommentare:
 -- Einzeiliger Kommentar
@@ -534,6 +538,9 @@ Arrays koennen Variablen enthalten und verschachtelt werden.
 
 Das vollstaendige Lua-Handbuch befindet sich hier:
 http://www.lua.org/manual/5.1/manual.html
+
+Deutsche Einfuehrung:
+http://www.fh-wedel.de/~si/seminare/ws09/Ausarbeitung/09.lua/lua1.htm
 
 
 3.2 REGULAERE AUSDRUECKE
@@ -618,7 +625,7 @@ Globale Variablen:
 
 Die folgenden Variablen sind in einer Sprachbeschreibung verfuegbar:
 
-hl_lang_dir: Verzeichnis der Sprachdefinitionen (Parameter von dofile)
+hl_lang_dir: Verzeichnis der Sprachdefinitionen (Parameter der Lua dofile-Funktion)
 
 Identifiers: Default regex fuer Bezeichner
 Digits:      Default regex fuer Zahlenliterale
@@ -839,10 +846,10 @@ Siehe den Abschnitt PLUG-INS.
 3.6 PLUG-INS
 -------------------------------------------------------------------------------
 
-Die --plug-in Option erwartet den Names eines Lua Skripts, das Elemente einer
-Sprachdefintion oder eines Themes ueberschreiben oder erweitern kann.
+Die --plug-in Option erwartet den Pfad eines Lua Skripts, das Elemente einer
+Sprachdefintion oder eines Themes ueberschreibt oder erweitert.
 Mit Hilfe dieser Plugins kann die Ausgabe angepasst werden, ohne installierte
-Konfigurations-Dateien aendern zu muessen.
+Konfigurations-Dateien zu aendern.
 
 Format:
 
@@ -865,10 +872,10 @@ des Farbschemas bzw. der Sprachdefinition ("Description"-Parameter).
 Die Funktionen werden nach dem Laden der Konfigurationsskripte ausgefuehrt,
 daher kann auf die Elemente dieser Skripte zugegriffen werden.
 
-Innerhalb einer "lang"-Funktion kann die Funktion AddKeyword verwendet werden.
+Innerhalb einer "lang"-Funktion ist die Funktion AddKeyword verfuegbar.
 Wenn OnStateChange als lokale Funktion definiert wird, wird dieser Hook mit
 dem Plug-In wirksam. Eine vordefinierte OnStateChange-Funktion der Sprach-
-definition wird ueberschrieben.
+definition wird damit ueberschrieben.
 
 Beispiel:
 
@@ -904,8 +911,7 @@ Siehe README_PLUGINS ume mehr darüber zu erfahren.
 3.7 DATEIZUORDNUNGEN
 -------------------------------------------------------------------------------
 
-In filetypes.conf werden alle Dateizuordnungen und Shebang-Definitionen
-eingetragen.
+In filetypes.conf werden Dateizuordnungen und Shebang-Definitionen eingetragen.
 
 Format:
 
@@ -918,8 +924,8 @@ Extensions: Liste, enthaelt alle Dateiendungen, die "Lang" zugeordnet werden
 Shebang:    String, Regulaerer Ausdruck der mit der ersten Zeile der Eingabe
             verglichen wird
 
-Tragen Sie neue Dateiendungen in gui_files/ext/fileopenfilter.conf ein, damit
-diese im GUI-Dateiauswahldialog als Filter angezeigt werden
+Tragen Sie neue Dateiendungen auch in gui_files/ext/fileopenfilter.conf ein,
+damit diese im GUI-Dateiauswahldialog als Filter angezeigt werden
 
 
 4. HIGHLIGHT EINBETTEN
@@ -930,7 +936,7 @@ diese im GUI-Dateiauswahldialog als Filter angezeigt werden
 
 Im /examples Unterverzeichnis befinden sich Beispielskripte in PHP, Perl und
 Python, die highlight aufrufen und die Ausgabe als String auswerten. Diese
-Skripte können als Ausgangspunkt fuer neue Plug-ins genutzt werden.
+Skripte können als Ausgangspunkt fuer neue Erweiterungen genutzt werden.
 
 
 4.2 SWIG SCHNITTSTELLE
@@ -944,7 +950,7 @@ den vorhandenen Skripten.
 4.3 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
 -------------------------------------------------------------------------------
 
-Im /examples/web_plugins Unterverzeichnis der highlight Installation befinden
+Im /examples/web_plugins Unterverzeichnis der highlight-Installation befinden
 sich einige Plugins, die Highlight in Webanwendungen integrieren:
 
 -DokuWiki
@@ -1026,7 +1032,7 @@ In INSTALL befinden sich weitere Informationen zu Paketinhalt und Installation.
 Highlight kompiliert zumindest mit gcc und suncc. Zum Kompilieren sind Boost
 Header-Pakete und Lua5.1 Development-Pakete nötig.
 Die optionale GUI benötigt die Qt4 Development-Pakete.
-Das makefile enthaelt weitere Optionen.
+Im Makefile finden Sie weitere Informationen.
 
 
 5.3 BEISPIELPAKETE

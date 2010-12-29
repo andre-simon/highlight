@@ -4,7 +4,7 @@ André Simon <andre.simon1 at gmx de>
 Developer of the Diluculum Lua Wrapper:
 Leandro Motta Barros
 
-Developer of the Artistic Style classes:
+Developer of the Artistic Style:
 Tal Davidson <davidsont at bigfoot com>
 Jim Pattee <jimp03 at email com>
 
@@ -38,6 +38,7 @@ Mark Hessling (THE)
 Alexandre Bonneau (Acid)
 Sunrise Telephone Systems Ltd. (ide-xcode)
 Joerg Walter (moe)
+Roger Sperberg (andes)
 
 Patches:
 Marc Duponcheel (gcc 3.x compatibility)
@@ -52,3 +53,4 @@ Samuli Suominen (various makefile bugfixes)
 Detlef Reichelt (gcc 4.3 compatibility)
 Jochen Schmitt (gcc 4.4 compatibility)
 Nathaniel Gray (makefile bugfix)
+David Bremner (makefiles and SWIG scripts)

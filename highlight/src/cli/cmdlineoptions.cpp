@@ -102,7 +102,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ 'd', OPT_OUTDIR,         Arg_parser::yes },
 		{ 'D', OPT_DATADIR,        Arg_parser::yes },
 		{ 'e', OPT_STYLE_IN,       Arg_parser::yes },
- 		{ 'E', OPT_ADDDATADIR,     Arg_parser::yes },
 		{ 'f', OPT_FRAGMENT,       Arg_parser::no  },
 		{ 'F', OPT_FORMAT,         Arg_parser::yes },
 
@@ -237,9 +236,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 			case 'e':
 				styleInFilename = arg;
 				break;
- 			case 'E':
- 				//additionalDataDir=validateDirPath ( arg );
- 				break;
 			case 'f':
 			case S_OPT_COMPAT_NODOC:
 				opt_fragment = true;
@@ -448,7 +444,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 	{
 		inputFileNames.push_back ( "" );
 	}
-
 
 	if ( skipArg.size() )
 	{
@@ -668,7 +663,6 @@ string CmdLineOptions::getIndentScheme() const
 	return StringTools::change_case ( indentScheme );
 }
 
-
 const string &CmdLineOptions::getAdditionalConfDir() const
 {
 	return additionalConfigDir;
@@ -755,30 +749,7 @@ const vector <string> & CmdLineOptions::getInputFileNames() const
 {
 	return inputFileNames;
 }
-/*
-const map <int,string> & CmdLineOptions::getMarkLines()
-{
-	markLines.clear();
-	istringstream valueStream;
-	string elem;
-	size_t delimPos;
-	int markLineNo;
-	valueStream.str ( markLinesArg );
-	// Format: "1=help line one; 3=help line three; 5 "
-	while ( getline ( valueStream, elem, ';' ) )
-	{
-		delimPos = elem.find ( '=' );
-		markLineNo=0;
-		StringTools::str2num<int> ( markLineNo, elem.substr ( 0,delimPos ), std::dec );
-		if ( markLineNo )
-		{
-			markLines[markLineNo] =
-			    ( delimPos!=string::npos ) ?elem.substr ( delimPos+1 ) :"";
-		}
-	}
-	return markLines;
-}
-*/
+
 void CmdLineOptions::readDirectory ( const string & wildcard )
 {
 	// get matching files, use  recursive search
