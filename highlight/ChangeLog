@@ -4,7 +4,7 @@ highlight 3.4
 
 xx.01.2011
 
--added support for Transact-SQL, RPG, AS/400 CL, JavaFX
+-added support for Transact-SQL, RPG, AS/400 CL, JavaFX, Gambas, BCPL, Algol, ABC
 
 ---
 highlight 3.3
