@@ -99,7 +99,7 @@ Podívejte se na ctags.sf.net, abyste se dozvěděl více.</translation>
     </message>
     <message>
         <source>Inline CSS</source>
-        <translation></translation>
+        <translation>Řadový CSS</translation>
     </message>
     <message>
         <source>&amp;Open files</source>
@@ -307,7 +307,7 @@ Nastavte jejich počet na nulu, aby byly zarážky zachovány.</translation>
     </message>
     <message>
         <source>Formatting</source>
-        <translation>Formátuje se</translation>
+        <translation>Formátování</translation>
     </message>
     <message>
         <source>Select a colour theme.</source>
@@ -493,7 +493,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>&amp;Changelog</source>
-        <translation>&amp;Zápis změn</translation>
+        <translation>&amp;Změny</translation>
     </message>
     <message>
         <source>Generate output without document header and footer.</source>
@@ -593,7 +593,7 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>&amp;About Highlight</source>
-        <translation>&amp;O zvýraznění</translation>
+        <translation>&amp;O Highlight</translation>
     </message>
     <message>
         <source>Path of the style include file.</source>
@@ -665,7 +665,7 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Visit andre-simon.de</source>
-        <translation>Navštivte stránky andre-simon.de</translation>
+        <translation>Navštivte andre-simon.de</translation>
     </message>
     <message>
         <source>Load &amp;default project</source>
