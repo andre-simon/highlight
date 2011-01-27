@@ -939,15 +939,16 @@ namespace highlight
 		currentState=_UNKNOWN;
 	}
 
-	void CodeGenerator::loadEmbeddedLang(const string&embedLangDefPath){
+	bool CodeGenerator::loadEmbeddedLang(const string&embedLangDefPath){
 	    //save path of host language
 	    if (hostLangDefPath.empty()) {
 		    hostLangDefPath =currentSyntax->getCurrentPath();
 	    }
 	    //load syntax of embedded langage
-	    loadLanguage(embedLangDefPath);
+	    LoadResult res = loadLanguage(embedLangDefPath);
 	    //pass end delimiter regex to syntax description
 	    currentSyntax->restoreLangEndDelim(embedLangDefPath);
+	    return res == LOAD_OK;
 	}
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -972,7 +973,9 @@ namespace highlight
 			return;
 		}
 
-		if (!embedLangStart.empty()) loadEmbeddedLang(currentSyntax->getNewPath(embedLangStart));
+		if (!embedLangStart.empty()) {
+		    if (!loadEmbeddedLang(currentSyntax->getNewPath(embedLangStart))) return;
+		}
 
 		State state=STANDARD;
 
@@ -1062,7 +1065,10 @@ namespace highlight
 		do
 		{
 			if (myState==EMBEDDED_CODE_BEGIN) {
-				loadEmbeddedLang(embedLangDefPath);
+				if (!loadEmbeddedLang(embedLangDefPath)){
+				    // exit or segfault
+				    return true;
+				}
 				//test current line again to match tokens of the embedded language
 				matchRegex(line);
 			}

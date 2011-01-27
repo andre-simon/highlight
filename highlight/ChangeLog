@@ -5,7 +5,8 @@ highlight 3.4
 xx.01.2011
 
 -added support for ABC, Algol, AS/400 CL, BCPL,  Limbo, Gambas, JavaFX,
-   RPG, Transact-SQL,
+   RPG, Transact-SQL, PL/Perl, PL/Tcl, PL/Python
+-GUI: Updated Czech translation (thanks to Pavel Fric)
 
 ---
 highlight 3.3

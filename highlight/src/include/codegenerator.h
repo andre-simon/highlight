@@ -164,9 +164,10 @@ namespace highlight
 			bool initTagInformation ( const string& ctagsPath );
 
 			/** \param langDefPath Absolute path to language definition, may be used multiple times for a generator instance
-			    \return  LOAD_FAILED: failure,
-			             LOAD_NEW:    Reload necessary,
-			             LOAD_NONE:   no reload necessary
+			    \return   LOAD_OK,
+				      LOAD_FAILED,
+				      LOAD_FAILED_REGEX,
+				      LOAD_FAILED_LUA
 			*/
 			LoadResult loadLanguage ( const string& langDefPath );
 
@@ -713,8 +714,9 @@ namespace highlight
 			bool validateInputStream();
 
 			/** load syntax description of embedded snippet's language
-			 \param embedLangDefPath path to language definition */
-			void loadEmbeddedLang(const string&embedLangDefPath);
+			 \param embedLangDefPath path to language definition 
+			  \return true if successfull */
+			bool loadEmbeddedLang(const string&embedLangDefPath);
 
 			/** call user script OnStateChange function if defined to confirm state change
 			 \param newState new state
