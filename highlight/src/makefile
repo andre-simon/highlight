@@ -103,7 +103,7 @@ gui-qt: highlight-gui
 highlight-gui: libhighlight.a ${GUI_OBJECTS}
 	cd gui-qt && \
 	${QMAKE} 'DEFINES+=DATA_DIR=\\\"${HL_DATA_DIR}\\\" CONFIG_DIR=\\\"${HL_CONFIG_DIR}\\\" DOC_DIR=\\\"${HL_DOC_DIR}\\\"' && \
-	make
+	$(MAKE)
 
 $(OBJECTFILES) : makefile
 

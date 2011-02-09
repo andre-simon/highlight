@@ -16,7 +16,6 @@ SOURCES += main.cpp \
     io_report.cpp \
     showtextfile.cpp
 HEADERS += mainwindow.h \
-    ../core/*.h \
     precomp.h \
     io_report.h \
     showtextfile.h
