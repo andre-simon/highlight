@@ -37,7 +37,7 @@ $plugin->doc_link('http://wiki.andre-simon.de/');
 $plugin->author_name('Andre Simon');
 $plugin->author_link('http://www.andre-simon.de/');
 $plugin->plugin_link('http://wiki.andre-simon.de/');
-$plugin->version('1.2');
+$plugin->version('1.3');
 
 MT->add_callback("BuildPage", 1, $plugin, \&highlight_callback);
 MT->add_plugin($plugin);
@@ -64,7 +64,7 @@ sub highlight_code
 
    my @hl_args = ('-f', "-S$lang");
    push (@hl_args, '--inline-css'); # use inline css definitions
-   push (@hl_args, '-skwrite');     # coloring theme
+   push (@hl_args, '-sedit-kwrite');     # coloring theme
    push (@hl_args, '-l');    # linenumbers
    push (@hl_args, '-j2');   # linenumber length
    push (@hl_args, '-z');    # linenumber zeroes

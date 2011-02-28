@@ -2,10 +2,11 @@ CHANGELOG Highlight
 
 highlight 3.4
 
-xx.01.2011
+xx.03.2011
 
 -added support for ABC, Algol, AS/400 CL, BCPL,  Limbo, Gambas, JavaFX,
    RPG, Transact-SQL, PL/Perl, PL/Tcl, PL/Python
+-fixed web plugins (Serendipity, DokuWiki, Wordpress)
 -GUI: Updated Czech translation (thanks to Pavel Fric)
 
 ---

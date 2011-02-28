@@ -139,7 +139,7 @@ class syntax_plugin_highlight extends DokuWiki_Syntax_Plugin {
 	$hl_options=array();
 	$hl_options['hl_binary']='/highlight';  // path to the highlight binary
 	$hl_options['line-numbers']=false;
-	$hl_options['theme']='kwrite';       // set color theme
+	$hl_options['theme']='edit-kwrite';       // set color theme
 	$hl_options['linenumber-start']=1;
 	$hl_options['linenumber-zeroes']=1;  // set to 1 if line numbers should be padded with zeros
 	$hl_options['linenumber-length']=2;

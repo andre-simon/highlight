@@ -6,12 +6,12 @@ This plugin uses highlight (http://www.andre-simon.de) to add syntax highlightin
 
 The highlight utility converts source code of 120 programming languages to HTML 
 with syntax highlighting. This plugin pipes the content of <pre>-Tags associated
-with a lng parameter to highlight, and returns the output code which is included
+with a lang parameter to highlight, and returns the output code which is included
 in the WordPress blog entry.
 
 Usage:
 
-Paste the following in the code section of the blog editing form:
+Paste the following in the code section of the blog editing form (HTML mode !):
 
 <pre lang="c">#include <stdio.h>
 

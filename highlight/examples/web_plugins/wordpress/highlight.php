@@ -2,9 +2,9 @@
 /*
 Plugin Name: Highlight
 Plugin URI: http://www.andre-simon.de
-Description: Plugin which uses the highlight utility to generate coloured source code
+Description: Plugin which uses the highlight utility to generate coloured source code.
 Author: Andre Simon
-Version: 1.2
+Version: 1.3
 Author URI: http://www.andre-simon.de
 
 
@@ -28,14 +28,14 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 $hl_options=array();
 $hl_options['hl_binary']='highlight';  // path to the highlight binary
-$hl_options['theme']='kwrite';         // set color theme
-$hl_options['line-numbers']=true;
+$hl_options['theme']='edit-kwrite';         // set color theme
+$hl_options['line-numbers']=false;
 $hl_options['linenumber-start']=1;
 $hl_options['linenumber-zeroes']=1;  // set to 1 if line numbers should be padded with zeros
 $hl_options['linenumber-length']=2;
 $hl_options['reformat-style']="gnu"; // possible values for C, C++ and Java Code: ansi, gnu, java, kr, linux
 $hl_options['replace-tabs']=4;       // number of spaces which replace a tab
-$hl_options['wrap-style']=2;         // 0 -> disable, 1-> wrap, 2-> wrap and indent function names
+$hl_options['wrap-style']=0;         // 0 -> disable, 1-> wrap, 2-> wrap and indent function names
 $hl_options['wrap-line-length']=60;  // if wrap-style <>0, this defines the line length before wrapping takes place
 
 class as_highlight {
@@ -43,6 +43,8 @@ class as_highlight {
 	var $ch_is_excerpt = false;
 	function __construct()
 	{
+				openlog("myScripLog", LOG_PID | LOG_PERROR, LOG_LOCAL0);
+		syslog(LOG_WARNING,"SCHEISSE2 ");
 		add_filter('the_content',array(&$this, 'hl_the_content_filter'),1);
 	}
 	// PHP 4 Constructor
@@ -52,9 +54,10 @@ class as_highlight {
 	}
 	
 	function as_highlight_code($matches){
+	
 		global $hl_options;
 		
-		$lang = preg_replace("'[^a-zA-Z]'","",$matches[1]);
+		$lang = preg_replace("'[^a-zA-Z\-]'","",$matches[1]);
 		// undo nl and p formatting
 		$input_code = $matches[2];
 		$input_code = preg_replace("'<br\s*\/?>\r?\n?'","\n",$input_code);
@@ -101,8 +104,9 @@ class as_highlight {
 		}
 		
 		$hl_cmd_str .= " -S $lang ";
-		
+	
 		$process = proc_open($hl_cmd_str, $descriptorspec, $pipes);
+
 
 		if (is_resource($process)) {
 
@@ -110,7 +114,7 @@ class as_highlight {
 			fclose($pipes[0]);
 			if (function_exists("stream_get_contents"))
 			{
-				$output = stream_get_contents($pipes[1]);
+				$output = $output . stream_get_contents($pipes[1]);
 			}
 			else
 			{
@@ -128,7 +132,8 @@ class as_highlight {
 	}
 	
 	function hl_the_content_filter($content) {
-			return preg_replace_callback("/<pre\s+.*lang\s*=\"(.*)\">(.*)<\/pre>/siU",
+
+			return preg_replace_callback("/<pre\s+lang=\"(.*?)\">(.*)<\/pre>/siU",
 							array(&$this, "as_highlight_code"),
 							$content);
 	}

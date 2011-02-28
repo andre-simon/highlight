@@ -70,7 +70,7 @@ class serendipity_event_highlight extends serendipity_event
         $propbag->add('author',        'Andre Simon');
         $propbag->add('requirements',  array(
             'serendipity' => '0.9',
-            'highlight'   => '2.6.4'
+            'highlight'   => '3.3'
         ));
         $propbag->add('version',       '0.1');
         $propbag->add('event_hooks', array('frontend_display' => true, 'frontend_comment' => true));
@@ -97,14 +97,23 @@ class serendipity_event_highlight extends serendipity_event
 
 	#Colour themes of a highlight default installation
         $this->themes = array(
-	"acid", "bipolar", "blacknblue", "bright", "contrast", "darkblue", "darkness", "desert", "dull", "easter", "emacs", "golden", "greenlcd",
-	"ide-anjuta", "ide-codewarrior", "ide-devcpp", "ide-eclipse", "ide-kdev", "ide-msvcpp", "ide-xcode", "kwrite", "lucretia", "matlab", "navy",
-	"nedit", "neon", "night", "orion", "pablo", "peachpuff", "print", "rand01", "seashell", "the", "typical", "vampire", "vim-dark", "vim",
-	"whitengrey", "zellner"
+	"acid", "aiseered", "andes", "anotherdark", "autumn", "baycomb",
+	"bclear", "biogoo", "bipolar", "blacknblue", "bluegreen", "breeze", "bright",
+	"camo", "candy", "clarity", "dante", "darkblue", "darkbone", "darkness",
+	"darkslategray", "darkspectrum", "denim", "desertEx", "dusk", "earendel",
+	"easter", "edit-anjuta", "edit-eclipse", "edit-emacs", "edit-flashdevelop",
+	"edit-gedit", "edit-jedit", "edit-kwrite", "edit-matlab", "edit-msvs2008",
+	"edit-nedit", "edit-vim-dark", "edit-vim", "edit-xcode", "ekvoli", "fine_blue",
+	"freya", "fruit", "golden", "greenlcd", "kellys", "leo", "lucretia", "manxome",
+	"maroloccio", "matrix", "moe", "molokai", "moria", "navajo-night", "navy",
+	"neon", "night", "nightshimmer", "nuvola", "olive", "orion", "pablo", "peaksea",
+	"print", "rand01", "rdark", "relaxedgreen", "rootwater", "seashell", "sienna",
+	"tabula", "tcsoft", "vampire", "whitengrey", "xoria256", "zellner", "zenburn",
+	"zmrok"
         );
 
 	#Reformatting schemes of a highlight default installation
-        $this->reformatschemes = array ("disabled","ansi", "gnu", "java", "kr", "linux");
+        $this->reformatschemes = array ("disabled","allman", "ansi", "banner", "gnu", "horstmann", "java", "kr", "linux", "otbs", "stroustrup", "whitesmith");
 
 	#highlight output options
         $conf_array = array('hl_bin_dir','hl_data_dir','hl_linenumbers','hl_linenumberstart','hl_linenumberzeroes','hl_linenumberlen',
