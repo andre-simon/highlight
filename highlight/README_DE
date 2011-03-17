@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.3  ------------------------ Dezember 2010 ---
+---  HIGHLIGHT MANUAL - Version 3.4  --------------------------- Maerz 2011 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -988,7 +988,7 @@ Windows W32 executables
 http://www.andre-simon.de
 
 Arch Linux
-http://aur.archlinux.org/packages.php?ID=15194
+http://www.archlinux.org/packages/community/i686/highlight/
 
 Debian GNU/Linux
 http://packages.debian.org/unstable/devel/highlight

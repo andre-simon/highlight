@@ -486,7 +486,7 @@ void MainWindow::on_action_About_Highlight_triggered()
      QMessageBox::about( this, "About Highlight",
                          QString("Highlight is a code to formatted text converter.\n\n"
                          "Highlight GUI %1\n"
-                         "(C) 2002-2010 Andre Simon <andre.simon1 at gmx.de>\n\n"
+                         "(C) 2002-2011 Andre Simon <andre.simon1 at gmx.de>\n\n"
                          "Artistic Style Classes\n(C) 1998-2002 Tal Davidson\n"
                          "(C) 2006-2010 Jim Pattee <jimp03 at email.com>\n\n"
                          "Diluculum Lua wrapper\n"
