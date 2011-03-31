@@ -78,9 +78,9 @@ namespace highlight
 	string  BBCodeGenerator::getCloseTag ( const ElementStyle &elem )
 	{
 		ostringstream s;
-		if ( elem.isBold() ) s << "[/b]";
-		if ( elem.isItalic() ) s << "[/i]";
 		if ( elem.isUnderline() ) s << "[/u]";
+		if ( elem.isItalic() ) s << "[/i]";
+		if ( elem.isBold() ) s << "[/b]";
 		s << "[/color]";
 		return  s.str();
 	}
