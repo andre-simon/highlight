@@ -1,9 +1,6 @@
 
 Description="C and C++"
 
-
-Identifiers=[[ [a-zA-Z\.]+ ]]
-
 Keywords={
   {  Id=1,
    List={"goto", "break", "return", "continue", "asm", "case", "default", "if", "else", "switch", "while", "for", "do", "sizeof",
