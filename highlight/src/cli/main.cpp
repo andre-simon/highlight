@@ -592,7 +592,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             else if ( loadRes==highlight::LOAD_FAILED )
             {
                 // do also ignore error msg if --syntax parameter should be skipped
-                if ( ! (options.quietMode() || options.isSkippedExt ( suffix )) )
+                if ( ! (options.forceOutput() || options.quietMode() || options.isSkippedExt ( suffix )) )
                 {
                     cerr << "highlight: Unknown source file extension \""
                          << suffix

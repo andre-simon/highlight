@@ -46,23 +46,7 @@ namespace Platform
 
 	int wildcmp ( const char *wild, const char *data );
 
-	/*
-	#ifdef USE_FN_MATCH
-	  struct FnMatcher
-	  {
-	    FnMatcher(const char* pattern, int flags)
-	        : pattern_(pattern)
-	        , flags_(flags)
-	    {}
-	    bool operator()(const std::string& e) const {
-	        return ! ::fnmatch(pattern_, e.c_str(), flags_);
-	    }
-	   private:
-	    const char* pattern_;
-	    int flags_;
-	  };
-	#endif
-	*/
+	bool fileExists(const std::string &fName);
 
 }
 #endif

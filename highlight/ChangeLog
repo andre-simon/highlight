@@ -1,5 +1,13 @@
 CHANGELOG Highlight
 
+highlight 3.5
+
+02.06.2011
+
+-updated astyle code to release 2.02
+-fixed --force option (thanks to Stefan Bühler)
+
+---
 highlight 3.4
 
 31.03.2011

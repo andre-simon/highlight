@@ -22,6 +22,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 // includes for recursive getFileNames() function
 #ifdef _WIN32
 #include <windows.h>
+#include <sys/stat.h>
 #else
 #include <dirent.h>
 #include <errno.h>
@@ -113,7 +114,6 @@ namespace Platform
 
 		if ( hFind == INVALID_HANDLE_VALUE )
 			return;
-		//error("Cannot open directory", directory.c_str());
 
 		// save files and sub directories
 		do
@@ -128,26 +128,16 @@ namespace Platform
 			if ( ( FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) && true /*g_isRecursive*/ )
 			{
 				string subDirectoryPath = directory + pathSeparator + FindFileData.cFileName;
-				//if (isPathExclued(subDirectoryPath))
-				//{
-				//	if (!g_isQuiet)
-				//		cout << "exclude " << subDirectoryPath.substr(g_mainDirectoryLength) << endl;
-				//}
-				//else
 				subDirectory.push_back ( subDirectoryPath );
 				continue;
 			}
 
 			// save the file name
 			string filePathName = directory + pathSeparator + FindFileData.cFileName;
-			// check exclude before wildcmp to avoid "unmatched exclude" error
-			//bool isExcluded = isPathExclued(filePathName);
+
 			// save file name if wildcard match
 			if ( wildcmp ( wildcard.c_str(), FindFileData.cFileName ) )
 			{
-				//if (isExcluded)
-				//	cout << "exclude " << filePathName.substr(g_mainDirectoryLength) << endl;
-				//else
 				fileName.push_back ( filePathName );
 			}
 		}
@@ -158,13 +148,11 @@ namespace Platform
 		DWORD dwError = GetLastError();
 		if ( dwError != ERROR_NO_MORE_FILES )
 			return;
-		//error("Error processing directory", directory.c_str());
 
 		// recurse into sub directories
 		// if not doing recursive subDirectory is empty
 		for ( unsigned i = 0; i < subDirectory.size(); i++ )
 		{
-//        cout << "directory  " << subDirectory[i] << endl;
 			getFileNames ( subDirectory[i], wildcard, fileName );
 			continue;
 		}
@@ -192,10 +180,8 @@ namespace Platform
 		errno = 0;
 
 		DIR *dp = opendir ( directory.c_str() );
-		if ( errno )
-			return;
-		//error("Cannot open directory", directory.c_str());
-
+		if ( errno ) return;
+		
 		// save the first fileName entry for this recursion
 		const unsigned firstEntry = fileName.size();
 
@@ -205,19 +191,15 @@ namespace Platform
 			// get file status
 			string entryFilepath = directory + pathSeparator + entry->d_name;
 			stat ( entryFilepath.c_str(), &statbuf );
-			if ( errno )
-				return;
-			//error("Error getting file status in directory", directory.c_str());
+			if ( errno ) return;
 
 			// skip hidden or read only
 			if ( entry->d_name[0] == '.' || ! ( statbuf.st_mode & S_IWUSR ) )
 				continue;
+			
 			// if a sub directory and recursive, save sub directory
 			if ( S_ISDIR ( statbuf.st_mode ) && /*g_isRecursive*/ true ) ///TODO
 			{
-				//	if (isPathExclued(entryFilepath))
-				//		cout << "exclude " << entryFilepath.substr(g_mainDirectoryLength) << endl;
-				//	else
 				subDirectory.push_back ( entryFilepath );
 				continue;
 			}
@@ -225,23 +207,16 @@ namespace Platform
 			// if a file, save file name
 			if ( S_ISREG ( statbuf.st_mode ) )
 			{
-				// check exclude before wildcmp to avoid "unmatched exclude" error
-				//	bool isExcluded = isPathExclued(entryFilepath);
 				// save file name if wildcard match
 				if ( wildcmp ( wildcard.c_str(), entry->d_name ) )
 				{
-					//	if (isExcluded)
-					//		cout << "exclude " << entryFilepath.substr(g_mainDirectoryLength) << endl;
-					//	else
 					fileName.push_back ( entryFilepath );
 				}
 			}
 		}
 		closedir ( dp );
 
-		if ( errno )
-			return;
-		//error("Error reading directory", directory.c_str());
+		if ( errno ) return;
 
 		// sort the current entries for fileName
 		if ( firstEntry < fileName.size() )
@@ -323,6 +298,12 @@ namespace Platform
 			wild++;
 		}
 		return !*wild;
+	}
+	
+	
+	bool fileExists(const string &fName) { 
+	  struct stat fileInfo; 
+	  return !stat(fName.c_str(),&fileInfo); 
 	}
 
 }

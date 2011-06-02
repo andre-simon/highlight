@@ -187,6 +187,10 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
 
     currentPath=langDefPath;
     disableHighlighting=false;
+    
+    if (!Platform::fileExists(langDefPath)){
+      return LOAD_FAILED;
+    }
 
     try {
 
