@@ -30,7 +30,7 @@ FORMS += ../../gui-qt/mainwindow.ui \
     ../../gui-qt/showtextfile.ui
 
 RESOURCES = highlight-gui.qrc
-TRANSLATIONS = ../../gui-qt/highlight_de_DE.ts ../../gui-qt/highlight_es_ES.ts
+TRANSLATIONS = ../../gui-qt/highlight_de_DE.ts ../../gui-qt/highlight_es_ES.ts ../../gui-qt/highlight_cs_CZ.ts
 
 win32:RC_FILE = highlight-gui.rc
 

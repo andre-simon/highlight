@@ -148,6 +148,7 @@
    <valuelist key="abstractProcess.Environment" type="QVariantList">
     <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
     <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
+    <value type="QString">CLIENTNAME=Console</value>
     <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
     <value type="QString">COMPUTERNAME=SAALEN</value>
     <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
@@ -174,6 +175,7 @@
     <value type="QString">USERNAME=André</value>
     <value type="QString">USERPROFILE=C:\Dokumente und Einstellungen\André</value>
     <value type="QString">VBOX_INSTALL_PATH=C:\Programme\VirtualBox\</value>
+    <value type="QString">VS90COMNTOOLS=F:\Microsoft Visual Studio 9.0\Common7\Tools\</value>
     <value type="QString">WINDIR=C:\WINDOWS</value>
     <value type="QString">__COMPAT_LAYER=EnableNXShowUI </value>
    </valuelist>
@@ -195,6 +197,7 @@
    <valuelist key="abstractProcess.Environment" type="QVariantList">
     <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
     <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
+    <value type="QString">CLIENTNAME=Console</value>
     <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
     <value type="QString">COMPUTERNAME=SAALEN</value>
     <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
@@ -221,6 +224,7 @@
     <value type="QString">USERNAME=André</value>
     <value type="QString">USERPROFILE=C:\Dokumente und Einstellungen\André</value>
     <value type="QString">VBOX_INSTALL_PATH=C:\Programme\VirtualBox\</value>
+    <value type="QString">VS90COMNTOOLS=F:\Microsoft Visual Studio 9.0\Common7\Tools\</value>
     <value type="QString">WINDIR=C:\WINDOWS</value>
     <value type="QString">__COMPAT_LAYER=EnableNXShowUI </value>
    </valuelist>
@@ -241,6 +245,7 @@
    <valuelist key="abstractProcess.Environment" type="QVariantList">
     <value type="QString">ALLUSERSPROFILE=C:\Dokumente und Einstellungen\All Users</value>
     <value type="QString">APPDATA=C:\Dokumente und Einstellungen\André\Anwendungsdaten</value>
+    <value type="QString">CLIENTNAME=Console</value>
     <value type="QString">COMMONPROGRAMFILES=C:\Programme\Gemeinsame Dateien</value>
     <value type="QString">COMPUTERNAME=SAALEN</value>
     <value type="QString">COMSPEC=C:\WINDOWS\system32\cmd.exe</value>
@@ -267,6 +272,7 @@
     <value type="QString">USERNAME=André</value>
     <value type="QString">USERPROFILE=C:\Dokumente und Einstellungen\André</value>
     <value type="QString">VBOX_INSTALL_PATH=C:\Programme\VirtualBox\</value>
+    <value type="QString">VS90COMNTOOLS=F:\Microsoft Visual Studio 9.0\Common7\Tools\</value>
     <value type="QString">WINDIR=C:\WINDOWS</value>
     <value type="QString">__COMPAT_LAYER=EnableNXShowUI </value>
    </valuelist>
