@@ -47,7 +47,7 @@ bool DataDir::searchDataDir ( const string &userDefinedDir )
 
 	vector <string> possibleDirs;
 	if ( !userDefinedDir.empty() ) possibleDirs.push_back ( userDefinedDir );
-// if (!additionalDataDir.empty()) possibleDirs.push_back(additionalDataDir);
+
 #ifdef HL_DATA_DIR
 	possibleDirs.push_back ( HL_DATA_DIR );
 #endif
@@ -55,7 +55,7 @@ bool DataDir::searchDataDir ( const string &userDefinedDir )
 
 	for ( unsigned int i=0;i<possibleDirs.size();i++ )
 	{
-		if ( fileExists ( possibleDirs[i] ) )
+		if ( Platform::fileExists ( possibleDirs[i] ) )
 		{
 			dataDir=possibleDirs[i];
 			found = true; break;
@@ -132,7 +132,7 @@ const string DataDir::getDocDir()
 {
 #ifndef _WIN32
 #ifdef HL_DOC_DIR
-	return HL_CONFIG_DIR;
+	return HL_DOC_DIR;
 #else
 	return LSB_DOC_DIR;
 #endif
@@ -140,7 +140,7 @@ const string DataDir::getDocDir()
 	return getDir();
 #endif
 }
-
+/*
 bool DataDir::fileExists ( const string&f )
 {
 	ifstream file ( f.c_str() );
@@ -148,3 +148,4 @@ bool DataDir::fileExists ( const string&f )
 	file.close();
 	return exists;
 }
+*/

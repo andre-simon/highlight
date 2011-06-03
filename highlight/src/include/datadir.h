@@ -41,7 +41,7 @@ class DataDir
 {
 		string dataDir;
 		string additionalConfDir;
-		bool fileExists ( const string& );
+		//bool fileExists ( const string& );
 
 	public:
 

@@ -488,7 +488,7 @@ void MainWindow::on_action_About_Highlight_triggered()
                          "Highlight GUI %1\n"
                          "(C) 2002-2011 Andre Simon <andre.simon1 at gmx.de>\n\n"
                          "Artistic Style Classes\n(C) 1998-2002 Tal Davidson\n"
-                         "(C) 2006-2010 Jim Pattee <jimp03 at email.com>\n\n"
+                         "(C) 2006-2011 Jim Pattee <jimp03 at email.com>\n\n"
                          "Diluculum Lua wrapper\n"
 			 "(C) 2005-2010 by Leandro Motta Barros\n\n"
                          "Regex library\n(C) 2003-2008 Jeffery Stuart <stuart at cs.unr.edu>\n\n"

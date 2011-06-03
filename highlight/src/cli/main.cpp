@@ -50,8 +50,8 @@ void HLCmdLineApp::printVersionInfo()
          << "\n Copyright (C) 2002-2011 Andre Simon <andre.simon1 at gmx.de>"
          << "\n\n Argparser class"
          << "\n Copyright (C) 2006-2008 Antonio Diaz Diaz <ant_diaz at teleline.es>"
-         << "\n\n Artistic Style Classes (2.01)"
-         << "\n Copyright (C) 2006-2010 by Jim Pattee <jimp03 at email.com>"
+         << "\n\n Artistic Style Classes (2.02)"
+         << "\n Copyright (C) 2006-2011 by Jim Pattee <jimp03 at email.com>"
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
          << "\n\n Diluculum Lua wrapper (0.5.3)"
          << "\n Copyright (C) 2005-2010 by Leandro Motta Barros"
@@ -592,7 +592,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             else if ( loadRes==highlight::LOAD_FAILED )
             {
                 // do also ignore error msg if --syntax parameter should be skipped
-                if ( ! (options.forceOutput() || options.quietMode() || options.isSkippedExt ( suffix )) )
+                if ( ! (options.quietMode() || options.isSkippedExt ( suffix )) )
                 {
                     cerr << "highlight: Unknown source file extension \""
                          << suffix
