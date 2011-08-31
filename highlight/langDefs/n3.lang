@@ -1,0 +1,35 @@
+
+Description="Notation3"
+
+Keywords={
+  { Id=1,
+     Regex=[[<[!?]?(?!\-\-)\/?[\w\:\-\/\.\+\-\#\@\?\=\_\~\;\,\%\$]+>?|[/?]?>]],
+
+    Group=0,
+  },
+  { Id=2,
+    Regex=[[@\w+]],
+  },
+  { Id=3,
+    Regex=[[(\w+)\:]],
+  },
+  { Id=4,
+    Regex=[[\:(\w+)]],
+  },
+}
+
+Strings={
+  Delimiter=[["""|"]],
+  RawPrefix="r",
+  Escape=[[\\[ntvbrfa\\\?'"]|\\\d{3}|\\x\p{XDigit}{2}]],
+}
+
+Comments={
+  { Block=false,
+    Delimiter= { [[#]] },
+  },
+}
+
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~|\|]]
+
+IgnoreCase=true

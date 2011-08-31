@@ -13,10 +13,10 @@ Keywords={
     List={"bool", "string", "int", "real", "word", "float", "unit", "option", "ref"},
   },
   { Id=3,
-    Regex=[[\b[A-Z][a-zA-Z0-9_']*(?=\.)]],
+    Regex=[[\b[A-Z][a-zA-Z0-9_]*(?=\.)]],
   },
   { Id=4,
-    Regex=[[\b[A-Z][a-zA-Z0-9_']*]],
+    Regex=[[\b[A-Z][a-zA-Z0-9_]*]],
   },
 }
 
