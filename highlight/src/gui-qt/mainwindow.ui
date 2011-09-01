@@ -20,7 +20,7 @@
    <string>Highlight</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../w32-projects/highlight_gui/highlight-gui.qrc">
     <normaloff>:/hl_icon2.png</normaloff>:/hl_icon2.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -78,7 +78,7 @@
      <x>0</x>
      <y>0</y>
      <width>674</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -103,7 +103,14 @@
     <addaction name="actionVisit_website"/>
     <addaction name="action_About_Highlight"/>
    </widget>
+   <widget class="QMenu" name="menuWindows">
+    <property name="title">
+     <string>&amp;Windows</string>
+    </property>
+    <addaction name="actionDock_floating_panels"/>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menuWindows"/>
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -140,7 +147,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -159,7 +166,7 @@
             <string>Choose input files</string>
            </property>
            <property name="icon">
-            <iconset>
+            <iconset resource="../w32-projects/highlight_gui/highlight-gui.qrc">
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -364,7 +371,7 @@
             <string>Paste from clipboard</string>
            </property>
            <property name="icon">
-            <iconset>
+            <iconset resource="../w32-projects/highlight_gui/highlight-gui.qrc">
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -439,7 +446,7 @@
             <string>Add plug-in to pool</string>
            </property>
            <property name="icon">
-            <iconset>
+            <iconset resource="../w32-projects/highlight_gui/highlight-gui.qrc">
              <normaloff>:/plugin.png</normaloff>:/plugin.png</iconset>
            </property>
           </widget>
@@ -524,7 +531,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTabWidget" name="tabWidget">
+      <widget class="QTabWidget" name="tabWidgetOptions">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -2049,6 +2056,17 @@ Set the width to 0 to keep tabs.</string>
     <string>Visit andre-simon.de</string>
    </property>
   </action>
+  <action name="actionDock_floating_panels">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Dock floating panels</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
@@ -2056,7 +2074,7 @@ Set the width to 0 to keep tabs.</string>
   <tabstop>lvInputFiles</tabstop>
   <tabstop>pbClearSelection</tabstop>
   <tabstop>pbClearAll</tabstop>
-  <tabstop>tabWidget</tabstop>
+  <tabstop>tabWidgetOptions</tabstop>
   <tabstop>comboFormat</tabstop>
   <tabstop>cbIncLineNo</tabstop>
   <tabstop>sbLineNoWidth</tabstop>
@@ -2113,7 +2131,9 @@ Set the width to 0 to keep tabs.</string>
   <tabstop>pbStartConversion</tabstop>
   <tabstop>pbCopyFile2CP</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../w32-projects/highlight_gui/highlight-gui.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>pbClearAll</sender>

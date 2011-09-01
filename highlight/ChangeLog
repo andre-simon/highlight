@@ -1,5 +1,17 @@
 CHANGELOG Highlight
 
+
+highlight 3.6
+
+01.09.2011
+
+-added support for UPC (thanks to Viraj Sinha)
+-added support for N3, N-Triples, Turtle, SPARQL (suggested by  Heiko Jansen)
+-added Solarized color theme (thanks to Steve Huff)
+-fixed OCaml definition (thanks to Kakadu Hafanana)
+-fixed --force option (thanks to Stefan Bühler)
+
+---
 highlight 3.5
 
 02.06.2011

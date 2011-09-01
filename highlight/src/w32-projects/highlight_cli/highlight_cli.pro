@@ -11,8 +11,8 @@ TEMPLATE = app
 #INCLUDEPATH += ../../ \
 #    ../../src/core/
 
-win32:INCLUDEPATH += f:/cpp/lua_bin_5.1.4
-win32:INCLUDEPATH += f:/cpp/boost_1_42_0
+win32:INCLUDEPATH += d:/devel/cpp/lua_bin_5.1.4
+win32:INCLUDEPATH += d:/devel/cpp/boost_1_42_0
 win32:INCLUDEPATH += ../../include/
 
 win32:DESTDIR = ../../../
@@ -27,9 +27,9 @@ HEADERS += ../../src/cli/main.h \
     ../../cli/arg_parser.h
 
 win32:LIBS += -L../.. -lhighlight
-win32:LIBS += -Lf:/cpp/lua_bin_5.1.4. -llua
+win32:LIBS += -Ld:/devel/cpp/lua_bin_5.1.4. -llua
 
 unix:LIBS += -L.. -lhighlight
 unix:LIBS += -L.. -llua5.1
 
-win32:QMAKE_POST_LINK = f:/upx/upx.exe --best ../../../highlight.exe
+win32:QMAKE_POST_LINK = d:/devel/upx/upx.exe --best ../../../highlight.exe

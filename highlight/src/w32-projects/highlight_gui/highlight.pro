@@ -17,8 +17,8 @@ SOURCES += ../../gui-qt/main.cpp \
 
 win32:INCLUDEPATH += ../../include/
 win32:INCLUDEPATH += ../../gui-qt/
-win32:INCLUDEPATH += f:/cpp/lua_bin_5.1.4
-win32:INCLUDEPATH += f:/cpp/boost_1_42_0
+win32:INCLUDEPATH += d:/devel/cpp/lua_bin_5.1.4
+win32:INCLUDEPATH += d:/devel/cpp/boost_1_42_0
 
 HEADERS += ../../gui-qt/mainwindow.h \
  #   ../../gui-qt/precomp.h \
@@ -35,12 +35,12 @@ TRANSLATIONS = ../../gui-qt/highlight_de_DE.ts ../../gui-qt/highlight_es_ES.ts .
 win32:RC_FILE = highlight-gui.rc
 
 win32:LIBS += -L../.. -lhighlight
-win32:LIBS += -Lf:/cpp/lua_bin_5.1.4. -llua
+win32:LIBS += -Ld:/devel/cpp/lua_bin_5.1.4. -llua
 
 unix:LIBS += -L.. -lhighlight
 unix:LIBS += -L.. -llua5.1
 
-win32:QMAKE_POST_LINK = f:/upx/upx.exe --best ../../../highlight-gui.exe
+win32:QMAKE_POST_LINK = d:/devel/upx/upx.exe --best ../../../highlight-gui.exe
 
 unix {
 DEFINES += DATA_DIR=\\\"/usr/share/highlight\\\" \

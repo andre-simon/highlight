@@ -126,6 +126,7 @@ private slots:
     void updatePreview();
     void openFiles();
 
+    void on_actionDock_floating_panels_toggled(bool arg1);
 };
 
 #endif // MAINWINDOW_H

@@ -1182,3 +1182,8 @@ void MainWindow::on_lvPluginScripts_itemClicked(QListWidgetItem* item)
         QMessageBox::warning(this, "Plug-In error", QString::fromStdString( err.what()));
     }
 }
+
+void MainWindow::on_actionDock_floating_panels_toggled(bool arg1)
+{
+    ui->dockWidget->setFloating(arg1);
+}

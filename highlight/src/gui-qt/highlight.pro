@@ -23,7 +23,7 @@ FORMS += mainwindow.ui \
     io_report.ui \
     showtextfile.ui
 RESOURCES = highlight-gui.qrc
-TRANSLATIONS = highlight_de_DE.ts highlight_es_ES.ts
+TRANSLATIONS = highlight_de_DE.ts highlight_es_ES.ts highlight_cs_CZ.ts
 
 win32:RC_FILE = highlight-gui.rc
 win32:LIBS += -L../.. -lhighlight
