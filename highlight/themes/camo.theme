@@ -3,7 +3,7 @@
 Description = "vim camo"
 
 Default	= { Colour="#ffe4c4" }
-Canvas	= { Colour="grey15" }
+Canvas	= { Colour="#232323" }
 Number	= { Colour="#d2691e" }
 Escape	= { Colour="#cd5c5c" }
 String	= { Colour="#ffe4b5" }

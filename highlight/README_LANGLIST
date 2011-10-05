@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT LANGUAGE LIST ------------------------------------- May 2010 ---
+---  HIGHLIGHT LANGUAGE LIST --------------------------------- October 2011 ---
 -------------------------------------------------------------------------------
 
 All supported languages and the syntax definition file names are listed below.
@@ -104,6 +104,7 @@ Modula3                       : mod3 ( i3 m3 )
 Modelica                      : modelica ( mo )
 MaxScript                     : ms
 MSSQL                         : mssql
+MoonScript                    : moon
 Nasal                         : nasal ( nas )
 NeXT Byte Codes               : nbc
 Nemerle                       : nemerle ( n )
@@ -111,6 +112,7 @@ NetRexx                       : netrexx ( nrx )
 Nice                          : nice
 NSIS                          : nsis ( nsi )
 Not eXactly C                 : nxc
+Notation3                     : n3 (nt ttl)
 Oberon                        : oberon ( ooc )
 Objective C                   : objc
 Objective Caml                : ocaml ( ml mli )
@@ -162,6 +164,7 @@ Regex tests                   : test_re
 TeX and LaTeX                 : tex ( cls sty )
 TTCN3                         : ttcn3
 Plain text                    : txt
+UPC                           : upc
 Vala                          : vala
 Visual Basic                  : vb ( bas basic bi vbs )
 Verilog                       : verilog ( v )

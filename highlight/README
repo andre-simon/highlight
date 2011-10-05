@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.4    ------------------------- March 2011 ---
+---  HIGHLIGHT MANUAL - Version 3.6    ----------------------- October 2011 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -57,7 +57,7 @@ Language definitions and colour themes are customizable.
 -------------------------------------------------------------------------------
 
 Highlight was designed to offer a flexible but easy to use syntax highlighter
-for several output formats. Instead of hardcoding syntax or colouring
+for several output formats. Instead of hardcoded syntax or colouring
 information, all relevant data is stored in configuration scripts. These
 scripts may be altered or enhanced with plug-in scripts.
 
@@ -277,7 +277,7 @@ highlight will use stdin and stdout for file processing.
 
 If no input filename is defined by --input or given at the prompt, highlight is
 not able to determine the language type by means of the file extension (but
-some scripting languages are determined by the shebang in the first input
+some scripting languages are figured out by the shebang in the first input
 line). In this case you have to pass highlight the given langage with --syntax
 (this should be the file suffix of the source file in most cases).
 Example: If you want to convert a Python file, highlight needs to load the
@@ -830,7 +830,7 @@ If type is "lang", the chunk will applied to the language definition.
 The chunk function will receive an optional parameter will contain a string
 with the description of the theme or language ("Description" parameter).
 The chunks are interpreted after the theme or lang file were loaded, so you
-can refer to elements of these files.
+can refer to elements defined in these files.
 
 The function AddKeyword can be invoked within a "lang" chunk.
 If OnStateChange is defined as local function within the chunk, this hook

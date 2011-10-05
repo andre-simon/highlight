@@ -4,6 +4,7 @@
 
 This file is based on the original API documentation of Jeffery Stuart's
 Pattern class.
+Regular expressions can be applied in highlight's syntax definitions.
 
 Content:
 --------
