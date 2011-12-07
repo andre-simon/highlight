@@ -5,7 +5,7 @@
 AppName=Highlight Code Converter
 
 AppVerName=WinHighlight
-OutputBaseFilename=highlight-setup-3.5
+OutputBaseFilename=highlight-setup-3.6
 
 AppPublisher=André Simon
 AppPublisherURL=http://www.andre-simon.de

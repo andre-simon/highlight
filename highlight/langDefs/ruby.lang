@@ -29,6 +29,7 @@ Keywords={
 
 Strings={
   Delimiter=[["|'|`]],
+  Escape = [[ \{[^}]*\} ]],
 
   DelimiterPairs= {
     { Open=[[%q\(]], Close=[[\)]] },
@@ -36,7 +37,6 @@ Strings={
     { Open=[[%\(]], Close=[[\)]] },
     { Open=[[%x\(]], Close=[[\)]] },
   }
-
 }
 
 IgnoreCase=false
@@ -47,9 +47,16 @@ Comments={
   },
   { Block=true,
     Nested=false,
-    Delimiter= { [[\=begin]],[[\=end]],}
-
+    Delimiter= { [[\=begin]],[[\=end]] }
   }
 }
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\.|\&|\<|\>|\!|\-|\+|\/|\*|\=|\?|\%|\|]]
+
+-- resolve issue with # which starts comments and extrapolation sequences in strings
+function OnStateChange(oldState, newState, token)
+   if token=="#" and oldState==HL_STRING and newState==HL_LINE_COMMENT then
+      return HL_ESC_SEQ
+   end
+   return newState
+end
