@@ -117,7 +117,7 @@ namespace highlight
 				<< ( docStyle.getBgColour().getGreen ( HTML ) )
 				<< ( docStyle.getBgColour().getBlue ( HTML ) )
 				<< "; font-size:" << this->getBaseFontSize()
-				<< "pt; font-family:'" << this->getBaseFont() <<"';\">";
+                                << "pt; font-family:'" << this->getBaseFont() <<"';\">"; //TODO nur ' wenn keine Liste
 			}
 		}
 		if ( showLineNumbers && orderedList ) *out << "<ol>";

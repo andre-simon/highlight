@@ -49,7 +49,7 @@ namespace highlight
 
 	void BBCodeGenerator::printBody()
 	{
-		*out << "[size="<<getBaseFontSize()<<"]";
+                *out << "[size="<<getBaseFontSize()<<"]"; // TODO hier pt?
 		processRootState();
 		*out << "[/size]";
 	}

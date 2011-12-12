@@ -74,15 +74,19 @@ Name: "{userappdata}\WinHighlight"; Attribs: hidden
 Name: "main"; Description: "Highlight GUI"; Types: full compact custom; Flags: fixed
 Name: "cli"; Description: "Highlight command line interface"; Types: full
 Name: "sourcecode"; Description: "Source code"; Types: full
+Name: "portable"; Description: "Portable starter icon"; Types: full
+
 
 [INI]
 Filename: "{app}\Highlight.url"; Section: "InternetShortcut"; Key: "URL"; String: "http://www.andre-simon.de"
 
 [Icons]
-Name: "{group}\Highlight Code Converter"; Filename: "{app}\highlight-gui.exe";  IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}"
-Name: "{group}\Highlight Code Converter on the Web"; Filename: "{app}\WinHighlight.url"
-Name: "{group}\Uninstall Highlight Code Converter"; Filename: "{uninstallexe}"
-Name: "{userdesktop}\Highlight Code Converter"; Filename: "{app}\highlight-gui.exe"; Tasks: desktopicon; IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}"
+Name: "{group}\Highlight"; Filename: "{app}\highlight-gui.exe";  IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}"
+Name: "{group}\Highlight Portable"; Filename: "{app}\highlight-gui.exe";  IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}";Parameters: "--portable";  Components: portable;
+Name: "{group}\Highlight on the Web"; Filename: "{app}\WinHighlight.url"
+Name: "{group}\Uninstall Highlight"; Filename: "{uninstallexe}"
+Name: "{userdesktop}\Highlight"; Filename: "{app}\highlight-gui.exe"; Tasks: desktopicon; IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}"
+Name: "{userdesktop}\Highlight Portable"; Filename: "{app}\highlight-gui.exe"; Tasks: desktopicon; IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}";Parameters: "--portable";  Components: portable;
 ;Name: "{sendto}\Highlight"; Filename: "{app}\highlight-gui.exe";  IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}"; Check: MyProgCheck
 
 [Run]

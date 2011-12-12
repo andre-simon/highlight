@@ -28,6 +28,8 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui/QApplication>
 #include <QTranslator>
 #include <QLocale>
+#include <QDir>
+
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
@@ -40,6 +42,10 @@ int main(int argc, char *argv[])
      translator.load(QString("%1/gui_files/l10n/highlight_%2").arg(QDir::currentPath()).arg(QLocale::system().name()));
     #endif
     app.installTranslator(&translator);
+
+    if (QCoreApplication::arguments().contains("--portable")){
+        QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, QDir::currentPath());
+    }
 
     MainWindow w;
 /*
