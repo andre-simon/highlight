@@ -107,17 +107,22 @@ namespace highlight
 			}
 			else
 			{
-				*out << "<pre style=\""
-				<< "color:#"
-				<< ( docStyle.getDefaultStyle().getColour().getRed ( HTML ) )
-				<< ( docStyle.getDefaultStyle().getColour().getGreen ( HTML ) )
-				<< ( docStyle.getDefaultStyle().getColour().getBlue ( HTML ) )
-				<< "; background-color:#"
-				<< ( docStyle.getBgColour().getRed ( HTML ) )
-				<< ( docStyle.getBgColour().getGreen ( HTML ) )
-				<< ( docStyle.getBgColour().getBlue ( HTML ) )
-				<< "; font-size:" << this->getBaseFontSize()
-                                << "pt; font-family:'" << this->getBaseFont() <<"';\">"; //TODO nur ' wenn keine Liste
+                            bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
+                            *out << "<pre style=\""
+                                 << "color:#"
+                                 << ( docStyle.getDefaultStyle().getColour().getRed ( HTML ) )
+                                 << ( docStyle.getDefaultStyle().getColour().getGreen ( HTML ) )
+                                 << ( docStyle.getDefaultStyle().getColour().getBlue ( HTML ) )
+                                 << "; background-color:#"
+                                 << ( docStyle.getBgColour().getRed ( HTML ) )
+                                 << ( docStyle.getBgColour().getGreen ( HTML ) )
+                                 << ( docStyle.getBgColour().getBlue ( HTML ) )
+                                 << "; font-size:" << this->getBaseFontSize()
+                                 << "pt; font-family:"
+                                 <<((quoteFont)?"'":"")
+                                 << this->getBaseFont()
+                                 <<((quoteFont)?"'":"")
+                                 <<";\">";
 			}
 		}
 		if ( showLineNumbers && orderedList ) *out << "<ol>";
@@ -210,6 +215,7 @@ namespace highlight
 	{
 		if ( styleDefinitionCache.empty() )
 		{
+                        bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
 			ostringstream os;
 			os << "body."<<cssClassName<<"\t{ background-color:#"
 			<< ( docStyle.getBgColour().getRed ( HTML ) )
@@ -226,11 +232,11 @@ namespace highlight
 			<< ( docStyle.getBgColour().getBlue ( HTML ) )
 			<< "; font-size:" << this->getBaseFontSize();
 
-			os << "pt; font-family:'" << this->getBaseFont() << "';}\n";
+                        os << "pt; font-family:"<<((quoteFont)?"'":"") << getBaseFont() << ((quoteFont)?"'":"")<<";}\n";
 
 			if ( orderedList )
 			{
-				os << "li."<<cssClassName<<"\t{ margin-bottom:-"<<this->getBaseFontSize() <<"pt; }\n";
+                                os << "li."<<cssClassName<<"\t{ margin-bottom:-"<<getBaseFontSize() <<"pt; }\n";
 			}
 
 			os << getAttributes ( STY_NAME_NUM, docStyle.getNumberStyle() )
