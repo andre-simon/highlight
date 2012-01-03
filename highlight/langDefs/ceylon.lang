@@ -1,0 +1,52 @@
+
+Description="Ceylon"
+
+Keywords={
+  {  Id=1,
+   List={ "import", "class", "interface", "object", "given", "value", "assign", "void", "function", "of", "extends", "satisfies", "adapts",
+	  "abstracts", "in", "out", "return", "break", "continue", "throw", "if", "else", "switch", "case", "for", "while", "try", "catch",
+	  "finally", "then", "this", "outer", "super", "is", "exists", "nonempty"
+        }
+  },
+  { Id=2,
+    List= {
+          }
+  },
+  { Id=3,
+    List= { 
+          }
+  },
+  { Id=4,
+    Regex=[[(\w+)\s*\(]]
+  }
+}
+
+Strings = {
+  Delimiter=[["|']],
+  RawPrefix="R",
+}
+
+Comments = {
+   { Block=true,
+     Nested=false,
+     Delimiter = { [[\/\*]], [[\*\/]] }
+   },
+   {
+     Block=false,
+     Delimiter = { [[//|\#\!]] }
+   }
+}
+
+IgnoreCase=false
+
+PreProcessor = {
+  Prefix=[[#]],
+  Continuation="\\",
+}
+
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~|\|]]
+
+Digits=[[ [\d\.\_]*\d+(?:[eE][\-\+]?\d+)?[kMGTPmunpf]* ]]
+
+
+EnableIndentation=true
