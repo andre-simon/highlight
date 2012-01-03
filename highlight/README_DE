@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.6  ------------------------- Oktober 2011 ---
+---  HIGHLIGHT MANUAL - Version 3.7  ------------------------- January 2012 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -72,14 +72,14 @@ Plug-Ins angepasst und erweitert werden.
   Escapesequenzen
 * Speichern von Stylesheets wahlweise in separater Datei oder innerhalb der
   Ausgabedatei (HTML, LaTeX, TeX, SVG)
-* Syntax-Elemente werden als Regelaere Ausdruecke oder als Stringlisten
+* Syntax-Elemente werden als regelaere Ausdruecke oder als Stringlisten
   beschrieben
 * Erweiterbare Schluesselwort-Gruppen
 * Erkennung eingebetteter Sprachen innerhalb einer Datei
 * Alle Konfigurationsdateien sind Lua-Skripte
 * Unterstuetzt Plug-In Skripte
 * Neuformatierung und Einrueckung von C, C++, C# und Java Code
-* Umbrechen von ueberlangen Zeilen
+* Umbrechen von langen Zeilen
 * Ausgabe von Zeilennummern
 
 
@@ -122,6 +122,7 @@ namens main.cpp erzeugt:
   highlight --latex -i main.cpp -o main.cpp.tex
 
   Folgende Ausgabeformate können mit --out-format bestimmt werden:
+  html:     HTML 4.01
   xhtml:    XHTML 1.1
   tex:      Plain TeX
   latex:    LaTeX
@@ -135,7 +136,7 @@ namens main.cpp erzeugt:
   bestimmt wurde.
 
 - Font und Schriftgroesse anpassen:
-  highlight --syntax ada --out-format=xhtml --font-size 12 --font Verdana
+  highlight --syntax ada --out-format=xhtml --font-size 12 --font Consolas,\'Courier\ New\'
   highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Ausgabeverzeichnis definieren:
@@ -297,7 +298,7 @@ Sollte es mehrere Dateierweiterungen fuer Dateien einer Programmiersprache
 geben (wie z.B. C, cc, cpp, h bei C++), werden diese in der Datei
 $CONF_DIR/filetypes.conf einer Sprachdefinition zugewiesen.
 
-Wenn mehrere Eingabedateien an Highlight uebergeben werden oder --batch-rcursive
+Wenn mehrere Eingabedateien an Highlight uebergeben werden oder --batch-recursive
 gesetzt ist, wechselt das Tool in den Batch-Modus. In diesem Modus werden die
 Ausgabedateien unter dem Namen der Eingabedateien gespeichert, lediglich die
 Dateierweiterung des gewaehlten Ausgabeformats wird angehangen.

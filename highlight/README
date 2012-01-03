@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.6    ----------------------- October 2011 ---
+---  HIGHLIGHT MANUAL - Version 3.7    ----------------------- January 2012 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -119,6 +119,7 @@ input file called main.cpp:
   highlight --out-format=latex -i main.cpp -o main.cpp.tex
 
   The following output formats may be defined with --out-format:
+  html:     HTML 4.01
   xhtml:    XHTML 1.1
   tex:      Plain TeX
   latex:    LaTeX
@@ -131,7 +132,7 @@ input file called main.cpp:
   Default output is HTML if no other format is specified.
 
 - Customize font settings:
-  highlight --syntax ada --out-format=xhtml --font-size 12 --font Verdana
+  highlight --syntax ada --out-format=xhtml --font-size 12 --font  Consolas,\'Courier\ New\'
   highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Define an output directory:
@@ -984,7 +985,7 @@ SuSE
 http://packman.links2linux.de/package/highlight
 
 Ubuntu
-http://ns2.canonical.com/lucid/highlight
+http://packages.ubuntu.com/oneiric/allpackages
 
 The file INSTALL contains details about package contents and installation.
 

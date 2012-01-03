@@ -1,6 +1,20 @@
 CHANGELOG Highlight
 
+highlight 3.7
 
+03.01.2012
+
+-added support for Biferno (thanks to Sandro Bilbeisi)
+-added support for RPL (thanks to Frank Seidinger)
+-added support for Ceylon
+-fixed Ruby definition
+-HTML font string may contain a list of fonts, which is not enclosed in quotes
+   (suggested by Sebastiano Poggi)
+-GUI: added --portable command line option to save config files in the current
+   working directory instead of the user directory (suggested by Royi Avital)
+-GUI: fixed some language mappings
+
+---
 highlight 3.6
 
 05.10.2011
@@ -9,7 +23,6 @@ highlight 3.6
 -added support for N3, N-Triples, Turtle, SPARQL (suggested by  Heiko Jansen)
 -added Solarized color theme (thanks to Steve Huff)
 -fixed OCaml definition (thanks to Kakadu Hafanana)
--fixed --force option (thanks to Stefan Bühler)
 -fixed camo colour theme
 -removed sienna and desertEx colour themes
 -CLI: fixed segfault with --print-style option

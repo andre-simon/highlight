@@ -1,11 +1,6 @@
 Highlight installation instructions
 -----------------------------------
 
-
-Installing highlight 3 with default settings will overwrite an existing
-highlight 2 installation. Update paths in makefile if you need both releases.
-
-
 Content
 =======
 
@@ -15,7 +10,7 @@ Content
 4. Known compiler issues
 5. LaTeX unicode support
 6. Lazy pointer issue under MacOS X
-7. Static linking (run highlight as service)
+7. Static linking (to run highlight as service)
 
 
 1. Package structure
@@ -56,6 +51,7 @@ makefile                # basic makefile
 README                  # user manual
 README_DE               # German user manual
 README_LANGLIST         # list of supported languages
+README_PLUGINS          # plug-in manual
 README_REGEX            # regular expression manual
 TODO                    # just ideas, no plans
 
@@ -65,6 +61,7 @@ TODO                    # just ideas, no plans
 
 In order to compile highlight, you need to install Lua5.1 (devel package)
 and Boost (at least the header files).
+The optional GUI requires Qt4 and its development tools (qmake).
 
 
 3. Basic installation
