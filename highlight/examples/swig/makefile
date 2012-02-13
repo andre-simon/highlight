@@ -10,7 +10,8 @@ LUA_LIBS=$(shell pkg-config --libs lua5.1)
 
 PYTHON_INC=/usr/include/python2.6/
 
-PERL_INC=`perl -MExtUtils::Embed -eperl_inc`
+#PERL_INC=`perl -MExtUtils::Embed -eperl_inc`
+PERL_INC=$(shell perl -MExtUtils::Embed -eccopts)
 
 lib-stamp:
 	make -C ${HL_SRC} -f ./makefile clean

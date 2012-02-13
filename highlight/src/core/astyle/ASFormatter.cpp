@@ -110,6 +110,7 @@ ASFormatter::~ASFormatter()
 	ASBeautifier::deleteBeautifierVectors();
 
 	delete enhancer;
+	delete sourceIterator;
 }
 
 /**
@@ -134,6 +135,9 @@ void ASFormatter::init(ASSourceIterator* si)
 	               getCaseIndent(),
 	               getPreprocessorIndent(),
 	               getEmptyLineFill());
+	
+	if (sourceIterator) delete sourceIterator;
+	
 	sourceIterator = si;
 
 	initContainer(preBracketHeaderStack, new vector<const string*>);

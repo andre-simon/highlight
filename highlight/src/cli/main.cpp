@@ -346,7 +346,8 @@ string HLCmdLineApp::analyzeFile ( const string& file )
     StringMap::iterator it;
     for ( it=scriptShebangs.begin(); it!=scriptShebangs.end();it++ )
     {
-        if ( Pattern::matches ( it->first, firstLine ) ) return it->second;
+        pair<string, int> matched = Pattern::findNthMatch ( it->first, firstLine, 0 );
+        if ( matched.second >= 0 ) return it->second;
     }
     return "";
 }

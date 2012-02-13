@@ -1,5 +1,14 @@
 CHANGELOG Highlight
 
+highlight 3.8
+
+13.02.2012
+
+-fixed SWIG perl binding makefile (patch by David Bremner)
+-fixed shebang recognition (patches by Georgios M. Zarkadas)
+-fixed memory leak in AStyle code formatter (patch by MENG Wei)
+
+---
 highlight 3.7
 
 03.01.2012

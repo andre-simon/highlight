@@ -455,8 +455,13 @@ bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap) {
     string firstLine;
     getline (inFile, firstLine);
     StringMap::iterator it;
-    for (it=shebangs.begin(); it!=shebangs.end();it++){
+    /*for (it=shebangs.begin(); it!=shebangs.end();it++){
        if (Pattern::matches(it->first, firstLine)) return it->second;
+    }*/
+    for ( it=shebangs.begin(); it!=shebangs.end();it++ )
+    {
+        pair<string, int> matched = Pattern::findNthMatch ( it->first, firstLine, 0 );
+        if ( matched.second >= 0 ) return it->second;
     }
     return "";
 }
