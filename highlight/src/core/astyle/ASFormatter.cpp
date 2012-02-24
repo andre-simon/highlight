@@ -137,7 +137,6 @@ void ASFormatter::init(ASSourceIterator* si)
 	               getEmptyLineFill());
 	
 	if (sourceIterator) delete sourceIterator;
-	
 	sourceIterator = si;
 
 	initContainer(preBracketHeaderStack, new vector<const string*>);
@@ -222,6 +221,7 @@ void ASFormatter::init(ASSourceIterator* si)
 	isImmediatelyPostPreprocessor = false;
 	isImmediatelyPostReturn = false;
 	isImmediatelyPostOperator = false;
+	isImmediatelyPostTemplate = false;
 	isImmediatelyPostPointerOrReference = false;
 	isCharImmediatelyPostReturn = false;
 	isCharImmediatelyPostOperator = false;
@@ -540,6 +540,11 @@ string ASFormatter::nextLine()
 			isImmediatelyPostOperator = false;
 			isCharImmediatelyPostOperator = true;
 		}
+		if (isImmediatelyPostTemplate)
+		{
+			isImmediatelyPostTemplate = false;
+			isCharImmediatelyPostTemplate = true;
+		}
 		if (isImmediatelyPostPointerOrReference)
 		{
 			isImmediatelyPostPointerOrReference = false;
@@ -648,7 +653,7 @@ string ASFormatter::nextLine()
 				if (templateDepth == 0)
 				{
 					isInTemplate = false;
-					isCharImmediatelyPostTemplate = true;
+					isImmediatelyPostTemplate = true;
 				}
 			}
 
@@ -886,7 +891,7 @@ string ASFormatter::nextLine()
 				goForward(currentHeader->length() - 1);
 				// if a paren-header is found add a space after it, if needed
 				// this checks currentLine, appendSpacePad() checks formattedLine
-				// in C# 'catch' can be either a paren or non-paren header
+				// in 'case' and C# 'catch' can be either a paren or non-paren header
 				if (shouldPadHeader
 				        && (!isNonParenHeader
 				            || (currentHeader == &AS_CASE && peekNextChar() == '(')
@@ -898,7 +903,8 @@ string ASFormatter::nextLine()
 				// *** But treat a closing while() (as in do...while)
 				//     as if it were NOT a header since a closing while()
 				//     should never have a block after it!
-				if (!(foundClosingHeader && currentHeader == &AS_WHILE))
+				if (currentHeader != &AS_CASE
+				        && !(foundClosingHeader && currentHeader == &AS_WHILE))
 				{
 					isInHeader = true;
 
@@ -1030,16 +1036,18 @@ string ASFormatter::nextLine()
 			nonInStatementBracket = 0;
 		}
 
-		if (currentChar == ':' && shouldBreakOneLineStatements)
+		if (currentChar == ':')
 		{
 			if (isInCase
 			        && previousChar != ':'          // not part of '::'
 			        && peekNextChar() != ':')       // not part of '::'
 			{
 				isInCase = false;
-				passedColon = true;
+				if (shouldBreakOneLineStatements)
+					passedColon = true;
 			}
 			else if (isCStyle()                     // for C/C++ only
+			         && shouldBreakOneLineStatements
 			         && !foundQuestionMark          // not in a ... ? ... : ... sequence
 			         && !foundPreDefinitionHeader   // not in a definition block (e.g. class foo : public bar
 			         && previousCommandChar != ')'  // not immediately after closing paren of a method header, e.g. ASFormatter::ASFormatter(...) : ASBeautifier(...)
@@ -1111,8 +1119,23 @@ string ASFormatter::nextLine()
 
 			// append the entire name
 			string name = getCurrentWord(currentLine, charNum);
-			appendSequence(name);
-			goForward(name.length() - 1);
+			// must pad the 'and' and 'or' operators if required
+			if (shouldPadOperators
+			        && (name == "and" || name == "or"))
+			{
+				appendSpacePad();
+				appendSequence(name);
+				goForward(name.length() - 1);
+				if (!isBeforeAnyComment()
+				        && !(currentLine.compare(charNum + 1, 1,  ";") == 0)
+				        && !(currentLine.compare(charNum + 1, 2, "::") == 0))
+					appendSpaceAfter();
+			}
+			else
+			{
+				appendSequence(name);
+				goForward(name.length() - 1);
+			}
 
 			continue;
 
@@ -1151,7 +1174,7 @@ string ASFormatter::nextLine()
 
 		// process pointers and references
 		// check newHeader to elimnate things like '&&' sequence
-		if (isCStyle()
+		if (!isJavaStyle()
 		        && (newHeader == &AS_MULT || newHeader == &AS_BIT_AND)
 		        && isPointerOrReference()
 		        && !isDereferenceOrAddressOf())
@@ -1713,6 +1736,27 @@ bool ASFormatter::getNextLine(bool emptyLineWasDeleted /*false*/)
 		else
 			isVirgin = false;
 
+		// TODO: FIX FOR BROKEN CASE STATEMANTS - RELEASE 2.02.1
+		// REMOVE AT AN APPROPRIATE TIME
+		if (currentHeader == &AS_CASE
+		        && isInLineBreak
+		        && !isImmediatelyPostLineComment)
+		{
+			// check for split line
+			if ((formattedLine.length() >= 4
+			        && formattedLine.substr(formattedLine.length() - 4, 4) == "case")
+			        || (formattedLine[formattedLine.length() - 1] == '\''
+			            && findNextChar(currentLine, ':') != string::npos)
+			   )
+			{
+				isInLineBreak = false;
+				isInCase = true;
+				if (formattedLine.substr(formattedLine.length() - 4, 4) == "case")
+					appendSpacePad();
+			}
+		}
+		// END OF FIX
+
 		if (isImmediatelyPostNonInStmt)
 		{
 			isCharImmediatelyPostNonInStmt = true;
@@ -2038,7 +2082,7 @@ bool ASFormatter::isPointerOrReference() const
 {
 	assert(currentChar == '*' || currentChar == '&');
 
-	if (!isCStyle())
+	if (isJavaStyle())
 		return false;
 
 	if ((currentChar == '&' && previousChar == '&')
@@ -2048,8 +2092,10 @@ bool ASFormatter::isPointerOrReference() const
 	if (previousNonWSChar == '='
 	        || previousNonWSChar == '('
 	        || previousNonWSChar == '['
-	        || currentHeader == &AS_CATCH
-	        || isCharImmediatelyPostReturn)
+	        || isCharImmediatelyPostReturn
+	        || isInTemplate
+	        || isCharImmediatelyPostTemplate
+	        || currentHeader == &AS_CATCH)
 		return true;
 
 	// get the last legal word (may be a number)
@@ -2064,18 +2110,32 @@ bool ASFormatter::isPointerOrReference() const
 	        || nextChar == '!')
 		return false;
 
+	if (isBracketType(bracketTypeStack->back(), ARRAY_TYPE)
+	        && isLegalNameChar(lastWord[0])
+	        && isLegalNameChar(nextChar)
+	        && previousNonWSChar != ')')
+	{
+		if (isArrayOperator())
+			return false;
+	}
+
 	// checks on operators in parens
 	if (parenStack->back() > 0
 	        && isLegalNameChar(lastWord[0])
 	        && isLegalNameChar(nextChar))
 	{
 		// if followed by an assignment it is a pointer or reference
-		size_t nextNum = currentLine.find_first_of("=;)]", charNum + 1);
-		if (nextNum != string::npos && currentLine[nextNum] == '=')
-			return true;
+		const string* followingOperator = getFollowingOperator();
+		if (followingOperator
+		        && followingOperator != &AS_MULT
+		        && followingOperator != &AS_BIT_AND)
+		{
+			if (followingOperator == &AS_ASSIGN)
+				return true;
+			else
+				return false;
+		}
 
-		// if a function definition it is a pointer or reference
-		// otherwise it is an arithmetic operator
 		if (!isBracketType(bracketTypeStack->back(), COMMAND_TYPE))
 			return true;
 		else
@@ -2135,7 +2195,10 @@ bool ASFormatter::isPointerOrReference() const
  */
 bool ASFormatter::isDereferenceOrAddressOf() const
 {
-	assert(isPointerOrReference());
+	assert(currentChar == '*' || currentChar == '&');
+
+	if (isCharImmediatelyPostTemplate)
+		return false;
 
 	if (previousNonWSChar == '='
 	        || previousNonWSChar == ','
@@ -2143,6 +2206,8 @@ bool ASFormatter::isDereferenceOrAddressOf() const
 	        || previousNonWSChar == '{'
 	        || previousNonWSChar == '>'
 	        || previousNonWSChar == '<'
+	        || isCharImmediatelyPostLineComment
+	        || isCharImmediatelyPostComment
 	        || isCharImmediatelyPostReturn)
 		return true;
 
@@ -2162,11 +2227,13 @@ bool ASFormatter::isDereferenceOrAddressOf() const
 	if (charNum == (int) currentLine.find_first_not_of(" \t"))
 		return true;
 
-	size_t nextChar = currentLine.find_first_not_of(" \t", charNum+1);
-	if (nextChar != string::npos
-	        && (currentLine[nextChar] == ')'
-	            || currentLine[nextChar] == '>'
-	            || currentLine[nextChar] == ','))
+	char nextChar = peekNextChar();
+	if (nextChar == ')' || nextChar == '>' || nextChar == ',')
+		return false;
+
+	// check for reference to a pointer *& (cannot have &*)
+	if (( currentChar == '*' && nextChar == '&')
+	        || (previousNonWSChar == '*' && currentChar == '&'))
 		return false;
 
 	if (!isBracketType(bracketTypeStack->back(), COMMAND_TYPE)
@@ -2178,7 +2245,7 @@ bool ASFormatter::isDereferenceOrAddressOf() const
 		return true;
 
 	bool isDA = (!(isLegalNameChar(previousNonWSChar) || previousNonWSChar == '>')
-	             || (!isLegalNameChar(peekNextChar()) && peekNextChar() != '/')
+	             || (!isLegalNameChar(nextChar) && nextChar != '/')
 	             || (ispunct(previousNonWSChar) && previousNonWSChar != '.')
 	             || isCharImmediatelyPostReturn);
 
@@ -2624,7 +2691,7 @@ void ASFormatter::padOperators(const string* newOperator)
 	                  && !(newOperator == &AS_MULT
 	                       && (previousNonWSChar == '.'
 	                           || previousNonWSChar == '>'))    // check for ->
-	                  && !((isInTemplate || isCharImmediatelyPostTemplate)
+	                  && !((isInTemplate || isImmediatelyPostTemplate)
 	                       && (newOperator == &AS_LS || newOperator == &AS_GR))
 	                  && !(newOperator == &AS_GCC_MIN_ASSIGN
 	                       && ASBase::peekNextChar(currentLine, charNum+1) == '>')
@@ -2672,7 +2739,7 @@ void ASFormatter::padOperators(const string* newOperator)
 void ASFormatter::formatPointerOrReference(void)
 {
 	assert(currentChar == '*' || currentChar == '&');
-	assert(isCStyle());
+	assert(!isJavaStyle());
 
 	int pa = pointerAlignment;
 	int ra = referenceAlignment;
@@ -2723,7 +2790,10 @@ void ASFormatter::formatPointerOrReference(void)
 		}
 		if (isSequenceReached("**"))
 		{
-			formattedLine.insert(prevCh+2, "*");
+			if (formattedLine.length() == 1)
+				formattedLine.append("*");
+			else
+				formattedLine.insert(prevCh+2, "*");
 			goForward(1);
 		}
 		// if no space after * then add one
@@ -2753,6 +2823,17 @@ void ASFormatter::formatPointerOrReference(void)
 		{
 			sequenceToInsert = "**";
 			goForward(1);
+		}
+		// if reference to a pointer check for conflicting alignment
+		else if (currentChar == '*' && peekedChar == '&'
+		         && (referenceAlignment == REF_ALIGN_TYPE
+		             || referenceAlignment == REF_ALIGN_MIDDLE
+		             || referenceAlignment == REF_SAME_AS_PTR))
+		{
+			sequenceToInsert = "*&";
+			goForward(1);
+			for (size_t i = charNum; i < currentLine.length() - 1 && isWhiteSpace(currentLine[i]); i++)
+				goForward(1);
 		}
 		bool isAfterScopeResolution = previousNonWSChar == ':';		// check for ::
 		size_t charNumSave = charNum;
@@ -2814,6 +2895,14 @@ void ASFormatter::formatPointerOrReference(void)
 			sequenceToInsert = "**";
 			goForward(1);
 		}
+		// if reference to a pointer align both to type
+		else if (currentChar == '*' && peekedChar == '&')
+		{
+			sequenceToInsert = "*&";
+			goForward(1);
+			for (size_t i = charNum; i < currentLine.length() - 1 && isWhiteSpace(currentLine[i]); i++)
+				goForward(1);
+		}
 		bool isAfterScopeResolution = previousNonWSChar == ':';		// check for ::
 		// if this is not the last thing on the line
 		if (!isBeforeAnyComment()
@@ -2873,7 +2962,7 @@ void ASFormatter::formatPointerOrReference(void)
 void ASFormatter::formatPointerOrReferenceCast(void)
 {
 	assert(currentChar == '*' || currentChar == '&');
-	assert(isCStyle());
+	assert(!isJavaStyle());
 
 	int pa = pointerAlignment;
 	int ra = referenceAlignment;
@@ -2953,17 +3042,11 @@ void ASFormatter::padParens(void)
 					        && isCharPotentialHeader(prevWord, 0))
 						prevWordH = ASBeautifier::findHeader(prevWord, 0, headers);
 					if (prevWordH != NULL)
-					{
 						prevIsParenHeader = true;
-						// trace
-						//cout << traceLineNumber << " " << *prevWordH << endl;
-					}
 					else if (prevWord == "return")  // don't unpad return statements
-					{
 						prevIsParenHeader = true;
-						// trace
-						//cout << traceLineNumber << " " << prevWord << endl;
-					}
+					else if (prevWord == "and" || prevWord == "or")  // don't unpad
+						prevIsParenHeader = true;
 					// don't unpad variables
 					else if (prevWord == "bool"
 					         || prevWord ==  "int"
@@ -3725,7 +3808,8 @@ void ASFormatter::checkForHeaderFollowingComment(const string& firstLine)
 	// this is called ONLY IF shouldBreakBlocks is TRUE.
 	assert(shouldBreakBlocks);
 	// look ahead to find the next non-comment text
-	string nextText = peekNextText(firstLine, true);
+	bool endOnEmptyLine = (currentHeader == NULL);
+	string nextText = peekNextText(firstLine, endOnEmptyLine);
 
 	if (nextText.length() == 0 || !isCharPotentialHeader(nextText, 0))
 		return;
@@ -4835,5 +4919,66 @@ int ASFormatter::getChecksumDiff() const
 int ASFormatter::getFormatterFileType() const
 { return formatterFileType; }
 
+// Check if an operator follows the next word.
+// The next word must be a legal name.
+const string* ASFormatter::getFollowingOperator() const
+{
+	// find next word
+	size_t nextNum = currentLine.find_first_not_of(" \t", charNum + 1);
+	if (nextNum == string::npos)
+		return NULL;
+
+	if (!isLegalNameChar(currentLine[nextNum]))
+		return NULL;
+
+	// bypass next word and following spaces
+	while (nextNum < currentLine.length())
+	{
+		if (!isLegalNameChar(currentLine[nextNum])
+		        && !isWhiteSpace(currentLine[nextNum]))
+			break;
+		nextNum++;
+	}
+
+	if (nextNum >= currentLine.length()
+	        || !isCharPotentialOperator(currentLine[nextNum])
+	        || currentLine[nextNum] == '/')		// comment
+		return NULL;
+
+	const string* newOperator = ASBeautifier::findOperator(currentLine, nextNum, operators);
+	return newOperator;
+}
+
+// Check following data to determine if the current character is an array operator.
+bool ASFormatter::isArrayOperator() const
+{
+	assert(currentChar == '*' || currentChar == '&');
+	assert(isBracketType(bracketTypeStack->back(), ARRAY_TYPE));
+
+	// find next word
+	size_t nextNum = currentLine.find_first_not_of(" \t", charNum + 1);
+	if (nextNum == string::npos)
+		return NULL;
+
+	if (!isLegalNameChar(currentLine[nextNum]))
+		return NULL;
+
+	// bypass next word and following spaces
+	while (nextNum < currentLine.length())
+	{
+		if (!isLegalNameChar(currentLine[nextNum])
+		        && !isWhiteSpace(currentLine[nextNum]))
+			break;
+		nextNum++;
+	}
+
+	// check for characters that indicate an operator
+	if (currentLine[nextNum] == ','
+	        || currentLine[nextNum] == '}'
+	        || currentLine[nextNum] == ')'
+	        || currentLine[nextNum] == '(')
+		return true;
+	return false;
+}
 
 }   // end namespace astyle

@@ -2,11 +2,13 @@ CHANGELOG Highlight
 
 highlight 3.8
 
-13.02.2012
+24.02.2012
 
+-updated astyle code to release 2.02.1
 -fixed SWIG perl binding makefile (patch by David Bremner)
--fixed shebang recognition (patches by Georgios M. Zarkadas)
--fixed memory leak in AStyle code formatter (patch by MENG Wei)
+-fixed shebang recognition (patch by Georgios M. Zarkadas)
+-fixed file suffix recognition (patch by Georgios M. Zarkadas)
+-fixed memory leak in astyle's SSFormatter (patch by MENG Wei)
 
 ---
 highlight 3.7

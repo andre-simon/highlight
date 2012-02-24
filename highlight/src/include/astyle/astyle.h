@@ -599,6 +599,7 @@ class ASFormatter : public ASBeautifier
 		bool commentAndHeaderFollows();
 		bool getNextChar();
 		bool getNextLine(bool emptyLineWasDeleted = false);
+		bool isArrayOperator() const;
 		bool isBeforeComment() const;
 		bool isBeforeAnyComment() const;
 		bool isBeforeAnyLineEndComment(int startPos) const;
@@ -659,6 +660,7 @@ class ASFormatter : public ASBeautifier
 		void setBreakBlocksVariables();
 		void trimContinuationLine();
 		size_t findNextChar(string& line, char searchChar, int searchStart = 0);
+		const string* getFollowingOperator() const;
 		string getPreviousWord(const string& line, int currPos) const;
 		string peekNextText(const string& firstLine, bool endOnEmptyLine=false, bool shouldReset=false) const;
 
@@ -788,6 +790,7 @@ class ASFormatter : public ASBeautifier
 		bool isImmediatelyPostPreprocessor;
 		bool isImmediatelyPostReturn;
 		bool isImmediatelyPostOperator;
+		bool isImmediatelyPostTemplate;
 		bool isImmediatelyPostPointerOrReference;
 
 		bool shouldBreakBlocks;

@@ -95,8 +95,8 @@ const string ASResource::AS_AND_ASSIGN = string("&=");
 const string ASResource::AS_XOR_ASSIGN = string("^=");
 const string ASResource::AS_GR_GR_ASSIGN = string(">>=");
 const string ASResource::AS_LS_LS_ASSIGN = string("<<=");
-const string ASResource::AS_GR_GR_GR_ASSIGN = string(">>>=");
-const string ASResource::AS_LS_LS_LS_ASSIGN = string("<<<=");
+const string ASResource::AS_GR_GR_GR_ASSIGN = string(">>>=");	// Java only?
+const string ASResource::AS_LS_LS_LS_ASSIGN = string("<<<=");	// Java only?
 const string ASResource::AS_GCC_MIN_ASSIGN = string("<?");
 const string ASResource::AS_GCC_MAX_ASSIGN = string(">?");
 
@@ -111,10 +111,10 @@ const string ASResource::AS_MINUS_MINUS = string("--");
 const string ASResource::AS_NOT_EQUAL = string("!=");
 const string ASResource::AS_GR_EQUAL = string(">=");
 const string ASResource::AS_GR_GR = string(">>");
-const string ASResource::AS_GR_GR_GR = string(">>>");
+const string ASResource::AS_GR_GR_GR = string(">>>");			// Java only?
 const string ASResource::AS_LS_EQUAL = string("<=");
 const string ASResource::AS_LS_LS = string("<<");
-const string ASResource::AS_LS_LS_LS = string("<<<");
+const string ASResource::AS_LS_LS_LS = string("<<<");			// Java only?
 const string ASResource::AS_QUESTION_QUESTION = string("??");
 const string ASResource::AS_EQUAL_GR = string("=>");            // C# lambda expression arrow
 const string ASResource::AS_ARROW = string("->");

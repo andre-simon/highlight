@@ -473,12 +473,23 @@ string MainWindow::getFileType(const string& suffix, const string &inputFile)
     if (!fileType.empty()) return fileType;
     return analyzeFile(inputFile);
 }
-
+/*
 string MainWindow::getFileSuffix(const string& fileName)
 {
   unsigned int ptPos=fileName.rfind(".");
   return (ptPos == string::npos) ? "" : fileName.substr(ptPos+1,
                                         fileName.length());
+}
+*/
+string MainWindow::getFileSuffix ( const string &fileName )
+{
+    size_t ptPos=fileName.rfind ( "." );
+    size_t psPos = fileName.rfind ( Platform::pathSeparator );
+
+    if ( ptPos > psPos && ptPos != string::npos )
+        return fileName.substr ( ptPos+1, fileName.length() );
+    else
+        return "";
 }
 
 void MainWindow::on_action_Exit_triggered()

@@ -35,6 +35,8 @@ NestedSections = {
   { Lang="js", Delimiter= { [[\<script\s+language\=\"[jJ]ava[sS]cript\"(?:\s+type\=\"text\/javascript\")?\>]], [[\<\/script\>]] } },
   { Lang="js", Delimiter= { [[\<script\s+language=[\"\'][jJ]ava[sS]cript[\"\'](?:\s+type=[\"\']text/javascript[\"\'])?[^>]*\>]], [[\<\/script\>]] } },
   { Lang="js", Delimiter= { [[\<script(?:\s+type=[\"\']text/javascript[\"\'])\s+language=[\"\'][jJ]ava[sS]cript[\"\']?[^>]*\>]], [[\<\/script\>]] } },
+  --{ Lang="python", Delimiter= { [[\{%]], [[%\}]] } },
+  --{ Lang="python", Delimiter= { [[\{\{]], [[\}\}]] } },
 }
 
 IgnoreCase=true

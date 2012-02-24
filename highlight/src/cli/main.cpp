@@ -50,7 +50,7 @@ void HLCmdLineApp::printVersionInfo()
          << "\n Copyright (C) 2002-2011 Andre Simon <andre.simon1 at gmx.de>"
          << "\n\n Argparser class"
          << "\n Copyright (C) 2006-2008 Antonio Diaz Diaz <ant_diaz at teleline.es>"
-         << "\n\n Artistic Style Classes (2.02)"
+         << "\n\n Artistic Style Classes (2.02.1 )"
          << "\n Copyright (C) 2006-2011 by Jim Pattee <jimp03 at email.com>"
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
          << "\n\n Diluculum Lua wrapper (0.5.3)"
@@ -227,7 +227,12 @@ void HLCmdLineApp::printConfigInfo ( const string& configFile )
 string HLCmdLineApp::getFileSuffix ( const string &fileName )
 {
     size_t ptPos=fileName.rfind ( "." );
-    return ( ptPos == string::npos ) ? "" : fileName.substr ( ptPos+1, fileName.length() );
+    size_t psPos = fileName.rfind ( Platform::pathSeparator );
+
+    if ( ptPos > psPos && ptPos != string::npos )
+        return fileName.substr ( ptPos+1, fileName.length() );
+    else
+        return "";
 }
 
 bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, StringMap* shebangMap )
@@ -356,10 +361,11 @@ string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFi
 {
     if (suffix.empty()) return analyzeFile ( inputFile );
     string lcSuffix = StringTools::change_case ( suffix );
-    string fileType = ( extensions.count ( lcSuffix ) ) ? extensions[lcSuffix] : lcSuffix ;
-    if ( !fileType.empty() ) return fileType;
-    return "";
+    return ( extensions.count ( lcSuffix ) ) ? extensions[lcSuffix] : lcSuffix ;
+   // if ( !fileType.empty() ) return fileType;
+   // return "";
 }
+
 
 int HLCmdLineApp::run ( const int argc, const char*argv[] )
 {

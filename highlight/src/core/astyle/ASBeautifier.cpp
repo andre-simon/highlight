@@ -25,6 +25,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 
+
 #include "astyle/astyle.h"
 
 #include <algorithm>
@@ -230,7 +231,6 @@ ASBeautifier::ASBeautifier(const ASBeautifier& other) : ASBase(other)
  */
 ASBeautifier::~ASBeautifier()
 {
-
 	deleteContainer(waitingBeautifierStack);
 	deleteContainer(activeBeautifierStack);
 	deleteContainer(waitingBeautifierStackLengthStack);
@@ -244,7 +244,6 @@ ASBeautifier::~ASBeautifier()
 	deleteContainer(inStatementIndentStack);
 	deleteContainer(inStatementIndentStackSizeStack);
 	deleteContainer(parenIndentStack);
-	//if (sourceIterator) delete sourceIterator; 
 }
 
 /**
@@ -259,10 +258,6 @@ ASBeautifier::~ASBeautifier()
  */
 void ASBeautifier::init(ASSourceIterator* iter)
 {
-	/*if (sourceIterator){
-	  std::cerr << "delete sourceIterator;\n";
-	  delete sourceIterator;
-	}*/
 	sourceIterator = iter;
 	init();
 }
