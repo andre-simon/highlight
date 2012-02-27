@@ -50,7 +50,7 @@ void HLCmdLineApp::printVersionInfo()
          << "\n Copyright (C) 2002-2011 Andre Simon <andre.simon1 at gmx.de>"
          << "\n\n Argparser class"
          << "\n Copyright (C) 2006-2008 Antonio Diaz Diaz <ant_diaz at teleline.es>"
-         << "\n\n Artistic Style Classes (2.02.1 )"
+         << "\n\n Artistic Style Classes (2.02.1)"
          << "\n Copyright (C) 2006-2011 by Jim Pattee <jimp03 at email.com>"
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
          << "\n\n Diluculum Lua wrapper (0.5.3)"
