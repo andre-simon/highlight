@@ -473,14 +473,15 @@ string MainWindow::getFileType(const string& suffix, const string &inputFile)
     if (!fileType.empty()) return fileType;
     return analyzeFile(inputFile);
 }
-/*
+
 string MainWindow::getFileSuffix(const string& fileName)
 {
   unsigned int ptPos=fileName.rfind(".");
   return (ptPos == string::npos) ? "" : fileName.substr(ptPos+1,
                                         fileName.length());
 }
-*/
+
+/*
 string MainWindow::getFileSuffix ( const string &fileName )
 {
     size_t ptPos=fileName.rfind ( "." );
@@ -491,7 +492,7 @@ string MainWindow::getFileSuffix ( const string &fileName )
     else
         return "";
 }
-
+*/
 void MainWindow::on_action_Exit_triggered()
 {
     this->close();
@@ -502,7 +503,7 @@ void MainWindow::on_action_About_Highlight_triggered()
      QMessageBox::about( this, "About Highlight",
                          QString("Highlight is a code to formatted text converter.\n\n"
                          "Highlight GUI %1\n"
-                         "(C) 2002-2011 Andre Simon <andre.simon1 at gmx.de>\n\n"
+                         "(C) 2002-2012 Andre Simon <andre.simon1 at gmx.de>\n\n"
                          "Artistic Style Classes\n(C) 1998-2002 Tal Davidson\n"
                          "(C) 2006-2011 Jim Pattee <jimp03 at email.com>\n\n"
                          "Diluculum Lua wrapper\n"

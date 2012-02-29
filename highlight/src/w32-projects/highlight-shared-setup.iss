@@ -5,7 +5,7 @@
 AppName=Highlight Code Converter
 
 AppVerName=WinHighlight
-OutputBaseFilename=highlight-setup-3.8
+OutputBaseFilename=highlight-sharedqt-setup-3.8
 
 AppPublisher=André Simon
 AppPublisherURL=http://www.andre-simon.de
@@ -24,7 +24,7 @@ PrivilegesRequired=none
 Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"
 
 [Files]
-Source: "..\..\highlight-gui.exe"; DestDir: "{app}";  Flags: ignoreversion
+Source: "..\..\highlight-gui-shared.exe"; DestDir: "{app}"; DestName: "highlight-gui.exe"; Flags: ignoreversion
 Source: "dlls\*.dll"; DestDir: "{app}";  Flags: ignoreversion
 Source: "hl_icon_exe.ico"; DestDir: "{app}";  Flags: ignoreversion
 Source: "..\..\langDefs\*.lang"; DestDir: "{app}\langDefs\";  Flags: ignoreversion sortfilesbyextension
@@ -71,7 +71,7 @@ Source: "..\w32-projects\highlight_gui\*.*"; Excludes: "*.o,*.Release,*.Debug,ui
 Name: "{userappdata}\WinHighlight"; Attribs: hidden
 
 [Components]
-Name: "main"; Description: "Highlight GUI"; Types: full compact custom; Flags: fixed
+Name: "main"; Description: "Highlight GUI (shared Qt)"; Types: full compact custom; Flags: fixed
 Name: "cli"; Description: "Highlight command line interface"; Types: full
 Name: "sourcecode"; Description: "Source code"; Types: full
 Name: "portable"; Description: "Portable starter icon"; Types: full
@@ -95,10 +95,16 @@ Filename: "{app}\highlight-gui.exe"; Description: "Launch Highlight Code Convert
 [UninstallDelete]
 Type: files; Name: "{app}\Highlight.url"
 
-;[Code]
+[Code]
 
-;function MyProgCheck(): Boolean;
-;begin
-;  Result := MsgBox('Do you want to create an entry of Highlight in your SendTo folder?', mbConfirmation, MB_YESNO) = idYes;
-;end;
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+     if (CurStep=ssPostInstall )then
+     MsgBox('The shared highlight installation requires the Qt runtime libs.', mbConfirmation, MB_OK);
+end;
+
+{function MyProgCheck(): Boolean;
+begin
+  Result := MsgBox('Do you want to create an entry of Highlight in your SendTo folder?', mbConfirmation, MB_YESNO) = idYes;
+end;}
 

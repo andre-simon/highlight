@@ -1,8 +1,15 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-03-03T22:45:06
 # -------------------------------------------------
-TARGET = highlight-gui
+
 TEMPLATE = app
+
+contains( LINKTYPE, SHARED ) {
+TARGET = highlight-gui-shared
+}
+!contains( LINKTYPE, SHARED ) {
+TARGET = highlight-gui
+}
 
 win32:CONFIG += static
 CONFIG += precompile_header
@@ -40,7 +47,7 @@ win32:LIBS += -Ld:/devel/cpp/lua_bin_5.1.4. -llua
 unix:LIBS += -L.. -lhighlight
 unix:LIBS += -L.. -llua5.1
 
-win32:QMAKE_POST_LINK = d:/devel/upx/upx.exe --best ../../../highlight-gui.exe
+win32:QMAKE_POST_LINK = $$quote(d:/devel/upx/upx.exe --best ../../../$${TARGET}.exe)
 
 unix {
 DEFINES += DATA_DIR=\\\"/usr/share/highlight\\\" \

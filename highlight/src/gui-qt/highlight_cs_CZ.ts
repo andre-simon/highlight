@@ -656,7 +656,7 @@ Výsledné kódování musí odpovídat kódování vstupního souboru.</transla
     </message>
     <message>
         <source>Select or enter the font name.</source>
-        <translation>Vyberte nebo zadejte název písma.</translation>
+        <translation type="obsolete">Vyberte nebo zadejte název písma.</translation>
     </message>
     <message>
         <source>Output as ordered list</source>
@@ -874,6 +874,10 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>&amp;Dock floating panels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select or enter the font name. HTML supports a list of fonts, separated with comma.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
