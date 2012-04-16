@@ -1,5 +1,12 @@
 CHANGELOG Highlight
 
+highlight 3.9
+
+16.04.2012
+
+-improved Perl and N3 definitions (thanks to Heiko Jansen)
+
+---
 highlight 3.8
 
 24.02.2012
@@ -8,7 +15,7 @@ highlight 3.8
 -fixed SWIG perl binding makefile (patch by David Bremner)
 -fixed shebang recognition (patch by Georgios M. Zarkadas)
 -fixed file suffix recognition (patch by Georgios M. Zarkadas)
--fixed memory leak in astyle's SSFormatter (patch by MENG Wei)
+-fixed memory leak in astyle's ASFormatter (patch by MENG Wei)
 
 ---
 highlight 3.7

@@ -303,7 +303,7 @@ gesetzt ist, wechselt das Tool in den Batch-Modus. In diesem Modus werden die
 Ausgabedateien unter dem Namen der Eingabedateien gespeichert, lediglich die
 Dateierweiterung des gewaehlten Ausgabeformats wird angehangen.
 Sollte es in den Eingabeverzeichnissen Dateien mit identischem Namen geben, so
-werden diese Ausgabedateien mit ihrem Quellverzeichnis als Praefix ausgegeben.  
+werden diese Ausgabedateien mit ihrem Quellverzeichnis als Praefix ausgegeben.
 Die --outdir Option ist im Batch Modus besonders nuetzlich. In Skripten sollte
 --quiet angegeben werden, um die Geschwindigkeit der Verarbeitung zu erhoehen.
 
@@ -341,8 +341,7 @@ Terminal-Ausgabe:
 Da es nur wenige Farben zur ANSI-Ausgabe im Terminal gibt, existiert nur ein
 hartkodiertes Farbschema fuer --out-format=ansi. Daher sollte nach Moeglichkeit
 --out-format=xterm256 verwendet werden, um eine Ausgabe in 256 Farben zu erhalten.
-Der 256 Farb-Modus wird z.B. von den aktuellen Versionen von xterm, rxvt und Putty
-unterstuetzt.
+Der 256 Farb-Modus wird z.B. von xterm, rxvt und Putty unterstuetzt.
 
 highlight --out-format=ansi <inputfile> | less -R
 highlight --out-format=xterm256 <inputfile> | less -R
@@ -413,7 +412,7 @@ highlight --ctags-file *.cpp
 
 Der Default-Parameter von ctags-file ist "tags", daher konnte er im obigen
 Beispiel weggelassen werden.
-Dises Kommando fuegt den Typ, den Namespace und den Pfad zur Definition des
+Dieses Kommando fuegt den Typ, den Namespace und den Pfad zur Definition des
 erkannten Tokens hinzu.
 Beispiel:  "member | class:highlight::HtmlGenerator | htmlgenerator.h"
 
@@ -425,19 +424,17 @@ kann die Verarbeitung von binaeren Daten mit --validate-input verhindert werden.
 Dieser Schalter fuehrt zu einem Vergleich der Datei-Header mit einer Liste von
 "Magic Numbers". Wenn ein Binaer-Typ erkannt wird, bricht highlight die
 Verarbeitung mit einer Fehlermeldung ab.
-Mit --validate-input wird zusaetzlich der UTF-8 BOM unterdrueckt.
+Mit --validate-input wird zusaetzlich der UTF-8 BOM in der Ausgabe unterdrueckt.
 
 Hervorbung von eingebettetem Code ohne oeffnenden Delimiter
 -----------------------------------------------------------
 
 Wenn eine Datei mit eingebettetem Code ohne einen fuer diese Syntax ueblichen
 einleitenden Delimiter beginnt, kann mit der --start-nested Option in diese
-Sprache gewechselt werden. Dies kann bei LuaTeX Dateien passieren:
+Sprache gewechselt werden. Dies kann bei LuaTeX Dateien noetig sein:
 highlight luatex.tex --latex --start-nested=inc_luatex
 
 Die inc_luatex Definition ist eine Lua-Beschreibung mit TeX Kommentaren.
-Beachten Sie, dass die Code-Sektion mit dem in der Host-Beschreibung
-aufgelisteten End-Delimiter abgeschlossen werden muss.
 
 
 2.7 TIPS UND TRICKS

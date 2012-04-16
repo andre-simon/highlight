@@ -1,27 +1,31 @@
 
-Description="Notation3"
+Description="Notation3 (N3), N-Triples, Turtle, SPARQL"
 
 Keywords={
+  { Id=4,
+    Regex=[[@\w+|\^\^<[^>]+?>]],
+  },
   { Id=1,
-     Regex=[[<[!?]?(?!\-\-)\/?[\w\:\-\/\.\+\-\#\@\?\=\_\~\;\,\%\$]+>?|[/?]?>]],
-
+    Regex=[[<[!?]?(?!\-\-)\/?[\w\:\-\/\.\+\-\#\@\?\=\_\~\;\,\%\$\&]+>?|[/?]?>]],
     Group=0,
   },
   { Id=2,
-    Regex=[[@\w+]],
+    Regex=[[(\w+)\:]],
+	Group=1,
   },
   { Id=3,
-    Regex=[[(\w+)\:]],
+    Regex=[[\:(\w+)]],
+	Group=1,
   },
   { Id=4,
-    Regex=[[\:(\w+)]],
+	Regex=[[(?<!\?)\w+]],
   },
 }
 
 Strings={
   Delimiter=[["""|"]],
   RawPrefix="r",
-  Escape=[[\\[ntvbrfa\\\?'"]|\\\d{3}|\\x\p{XDigit}{2}]],
+  Escape=[[\\[ntvbrfa\\\?'"]|\\\d{3}|\\x\p{XDigit}{2}|\\u\p{XDigit}{4}]],
 }
 
 Comments={
