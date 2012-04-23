@@ -2,7 +2,7 @@
                           codegenerator.cpp  -  description
                              -------------------
     begin                : Die Jul 9 2002
-    copyright            : (C) 2002-2010 by Andre Simon
+    copyright            : (C) 2002-2012 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -57,12 +57,12 @@ namespace highlight
 	const string CodeGenerator::STY_NAME_STR="str";
 	const string CodeGenerator::STY_NAME_NUM="num";
 	const string CodeGenerator::STY_NAME_SLC="slc";
-	const string CodeGenerator::STY_NAME_COM="com" ;
-	const string CodeGenerator::STY_NAME_ESC="esc" ;
-	const string CodeGenerator::STY_NAME_DIR="ppc" ;//preprocessor
-	const string CodeGenerator::STY_NAME_DST="pps";//preprocessor string
+	const string CodeGenerator::STY_NAME_COM="com";
+	const string CodeGenerator::STY_NAME_ESC="esc";
+	const string CodeGenerator::STY_NAME_DIR="ppc"; //preprocessor
+	const string CodeGenerator::STY_NAME_DST="pps"; //preprocessor string
 	const string CodeGenerator::STY_NAME_LIN="lin";
-	const string CodeGenerator::STY_NAME_SYM="opt" ;//operator
+	const string CodeGenerator::STY_NAME_SYM="opt"; //operator
 
 	CodeGenerator * CodeGenerator::getInstance ( OutputType type )
 	{
@@ -447,7 +447,6 @@ namespace highlight
 			}
 			lineIndex=0;
 			++lineNumber;
-			//line=StringTools::trimRight ( line );
 			matchRegex ( line );
 
 			return ( eof ) ?'\0':'\n';
@@ -508,12 +507,10 @@ namespace highlight
 					if ( !currentKeywordClass && regexGroups[oldIndex].state==KEYWORD )
 						currentKeywordClass = regexGroups[oldIndex].kwClass;
 					return validateState(( currentKeywordClass ) ? KEYWORD : STANDARD, oldState, currentKeywordClass);
-					//return ( currentKeywordClass ) ? KEYWORD : STANDARD;
 				}
 				else
 				{
 					return validateState(regexGroups[oldIndex].state, oldState, 0);
-					//return regexGroups[oldIndex].state;
 				}
 			}
 		}
@@ -559,16 +556,44 @@ namespace highlight
 	{
 		if ( flushWhiteSpace ) flushWs();
 
-		if ( addMetaInfo && tagsEnabled )
+		if ( addMetaInfo && tagsEnabled ) // TODO replace ctags parser by plugin (requires file input)
 		{
 			bool insertMetaInfo=metaInfo.tagExists ( token );
 			if ( insertMetaInfo ) *out<<getMetaInfoOpenTag ( metaInfo.getTagInfo ( token ) );
+
 			maskString ( *out, StringTools::change_case ( token, tcase ) );
+			
 			if ( insertMetaInfo ) *out<<getMetaInfoCloseTag();
 		}
 		else
 		{
-			maskString ( *out, StringTools::change_case ( token, tcase ) );
+		  
+		  if (currentSyntax->getDecorateFct()){
+
+			  Diluculum::LuaValueList params;
+			  params.push_back(Diluculum::LuaValue(token));
+			  params.push_back(Diluculum::LuaValue(currentState));
+			  params.push_back(Diluculum::LuaValue(outputType));
+			  params.push_back(Diluculum::LuaValue(line));
+			  params.push_back(Diluculum::LuaValue(lineIndex));
+
+
+			  Diluculum::LuaValueList res=
+			    currentSyntax->getLuaState()->call ( *currentSyntax->getDecorateFct(),
+						    params,"getDecorateFct call")  ;
+
+			  if (res.size()==1){
+			    *out<<res[0].asString();
+			  } else {
+			     maskString ( *out, StringTools::change_case ( token, tcase ) ); 
+			  }
+			  
+			} else {
+
+			    maskString ( *out, StringTools::change_case ( token, tcase ) );
+			}
+		  
+			//maskString ( *out, StringTools::change_case ( token, tcase ) );
 		}
 		token.clear();
 	}
@@ -1576,7 +1601,7 @@ namespace highlight
 
 	bool CodeGenerator::printExternalStyle ( const string &outFile )
 	{
-		if ( !includeStyleDef /*&& currentSyntax->highlightingEnabled()*/ )
+		if ( !includeStyleDef )
 		{
 			ostream *cssOutFile = ( outFile.empty() ? &cout :new ofstream ( outFile.c_str() ) );
 			if ( !cssOutFile->fail() )
@@ -1627,6 +1652,12 @@ namespace highlight
 					<< " ERROR: Could not include " << styleInputPath
 					<< "." << styleCommentClose << "\n";
 			}
+		}
+		//TODO append plugin style attachment if defined:
+		if (!docStyle.getAttachment().empty()){
+		   		ostr 	<< "\n" << styleCommentOpen
+					<< " Plug-in attachment: " <<styleCommentClose << "\n";
+				ostr << docStyle.getAttachment()<<"\n";
 		}
 		return ostr.str();
 	}

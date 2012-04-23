@@ -59,6 +59,7 @@ namespace highlight
 
 			string errorMsg;
 			string desc;
+			string attachment;
 
 			vector<Diluculum::LuaFunction*> pluginChunks;
 
@@ -93,6 +94,8 @@ namespace highlight
 			string getErrorMessage() const;
 
 			string getDescription() const { return desc;}
+			
+			string getAttachment() const { return attachment;}
 
 			/** \return Background colour*/
 			Colour getBgColour() const;

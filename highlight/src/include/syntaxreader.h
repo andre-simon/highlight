@@ -186,6 +186,10 @@ namespace highlight
 				\return pointer to state validation function
 			*/
 			Diluculum::LuaFunction* getValidateStateChangeFct() const {return validateStateChangeFct;}
+			/**
+				\return pointer to state decorate function
+			*/
+			Diluculum::LuaFunction* getDecorateFct() const {return decorateFct;}
 
 			/**
 				\return pointer to Lua state
@@ -271,6 +275,7 @@ namespace highlight
 			void addKeyword(unsigned int groupID, const string& kw);
 
 			Diluculum::LuaFunction* validateStateChangeFct;
+			Diluculum::LuaFunction* decorateFct;
 
 			Diluculum::LuaState* luaState; // make member to allow interaction with codeparser instance
 

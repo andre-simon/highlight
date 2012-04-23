@@ -73,6 +73,7 @@ SyntaxReader::SyntaxReader() :
         rawStringPrefix(0),
         continuationChar(0),
         validateStateChangeFct(NULL),
+        decorateFct(NULL),
         luaState(NULL)
 {
 
@@ -88,6 +89,7 @@ SyntaxReader::~SyntaxReader()
         delete *it;
     }
     if (validateStateChangeFct) delete validateStateChangeFct;
+    if (decorateFct) delete decorateFct;
 
     if (luaState) delete luaState;
 
@@ -169,6 +171,17 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
 	ls["HL_IDENTIFIER_BEGIN"]=IDENTIFIER_BEGIN;
 	ls["HL_IDENTIFIER_END"]=IDENTIFIER_END;
 	ls["HL_UNKNOWN"]=_UNKNOWN;
+	ls["HL_FORMAT_HTML"]=HTML;
+	ls["HL_FORMAT_XHTML"]=XHTML;
+	ls["HL_FORMAT_TEX"]=TEX;
+	ls["HL_FORMAT_LATEX"]=LATEX;
+	ls["HL_FORMAT_RTF"]=RTF;
+	ls["HL_FORMAT_ANSI"]=ANSI;
+	ls["HL_FORMAT_XTERM256"]=XTERM256;
+	ls["HL_FORMAT_HTML32"]=HTML32;
+	ls["HL_FORMAT_SVG"]=SVG;
+	ls["HL_FORMAT_BBCODE"]=BBCODE;
+	
 }
 
 
@@ -447,6 +460,9 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
         if (globals.count("OnStateChange")) {
             validateStateChangeFct=new Diluculum::LuaFunction(ls["OnStateChange"].value().asFunction());
         }
+        if (globals.count("Decorate")) {
+            decorateFct=new Diluculum::LuaFunction(ls["Decorate"].value().asFunction());
+        }
 
     } catch (Diluculum::LuaError err) {
         luaErrorMsg = string(err.what());
@@ -454,31 +470,6 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
     }
     return LOAD_OK;
 }
-
-/*
-void SyntaxReader::reset()
-{
-    keywords.clear();
-    keywordClasses.clear();
-    delimiterDistinct.clear();
-    langDesc.clear();
-    ignoreCase= false;
-    allowNestedComments= reformatCode = false;
-    rawStringPrefix = continuationChar = '\0';
-    disableHighlighting=false;
-    regex.clear();
-    regexErrorMsg.clear();
-
-    // TODO eigene methode
-    for ( vector<RegexElement*>::iterator it=regex.begin(); it!=regex.end();it++ )
-    {
-        delete *it;
-    }
-    if (validateStateChangeFct) delete validateStateChangeFct; validateStateChangeFct=NULL;
-
-    if (luaState) delete luaState; luaState=NULL;
-}
-*/
 
 string SyntaxReader::getNewPath(const string& lang) {
     string::size_type Pos = currentPath.find_last_of ( Platform::pathSeparator );

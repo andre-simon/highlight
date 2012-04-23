@@ -69,6 +69,7 @@ bool ThemeReader::load ( const string &styleDefinitionPath )
 
 	desc = ls["Description"].value().asString();
 
+
 	if (pluginChunks.size()){
 	  Diluculum::LuaValueList params;
 	  params.push_back(desc);
@@ -98,6 +99,10 @@ bool ThemeReader::load ( const string &styleDefinitionPath )
             keywordStyles.insert ( make_pair ( string(kwName),kwStyle ));
             idx++;
         }
+        
+        if (ls.globals().count("Attachment")){
+	    attachment = ls["Attachment"].value().asString();
+	}
     } catch (Diluculum::LuaFileError err) {
         errorMsg = string(err.what());
         return fileOK=false;
