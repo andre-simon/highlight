@@ -4,7 +4,10 @@ highlight 3.9
 
 16.04.2012
 
+-enhanced the plug-in interface (added Decorator function and Injection property)
 -improved Perl and N3 definitions (thanks to Heiko Jansen)
+-added several example plug-ins which show how to add keyword links to online 
+  references (ie. cplusplus.com, perldoc.perl.org etc)
 
 ---
 highlight 3.8

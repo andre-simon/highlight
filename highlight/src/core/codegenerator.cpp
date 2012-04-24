@@ -574,8 +574,7 @@ namespace highlight
 			  params.push_back(Diluculum::LuaValue(token));
 			  params.push_back(Diluculum::LuaValue(currentState));
 			  params.push_back(Diluculum::LuaValue(outputType));
-			  params.push_back(Diluculum::LuaValue(line));
-			  params.push_back(Diluculum::LuaValue(lineIndex));
+			  params.push_back(Diluculum::LuaValue(currentKeywordClass));
 
 
 			  Diluculum::LuaValueList res=
@@ -1654,10 +1653,10 @@ namespace highlight
 			}
 		}
 		//TODO append plugin style attachment if defined:
-		if (!docStyle.getAttachment().empty()){
+		if (!docStyle.getInjection().empty()){
 		   		ostr 	<< "\n" << styleCommentOpen
-					<< " Plug-in attachment: " <<styleCommentClose << "\n";
-				ostr << docStyle.getAttachment()<<"\n";
+					<< " Plug-in theme injection: " <<styleCommentClose << "\n";
+				ostr << docStyle.getInjection()<<"\n";
 		}
 		return ostr.str();
 	}

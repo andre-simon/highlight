@@ -100,8 +100,8 @@ bool ThemeReader::load ( const string &styleDefinitionPath )
             idx++;
         }
         
-        if (ls.globals().count("Attachment")){
-	    attachment = ls["Attachment"].value().asString();
+        if (ls.globals().count("Injection")){
+	    injection = ls["Injection"].value().asString();
 	}
     } catch (Diluculum::LuaFileError err) {
         errorMsg = string(err.what());
