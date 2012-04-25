@@ -212,6 +212,11 @@ namespace highlight
 		styleOutputPath = path;
 	}
 
+	void CodeGenerator::setPluginReadFile ( const string& path )
+	{
+		pluginReadFile = path;
+	}
+	
 	const string&  CodeGenerator::getStyleInputPath()
 	{
 		return styleInputPath;
@@ -567,8 +572,7 @@ namespace highlight
 		}
 		else
 		{
-		  
-		  if (currentSyntax->getDecorateFct()){
+		      if (currentSyntax->getDecorateFct()){
 
 			  Diluculum::LuaValueList params;
 			  params.push_back(Diluculum::LuaValue(token));
@@ -682,7 +686,7 @@ namespace highlight
 			    result=LOAD_OK;
 			} else {
 			    currentSyntax=new SyntaxReader();
-			    result=currentSyntax->load(langDefPath);
+			    result=currentSyntax->load(langDefPath, pluginReadFile);
 			    syntaxReaders[langDefPath]=currentSyntax;
 			}
 

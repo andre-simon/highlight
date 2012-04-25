@@ -132,7 +132,7 @@ bool HLCmdLineApp::printInstalledLanguages()
     for ( unsigned int i=0;i< filePaths.size(); i++ )
     {
         Diluculum::LuaState ls;
-	highlight::SyntaxReader::initLuaState(ls, filePaths[i]);
+	highlight::SyntaxReader::initLuaState(ls, filePaths[i],"");
         ls.doFile(filePaths[i]);
         desc = ls["Description"].value().asString();
         suffix = ( filePaths[i] ).substr ( directory.length() ) ;
@@ -461,10 +461,10 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->setLineNumberWidth ( options.getNumberWidth() );
     generator->setStartingNestedLang( options.getStartNestedLang());
     generator->disableTrailingNL(options.disableTrailingNL());
+    generator->setPluginReadFile(options.getPluginReadFilePath());
 
+    
     bool styleFileWanted = !options.fragmentOutput() || options.styleOutPathDefined();
-
-
 
     const  vector <string> pluginFileList=options.getPluginPaths();
     for (unsigned int i=0;i<pluginFileList.size();i++){

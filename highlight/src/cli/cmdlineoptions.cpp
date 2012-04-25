@@ -89,7 +89,8 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		S_OPT_COMPAT_OUTDIR, S_OPT_COMPAT_FAILSAFE,
 		S_OPT_COMPAT_SRCLANG, S_OPT_COMPAT_LINENUM, S_OPT_COMPAT_LINEREF,
 		S_OPT_CTAGS_FILE, S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
-		S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH
+		S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH,
+		S_OPT_PLUGIN_READFILE
 	};
 
 	const Arg_parser::Option options[] =
@@ -164,6 +165,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ S_OPT_PRINT_STYLE,    OPT_PRINT_STYLE, Arg_parser::no },
 		{ S_OPT_NO_TRAILING_NL, OPT_NO_TRAILING_NL, Arg_parser::no },
 		{ S_OPT_PLUGIN, OPT_PLUGIN, Arg_parser::yes },
+		{ S_OPT_PLUGIN_READFILE, OPT_PLUGIN_READFILE, Arg_parser::yes },
 		{ S_OPT_ABS_CFG_PATH, OPT_ABS_CFG_PATH,  Arg_parser::yes},
 
 		{ 0,                  0,                Arg_parser::no  }
@@ -391,6 +393,9 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				break;
 			case S_OPT_PLUGIN:
 				userPlugins.push_back(arg);
+				break;
+			case S_OPT_PLUGIN_READFILE:
+				pluginReadFilePath=arg;
 				break;
 
 			case S_OPT_PRETTY_SYMBOLS:
@@ -811,6 +816,9 @@ const string& CmdLineOptions::getAbsThemePath() const {
 
 const string& CmdLineOptions::getAbsLangPath() const {
 	return absLangPath;
+}
+const string& CmdLineOptions::getPluginReadFilePath() const {
+	return pluginReadFilePath;
 }
 int CmdLineOptions::getNumberWidth()
 {

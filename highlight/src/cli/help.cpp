@@ -54,7 +54,8 @@ namespace Help
 		cout<<" -w, --list-themes              list installed colour themes\n";
 		cout<<"     --force                    generate output if input syntax is unknown\n";
 		cout<<"     --plug-in=<script>         execute Lua plug-in script; repeat option to\n";
-		cout<<"                                  apply multiple plug-ins\n";
+		cout<<"                                  execute multiple plug-ins\n";
+		cout<<"     --plug-in-read=<path>      set input file for a plug-in (e.g. \"tags\")\n";
 		cout<<"     --print-config             print path configuration\n";
 		cout<<"     --print-style              print stylesheet only (see --style-outfile)\n";
 		cout<<"     --skip=<list>              ignore listed unknown file types\n";
@@ -114,6 +115,7 @@ namespace Help
 		cout<<"                                  (assumes -f)\n";
 		cout<<"     --ctags-file[=<file>]      read ctags file to include meta information as\n";
 		cout<<"                                  tooltips (default value: tags)\n";
+		cout<<"                                  DEPRECATED: use ctags plug-in instead\n";
 		cout<<"\n";
 		cout<<"LaTeX output options:\n";
 		cout<<"\n";

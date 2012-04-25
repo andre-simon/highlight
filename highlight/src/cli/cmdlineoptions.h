@@ -103,6 +103,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_NO_TRAILING_NL "no-trailing-nl"
 #define OPT_PLUGIN         "plug-in"
 #define OPT_ABS_CFG_PATH   "config-file"
+#define OPT_PLUGIN_READFILE  "plug-in-read"
 
 // Improve CLI option compatibility with GNU source-highlight
 #define OPT_COMPAT_DOC       "doc"
@@ -333,6 +334,9 @@ class CmdLineOptions
 
 		/** \return absolute language definition path name */
 		const string& getAbsLangPath() const ;
+		
+		/** \return path of input file passed to plugin */
+		const string& getPluginReadFilePath() const ;
 
 		/** \return line number width */
 		int getNumberWidth();
@@ -422,7 +426,7 @@ class CmdLineOptions
 		string anchorPrefix;
 		string helpLang, encodingName;
 		string configFilePath;
-		string pluginPath;
+		string pluginPath, pluginReadFilePath;
 
 		/** list of all input file names */
 		vector <string> inputFileNames;

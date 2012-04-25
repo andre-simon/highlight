@@ -8,6 +8,7 @@ highlight 3.9
 -improved Perl and N3 definitions (thanks to Heiko Jansen)
 -added several example plug-ins which show how to add keyword links to online 
   references (ie. cplusplus.com, perldoc.perl.org etc)
+-added ctags plugin, marked --ctags-file option as deprecated
 
 ---
 highlight 3.8

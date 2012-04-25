@@ -94,7 +94,6 @@ namespace highlight
 		TEX,
 		LATEX,
 		RTF,
-// 		XML,
 		ANSI,
 		XTERM256,
 		HTML32,

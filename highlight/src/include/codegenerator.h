@@ -337,9 +337,15 @@ namespace highlight
 				\param langName name of nested language
 			*/
 			void setStartingNestedLang(const string &langName);
+			
+			
+			/** \param path path of plugin input file
+			*/
+			void setPluginReadFile ( const string& path );
 
 			/** Load the Lua functions og the plug-in script
 				\param script path of the plug-in script
+				\param scriptInputFile path of the optional file to be read by the plugin 
 			*/
 			bool initPluginScript(const string& script);
 
@@ -616,6 +622,9 @@ namespace highlight
 
 			/// path to embedded language definition
 			string embedLangDefPath;
+			
+			/// path to plugin input file
+			string pluginReadFile;
 
 			/// name of nested language which starts the input (ie opening delim missing, but closing delim exists)
 			string embedLangStart;

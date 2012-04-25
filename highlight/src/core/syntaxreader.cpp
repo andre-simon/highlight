@@ -49,8 +49,22 @@ int SyntaxReader::luaAddKeyword (lua_State *L) {
     lua_pushboolean(L, retVal);
     return 1;
 }
-
-
+/*
+int SyntaxReader::luaReadFile (lua_State *L) {
+    std::string buf;
+    if (lua_gettop(L)==1){
+      	const char*filename=lua_tostring(L, 1);
+	std::string line;
+	std::ifstream in(filename);
+	while(std::getline(in,line)){
+	  buf += line;
+	  buf += "\n";
+	}
+    }
+    lua_pushstring(L, buf.c_str());
+    return 1;
+}
+*/
 const string SyntaxReader::REGEX_IDENTIFIER =
     "[a-zA-Z_]\\w*";
 
@@ -81,9 +95,6 @@ SyntaxReader::SyntaxReader() :
 
 SyntaxReader::~SyntaxReader()
 {
-  // cerr << "reset destr \n";
-    //reset();
-
     for ( vector<RegexElement*>::iterator it=regex.begin(); it!=regex.end();it++ )
     {
         delete *it;
@@ -139,11 +150,13 @@ bool SyntaxReader::readFlag(const Diluculum::LuaVariable& var) {
 }
 
 
-void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefPath){
+void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginReadFilePath ){
           // initialize Lua state with variables which can be used within scripts
         string::size_type Pos = langDefPath.find_last_of ( Platform::pathSeparator );
         ls["HL_LANG_DIR"] =langDefPath.substr ( 0, Pos+1 );
 
+	ls["HL_INPUT_FILE"] = pluginReadFilePath;
+	
         ls["Identifiers"]=REGEX_IDENTIFIER;
         ls["Digits"]=REGEX_NUMBER;
 
@@ -191,12 +204,8 @@ void SyntaxReader::addKeyword(unsigned int groupID, const string& kw){
   }
 }
 
-LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
+LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginReadFilePath, bool clear )
 {
-  /*  if ( clear )  {
-     cerr << "reset load \n";
-      reset();
-    }*/
 
     currentPath=langDefPath;
     disableHighlighting=false;
@@ -211,9 +220,10 @@ LoadResult SyntaxReader::load ( const string& langDefPath, bool clear )
 	luaState=new Diluculum::LuaState();
 
 	Diluculum::LuaState& ls=*luaState;
-	initLuaState(ls, langDefPath);
-
+	initLuaState(ls, langDefPath, pluginReadFilePath);
+  //     ls["HL_INPUT_FILE"]="testbla";
 	lua_register (ls.getState(),"AddKeyword",luaAddKeyword);
+	//lua_register (ls.getState(),"ReadFile",luaReadFile);
 
 	SyntaxReader **s = (SyntaxReader **)lua_newuserdata(ls.getState(), sizeof(SyntaxReader *));
 	*s=this;

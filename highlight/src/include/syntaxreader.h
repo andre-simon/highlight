@@ -73,9 +73,6 @@ namespace highlight
 
 			~SyntaxReader();
 
-
-
-
 			/** \return Failed regular expression */
 			 string getFailedRegex() const { return regexErrorMsg; }
 
@@ -104,7 +101,7 @@ namespace highlight
 			    \param langDefPath Path of language definition
 			    \param clear Test if current data should be resetted to defaults
 			    \return LoadResult  */
-			LoadResult load( const string& langDefPath, bool clear=true );
+			LoadResult load( const string& langDefPath, const string& pluginReadFilePath, bool clear=true );
 
 			/** \return True if multi line comments may be nested */
 			bool allowNestedMLComments() const { return allowNestedComments; }
@@ -119,9 +116,6 @@ namespace highlight
 
 			/** \return True if current language may be reformatted (c, c++, c#, java) */
 			bool enableReformatting() const { return reformatCode;}
-
-			/** \return True if escape sequences are allowed outsde of strings */
-//			bool allowExtEscSeq() const { return allowExtEscape; }
 
 			/** \return keywords*/
 			const KeywordMap& getKeywords() const { return keywords; }
@@ -206,10 +200,9 @@ namespace highlight
 			/**
 				\param ls Lua state to be initialized with constants
 				\param langDefPath absolute path of language definition
+				\param pluginReadFilePath absolute path of plugin input file
 			*/
-			static void initLuaState(Diluculum::LuaState& ls, const string& langDefPath);
-
-
+			static void initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginReadFilePath );
 
 		private:
 
@@ -247,9 +240,6 @@ namespace highlight
 			// highlighting is disabled
 			disableHighlighting,
 
-			// Escape sequences are allowed outrside of strings
-			//allowExtEscape,
-
 			// allow nested multi line comment blocks
 			allowNestedComments,
 
@@ -262,15 +252,16 @@ namespace highlight
 			//character which continues curreent style on next line
 			continuationChar;
 
-			/* reset members */
-			//void reset();
-
 			// generate a unique class ID from the class name
 			unsigned int generateNewKWClass ( const string& newClassName );
 
 			bool readFlag(const Diluculum::LuaVariable& var) ;
 
+			// interface for plug-ins: add keywords dynamically
 			static int luaAddKeyword (lua_State *L);
+			
+			// interface for plug-ins: read text file and return content string
+			//static int luaReadFile (lua_State *L);
 
 			void addKeyword(unsigned int groupID, const string& kw);
 
