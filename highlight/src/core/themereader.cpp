@@ -27,6 +27,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "themereader.h"
 #include <Diluculum/LuaState.hpp>
 
+
 namespace highlight
 {
 
@@ -38,6 +39,7 @@ ThemeReader::~ThemeReader()
   for (unsigned int i=0;i<pluginChunks.size();i++){
       delete pluginChunks[i];
   }
+
 }
 
 

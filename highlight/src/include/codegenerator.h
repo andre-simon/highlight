@@ -338,7 +338,6 @@ namespace highlight
 			*/
 			void setStartingNestedLang(const string &langName);
 			
-			
 			/** \param path path of plugin input file
 			*/
 			void setPluginReadFile ( const string& path );

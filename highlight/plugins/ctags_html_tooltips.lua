@@ -31,9 +31,8 @@ function syntaxUpdate(desc)
 
   knowntags={}
 
-  --PluginInputFile needs to be set in Luastate before Plugin chunk is loaded
   if #HL_INPUT_FILE==0 then HL_INPUT_FILE='tags' end
-  print("file:" .. HL_INPUT_FILE)
+  --print("file:" .. HL_INPUT_FILE)
   file = assert(io.open(HL_INPUT_FILE, "r"))
 
   for line in file:lines() do
