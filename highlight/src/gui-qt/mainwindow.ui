@@ -48,6 +48,9 @@
         <property name="whatsThis">
          <string/>
         </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
@@ -147,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -465,6 +468,30 @@
           </widget>
          </item>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_24">
+           <item>
+            <widget class="QPushButton" name="pbClearSelPlugin">
+             <property name="toolTip">
+              <string>Remove the selected plug-ins.</string>
+             </property>
+             <property name="text">
+              <string>Clear selection</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pbClearAllPlugins">
+             <property name="toolTip">
+              <string>Remove all plug-ins.</string>
+             </property>
+             <property name="text">
+              <string>Clear all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
           <widget class="QGroupBox" name="groupPluginDescription">
            <property name="title">
             <string>Description</string>
@@ -496,24 +523,34 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_24">
+          <widget class="QLabel" name="label_15">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Plug-in input file</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_29">
            <item>
-            <widget class="QPushButton" name="pbClearSelPlugin">
+            <widget class="QLineEdit" name="lePluginReadFilePath">
              <property name="toolTip">
-              <string>Remove the selected plug-ins.</string>
-             </property>
-             <property name="text">
-              <string>Clear selection</string>
+              <string>Optional path to a plug-in input file</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pbClearAllPlugins">
+            <widget class="QPushButton" name="pbPluginReadFilePath">
              <property name="toolTip">
-              <string>Remove all plug-ins.</string>
+              <string>Select the plug-in input file.</string>
              </property>
              <property name="text">
-              <string>Clear all</string>
+              <string>...</string>
              </property>
             </widget>
            </item>
@@ -1956,8 +1993,18 @@ Set the width to 0 to keep tabs.</string>
            </item>
            <item row="0" column="1">
             <widget class="QFontComboBox" name="comboFontName">
+             <property name="font">
+              <font>
+               <family>MS Shell Dlg 2</family>
+              </font>
+             </property>
              <property name="toolTip">
               <string>Select or enter the font name. HTML supports a list of fonts, separated with comma.</string>
+             </property>
+             <property name="currentFont">
+              <font>
+               <family>Courier New</family>
+              </font>
              </property>
             </widget>
            </item>

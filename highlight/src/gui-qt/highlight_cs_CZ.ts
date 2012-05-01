@@ -113,6 +113,10 @@ Prověřte instalaci.</translation>
         <source>You must define a style output file!</source>
         <translation>Musíte určit stylový list k vydání!</translation>
     </message>
+    <message>
+        <source>Choose a plug-in input file</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindowClass</name>
@@ -878,6 +882,18 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Select or enter the font name. HTML supports a list of fonts, separated with comma.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plug-in input file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optional path to a plug-in input file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the plug-in input file.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -243,12 +243,23 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, S
 
     try {
         Diluculum::LuaState ls;
-        ls.doFile (confPath);
+        Diluculum::LuaValueList ret= ls.doFile (confPath);
+
+        std::cerr<<"ret "<<ret.size()<<"\n";
         int idx=1;
         string langName;
+        std::cerr<<"X2\n";
 	Diluculum::LuaValue mapEntry;
+    std::cerr<<"X21\n";
+   // std::cerr<<"ls[FileMapping]"<<ls["FileMapping"]<<"\n";
+    // std::cerr<<"ls[FileMapping]1"<<ls["FileMapping"][1]<<"\n";
+    std::cerr<<"ls[FileMapping]1.val"<<(ls["FileMapping"][0].value().asString())<<"\n";
+
+
         while ((mapEntry = ls["FileMapping"][idx].value()) !=Diluculum::Nil) {
+            std::cerr<<"X22\n";
             langName = mapEntry["Lang"].asString();
+            std::cerr<<"X3\n";
             if (mapEntry["Extensions"] !=Diluculum::Nil) {
                 int extIdx=1;
                 while (mapEntry["Extensions"][extIdx] !=Diluculum::Nil) {
@@ -260,6 +271,7 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, S
             }
             idx++;
         }
+
     }
     catch (Diluculum::LuaError err) {
         cerr <<err.what()<<"\n";

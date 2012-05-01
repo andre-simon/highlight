@@ -332,6 +332,7 @@ void MainWindow::on_pbOutputDest_clicked(){
 
  void MainWindow::readSettings()
  {
+     ui->tabIOSelection->setCurrentIndex(0); // wie default setzen?
      QSettings settings(QSettings::IniFormat, QSettings::UserScope,
                         "andre-simon.de", "highlight-gui");
 
@@ -602,6 +603,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
 
     generator->setPrintLineNumbers( ui->cbIncLineNo->isChecked());
     generator->setPrintZeroes(ui->cbPadZeroes->isEnabled() && ui->cbPadZeroes->isChecked());
+    generator->setPluginReadFile(ui->lePluginReadFilePath->text().toStdString());
 
 #ifdef DATA_DIR
       QString themePath = QString("%1themes/%2.theme").arg(
@@ -1093,7 +1095,6 @@ void MainWindow::on_pbTEXChooseStyleIncFile_clicked()
         selectSingleFile(ui->leTEXStyleIncFile, tr("Choose a style include file"), "*.sty");
 }
 
-
 void MainWindow::on_actionAbout_translations_triggered()
 {
     QMessageBox::information(this, tr("About providing translations"),
@@ -1203,4 +1204,9 @@ void MainWindow::on_lvPluginScripts_itemClicked(QListWidgetItem* item)
 void MainWindow::on_actionDock_floating_panels_toggled(bool arg1)
 {
     ui->dockWidget->setFloating(arg1);
+}
+
+void MainWindow::on_pbPluginReadFilePath_clicked()
+{
+       selectSingleFile(ui->lePluginReadFilePath, tr("Choose a plug-in input file"), "*");
 }
