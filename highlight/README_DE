@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.7  ------------------------- January 2012 ---
+---  HIGHLIGHT MANUAL - Version 3.9  ----------------------------- Mai 2012 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -894,7 +894,7 @@ Plugins={
   { Type="lang", Chunk=syntaxUpdate },
 }
 
-Siehe README_PLUGINS ume mehr darüber zu erfahren.
+Siehe README_PLUGINS um mehr darüber zu erfahren.
 
 
 3.7 DATEIZUORDNUNGEN

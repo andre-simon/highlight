@@ -151,7 +151,7 @@ namespace highlight
 	bool CodeGenerator::initTheme ( const string& themePath )
 	{
 		this->themePath=themePath;
-		bool loadOK = docStyle.load ( themePath );
+		bool loadOK = docStyle.load ( themePath, outputType );
 		initOutputTags();
 		return loadOK;
 	}
@@ -577,9 +577,7 @@ namespace highlight
 			  Diluculum::LuaValueList params;
 			  params.push_back(Diluculum::LuaValue(token));
 			  params.push_back(Diluculum::LuaValue(currentState));
-			  params.push_back(Diluculum::LuaValue(outputType));
 			  params.push_back(Diluculum::LuaValue(currentKeywordClass));
-
 
 			  Diluculum::LuaValueList res=
 			    currentSyntax->getLuaState()->call ( *currentSyntax->getDecorateFct(),
@@ -686,7 +684,7 @@ namespace highlight
 			    result=LOAD_OK;
 			} else {
 			    currentSyntax=new SyntaxReader();
-			    result=currentSyntax->load(langDefPath, pluginReadFile);
+			    result=currentSyntax->load(langDefPath, pluginReadFile, outputType);
 			    syntaxReaders[langDefPath]=currentSyntax;
 			}
 
@@ -1656,11 +1654,12 @@ namespace highlight
 					<< "." << styleCommentClose << "\n";
 			}
 		}
-		//TODO append plugin style attachment if defined:
-		if (!docStyle.getInjection().empty()){
+
+		string injections=docStyle.getInjections();
+		if (!injections.empty()){
 		   		ostr 	<< "\n" << styleCommentOpen
-					<< " Plug-in theme injection: " <<styleCommentClose << "\n";
-				ostr << docStyle.getInjection()<<"\n";
+					<< " Plug-in theme injections: " <<styleCommentClose << "\n";
+				ostr << injections<<"\n";
 		}
 		return ostr.str();
 	}

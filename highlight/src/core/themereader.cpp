@@ -26,7 +26,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "themereader.h"
 #include <Diluculum/LuaState.hpp>
-
+#include <sstream>
 
 namespace highlight
 {
@@ -62,11 +62,23 @@ void ThemeReader::initStyle(ElementStyle& style, const Diluculum::LuaVariable& v
     style.setUnderline(styleUnderline);
 }
 
-bool ThemeReader::load ( const string &styleDefinitionPath )
+bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
 {
     try {
         fileOK=true;
         Diluculum::LuaState ls;
+	ls["HL_FORMAT_HTML"]=HTML;
+	ls["HL_FORMAT_XHTML"]=XHTML;
+	ls["HL_FORMAT_TEX"]=TEX;
+	ls["HL_FORMAT_LATEX"]=LATEX;
+	ls["HL_FORMAT_RTF"]=RTF;
+	ls["HL_FORMAT_ANSI"]=ANSI;
+	ls["HL_FORMAT_XTERM256"]=XTERM256;
+	ls["HL_FORMAT_HTML32"]=HTML32;
+	ls["HL_FORMAT_SVG"]=SVG;
+	ls["HL_FORMAT_BBCODE"]=BBCODE;
+	ls["HL_OUTPUT"] = type;
+	ls.doString("Injections={}");
         ls.doFile (styleDefinitionPath);
 
 	desc = ls["Description"].value().asString();
@@ -102,9 +114,12 @@ bool ThemeReader::load ( const string &styleDefinitionPath )
             idx++;
         }
         
-        if (ls.globals().count("Injection")){
-	    injection = ls["Injection"].value().asString();
-	}
+        idx=1;
+	while (ls["Injections"][idx].value() !=Diluculum::Nil) {
+	    injections.push_back (ls["Injections"][idx].value().asString());
+            idx++;
+        }
+
     } catch (Diluculum::LuaFileError err) {
         errorMsg = string(err.what());
         return fileOK=false;
@@ -203,6 +218,15 @@ vector <string> ThemeReader::getClassNames() const
 KeywordStyles ThemeReader::getKeywordStyles() const
 {
     return keywordStyles;
+}
+
+string ThemeReader::getInjections() const{
+ ostringstream os;
+ for ( vector<string>::const_iterator iter = injections.begin(); iter != injections.end(); iter++ )
+    {
+        os<<*iter<<"\n";
+    }
+    return os.str();
 }
 
 }

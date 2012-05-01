@@ -6,6 +6,10 @@ Description="Add tooltips based on a ctags file (default input file: tags)"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
+  
+  if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
+      return
+  end
 
   function string:split(sep)
          local sep, fields = sep or ":", {}
@@ -57,11 +61,7 @@ function syntaxUpdate(desc)
   end
 
 
-  function Decorate(token, state, docformat, kwclass)
-
-    if (docformat ~= HL_FORMAT_HTML and docformat ~= HL_FORMAT_XHTML) then
-      return
-    end
+  function Decorate(token, state, kwclass)
 
     if ( state ~= HL_STANDARD and state ~= HL_KEYWORD and state ~=HL_PREPROC) then
       return

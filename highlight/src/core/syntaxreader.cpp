@@ -150,12 +150,13 @@ bool SyntaxReader::readFlag(const Diluculum::LuaVariable& var) {
 }
 
 
-void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginReadFilePath ){
+void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginReadFilePath, OutputType type ){
           // initialize Lua state with variables which can be used within scripts
         string::size_type Pos = langDefPath.find_last_of ( Platform::pathSeparator );
         ls["HL_LANG_DIR"] =langDefPath.substr ( 0, Pos+1 );
 
 	ls["HL_INPUT_FILE"] = pluginReadFilePath;
+	ls["HL_OUTPUT"] = type;
 	
         ls["Identifiers"]=REGEX_IDENTIFIER;
         ls["Digits"]=REGEX_NUMBER;
@@ -204,7 +205,7 @@ void SyntaxReader::addKeyword(unsigned int groupID, const string& kw){
   }
 }
 
-LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginReadFilePath, bool clear )
+LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginReadFilePath, OutputType outputType, bool clear )
 {
 
     currentPath=langDefPath;
@@ -220,7 +221,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 	luaState=new Diluculum::LuaState();
 
 	Diluculum::LuaState& ls=*luaState;
-	initLuaState(ls, langDefPath, pluginReadFilePath);
+	initLuaState(ls, langDefPath, pluginReadFilePath, outputType);
   //     ls["HL_INPUT_FILE"]="testbla";
 	lua_register (ls.getState(),"AddKeyword",luaAddKeyword);
 	//lua_register (ls.getState(),"ReadFile",luaReadFile);

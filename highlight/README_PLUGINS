@@ -1,15 +1,16 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT PLUGIN MANUAL - Version 3.6    ---------------- October 2011 ---
+---  HIGHLIGHT PLUGIN MANUAL - Version 3.9    -------------------- May 2012 ---
 -------------------------------------------------------------------------------
 
 CONTENT
 -------------------------------------------------------------------------------
 
 1. SCRIPT STRUCTURE
-2. SYNTAX DEFINITION ELEMENTS
+2. SYNTAX CHUNK ELEMENTS
    2.1 FUNCTION ONSTATECHANGE
    2.2 FUNCTION ADDKEYWORD
-3. COLOUR THEME ELEMENTS
+   2.3 FUNCTION DECORATE
+3. THEME CHUNK ELEMENTS
 4. EXAMPLES
 5. PLUG-IN USAGE
 
@@ -49,17 +50,17 @@ enhanced with syslog keywords).
 Finally the Plugins array connects the functions to the Lua states which 
 are created when highlight loads a lang or theme script. In this example,
 themeUpdate is connected to the theme state, and syntaxUpdate to the lang
-state. It is not required to always define both connections if your plugi
+state. It is not required to always define both connections if your plugin
 only affects one of the config script types.
 
 
-2. SYNTAX DEFINITION ELEMENTS
+2. SYNTAX CHUNK ELEMENTS
 -------------------------------------------------------------------------------
 
-The following list includes all items you may overwrite or extend to adjust
+The following list includes all variables and constants you may use to adjust 
 the parser's syntax highlighting.
 
-Syntax items:
+Items available in the syntax chunk:
 
 Comments: table
 Description: string
@@ -73,7 +74,7 @@ Operators: string
 PreProcessor: table
 Strings: table
 
-Read only constants:
+Read only:
 
 HL_LANG_DIR: string
 HL_BLOCK_COMMENT: number
@@ -100,20 +101,34 @@ HL_STRING: number
 HL_STRING_END: number
 HL_UNKNOWN: number
 
+HL_OUTPUT: number
+HL_FORMAT_HTML: number
+HL_FORMAT_XHTML: number
+HL_FORMAT_TEX: number
+HL_FORMAT_LATEX: number
+HL_FORMAT_RTF: number
+HL_FORMAT_ANSI: number
+HL_FORMAT_XTERM256: number
+HL_FORMAT_SVG: number
+HL_FORMAT_BBCODE: number
+
 Functions:
 
 AddKeyword: function
 OnStateChange: function
+Decorate: function
 
-IMPORTANT: The functions will only be executed if they are defined as local
-functions within the lang chunk function referenced in the Plugins array
-(see above). They will be ignored when defined isolated in the plug-in script.
+
+
+IMPORTANT: Functions will only be executed if they are defined as local
+functions within the lang chunk function referenced in the Plugins array. 
+They will be ignored when defined elsewhere in the plug-in script.
 
 
 2.1 FUNCTION ONSTATECHANGE
 -------------------------------------------------------------------------------
 
-This function is a hook which is called if an internal state changes (ie from
+This function is a hook which is called if an internal state changes (e.g. from
 HL_STANDARD to HL_KEYWORD if a keyword is found). It can be used to alter
 the new state or to manipulate syntax elements.
 
@@ -168,8 +183,27 @@ AddKeyword(keyword, kwGroupID)
   Returns:    true if successfull
 
 
+2.3 FUNCTION DECORATE
+-------------------------------------------------------------------------------
 
-3. COLOUR THEME ELEMENTS
+This function is a hook which is called if a syntax token has been identified.
+It can be used to alter the token or to add additional text in the target output
+format (e.g. hyperlinks). Important: The return value of Decorate will be 
+embedded in the formatting tags of the output format. The return value is not
+modified or validated by highlight.
+
+Decorate(token, state, kwGroupID)
+
+  Hook Event: Token identification
+  Parameters: token:     the current token
+	      state:     the current state
+              kwGroupID: if state is HL_KEYWORD, the parameter
+                         contains the keyword group ID
+  Returns:    Altered token string or nothing if original token should be 
+              outputted
+
+
+3. THEME CHUNK ELEMENTS
 -------------------------------------------------------------------------------
 
 The following list includes all items you may overwrite or extend to adjust
@@ -187,6 +221,20 @@ LineNum: table
 Operator: table
 LineComment: table
 Keywords: table
+Injections: table
+
+Read only:
+
+HL_OUTPUT: number
+HL_FORMAT_HTML: number
+HL_FORMAT_XHTML: number
+HL_FORMAT_TEX: number
+HL_FORMAT_LATEX: number
+HL_FORMAT_RTF: number
+HL_FORMAT_ANSI: number
+HL_FORMAT_XTERM256: number
+HL_FORMAT_SVG: number
+HL_FORMAT_BBCODE: number
 
 
 4. EXAMPLES
@@ -197,18 +245,28 @@ functionality explained above:
 
 bash_functions.lua
 Description: Add function names to keyword list
-Features: Adds new keyword group based on a regex, defines OnStateChange,
-          uses AddKeyword
+Features:    Adds new keyword group based on a regex, defines OnStateChange,
+             uses AddKeyword
 
 cpp_qt.lua, cpp_syslog.lua, cpp_wx.lua, java_library.lua
 Description: *
-Features: Adds and extends keyword groups based on lists and regexes
+Features:    Adds and extends keyword groups based on lists and regexes
 
 theme_invert.lua
 Description: Invert colours of the original theme
-Features: Modifies all color attributes of the theme script, uses Lua pattern
-          matching
+Features:    Modifies all color attributes of the theme script, uses Lua
+             pattern matching
+          
+cpp_ref_cplusplus_com.lua
+Description: Add qtproject.org reference links to HTML, LaTeX or RTF output of
+             C++ code
+Features:    Uses Decorate to add hyperlinks for a defined set of C++ keywords.
+             Adds CSS styles with Injections.
 
+ctags_html_tooltips.lua
+Description: Add tooltips based on a ctags file (default input file: tags)
+Features:    Uses file input (defined by cli option --plug-in-read) and
+             parses tags data before Decorate is called.
 		  
 5. PLUG-IN USAGE
 -------------------------------------------------------------------------------

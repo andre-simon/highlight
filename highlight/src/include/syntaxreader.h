@@ -99,9 +99,11 @@ namespace highlight
 			    Will only read a new language definition if the given
 			      file path is not equal to the path of the current language definition.
 			    \param langDefPath Path of language definition
+			    \param pluginReadFilePath path to file which is read by plugin
+			    \param outputType output format
 			    \param clear Test if current data should be resetted to defaults
 			    \return LoadResult  */
-			LoadResult load( const string& langDefPath, const string& pluginReadFilePath, bool clear=true );
+			LoadResult load( const string& langDefPath, const string& pluginReadFilePath,  OutputType outputType=HTML, bool clear=true );
 
 			/** \return True if multi line comments may be nested */
 			bool allowNestedMLComments() const { return allowNestedComments; }
@@ -202,7 +204,7 @@ namespace highlight
 				\param langDefPath absolute path of language definition
 				\param pluginReadFilePath absolute path of plugin input file
 			*/
-			static void initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginReadFilePath );
+			static void initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginReadFilePath, OutputType outputType=HTML );
 
 		private:
 

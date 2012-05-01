@@ -2,7 +2,7 @@
 Sample plugin file for highlight 3.9
 ]]
 
-Description="Add cplusplus.com reference links to HTML output of C and C++ code"
+Description="Add cplusplus.com reference links to HTML, LaTeX and RTF output of C and C++ code"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -46,27 +46,33 @@ function syntaxUpdate(desc)
     "stringbuf", "stringstream", "cerr", "cin", "clog", "cout", "fpos", "streamoff",
     "streampos", "streamsize"
   }
-  url_start='<a class="hl" target="new" href="http://www.cplusplus.com/reference/'
 
+  function getURL(token, cat)
+     url='http://www.cplusplus.com/reference/'..cat.. '/' .. token .. '/'
+     
+     if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+        return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'
+     elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
+	return '\\href{'..url..'}{'..token..'}'
+      elseif (HL_OUTPUT == HL_FORMAT_RTF) then
+	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }\\fldrslt \\ul\\ulc0 '..token..'}}'
+     end
+   end
 
-  function Decorate(token, state, docformat)
-
-    if (docformat ~= HL_FORMAT_HTML and docformat ~= HL_FORMAT_XHTML) then
-      return
-    end
+  function Decorate(token, state)
 
     if (state ~= HL_STANDARD and state ~= HL_KEYWORD and state ~=HL_PREPROC) then
       return
     end
 
     if stl_items[token] then
-      return url_start.."stl/".. token .."/\">".. token .. "</a>"
+      return  getURL(token, 'stl')
     elseif algorithm_items[token] then
-      return url_start.."algorithm/".. token .."/\">".. token .. "</a>"
+      return  getURL(token, 'algorithm')
     elseif clib_items[token] then
-      return url_start.."clibrary/".. token .."/\">".. token .. "</a>"
+      return  getURL(token, 'clibrary')
     elseif iostream_items[token] then
-      return url_start.."iostream/".. token .."/\">".. token .. "</a>"
+      return  getURL(token, 'iostream')
     end
 
   end
@@ -74,8 +80,11 @@ end
 
 
 function themeUpdate(desc)
-   -- inherit formatting of enclosing span tags
-   Injection="a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
+  if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+    Injections[#Injections+1]="a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
+  elseif (HL_OUTPUT==HL_FORMAT_LATEX) then
+    Injections[#Injections+1]="\\usepackage[colorlinks=false, pdfborderstyle={/S/U/W 1}]{hyperref}"
+  end
 end
 
 --The Plugins array assigns code chunks to themes or language definitions.

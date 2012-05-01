@@ -59,7 +59,7 @@ namespace highlight
 
 			string errorMsg;
 			string desc;
-			string injection;
+			vector <string> injections;
 
 			vector<Diluculum::LuaFunction*> pluginChunks;
 
@@ -77,7 +77,7 @@ namespace highlight
 			/** load style definition
 			      \param styleDefinitionFile Style definition path
 			      \return True if successfull */
-			bool load ( const string & styleDefinitionFile );
+			bool load ( const string & styleDefinitionFile, OutputType outputType=HTML );
 
 			void addUserChunk(const Diluculum::LuaFunction& chunk){
 
@@ -95,7 +95,7 @@ namespace highlight
 
 			string getDescription() const { return desc;}
 			
-			string getInjection() const { return injection;}
+			string getInjections() const;
 
 			/** \return Background colour*/
 			Colour getBgColour() const;

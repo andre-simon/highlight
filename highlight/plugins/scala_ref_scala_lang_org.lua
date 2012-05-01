@@ -4,7 +4,7 @@ Sample plugin file for highlight 3.9
 -- to be finished---
 ]]
 
-Description="Add scala-lang.org reference links to HTML output of Scala code"
+Description="Add scala-lang.org reference links to HTML, LaTeX or RTF output of Scala code"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -154,57 +154,67 @@ collection_parallel_mutable_items= Set
 "LazyCombiner","ParArray","ParFlatHashTable","ParHashMap","ParHashSet",
 "ParHashTable","ParIterable","ParMap","ParMapLike","ParSeq","ParSet",
 "ParSetLike","ResizableParArrayCombiner","UnrolledParArrayCombiner" }
-  
-   url_start='<a class="hl" target="new" href="http://www.scala-lang.org/api/current/scala/'
+     
+  function getURL(token, cat)
+     url='http://www.scala-lang.org/api/current/scala/'..cat..'/'..token.. '.html'
+     
+     if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+        return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'
+     elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
+	return '\\href{'..url..'}{'..token..'}'
+      elseif (HL_OUTPUT == HL_FORMAT_RTF) then
+	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }\\fldrslt \\ul\\ulc0 '..token..'}}'
+     end
+   end
 
-  function Decorate(token, state, docformat)
 
-    if (docformat ~= HL_FORMAT_HTML and docformat ~= HL_FORMAT_XHTML) then
-      return
-    end
+  function Decorate(token, state)
 
     if (state ~= HL_STANDARD and state ~= HL_KEYWORD) then
       return
     end
 
     if scala_items[token] then
-      return url_start.. token ..".html\">".. token .. "</a>"
+      return getURL(token, '')
     elseif  actor_items[token] then
-       return url_start..'actors/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'actors')
     elseif  remote_items[token] then
-       return url_start..'remote/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'remote')
     elseif  actors_scheduler_items[token] then
-       return url_start..'actors/scheduler/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'actors/scheduler')
     elseif  annotation_items[token] then
-      return url_start..'annotation/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'annotation')
     elseif  annotation_target_items[token] then
-      return url_start..'annotation/target/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'annotation/target')
     elseif  annotation_unchecked_items[token] then
-      return url_start..'annotation/unchecked/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'annotation/unchecked')
     elseif  collection_items[token] then
-      return url_start..'collection/'.. token ..".html\">".. token .. "</a>"	
+      return getURL(token, 'collection')
     elseif  collection_generic_items[token] then
-      return url_start..'collection/generic/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'collection/generic')
     elseif  collection_immutable_items[token] then
-      return url_start..'collection/immutable/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'collection/immutable')
     elseif  collection_interfaces_items[token] then
-      return url_start..'collection/interfaces/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'collection/interfaces')
     elseif  collection_mutable_items[token] then
-      return url_start..'collection/mutable/'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'collection/mutable')
     elseif  collection_parallel_items[token] then
-      return url_start..'collection/parallel'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'collection/parallel')
     elseif  collection_parallel_immutable_items[token] then
-      return url_start..'collection/parallel/immutable'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'collection/parallel/immutable')
     elseif  collection_parallel_mutable_items[token] then
-      return url_start..'collection/parallel/mutable'.. token ..".html\">".. token .. "</a>"
+      return getURL(token, 'collection/parallel/mutable')
     end
 
   end
 end
 
 function themeUpdate(desc)
-   -- inherit formatting of enclosing span tags
-   Injection="a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
+  if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+    Injections[#Injections+1]="a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
+  elseif (HL_OUTPUT==HL_FORMAT_LATEX) then
+    Injections[#Injections+1]="\\usepackage[colorlinks=false, pdfborderstyle={/S/U/W 1}]{hyperref}"
+  end
 end
 
 --The Plugins array assigns code chunks to themes or language definitions.

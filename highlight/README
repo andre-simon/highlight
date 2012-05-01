@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.7    ----------------------- January 2012 ---
+---  HIGHLIGHT MANUAL - Version 3.9    --------------------------- May 2012 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -867,7 +867,7 @@ Plugins={
   { Type="lang", Chunk=syntaxUpdate },
 }
 
-See README_PLUGINS for a detailed desription.
+See README_PLUGINS for a detailed description.
 
 
 3.7 FILE MAPPING

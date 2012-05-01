@@ -2,7 +2,7 @@
 Sample plugin file for highlight 3.9
 ]]
 
-Description="Add linuxmanpages.com reference links to HTML output of Bash scripts"
+Description="Add linuxmanpages.com reference links to HTML, LaTeX and RTF output of Bash scripts"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -10,7 +10,7 @@ function syntaxUpdate(desc)
   if desc~="Bash" then
      return
   end
-
+  
   function Set (list)
     local set = {}
     for _, l in ipairs(list) do set[l] = true end
@@ -401,30 +401,38 @@ man2_items = Set {
 "wait4","waitpid","write","writev"
 }
    
-   url_start='<a class="hl" target="new" href="http://www.linuxmanpages.com/'
 
-  function Decorate(token, state, docformat)
+   function getURL(token, manId)
+     url='http://www.linuxmanpages.com/man'..manId .. '/' .. token .. '.'..manId..'.php'
+     
+     if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+        return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'
+     elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
+	return '\\href{'..url..'}{'..token..'}'
+      elseif (HL_OUTPUT == HL_FORMAT_RTF) then
+	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }\\fldrslt \\ul\\ulc0 '..token..'}}'
+     end
+   end
 
-    if (docformat ~= HL_FORMAT_HTML and docformat ~= HL_FORMAT_XHTML) then
-      return
-    end
+  function Decorate(token, state)
 
-    if (state ~= HL_STANDARD and state ~= HL_KEYWORD) then
-      return
-    end
+    if state~=HL_KEYWORD and state ~=HL_STANDARD then return end
 
     if man1_items[token] then
-      return url_start..'man1/'.. token ..".1.php\">".. token .. "</a>"
-     elseif man2_items[token] then
-      return url_start..'man2/'.. token ..".2.php\">".. token .. "</a>"
+	return getURL(token, 1)
+    elseif man2_items[token] then
+       return getURL(token, 2)
     end
 
   end
 end
 
 function themeUpdate(desc)
-   -- inherit formatting of enclosing span tags
-   Injection="a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
+  if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+    Injections[#Injections+1]="a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
+  elseif (HL_OUTPUT==HL_FORMAT_LATEX) then
+    Injections[#Injections+1]="\\usepackage[colorlinks=false, pdfborderstyle={/S/U/W 1}]{hyperref}"
+  end
 end
 
 --The Plugins array assigns code chunks to themes or language definitions.

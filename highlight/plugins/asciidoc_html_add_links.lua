@@ -10,13 +10,13 @@ function syntaxUpdate(desc)
   if desc~="AsciiDoc" then
      return
   end
-
-
-  function Decorate(token, state, docformat, kwclass)
-
-    if (docformat ~= HL_FORMAT_HTML and docformat ~= HL_FORMAT_XHTML) then
+  
+  if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
       return
-    end
+  end
+
+
+  function Decorate(token, state, kwclass)
 
     if ( state ~= HL_KEYWORD or  #token == 0) then
       return
@@ -31,8 +31,12 @@ end
 
 
 function themeUpdate(desc)
+  
+  if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
+      return
+  end
    -- inherit formatting of enclosing span tags
-   Injection="a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
+   Injections[#Injections+1]="a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
 end
 
 --The Plugins array assigns code chunks to themes or language definitions.

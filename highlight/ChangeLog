@@ -2,9 +2,9 @@ CHANGELOG Highlight
 
 highlight 3.9
 
-25.04.2012
+01.05.2012
 
--enhanced the plug-in interface (added Decorator function and Injection property)
+-enhanced the plug-in interface (added Decorator function and Injections property)
 -added several example plug-ins which show how to add keyword links to online 
   references (e.g. cplusplus.com, perldoc.perl.org, qtproject_org)
 -added ctags plugin (ctags_html_tooltips.lua)
