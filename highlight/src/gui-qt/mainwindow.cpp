@@ -303,7 +303,9 @@ void MainWindow::on_pbOutputDest_clicked(){
                        ui->leSVGStyleFile->text());
      settings.setValue(ui->leSVGStyleIncFile->property(name).toString(),
                        ui->leSVGStyleIncFile->text());
-
+    settings.setValue(ui->lePluginReadFilePath->property(name).toString(),
+                       ui->lePluginReadFilePath->text());
+     
      settings.setValue(ui->cbSVGEmbedStyle->property(name).toString(),
                        ui->cbSVGEmbedStyle->isChecked());
      settings.setValue(ui->cbLATEXEmbedStyle->property(name).toString(),
@@ -403,7 +405,8 @@ void MainWindow::on_pbOutputDest_clicked(){
      ui->leSVGWidth->setText(settings.value(ui->leSVGWidth->property(name).toString()).toString());
      ui->leFontSize->setText(settings.value(ui->leFontSize->property(name).toString()).toString());
      ui->leHTMLCssPrefix->setText(settings.value(ui->leHTMLCssPrefix->property(name).toString()).toString());
-
+     ui->lePluginReadFilePath->setText(settings.value(ui->lePluginReadFilePath->property(name).toString()).toString());
+     
      ui->sbLineLength->setValue(settings.value(ui->sbLineLength->property(name).toString()).toInt());
      ui->sbTabWidth->setValue(settings.value(ui->sbTabWidth->property(name).toString()).toInt());
      ui->cbTEXEmbedStyle->setChecked(settings.value(ui->cbTEXEmbedStyle->property(name).toString()).toBool());

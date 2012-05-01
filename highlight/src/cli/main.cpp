@@ -224,6 +224,9 @@ void HLCmdLineApp::printConfigInfo ( const string& configFile )
     cout << endl;
 }
 
+/*
+ * 
+ * broken:
 string HLCmdLineApp::getFileSuffix ( const string &fileName )
 {
     size_t ptPos=fileName.rfind ( "." );
@@ -233,6 +236,14 @@ string HLCmdLineApp::getFileSuffix ( const string &fileName )
         return fileName.substr ( ptPos+1, fileName.length() );
     else
         return "";
+}*/
+
+string HLCmdLineApp::getFileSuffix(const string& fileName)
+{
+  size_t ptPos=fileName.rfind(".");
+  size_t psPos = fileName.rfind ( Platform::pathSeparator );
+  return (ptPos == string::npos || (psPos!=string::npos && psPos>ptPos)) ? "" : fileName.substr(ptPos+1,
+                                        fileName.length());
 }
 
 bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, StringMap* shebangMap )
@@ -245,21 +256,11 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, S
         Diluculum::LuaState ls;
         Diluculum::LuaValueList ret= ls.doFile (confPath);
 
-        std::cerr<<"ret "<<ret.size()<<"\n";
         int idx=1;
         string langName;
-        std::cerr<<"X2\n";
 	Diluculum::LuaValue mapEntry;
-    std::cerr<<"X21\n";
-   // std::cerr<<"ls[FileMapping]"<<ls["FileMapping"]<<"\n";
-    // std::cerr<<"ls[FileMapping]1"<<ls["FileMapping"][1]<<"\n";
-    std::cerr<<"ls[FileMapping]1.val"<<(ls["FileMapping"][0].value().asString())<<"\n";
-
-
         while ((mapEntry = ls["FileMapping"][idx].value()) !=Diluculum::Nil) {
-            std::cerr<<"X22\n";
-            langName = mapEntry["Lang"].asString();
-            std::cerr<<"X3\n";
+            langName = mapEntry["Lang"].asString(); 
             if (mapEntry["Extensions"] !=Diluculum::Nil) {
                 int extIdx=1;
                 while (mapEntry["Extensions"][extIdx] !=Diluculum::Nil) {
@@ -371,9 +372,15 @@ string HLCmdLineApp::analyzeFile ( const string& file )
 
 string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFile )
 {
-    if (suffix.empty()) return analyzeFile ( inputFile );
+    string lcSuffix = StringTools::change_case(suffix);
+
+    string fileType = (extensions.count(lcSuffix)) ? extensions[lcSuffix] : lcSuffix ;
+    if (!fileType.empty()) return fileType;
+    return analyzeFile(inputFile);
+    
+    /*if (suffix.empty()) return analyzeFile ( inputFile );
     string lcSuffix = StringTools::change_case ( suffix );
-    return ( extensions.count ( lcSuffix ) ) ? extensions[lcSuffix] : lcSuffix ;
+    return ( extensions.count ( lcSuffix ) ) ? extensions[lcSuffix] : lcSuffix ;*/
    // if ( !fileType.empty() ) return fileType;
    // return "";
 }

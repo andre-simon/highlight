@@ -11,6 +11,7 @@ highlight 3.9
 -improved Perl and N3 definitions (thanks to Heiko Jansen)
 -CLI: marked --ctags-file option as deprecated
 -CLI: added --plug-in-read option to define an input file for plug-ins
+-CLI: fixed file suffix recognition
 -GUI: added input field for a plug-in input file
 -GUI: fixed initial input tab selection
 -GUI: set initial font selection to Courier
