@@ -52,6 +52,9 @@ namespace highlight
 			anchorPrefix ( "l" )
 	{
 		spacer = " ";
+		//spacer = "&nbsp;"; //indent Problem bei <ol> und FIrefox
+		//maskWs=true;
+		
 		styleCommentOpen="/*";
 		styleCommentClose="*/";
 	}
@@ -321,7 +324,10 @@ namespace highlight
 				// Opera 8 ignores empty list items -> add &nbsp;
 				if ( line.empty() ) numberPrefix<<"&nbsp;";
 			}
-			if ( attachAnchors )
+
+			//attach Anchor only if we're in a new line.
+			if ( attachAnchors && numberCurrentLine )
+			{
 				numberPrefix << "<a "
 				<< idAttr
 				<< "=\""
@@ -329,12 +335,27 @@ namespace highlight
 				<< "_"
 				<< lineNo
 				<< "\"></a>";
+			}
 
 			if ( !orderedList )
 			{
+				//if we're in a wrapped line, don't fill with zeroes.
 				ostringstream os;
-				if ( lineNumberFillZeroes ) os.fill ( '0' );
-				os <<setw ( getLineNumberWidth() ) <<right<< lineNo;
+				if ( lineNumberFillZeroes && numberCurrentLine )
+				{
+					os.fill ( '0' );
+				}
+
+				os << setw ( getLineNumberWidth() ) << right;
+				//if we're in a wrapped line, don't attach lineNo.
+				if ( numberCurrentLine )
+				{
+					os << lineNo;
+				} else {
+					//for some reason, this is neccesary.
+					os << "";
+				}
+
 				numberPrefix << openTags[LINENUMBER]
 				<< os.str()
 				<< spacer

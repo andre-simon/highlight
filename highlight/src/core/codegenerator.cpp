@@ -129,6 +129,7 @@ namespace highlight
 			formattingEnabled ( false ),
 			formattingPossible ( false ),
 			validateInput ( false ),
+			numberWrappedLines ( true ),	//until now, wrapped lines were always numbered, so this remains the default.
 			tagsEnabled ( false ),
 			noTrailingNewLine(false),
 			keywordCase ( StringTools::CASE_UNCHANGED ),
@@ -245,6 +246,16 @@ namespace highlight
 	bool CodeGenerator::getValidateInput()
 	{
 		return validateInput;
+	}
+
+                        
+	void CodeGenerator::setNumberWrappedLines ( bool flag )
+	{
+		numberWrappedLines=flag;
+	}
+        
+        bool CodeGenerator::getNumberWrappedLines() {
+		return numberWrappedLines;
 	}
 
 	void CodeGenerator::setBaseFont ( const string& s )
@@ -443,15 +454,24 @@ namespace highlight
 				{
 					eof=readNewLine ( line );
 					preFormatter.setLine ( line );
+					++lineNumber;
+					numberCurrentLine = true;
+				} else {
+					if(numberWrappedLines)
+						++lineNumber;
+					numberCurrentLine = numberWrappedLines;
 				}
+
 				line = preFormatter.getNextLine();
 			}
 			else
 			{
 				eof=readNewLine ( line );
+				++lineNumber;
+
+				numberCurrentLine = true;
 			}
 			lineIndex=0;
-			++lineNumber;
 			matchRegex ( line );
 
 			return ( eof ) ?'\0':'\n';
@@ -1570,7 +1590,6 @@ namespace highlight
 
 	void CodeGenerator::insertLineNumber ( bool insertNewLine )
 	{
-
 		if ( insertNewLine )
 		{
 			wsBuffer += getNewLine();
@@ -1580,11 +1599,18 @@ namespace highlight
 		{
 			ostringstream os;
 			ostringstream numberPrefix;
-			if ( lineNumberFillZeroes )
+
+			os << setw ( getLineNumberWidth() ) << right;
+			if( numberCurrentLine )
 			{
-				os.fill ( '0' );
+				if ( lineNumberFillZeroes )
+				{
+					os.fill ( '0' );
+				}
+				os << lineNumber+lineNumberOffset;
+			} else {
+				os << "";
 			}
-			os <<setw ( getLineNumberWidth() ) << right << lineNumber+lineNumberOffset;
 
 			numberPrefix << openTags[LINENUMBER];
 			maskString ( numberPrefix, os.str() );

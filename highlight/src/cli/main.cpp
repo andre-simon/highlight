@@ -463,6 +463,8 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         generator->setEOLDelimiter('\r');
 
     generator->setValidateInput ( options.validateInput() );
+    generator->setNumberWrappedLines ( options.numberWrappedLines() );
+
     generator->setStyleInputPath ( options.getStyleInFilename() );
     generator->setStyleOutputPath ( options.getStyleOutFilename() );
     generator->setIncludeStyle ( options.includeStyleDef() );

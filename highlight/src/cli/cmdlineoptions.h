@@ -88,6 +88,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_STYLE_OUT      "style-outfile"
 #define OPT_SYNTAX         "syntax"
 #define OPT_TEST_INPUT     "validate-input"
+#define OPT_NO_NUMBER_WL   "wrap-no-numbers"
 #define OPT_VERBOSE        "verbose"
 #define OPT_VERSION        "version"
 #define OPT_WRAP           "wrap"
@@ -288,6 +289,9 @@ class CmdLineOptions
 		/** \return True if input should be validated */
 		bool validateInput() const ;
 
+		/** \return True if wrapped lines should get unique numbers */
+		bool numberWrappedLines() const ;
+
 		/** \return True if CSS should be outputted within tag elements */
 		bool inlineCSS() const ;
 
@@ -415,6 +419,7 @@ class CmdLineOptions
 		bool opt_ordered_list;
 		bool opt_fnames_as_anchors;
 		bool opt_validate;
+		bool opt_number_wrapped_lines;
 		bool opt_inline_css;
 		bool opt_enclose_pre;
 		bool opt_char_styles;

@@ -96,6 +96,7 @@ namespace Help
 		cout<<" -V, --wrap-simple              wrap long lines without indenting function\n";
 		cout<<"                                  parameters and statements\n";
 		cout<<" -W, --wrap                     wrap long lines\n";
+		cout<<"     --wrap-no-numbers          omit line numbers of wrapped lines\n";
 		cout<<" -z, --zeroes                   pad line numbers with 0's\n";
 		cout<<"     --kw-case=<case>           change case of case insensitive keywords\n";
 		cout<<"                                  <case> =  [upper, lower, capitalize]\n";

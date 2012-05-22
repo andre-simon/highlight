@@ -202,6 +202,31 @@ Decorate(token, state, kwGroupID)
   Returns:    Altered token string or nothing if original token should be 
               outputted
 
+Examples:
+
+function Decorate(token, state)
+  if (state == HL_KEYWORD) then
+    return  string.upper(token)
+  end
+end
+
+This function converts all keywords to upper case.
+
+
+knowntags={}
+file = assert(io.open(HL_INPUT_FILE, "r"))
+-- read file and fill knowntags
+
+function Decorate(token, state, kwclass)
+  for k,v in pairs(knowntags) do
+    if k==token  then
+      return '<span title="'..v..'">'..token .. '</span>'
+    end
+  end
+end
+
+This function adds tooltips to keywords which were found in a given tags file.
+
 
 3. THEME CHUNK ELEMENTS
 -------------------------------------------------------------------------------

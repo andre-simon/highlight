@@ -67,6 +67,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		opt_ordered_list ( false ),
 		opt_fnames_as_anchors ( false ),
 		opt_validate ( false ),
+		opt_number_wrapped_lines ( true ), //before the patch, this was always true, so by default it stays true.
 		opt_inline_css ( false ),
 		opt_enclose_pre ( false ),
 		opt_char_styles ( false ),
@@ -82,7 +83,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 	{
 		S_OPT_ADDCONFDIR = 256, S_OPT_ENCLOSE_PRE, S_OPT_FORCE_OUTPUT,
 		S_OPT_INLINE_CSS, S_OPT_KW_CASE,
-		S_OPT_PRINT_CONFIG, S_OPT_TEST_INPUT,
+		S_OPT_PRINT_CONFIG, S_OPT_TEST_INPUT, S_OPT_NO_NUMBER_WL,
 		S_OPT_SVG_WIDTH, S_OPT_SVG_HEIGHT, S_OPT_CLASSNAME, S_OPT_RTF_CHAR_STYLES,
 		S_OPT_SKIP_UNKNOWN,
 		S_OPT_COMPAT_DOC, S_OPT_COMPAT_NODOC, S_OPT_COMPAT_TAB, S_OPT_COMPAT_CSS,
@@ -147,6 +148,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ S_OPT_KW_CASE,      OPT_KW_CASE,      Arg_parser::yes },
 		{ S_OPT_PRINT_CONFIG, OPT_PRINT_CONFIG, Arg_parser::no  },
 		{ S_OPT_TEST_INPUT,   OPT_TEST_INPUT,   Arg_parser::no  },
+		{ S_OPT_NO_NUMBER_WL, OPT_NO_NUMBER_WL, Arg_parser::no  },
 		{ S_OPT_RTF_CHAR_STYLES, OPT_RTF_CHAR_STYLES, Arg_parser::no  },
 		{ S_OPT_SKIP_UNKNOWN, OPT_SKIP_UNKNOWN, Arg_parser::yes },
 		{ S_OPT_CTAGS_FILE,   OPT_CTAGS_FILE, Arg_parser::maybe },
@@ -381,6 +383,9 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				break;
 			case S_OPT_TEST_INPUT:
 				opt_validate=true;
+				break;
+			case S_OPT_NO_NUMBER_WL:
+				opt_number_wrapped_lines=false;
 				break;
 			case S_OPT_RTF_CHAR_STYLES:
 				opt_char_styles=true;
@@ -719,6 +724,10 @@ bool CmdLineOptions::forceOutput() const
 bool CmdLineOptions::validateInput() const
 {
 	return opt_validate;
+}
+bool CmdLineOptions::numberWrappedLines() const
+{
+	return opt_number_wrapped_lines;
 }
 bool CmdLineOptions::inlineCSS() const
 {

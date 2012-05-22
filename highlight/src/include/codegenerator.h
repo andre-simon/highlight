@@ -266,6 +266,13 @@ namespace highlight
 			/** \return input validation flag */
 			bool getValidateInput();
 
+			/** if true, wrapped lines receive unique line numbers.
+			 *  else, wrapped lines don't have line numbers at all. */
+			void setNumberWrappedLines ( bool flag );
+
+			/** return number wrapped lines flag */
+			bool getNumberWrappedLines ();
+
 			/** \return style path */
 			const string& getStyleName();
 
@@ -558,6 +565,10 @@ namespace highlight
 			/** Class for line wrapping and tab replacement*/
 			PreFormatter preFormatter;
 
+			/** Stores if the current line should receive a line number.
+			 *  If the line is just the continuation of a wrapped line,
+			 *  and numberWrappedLines is false, this is set true. */
+			bool numberCurrentLine;
 		private:
 
 			CodeGenerator ( const CodeGenerator& ) {}
@@ -652,6 +663,9 @@ namespace highlight
 			/** Flag to test if input should be validated (binary or text) */
 			bool validateInput;
 
+			/** Flag if wrapped lines should receive unique line numbers as well */
+			bool numberWrappedLines;
+
 			/** Flag to test if ctags information is available */
 			bool tagsEnabled;
 
@@ -735,7 +749,6 @@ namespace highlight
 			
 			/** \deprecated replace by Lua functionality */
 			bool checkSpecialCmd();
-
 	};
 
 }
