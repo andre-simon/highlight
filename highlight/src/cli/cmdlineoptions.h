@@ -88,7 +88,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_STYLE_OUT      "style-outfile"
 #define OPT_SYNTAX         "syntax"
 #define OPT_TEST_INPUT     "validate-input"
-#define OPT_NO_NUMBER_WL   "wrap-no-numbers"
 #define OPT_VERBOSE        "verbose"
 #define OPT_VERSION        "version"
 #define OPT_WRAP           "wrap"
@@ -105,6 +104,8 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_PLUGIN         "plug-in"
 #define OPT_ABS_CFG_PATH   "config-file"
 #define OPT_PLUGIN_READFILE  "plug-in-read"
+#define OPT_NO_NUMBER_WL   "wrap-no-numbers"
+#define OPT_USE_NBSP       "nbsp"
 
 // Improve CLI option compatibility with GNU source-highlight
 #define OPT_COMPAT_DOC       "doc"
@@ -282,6 +283,9 @@ class CmdLineOptions
 
 		/** \return True if line numbers should be replaced by ordered list (HTML) */
 		bool orderedList() const;
+		
+		/** \return True if spaces should be replaced by &nbsp; (HTML) */
+		bool useNonBreakingSpace() const;
 
 		/** \return True if a base font has been given */
 		bool hasBaseFont() const ;
@@ -427,6 +431,7 @@ class CmdLineOptions
 		bool opt_delim_CR;
 		bool opt_print_style;
 		bool opt_no_trailing_nl;
+		bool opt_use_nbsp;
 
 		string anchorPrefix;
 		string helpLang, encodingName;

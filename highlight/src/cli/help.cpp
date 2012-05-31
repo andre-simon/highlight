@@ -97,6 +97,7 @@ namespace Help
 		cout<<"                                  parameters and statements\n";
 		cout<<" -W, --wrap                     wrap long lines\n";
 		cout<<"     --wrap-no-numbers          omit line numbers of wrapped lines\n";
+		cout<<"                                  (assumes -l)\n";
 		cout<<" -z, --zeroes                   pad line numbers with 0's\n";
 		cout<<"     --kw-case=<case>           change case of case insensitive keywords\n";
 		cout<<"                                  <case> =  [upper, lower, capitalize]\n";
@@ -114,6 +115,8 @@ namespace Help
 		cout<<"     --inline-css               output CSS within each tag (verbose output)\n";
 		cout<<"     --enclose-pre              enclose fragmented output with pre tag \n";
 		cout<<"                                  (assumes -f)\n";
+		cout<<"     --nbsp                     replace spaces by &nbsp; (-t is recommended)\n";
+		
 		cout<<"     --ctags-file[=<file>]      read ctags file to include meta information as\n";
 		cout<<"                                  tooltips (default value: tags)\n";
 		cout<<"                                  DEPRECATED: use ctags plug-in instead\n";

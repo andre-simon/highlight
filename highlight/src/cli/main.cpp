@@ -449,6 +449,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->setHTMLEnclosePreTag ( options.enclosePreTag() );
     generator->setHTMLAnchorPrefix ( options.getAnchorPrefix() );
     generator->setHTMLClassName ( options.getClassName() );
+    generator->setHTMLUseNonBreakingSpace(options.useNonBreakingSpace());
 
     generator->setLATEXReplaceQuotes ( options.replaceQuotes() );
     generator->setLATEXNoShorthands ( options.disableBabelShorthands() );

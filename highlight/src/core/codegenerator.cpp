@@ -1614,8 +1614,7 @@ namespace highlight
 
 			numberPrefix << openTags[LINENUMBER];
 			maskString ( numberPrefix, os.str() );
-			numberPrefix << spacer
-			<< closeTags[LINENUMBER];
+			numberPrefix << spacer << closeTags[LINENUMBER];
 
 			wsBuffer += numberPrefix.str();
 		}

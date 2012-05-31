@@ -77,8 +77,9 @@ namespace highlight
 		ostringstream os;
 
 		os << "\\documentclass{article}\n"
-		<< "\\usepackage{color}\n"
-		<< "\\usepackage{alltt}\n";
+		    << "\\usepackage{color}\n"
+		    << "\\usepackage{alltt}\n"
+		    << "\\usepackage[T1]{fontenc}\n";
 
 		if ( StringTools::change_case ( encoding ) =="utf-8" )
 		{

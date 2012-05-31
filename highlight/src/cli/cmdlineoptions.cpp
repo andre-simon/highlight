@@ -75,6 +75,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		opt_delim_CR (false),
 		opt_print_style(false),
 		opt_no_trailing_nl(false),
+		opt_use_nbsp(false),
 		anchorPrefix ( "l" ),
 		helpLang ( "en" ),
 		encodingName ( "ISO-8859-1" )
@@ -91,7 +92,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		S_OPT_COMPAT_SRCLANG, S_OPT_COMPAT_LINENUM, S_OPT_COMPAT_LINEREF,
 		S_OPT_CTAGS_FILE, S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
 		S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH,
-		S_OPT_PLUGIN_READFILE
+		S_OPT_PLUGIN_READFILE, S_OPT_USE_NBSP
 	};
 
 	const Arg_parser::Option options[] =
@@ -166,6 +167,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ S_OPT_EOL_DELIM_CR,   OPT_EOL_DELIM_CR,   Arg_parser::no },
 		{ S_OPT_PRINT_STYLE,    OPT_PRINT_STYLE, Arg_parser::no },
 		{ S_OPT_NO_TRAILING_NL, OPT_NO_TRAILING_NL, Arg_parser::no },
+		{ S_OPT_USE_NBSP, OPT_USE_NBSP, Arg_parser::no },
 		{ S_OPT_PLUGIN, OPT_PLUGIN, Arg_parser::yes },
 		{ S_OPT_PLUGIN_READFILE, OPT_PLUGIN_READFILE, Arg_parser::yes },
 		{ S_OPT_ABS_CFG_PATH, OPT_ABS_CFG_PATH,  Arg_parser::yes},
@@ -386,6 +388,9 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				break;
 			case S_OPT_NO_NUMBER_WL:
 				opt_number_wrapped_lines=false;
+				break;
+			case S_OPT_USE_NBSP:
+				opt_use_nbsp=true;
 				break;
 			case S_OPT_RTF_CHAR_STYLES:
 				opt_char_styles=true;
@@ -744,6 +749,10 @@ bool CmdLineOptions::includeCharStyles() const
 bool CmdLineOptions::disableTrailingNL() const
 {
 	return opt_no_trailing_nl;
+}
+bool CmdLineOptions::useNonBreakingSpace() const
+{
+	return opt_use_nbsp;
 }
 const string &CmdLineOptions::getConfigFilePath() const
 {

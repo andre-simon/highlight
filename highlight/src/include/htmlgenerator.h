@@ -90,9 +90,19 @@ namespace highlight
 			void setHTMLInlineCSS ( bool b ) { useInlineCSS = b; }
 
 			/**
-			  \param  b if truefragmented output will be enclosed in pre tag
+			  \param  b if true fragmented output will be enclosed in pre tag
 			*/
 			void setHTMLEnclosePreTag ( bool b ) { enclosePreTag = b; }
+			
+			/**
+			  \param  b if true spaces will be replaced by &nbsp;
+			*/
+			void setHTMLUseNonBreakingSpace ( bool b ) { 
+			  if(b){
+			  	spacer = "&nbsp;"; //indent Problem bei <ol> und FIrefox
+				maskWs=true;
+			  }
+			}
 
 			/**
 			  \param name CSS Class name

@@ -1,5 +1,14 @@
 CHANGELOG Highlight
 
+highlight 3.10
+
+31.05.2012
+
+-added fontenc package in LaTeX output (patch by Yimin Li)
+-CLI: added --wrap-no-numbers option (patch by Michael Enßlin)
+-CLI: added --nbsp option (suggested by Nash)
+
+---
 highlight 3.9
 
 01.05.2012

@@ -382,6 +382,10 @@ namespace highlight
 			/** set HTML output enclose pre tag flag
 			 */
 			virtual void setHTMLEnclosePreTag ( bool )  {};
+			
+			/** set HTML output replace space by &nbsp; flag
+			 */
+			virtual void setHTMLUseNonBreakingSpace ( bool )  {};
 
 			/** set HTML output anchor prefix
 			 */
