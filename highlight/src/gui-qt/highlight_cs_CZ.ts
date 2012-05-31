@@ -115,7 +115,7 @@ Prověřte instalaci.</translation>
     </message>
     <message>
         <source>Choose a plug-in input file</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte vstupní soubor s přídavným modulem</translation>
     </message>
 </context>
 <context>
@@ -244,7 +244,7 @@ Podívejte se na ctags.sf.net, abyste se dozvěděl více.</translation>
     </message>
     <message>
         <source>UPPER</source>
-        <translation>HORNÍ</translation>
+        <translation>VELKÁ PÍSMENA</translation>
     </message>
     <message>
         <source>UTF-8</source>
@@ -260,7 +260,7 @@ Podívejte se na ctags.sf.net, abyste se dozvěděl více.</translation>
     </message>
     <message>
         <source>lower</source>
-        <translation>spodní</translation>
+        <translation>malá písmena</translation>
     </message>
     <message>
         <source>No options defined.</source>
@@ -268,7 +268,7 @@ Podívejte se na ctags.sf.net, abyste se dozvěděl více.</translation>
     </message>
     <message>
         <source>Capitalize</source>
-        <translation>Psát s velkým začátečním písmenem</translation>
+        <translation>Velká počáteční písmena</translation>
     </message>
     <message>
         <source>List of input files.</source>
@@ -590,7 +590,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Keyword case:</source>
-        <translation>Typ psaní velkých a malých písmen:</translation>
+        <translation>Velikost písmen klíčových slov:</translation>
     </message>
     <message>
         <source>Set the output file ancoding.</source>
@@ -874,27 +874,27 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>&amp;Windows</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Okna</translation>
     </message>
     <message>
         <source>&amp;Dock floating panels</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ukotvit plovoucí panely</translation>
     </message>
     <message>
         <source>Select or enter the font name. HTML supports a list of fonts, separated with comma.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte nebo zadejte název písma. HTML podporuje seznam písem oddělených čárkou.</translation>
     </message>
     <message>
         <source>Plug-in input file</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupní soubor s přídavným modulem</translation>
     </message>
     <message>
         <source>Optional path to a plug-in input file</source>
-        <translation type="unfinished"></translation>
+        <translation>Volitelná cesta k vstupnímu souboru s přídavným modulem</translation>
     </message>
     <message>
         <source>Select the plug-in input file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte vstupní soubor s přídavným modulem.</translation>
     </message>
 </context>
 <context>

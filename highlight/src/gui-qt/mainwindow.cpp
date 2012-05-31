@@ -99,7 +99,6 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->cbHTMLEmbedStyle, SIGNAL(clicked()), this, SLOT(plausibility()));
     QObject::connect(ui->cbHTMLAnchors, SIGNAL(clicked()), this, SLOT(plausibility()));
     QObject::connect(ui->cbHTMLInlineCSS, SIGNAL(clicked()), this, SLOT(plausibility()));
-    QObject::connect(ui->cbHTMLCtags, SIGNAL(clicked()), this, SLOT(plausibility()));
     QObject::connect(ui->cbLATEXEmbedStyle, SIGNAL(clicked()), this, SLOT(plausibility()));
     QObject::connect(ui->cbTEXEmbedStyle, SIGNAL(clicked()), this, SLOT(plausibility()));
     QObject::connect(ui->cbSVGEmbedStyle, SIGNAL(clicked()), this, SLOT(plausibility()));
@@ -126,6 +125,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QObject::connect(ui->sbLineNoWidth, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
     QObject::connect(ui->leFontSize, SIGNAL(textChanged(QString)), this, SLOT(updatePreview()));
+    QObject::connect(ui->cbOmitWrappedLineNumbers, SIGNAL(clicked()), this, SLOT(updatePreview()));
 
     setAcceptDrops(true);
 
@@ -140,6 +140,16 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::openFiles(){
+
+    QStringList files = QFileDialog::getOpenFileNames(
+                            this,
+                            tr("Select one or more files to open"),
+                            "",
+                            fileOpenFilter);
+
+     addInputFiles(files, ui->lvInputFiles);
+
+    /*
      QFileDialog dialog(this, tr("Select one or more files to open"),
                          "",
                          fileOpenFilter);
@@ -148,16 +158,20 @@ void MainWindow::openFiles(){
 
      if (dialog.exec()) {
             addInputFiles(dialog.selectedFiles(), ui->lvInputFiles);
-    }
+    }*/
 }
 
 void MainWindow::selectSingleFile(QLineEdit* edit, const QString& title, const QString& filter){
+    QString fileName = QFileDialog::getOpenFileName(this, title, "", filter);
+    if (!fileName.isEmpty()) edit->setText(fileName);
+                        /*
      QFileDialog dialog(this, title, "", filter);
      dialog.setFileMode(QFileDialog::ExistingFile);
      dialog.setViewMode(QFileDialog::Detail);
      if (dialog.exec()) {
             edit->setText(dialog.selectedFiles().first());
     }
+    */
 }
 
 void MainWindow::addInputFiles(const QStringList& list, QListWidget* listWidget, const QString& iconName, bool checkable ){
@@ -233,8 +247,7 @@ void MainWindow::on_pbOutputDest_clicked(){
                        ui->cbFragment->isChecked());
      settings.setValue(ui->cbHTMLAnchors->property(name).toString(),
                        ui->cbHTMLAnchors->isChecked());
-     settings.setValue(ui->cbHTMLCtags->property(name).toString(),
-                       ui->cbHTMLCtags->isChecked());
+
      settings.setValue(ui->cbHTMLEmbedStyle->property(name).toString(),
                        ui->cbHTMLEmbedStyle->isChecked());
      settings.setValue(ui->cbHTMLEnclosePreTags->property(name).toString(),
@@ -285,8 +298,6 @@ void MainWindow::on_pbOutputDest_clicked(){
      settings.setValue(ui->comboSelectSyntax->property(name).toString(),
                        ui->comboSelectSyntax->currentIndex());
 
-     settings.setValue(ui->leHTMLCtagsFile->property(name).toString(),
-                       ui->leHTMLCtagsFile->text());
      settings.setValue(ui->leHTMLStyleFile->property(name).toString(),
                        ui->leHTMLStyleFile->text());
      settings.setValue(ui->leHTMLStyleIncFile->property(name).toString(),
@@ -364,7 +375,6 @@ void MainWindow::on_pbOutputDest_clicked(){
      ui->cbEncoding->setChecked(settings.value(ui->cbEncoding->property(name).toString()).toBool());
      ui->cbFragment->setChecked(settings.value(ui->cbFragment->property(name).toString()).toBool());
      ui->cbHTMLAnchors->setChecked(settings.value(ui->cbHTMLAnchors->property(name).toString()).toBool());
-     ui->cbHTMLCtags->setChecked(settings.value(ui->cbHTMLCtags->property(name).toString()).toBool());
      ui->cbHTMLEmbedStyle->setChecked(settings.value(ui->cbHTMLEmbedStyle->property(name).toString()).toBool());
      ui->cbHTMLEnclosePreTags->setChecked(settings.value(ui->cbHTMLEnclosePreTags->property(name).toString()).toBool());
      ui->cbHTMLFileNameAnchor->setChecked(settings.value(ui->cbHTMLFileNameAnchor->property(name).toString()).toBool());
@@ -394,7 +404,6 @@ void MainWindow::on_pbOutputDest_clicked(){
      ui->comboTheme->setCurrentIndex(settings.value(ui->comboTheme->property(name).toString()).toInt());
      ui->comboSelectSyntax->setCurrentIndex(settings.value(ui->comboSelectSyntax->property(name).toString()).toInt());
 
-     ui->leHTMLCtagsFile->setText(settings.value(ui->leHTMLCtagsFile->property(name).toString()).toString());
      ui->leHTMLStyleFile->setText(settings.value(ui->leHTMLStyleFile->property(name).toString()).toString());
      ui->leHTMLStyleIncFile->setText(settings.value(ui->leHTMLStyleIncFile->property(name).toString()).toString());
      ui->leLATEXStyleFile->setText(settings.value(ui->leLATEXStyleFile->property(name).toString()).toString());
@@ -591,6 +600,8 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
           generator->setHTMLOrderedList(ui->cbHTMLOrderedList->isChecked());
           generator->setHTMLInlineCSS(ui->cbHTMLInlineCSS->isChecked() && ui->cbHTMLInlineCSS->isEnabled());
           generator->setHTMLEnclosePreTag(ui->cbHTMLEnclosePreTags->isChecked());
+          generator->setHTMLUseNonBreakingSpace(ui->cbHTMLNonBreakingSpace->isChecked());
+
           if (ui->leHTMLCssPrefix->text().size())
               generator->setHTMLClassName(ui->leHTMLCssPrefix->text().toStdString());
 
@@ -636,6 +647,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
     }
     generator->setValidateInput(ui->cbValidateInput->isChecked());
     generator->setLineNumberWidth(ui->sbLineNoWidth->value());
+    generator->setNumberWrappedLines(!ui->cbOmitWrappedLineNumbers->isChecked());
 
     if (getOutputType()!=highlight::LATEX && getOutputType()!=highlight::TEX){
       string fntName=ui->comboFontName->currentText().toStdString();
@@ -667,14 +679,6 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
        generator->initIndentationScheme(ui->comboReformat->currentText().toLower().toStdString());
 
     }
-
-   if (    ui->cbHTMLCtags->isChecked() && !ui->leHTMLCtagsFile->text().isEmpty()
-       && (outType==highlight::HTML || outType==highlight::XHTML)){
-       if (!generator->initTagInformation(ui->leHTMLCtagsFile->text().toStdString())){
-         QMessageBox::critical(this, tr("Tags file error"),
-                              tr("Could not read tags information in \"%1\"").arg(ui->leHTMLCtagsFile->text()));
-      }
-   }
 }
 
 highlight::WrapMode MainWindow::getWrappingStyle(){
@@ -940,8 +944,6 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
      ui->leHTMLStyleIncFile->setEnabled(ui->cbHTMLEmbedStyle->isChecked() && !ui->cbHTMLInlineCSS->isChecked());
      ui->pbHTMLChooseStyleIncFile->setEnabled(ui->cbHTMLEmbedStyle->isChecked() &&!ui->cbHTMLInlineCSS->isChecked());
      ui->leHTMLCssPrefix->setEnabled(!ui->cbHTMLInlineCSS->isChecked());
-     ui->leHTMLCtagsFile->setEnabled(ui->cbHTMLCtags->isChecked());
-     ui->pbHTMLChooseTagsFile->setEnabled(ui->cbHTMLCtags->isChecked());
      ui->leLATEXStyleFile->setEnabled(!ui->cbLATEXEmbedStyle->isChecked());
      ui->leTEXStyleFile->setEnabled(!ui->cbTEXEmbedStyle->isChecked());
      ui->leSVGStyleFile->setEnabled(!ui->cbSVGEmbedStyle->isChecked());
@@ -1053,12 +1055,6 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
  }
 
 
-
-void MainWindow::on_pbHTMLChooseTagsFile_clicked()
-{
-    selectSingleFile(ui->leHTMLCtagsFile, tr("Choose a ctags file"), "*");
-}
-
 void MainWindow::on_action_Manual_triggered()
 {
     ShowTextFile show;
@@ -1158,6 +1154,15 @@ void MainWindow::on_pbCopyToCP_clicked()
 
 void MainWindow::on_pbSelectPlugin_clicked()
 {
+
+    QStringList files = QFileDialog::getOpenFileNames(
+                            this,
+                            tr("Select one or more plug-ins"),
+                            "",
+                            "*.lua");
+
+     addInputFiles(files, ui->lvPluginScripts, ":/plugin.png",  true);
+/*
     QFileDialog dialog(this, tr("Select one or more plug-ins"),
                         "",
                         "*.lua");
@@ -1166,7 +1171,7 @@ void MainWindow::on_pbSelectPlugin_clicked()
 
     if (dialog.exec()) {
            addInputFiles(dialog.selectedFiles(), ui->lvPluginScripts, ":/plugin.png",  true);
-   }
+   }*/
 }
 
 void MainWindow::on_pbClearSelPlugin_clicked()
@@ -1194,14 +1199,7 @@ void MainWindow::on_actionVisit_website_triggered()
 
 void MainWindow::on_lvPluginScripts_itemClicked(QListWidgetItem* item)
 {
-    try {
-        Diluculum::LuaState ls;
-        ls.doFile (item->text().toStdString());
-        ui->lblPluginDescription->setText(QString::fromStdString(ls["Description"].value().asString()));
-    }
-    catch (Diluculum::LuaError err) {
-        QMessageBox::warning(this, "Plug-In error", QString::fromStdString( err.what()));
-    }
+
 }
 
 void MainWindow::on_actionDock_floating_panels_toggled(bool arg1)
@@ -1212,4 +1210,16 @@ void MainWindow::on_actionDock_floating_panels_toggled(bool arg1)
 void MainWindow::on_pbPluginReadFilePath_clicked()
 {
        selectSingleFile(ui->lePluginReadFilePath, tr("Choose a plug-in input file"), "*");
+}
+
+void MainWindow::on_lvPluginScripts_currentRowChanged(int currentRow)
+{
+    try {
+        Diluculum::LuaState ls;
+        ls.doFile ( ui->lvPluginScripts->item(currentRow)->text().toStdString());
+        ui->lblPluginDescription->setText(QString::fromStdString(ls["Description"].value().asString()));
+    }
+    catch (Diluculum::LuaError err) {
+        QMessageBox::warning(this, "Plug-In error", QString::fromStdString( err.what()));
+    }
 }

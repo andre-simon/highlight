@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>674</width>
-    <height>677</height>
+    <width>957</width>
+    <height>775</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -80,7 +80,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>674</width>
+     <width>957</width>
      <height>21</height>
     </rect>
    </property>
@@ -150,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -930,7 +930,7 @@ The result has to match the input file encoding.</string>
                 </size>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="tabWidgetPage1">
                 <attribute name="title">
@@ -1064,96 +1064,6 @@ The result has to match the input file encoding.</string>
                  </item>
                 </layout>
                </widget>
-               <widget class="QWidget" name="tabWidgetPage2">
-                <attribute name="title">
-                 <string>Index/ctags</string>
-                </attribute>
-                <layout class="QVBoxLayout" name="verticalLayout_6">
-                 <item>
-                  <widget class="QCheckBox" name="cbHTMLIndex">
-                   <property name="toolTip">
-                    <string>Generate an index file with hyperlinks to all outputted files.</string>
-                   </property>
-                   <property name="text">
-                    <string>Generate index file</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="Line" name="line_13">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbHTMLCtags">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="toolTip">
-                    <string>Read a ctags file and add the included metainformation as tooltips.
-See ctags.sf.net for details.</string>
-                   </property>
-                   <property name="text">
-                    <string>Read ctags file:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_12">
-                   <item>
-                    <widget class="QLineEdit" name="leHTMLCtagsFile">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="toolTip">
-                      <string>Path of the ctags file.</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pbHTMLChooseTagsFile">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="toolTip">
-                      <string>Choose a ctags file.</string>
-                     </property>
-                     <property name="text">
-                      <string>...</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <spacer name="verticalSpacer_8">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Expanding</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>72</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
-               </widget>
                <widget class="QWidget" name="tabWidgetPage3">
                 <attribute name="title">
                  <string>Misc</string>
@@ -1203,9 +1113,12 @@ See ctags.sf.net for details.</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="Line" name="line_4">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                  <widget class="QCheckBox" name="cbHTMLIndex">
+                   <property name="toolTip">
+                    <string>Generate an index file with hyperlinks to all outputted files.</string>
+                   </property>
+                   <property name="text">
+                    <string>Generate index file</string>
                    </property>
                   </widget>
                  </item>
@@ -1216,6 +1129,13 @@ See ctags.sf.net for details.</string>
                    </property>
                    <property name="text">
                     <string>Enclose in pre tags</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbHTMLNonBreakingSpace">
+                   <property name="text">
+                    <string>Use non breaking spaces</string>
                    </property>
                   </widget>
                  </item>
@@ -1728,7 +1648,7 @@ You can select the stylesheets in your word processor to reformat additional tex
         <attribute name="title">
          <string>Formatting</string>
         </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_8">
+        <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
@@ -1914,34 +1834,43 @@ Set the width to 0 to keep tabs.</string>
           </layout>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="cbWrapping">
-             <property name="toolTip">
-              <string>Enable line wrapping.</string>
-             </property>
-             <property name="text">
-              <string>Line wrapping</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSpinBox" name="sbLineLength">
-             <property name="toolTip">
-              <string>Enter the maximum line length.</string>
-             </property>
-             <property name="minimum">
-              <number>60</number>
-             </property>
-             <property name="maximum">
-              <number>120</number>
-             </property>
-             <property name="singleStep">
-              <number>2</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
+          <widget class="QSplitter" name="splitter_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QCheckBox" name="cbWrapping">
+            <property name="toolTip">
+             <string>Enable line wrapping.</string>
+            </property>
+            <property name="text">
+             <string>Line wrapping</string>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="sbLineLength">
+            <property name="toolTip">
+             <string>Enter the maximum line length.</string>
+            </property>
+            <property name="minimum">
+             <number>60</number>
+            </property>
+            <property name="maximum">
+             <number>120</number>
+            </property>
+            <property name="singleStep">
+             <number>2</number>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSplitter" name="splitter_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QSplitter" name="splitter">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
             <widget class="QCheckBox" name="cbAdvWrapping">
              <property name="enabled">
               <bool>false</bool>
@@ -1953,24 +1882,13 @@ Set the width to 0 to keep tabs.</string>
               <string>Intelligent wrapping</string>
              </property>
             </widget>
-           </item>
-           <item row="1" column="1">
-            <spacer name="verticalSpacer_11">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
+            <widget class="QCheckBox" name="cbOmitWrappedLineNumbers">
+             <property name="text">
+              <string>Omit numbers of wrapped lines</string>
              </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Minimum</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>13</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
+            </widget>
+           </widget>
+          </widget>
          </item>
          <item>
           <widget class="Line" name="line_3">
@@ -2136,10 +2054,6 @@ Set the width to 0 to keep tabs.</string>
   <tabstop>leHTMLStyleIncFile</tabstop>
   <tabstop>pbHTMLChooseStyleIncFile</tabstop>
   <tabstop>leHTMLCssPrefix</tabstop>
-  <tabstop>cbHTMLIndex</tabstop>
-  <tabstop>cbHTMLCtags</tabstop>
-  <tabstop>leHTMLCtagsFile</tabstop>
-  <tabstop>pbHTMLChooseTagsFile</tabstop>
   <tabstop>cbHTMLAnchors</tabstop>
   <tabstop>cbHTMLFileNameAnchor</tabstop>
   <tabstop>cbHTMLOrderedList</tabstop>

@@ -120,7 +120,6 @@ private slots:
     void on_action_License_triggered();
     void on_action_Changelog_triggered();
     void on_action_Manual_triggered();
-    void on_pbHTMLChooseTagsFile_clicked();
     void on_action_About_Highlight_triggered();
     void on_action_Exit_triggered();
     void plausibility();
@@ -129,6 +128,8 @@ private slots:
 
     void on_actionDock_floating_panels_toggled(bool arg1);
     void on_pbPluginReadFilePath_clicked();
+
+    void on_lvPluginScripts_currentRowChanged(int currentRow);
 };
 
 #endif // MAINWINDOW_H
