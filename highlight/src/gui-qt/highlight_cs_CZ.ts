@@ -898,19 +898,19 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Use non breaking spaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít tvrdé mezery</translation>
     </message>
     <message>
         <source>Do not add line numbering to lines which were automatically wrapped.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepřidávat číslování řádků do řádků, které byly automaticky zalomeny.</translation>
     </message>
     <message>
         <source>Omit line numbers of wrapped lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Vynechat čísla řádků zalomených řádků</translation>
     </message>
     <message>
         <source>Replace spaces by nbsp entities.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit mezery entitami nbsp.</translation>
     </message>
 </context>
 <context>
