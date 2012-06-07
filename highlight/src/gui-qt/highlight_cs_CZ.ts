@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Choose a ctags file</source>
-        <translation>Vyberte soubor ctags</translation>
+        <translation type="obsolete">Vyberte soubor ctags</translation>
     </message>
     <message>
         <source>Language definition error</source>
@@ -30,7 +30,7 @@
     </message>
     <message>
         <source>Could not read tags information in &quot;%1&quot;</source>
-        <translation>Nepodařilo se přečíst informace o značkách v %1</translation>
+        <translation type="obsolete">Nepodařilo se přečíst informace o značkách v %1</translation>
     </message>
     <message>
         <source>Select one or more plug-ins</source>
@@ -58,7 +58,7 @@
     </message>
     <message>
         <source>Tags file error</source>
-        <translation>Chyba v souboru značek</translation>
+        <translation type="obsolete">Chyba v souboru značek</translation>
     </message>
     <message>
         <source>Current syntax: %1</source>
@@ -211,7 +211,7 @@ Prověřte instalaci.</translation>
     <message>
         <source>Read a ctags file and add the included metainformation as tooltips.
 See ctags.sf.net for details.</source>
-        <translation>Čtěte soubor ctags a přidejte zahrnuté metainformace jako nástrojové rady.
+        <translation type="obsolete">Čtěte soubor ctags a přidejte zahrnuté metainformace jako nástrojové rady.
 Podívejte se na ctags.sf.net, abyste se dozvěděl více.</translation>
     </message>
     <message>
@@ -390,7 +390,7 @@ Tato funkce je povolena pro C, C++, C# a pro kód Java.</translation>
     </message>
     <message>
         <source>Read ctags file:</source>
-        <translation>Číst soubor ctags:</translation>
+        <translation type="obsolete">Číst soubor ctags:</translation>
     </message>
     <message>
         <source>Color theme:</source>
@@ -502,7 +502,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Path of the ctags file.</source>
-        <translation>Cesta k souboru ctags.</translation>
+        <translation type="obsolete">Cesta k souboru ctags.</translation>
     </message>
     <message>
         <source>Letter</source>
@@ -642,7 +642,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Choose a ctags file.</source>
-        <translation>Vyberte soubor ctags.</translation>
+        <translation type="obsolete">Vyberte soubor ctags.</translation>
     </message>
     <message>
         <source>Copy highlighted code into the clipboard.</source>
@@ -690,7 +690,7 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Index/ctags</source>
-        <translation>Index/ctags</translation>
+        <translation type="obsolete">Index/ctags</translation>
     </message>
     <message>
         <source>Escape quotes</source>
@@ -895,6 +895,22 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     <message>
         <source>Select the plug-in input file.</source>
         <translation>Vyberte vstupní soubor s přídavným modulem.</translation>
+    </message>
+    <message>
+        <source>Use non breaking spaces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not add line numbering to lines which were automatically wrapped.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Omit line numbers of wrapped lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace spaces by nbsp entities.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

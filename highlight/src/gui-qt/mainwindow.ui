@@ -591,7 +591,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -1134,6 +1134,9 @@ The result has to match the input file encoding.</string>
                  </item>
                  <item>
                   <widget class="QCheckBox" name="cbHTMLNonBreakingSpace">
+                   <property name="toolTip">
+                    <string>Replace spaces by nbsp entities.</string>
+                   </property>
                    <property name="text">
                     <string>Use non breaking spaces</string>
                    </property>
@@ -1883,8 +1886,11 @@ Set the width to 0 to keep tabs.</string>
              </property>
             </widget>
             <widget class="QCheckBox" name="cbOmitWrappedLineNumbers">
+             <property name="toolTip">
+              <string>Do not add line numbering to lines which were automatically wrapped.</string>
+             </property>
              <property name="text">
-              <string>Omit numbers of wrapped lines</string>
+              <string>Omit line numbers of wrapped lines</string>
              </property>
             </widget>
            </widget>

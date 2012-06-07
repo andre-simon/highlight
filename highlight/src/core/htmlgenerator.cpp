@@ -51,10 +51,7 @@ namespace highlight
 			attachAnchors ( false ),
 			anchorPrefix ( "l" )
 	{
-		spacer = " ";
-		//spacer = "&nbsp;"; //indent Problem bei <ol> und FIrefox
-		//maskWs=true;
-		
+		spacer = " ";		
 		styleCommentOpen="/*";
 		styleCommentClose="*/";
 	}
