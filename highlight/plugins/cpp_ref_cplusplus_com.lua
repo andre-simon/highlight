@@ -55,7 +55,7 @@ function syntaxUpdate(desc)
      elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
 	return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
-	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }\\fldrslt \\ul\\ulc0 '..token..'}}'
+	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
      end
    end
 

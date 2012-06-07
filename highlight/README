@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.9    --------------------------- May 2012 ---
+---  HIGHLIGHT MANUAL - Version 3.10 ----------------------------- May 2012 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -74,10 +74,10 @@ scripts may be altered or enhanced with plug-in scripts.
 * customizable keyword groups
 * recognition of nested languages within a file
 * configuration files are Lua scripts
-* supports plug-in scripts for language definitions and themes
+* supports plug-in scripts to tweak language definitions and themes
 * reformatting and indentation of C, C++, C# and Java source code
 * wrapping of long lines
-* output of line numbers
+* configurable output of line numbers
 
 
 1.3 SUPPORTED PROGRAMMING AND MARKUP LANGUAGES
@@ -223,8 +223,6 @@ Output formatting options:
      --inline-css               output CSS within each tag (verbose output)
      --enclose-pre              enclose fragmented output with pre tag
                                   (assumes -f)
-     --ctags-file[=<file>]      read ctags file to include meta information as
-                                  tooltips (default value: tags)
 
 LaTeX output options:
 
@@ -378,7 +376,7 @@ The command line interface is extensively harmonised with source-highlight
 
 The following highlight options have the same meaning as in source-highlight:
  --input, --output, --help, --version, --out-format, --title, --data-dir,
- --verbose, --quiet, --ctags-file
+ --verbose, --quiet
 
 These options were added to enhance compatibility:
  --css, --doc, --failsafe, --line-number, --line-number-ref, --no-doc, --tab,
@@ -389,18 +387,6 @@ These switches provide a common highlighter interface for scripts, plugins etc.
 
 2.6 ADVANCED OPTIONS
 -------------------------------------------------------------------------------
-
-Adding Exuberant Ctags information
-----------------------------------
-
-HTML output can be enhanced with descriptive tooltips based on ctags data:
-ctags *.*
-highlight --ctags-file *.cpp
-
-The default ctags-file parameter is "tags", so it is omitted in this example.
-This command will add the type, namespace and definition file path of recognized
-language tokens.
-Example: "member | class:highlight::HtmlGenerator | htmlgenerator.h"
 
 Prevent parsing of binary input files
 -------------------------------------

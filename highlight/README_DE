@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.9  ----------------------------- Mai 2012 ---
+---  HIGHLIGHT MANUAL - Version 3.10 ----------------------------- Mai 2012 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -75,12 +75,12 @@ Plug-Ins angepasst und erweitert werden.
 * Syntax-Elemente werden als regelaere Ausdruecke oder als Stringlisten
   beschrieben
 * Erweiterbare Schluesselwort-Gruppen
-* Erkennung eingebetteter Sprachen innerhalb einer Datei
+* Erkennung mehrerer Sprachen innerhalb einer Datei
 * Alle Konfigurationsdateien sind Lua-Skripte
-* Unterstuetzt Plug-In Skripte
+* Unterstuetzt Plug-In Skripte zur Anpassung von Sprachdefinitionen und Themes
 * Neuformatierung und Einrueckung von C, C++, C# und Java Code
 * Umbrechen von langen Zeilen
-* Ausgabe von Zeilennummern
+* Anpassbare Ausgabe von Zeilennummern
 
 
 1.3 UNTERSTUETZTE PROGRAMMIER- UND AUSZEICHNUNGSSPRACHEN
@@ -225,8 +225,6 @@ Output formatting options:
      --inline-css               output CSS within each tag (verbose output)
      --enclose-pre              enclose fragmented output with pre tag
                                   (assumes -f)
-     --ctags-file[=<file>]      read ctags file to include meta information as
-                                  tooltips (default value: tags)
 
 LaTeX output options:
 
@@ -390,7 +388,7 @@ source-highlight (http://www.gnu.org/software/src-highlite/).
 
 Diese highlight-Optionen haben dieselbe Bedeutung wie bei source-highlight:
  --input, --output, --help, --version, --out-format, --title, --data-dir,
- --verbose, --quiet, --ctags-file
+ --verbose, --quiet
 
 Diese Optionen wurden hinzugefuegt, um die Kompatibilitaet zu verbessern:
  --css, --doc, --failsafe, --line-number, --line-number-ref, --no-doc, --tab,
@@ -402,19 +400,6 @@ Skripte, Plugins etc.
 
 2.6 FORTGESCHRITTENE OPTIONEN
 -------------------------------------------------------------------------------
-
-Exuberant Ctags Informationen hinzufuegen
------------------------------------------
-
-Die HTML-Ausgabe kann um beschreibende Tooltips mit ctags Daten erweitert werden:
-ctags *.*
-highlight --ctags-file *.cpp
-
-Der Default-Parameter von ctags-file ist "tags", daher konnte er im obigen
-Beispiel weggelassen werden.
-Dieses Kommando fuegt den Typ, den Namespace und den Pfad zur Definition des
-erkannten Tokens hinzu.
-Beispiel:  "member | class:highlight::HtmlGenerator | htmlgenerator.h"
 
 Parsen von Binaerdaten vermeiden
 --------------------------------

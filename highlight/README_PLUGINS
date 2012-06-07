@@ -11,8 +11,9 @@ CONTENT
    2.2 FUNCTION ADDKEYWORD
    2.3 FUNCTION DECORATE
 3. THEME CHUNK ELEMENTS
-4. EXAMPLES
-5. PLUG-IN USAGE
+4. STEP BY STEP
+5. EXAMPLES
+6. PLUG-IN USAGE
 
 
 1. SCRIPT STRUCTURE
@@ -262,7 +263,82 @@ HL_FORMAT_SVG: number
 HL_FORMAT_BBCODE: number
 
 
-4. EXAMPLES
+4. STEP BY STEP
+-------------------------------------------------------------------------------
+
+-- first add a description of what the plug-in does
+Description="Add qtproject.org reference links to HTML, LaTeX or RTF output"
+
+-- the syntaxUpdate function contains code related to syntax recognition
+function syntaxUpdate(desc)
+
+  -- if the current file is no C++ file we exit
+  if desc~="C and C++" then
+     return
+  end
+      
+  -- this function returns a qt-project reference link of the given token
+  function getURL(token)
+     -- generate the URL
+     url='http://qt-project.org/doc/qt-4.8/'..string.lower(token).. '.html'
+     
+	 -- embed the URL in a hyperlink according to the output format
+	 -- first HTML, then LaTeX and RTF
+     if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+        return '<a class="hl" target="new" href="' 
+		       .. url .. '">'.. token .. '</a>'
+	 elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
+		return '\\href{'..url..'}{'..token..'}'
+     elseif (HL_OUTPUT == HL_FORMAT_RTF) then
+		return '{{\\field{\\*\\fldinst HYPERLINK "'
+		       ..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+     end
+   end
+
+  -- the Decorate function will be invoked for every recognized token
+  function Decorate(token, state)
+
+    -- we are only interested in keywords, preprocessor or default items
+    if (state ~= HL_STANDARD and state ~= HL_KEYWORD and 
+	    state ~=HL_PREPROC) then
+      return
+    end
+
+	-- Qt keywords start with Q, followed by an upper and a lower case letter
+	-- if this pattern applies to the token, we return the URL
+	-- if we return nothing, the token is outputted as is
+    if string.find(token, "Q%u%l")==1 then
+      return getURL(token)
+    end
+
+  end
+end
+
+-- the themeUpdate function contains code related to the theme
+function themeUpdate(desc)
+  -- the Injections table can be used to add style information to the theme
+  
+  -- HTML: we add additional CSS style information to beautify hyperlinks,
+  -- they should have the same color as their surrounding tags
+  if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+    Injections[#Injections+1]=
+	  "a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
+	  
+  -- LaTeX: hyperlinks require the hyperref package, so we add this here
+  -- the colorlinks and pdfborderstyle options remove ugly boxes in the output
+  elseif (HL_OUTPUT==HL_FORMAT_LATEX) then
+    Injections[#Injections+1]=
+	  "\\usepackage[colorlinks=false, pdfborderstyle={/S/U/W 1}]{hyperref}"
+  end
+end
+
+-- let highlight load the chunks
+Plugins={
+  { Type="lang", Chunk=syntaxUpdate },
+  { Type="theme", Chunk=themeUpdate },
+}
+
+5. EXAMPLES
 -------------------------------------------------------------------------------
 
 The plugins directory contains some example scripts which show the
@@ -293,7 +369,7 @@ Description: Add tooltips based on a ctags file (default input file: tags)
 Features:    Uses file input (defined by cli option --plug-in-read) and
              parses tags data before Decorate is called.
 		  
-5. PLUG-IN USAGE
+6. PLUG-IN USAGE
 -------------------------------------------------------------------------------
 
 Command line interface:
