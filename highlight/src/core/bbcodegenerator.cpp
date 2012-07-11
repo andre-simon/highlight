@@ -1,5 +1,5 @@
 /***************************************************************************
-                    bbcodegenarator.cpp  -  description
+                    bbcodegenerator.cpp  -  description
                              -------------------
     begin                : Jul 21 2009
     copyright            : (C) 2004-2009 by Andre Simon

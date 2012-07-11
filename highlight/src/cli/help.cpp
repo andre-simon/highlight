@@ -115,8 +115,6 @@ namespace Help
 		cout<<"     --inline-css               output CSS within each tag (verbose output)\n";
 		cout<<"     --enclose-pre              enclose fragmented output with pre tag \n";
 		cout<<"                                  (assumes -f)\n";
-		cout<<"     --nbsp                     replace spaces by &nbsp; (-t is recommended)\n";
-		
 		cout<<"     --ctags-file[=<file>]      read ctags file to include meta information as\n";
 		cout<<"                                  tooltips (default value: tags)\n";
 		cout<<"                                  DEPRECATED: use ctags plug-in instead\n";

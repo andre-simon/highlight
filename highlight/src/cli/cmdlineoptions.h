@@ -285,7 +285,7 @@ class CmdLineOptions
 		bool orderedList() const;
 		
 		/** \return True if spaces should be replaced by &nbsp; (HTML) */
-		bool useNonBreakingSpace() const;
+		//bool useNonBreakingSpace() const;
 
 		/** \return True if a base font has been given */
 		bool hasBaseFont() const ;

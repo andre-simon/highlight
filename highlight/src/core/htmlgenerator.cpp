@@ -64,10 +64,10 @@ namespace highlight
 		{
 			if ( includeStyleDef )
 			{
-				os << "<style type=\"text/css\">\n<!--\n";
+				os << "<style type=\"text/css\">\n";
 				os << getStyleDefinition();
 				os << CodeGenerator::readUserStyleDef();
-				os << "//-->\n</style>\n";
+				os << "</style>\n";
 			}
 			else
 			{
@@ -98,7 +98,7 @@ namespace highlight
 
 	void HtmlGenerator::printBody()
 	{
-		if ( !fragmentOutput || enclosePreTag )
+		if ( (!orderedList && !fragmentOutput) || enclosePreTag )
 		{
 			if ( !useInlineCSS )
 			{
@@ -125,13 +125,13 @@ namespace highlight
                                  <<";\">";
 			}
 		}
-		if ( showLineNumbers && orderedList ) *out << "<ol>";
+		if ( showLineNumbers && orderedList ) *out << "<ol>\n";
 
 		processRootState();
 
-		if ( showLineNumbers && orderedList ) *out << "\n</ol>";
+		if ( showLineNumbers && orderedList ) *out << "</ol>";
 
-		if ( !fragmentOutput || enclosePreTag )  *out << "</pre>";
+		if ( (!orderedList && !fragmentOutput)  || enclosePreTag )  *out << "</pre>";
 	}
 
 
@@ -222,7 +222,8 @@ namespace highlight
 			<< ( docStyle.getBgColour().getGreen ( HTML ) )
 			<< ( docStyle.getBgColour().getBlue ( HTML ) )
 			<< "; }\n";
-			os << "pre."<<cssClassName<<"\t{ color:#"
+			os << (orderedList ? "li" : "pre");
+			os << "."<<cssClassName<<"\t{ color:#"
 			<< ( docStyle.getDefaultStyle().getColour().getRed ( HTML ) )
 			<< ( docStyle.getDefaultStyle().getColour().getGreen ( HTML ) )
 			<< ( docStyle.getDefaultStyle().getColour().getBlue ( HTML ) )
@@ -232,13 +233,14 @@ namespace highlight
 			<< ( docStyle.getBgColour().getBlue ( HTML ) )
 			<< "; font-size:" << this->getBaseFontSize();
 
-                        os << "pt; font-family:"<<((quoteFont)?"'":"") << getBaseFont() << ((quoteFont)?"'":"")<<";}\n";
-
+                        os << "pt; font-family:"<<((quoteFont)?"'":"") << getBaseFont() << ((quoteFont)?"'":"")
+			   << (orderedList? "; white-space: pre":"") << ";}\n";
+/*
 			if ( orderedList )
 			{
                                 os << "li."<<cssClassName<<"\t{ margin-bottom:-"<<getBaseFontSize() <<"pt; }\n";
 			}
-
+*/
 			os << getAttributes ( STY_NAME_NUM, docStyle.getNumberStyle() )
 			<< getAttributes ( STY_NAME_ESC, docStyle.getEscapeCharStyle() )
 			<< getAttributes ( STY_NAME_STR, docStyle.getStringStyle() )
@@ -287,13 +289,8 @@ namespace highlight
 
 	string HtmlGenerator::getNewLine()
 	{
-
 		string nlStr;
-
-		if ( showLineNumbers && orderedList ) nlStr +="</li>";
-		/// set wrapping arrow if previous line was wrapped
-		//else if (preFormatter.isWrappedLine(lineNumber-1)) nlStr += "&crarr;";
-
+		if ( showLineNumbers && orderedList ) nlStr +="</div></li>";
 		if (printNewLines) nlStr+="\n";
 		return nlStr;
 	}
@@ -312,11 +309,11 @@ namespace highlight
 			{
 				if ( useInlineCSS )
 				{
-					numberPrefix<<"<li style=\""<<getAttributes ( "", docStyle.getLineStyle() ) <<"\">";
+					numberPrefix<<"<li style=\""<<getAttributes ( "", docStyle.getLineStyle() ) <<"\"><div>";
 				}
 				else
 				{
-					numberPrefix<<"<li class=\""<<cssClassName<<"\">";
+					numberPrefix<<"<li class=\""<<cssClassName<<"\"><div>";
 				}
 				// Opera 8 ignores empty list items -> add &nbsp;
 				if ( line.empty() ) numberPrefix<<"&nbsp;";
@@ -366,11 +363,10 @@ namespace highlight
 	string HtmlGenerator::getHeaderStart ( const string &title )
 	{
 		ostringstream header;
-		header<<  "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">"
-		<< "\n<html>\n<head>\n";
+		header<<  "<!DOCTYPE html>\n<html>\n<head>\n";
 		if ( encodingDefined() )
 		{
-			header << "<meta http-equiv=\"content-type\" content=\"text/html; charset="
+			header << "<meta charset=\""
 			<< encoding
 			<< "\">\n";
 		}
@@ -472,6 +468,17 @@ namespace highlight
 	string  HtmlGenerator::getMetaInfoCloseTag()
 	{
 		return "</span>";
+	}
+	
+	void HtmlGenerator::setHTMLOrderedList ( bool b ) { 
+		orderedList = b; 
+		//spacer = b ? "&nbsp;": " ";
+		//maskWs = b;
+		
+		if (b && !preFormatter.getReplaceTabs()) {
+		      preFormatter.setReplaceTabs ( true );
+		      preFormatter.setNumberSpaces ( 4 );
+		}
 	}
 
 }

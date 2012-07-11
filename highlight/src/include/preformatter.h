@@ -105,6 +105,11 @@ namespace highlight
 			{
 				return wrapLines || replaceTabs;
 			}
+			
+			bool getReplaceTabs() 
+			{ 
+				return replaceTabs; 
+			}
 
 			/**
 			  reset preformatting state to use the object with new input data

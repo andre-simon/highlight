@@ -25,8 +25,8 @@ CONTENT
 
 3. CONFIGURATION
    3.1 FILE FORMAT
-   3.2 REGULAR EXPRESSIONS
-   3.3 LANGUAGE DEFINITIONS
+   3.2 LANGUAGE DEFINITIONS 
+   3.3 REGULAR EXPRESSIONS
    3.4 THEME DEFINITIONS
    3.5 KEYWORD GROUPS
    3.6 PLUG-INS
@@ -57,9 +57,9 @@ Language definitions and colour themes are customizable.
 -------------------------------------------------------------------------------
 
 Highlight was designed to offer a flexible but easy to use syntax highlighter
-for several output formats. Instead of hardcoded syntax or colouring
-information, all relevant data is stored in configuration scripts. These
-scripts may be altered or enhanced with plug-in scripts.
+for several output formats. No syntax or colouring information is hardcoded,
+instead all relevant data is stored in configuration scripts. These Lua scripts
+may be altered or enhanced with plug-in scripts.
 
 
 1.2 FEATURE LIST
@@ -70,11 +70,11 @@ scripts may be altered or enhanced with plug-in scripts.
 * coloured output in HTML, XHTML 1.1, RTF, TeX, LaTeX, SVG, BBCode and terminal
   escape sequences
 * supports referenced stylesheet files for HTML, LaTeX, TeX or SVG output
+* configuration files are Lua scripts
+* supports plug-in scripts to tweak language definitions and themes
 * syntax elements are defined as regular expressions or plain string lists
 * customizable keyword groups
 * recognition of nested languages within a file
-* configuration files are Lua scripts
-* supports plug-in scripts to tweak language definitions and themes
 * reformatting and indentation of C, C++, C# and Java source code
 * wrapping of long lines
 * configurable output of line numbers
@@ -84,8 +84,8 @@ scripts may be altered or enhanced with plug-in scripts.
 -------------------------------------------------------------------------------
 
 Please see README_LANGLIST for the current set of supported languages.
-You may also run "highlight --list-langs" to get a list of supported file
-extensions.
+You may also run "highlight --list-langs" to get a list of supported languages
+and the associated file extensions.
 
 
 2. USAGE AND OPTIONS
@@ -94,16 +94,16 @@ extensions.
 2.1 QUICK INTRODUCTION
 -------------------------------------------------------------------------------
 
-The following examples show how to produce a highlighted C++ file, using an
-input file called main.cpp:
+The following examples show how to produce a highlighted C++ file, using 
+main.cpp as input file:
 
 - Generate HTML:
   highlight -i main.cpp -o main.cpp.html
   highlight < main.cpp > main.cpp.html --syntax cpp
 
   You will find the HTML file and highlight.css in the working directory.
-  If you use IO redirection, you must define the programming language with
-  --syntax.
+  If you use IO redirection (see 2nd example), you must define the programming
+  language using --syntax.
 
 - Generate HTML with embedded CSS definitions and line numbers:
   highlight -i main.cpp -o main.cpp.html --include-style --line-numbers
@@ -119,7 +119,7 @@ input file called main.cpp:
   highlight --out-format=latex -i main.cpp -o main.cpp.tex
 
   The following output formats may be defined with --out-format:
-  html:     HTML 4.01
+  html:     HTML5
   xhtml:    XHTML 1.1
   tex:      Plain TeX
   latex:    LaTeX
@@ -132,7 +132,7 @@ input file called main.cpp:
   Default output is HTML if no other format is specified.
 
 - Customize font settings:
-  highlight --syntax ada --out-format=xhtml --font-size 12 --font  Consolas,\'Courier\ New\'
+  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
   highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Define an output directory:
@@ -144,7 +144,7 @@ See "highlight --help" or "man highlight" for more details.
 2.2 CLI OPTIONS
 -------------------------------------------------------------------------------
 
-The command line version of highlight offers following options:
+The command line version of highlight offers the following options:
 
 USAGE: highlight [OPTIONS]... [FILES]...
 
@@ -275,8 +275,8 @@ If no input or output file name is defined by --input and --output options,
 highlight will use stdin and stdout for file processing.
 
 If no input filename is defined by --input or given at the prompt, highlight is
-not able to determine the language type by means of the file extension (but
-some scripting languages are figured out by the shebang in the first input
+not able to determine the language type by means of the file extension (except
+some scripting languages which are figured out by the shebang in the first input
 line). In this case you have to pass highlight the given langage with --syntax
 (this should be the file suffix of the source file in most cases).
 Example: If you want to convert a Python file, highlight needs to load the
@@ -289,13 +289,12 @@ highlight < test.py --syntax py       # --syntax option necessary
 cat test.py | highlight --syntax py
 
 If there exist multiple suffixes (like C, cc, cpp, h for C++ - files),
-you assign them to the matching language definition in the file
-$CONF_DIR/filetypes.conf.
+they are mapped to al language definition in $CONF_DIR/filetypes.conf.
 
 Highlight enters the batch processing mode if multiple input files are defined
 or if --batch-recursive is set.
-In batch mode, highlight will save the generated files with the original
-filename, appending the extension of the chosen output type.
+In batch mode, highlight will save the generated files using the original
+filename, and appending the extension of the chosen output type.
 If files in the input directories happen to share the same name, the output
 files will be prefixed with their source path name.
 The --out-dir option is recommended in batch mode. Use --quiet to improve
@@ -409,22 +408,27 @@ The inc_luatex definition is a Lua language definition with TeX line comments.
 Note that the nested code section has to end with the ending delimiter defined
 in the host language definition.
 
-
-2.7 TIPS AND TRICKS
--------------------------------------------------------------------------------
-
-Test new configuration scripts:
--------------------------------
+Test new configuration scripts
+------------------------------
 
 The option --config-file helps to test new config files before installing them.
 The given file must be a lang or theme file.
 
 highlight --config-file xxx.lang --config-file yyy.theme -I
 
-Debug language definitions:
+Debug language definitions
 --------------------------
 
 Use --verbose to display the Lua and syntax data.
+
+Remove an UTF8 BOM:
+-------------------
+
+Use --validate-input to get rid of UTF8 byte order marks.
+
+
+2.7 TIPS AND TRICKS
+-------------------------------------------------------------------------------
 
 Modify HTML line number formatting:
 -----------------------------------
@@ -470,11 +474,6 @@ ol li:nth-child(10n) {
   color: #ffff00;
 }
 
-Remove an UTF8 BOM:
--------------------
-
-Use --validate-input to get rid of the UTF8 byte order mark.
-
 
 3. CONFIGURATION
 -------------------------------------------------------------------------------
@@ -482,8 +481,11 @@ Use --validate-input to get rid of the UTF8 byte order mark.
 3.1 FILE FORMAT
 -------------------------------------------------------------------------------
 
-The configuration files are Lua scripts. These constructs are sufficient to
-edit the scripts:
+Configuration files are Lua scripts. 
+Please refer to http://www.lua.org/manual/5.1/manual.html for more details
+about the Lua syntax.
+
+These constructs are sufficient to edit the scripts:
 
 Variable assigment:
 name = value
@@ -504,16 +506,10 @@ Arrays:
 array = { first=1, second="2", 3, { 4,5 } }
 Arrays may contain variables and can be nested.
 
-Please refer to http://www.lua.org/manual/5.1/manual.html for more details
-about the Lua syntax.
-
-3.2 REGULAR EXPRESSIONS
--------------------------------------------------------------------------------
-
-Please see README_REGEX for the supported regex constructs.
 
 
-3.3 LANGUAGE DEFINITIONS
+
+3.2 LANGUAGE DEFINITIONS
 -------------------------------------------------------------------------------
 
 A language definition describes all elements of a programming language which
@@ -550,8 +546,8 @@ Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, RawPrefix? }
 
   Delimiter:      String, regular expression which describes string delimiters
   DelimiterPairs: List, includes open and close delimiters if not equal (regex),
-			includes optional Raw flag as boolean which marks
-			delimiter pair to contain a raw string
+			      includes optional Raw flag as boolean which marks
+			      delimiter pair to contain a raw string
   Escape:         String, regular expression of escape sequences (optional)
   RawPrefix:      String, defines raw string indicator (optional)
 
@@ -575,7 +571,7 @@ Digits:            String, Regular expression which defines digits (optional)
 Identifiers:       String, Regular expression which defines identifiers
                    (optional)
 
-Operators:         String,Regular expression which defines operators
+Operators:         String, Regular expression which defines operators
 
 EnableIndentation: Boolean, set true if syntax may be reformatted and indented
 
@@ -626,7 +622,7 @@ OnStateChange(oldState, newState, token, kwGroupID)
   Parameters: oldState:  old state
               newState:  intended new state
               token:     the current token which triggered
-	                 the new state
+	                     the new state
               kwGroupID: if newState is HL_KEYWORD, the parameter
                          contains the keyword group ID
   Returns:    Correct state to continue
@@ -680,6 +676,12 @@ PreProcessor = {
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~]]
 
 EnableIndentation=true
+
+
+3.3 REGULAR EXPRESSIONS
+-------------------------------------------------------------------------------
+
+Please see README_REGEX for the supported regex constructs.
 
 
 3.4 THEME DEFINITIONS
@@ -842,9 +844,6 @@ end
 
 -- function to update theme definition
 function themeUpdate(desc)
-  if desc=="Kwrite Editor" then
-    Canvas={ Colour="#E0EAEE" }
-  end
   table.insert(Keywords, {Colour= "#ff0000", Bold=true})
 end
 
@@ -883,10 +882,9 @@ the GUI's file open filter.
 4.1 SAMPLE SCRIPTS
 -------------------------------------------------------------------------------
 
-See the /examples subdirectory in the highlight source directory for some
-example scripts in PHP, Perl and Python  which invoke highlight and retrieve
-its output as string. These scripts may be used to develop plug-ins for other
-applications.
+See the examples subdirectory in the highlight package for some scripts in PHP,
+Perl and Python  which invoke highlight and retrieve its output as string.
+These scripts may be used as reference to develop plug-ins for other apps.
 
 4.2 SWIG INTERFACE
 -------------------------------------------------------------------------------
@@ -899,8 +897,8 @@ programming reference.
 4.3 THIRD PARTY SCRIPTS AND PLUG-INS
 -------------------------------------------------------------------------------
 
-See the /examples/web_plugins subdirectory in the highlight installation for
-some plugins which integrate highlight in Wiki and blogging software:
+See the /examples/web_plugins subdirectory in the highlight package for
+some plugins which integrate highlight in Wiki and Blogging software:
 
 -DokuWiki
 -MovableType
@@ -1001,7 +999,6 @@ http://www.andre-simon.de/
 
 http://wiki.andre-simon.de/
 Because of repeated spamming abuse, you have to login to edit pages.
-Wiki login: User "user", Password "h1gHL1te"
 
 sf.net project with SVN repository, download mirror, bug tracker, help forum:
 http://sourceforge.net/projects/syntaxhighlight/

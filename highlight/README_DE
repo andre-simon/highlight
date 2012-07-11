@@ -25,8 +25,8 @@ INHALT
 
 3. KONFIGURATION
    3.1 DATEIFORMAT
-   3.2 REGULAERE AUSDRUECKE
-   3.3 SPRACHDEFINITIONEN
+   3.2 SPRACHDEFINITIONEN
+   3.3 REGULAERE AUSDRUECKE
    3.4 FARBDEFINITIONEN
    3.5 SCHLUESSELWORTGRUPPEN
    3.6 PLUG-INS
@@ -59,8 +59,8 @@ Sprachdefinitionen und Farbstile sind konfigurierbar.
 Highlight wurde mit dem Ziel entworfen, einen flexiblen und einfach zu
 bedienenden Syntaxhighlighter fuer mehrere Ausgabeformate anzubieten.
 Statt hartkodierter Sprachbeschreibungen und Farbschemata sind alle wichtigen
-Informationen in Konfigurationsskripten enthalten. Diese Skripte koennen mit
-Plug-Ins angepasst und erweitert werden.
+Informationen in Konfigurationsskripten enthalten. Diese Lua-Skripte koennen
+mit Plug-Ins angepasst und erweitert werden.
 
 
 1.2 FUNKTIONSLISTE
@@ -72,12 +72,12 @@ Plug-Ins angepasst und erweitert werden.
   Escapesequenzen
 * Speichern von Stylesheets wahlweise in separater Datei oder innerhalb der
   Ausgabedatei (HTML, LaTeX, TeX, SVG)
+* Alle Konfigurationsdateien sind Lua-Skripte
+* Unterstuetzt Plug-In Skripte zur Anpassung von Sprachdefinitionen und Themes
 * Syntax-Elemente werden als regelaere Ausdruecke oder als Stringlisten
   beschrieben
 * Erweiterbare Schluesselwort-Gruppen
 * Erkennung mehrerer Sprachen innerhalb einer Datei
-* Alle Konfigurationsdateien sind Lua-Skripte
-* Unterstuetzt Plug-In Skripte zur Anpassung von Sprachdefinitionen und Themes
 * Neuformatierung und Einrueckung von C, C++, C# und Java Code
 * Umbrechen von langen Zeilen
 * Anpassbare Ausgabe von Zeilennummern
@@ -87,8 +87,8 @@ Plug-Ins angepasst und erweitert werden.
 -------------------------------------------------------------------------------
 
 Die Liste aller unterstuetzten Sprachen befindet sich in README_LANGLIST.
-Das Kommando "highlight --list-langs" zeigt eine Liste aller Sprachen und
-Dateiendungen.
+Das Kommando "highlight --list-langs" zeigt ebenfalls eine Liste aller Sprachen 
+und den damit verknuepften Dateiendungen.
 
 
 2. GEBRAUCH UND OPTIONEN
@@ -105,8 +105,8 @@ namens main.cpp erzeugt:
   highlight < main.cpp > main.cpp.html --syntax cpp
 
   Sie werden die HTML-Datei und die CSS-Datei highlight.css im aktuellen
-  Verzeichnis finden. Falls Sie Eingabe-Umleitung verwenden, geben Sie den Typ
-  der Programmiersprache mit --syntax an.
+  Verzeichnis finden. Falls Sie Eingabe-Umleitung verwenden (siehe 2. Beispiel),
+  geben Sie den Typ der Programmiersprache mit --syntax an.
 
 - HTML mit eingebetteter CSS Definition und Zeilennummerierung ausgeben:
   highlight -i main.cpp -o main.cpp.html --include-style --line-numbers
@@ -122,7 +122,7 @@ namens main.cpp erzeugt:
   highlight --latex -i main.cpp -o main.cpp.tex
 
   Folgende Ausgabeformate können mit --out-format bestimmt werden:
-  html:     HTML 4.01
+  html:     HTML5
   xhtml:    XHTML 1.1
   tex:      Plain TeX
   latex:    LaTeX
@@ -136,7 +136,7 @@ namens main.cpp erzeugt:
   bestimmt wurde.
 
 - Font und Schriftgroesse anpassen:
-  highlight --syntax ada --out-format=xhtml --font-size 12 --font Consolas,\'Courier\ New\'
+  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
   highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Ausgabeverzeichnis definieren:
@@ -266,9 +266,9 @@ GNU source-highlight compatibility options:
 2.3 GUI OPTIONEN
 -------------------------------------------------------------------------------
 
-Die Graphische Oberflaeche bietet eine Teilmenge der CLI-Version. Sie enthaelt
+Die Graphische Oberflaeche bietet eine Teilmenge der CLI-Funktionen. Sie enthaelt
 eine dynamische Vorschau der sichtbaren Ausgabe. Auf der Projekt-Webseite finden
-Sie Screenshots und Animationen.
+Sie Screenshots und Flash-Animationen.
 
 
 2.4 EIN- UND AUSGABE
@@ -298,8 +298,8 @@ $CONF_DIR/filetypes.conf einer Sprachdefinition zugewiesen.
 
 Wenn mehrere Eingabedateien an Highlight uebergeben werden oder --batch-recursive
 gesetzt ist, wechselt das Tool in den Batch-Modus. In diesem Modus werden die
-Ausgabedateien unter dem Namen der Eingabedateien gespeichert, lediglich die
-Dateierweiterung des gewaehlten Ausgabeformats wird angehangen.
+Ausgabedateien unter dem Namen der Eingabedateien gespeichert, zusaetzlich wird
+die Dateierweiterung des gewaehlten Ausgabeformats angehangen.
 Sollte es in den Eingabeverzeichnissen Dateien mit identischem Namen geben, so
 werden diese Ausgabedateien mit ihrem Quellverzeichnis als Praefix ausgegeben.
 Die --outdir Option ist im Batch Modus besonders nuetzlich. In Skripten sollte
@@ -421,10 +421,6 @@ highlight luatex.tex --latex --start-nested=inc_luatex
 
 Die inc_luatex Definition ist eine Lua-Beschreibung mit TeX Kommentaren.
 
-
-2.7 TIPS UND TRICKS
--------------------------------------------------------------------------------
-
 Neue Konfigurationsskripte testen:
 ----------------------------------
 
@@ -437,6 +433,16 @@ Sprachdefinitionen debuggen:
 ----------------------------
 
 Benutzen Sie --verbose, um Lua- und Syntax-Daten anzuzeigen.
+
+UTF8 BOM entfernen:
+-------------------
+
+Geben Sie --validate-input an, um das UTF8 Byte Order Mark (Startsequenz) zu
+entfernen.
+
+
+2.7 TIPS UND TRICKS
+-------------------------------------------------------------------------------
 
 Anpassen der HTML-Zeilennummerierung:
 -------------------------------------
@@ -483,12 +489,6 @@ ol li:nth-child(10n) {
   color: #ffff00;
 }
 
-UTF8 BOM entfernen:
--------------------
-
-Geben Sie --validate-input an, um das UTF8 Byte Order Mark (Startsequenz) zu
-entfernen.
-
 
 3. KONFIGURATION
 -------------------------------------------------------------------------------
@@ -496,8 +496,12 @@ entfernen.
 3.1 DATEIFORMAT
 -------------------------------------------------------------------------------
 
-Die Konfigurationsdateien sind Lua Skripte. Folgende Syntax-Elemente genuegen,
-um die Skripte anzupassen:
+Die Konfigurationsdateien sind Lua Skripte. Deutsche Einfuehrung in die Syntax:
+http://www.fh-wedel.de/~si/seminare/ws09/Ausarbeitung/09.lua/lua1.htm
+Das vollstaendige Lua-Handbuch befindet sich hier:
+http://www.lua.org/manual/5.1/manual.html
+
+Folgende Syntax-Elemente genuegen, um die Skripte anzupassen:
 
 Wertzuweisung an Variablen:
 name = value
@@ -519,20 +523,8 @@ Arrays:
 array = { first=1, second="2", 3, { 4,5 } }
 Arrays koennen Variablen enthalten und verschachtelt werden.
 
-Das vollstaendige Lua-Handbuch befindet sich hier:
-http://www.lua.org/manual/5.1/manual.html
 
-Deutsche Einfuehrung:
-http://www.fh-wedel.de/~si/seminare/ws09/Ausarbeitung/09.lua/lua1.htm
-
-
-3.2 REGULAERE AUSDRUECKE
--------------------------------------------------------------------------------
-
-Die Datei README_REGEX beschreibt alle unterstuetzten Ausdruecke.
-
-
-3.3 SPRACHDEFINITIONEN
+3.2 SPRACHDEFINITIONEN
 -------------------------------------------------------------------------------
 
 Eine Sprachdefinition beschreibt die Elemente einer Programmiersprache, die
@@ -556,9 +548,9 @@ Keywords = { Id, List|Regex, Group? }
   List:  Liste, Auflistung von Schluesselwoertern
   Regex: String, Regulaerer Ausdruck
   Group: Integer, Capturing Group ID der Regex, bestimmt den Teil des gefundenen
-	Ausdrucks, der als Schluesselwort hervorgehoben werden soll (optional,
-	wenn nicht gesetzt wird der Match mit der hoechsten Group-ID zurueck-
-	gegeben (gezaehlt wird von links nach rechts))
+         Ausdrucks, der als Schluesselwort hervorgehoben werden soll (optional,
+	     wenn nicht gesetzt wird der Match mit der hoechsten Group-ID zurueck-
+	     gegeben (gezaehlt wird von links nach rechts))
 
 
 Comments = { {Block, Nested?, Delimiter} }
@@ -566,15 +558,15 @@ Comments = { {Block, Nested?, Delimiter} }
   Block:     Boolean, true wenn der Kommentar ein Blockkommentar ist
   Nested:    Boolean, true wenn der Blockkommentar verschachtelt werden darf (optional)
   Delimiter: Liste, enthaelt Regex der oeffnenden Begrenzer (Zeilenkommentar) oder
-	    Regex des oeffnenden und des schliessenden Begrenzers (Blockkommentar)
+	         Regex des oeffnenden und des schliessenden Begrenzers (Blockkommentar)
 
 
 Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, RawPrefix? }
 
   Delimiter:      String, Regulaerer Ausdruck der Begrenzer
   DelimiterPairs: Liste, enthaelt Ausdruecke der oeffnenden und der schliessenden
-		  Begrenzer wenn diese nicht gleich sind und optional ein Raw-
-		  String Flag
+		          Begrenzer wenn diese nicht gleich sind und optional ein Raw-
+		          String Flag
   Escape:         String, Regulaerer Ausdruck der Escapsesequenzen (optional)
   RawPrefix:      String, Definiert Raw String Prefix (optional)
 
@@ -706,6 +698,12 @@ PreProcessor = {
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~]]
 
 EnableIndentation=true
+
+
+3.3 REGULAERE AUSDRUECKE
+-------------------------------------------------------------------------------
+
+Die Datei README_REGEX beschreibt alle unterstuetzten Ausdruecke.
 
 
 3.4 FARBDEFINITIONEN
@@ -868,9 +866,6 @@ end
 
 -- function to update theme definition
 function themeUpdate(desc)
-  if desc=="Kwrite Editor" then
-    Canvas={ Colour="#E0EAEE" }
-  end
   table.insert(Keywords, {Colour= "#ff0000", Bold=true})
 end
 
@@ -1026,7 +1021,6 @@ http://www.andre-simon.de
 http://wiki.andre-simon.de/
 
 Wegen wiederholtem Spamming ist das Wiki passwortgeschuetzt.
-Wiki login: User "user", Password "h1gHL1te"
 
 sf.net Projekt mit SVN Repository, Download Mirror, Bugtracker, Foren:
 http://sourceforge.net/projects/syntaxhighlight/

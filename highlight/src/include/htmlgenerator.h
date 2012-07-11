@@ -82,7 +82,7 @@ namespace highlight
 			/**
 			  \param  b if true line numbers should be replaced by list items
 			*/
-			void setHTMLOrderedList ( bool b ) { orderedList = b; }
+			void setHTMLOrderedList ( bool b ) ;
 
 			/**
 			  \param  b if true CSS formatting will be inserted into each tag
@@ -97,12 +97,13 @@ namespace highlight
 			/**
 			  \param  b if true spaces will be replaced by &nbsp;
 			*/
+			/*
 			void setHTMLUseNonBreakingSpace ( bool b ) { 
 			  if(b){
 			  	spacer = "&nbsp;"; //indent Problem bei <ol> und FIrefox
 				maskWs=true;
 			  }
-			}
+			}*/
 
 			/**
 			  \param name CSS Class name

@@ -119,8 +119,6 @@ AddKeyword: function
 OnStateChange: function
 Decorate: function
 
-
-
 IMPORTANT: Functions will only be executed if they are defined as local
 functions within the lang chunk function referenced in the Plugins array. 
 They will be ignored when defined elsewhere in the plug-in script.
@@ -338,6 +336,7 @@ Plugins={
   { Type="theme", Chunk=themeUpdate },
 }
 
+
 5. EXAMPLES
 -------------------------------------------------------------------------------
 
@@ -368,7 +367,8 @@ ctags_html_tooltips.lua
 Description: Add tooltips based on a ctags file (default input file: tags)
 Features:    Uses file input (defined by cli option --plug-in-read) and
              parses tags data before Decorate is called.
-		  
+
+			 
 6. PLUG-IN USAGE
 -------------------------------------------------------------------------------
 
