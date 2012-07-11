@@ -1133,16 +1133,6 @@ The result has to match the input file encoding.</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QCheckBox" name="cbHTMLNonBreakingSpace">
-                   <property name="toolTip">
-                    <string>Replace spaces by nbsp entities.</string>
-                   </property>
-                   <property name="text">
-                    <string>Use non breaking spaces</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <spacer name="verticalSpacer">
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>

@@ -136,8 +136,9 @@ namens main.cpp erzeugt:
   bestimmt wurde.
 
 - Font und Schriftgroesse anpassen:
-  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
-  highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
+<<<<<<< .mine  highlight --syntax ada --font-size 12 --font Consolas,\'Courier\ New\'
+=======  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
+>>>>>>> .theirs  highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Ausgabeverzeichnis definieren:
   highlight -d some/target/dir/ *.cpp *.h

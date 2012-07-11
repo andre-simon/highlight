@@ -132,8 +132,9 @@ main.cpp as input file:
   Default output is HTML if no other format is specified.
 
 - Customize font settings:
-  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
-  highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
+<<<<<<< .mine  highlight --syntax ada --font-size 12 --font  Consolas,\'Courier\ New\'
+=======  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
+>>>>>>> .theirs  highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Define an output directory:
   highlight -d some/target/dir/ *.cpp *.h

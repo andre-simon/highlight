@@ -125,7 +125,7 @@ namespace highlight
                                  <<";\">";
 			}
 		}
-		if ( showLineNumbers && orderedList ) *out << "<ol>\n";
+        if ( showLineNumbers && orderedList ) *out << "<ol>\n";
 
 		processRootState();
 
@@ -234,7 +234,7 @@ namespace highlight
 			<< "; font-size:" << this->getBaseFontSize();
 
                         os << "pt; font-family:"<<((quoteFont)?"'":"") << getBaseFont() << ((quoteFont)?"'":"")
-			   << (orderedList? "; white-space: pre":"") << ";}\n";
+               << (orderedList? "; white-space: pre":"") << ";}\n";
 /*
 			if ( orderedList )
 			{
@@ -308,8 +308,12 @@ namespace highlight
 			if ( orderedList )
 			{
 				if ( useInlineCSS )
-				{
-					numberPrefix<<"<li style=\""<<getAttributes ( "", docStyle.getLineStyle() ) <<"\"><div>";
+                {
+                    bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
+                    numberPrefix<<"<li style=\""<<getAttributes ( "", docStyle.getLineStyle() )
+                               << "; font-size:" << this->getBaseFontSize()
+                               << "pt; font-family:"<<((quoteFont)?"'":"") << getBaseFont() << ((quoteFont)?"'":"")
+                               <<"; white-space: pre;\"><div>";
 				}
 				else
 				{

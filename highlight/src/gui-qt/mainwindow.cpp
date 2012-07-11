@@ -600,7 +600,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
           generator->setHTMLOrderedList(ui->cbHTMLOrderedList->isChecked());
           generator->setHTMLInlineCSS(ui->cbHTMLInlineCSS->isChecked() && ui->cbHTMLInlineCSS->isEnabled());
           generator->setHTMLEnclosePreTag(ui->cbHTMLEnclosePreTags->isChecked());
-          generator->setHTMLUseNonBreakingSpace(ui->cbHTMLNonBreakingSpace->isChecked());
+        //  generator->setHTMLUseNonBreakingSpace(ui->cbHTMLNonBreakingSpace->isChecked());
 
           if (ui->leHTMLCssPrefix->text().size())
               generator->setHTMLClassName(ui->leHTMLCssPrefix->text().toStdString());
