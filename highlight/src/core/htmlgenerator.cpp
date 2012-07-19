@@ -98,7 +98,7 @@ namespace highlight
 
 	void HtmlGenerator::printBody()
 	{
-		if ( (!orderedList && !fragmentOutput) || enclosePreTag )
+        if ( (!(showLineNumbers && orderedList) && !fragmentOutput) || enclosePreTag )
 		{
 			if ( !useInlineCSS )
 			{
@@ -131,7 +131,7 @@ namespace highlight
 
 		if ( showLineNumbers && orderedList ) *out << "</ol>";
 
-		if ( (!orderedList && !fragmentOutput)  || enclosePreTag )  *out << "</pre>";
+        if ( (!(showLineNumbers && orderedList) && !fragmentOutput)  || enclosePreTag )  *out << "</pre>";
 	}
 
 
