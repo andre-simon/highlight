@@ -538,13 +538,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     if ( !options.getTagsFile().empty() )
     {
-        if ( !generator->initTagInformation ( options.getTagsFile() ) )
-        {
-            cerr << "highlight: Could not load ctags file "
-                 << options.getTagsFile()
-                 << ".\n";
-            return EXIT_FAILURE;
-        }
+            cerr << "highlight: ctags option was removed, use the ctags_html_tooltips plug-in instead\n";        
     }
 
     string outDirectory = options.getOutDirectory();

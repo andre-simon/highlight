@@ -2,7 +2,7 @@
 Sample plugin file for highlight 3.9
 ]]
 
-Description="Add developer.gnome.org reference links to HTML, LeTeX and RTF output of C++ GTK code"
+Description="Add developer.gnome.org reference links to HTML, LeTeX, RTF and ODT output of C++ GTK code"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -14,12 +14,14 @@ function syntaxUpdate(desc)
   function getURL(token)
      url='http://developer.gnome.org/gtk/2.24/'..token.. '.html'
      
-     if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+      if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
         return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'
-     elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
+      elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
 	return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
 	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+      elseif (HL_OUTPUT == HL_FORMAT_ODT) then
+	return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
      end
    end
 

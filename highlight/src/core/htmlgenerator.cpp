@@ -350,7 +350,6 @@ namespace highlight
 				{
 					os << lineNo;
 				} else {
-					//for some reason, this is neccesary.
 					os << "";
 				}
 
@@ -455,7 +454,7 @@ namespace highlight
 	{
 		return "</span>";
 	}
-
+/*
 	string  HtmlGenerator::getMetaInfoOpenTag ( const TagInfo& info )
 	{
 		ostringstream tagStream;
@@ -469,10 +468,11 @@ namespace highlight
 		tagStream << "\">";
 		return tagStream.str();
 	}
+	
 	string  HtmlGenerator::getMetaInfoCloseTag()
 	{
 		return "</span>";
-	}
+	}*/
 	
 	void HtmlGenerator::setHTMLOrderedList ( bool b ) { 
 		orderedList = b; 

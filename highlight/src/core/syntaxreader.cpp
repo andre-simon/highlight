@@ -195,6 +195,7 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
 	ls["HL_FORMAT_HTML32"]=HTML32;
 	ls["HL_FORMAT_SVG"]=SVG;
 	ls["HL_FORMAT_BBCODE"]=BBCODE;
+	ls["HL_FORMAT_ODT"]=ODTFLAT;
 	
 }
 

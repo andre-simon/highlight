@@ -37,6 +37,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "texgenerator.h"
 #include "svggenerator.h"
 #include "bbcodegenerator.h"
+#include "odtgenerator.h"
 #include "re/Matcher.h"
 #include "astyle/astyle.h"
 #include "astyle/ASStreamIterator.h"
@@ -90,6 +91,9 @@ namespace highlight
 			case BBCODE:
 				generator = new BBCodeGenerator();
 				break;
+			case ODTFLAT:
+				generator = new ODTGenerator();
+				break;
 #if !defined (QT)
 			case ANSI:
 				generator = new AnsiGenerator();
@@ -130,7 +134,7 @@ namespace highlight
 			formattingPossible ( false ),
 			validateInput ( false ),
 			numberWrappedLines ( true ),	//until now, wrapped lines were always numbered, so this remains the default.
-			tagsEnabled ( false ),
+			//tagsEnabled ( false ),
 			noTrailingNewLine(false),
 			keywordCase ( StringTools::CASE_UNCHANGED ),
 			eolDelimiter ('\n'),
@@ -282,6 +286,9 @@ namespace highlight
 				break;
 			case TEX:
 				return "tt";
+				break;
+			case ODTFLAT:
+				return "FreeMono";
 				break;
 			default:
 				return "Courier New";
@@ -576,11 +583,11 @@ namespace highlight
 		}
 	}
 
-	void CodeGenerator::printMaskedToken ( bool addMetaInfo, bool flushWhiteSpace,
+	void CodeGenerator::printMaskedToken ( /*bool addMetaInfo,*/ bool flushWhiteSpace,
 	                                       StringTools::KeywordCase tcase )
 	{
 		if ( flushWhiteSpace ) flushWs();
-
+/*
 		if ( addMetaInfo && tagsEnabled ) // TODO replace ctags parser by plugin (requires file input)
 		{
 			bool insertMetaInfo=metaInfo.tagExists ( token );
@@ -591,7 +598,7 @@ namespace highlight
 			if ( insertMetaInfo ) *out<<getMetaInfoCloseTag();
 		}
 		else
-		{
+		{*/
 		      if (currentSyntax->getDecorateFct()){
 
 			  Diluculum::LuaValueList params;
@@ -615,7 +622,7 @@ namespace highlight
 			}
 		  
 			//maskString ( *out, StringTools::change_case ( token, tcase ) );
-		}
+		//}
 		token.clear();
 	}
 
@@ -735,9 +742,12 @@ namespace highlight
 
 	bool CodeGenerator::initTagInformation ( const string& ctagsPath )
 	{
+	  /*
 		if ( tagsEnabled ) return true; // load tag info once
 		tagsEnabled = metaInfo.load ( ctagsPath );
 		return tagsEnabled;
+		*/
+		return false;
 	}
 
 	bool CodeGenerator::validateInputStream()
@@ -1091,7 +1101,8 @@ namespace highlight
 					processWsState();
 					break;
 				default:
-					printMaskedToken ( true );
+					printMaskedToken ();
+					//printMaskedToken ( true );
 					break;
 			}
 		}
@@ -1125,7 +1136,8 @@ namespace highlight
 				matchRegex(line);
 			}
 
-			printMaskedToken ( false, newState!=_WS );
+			printMaskedToken ( newState!=_WS );
+			//printMaskedToken ( false, newState!=_WS );
 			newState= getCurrentState(myState);
 			switch ( newState )
 			{
@@ -1160,7 +1172,8 @@ namespace highlight
 		openKWTag ( myClassID );
 		do
 		{
-			printMaskedToken ( true, newState!=_WS,
+			//printMaskedToken ( true, newState!=_WS,
+			printMaskedToken ( newState!=_WS,
 			                   ( currentSyntax->isIgnoreCase() ) ? keywordCase : StringTools::CASE_UNCHANGED );
 			newState= getCurrentState(myState);
 			switch ( newState )
@@ -1199,7 +1212,8 @@ namespace highlight
 		openTag ( NUMBER );
 		do
 		{
-			printMaskedToken ( false, newState!=_WS );
+			//printMaskedToken ( false, newState!=_WS );
+			printMaskedToken ( newState!=_WS );
 			newState= getCurrentState(NUMBER);
 			switch ( newState )
 			{
@@ -1233,7 +1247,8 @@ namespace highlight
 		openTag ( ML_COMMENT );
 		do
 		{
-			printMaskedToken ( false, newState!=_WS );
+			//printMaskedToken ( false, newState!=_WS );
+			printMaskedToken (newState!=_WS );
 			newState= getCurrentState(ML_COMMENT);
 
 			switch ( newState )
@@ -1293,7 +1308,8 @@ namespace highlight
 		openTag ( SL_COMMENT );
 		do
 		{
-			printMaskedToken ( false, newState!=_WS );
+			//printMaskedToken ( false, newState!=_WS );
+			printMaskedToken ( newState!=_WS );
 			newState= getCurrentState(SL_COMMENT);
 
 			switch ( newState )
@@ -1337,7 +1353,8 @@ namespace highlight
 		openTag ( DIRECTIVE );
 		do
 		{
-			printMaskedToken ( false, newState!=_WS );
+			//printMaskedToken ( false, newState!=_WS );
+			printMaskedToken ( newState!=_WS );
 			newState= getCurrentState(DIRECTIVE);
 			switch ( newState )
 			{
@@ -1416,7 +1433,8 @@ namespace highlight
 			// true if last token was an escape char
 			if ( !returnedFromOtherState )
 			{
-				printMaskedToken ( false, newState!=_WS );
+			  //printMaskedToken ( false, newState!=_WS );
+				printMaskedToken (newState!=_WS );
 			}
 			returnedFromOtherState=false;
 			newState= getCurrentState(myState);
@@ -1476,7 +1494,8 @@ namespace highlight
 		openTag ( SYMBOL );
 		do
 		{
-			printMaskedToken ( false, newState!=_WS );
+			printMaskedToken ( newState!=_WS );
+			//printMaskedToken ( false, newState!=_WS );
 			newState= getCurrentState(SYMBOL);
 			switch ( newState )
 			{
@@ -1508,7 +1527,8 @@ namespace highlight
 		openTag ( ESC_CHAR );
 		do
 		{
-			printMaskedToken ( false, newState!=_WS );
+			printMaskedToken (newState!=_WS );
+			//printMaskedToken ( false, newState!=_WS );
 			newState= getCurrentState(ESC_CHAR);
 			switch ( newState )
 			{

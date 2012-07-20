@@ -197,8 +197,8 @@ namespace highlight
 			/** @return Newline string */
 			string getNewLine();
 
-			string getMetaInfoOpenTag ( const TagInfo& info );
-			string getMetaInfoCloseTag();
+			//string getMetaInfoOpenTag ( const TagInfo& info );
+			//string getMetaInfoCloseTag();
 	};
 
 }

@@ -4,7 +4,7 @@ Sample plugin file for highlight 3.9
 -- to be finished---
 ]]
 
-Description="Add scala-lang.org reference links to HTML, LaTeX or RTF output of Scala code"
+Description="Add scala-lang.org reference links to HTML, LaTeX, RTF and ODT output of Scala code"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -163,7 +163,9 @@ collection_parallel_mutable_items= Set
      elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
 	return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
-	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }\\fldrslt \\ul\\ulc0 '..token..'}}'
+	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+      elseif (HL_OUTPUT == HL_FORMAT_ODT) then
+	return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
      end
    end
 

@@ -211,6 +211,8 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 					outputType = highlight::SVG;
 				else if ( tmp == "bbcode" )
 					outputType = highlight::BBCODE;
+				else if ( tmp == "odt" )
+					outputType = highlight::ODTFLAT;
 				else
 					outputType = highlight::HTML;
 				}
@@ -614,6 +616,7 @@ string CmdLineOptions::getOutFileSuffix() const
 		case highlight::ANSI:  return ".ansi";
 		case highlight::XTERM256: return ".xterm";
 		case highlight::BBCODE: return ".bbcode";
+		case highlight::ODTFLAT: return ".fodt";
 		default:    return ".html";
 	}
 }

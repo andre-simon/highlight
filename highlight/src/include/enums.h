@@ -98,7 +98,8 @@ namespace highlight
 		XTERM256,
 		HTML32,
 		SVG,
-		BBCODE
+		BBCODE,
+		ODTFLAT
 	};
 
 }

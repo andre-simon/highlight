@@ -2,7 +2,7 @@
 Sample plugin file for highlight 3.9
 ]]
 
-Description="Add reference links to local C or C++ headers in HTML, LaTeX and RTF output. Set base_url in the plug-in script if needed."
+Description="Add reference links to local C or C++ headers in HTML, LaTeX, RTF and ODT output. Set base_url in the plug-in script if needed."
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -28,6 +28,8 @@ function syntaxUpdate(desc)
 	return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
 	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+      elseif (HL_OUTPUT == HL_FORMAT_ODT) then
+	return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
      end
    end
    

@@ -2,7 +2,7 @@
 Sample plugin file for highlight 3.9
 ]]
 
-Description="Add wxwidgets.org reference links to HTML, LaTeX or RTF output of C++ code"
+Description="Add wxwidgets.org reference links to HTML, LaTeX, RTF or ODT output of C++ code"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -21,6 +21,8 @@ function syntaxUpdate(desc)
 	return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
 	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+      elseif (HL_OUTPUT == HL_FORMAT_ODT) then
+	return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
      end
    end
 

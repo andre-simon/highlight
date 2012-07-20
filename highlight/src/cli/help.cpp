@@ -70,7 +70,7 @@ namespace Help
 		cout<<"\n";
 		cout<<" -O, --out-format=<format>      output file in given format\n";
 		cout<<"                                  <format>=[html, xhtml, latex, tex,\n";
-		cout<<"                                  rtf, ansi, xterm256, bbcode, svg]\n";
+		cout<<"                                  odt, rtf, ansi, xterm256, bbcode, svg]\n";
 		cout<<" -c, --style-outfile=<file>     name of style file or print to stdout, if\n";
 		cout<<"                                  'stdout' is given as file argument\n";
 
@@ -103,7 +103,7 @@ namespace Help
 		cout<<"                                  <case> =  [upper, lower, capitalize]\n";
 		cout<<"     --delim-cr                 set CR as end-of-line delimiter (MacOS 9)\n";
 		cout<<"     --no-trailing-nl           omit trailing newline\n";
-		cout<<"\n";
+		cout<<"\n\n";
 		cout<<"(X)HTML output options:\n";
 		cout<<"\n";
 		cout<<" -a, --anchors                  attach anchor to line numbers\n";
@@ -115,10 +115,7 @@ namespace Help
 		cout<<"     --inline-css               output CSS within each tag (verbose output)\n";
 		cout<<"     --enclose-pre              enclose fragmented output with pre tag \n";
 		cout<<"                                  (assumes -f)\n";
-		cout<<"     --ctags-file[=<file>]      read ctags file to include meta information as\n";
-		cout<<"                                  tooltips (default value: tags)\n";
-		cout<<"                                  DEPRECATED: use ctags plug-in instead\n";
-		cout<<"\n";
+		cout<<"\n\n";
 		cout<<"LaTeX output options:\n";
 		cout<<"\n";
 		cout<<" -b, --babel                    disable Babel package shorthands\n";

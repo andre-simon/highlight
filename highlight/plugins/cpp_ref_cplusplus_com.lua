@@ -2,7 +2,7 @@
 Sample plugin file for highlight 3.9
 ]]
 
-Description="Add cplusplus.com reference links to HTML, LaTeX and RTF output of C and C++ code"
+Description="Add cplusplus.com reference links to HTML, LaTeX, RTF and ODT output of C and C++ code"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -56,6 +56,8 @@ function syntaxUpdate(desc)
 	return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
 	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+      elseif (HL_OUTPUT == HL_FORMAT_ODT) then
+	return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
      end
    end
 

@@ -35,7 +35,36 @@ using namespace std;
 
 namespace highlight
 {
+  
+  	RtfGenerator::RtfGenerator()
+			: CodeGenerator ( RTF ),
+			pageSize ( "a4" ), // Default: DIN A4
+			addCharStyles ( false )
+	{
+		newLineTag = "}\\par\\pard\n\\cbpat1{";
+		spacer = " ";
 
+		// Page dimensions
+		psMap["a3"] = PageSize ( 16837,23811 );
+		psMap["a4"] = PageSize ( 11905,16837 );
+		psMap["a5"] = PageSize ( 8390,11905 );
+
+		psMap["b4"] = PageSize ( 14173,20012 );
+		psMap["b5"] = PageSize ( 9977,14173 );
+		psMap["b6"] = PageSize ( 7086,9977 );
+
+		psMap["letter"] = PageSize ( 12240,15840 );
+		psMap["legal"] = PageSize ( 12240,20163 );
+	}
+
+	RtfGenerator::~RtfGenerator()
+	{}
+
+	string RtfGenerator::getHeader()
+	{
+		return string();
+	}
+	
 	string RtfGenerator::getAttributes ( const ElementStyle & col )
 	{
 		stringstream s;
@@ -90,34 +119,7 @@ namespace highlight
 		return  s.str();
 	}
 
-	RtfGenerator::RtfGenerator()
-			: CodeGenerator ( RTF ),
-			pageSize ( "a4" ), // Default: DIN A4
-			addCharStyles ( false )
-	{
-		newLineTag = "}\\par\\pard\n\\cbpat1{";
-		spacer = " ";
 
-		// Page dimensions
-		psMap["a3"] = PageSize ( 16837,23811 );
-		psMap["a4"] = PageSize ( 11905,16837 );
-		psMap["a5"] = PageSize ( 8390,11905 );
-
-		psMap["b4"] = PageSize ( 14173,20012 );
-		psMap["b5"] = PageSize ( 9977,14173 );
-		psMap["b6"] = PageSize ( 7086,9977 );
-
-		psMap["letter"] = PageSize ( 12240,15840 );
-		psMap["legal"] = PageSize ( 12240,20163 );
-	}
-
-	RtfGenerator::~RtfGenerator()
-	{}
-
-	string RtfGenerator::getHeader()
-	{
-		return string();
-	}
 
 	void RtfGenerator::printBody()
 	{

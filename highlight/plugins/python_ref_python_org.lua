@@ -2,7 +2,7 @@
 Sample plugin file for highlight 3.9
 ]]
 
-Description="Add python.org reference links to HTML, LaTeX or RTF output of Python code"
+Description="Add python.org reference links to HTML, LaTeX, RTF and ODT output of Python code"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -23,12 +23,14 @@ function syntaxUpdate(desc)
    function getURL(token, cat)
      url='http://docs.python.org/reference/'..cat..'_stmts.html#the-'..token.. '-statement'
      
-     if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+      if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
         return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'
-     elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
+      elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
 	return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
-	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }\\fldrslt \\ul\\ulc0 '..token..'}}'
+	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+      elseif (HL_OUTPUT == HL_FORMAT_ODT) then
+	return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
      end
    end
 

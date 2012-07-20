@@ -35,7 +35,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "syntaxreader.h"
 #include "themereader.h"
-#include "ctagsreader.h"
 #include "astyle/astyle.h"
 #include "preformatter.h"
 #include "enums.h"
@@ -461,7 +460,7 @@ namespace highlight
 			SyntaxReader* currentSyntax;
 
 			/** CTags meta information */
-			CTagsReader metaInfo;
+			//CTagsReader metaInfo;
 
 			/** Tag for inserting line feeds*/
 			string newLineTag;
@@ -609,12 +608,12 @@ namespace highlight
 			   \param info tag information of current token
 			   \return opening tag
 			 */
-			virtual string getMetaInfoOpenTag ( const TagInfo& info ) {return "";}
+			//virtual string getMetaInfoOpenTag ( const TagInfo& info ) {return "";}
 
 			/** return close tag of meta information
 			   \return closing tag
 			 */
-			virtual string getMetaInfoCloseTag() {return "";}
+			//virtual string getMetaInfoCloseTag() {return "";}
 
 			/** open a new tag, set current state to s*/
 			void openTag ( State s );
@@ -671,7 +670,7 @@ namespace highlight
 			bool numberWrappedLines;
 
 			/** Flag to test if ctags information is available */
-			bool tagsEnabled;
+			//bool tagsEnabled;
 
 			/** Flag to test if trailing newline should be printed */
 			bool noTrailingNewLine;
@@ -719,11 +718,11 @@ namespace highlight
 			bool processSyntaxChangeState(State myState ); ///< process syntax change of embedded languages
 
 			/** print escaped token and clears it
-			   \param addMetaInfo set true if token may have meta information
+
 			   \param flushWhiteSpace set true if white space should be flushed
 			   \param tcase keyword case
 			*/
-			void printMaskedToken ( bool addMetaInfo = false, bool flushWhiteSpace = true,
+			void printMaskedToken ( /*bool addMetaInfo = false,*/ bool flushWhiteSpace = true,
 			                        StringTools::KeywordCase tcase = StringTools::CASE_UNCHANGED );
 
 			/** association of matched regexes and the corresponding keyword class ids*/

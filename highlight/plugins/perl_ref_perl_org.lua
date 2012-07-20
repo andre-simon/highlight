@@ -2,7 +2,7 @@
 Sample plugin file for highlight 3.9
 ]]
 
-Description="Add perldoc.perl.org reference links to HTML, LaTeX or RTF output of Perl code"
+Description="Add perldoc.perl.org reference links to HTML, LaTeX, RTF and ODT output of Perl code"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -74,7 +74,9 @@ function syntaxUpdate(desc)
      elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
 	return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
-	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }\\fldrslt \\ul\\ulc0 '..token..'}}'
+	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+      elseif (HL_OUTPUT == HL_FORMAT_ODT) then
+	return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
      end
    end
 
