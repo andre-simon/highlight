@@ -28,7 +28,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef VERSION_H
 #define VERSION_H
 
-#define HIGHLIGHT_VERSION "3.10"
+#define HIGHLIGHT_VERSION "3.10 beta"
 
 #define HIGHLIGHT_URL "http://www.andre-simon.de/"
 #define HIGHLIGHT_EMAIL "andre.simon1@gmx.de"

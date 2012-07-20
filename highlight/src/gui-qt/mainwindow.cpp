@@ -537,8 +537,9 @@ void MainWindow::on_action_About_Highlight_triggered()
      case 2: return highlight::LATEX;
      case 3: return highlight::TEX;
      case 4: return highlight::RTF;
-     case 5: return highlight::SVG;
-     case 6: return highlight::BBCODE;
+     case 5: return highlight::ODTFLAT;
+     case 6: return highlight::SVG;
+     case 7: return highlight::BBCODE;
     }
     return highlight::HTML;
 }
@@ -550,8 +551,9 @@ void MainWindow::on_action_About_Highlight_triggered()
     case 2:
     case 3: return ".tex";
     case 4: return ".rtf";
-    case 5: return ".svg";
-    case 6: return ".bbcode";
+    case 5: return ".fodt";
+    case 6: return ".svg";
+    case 7: return ".bbcode";
   }
   return ".html";
 }
@@ -972,7 +974,7 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
     case 4:
          ui->stackedSpecificOptions->setCurrentIndex(3);
          break;
-    case 5:
+    case 6:
          ui->stackedSpecificOptions->setCurrentIndex(4);
          break;
     default:
