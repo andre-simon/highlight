@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT PLUGIN MANUAL - Version 3.9    -------------------- May 2012 ---
+---  HIGHLIGHT PLUGIN MANUAL - Version 3.10   -------------------- May 2012 ---
 -------------------------------------------------------------------------------
 
 CONTENT
@@ -112,6 +112,7 @@ HL_FORMAT_ANSI: number
 HL_FORMAT_XTERM256: number
 HL_FORMAT_SVG: number
 HL_FORMAT_BBCODE: number
+HL_FORMAT_ODT: number
 
 Functions:
 
@@ -259,6 +260,7 @@ HL_FORMAT_ANSI: number
 HL_FORMAT_XTERM256: number
 HL_FORMAT_SVG: number
 HL_FORMAT_BBCODE: number
+HL_FORMAT_ODT: number
 
 
 4. STEP BY STEP
@@ -280,16 +282,16 @@ function syntaxUpdate(desc)
      -- generate the URL
      url='http://qt-project.org/doc/qt-4.8/'..string.lower(token).. '.html'
      
-	 -- embed the URL in a hyperlink according to the output format
-	 -- first HTML, then LaTeX and RTF
+     -- embed the URL in a hyperlink according to the output format
+     -- first HTML, then LaTeX and RTF
      if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
-        return '<a class="hl" target="new" href="' 
-		       .. url .. '">'.. token .. '</a>'
-	 elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
-		return '\\href{'..url..'}{'..token..'}'
+         return '<a class="hl" target="new" href="' 
+                .. url .. '">'.. token .. '</a>'
+     elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
+         return '\\href{'..url..'}{'..token..'}'
      elseif (HL_OUTPUT == HL_FORMAT_RTF) then
-		return '{{\\field{\\*\\fldinst HYPERLINK "'
-		       ..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+         return '{{\\field{\\*\\fldinst HYPERLINK "'
+                ..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
      end
    end
 
@@ -298,13 +300,13 @@ function syntaxUpdate(desc)
 
     -- we are only interested in keywords, preprocessor or default items
     if (state ~= HL_STANDARD and state ~= HL_KEYWORD and 
-	    state ~=HL_PREPROC) then
+        state ~=HL_PREPROC) then
       return
     end
 
-	-- Qt keywords start with Q, followed by an upper and a lower case letter
-	-- if this pattern applies to the token, we return the URL
-	-- if we return nothing, the token is outputted as is
+    -- Qt keywords start with Q, followed by an upper and a lower case letter
+    -- if this pattern applies to the token, we return the URL
+    -- if we return nothing, the token is outputted as is
     if string.find(token, "Q%u%l")==1 then
       return getURL(token)
     end
@@ -320,13 +322,13 @@ function themeUpdate(desc)
   -- they should have the same color as their surrounding tags
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
     Injections[#Injections+1]=
-	  "a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
+      "a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
 	  
   -- LaTeX: hyperlinks require the hyperref package, so we add this here
   -- the colorlinks and pdfborderstyle options remove ugly boxes in the output
   elseif (HL_OUTPUT==HL_FORMAT_LATEX) then
     Injections[#Injections+1]=
-	  "\\usepackage[colorlinks=false, pdfborderstyle={/S/U/W 1}]{hyperref}"
+      "\\usepackage[colorlinks=false, pdfborderstyle={/S/U/W 1}]{hyperref}"
   end
 end
 
@@ -374,7 +376,7 @@ Features:    Uses file input (defined by cli option --plug-in-read) and
 
 Command line interface:
 Use --plug-in to load a plug-in script file. This option can be applied 
-repeatedly to apply several plug-ins.
+more than once to apply several plug-ins.
 
 GUI:
 Add the plug-in scripts in the plug-in selection tab and enable them using the

@@ -427,6 +427,12 @@ Remove an UTF8 BOM:
 
 Use --validate-input to get rid of UTF8 byte order marks.
 
+Portable GUI (W32 build)
+------------------------
+
+Invoke highlight-gui.exe with the --portable switch to save its configuration
+in text files instead of the registry.
+
 
 2.7 TIPS AND TRICKS
 -------------------------------------------------------------------------------
@@ -797,61 +803,10 @@ See the PLUG-IN SCRIPT section for details.
 -------------------------------------------------------------------------------
 
 The --plug-in option receives the path of a Lua script which overrides or
-enhances the settings of theme and language definition files. Using plug-ins,
+enhances the settings of theme and language definition files. Plug-ins make
 it is possible to apply costum settings without the need to edit installed
 configuration files.
 You can apply multiple plugins by using the --plug-in option more than once.
-
-Format:
-
--- function definitions, variables etc
-
--- Plugin list:
-Plugins={
-  { Type, Chunk },
-}
-
-Type:  String, is one of ["theme", "lang"]
-Chunk: Name of Lua function
-
-If type is "theme", the chunk will applied to the colour theme.
-If type is "lang", the chunk will applied to the language definition.
-
-The chunk function will receive an optional parameter will contain a string
-with the description of the theme or language ("Description" parameter).
-The chunks are interpreted after the theme or lang file were loaded, so you
-can refer to elements defined in these files.
-
-The function AddKeyword can be invoked within a "lang" chunk.
-If OnStateChange is defined as local function within the chunk, this hook
-will become active. A predefined OnStateChange function of the language
-definition will be overriden.
-
-
-Example:
-
-Description="Add syslog and kernel log levels to C and C++ keywords"
-
--- function to update language definition with syslog levels
-function syntaxUpdate(desc)
-  if desc=="C and C++" then
-    table.insert( Keywords,
-                  { Id=5, List={"LOG_EMERG", "LOG_CRIT", "LOG_ALERT",
-                    "LOG_ERR", "LOG_WARNING","LOG_NOTICE","LOG_INFO",
-                    "LOG_DEBUG"}
-                  } )
-  end
-end
-
--- function to update theme definition
-function themeUpdate(desc)
-  table.insert(Keywords, {Colour= "#ff0000", Bold=true})
-end
-
-Plugins={
-  { Type="theme", Chunk=themeUpdate },
-  { Type="lang", Chunk=syntaxUpdate },
-}
 
 See README_PLUGINS for a detailed description.
 

@@ -11,6 +11,7 @@ Content
 5. LaTeX unicode support
 6. Lazy pointer issue under MacOS X
 7. Static linking (to run highlight as service)
+8. Known distribution issues
 
 
 1. Package structure
@@ -140,3 +141,18 @@ linkage (see src/makefile, LDFLAGS variable).
 
 If highlight cannot be run as service because of shared linkage, link
 it with the -static option (see src/makefile, LDFLAGS variable).
+
+
+8. Known distribution issues
+============================
+
+Linux Mint
+
+There is a system script called highlight which is located in a preferenced path: 
+
+mintsystem provides: /usr/local/bin/highlight
+ highlight provides: /usr/bin/highlight
+
+Calling this script with the true highlight command line options will have no effect. 
+See bug tracker items: https://bugs.launchpad.net/linuxmint/+bug/593583 and
+                       https://bugs.launchpad.net/linuxmint/+bug/815005

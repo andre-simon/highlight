@@ -281,6 +281,10 @@ namespace highlight
 		if ( !baseFont.empty() ) return baseFont;
 		switch ( outputType )
 		{
+			case HTML:
+			case XHTML:
+				return "'Courier New',monospace";
+				break;
 			case LATEX:
 				return "ttfamily";
 				break;
