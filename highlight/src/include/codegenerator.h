@@ -343,14 +343,14 @@ namespace highlight
 				\param langName name of nested language
 			*/
 			void setStartingNestedLang(const string &langName);
-			
+
 			/** \param path path of plugin input file
 			*/
 			void setPluginReadFile ( const string& path );
 
 			/** Load the Lua functions og the plug-in script
 				\param script path of the plug-in script
-				\param scriptInputFile path of the optional file to be read by the plugin 
+				\param scriptInputFile path of the optional file to be read by the plugin
 			*/
 			bool initPluginScript(const string& script);
 
@@ -381,7 +381,7 @@ namespace highlight
 			/** set HTML output enclose pre tag flag
 			 */
 			virtual void setHTMLEnclosePreTag ( bool )  {};
-			
+
 			/** set HTML output replace space by &nbsp; flag
 			 */
 			virtual void setHTMLUseNonBreakingSpace ( bool )  {};
@@ -467,6 +467,8 @@ namespace highlight
 
 			/** String that represents a white space in output */
 			string spacer;
+
+			//char inputBuffer [1024*1024];
 
 			/** file input*/
 			istream *in;
@@ -635,7 +637,7 @@ namespace highlight
 
 			/// path to embedded language definition
 			string embedLangDefPath;
-			
+
 			/// path to plugin input file
 			string pluginReadFile;
 
@@ -739,7 +741,7 @@ namespace highlight
 			bool validateInputStream();
 
 			/** load syntax description of embedded snippet's language
-			 \param embedLangDefPath path to language definition 
+			 \param embedLangDefPath path to language definition
 			  \return true if successfull */
 			bool loadEmbeddedLang(const string&embedLangDefPath);
 
@@ -749,7 +751,7 @@ namespace highlight
 			 \param kwClass keyword class ID if newState is KEYWORD
 			 */
 			State validateState(State newState, State oldState, unsigned int kwClass);
-			
+
 			/** \deprecated replace by Lua functionality */
 			bool checkSpecialCmd();
 	};

@@ -30,5 +30,10 @@ win32:LIBS += -L../.. -lhighlight
 unix:LIBS += -L.. -lhighlight
 unix:LIBS += -llua
 
+unix {
+    CONFIG += link_pkgconfig
+    PKGCONFIG += lua
+}
+
 win32:QMAKE_POST_LINK = f:/upx/upx.exe --best ../../highlight-gui.exe
 

@@ -33,10 +33,10 @@ GUI_QT_DIR=./gui-qt/
 INCLUDE_DIR=./include/
 
 # Lua paths
-LUA_CFLAGS=-I/usr/include/lua5.1
-LUA_LIBS=-llua
-#LUA_CFLAGS=$(shell pkg-config --cflags lua5.1)
-#LUA_LIBS=$(shell pkg-config --libs lua5.1)
+#LUA_CFLAGS=-I/usr/include/lua5.1
+#LUA_LIBS=-llua
+LUA_CFLAGS=$(shell pkg-config --cflags lua)
+LUA_LIBS=$(shell pkg-config --libs lua)
 
 
 # Third-Party software paths

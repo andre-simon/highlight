@@ -225,7 +225,7 @@ void HLCmdLineApp::printConfigInfo ( const string& configFile )
 }
 
 /*
- * 
+ *
  * broken:
 string HLCmdLineApp::getFileSuffix ( const string &fileName )
 {
@@ -260,7 +260,7 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, S
         string langName;
 	Diluculum::LuaValue mapEntry;
         while ((mapEntry = ls["FileMapping"][idx].value()) !=Diluculum::Nil) {
-            langName = mapEntry["Lang"].asString(); 
+            langName = mapEntry["Lang"].asString();
             if (mapEntry["Extensions"] !=Diluculum::Nil) {
                 int extIdx=1;
                 while (mapEntry["Extensions"][extIdx] !=Diluculum::Nil) {
@@ -377,7 +377,7 @@ string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFi
     string fileType = (extensions.count(lcSuffix)) ? extensions[lcSuffix] : lcSuffix ;
     if (!fileType.empty()) return fileType;
     return analyzeFile(inputFile);
-    
+
     /*if (suffix.empty()) return analyzeFile ( inputFile );
     string lcSuffix = StringTools::change_case ( suffix );
     return ( extensions.count ( lcSuffix ) ) ? extensions[lcSuffix] : lcSuffix ;*/
@@ -439,6 +439,8 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         return EXIT_FAILURE;
     }
 
+  // ios_base::sync_with_stdio(false); no effect on speed
+
     string themePath=options.getAbsThemePath().empty() ? dataDir.getThemePath ( options.getThemeName() ): options.getAbsThemePath();
 
     auto_ptr<highlight::CodeGenerator> generator ( highlight::CodeGenerator::getInstance ( options.getOutputType() ) );
@@ -485,7 +487,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->disableTrailingNL(options.disableTrailingNL());
     generator->setPluginReadFile(options.getPluginReadFilePath());
 
-    
+
     bool styleFileWanted = !options.fragmentOutput() || options.styleOutPathDefined();
 
     const  vector <string> pluginFileList=options.getPluginPaths();
@@ -538,7 +540,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     if ( !options.getTagsFile().empty() )
     {
-            cerr << "highlight: ctags option was removed, use the ctags_html_tooltips plug-in instead\n";        
+            cerr << "highlight: ctags option was removed, use the ctags_html_tooltips plug-in instead\n";
     }
 
     string outDirectory = options.getOutDirectory();

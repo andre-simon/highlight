@@ -1,5 +1,8 @@
 CHANGELOG Highlight
 
+-updated Relax NG syntax (thanks to Roger Sperberg)
+-added new oxygenated theme (thanks to Roger Sperberg)
+
 highlight 3.10 beta
 
 21.07.2012
@@ -20,7 +23,7 @@ highlight 3.9
 01.05.2012
 
 -enhanced the plug-in interface (added Decorator function and Injections property)
--added several example plug-ins which show how to add keyword links to online 
+-added several example plug-ins which show how to add keyword links to online
   references (e.g. cplusplus.com, perldoc.perl.org, qtproject_org)
 -added ctags plugin (ctags_html_tooltips.lua)
 -improved Perl and N3 definitions (thanks to Heiko Jansen)

@@ -221,7 +221,7 @@ namespace highlight
 	{
 		pluginReadFile = path;
 	}
-	
+
 	const string&  CodeGenerator::getStyleInputPath()
 	{
 		return styleInputPath;
@@ -252,12 +252,12 @@ namespace highlight
 		return validateInput;
 	}
 
-                        
+
 	void CodeGenerator::setNumberWrappedLines ( bool flag )
 	{
 		numberWrappedLines=flag;
 	}
-        
+
         bool CodeGenerator::getNumberWrappedLines() {
 		return numberWrappedLines;
 	}
@@ -430,9 +430,9 @@ namespace highlight
 		{
 			RegexElement *regexElem = currentSyntax->getRegexElements() [i];
 			auto_ptr<Matcher> matcher ( regexElem->rePattern->createMatcher ( line ) );
-
 			while ( matcher->findNextMatch() )
 			{
+			
 				groupID = ( regexElem->capturingGroup<0 ) ? matcher->getGroupNum()-1 : regexElem->capturingGroup;
 				matchBegin =  matcher->getStartingIndex ( groupID );
 				if ( matchBegin<0 ) continue;
@@ -598,7 +598,7 @@ namespace highlight
 			if ( insertMetaInfo ) *out<<getMetaInfoOpenTag ( metaInfo.getTagInfo ( token ) );
 
 			maskString ( *out, StringTools::change_case ( token, tcase ) );
-			
+
 			if ( insertMetaInfo ) *out<<getMetaInfoCloseTag();
 		}
 		else
@@ -617,14 +617,14 @@ namespace highlight
 			  if (res.size()==1){
 			    *out<<res[0].asString();
 			  } else {
-			     maskString ( *out, StringTools::change_case ( token, tcase ) ); 
+			     maskString ( *out, StringTools::change_case ( token, tcase ) );
 			  }
-			  
+
 			} else {
 
 			    maskString ( *out, StringTools::change_case ( token, tcase ) );
 			}
-		  
+
 			//maskString ( *out, StringTools::change_case ( token, tcase ) );
 		//}
 		token.clear();
@@ -826,6 +826,8 @@ namespace highlight
 		inFile=inFileName;
 		outFile=outFileName;
 		in = ( inFileName.empty() ? &cin :new ifstream ( inFileName.c_str() ) );
+
+		//in->rdbuf()->pubsetbuf(inputBuffer,sizeof(inputBuffer)); kein effekt....
 
 		if ( validateInput )
 			if ( !validateInputStream() ) error= BAD_INPUT;
