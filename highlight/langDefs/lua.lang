@@ -46,7 +46,7 @@ Comments={
   }
 }
 
-Operators=[[\(|\)|\{|\}|\[|\]|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~|\#|\\]]
+Operators=[[\(|\)|\{|\}|\[|\]|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~|\#|\\]]
 
 
 -- resolve issue with ]] close delimiter which ends comments and strings

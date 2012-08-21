@@ -31,7 +31,7 @@ NestedSections = {
   { Lang="perl", Delimiter= { [[\\perl(?:re)?newcommand\{\\\w+\}\[.*\]\{]], [[\{]] } },
   { Lang="perl", Delimiter= { [[\\perl(?:re)?newenvironment\{\w+\}\[.*\]\{]], [[\{]] } },
   { Lang="inc_luatex", Delimiter= { [[\\directlua0?.*?\{]], [[(?<!\{)\}]] } },
-  { Lang="r", Delimiter= { [[\<\<.*\>\>\=]], [[@]] } },
+  { Lang="r", Delimiter= { [[<<.*>>=]], [[@]] } },
 }
 
 Operators=[[ \{|\}|\[|\] ]]

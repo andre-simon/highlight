@@ -276,6 +276,6 @@ Comments={
   }
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|\<|\>|\!|\=|\/|\*|\+|\-]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\+|\-]]
 
---FIXME no default escchar param: regex(\\[0-7]+\\|\\x\p{XDigit}+\\|\\[abfnrtv\\'"])
+--FIXME no default escchar param: regex(\\[0-7]+\\|\\x[[:xdigit:]]+\\|\\[abfnrtv\\'"])

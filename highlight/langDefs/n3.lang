@@ -25,7 +25,7 @@ Keywords={
 Strings={
   Delimiter=[["""|"]],
   RawPrefix="r",
-  Escape=[[\\[ntvbrfa\\\?'"]|\\\d{3}|\\x\p{XDigit}{2}|\\u\p{XDigit}{4}]],
+  Escape="\\\\[ntvbrfa\\\\\\?'\"]|\\\\\\d{3}|\\\\x[[:xdigit:]]{2}|\\\\u[[:xdigit:]]{4}"
 }
 
 Comments={
@@ -34,6 +34,6 @@ Comments={
   },
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~|\|]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~|\|]]
 
 IgnoreCase=true

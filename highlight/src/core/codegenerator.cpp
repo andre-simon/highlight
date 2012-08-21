@@ -27,6 +27,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <climits>
 #include <memory>
+#include <boost/xpressive/xpressive_dynamic.hpp>
 
 #include "codegenerator.h"
 
@@ -38,10 +39,8 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "svggenerator.h"
 #include "bbcodegenerator.h"
 #include "odtgenerator.h"
-#include "re/Matcher.h"
 #include "astyle/astyle.h"
 #include "astyle/ASStreamIterator.h"
-
 
 #if !defined (QT)
 #include "ansigenerator.h"
@@ -422,33 +421,45 @@ namespace highlight
 	{
 		regexGroups.clear();
 		int matchBegin=0;
-		int matchLen=0;
 		int groupID=0;
 
 		// cycle through all regex, save the start and ending indices of matches to report them later
 		for ( unsigned int i=0; i<currentSyntax->getRegexElements().size(); i++ )
 		{
 			RegexElement *regexElem = currentSyntax->getRegexElements() [i];
+
+			 sregex_iterator cur( line.begin(), line.end(), regexElem->rex );
+			 sregex_iterator end;
+
+			for( ; cur != end; ++cur )  {
+				groupID = ( regexElem->capturingGroup<0 ) ? cur->size()-1 : regexElem->capturingGroup;
+				matchBegin =  cur->position(groupID);
+				//if ( matchBegin<0 ) continue;
+			
+				regexGroups.insert (
+				    make_pair ( matchBegin+1, ReGroup ( regexElem->open, cur->length(groupID), regexElem->kwClass, regexElem->langName ) ) );
+			    }
+			/*
 			auto_ptr<Matcher> matcher ( regexElem->rePattern->createMatcher ( line ) );
 			while ( matcher->findNextMatch() )
 			{
-			
+
 				groupID = ( regexElem->capturingGroup<0 ) ? matcher->getGroupNum()-1 : regexElem->capturingGroup;
 				matchBegin =  matcher->getStartingIndex ( groupID );
 				if ( matchBegin<0 ) continue;
 
 				matchLen = matcher->getEndingIndex ( groupID ) - matchBegin;
-				/*
+
 				            std::cerr << "\nmatchBegin="<<1+ matchBegin
 				                      << " matchLen old" << ( matcher->getGroup(matcher->getGroupNum()-1).size())
 				                      << " matchLen new" << matchLen<<" group: "<<(matcher->getGroup(matcher->getGroupNum()-1))
 				                      << " group id= "<<regexElem->capturingGroup
 							<< " lang= "<<regexElem->langName<<"\n";
 					    cerr<<"match: "<<(matcher->getGroup(matcher->getGroupNum()-1))<<" id: "<<regexElem->open<<endl;
-				*/
+
 				regexGroups.insert (
 				    make_pair ( matchBegin+1, ReGroup ( regexElem->open, matchLen, regexElem->kwClass, regexElem->langName ) ) );
-			}
+			}*/
 		}
 	}
 
@@ -1753,6 +1764,8 @@ bool CodeGenerator::initPluginScript(const string& script){
 
 bool CodeGenerator::checkSpecialCmd()
 {
+  /* TODO
+   * 
 	string noParseCmd="@highlight";
 	// if single line comment is described with regex, token is equal to line
 	// otherwise start searching after the token, which then consists of comment identifier
@@ -1763,6 +1776,14 @@ bool CodeGenerator::checkSpecialCmd()
 	{
 		string res;
 		string replaceVar;
+		string reInput=line.substr ( noParseCmd.size() +cmdPos );
+		
+		sregex_token_iterator cur( reInput.begin(), reInput.end(), regexElem->rex );
+		sregex_token_iterator end;
+
+			for( ; cur != end; ++cur )  {
+			  
+			}
 
 		auto_ptr<Pattern> reDefPattern ( Pattern::compile ( "\\$[-\\w]+" ) );
 		auto_ptr<Matcher> m ( reDefPattern->createMatcher ( line.substr ( noParseCmd.size() +cmdPos ) ) );
@@ -1824,7 +1845,7 @@ bool CodeGenerator::checkSpecialCmd()
 
 		return true; // do not parse line as comment
 	}
-
+*/
 	return false; //parse comment as usual
 }
 

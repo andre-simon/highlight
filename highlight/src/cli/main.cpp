@@ -34,9 +34,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithm>
 #include <Diluculum/LuaState.hpp>
 
-
 #include "main.h"
-#include "re/Pattern.h"
 #include "syntaxreader.h"
 
 #define MAX_LINE__WIDTH       80
@@ -55,8 +53,6 @@ void HLCmdLineApp::printVersionInfo()
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
          << "\n\n Diluculum Lua wrapper (0.5.3)"
          << "\n Copyright (C) 2005-2010 by Leandro Motta Barros"
-         << "\n\n Regex library (1.09.00)"
-         << "\n Copyright (C) 2003-2008 Jeffery Stuart <stuart at cs.unr.edu>"
          << "\n\n xterm 256 color matching functions"
          << "\n Copyright (C) 2006 Wolfgang Frisch <wf at frexx.de>"
 
@@ -181,13 +177,14 @@ void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader *lang,
 	}
 
     }
+    /*
     cerr << "\nREGEX:\n";
     highlight::RegexElement *re=NULL;
     for ( unsigned int i=0; i<lang->getRegexElements().size(); i++ )
     {
         re = lang->getRegexElements() [i];
-        cerr << "State "<<re->open<<":\t"<<re->rePattern->getPattern() <<"\n";
-    }
+        cerr << "State "<<re->open<<":\t"<<re->rex. <<"\n";
+    }*/
     cerr << "\nKEYWORDS:\n";
     highlight::KeywordMap::iterator it;
     highlight::KeywordMap keys=lang->getKeywords();
@@ -362,10 +359,12 @@ string HLCmdLineApp::analyzeFile ( const string& file )
         cin.rdbuf ( cin_bufcopy.rdbuf() );
     }
     StringMap::iterator it;
+    sregex rex;
+    smatch what;
     for ( it=scriptShebangs.begin(); it!=scriptShebangs.end();it++ )
     {
-        pair<string, int> matched = Pattern::findNthMatch ( it->first, firstLine, 0 );
-        if ( matched.second >= 0 ) return it->second;
+        rex = sregex::compile( it->first );
+        if ( regex_search( firstLine, what, rex )  ) return it->second;
     }
     return "";
 }
@@ -565,7 +564,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
                  numBadOutput=0;
 
     vector<string> badFormattedFiles, badInputFiles, badOutputFiles;
-    set<string> usedFileNames;
+    std::set<string> usedFileNames;
     string inFileName, outFilePath;
     string suffix, lastSuffix;
 

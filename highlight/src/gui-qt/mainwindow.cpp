@@ -468,13 +468,15 @@ bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap) {
     string firstLine;
     getline (inFile, firstLine);
     StringMap::iterator it;
-    /*for (it=shebangs.begin(); it!=shebangs.end();it++){
-       if (Pattern::matches(it->first, firstLine)) return it->second;
-    }*/
+
+    
+        sregex rex;
+    smatch what;
     for ( it=shebangs.begin(); it!=shebangs.end();it++ )
     {
-        pair<string, int> matched = Pattern::findNthMatch ( it->first, firstLine, 0 );
-        if ( matched.second >= 0 ) return it->second;
+      QMessageBox::warning(this, "RE", QString::fromStdString(  it->first));
+        rex = sregex::compile( it->first );
+        if ( regex_search( firstLine, what, rex )  ) return it->second;
     }
     return "";
 }
@@ -521,7 +523,6 @@ void MainWindow::on_action_About_Highlight_triggered()
                          "(C) 2006-2011 Jim Pattee <jimp03 at email.com>\n\n"
                          "Diluculum Lua wrapper\n"
 			 "(C) 2005-2010 by Leandro Motta Barros\n\n"
-                         "Regex library\n(C) 2003-2008 Jeffery Stuart <stuart at cs.unr.edu>\n\n"
                          "Built with Qt version %2\n\n"
                          "Released under the terms of the GNU GPL license.\n\n"
                          "The highlight logo is based on the image \"Alcedo Atthis\" by Lukasz Lukasik.\n"

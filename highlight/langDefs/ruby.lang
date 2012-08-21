@@ -51,7 +51,7 @@ Comments={
   }
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\.|\&|\<|\>|\!|\-|\+|\/|\*|\=|\?|\%|\|]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\.|\&|<|>|\!|\-|\+|\/|\*|\=|\?|\%|\|]]
 
 -- resolve issue with # which starts comments and extrapolation sequences in strings
 function OnStateChange(oldState, newState, token)

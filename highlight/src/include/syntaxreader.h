@@ -36,18 +36,19 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <iterator>
 #include <sstream>
 
+#include <boost/xpressive/xpressive_dynamic.hpp>
+
 #include <Diluculum/LuaState.hpp>
 #include <Diluculum/LuaVariable.hpp>
 #include <Diluculum/LuaFunction.hpp>
 
 #include "platform_fs.h"
 #include "enums.h"
-#include "re/Pattern.h"
-#include "re/Matcher.h"
 
 #define GLOBAL_INSTANCE_NAME "HL_SRInstance"
 
 using namespace std;
+using namespace boost::xpressive;
 
 namespace highlight
 {
@@ -261,7 +262,7 @@ namespace highlight
 
 			// interface for plug-ins: add keywords dynamically
 			static int luaAddKeyword (lua_State *L);
-			
+
 			// interface for plug-ins: read text file and return content string
 			//static int luaReadFile (lua_State *L);
 
@@ -285,52 +286,27 @@ namespace highlight
 	{
 		public:
 			RegexElement()
-			:open ( STANDARD ), end ( STANDARD ), rePattern ( NULL ), kwClass ( 0 ),capturingGroup ( -1 ), langName(), instanceId(instanceCnt++)
+			:open ( STANDARD ), end ( STANDARD ), kwClass ( 0 ),capturingGroup ( -1 ), langName(), instanceId(instanceCnt++)
 			{
 
 			}
 
-			RegexElement ( State oState, State eState, Pattern *re, unsigned int cID=0, int group=-1, const string& name="" ) :
-					open ( oState ), end ( eState ), rePattern ( re ), kwClass ( cID ), capturingGroup ( group ), langName(name),instanceId(instanceCnt++)
+			RegexElement ( State oState, State eState, const string&rePattern, unsigned int cID=0, int group=-1, const string& name="" ) :
+					open ( oState ), end ( eState ), kwClass ( cID ), capturingGroup ( group ), langName(name),instanceId(instanceCnt++)
 			{
-				// cerr << "new re element "<<  rePattern->getPattern() <<" open: "<<open<<" end "<<end<<"\n";
-				//cerr << "pattern:"<<rePattern->getPattern()<<"  instanceId:"<<instanceId<<"\n";
+				rex=sregex::compile(rePattern);
 			}
 
-			~RegexElement() { if ( rePattern ) delete rePattern; instanceCnt--; }
+			~RegexElement() {  instanceCnt--; }
 
 			State open, ///< opening state
 			end;  ///< closing state
-			Pattern *rePattern;          ///< regex pattern
+			sregex rex;
 			unsigned int kwClass;        ///< keyword class
 			int capturingGroup;          ///< capturing group ID
 			string langName;             ///< language name
 			static int instanceCnt;
 			int instanceId;
-
-		private:
-			RegexElement (const RegexElement& rhs){
-				// does not work because Pattern misses copy constructor
-				/*open=rhs.open;
-				end=rhs.end;
-				kwClass=rhs.kwClass;
-				capturingGroup=rhs.capturingGroup;
-				Pattern *pOrig=rePattern;
-				rePattern=new Pattern(*rhs.rePattern);
-				delete pOrig;*/
-			}
-			RegexElement& operator=(const RegexElement& rhs){
-				// does not work because Pattern misses copy constructor
-				/*open=rhs.open;
-				end=rhs.end;
-				kwClass=rhs.kwClass;
-				capturingGroup=rhs.capturingGroup;
-				Pattern *pOrig=rePattern;
-				rePattern=new Pattern(*rhs.rePattern);
-				delete pOrig;
-				*/
-				return *this;
-			}
 	};
 
 	/**\brief Association of a regex and its relevant capturing group

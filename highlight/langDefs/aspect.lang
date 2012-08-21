@@ -34,6 +34,6 @@ PreProcessor={
   Prefix=[[#]],
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-]]
 
 --FIXME no default escchar param: regex(`\d{3}|`x\d{2}|^[ntvbrfa`\?'"])

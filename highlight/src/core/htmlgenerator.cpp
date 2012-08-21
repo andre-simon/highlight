@@ -384,7 +384,7 @@ namespace highlight
 		{
 			string inFileName;
 			string inFilePath, newInFilePath;
-			set<string> usedFileNames;
+			std::set<string> usedFileNames;
 			indexfile << getHeaderStart ( "Source Index" );
 			indexfile << "</head>\n<body>\n<h1> Source Index</h1>\n"
 				  << hrTag

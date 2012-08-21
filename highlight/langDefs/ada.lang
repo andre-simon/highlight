@@ -3,7 +3,7 @@ Description="ADA95"
 
 Keywords={
   { Id=1,
-    List={"abort", "else", "new", "return", "abs", "elsif", "not", "reverse", "abstract", "end", "null", "accept", "entry", "select", "access", "exception", "", "separate", "", "aliased", "exit", "of", "", "subtype", "", "all", "or", "", "and", "", "for", "", "others", "tagged", "", "array", "function", "out", "task", "", "at", "terminate", "generic", "package", "then", "", "begin", "goto", "pragma", "type", "", "body", "private", "if", "procedure", "case", "in", "protected", "", "", "until", "", "constant", "is", "", "use", "raise", "declare", "", "", "range", "when", "", "delay", "limited", "record", "while", "", "delta", "loop", "rem", "", "with", "digits", "renames", "do", "mod", "", "requeue", "xor"},
+    List={"abort", "else", "new", "return", "abs", "elsif", "not", "reverse", "abstract", "end", "null", "accept", "entry", "select", "access", "exception", "separate", "aliased", "exit", "of", "subtype", "all", "or", "and", "for", "others", "tagged", "array", "function", "out", "task", "at", "terminate", "generic", "package", "then", "begin", "goto", "pragma", "type", "body", "private", "if", "procedure", "case", "in", "protected", "until", "constant", "is", "use", "raise", "declare", "range", "when", "delay", "limited", "record", "while", "delta", "loop", "rem", "with", "digits", "renames", "do", "mod", "requeue", "xor"},
   },
   { Id=2,
     List={"boolean", "integer", "natural", "positive", "float", "character", "string", "duration", "short_integer", "long_integer", "short_float", "long_float"},
@@ -40,5 +40,5 @@ Comments={
   },
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\.]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\.]]
 

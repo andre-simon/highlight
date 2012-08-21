@@ -4,7 +4,7 @@ Description="CSS"
 
 Identifiers=[[ [a-zA-Z_][\w\-]* ]]
 
-Digits=[[ \#\p{XDigit}{3,6}|\d*\.?\d+?\w* ]]
+Digits=[=[ \#[[:xdigit:]]{3,6}|\d*\.?\d+?\w* ]=]
 
 Keywords={
   { Id=1,
@@ -35,5 +35,5 @@ Comments={
 
 IgnoreCase=true
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\.]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\.]]
 

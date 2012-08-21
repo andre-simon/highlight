@@ -16,6 +16,8 @@ function syntaxUpdate(desc)
     for _, l in ipairs(list) do set[l] = true end
       return set
   end
+  
+     string_items = Set {"string" }
 
    stl_items = Set {"array", "bitset", "deque", "forward_list", "list",
     "map", "multimap", "multiset", "priority_queue", "queue", "set", "stack",
@@ -67,7 +69,9 @@ function syntaxUpdate(desc)
       return
     end
 
-    if stl_items[token] then
+    if string_items[token] then
+      return  getURL(token, 'string')
+    elseif stl_items[token] then
       return  getURL(token, 'stl')
     elseif algorithm_items[token] then
       return  getURL(token, 'algorithm')

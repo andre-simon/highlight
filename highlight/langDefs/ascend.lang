@@ -34,7 +34,7 @@ Comments={
 
 IgnoreCase=false
 
-Operators=[[\(|\)|\[|\]|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~]]
+Operators=[[\(|\)|\[|\]|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~]]
 
 EnableIndentation=true
 

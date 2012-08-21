@@ -16,7 +16,7 @@ Keywords={
 
 Strings={
   Delimiter=[["|']],
-  Escape=[[ %\d{3}|\\x\p{XDigit}{2}|%[nNtvbrfa%\?'"]|%$ ]]
+  Escape=[=[ %\d{3}|\\x[[:xdigit:]]{2}|%[nNtvbrfa%\?'"]|%$ ]=]
 }
 
 IgnoreCase=true
@@ -27,6 +27,6 @@ Comments={
   },
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|\<|\>|\!|\-|\+|\=|\/|\*|\+|\-|\.]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\-|\+|\=|\/|\*|\+|\-|\.]]
 
---FIXME no default escchar param: regex(%\d{3}|\\x\p{XDigit}{2}|%[nNtvbrfa%\?'"]|%$)
+--FIXME no default escchar param: regex(%\d{3}|\\x[[:xdigit:]]{2}|%[nNtvbrfa%\?'"]|%$)

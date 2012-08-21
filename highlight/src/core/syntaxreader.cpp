@@ -49,31 +49,20 @@ int SyntaxReader::luaAddKeyword (lua_State *L) {
     lua_pushboolean(L, retVal);
     return 1;
 }
-/*
-int SyntaxReader::luaReadFile (lua_State *L) {
-    std::string buf;
-    if (lua_gettop(L)==1){
-      	const char*filename=lua_tostring(L, 1);
-	std::string line;
-	std::ifstream in(filename);
-	while(std::getline(in,line)){
-	  buf += line;
-	  buf += "\n";
-	}
-    }
-    lua_pushstring(L, buf.c_str());
-    return 1;
-}
-*/
+
 const string SyntaxReader::REGEX_IDENTIFIER =
     "[a-zA-Z_]\\w*";
 
 const string SyntaxReader::REGEX_NUMBER =
     "(?:0x|0X)[0-9a-fA-F]+|\\d*[\\.]?\\d+(?:[eE][\\-\\+]\\d+)?[lLuU]*";
 
-const string SyntaxReader::REGEX_ESCSEQ =
-    "\\\\u\\p{XDigit}{4}|\\\\\\d{3}|\\\\x\\p{XDigit}{2}|\\\\[ntvbrfa\\\\\\?'\"]";
+//const string SyntaxReader::REGEX_ESCSEQ =
+  //  "\\\\u\\p{XDigit}{4}|\\\\\\d{3}|\\\\x\\p{XDigit}{2}|\\\\[ntvbrfa\\\\\\?'\"]";
 
+const string SyntaxReader::REGEX_ESCSEQ =
+    "\\\\u[[:xdigit:]]{4}|\\\\\\d{3}|\\\\x[[:xdigit:]]{2}|\\\\[ntvbrfa\\\\\\?'\"]";
+
+    
 EmbedLangDelimMap SyntaxReader::exitDelimiters;
 vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
 
@@ -101,9 +90,7 @@ SyntaxReader::~SyntaxReader()
     }
     if (validateStateChangeFct) delete validateStateChangeFct;
     if (decorateFct) delete decorateFct;
-
     if (luaState) delete luaState;
-
     for (unsigned int i=0;i<pluginChunks.size();i++){
       delete pluginChunks[i];
     }
@@ -119,10 +106,10 @@ void SyntaxReader::restoreLangEndDelim(const string& langPath) {
     //TODO exitDelimiters be left static?
     if ( !langPath.empty()&& exitDelimiters.count(langPath) )
     {
-        Pattern* p = Pattern::compile ( exitDelimiters[langPath]);
-        if ( p!=NULL ) {
-            regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, p ) );
-        }
+  //      Pattern* p = Pattern::compile ( exitDelimiters[langPath]);
+    //    if ( p!=NULL ) {
+            regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, exitDelimiters[langPath] ) );
+      //  }
     }
 }
 
@@ -223,9 +210,8 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
 	Diluculum::LuaState& ls=*luaState;
 	initLuaState(ls, langDefPath, pluginReadFilePath, outputType);
-  //     ls["HL_INPUT_FILE"]="testbla";
+
 	lua_register (ls.getState(),"AddKeyword",luaAddKeyword);
-	//lua_register (ls.getState(),"ReadFile",luaReadFile);
 
 	SyntaxReader **s = (SyntaxReader **)lua_newuserdata(ls.getState(), sizeof(SyntaxReader *));
 	*s=this;
@@ -273,13 +259,13 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                     captGroup=ls["Keywords"][idx]["Group"].value().asNumber();
                 }
 
-                Pattern* p = Pattern::compile ( reString );
-                if ( p!=NULL )
-                    regex.push_back ( new RegexElement ( KEYWORD, KEYWORD_END, p, kwId, captGroup ) );
-                else {
-                    regexErrorMsg = reString;
-                    return LOAD_FAILED_REGEX;
-                }
+                //Pattern* p = Pattern::compile ( reString );
+                //if ( p!=NULL )
+                    regex.push_back ( new RegexElement ( KEYWORD, KEYWORD_END, reString, kwId, captGroup ) );
+                //else {
+                  //  regexErrorMsg = reString;
+                    //return LOAD_FAILED_REGEX;
+                //}
             }
             idx++;
         }
@@ -296,42 +282,22 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                         allowNestedComments = ls["Comments"][listIdx]["Nested"].value().asBoolean();
 
                     string openDelim=StringTools::trim(ls["Comments"][listIdx]["Delimiter"][1].value().asString());
-                    Pattern* p4 = Pattern::compile ( openDelim );
-                    if ( p4!=NULL ) {
-                        RegexElement* elem=new RegexElement ( ML_COMMENT,ML_COMMENT_END, p4, 0, -1 );
-                        openDelimId=elem->instanceId;
-                        regex.push_back ( elem );
-                    }
-                    else {
-                        regexErrorMsg = openDelim;
-                        return LOAD_FAILED_REGEX;
-                    }
-
+		    RegexElement* elem=new RegexElement ( ML_COMMENT,ML_COMMENT_END, openDelim, 0, -1 );
+		    openDelimId=elem->instanceId;
+		    regex.push_back ( elem );
+                    
                     string closeDelim=StringTools::trim(ls["Comments"][listIdx]["Delimiter"][2].value().asString());
-                    Pattern* p5 = Pattern::compile (closeDelim  );
-                    if ( p5!=NULL ) {
-                        RegexElement* elem= new RegexElement ( ML_COMMENT_END,ML_COMMENT_END, p5, 0, -1 );
-                        closeDelimId=elem->instanceId;
-                        regex.push_back ( elem);
-                    }
-                    else {
-                        regexErrorMsg = closeDelim;
-                        return LOAD_FAILED_REGEX;
-                    }
-
+                    
+		    elem= new RegexElement ( ML_COMMENT_END,ML_COMMENT_END, closeDelim, 0, -1 );
+		    closeDelimId=elem->instanceId;
+		    regex.push_back ( elem);
+                    
                     delimiterDistinct[openDelimId]=openDelim!=closeDelim;
                     delimiterDistinct[closeDelimId]=openDelim!=closeDelim;
                     delimIds2[closeDelimId]=openDelimId;
 
                 } else {
-
-                    Pattern* p6 = Pattern::compile ( StringTools::trim(ls["Comments"][listIdx]["Delimiter"][1].value().asString()) );
-                    if ( p6!=NULL )
-                        regex.push_back ( new RegexElement ( SL_COMMENT, SL_COMMENT_END, p6, 0, -1 ) );
-                    else {
-                        regexErrorMsg = ls["Comments"][listIdx]["Delimiter"][1].value().asString();
-                        return LOAD_FAILED_REGEX;
-                    }
+                    regex.push_back ( new RegexElement ( SL_COMMENT, SL_COMMENT_END, StringTools::trim(ls["Comments"][listIdx]["Delimiter"][1].value().asString()), 0, -1 ) );
                 }
                 ++listIdx;
             }
@@ -344,9 +310,9 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
         // insert identifier and number regex after keyword regexes
         regex.push_back ( new RegexElement ( IDENTIFIER_BEGIN, IDENTIFIER_END,
-                                             Pattern::compile ( re_identifier ) ) );
+                                             re_identifier  ) );
         regex.push_back ( new RegexElement ( NUMBER, NUMBER_END,
-                                             Pattern::compile ( re_digit ) ) );
+                                              re_digit  ) );
 
         if (globals.count("Strings")) {
 
@@ -355,17 +321,10 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
             }
 
             if (ls["Strings"]["Delimiter"].value()!=Diluculum::Nil) {
-                Pattern* p = Pattern::compile (StringTools::trim( ls["Strings"]["Delimiter"].value().asString()) );
-                if ( p!=NULL ) {
-                    RegexElement* elem=new RegexElement ( STRING,STRING_END, p, 0, -1 );
-                    delimiterDistinct[elem->instanceId]=true;
-                    regex.push_back (elem );
-                }
-                else {
-                    regexErrorMsg = ls["Strings"]["Delimiter"].value().asString();
-                    return LOAD_FAILED_REGEX;
-                }
-
+                
+		RegexElement* elem=new RegexElement ( STRING,STRING_END, StringTools::trim( ls["Strings"]["Delimiter"].value().asString()), 0, -1 );
+		delimiterDistinct[elem->instanceId]=true;
+		regex.push_back (elem );
             }
 
             if (ls["Strings"]["DelimiterPairs"].value()!=Diluculum::Nil) {
@@ -376,28 +335,16 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                 while (ls["Strings"]["DelimiterPairs"][listIdx].value()!=Diluculum::Nil) {
 
                     string openDelim=StringTools::trim(ls["Strings"]["DelimiterPairs"][listIdx]["Open"].value().asString());
-                    Pattern* p10 = Pattern::compile ( openDelim );
-                    if ( p10!=NULL ) {
-                        RegexElement* elem =new RegexElement(STRING, STRING_END, p10, 0, -1);
-                        openDelimId=elem->instanceId;
-                        regex.push_back( elem );
-                    }
-                    else {
-                        regexErrorMsg = openDelim;
-                        return LOAD_FAILED_REGEX;
-                    }
-
+                    
+		    RegexElement* elem =new RegexElement(STRING, STRING_END, openDelim, 0, -1);
+		    openDelimId=elem->instanceId;
+		    regex.push_back( elem );
+                    
                     string closeDelim=StringTools::trim(ls["Strings"]["DelimiterPairs"][listIdx]["Close"].value().asString());
-                    Pattern* p11 = Pattern::compile ( closeDelim );
-                    if ( p11!=NULL ) {
-                        RegexElement* elem = new RegexElement(STRING_END, STRING_END, p11, 0, -1);
-                        closeDelimId=elem->instanceId;
-                        regex.push_back( elem );
-                    }
-                    else {
-                        regexErrorMsg = closeDelim;
-                        return LOAD_FAILED_REGEX;
-                    }
+
+		    elem = new RegexElement(STRING_END, STRING_END, closeDelim, 0, -1);
+		    closeDelimId=elem->instanceId;
+		    regex.push_back( elem );
 
                     delimIds2[closeDelimId]=openDelimId;
 
@@ -411,36 +358,22 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
             }
 
             string  escRegex=(ls["Strings"]["Escape"].value()==Diluculum::Nil)?REGEX_ESCSEQ:ls["Strings"]["Escape"].value().asString();
-            Pattern* p2 = Pattern::compile (StringTools::trim(escRegex) );
-            if ( p2!=NULL )
-                regex.push_back ( new RegexElement ( ESC_CHAR,ESC_CHAR_END, p2, 0, -1 ) );
-            else {
-                regexErrorMsg = ls["Strings"]["Escape"].value().asString();
-                return LOAD_FAILED_REGEX;
-            }
+            
+            regex.push_back ( new RegexElement ( ESC_CHAR,ESC_CHAR_END, StringTools::trim(escRegex), 0, -1 ) );
+            
         }
 
         if (globals.count("PreProcessor")) {
-            Pattern* p = Pattern::compile ( StringTools::trim(ls["PreProcessor"]["Prefix"].value().asString()) );
-            if ( p!=NULL )
-                regex.push_back ( new RegexElement ( DIRECTIVE,DIRECTIVE_END, p, 0, -1 ) );
-            else {
-                regexErrorMsg = ls["PreProcessor"]["Prefix"].value().asString();
-                return LOAD_FAILED_REGEX;
-            }
+            
+            regex.push_back ( new RegexElement ( DIRECTIVE,DIRECTIVE_END, StringTools::trim(ls["PreProcessor"]["Prefix"].value().asString()), 0, -1 ) );
+            
             if (ls["PreProcessor"]["Continuation"].value()!=Diluculum::Nil) {
                 continuationChar=ls["PreProcessor"]["Continuation"].value().asString().at(0);
             }
         }
 
         if (globals.count("Operators")) {
-            Pattern* p = Pattern::compile (StringTools::trim( ls["Operators"].value().asString()) );
-            if ( p!=NULL )
-                regex.push_back ( new RegexElement ( SYMBOL,SYMBOL_END, p, 0, -1 ) );
-            else {
-                regexErrorMsg = ls["Operators"].value().asString();
-                return LOAD_FAILED_REGEX;
-            }
+            regex.push_back ( new RegexElement ( SYMBOL,SYMBOL_END, StringTools::trim( ls["Operators"].value().asString()), 0, -1 ) );
         }
 
         if (globals.count("NestedSections")) {
@@ -449,17 +382,9 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
             while (ls["NestedSections"][listIdx].value()!=Diluculum::Nil) {
 
                 string lang= ls["NestedSections"][listIdx]["Lang"].value().asString();
-
                 string openDelim=StringTools::trim(ls["NestedSections"][listIdx]["Delimiter"][1].value().asString());
-                Pattern* p8 = Pattern::compile ( openDelim );
-                if ( p8!=NULL )
-                    //regex.push_back ( new RegexElement ( ML_COMMENT,ML_COMMENT_END, p4, 0, -1 ) );
-                    regex.insert(regex.begin(), 1, new RegexElement(EMBEDDED_CODE_BEGIN, EMBEDDED_CODE_BEGIN, p8, 0, -1, lang));
-                else {
-                    regexErrorMsg = openDelim;
-                    return LOAD_FAILED_REGEX;
-                }
-
+                regex.insert(regex.begin(), 1, new RegexElement(EMBEDDED_CODE_BEGIN, EMBEDDED_CODE_BEGIN, openDelim, 0, -1, lang));
+   
                 string closeDelim=StringTools::trim(ls["NestedSections"][listIdx]["Delimiter"][2].value().asString());
                 exitDelimiters[getNewPath(lang)] = closeDelim;
 
@@ -490,28 +415,40 @@ string SyntaxReader::getNewPath(const string& lang) {
 
 
 int SyntaxReader::getOpenDelimiterID ( const string& token, State s) {
+    smatch what;
     for (unsigned int i=0; i<getRegexElements().size(); i++ )  {
         RegexElement *regexElem = getRegexElements() [i];
         if (regexElem->open==s ) {
+	  
+	  if( regex_match( token, what, regexElem->rex ) ){
+	         return regexElem->instanceId;
+	  }
+	  /*
             auto_ptr<Matcher> matcher (regexElem->rePattern->createMatcher ( token ));
             if (matcher->matches()) {
 
                 return regexElem->instanceId;
-            }
+            }*/
         }
     }
     return 0;
 }
 
 bool SyntaxReader::matchesOpenDelimiter ( const string& token, State s, int openDelimId) {
-
+    smatch what;
     for (unsigned int i=0; i<getRegexElements().size(); i++ )  {
         RegexElement *regexElem = getRegexElements() [i];
         if (regexElem->open==s ) {
+	  
+	  if( regex_match( token, what, regexElem->rex ) && delimIds2[regexElem->instanceId]==openDelimId){
+	         return true;
+	  }
+	  /*
             auto_ptr<Matcher> matcher (regexElem->rePattern->createMatcher ( token ));
             if (matcher->matches()&&delimIds2[regexElem->instanceId]==openDelimId) {
                 return true;
             }
+            */
         }
     }
     return false;

@@ -44,8 +44,8 @@ PreProcessor={
   Continuation="\\",
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~]]
 
 --EnableIndentation=true
 
---FIXME no default escchar param: regex(\\\d{}|\\x\p{XDigit}{}|\\[ntvbrfa\\\?'"])
+--FIXME no default escchar param: regex(\\\d{}|\\x[[:xdigit:]]{}|\\[ntvbrfa\\\?'"])

@@ -50,6 +50,6 @@ PreProcessor={
   Prefix=[[#]],
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|\<|\>|\!|\=|\_|\*|\%|\+|\-|\.|\^]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\_|\*|\%|\+|\-|\.|\^]]
 
---FIXME no default escchar param: regex(\\\d{3}|\\x\p{XDigit}{2}|\\[ntvbrfa\\\?'"])
+--FIXME no default escchar param: regex(\\\d{3}|\\x[[:xdigit:]]{2}|\\[ntvbrfa\\\?'"])

@@ -21,7 +21,7 @@ CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG
 
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.2
+SO_VERSION=3.11
 
 
 # Source paths
@@ -76,8 +76,7 @@ CORE_OBJECTS:=stylecolour.o stringtools.o \
 	xterm256generator.o bbcodegenerator.o odtgenerator.o\
 	syntaxreader.o elementstyle.o themereader.o \
 	datadir.o preformatter.o platform_fs.o\
-	ASStreamIterator.o ASResource.o ASFormatter.o ASBeautifier.o ASEnhancer.o\
-	Pattern.o Matcher.o
+	ASStreamIterator.o ASResource.o ASFormatter.o ASBeautifier.o ASEnhancer.o
 
 DILU_OBJECTS:=InternalUtils.o  LuaExceptions.o  LuaFunction.o  LuaState.o\
 	LuaUserData.o  LuaUtils.o  LuaValue.o  LuaVariable.o  LuaWrappers.o
@@ -211,11 +210,10 @@ ASEnhancer.o: ${ASTYLE_DIR}ASResource.cpp
 ASStreamIterator.o: ${ASTYLE_DIR}ASStreamIterator.cpp
 	${CXX_COMPILE} ${ASTYLE_DIR}ASStreamIterator.cpp
 
-Matcher.o:  ${REGEX_DIR}Matcher.cpp
-	${CXX_COMPILE} ${REGEX_DIR}Matcher.cpp
-
-Pattern.o:  ${REGEX_DIR}Pattern.cpp
-	${CXX_COMPILE} ${REGEX_DIR}Pattern.cpp
+#Matcher.o:  ${REGEX_DIR}Matcher.cpp
+#	${CXX_COMPILE} ${REGEX_DIR}Matcher.cpp
+#Pattern.o:  ${REGEX_DIR}Pattern.cpp
+#	${CXX_COMPILE} ${REGEX_DIR}Pattern.cpp
 
 InternalUtils.o: ${DILU_DIR}InternalUtils.cpp
 	${CXX_COMPILE}  ${DILU_DIR}InternalUtils.cpp
