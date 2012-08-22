@@ -5,11 +5,13 @@ highlight 3.11 beta
 21.08.2012
 
 -replaced Pattern/Matcher classes by the Boost xpressive library
-  broken: shebang matching, unicode in re?, @highlight parsing
+   (now swig example is broken)
 -updated Relax NG syntax (thanks to Roger Sperberg)
 -added new oxygenated theme (thanks to Roger Sperberg)
 -fixed highlight.pro to include correct lua5.1 paths
+-GUI: fixed shebang recognition
 
+---
 highlight 3.10 beta
 
 21.07.2012

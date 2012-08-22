@@ -2,213 +2,368 @@
 --- HIGHLIGHT REGULAR EXPRESSIONS MANUAL --------------------------------------
 -------------------------------------------------------------------------------
 
-This file is based on the original API documentation of Jeffery Stuart's
-Pattern class.
+This file is based on the original Boost API documentation:
+http://www.boost.org/doc/libs/1_32_0/libs/regex/doc/syntax.html
+
 Regular expressions can be applied in highlight's syntax definitions.
-
-Content:
---------
-
-- Regex rules
-- Backslashes, escapes, and quoting
-- Character Classes
-- Groups and capturing
-- Examples
 
 -------------------------------------------------------------------------------
 
+Literals
+--------
 
-Regex rules:
+All characters are literals except: ".", "|", "*", "?", "+", "(", ")", "{", "}",
+"[", "]", "^", "$" and "\". These characters are literals when preceded by a
+"\". A literal is a character that matches itself, or matches the result of
+traits_type::translate(), where traits_type is the traits template parameter to
+class basic_regex.
+Wildcard
+
+The dot character "." matches any single character except : when
+match_not_dot_null is passed to the matching algorithms, the dot does not match
+a null character; when match_not_dot_newline is passed to the matching
+algorithms, then the dot does not match a newline character.
+
+
+Repeats
+-------
+
+A repeat is an expression that is repeated an arbitrary number of times. An
+expression followed by "*" can be repeated any number of times including zero.
+An expression followed by "+" can be repeated any number of times, but at least
+once, if the expression is compiled with the flag regex_constants::bk_plus_qm
+then "+" is an ordinary character and "\+" represents a repeat of once or more.
+An expression followed by "?" may be repeated zero or one times only, if the
+expression is compiled with the flag regex_constants::bk_plus_qm then "?" is an
+ordinary character and "\?" represents the repeat zero or once operator. When it
+is necessary to specify the minimum and maximum number of repeats explicitly,
+the bounds operator "{}" may be used, thus "a{2}" is the letter "a" repeated
+exactly twice, "a{2,4}" represents the letter "a" repeated between 2 and 4
+times, and "a{2,}" represents the letter "a" repeated at least twice with no
+upper limit. Note that there must be no white-space inside the {}, and there is
+no upper limit on the values of the lower and upper bounds. When the expression
+is compiled with the flag regex_constants::bk_braces then "{" and "}" are
+ordinary characters and "\{" and "\}" are used to delimit bounds instead. All
+repeat expressions refer to the shortest possible previous sub-expression: a
+single character; a character set, or a sub-expression grouped with "()" for
+example.
+
+Examples:
+
+"ba*" will match all of "b", "ba", "baaa" etc.
+
+"ba+" will match "ba" or "baaaa" for example but not "b".
+
+"ba?" will match "b" or "ba".
+
+"ba{2,4}" will match "baa", "baaa" and "baaaa".
+Non-greedy repeats
+
+Whenever the "extended" regular expression syntax is in use (the default) then
+non-greedy repeats are possible by appending a '?' after the repeat; a
+non-greedy repeat is one which will match the shortest possible string.
+
+For example to match html tag pairs one could use something like:
+
+"<\s*tagname[^>]*>(.*?)<\s*/tagname\s*>"
+
+In this case $1 will contain the text between the tag pairs, and will be the
+shortest possible matching string. 
+
+
+Parenthesis
+-----------
+
+Parentheses serve two purposes, to group items together into a sub-expression,
+and to mark what generated the match. For example the expression "(ab)*" would
+match all of the string "ababab". The matching algorithms regex_match and
+regex_search each take an instance of match_results that reports what caused the
+match, on exit from these functions the match_results contains information both
+on what the whole expression matched and on what each sub-expression matched. In
+the example above match_results[1] would contain a pair of iterators denoting
+the final "ab" of the matching string. It is permissible for sub-expressions to
+match null strings. If a sub-expression takes no part in a match - for example
+if it is part of an alternative that is not taken - then both of the iterators
+that are returned for that sub-expression point to the end of the input string,
+and the matched parameter for that sub-expression is false. Sub-expressions are
+indexed from left to right starting from 1, sub-expression 0 is the whole
+expression.
+
+
+Non-Marking Parenthesis
+-----------------------
+
+Sometimes you need to group sub-expressions with parenthesis, but don't want the
+parenthesis to spit out another marked sub-expression, in this case a
+non-marking parenthesis (?:expression) can be used. For example the following
+expression creates no sub-expressions:
+
+"(?:abc)*"
+Forward Lookahead Asserts 
+
+There are two forms of these; one for positive forward lookahead asserts, and
+one for negative lookahead asserts:
+
+"(?=abc)" matches zero characters only if they are followed by the expression
+"abc".
+
+"(?!abc)" matches zero characters only if they are not followed by the
+expression "abc".
+Independent sub-expressions
+
+"(?>expression)" matches "expression" as an independent atom (the algorithm will
+not backtrack into it if a failure occurs later in the expression).
+
+
+Alternatives
 ------------
 
-Construct       Matches
+Alternatives occur when the expression can match either one sub-expression or
+another, each alternative is separated by a "|", or a "\|" if the flag
+regex_constants::bk_vbar is set, or by a newline character if the flag
+regex_constants::newline_alt is set. Each alternative is the largest possible
+previous sub-expression; this is the opposite behavior from repetition
+operators.
 
-Characters
+Examples:
 
-x               The character x
-\\              The character \
-\0nn            The character with octal ASCII value nn
-\0nnn           The character with octal ASCII value nnn
-\xhh            The character with hexadecimal ASCII value hh
-\t              A tab character
-\r              A carriage return character
-\n              A new-line character
+"a(b|c)" could match "ab" or "ac".
 
-
-Character Classes
-
-[abc]           Either a, b, or c
-[^abc]          Any character but a, b, or c
-[a-zA-Z]        Any character ranging from a thru z, or A thru Z
-[^a-zA-Z]       Any character except those ranging from a thru z, or A thru Z
-[a\-z]          Either a, -, or z
-[a-z[A-Z]]      Same as [a-zA-Z]
-[a-z&&[g-i]]    Any character in the intersection of a-z and g-i
-[a-z&&[^g-i]]   Any character in a-z and not in g-i
+"abc|def" could match "abc" or "def".
 
 
-Predefined character classes
+Sets
+----
 
-.               Any character. Multiline matching must be compiled into the
-                pattern for . to match a \r or a \n. Even if multiline matching
-                is enabled, . will not match a \r\n, only a \r or a \n.
-\d              [0-9]
-\D              [^\d]
-\s              [ \t\r\n\x0B]
-\S              [^\s]
-\w              [a-zA-Z0-9_]
-\W              [^\w]
+A set is a set of characters that can match any single character that is a
+member of the set. Sets are delimited by "[" and "]" and can contain literals,
+character ranges, character classes, collating elements and equivalence classes.
+Set declarations that start with "^" contain the complement of the elements that
+follow.
 
+Examples:
 
-POSIX character classes
+Character literals:
 
-\p{Lower}       [a-z]
-\p{Upper}       [A-Z]
-\p{ASCII}       [\x00-\x7F]
-\p{Alpha}       [a-zA-Z]
-\p{Digit}       [0-9]
-\p{Alnum}       [\w&&[^_]]
-\p{Punct}       [!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]
-\p{XDigit}      [a-fA-F0-9]
+"[abc]" will match either of "a", "b", or "c".
 
+"[^abc] will match any character other than "a", "b", or "c".
 
-Boundary Matches
+Character ranges:
 
-^               The beginning of a line. Also matches the beginning of input.
-$               The end of a line. Also matches the end of input.
-\b              A word boundary
-\B              A non word boundary
-\A              The beginning of input
-\G              The end of the previous match. Ensures that a "next" match will
-                only happen if it begins with the character immediately
-                following the end of the "current" match.
-\Z              The end of input. Will also match if there is a single trailing
-                \r\n, a single trailing \r, or a single trailing \n.
-\z              The end of input
+"[a-z]" will match any character in the range "a" to "z".
 
+"[^A-Z]" will match any character other than those in the range "A" to "Z".
 
-Greedy Quantifiers
+Note that character ranges are highly locale dependent if the flag
+regex_constants::collate is set: they match any character that collates between
+the endpoints of the range, ranges will only behave according to ASCII rules
+when the default "C" locale is in effect. For example if the library is compiled
+with the Win32 localization model, then [a-z] will match the ASCII characters
+a-z, and also 'A', 'B' etc, but not 'Z' which collates just after 'z'. This
+locale specific behavior is disabled by default (in perl mode), and forces
+ranges to collate according to ASCII character code.
 
-x?              x, either zero times or one time
-x*              x, zero or more times
-x+              x, one or more times
-x{n}            x, exactly n times
-x{n,}           x, at least n times
-x{,m}           x, at most m times
-x{n,m}          x, at least n times and at most m times
+Character classes are denoted using the syntax "[:classname:]" within a set
+declaration, for example "[[:space:]]" is the set of all whitespace characters.
+Character classes are only available if the flag regex_constants::char_classes
+is set. The available character classes are:
+ 
 
+alnum 	Any alpha numeric character. 	 
+alpha 	Any alphabetical character a-z and A-Z. Other characters may
+	also be included depending upon the locale. 	 
+blank 	Any blank character, either a space or a tab. 	 
+cntrl 	Any control character. 	 
+digit 	Any digit 0-9. 	 
+graph 	Any graphical character. 	 
+lower 	Any lower case character a-z. Other characters may also be
+	included depending upon the locale. 	 
+print 	Any printable character. 	 
+punct 	Any punctuation character. 	 
+space 	Any whitespace character. 	 
+upper 	Any upper case character A-Z. Other characters may also be
+	included depending upon the locale. 	 
+xdigit 	Any hexadecimal digit character, 0-9, a-f and A-F. 	 
+word 	Any word character - all alphanumeric characters plus the
+	underscore. 	 
+Unicode Any character whose code is greater than 255, this
+	applies to the wide character traits classes only. 	 
 
-Possessive Quantifiers
+There are some shortcuts that can be used in place of the character classes,
+provided the flag regex_constants::escape_in_lists is set then you can use:
 
-x?+             x, either zero times or one time
-x*+             x, zero or more times
-x++             x, one or more times
-x{n}+           x, exactly n times
-x{n,}+          x, at least n times
-x{,m}+          x, at most m times
-x{n,m}+         x, at least n times and at most m times
+\w in place of [:word:]
+\s in place of [:space:]
+\d in place of [:digit:]
+\l in place of [:lower:]
+\u in place of [:upper:] 
 
+Collating elements take the general form [.tagname.] inside a set declaration,
+where tagname is either a single character, or a name of a collating element,
+for example [[.a.]] is equivalent to [a], and [[.comma.]] is equivalent to [,].
+The library supports all the standard POSIX collating element names, and in
+addition the following digraphs: "ae", "ch", "ll", "ss", "nj", "dz", "lj", each
+in lower, upper and title case variations. Multi-character collating elements
+can result in the set matching more than one character, for example [[.ae.]]
+would match two characters, but note that [^[.ae.]] would only match one
+character. 
 
-Reluctant Quantifiers
+Equivalence classes take the generalform[=tagname=] inside a set declaration,
+where tagname is either a single character, or a name of a collating element,
+and matches any character that is a member of the same primary equivalence class
+as the collating element [.tagname.]. An equivalence class is a set of
+characters that collate the same, a primary equivalence class is a set of
+characters whose primary sort key are all the same (for example strings are
+typically collated by character, then by accent, and then by case; the primary
+sort key then relates to the character, the secondary to the accentation, and
+the tertiary to the case). If there is no equivalence class corresponding to
+tagname ,then[=tagname=] is exactly the same as [.tagname.]. Unfortunately there
+is no locale independent method of obtaining the primary sort key for a
+character, except under Win32. For other operating systems the library will
+"guess" the primary sort key from the full sort key (obtained from strxfrm), so
+equivalence classes are probably best considered broken under any operating
+system other than Win32. 
 
-x??             x, either zero times or one time
-x*?             x, zero or more times
-x+?             x, one or more times
-x{n}?           x, exactly n times
-x{n,}?          x, at least n times
-x{,m}?          x, at most m times
-x{n,m}?         x, at least n times and at most m times
-
-
-Operators
-
-xy              x then y
-x|y             x or y
-(x)             x as a capturing group
-
-
-Quoting
-
-\Q              Nothing, but treat every character (including \s) literally
-                until a matching \E
-\E              Nothing, but ends its matching \Q
-
-Special Constructs
-
-(?:x)           x, but not as a capturing group
-(?=x)           x, via positive lookahead. This means that the expression will
-                match only if it is trailed by x. It will not "eat" any of the
-                characters matched by x.
-(?!x)           x, via negative lookahead. This means that the expression will
-                match only if it is not trailed by x. It will not "eat" any of
-                the characters matched by x.
-(?<=x)          x, via positive lookbehind. x cannot contain any quantifiers.
-(?x)            x, via negative lookbehind. x cannot contain any quantifiers.
-(?>x)           x{1}+
-
-
-
-Backslashes, escapes, and quoting:
-----------------------------------
-
-The backslash character ('\') serves to introduce escaped constructs, as defined
-in the table above, as well as to quote characters that otherwise would be
-interpreted as unescaped constructs. Thus the expression \\ matches a single
-backslash and \{ matches a left brace.
-
-It is an error to use a backslash prior to any alphabetic character that does
-not denote an escaped construct; these are reserved for future extensions to the
-regular-expression language. A backslash may be used prior to a non-alphabetic
-character regardless of whether that character is part of an unescaped
-construct.
-
-It is necessary to double backslashes in string literals that represent regular
-expressions to protect them from interpretation by a compiler. The string
-literal "\b", for example, matches a single backspace character when interpreted
-as a regular expression, while "\\b" matches a word boundary. The string litera
-"\(hello\)" is illegal and leads to a compile-time error; in order to match the
-string (hello) the string literal "\\(hello\\)" must be used.
+To include a literal "-" in a set declaration then: make it the first character
+after the opening "[" or "[^", the endpoint of a range, a collating element, or
+if the flag regex_constants::escape_in_lists is set then precede with an escape
+character as in "[\-]". To include a literal "[" or "]" or "^" in a set then
+make them the endpoint of a range, a collating element, or precede with an
+escape character if the flag regex_constants::escape_in_lists is set.
 
 
-Character Classes:
-------------------
+Line anchors
+------------
 
-Character classes may appear within other character classes, and may be composed
-by the union operator (implicit) and the intersection operator (&&). The union
-operator denotes a class that contains every character that is in at least one
-of its operand classes. The intersection operator denotes a class that contains
-every character that is in both of its operand classes.
-
-The precedence of character-class operators is as follows, from highest to
-lowest:
-
- 1   Literal escape    \x
- 2   Range             a-z
- 3   Grouping          [...]
- 4   Intersection      [a-z&&[aeiou]]
- 5   Union             [a-e][i-u]
-
-Note that a different set of metacharacters are in effect inside a character
-class than outside a character class. For instance, the regular expression .
-loses its special meaning inside a character class, while the expression -
-becomes a range forming metacharacter.
+An anchor is something that matches the null string at the start or end of a
+line: "^" matches the null string at the start of a line, "$" matches the null
+string at the end of a line.
 
 
-Groups and capturing:
----------------------
+Back references
+---------------
 
-Capturing groups are numbered by counting their opening parentheses from left to
-right. In the expression ((A)(B(C))), for example, there are four such groups:
+A back reference is a reference to a previous sub-expression that has already
+been matched, the reference is to what the sub-expression matched, not to the
+expression itself. A back reference consists of the escape character "\"
+followed by a digit "1" to "9", "\1" refers to the first sub-expression, "\2" to
+the second etc. For example the expression "(.*)\1" matches any string that is
+repeated about its mid-point for example "abcabc" or "xyzxyz". A back reference
+to a sub-expression that did not participate in any match, matches the null
+string: NB this is different to some other regular expression matchers. Back
+references are only available if the expression is compiled with the flag
+regex_constants::bk_refs set.
 
- 1 ((A)(B(C)))
- 2 (A)
- 3 (B(C))
- 4 (C)
 
-Group zero always stands for the entire expression. Note that highlight will
-only evaluate the highest group number to make regular expressions more suitable
-for language definitions. Use (?:) syntax to avoid a capture of the new group.
+Word operators
+--------------
 
+The following operators are provided for compatibility with the GNU regular
+expression library.
+
+"\w" matches any single character that is a member of the "word" character
+class, this is identical to the expression "[[:word:]]".
+
+"\W" matches any single character that is not a member of the "word" character
+class, this is identical to the expression "[^[:word:]]".
+
+"\<" matches the null string at the start of a word.
+
+"\>" matches the null string at the end of the word.
+
+"\b" matches the null string at either the start or the end of a word.
+
+"\B" matches a null string within a word.
+
+The start of the sequence passed to the matching algorithms is considered to be
+a potential start of a word unless the flag match_not_bow is set. The end of the
+sequence passed to the matching algorithms is considered to be a potential end
+of a word unless the flag match_not_eow is set.
+
+
+Buffer operators
+----------------
+
+The following operators are provided for compatibility with the GNU regular
+expression library, and Perl regular expressions:
+
+"\`" matches the start of a buffer.
+
+"\A" matches the start of the buffer.
+
+"\'" matches the end of a buffer.
+
+"\z" matches the end of a buffer.
+
+"\Z" matches the end of a buffer, or possibly one or more new line characters
+followed by the end of the buffer.
+
+A buffer is considered to consist of the whole sequence passed to the matching
+algorithms, unless the flags match_not_bob or match_not_eob are set.
+
+
+Escape operator
+---------------
+
+The escape character "\" has several meanings.
+
+Inside a set declaration the escape character is a normal character unless the
+flag regex_constants::escape_in_lists is set in which case whatever follows the
+escape is a literal character regardless of its normal meaning.
+
+The escape operator may introduce an operator for example: back references, or a
+word operator.
+
+The escape operator may make the following character normal, for example "\*"
+represents a literal "*" rather than the repeat operator.
+Single character escape sequences
+
+The following escape sequences are aliases for single characters:
+ 
+Escape sequence 	Character code 	Meaning 	 
+\a 	0x07 	Bell character. 	 
+\f 	0x0C 	Form feed. 	 
+\n 	0x0A 	Newline character. 	 
+\r 	0x0D 	Carriage return. 	 
+\t 	0x09 	Tab character. 	 
+\v 	0x0B 	Vertical tab. 	 
+\e 	0x1B 	ASCII Escape character. 	 
+\0dd 	0dd 	An octal character code, where dd is one or more octal
+		digits. 	 
+\xXX 	0xXX 	A hexadecimal character code, where XX is one or more
+		hexadecimal digits. 	 
+\x{XX} 	0xXX 	A hexadecimal character code, where XX is one or more
+		hexadecimal digits, optionally a Unicode character. 	 
+\cZ 	z-@ 	An ASCII escape sequence control-Z, where Z is any ASCII
+		character greater than or equal to the character code for '@'.
+
+
+Miscellaneous escape sequences:
+-------------------------------
+
+The following are provided mostly for perl compatibility, but note that there
+are some differences in the meanings of \l \L \u and \U:
+ 
+
+\w 	Equivalent to [[:word:]]. 	 
+\W 	Equivalent to [^[:word:]]. 	 
+\s 	Equivalent to [[:space:]]. 	 
+\S 	Equivalent to [^[:space:]]. 	 
+\d 	Equivalent to [[:digit:]]. 	 
+\D 	Equivalent to [^[:digit:]]. 	 
+\l 	Equivalent to [[:lower:]]. 	 
+\L 	Equivalent to [^[:lower:]]. 	 
+\u 	Equivalent to [[:upper:]]. 	 
+\U 	Equivalent to [^[:upper:]]. 	 
+\C 	Any single character, equivalent to '.'. 	 
+\X 	Match any Unicode combining character sequence, for example "a\x
+	0301" (a letter a with an acute). 	 
+\Q 	The begin quote operator, everything that follows is treated as
+	a literal character until a \E end quote operator is found. 	 
+\E 	The end quote operator, terminates a sequence begun with \Q. 
+
+-------------------------------------------------------------------------------
 
 Examples:
 ---------
@@ -223,13 +378,15 @@ Regex=[[ \$\{(\w+)\}) ]]
 or
 Regex=[[ \$\{(\w+)\} ]], Group=1
 Highlight variable names like ${name}. Only the name is highlighted as keyword.
-The grouping feature is used to achieve this effect. If no capturing group
-index is defined (like in the first example above), the right-most group's match
-(highest capturing index) is returned.
+A sub.expression is used to achieve this effect. If no sub-expression number
+is defined (like in the first example above), the right-most sub match
+(highest sub id) is returned.
 
 Regex=[[ (\w+)\s*\( ]]
-Highlight method names. Note that grouping is used again.
+Highlight method names. Note that a sub expression is used again.
 
+Regex=[[STO\xe2\x88\x91]]
+Unicode characters in a keyword.
 
 ---
 Andre Simon

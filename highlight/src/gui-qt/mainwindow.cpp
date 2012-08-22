@@ -474,7 +474,6 @@ bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap) {
     smatch what;
     for ( it=shebangs.begin(); it!=shebangs.end();it++ )
     {
-      QMessageBox::warning(this, "RE", QString::fromStdString(  it->first));
         rex = sregex::compile( it->first );
         if ( regex_search( firstLine, what, rex )  ) return it->second;
     }
@@ -486,12 +485,13 @@ string MainWindow::getFileType(const string& suffix, const string &inputFile)
     string lcSuffix = StringTools::change_case(suffix);
     string fileType = (extensions.count(lcSuffix)) ? extensions[lcSuffix] : lcSuffix ;
     if (!fileType.empty()) return fileType;
+
     return analyzeFile(inputFile);
 }
 
 string MainWindow::getFileSuffix(const string& fileName)
 {
-  unsigned int ptPos=fileName.rfind(".");
+  size_t ptPos=fileName.rfind(".");
   return (ptPos == string::npos) ? "" : fileName.substr(ptPos+1,
                                         fileName.length());
 }

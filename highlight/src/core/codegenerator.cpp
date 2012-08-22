@@ -1764,77 +1764,14 @@ bool CodeGenerator::initPluginScript(const string& script){
 
 bool CodeGenerator::checkSpecialCmd()
 {
-  /* TODO
-   * 
+
 	string noParseCmd="@highlight";
-	// if single line comment is described with regex, token is equal to line
-	// otherwise start searching after the token, which then consists of comment identifier
-	size_t searchStart= ( token.size() ==line.size() ) ? 0 : lineIndex;
-	size_t cmdPos = line.find ( noParseCmd, searchStart );
-	size_t pos=1;
+
+	size_t cmdPos = line.find ( noParseCmd );
+
 	if ( cmdPos!=string::npos )
 	{
-		string res;
-		string replaceVar;
-		string reInput=line.substr ( noParseCmd.size() +cmdPos );
-		
-		sregex_token_iterator cur( reInput.begin(), reInput.end(), regexElem->rex );
-		sregex_token_iterator end;
-
-			for( ; cur != end; ++cur )  {
-			  
-			}
-
-		auto_ptr<Pattern> reDefPattern ( Pattern::compile ( "\\$[-\\w]+" ) );
-		auto_ptr<Matcher> m ( reDefPattern->createMatcher ( line.substr ( noParseCmd.size() +cmdPos ) ) );
-		while ( m.get() &&  m->findNextMatch() )
-		{
-			res+=line.substr ( noParseCmd.size() +cmdPos + pos ,
-					    m->getStartingIndex ( 0 )-pos );
-			replaceVar = m->getGroup ( 0 );
-			if ( replaceVar=="$nl" )
-			{
-				res+="\n";
-			}
-			else if ( replaceVar=="$infile" )
-			{
-				res+= ( inFile.size() ) ? inFile: "stdin";
-			}
-			else if ( replaceVar=="$outfile" )
-			{
-				res+= ( outFile.size() ) ? outFile: "stdout";
-			}
-			else if ( replaceVar=="$title" )
-			{
-				res+= docTitle;
-			}
-			else if ( replaceVar=="$theme"||replaceVar=="$style" )
-			{
-				res+= getStyleName();
-			}
-			else if ( replaceVar=="$font-face" )
-			{
-				res+= getBaseFont();
-			}
-			else if ( replaceVar=="$font-size" )
-			{
-				res+= getBaseFontSize();
-			}
-			else if ( replaceVar=="$encoding" )
-			{
-				res+= encoding;
-			}
-			else if ( replaceVar=="$linenum" )
-			{
-				char numBuf[10];
-				snprintf ( numBuf, sizeof ( numBuf ), "%d", lineNumber );
-				res+= string ( numBuf );
-			}
-			pos=m->getEndingIndex ( 0 );
-		}
-		res+=line.substr ( noParseCmd.size() +cmdPos + pos );
-
-		*out<<res;
+		*out<<line.substr ( noParseCmd.size() +cmdPos + 1 );
 
 		// hide comment line from output
 		token.clear();
@@ -1845,7 +1782,7 @@ bool CodeGenerator::checkSpecialCmd()
 
 		return true; // do not parse line as comment
 	}
-*/
+
 	return false; //parse comment as usual
 }
 

@@ -504,6 +504,8 @@ string2=[[raw string without escape sequence]]
 
 If a raw string content starts with "[" or ends with "]", pad the paranthesis
 with space to avoid a syntax error. Highlight will strip the string.
+If the string is a regular expression containing a set with a character class
+like [[:space:]], use string delimiters with a "filler": [=[ regex string ]=]
 
 Comments:
 -- line comment

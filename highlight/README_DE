@@ -521,6 +521,9 @@ string2=[[Raw String ohne Escape-Sequenzen]]
 Wenn ein Raw-String mit "[" beginnt oder mit "]" endet, muss die Klammer mit
 Leerzeichen von den Begrenzern getrennt werden, um Syntaxfehler zu vermeiden.
 Highlight entfernt diese Leerzeichen beim Einlesen.
+Ist der String ein regulaerer Ausdruck mit einem Ausdruck wie [[:space:]],
+muss der Stringbegrenzer mit einem "Fueller" verwendet werden: 
+[=[ regex string ]=]
 
 Kommentare:
 -- Einzeiliger Kommentar

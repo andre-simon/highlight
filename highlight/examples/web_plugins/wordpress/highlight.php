@@ -44,7 +44,6 @@ class as_highlight {
 	function __construct()
 	{
 				openlog("myScripLog", LOG_PID | LOG_PERROR, LOG_LOCAL0);
-		syslog(LOG_WARNING,"SCHEISSE2 ");
 		add_filter('the_content',array(&$this, 'hl_the_content_filter'),1);
 	}
 	// PHP 4 Constructor
