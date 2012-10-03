@@ -95,22 +95,11 @@ namespace highlight
 			void setHTMLEnclosePreTag ( bool b ) { enclosePreTag = b; }
 			
 			/**
-			  \param  b if true spaces will be replaced by &nbsp;
-			*/
-			/*
-			void setHTMLUseNonBreakingSpace ( bool b ) { 
-			  if(b){
-			  	spacer = "&nbsp;"; //indent Problem bei <ol> und FIrefox
-				maskWs=true;
-			  }
-			}*/
-
-			/**
 			  \param name CSS Class name
 			*/
 			void setHTMLClassName ( const string& name )
 			{
-				cssClassName  = name;
+				cssClassName  = (StringTools::change_case ( name ) =="none") ? "" : name;
 			}
 
 		protected:
@@ -196,9 +185,6 @@ namespace highlight
 
 			/** @return Newline string */
 			string getNewLine();
-
-			//string getMetaInfoOpenTag ( const TagInfo& info );
-			//string getMetaInfoCloseTag();
 	};
 
 }

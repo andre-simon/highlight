@@ -74,8 +74,12 @@ string HtmlGenerator::getHeader()
                << getStyleOutputPath()
                << "\">\n";
         }
-        os << "</head>\n<body class=\"" << cssClassName
-           << "\">\n";
+        //os << "</head>\n<body class=\"" << cssClassName
+          // << "\">\n";
+	os << "</head>\n<body";
+	if (!cssClassName.empty()) 
+	  os << " class=\""<<cssClassName<<"\"";
+	os << ">\n";
     }
     else
     {
@@ -101,8 +105,10 @@ void HtmlGenerator::printBody()
     {
         if ( !useInlineCSS )
         {
-            *out << "<pre class=\"" << cssClassName
-                 << "\">";
+            *out << "<pre";
+	    if (!cssClassName.empty()) 
+	      *out<<" class=\"" << cssClassName << "\"";
+            *out<< ">";
         }
         else
         {
@@ -175,7 +181,9 @@ string  HtmlGenerator::getAttributes ( const string & elemName, const ElementSty
     ostringstream s;
     if ( !elemName.empty() )
     {
-        s << "."<<cssClassName<<"."<<elemName<<" { ";
+	if (!cssClassName.empty()) 
+	  s << "."<<cssClassName;
+        s <<"."<<elemName<<" { ";
     }
     s << "color:#"
       << ( elem.getColour().getRed ( HTML ) )
@@ -193,7 +201,7 @@ string  HtmlGenerator::getAttributes ( const string & elemName, const ElementSty
 
 string  HtmlGenerator::getOpenTag ( const string& styleName )
 {
-    return "<span class=\""+cssClassName+ " " + styleName + "\">";
+    return "<span class=\"" + (cssClassName.empty() ? "":cssClassName+ " ")  + styleName + "\">";
 }
 
 string  HtmlGenerator::getOpenTag ( const ElementStyle & elem )
@@ -216,13 +224,18 @@ string HtmlGenerator::getStyleDefinition()
     {
         bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
         ostringstream os;
-        os  << "body."<<cssClassName<<"\t{ background-color:#"
+        os  << "body";
+	if (!cssClassName.empty()) 
+	  os<<"."<<cssClassName;
+	os  <<"\t{ background-color:#"
             << ( docStyle.getBgColour().getRed ( HTML ) )
             << ( docStyle.getBgColour().getGreen ( HTML ) )
             << ( docStyle.getBgColour().getBlue ( HTML ) )
             << "; }\n";
         os << (orderedList ? "li" : "pre");
-        os << "."<<cssClassName<<"\t{ color:#"
+	if (!cssClassName.empty()) 
+	  os<<"."<<cssClassName;
+        os << "\t{ color:#"
            << ( docStyle.getDefaultStyle().getColour().getRed ( HTML ) )
            << ( docStyle.getDefaultStyle().getColour().getGreen ( HTML ) )
            << ( docStyle.getDefaultStyle().getColour().getBlue ( HTML ) )
@@ -313,7 +326,10 @@ void HtmlGenerator::insertLineNumber ( bool insertNewLine )
             }
             else
             {
+	      if (!cssClassName.empty()) 
                 numberPrefix<<"<li class=\""<<cssClassName<<"\">";
+	      else
+		numberPrefix<<"<li>";
             }
             // Opera 8 ignores empty list items -> add &nbsp;
             //if ( line.empty() ) numberPrefix<<"&nbsp;";

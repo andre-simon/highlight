@@ -4,7 +4,9 @@ highlight 3.12
 
 03.10.2012
 
+-CSS class name is omitted in HTML output if class-name option is set to NONE
 -added support for Dart and TypeScript
+-GUI: added Simplified Chinese translation (thanks to Love NoAny)
 
 ---
 highlight 3.11 beta

@@ -92,7 +92,7 @@ namespace Help
 		cout<<" -t, --replace-tabs=<num>       replace tabs by <num> spaces\n";
 		cout<<" -T, --doc-title=<title>        document title\n";
 		cout<<" -u, --encoding=<enc>           set output encoding which matches input file\n";
-		cout<<"                                  encoding; omit encoding info if enc=NONE\n";
+		cout<<"                                  encoding; omit encoding info if set to NONE\n";
 		cout<<" -V, --wrap-simple              wrap long lines without indenting function\n";
 		cout<<"                                  parameters and statements\n";
 		cout<<" -W, --wrap                     wrap long lines\n";
@@ -111,7 +111,8 @@ namespace Help
 		cout<<" -N, --anchor-filename          use input file name as anchor prefix\n";
 		cout<<" -C, --print-index              print index with hyperlinks to output files\n";
 		cout<<" -n, --ordered-list             print lines as ordered list items\n";
-		cout<<"     --class-name=<str>         set CSS class name prefix\n";
+		cout<<"     --class-name=<name>        set CSS class name prefix;\n";
+		cout<<"                                  omit class name if set to NONE\n";
 		cout<<"     --inline-css               output CSS within each tag (verbose output)\n";
 		cout<<"     --enclose-pre              enclose fragmented output with pre tag \n";
 		cout<<"                                  (assumes -f)\n";

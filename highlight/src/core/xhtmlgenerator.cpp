@@ -83,8 +83,10 @@ namespace highlight
 				<< ">\n";
 			}
 		}
-		os << "</head>\n<body class=\""<<cssClassName<<"\">";
-		//if (showLineNumbers && orderedList) os << "<ol>";
+		os << "</head>\n<body";
+		if (!cssClassName.empty()) 
+		  os << " class=\""<<cssClassName<<"\"";
+		os << ">\n";
 
 		return os.str();
 	}
