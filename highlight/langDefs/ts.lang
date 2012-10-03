@@ -1,0 +1,47 @@
+
+Description="TypeScript"
+
+Keywords={
+  {  Id=1,
+   List={ "import", "export", "arguments", "this", "let", "var", "void", "yield", "delete", "new", "instanceof", "typeof", "true", "false", "null", "undefined", "alert", 
+          "confirm", "prompt", "status", "self", "top", "parent", "if", "else", "switch", "do", "while", "for", "in", "break", "continue", "case", "default", "return",
+          "with", "try", "catch", "throw", "finally", "Error", "EvalError", "RangeError", "ReferenceError", "SyntaxError", "TypeError", "URIError", "declare", "as",
+          "interface", "module", "abstract", "enum", "int", "short", "boolean", "export", "interface", "static", "byte", "extends", "long", "super", "char", "final",
+          "native", "synchronized", "class", "float", "package", "throws", "const", "goto", "private", "transient", "debugger", "implements", "protected", "volatile",
+          "double", "import", "public"
+        }
+  },
+  { Id=2,
+    List={ "any", "number", "string", "bool", "Array", "Boolean", "Date", "Function", "Infinity", "Math", "Number", "NaN", "Object", "Packages", "RegExp", "String" }
+  },
+  
+
+ -- { Id=3,
+ --   Regex=[[(#\w+)\s*\(]]
+ -- },
+
+  { Id=4,
+    Regex=[[(\w+)\s*\(]]
+  }
+}
+
+Strings = {
+  Delimiter=[['|"]],
+}
+
+Comments = {
+   { Block=true,
+     Nested=false,
+     Delimiter = { [[\/\*]], [[\*\/]] }
+   },
+   {
+     Block=false,
+     Delimiter = { [[//]] }
+   }
+}
+
+IgnoreCase=false
+
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|=|\/|\*|\%|\+|\-|\~|\||\^|\?]]
+
+EnableIndentation=false

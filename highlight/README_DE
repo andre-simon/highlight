@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.10 ----------------------------- Mai 2012 ---
+---  HIGHLIGHT MANUAL - Version 3.12 ------------------------- Oktober 2012 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -270,6 +270,8 @@ GNU source-highlight compatibility options:
 Die Graphische Oberflaeche bietet eine Teilmenge der CLI-Funktionen. Sie enthaelt
 eine dynamische Vorschau der sichtbaren Ausgabe. Auf der Projekt-Webseite finden
 Sie Screenshots und Flash-Animationen.
+Wird highlight-gui mit der Option --portable gestartet, speichert es die 
+Einstellungen im Programmverzeichnis (anstatt zB. die Registry zu benutzen).
 
 
 2.4 EIN- UND AUSGABE
@@ -554,13 +556,13 @@ Syntax-Elemente:
 Keywords = { Id, List|Regex, Group? }
 
   Id:    Integer, ID der Schluesselwortgruppe (Werte 1-4, die mehrfach verwendet
-	werden koennen)
+         werden koennen)
   List:  Liste, Auflistung von Schluesselwoertern
   Regex: String, Regulaerer Ausdruck
   Group: Integer, Capturing Group ID der Regex, bestimmt den Teil des gefundenen
          Ausdrucks, der als Schluesselwort hervorgehoben werden soll (optional,
-	     wenn nicht gesetzt wird der Match mit der hoechsten Group-ID zurueck-
-	     gegeben (gezaehlt wird von links nach rechts))
+         wenn nicht gesetzt wird der Match mit der hoechsten Group-ID zurueck-
+         gegeben (gezaehlt wird von links nach rechts))
 
 
 Comments = { {Block, Nested?, Delimiter} }
@@ -568,15 +570,15 @@ Comments = { {Block, Nested?, Delimiter} }
   Block:     Boolean, true wenn der Kommentar ein Blockkommentar ist
   Nested:    Boolean, true wenn der Blockkommentar verschachtelt werden darf (optional)
   Delimiter: Liste, enthaelt Regex der oeffnenden Begrenzer (Zeilenkommentar) oder
-	         Regex des oeffnenden und des schliessenden Begrenzers (Blockkommentar)
+             Regex des oeffnenden und des schliessenden Begrenzers (Blockkommentar)
 
 
 Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, RawPrefix? }
 
   Delimiter:      String, Regulaerer Ausdruck der Begrenzer
   DelimiterPairs: Liste, enthaelt Ausdruecke der oeffnenden und der schliessenden
-		          Begrenzer wenn diese nicht gleich sind und optional ein Raw-
-		          String Flag
+                  Begrenzer wenn diese nicht gleich sind und optional ein Raw-
+                  String Flag
   Escape:         String, Regulaerer Ausdruck der Escapsesequenzen (optional)
   RawPrefix:      String, Definiert Raw String Prefix (optional)
 

@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.10 ----------------------------- May 2012 ---
+---  HIGHLIGHT MANUAL - Version 3.12 ------------------------- October 2012 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -132,9 +132,8 @@ main.cpp as input file:
   Default output is HTML if no other format is specified.
 
 - Customize font settings:
-<<<<<<< .mine  highlight --syntax ada --font-size 12 --font  Consolas,\'Courier\ New\'
-=======  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
->>>>>>> .theirs  highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
+  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
+  highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Define an output directory:
   highlight -d some/target/dir/ *.cpp *.h
@@ -267,6 +266,8 @@ GNU source-highlight compatibility options:
 The Graphical User Interface offers a subset of the CLI's features. It includes
 a dynamic preview of the output file's apperarance. Please see screenshots
 and flash animations on the project website.
+Invoke highlight-gui with the --portable option to let it save its settings
+in the binary's current directory (instead of using the registry).
 
 
 2.4 INPUT AND OUTPUT

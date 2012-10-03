@@ -838,8 +838,6 @@ namespace highlight
 		outFile=outFileName;
 		in = ( inFileName.empty() ? &cin :new ifstream ( inFileName.c_str() ) );
 
-		//in->rdbuf()->pubsetbuf(inputBuffer,sizeof(inputBuffer)); kein effekt....
-
 		if ( validateInput )
 			if ( !validateInputStream() ) error= BAD_INPUT;
 

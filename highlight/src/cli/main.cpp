@@ -2,7 +2,7 @@
                           main.cpp  -  description
                              -------------------
     begin                : Die Apr 23 22:16:35 CEST 2002
-    copyright            : (C) 2002-2009 by Andre Simon
+    copyright            : (C) 2002-2012 by Andre Simon
     email                : andre.simon1@gmx.de
 
    Highlight is a universal source code to HTML converter. Syntax highlighting
@@ -93,7 +93,7 @@ bool HLCmdLineApp::printInstalledThemes()
     sort ( filePaths.begin(), filePaths.end() );
     string temp;
 
-    for ( unsigned int i=0;i< filePaths.size(); i++ )
+    for ( unsigned int i=0; i< filePaths.size(); i++ )
     {
         temp = ( filePaths[i] ).substr ( directory.length() );
         cout <<temp.substr ( 1, temp.length()- wildcard.length() ) << endl;
@@ -125,17 +125,17 @@ bool HLCmdLineApp::printInstalledLanguages()
     cout << "\nInstalled language definitions"
          << " (located in " << directory << "):\n\n";
 
-    for ( unsigned int i=0;i< filePaths.size(); i++ )
+    for ( unsigned int i=0; i< filePaths.size(); i++ )
     {
         Diluculum::LuaState ls;
-	highlight::SyntaxReader::initLuaState(ls, filePaths[i],"");
+        highlight::SyntaxReader::initLuaState(ls, filePaths[i],"");
         ls.doFile(filePaths[i]);
         desc = ls["Description"].value().asString();
         suffix = ( filePaths[i] ).substr ( directory.length() ) ;
         suffix = suffix.substr ( 1, suffix.length()- wildcard.length() );
         cout << setw ( 30 ) <<setiosflags ( ios::left ) <<desc<<": "<<suffix;
         int extCnt=0;
-        for (StringMap::iterator it=extensions.begin();it!=extensions.end();it++) {
+        for (StringMap::iterator it=extensions.begin(); it!=extensions.end(); it++) {
             if (it->second==suffix ) {
                 cout << ((++extCnt==1)?" ( ":" ")<<it->first;
             }
@@ -155,26 +155,30 @@ void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader *lang,
     cerr << "\n\nDescription: " << lang->getDescription();
 
     Diluculum::LuaState* luaState=lang->getLuaState();
-    if (luaState){
-	cerr << "\n\nLUA GLOBALS:\n" ;
-	Diluculum::LuaValueMap::iterator it;
-	Diluculum::LuaValueMap glob =luaState->globals();
-	for(it = glob.begin(); it != glob.end(); it++)
-	{
-	  Diluculum::LuaValue first = it->first;
-	  Diluculum::LuaValue second = it->second;
-	  std::cerr << first.asString()<<": ";
-	  switch (second.type()) {
-	    case  LUA_TSTRING:	cerr << "string [ "<<second.asString()<<" ]";
-		    break;
-	    case  LUA_TNUMBER:	cerr << "number [ "<<second.asNumber()<<" ]";
-		    break;
-	    case  LUA_TBOOLEAN:	cerr << "boolean [ "<<second.asBoolean()<<" ]";
-		    break;
-	    default: cerr << second.typeName();
-	  }
-	  cerr << endl;
-	}
+    if (luaState) {
+        cerr << "\n\nLUA GLOBALS:\n" ;
+        Diluculum::LuaValueMap::iterator it;
+        Diluculum::LuaValueMap glob =luaState->globals();
+        for(it = glob.begin(); it != glob.end(); it++)
+        {
+            Diluculum::LuaValue first = it->first;
+            Diluculum::LuaValue second = it->second;
+            std::cerr << first.asString()<<": ";
+            switch (second.type()) {
+            case  LUA_TSTRING:
+                cerr << "string [ "<<second.asString()<<" ]";
+                break;
+            case  LUA_TNUMBER:
+                cerr << "number [ "<<second.asNumber()<<" ]";
+                break;
+            case  LUA_TBOOLEAN:
+                cerr << "boolean [ "<<second.asBoolean()<<" ]";
+                break;
+            default:
+                cerr << second.typeName();
+            }
+            cerr << endl;
+        }
 
     }
     /*
@@ -237,10 +241,10 @@ string HLCmdLineApp::getFileSuffix ( const string &fileName )
 
 string HLCmdLineApp::getFileSuffix(const string& fileName)
 {
-  size_t ptPos=fileName.rfind(".");
-  size_t psPos = fileName.rfind ( Platform::pathSeparator );
-  return (ptPos == string::npos || (psPos!=string::npos && psPos>ptPos)) ? "" : fileName.substr(ptPos+1,
-                                        fileName.length());
+    size_t ptPos=fileName.rfind(".");
+    size_t psPos = fileName.rfind ( Platform::pathSeparator );
+    return (ptPos == string::npos || (psPos!=string::npos && psPos>ptPos)) ? "" : fileName.substr(ptPos+1,
+            fileName.length());
 }
 
 bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, StringMap* shebangMap )
@@ -255,7 +259,7 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, S
 
         int idx=1;
         string langName;
-	Diluculum::LuaValue mapEntry;
+        Diluculum::LuaValue mapEntry;
         while ((mapEntry = ls["FileMapping"][idx].value()) !=Diluculum::Nil) {
             langName = mapEntry["Lang"].asString();
             if (mapEntry["Extensions"] !=Diluculum::Nil) {
@@ -296,7 +300,7 @@ void HLCmdLineApp::printProgressBar ( int total, int count )
     int p=100*count / total;
     int numProgressItems=p/10;
     cout << "\r[";
-    for ( int i=0;i<10;i++ )
+    for ( int i=0; i<10; i++ )
     {
         cout << ( ( i<numProgressItems ) ?"#":" " );
     }
@@ -361,7 +365,7 @@ string HLCmdLineApp::analyzeFile ( const string& file )
     StringMap::iterator it;
     sregex rex;
     smatch what;
-    for ( it=scriptShebangs.begin(); it!=scriptShebangs.end();it++ )
+    for ( it=scriptShebangs.begin(); it!=scriptShebangs.end(); it++ )
     {
         rex = sregex::compile( it->first );
         if ( regex_search( firstLine, what, rex )  ) return it->second;
@@ -380,8 +384,8 @@ string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFi
     /*if (suffix.empty()) return analyzeFile ( inputFile );
     string lcSuffix = StringTools::change_case ( suffix );
     return ( extensions.count ( lcSuffix ) ) ? extensions[lcSuffix] : lcSuffix ;*/
-   // if ( !fileType.empty() ) return fileType;
-   // return "";
+    // if ( !fileType.empty() ) return fileType;
+    // return "";
 }
 
 
@@ -438,7 +442,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         return EXIT_FAILURE;
     }
 
-  // ios_base::sync_with_stdio(false); no effect on speed
+    // ios_base::sync_with_stdio(false); no effect on speed
 
     string themePath=options.getAbsThemePath().empty() ? dataDir.getThemePath ( options.getThemeName() ): options.getAbsThemePath();
 
@@ -450,7 +454,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->setHTMLEnclosePreTag ( options.enclosePreTag() );
     generator->setHTMLAnchorPrefix ( options.getAnchorPrefix() );
     generator->setHTMLClassName ( options.getClassName() );
-   // generator->setHTMLUseNonBreakingSpace(options.useNonBreakingSpace());
+    // generator->setHTMLUseNonBreakingSpace(options.useNonBreakingSpace());
 
     generator->setLATEXReplaceQuotes ( options.replaceQuotes() );
     generator->setLATEXNoShorthands ( options.disableBabelShorthands() );
@@ -490,16 +494,16 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     bool styleFileWanted = !options.fragmentOutput() || options.styleOutPathDefined();
 
     const  vector <string> pluginFileList=options.getPluginPaths();
-    for (unsigned int i=0;i<pluginFileList.size();i++){
-    if ( !generator->initPluginScript(pluginFileList[i]) )
-    {
-        cerr << "highlight: "
-             << generator->getPluginScriptError()
-             << " in "
-             << pluginFileList[i]
-             <<"\n";
-        return EXIT_FAILURE;
-    }
+    for (unsigned int i=0; i<pluginFileList.size(); i++) {
+        if ( !generator->initPluginScript(pluginFileList[i]) )
+        {
+            cerr << "highlight: "
+                 << generator->getPluginScriptError()
+                 << " in "
+                 << pluginFileList[i]
+                 <<"\n";
+            return EXIT_FAILURE;
+        }
     }
 
     if ( !generator->initTheme ( themePath ) )
@@ -539,7 +543,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     if ( !options.getTagsFile().empty() )
     {
-            cerr << "highlight: ctags option was removed, use the ctags_html_tooltips plug-in instead\n";
+        cerr << "highlight: ctags option was removed, use the ctags_html_tooltips plug-in instead\n";
     }
 
     string outDirectory = options.getOutDirectory();
@@ -640,13 +644,13 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
         if ( options.enableBatchMode() )
         {
-	    if (usedFileNames.count(inFileName)){
-	      string prefix=inFileList[i].substr (0, pos+1 );
-	      replace (prefix.begin(), prefix.end(), Platform::pathSeparator, '_');
-	      inFileName.insert(0, prefix);
-	    } else {
-	      usedFileNames.insert(inFileName);
-	    }
+            if (usedFileNames.count(inFileName)) {
+                string prefix=inFileList[i].substr (0, pos+1 );
+                replace (prefix.begin(), prefix.end(), Platform::pathSeparator, '_');
+                inFileName.insert(0, prefix);
+            } else {
+                usedFileNames.insert(inFileName);
+            }
             outFilePath = outDirectory;
             outFilePath += inFileName;
             outFilePath += options.getOutFileSuffix();
@@ -669,7 +673,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             if ( outFilePath.size() && outFilePath==options.getSingleInFilename() )
             {
                 cerr 	<< "highlight: Output path equals input path: \""
-                      << outFilePath << "\".\n";
+                        << outFilePath << "\".\n";
                 initError = true;
                 break;
             }
