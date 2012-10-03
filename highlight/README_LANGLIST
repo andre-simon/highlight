@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT LANGUAGE LIST --------------------------------- October 2011 ---
+---  HIGHLIGHT LANGUAGE LIST --------------------------------- October 2012 ---
 -------------------------------------------------------------------------------
 
 All supported languages and the syntax definition file names are listed below.
@@ -33,6 +33,7 @@ Avenue                        : avenue
 DOS Batch                     : bat ( cmd )
 BBcode                        : bbcode
 BibTeX                        : bibtex ( bib )
+Biferno                       : biferno
 Bison                         : bison ( y )
 Blitz Basic                   : blitzbasic ( bb )
 BM Script                     : bms
@@ -45,11 +46,13 @@ ClearBasic                    : clearbasic ( cb )
 Clipper                       : clipper
 Clojure                       : clojure
 Clips                         : clp
+Ceylon                        : ceylon
 COBOL                         : cobol ( cbl cob )
 ColdFusion MX                 : coldfusion ( cfc cfm )
 C#                            : csharp ( cs )
 CSS                           : css
 D                             : d
+Dart                          : dart
 Diff                          : diff ( patch )
 Dylan                         : dylan
 Extended Backus-Naur Form     : ebnf
@@ -142,6 +145,7 @@ R                             : r
 Rebol                         : rebol
 Rexx                          : rexx ( rex rx the )
 Relax NG                      : rnc
+RPL                           : rpl
 Ruby                          : ruby ( pp rb rjs ruby )
 PowerPC Assembler             : s
 SAS                           : sas
@@ -163,6 +167,7 @@ TCSH                          : tcsh
 Regex tests                   : test_re
 TeX and LaTeX                 : tex ( cls sty )
 TTCN3                         : ttcn3
+TypeScript                    : ts
 Plain text                    : txt
 UPC                           : upc
 Vala                          : vala
