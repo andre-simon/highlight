@@ -470,12 +470,12 @@ bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap) {
     StringMap::iterator it;
 
     
-        sregex rex;
-    smatch what;
+    boost::xpressive::sregex rex;
+    boost::xpressive::smatch what;
     for ( it=shebangs.begin(); it!=shebangs.end();it++ )
     {
-        rex = sregex::compile( it->first );
-        if ( regex_search( firstLine, what, rex )  ) return it->second;
+        rex = boost::xpressive::sregex::compile( it->first );
+        if ( boost::xpressive::regex_search( firstLine, what, rex )  ) return it->second;
     }
     return "";
 }
@@ -772,6 +772,9 @@ void MainWindow::on_pbStartConversion_clicked(){
              break;
         } else  if (loadRes==highlight::LOAD_FAILED) {
            QMessageBox::warning(this, tr("Unknown syntax"), tr("Could not convert %1").arg(inFilePath));
+           inputErrors.append(inFilePath);
+       } else  if (loadRes==highlight::LOAD_FAILED_LUA) {
+           QMessageBox::warning(this, tr("Lua error"), tr("Could not convert %1:\nLua Syntax error: %2").arg(inFilePath).arg(QString::fromStdString(generator->getSyntaxLuaError())) );
            inputErrors.append(inFilePath);
        } else {
 

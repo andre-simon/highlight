@@ -79,6 +79,7 @@ namespace highlight
 		openTags.push_back ( getOpenTag ( docStyle.getPreProcStringStyle() ) );
 		openTags.push_back ( getOpenTag ( docStyle.getLineStyle() ) );
 		openTags.push_back ( getOpenTag ( docStyle.getOperatorStyle() ) );
+		openTags.push_back ( getOpenTag ( docStyle.getInterpolationStyle()) );
 
 		for (unsigned int i=0;i<NUMBER_BUILTIN_STATES; i++ )
 		{

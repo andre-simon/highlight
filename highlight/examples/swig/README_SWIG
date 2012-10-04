@@ -16,7 +16,7 @@ See the makefile how to compile Python and Perl modules:
    make perl
 
 2. Run the test scripts
-   python testmod.py
+   python testmod.py (use 2.x interpreter)
    perl testmod.pl
 
 See http://wiki.andre-simon.de/ for more information.

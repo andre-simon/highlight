@@ -154,6 +154,7 @@ void HtmlGenerator::initOutputTags ()
         openTags.push_back ( getOpenTag ( docStyle.getPreProcStringStyle() ) );
         openTags.push_back ( getOpenTag ( docStyle.getLineStyle() ) );
         openTags.push_back ( getOpenTag ( docStyle.getOperatorStyle() ) );
+	openTags.push_back ( getOpenTag ( docStyle.getInterpolationStyle() ) );
     }
     else
     {
@@ -166,6 +167,7 @@ void HtmlGenerator::initOutputTags ()
         openTags.push_back ( getOpenTag ( STY_NAME_DST ) );
         openTags.push_back ( getOpenTag ( STY_NAME_LIN ) );
         openTags.push_back ( getOpenTag ( STY_NAME_SYM ) );
+	openTags.push_back ( getOpenTag ( STY_NAME_IPL ) );
     }
 
     closeTags.push_back ( "" );
@@ -256,6 +258,7 @@ string HtmlGenerator::getStyleDefinition()
             << getAttributes ( STY_NAME_COM, docStyle.getCommentStyle() )
             << getAttributes ( STY_NAME_DIR, docStyle.getPreProcessorStyle() )
             << getAttributes ( STY_NAME_SYM, docStyle.getOperatorStyle() )
+	    << getAttributes ( STY_NAME_IPL, docStyle.getInterpolationStyle() )
             << getAttributes ( STY_NAME_LIN, docStyle.getLineStyle() );
 
         KeywordStyles styles = docStyle.getKeywordStyles();

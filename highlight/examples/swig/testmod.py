@@ -4,7 +4,7 @@
 # Import highlight.py, which is the interface for the _highlight.so module.
 # See highlight.py for all available attributes and class members.
 #
-# Example: swig_cli.py  testmod.py testmod.py.html -l --style emacs
+# Example: python2.7 testmod.py -Sperl -O odt testmod.pl testmod.pl.odt
 
 import highlight
 import sys
@@ -17,6 +17,8 @@ formatList = { "html":  highlight.HTML,
 	   "tex":   highlight.TEX,
 	   "ansi":  highlight.ANSI,
 	   "xterm256": highlight.XTERM256,
+	   "odt":   highlight.ODTFLAT,
+	   "bbcode":   highlight.BBCODE,
 	   "svg":   highlight.SVG
 	 }
 
@@ -26,8 +28,8 @@ def highlightFile():
 	
 	parser = OptionParser("usage: %prog [options] input-file output-file")
 	parser.add_option("-O", "--format", default="html", 
-	                choices=("html","xhtml","latex","tex","rtf","ansi","xterm256","svg"),
-			help="Output format (html, xhtml, latex, tex, rtf, ansi, xterm256, svg)")
+	                choices=("html","xhtml","latex","tex","rtf","ansi","xterm256","svg", "odt", "bbcode"),
+			help="Output format (html, xhtml, latex, tex, rtf, ansi, xterm256, odt, bbcode, svg)")
 	parser.add_option("-d", "--doc-title", default="Source file", 
 			help="document title")
 	parser.add_option("-f", "--fragment", action="store_true", 
@@ -54,7 +56,6 @@ def highlightFile():
 	
 	(infile, outfile) = args
 	
-	#get a generator instance (for HTML output)
 	gen=highlight.CodeGenerator.getInstance(outFormat)
 	datadir=highlight.DataDir()
 	datadir.searchDataDir("")

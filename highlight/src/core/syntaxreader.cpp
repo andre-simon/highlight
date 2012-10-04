@@ -159,6 +159,7 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
 	ls["HL_PREPROC_STRING"]=DIRECTIVE_STRING;
 	ls["HL_OPERATOR"]=SYMBOL;
 	ls["HL_LINENUMBER"]=LINENUMBER;
+	ls["HL_INTERPOLATION"]=STRING_INTERPOLATION;
 	ls["HL_KEYWORD"]=KEYWORD;
 	ls["HL_STRING_END"]=STRING_END;
 	ls["HL_LINE_COMMENT_END"]=SL_COMMENT_END;
@@ -171,6 +172,7 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
 	ls["HL_EMBEDDED_CODE_END"]=EMBEDDED_CODE_END;
 	ls["HL_IDENTIFIER_BEGIN"]=IDENTIFIER_BEGIN;
 	ls["HL_IDENTIFIER_END"]=IDENTIFIER_END;
+	ls["HL_INTERPOLATION_END"]=STRING_INTERPOLATION_END;
 	ls["HL_UNKNOWN"]=_UNKNOWN;
 	ls["HL_FORMAT_HTML"]=HTML;
 	ls["HL_FORMAT_XHTML"]=XHTML;
@@ -326,6 +328,10 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 		delimiterDistinct[elem->instanceId]=true;
 		regex.push_back (elem );
             }
+            if (ls["Strings"]["Interpolation"].value()!=Diluculum::Nil) {
+		RegexElement* elem=new RegexElement ( STRING_INTERPOLATION, STRING_INTERPOLATION_END, StringTools::trim( ls["Strings"]["Interpolation"].value().asString()), 0, -1 );
+		regex.push_back (elem );
+            }
 
             if (ls["Strings"]["DelimiterPairs"].value()!=Diluculum::Nil) {
 
@@ -415,7 +421,7 @@ string SyntaxReader::getNewPath(const string& lang) {
 
 
 int SyntaxReader::getOpenDelimiterID ( const string& token, State s) {
-    smatch what;
+    boost::xpressive::smatch what;
     for (unsigned int i=0; i<getRegexElements().size(); i++ )  {
         RegexElement *regexElem = getRegexElements() [i];
         if (regexElem->open==s ) {
@@ -435,7 +441,7 @@ int SyntaxReader::getOpenDelimiterID ( const string& token, State s) {
 }
 
 bool SyntaxReader::matchesOpenDelimiter ( const string& token, State s, int openDelimId) {
-    smatch what;
+    boost::xpressive::smatch what;
     for (unsigned int i=0; i<getRegexElements().size(); i++ )  {
         RegexElement *regexElem = getRegexElements() [i];
         if (regexElem->open==s ) {

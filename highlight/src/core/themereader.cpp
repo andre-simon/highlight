@@ -100,6 +100,7 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
         initStyle(directive, ls["PreProcessor"]);
         initStyle(str, ls["String"]);
         initStyle(escapeChar, ls["Escape"]);
+	initStyle(interpolation, ls["Interpolation"]);
         initStyle(number, ls["Number"]);
         initStyle(dstr, ls["StringPreProc"]);
         initStyle(line, ls["LineNum"]);
@@ -174,6 +175,12 @@ ElementStyle ThemeReader::getEscapeCharStyle() const
 {
     return escapeChar;
 }
+
+ElementStyle ThemeReader::getInterpolationStyle() const
+{
+    return interpolation;
+}
+
 
 ElementStyle ThemeReader::getNumberStyle() const
 {

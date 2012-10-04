@@ -97,6 +97,7 @@ namespace highlight
 		openTags.push_back ( getOpenTag ( docStyle.getPreProcStringStyle() ) );
 		openTags.push_back ( getOpenTag ( docStyle.getLineStyle() ) );
 		openTags.push_back ( getOpenTag ( docStyle.getOperatorStyle() ) );
+		openTags.push_back ( getOpenTag ( docStyle.getInterpolationStyle() ) );
 
 		closeTags.push_back ( "" );
 		closeTags.push_back ( getCloseTag ( docStyle.getStringStyle() ) );
@@ -108,6 +109,7 @@ namespace highlight
 		closeTags.push_back ( getCloseTag ( docStyle.getPreProcStringStyle() ) );
 		closeTags.push_back ( getCloseTag ( docStyle.getLineStyle() ) );
 		closeTags.push_back ( getCloseTag ( docStyle.getOperatorStyle() ) );
+		closeTags.push_back ( getCloseTag ( docStyle.getInterpolationStyle() ) );
 	}
 
 	string BBCodeGenerator::maskCharacter ( unsigned char c )

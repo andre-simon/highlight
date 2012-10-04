@@ -13,6 +13,7 @@ LineComment   = BlockComment
 Operator      = Default
 LineNum      = BlockComment
 PreProcessor      = Default
+Interpolation  = Escape
 
 Keywords = {
   { Colour="#ffffff" , Bold=true},

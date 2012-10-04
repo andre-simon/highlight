@@ -68,6 +68,7 @@ namespace highlight
 		openTags.push_back ( getOpenTag ( "00", "31" ) );//directive string
 		openTags.push_back ( getOpenTag ( "00", "30" ) );//linenum
 		openTags.push_back ( getOpenTag ( "00", "00" ) );//symbol
+		openTags.push_back ( getOpenTag ( "00", "35" ) );//interpolation
 
 		closeTags.push_back ( "" );
 		for (unsigned int i=1;i<NUMBER_BUILTIN_STATES; i++ )

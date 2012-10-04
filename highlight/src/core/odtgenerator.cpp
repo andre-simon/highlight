@@ -66,6 +66,7 @@ string ODTGenerator::getStyleDefinition()
            << getAttributes ( STY_NAME_COM, docStyle.getCommentStyle() )
            << getAttributes ( STY_NAME_DIR, docStyle.getPreProcessorStyle() )
            << getAttributes ( STY_NAME_SYM, docStyle.getOperatorStyle() )
+	   << getAttributes ( STY_NAME_IPL, docStyle.getInterpolationStyle() )
            << getAttributes ( STY_NAME_LIN, docStyle.getLineStyle() );
 
         KeywordStyles styles = docStyle.getKeywordStyles();
@@ -175,7 +176,8 @@ void ODTGenerator::initOutputTags ()
     openTags.push_back ( getOpenTag ( STY_NAME_DST ) );
     openTags.push_back ( getOpenTag ( STY_NAME_LIN ) );
     openTags.push_back ( getOpenTag ( STY_NAME_SYM ) );
-
+    openTags.push_back ( getOpenTag ( STY_NAME_IPL ) );
+ 
     closeTags.push_back ( "" );
     for (unsigned int i=1; i<NUMBER_BUILTIN_STATES; i++ )
     {

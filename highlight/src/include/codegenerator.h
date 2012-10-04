@@ -432,6 +432,7 @@ namespace highlight
 			static const string STY_NAME_DST;
 			static const string STY_NAME_LIN;
 			static const string STY_NAME_SYM;
+			static const string STY_NAME_IPL;
 
 			/** \param type Output type */
 			CodeGenerator ( highlight::OutputType type );
@@ -713,6 +714,7 @@ namespace highlight
 			bool processSingleLineCommentState();     ///< process single line comments
 			bool processStringState ( State oldState );  ///< process strings
 			bool processEscapeCharState();            ///< process escape characters
+			bool processInterpolationState();         ///< process string interpolation sequences
 			bool processDirectiveState();             ///< process directives
 			bool processTagState();                   ///< process tags
 			bool processSymbolState();                ///< process symbols

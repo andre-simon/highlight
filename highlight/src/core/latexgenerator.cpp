@@ -175,6 +175,7 @@ namespace highlight
 		openTags.push_back ( "\\hl"+STY_NAME_DST+"{" );
 		openTags.push_back ( "\\hl"+STY_NAME_LIN+"{" );
 		openTags.push_back ( "\\hl"+STY_NAME_SYM+"{" );
+		openTags.push_back ( "\\hl"+STY_NAME_IPL+"{" );
 
 		for (unsigned int i=0;i<NUMBER_BUILTIN_STATES; i++ )
 		{
@@ -315,6 +316,7 @@ namespace highlight
 			os << getAttributes ( STY_NAME_COM, docStyle.getCommentStyle() );
 			os << getAttributes ( STY_NAME_DIR, docStyle.getPreProcessorStyle() );
 			os << getAttributes ( STY_NAME_SYM, docStyle.getOperatorStyle() );
+			os << getAttributes ( STY_NAME_IPL, docStyle.getInterpolationStyle() );
 			os << getAttributes ( STY_NAME_LIN, docStyle.getLineStyle() );
 
 			KeywordStyles styles = docStyle.getKeywordStyles();

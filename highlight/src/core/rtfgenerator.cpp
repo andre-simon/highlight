@@ -147,6 +147,7 @@ namespace highlight
 		*out << getAttributes ( docStyle.getPreProcStringStyle() );
 		*out << getAttributes ( docStyle.getLineStyle() );
 		*out << getAttributes ( docStyle.getOperatorStyle() );
+		*out << getAttributes ( docStyle.getInterpolationStyle() );
 
 		/* For output formats which can refer to external styles it is more safe
 		   to use the colour theme's keyword class names, since the language
@@ -179,7 +180,8 @@ namespace highlight
 			*out << getCharStyle ( DIRECTIVE, docStyle.getPreProcessorStyle(), "HL Directive" );
 			*out << getCharStyle ( DIRECTIVE_STRING, docStyle.getPreProcStringStyle(), "HL Directive String" );
 			*out << getCharStyle ( LINENUMBER, docStyle.getLineStyle(), "HL Line" );
-			*out << getCharStyle ( SYMBOL, docStyle.getOperatorStyle(), "HL Symbol" );
+			*out << getCharStyle ( SYMBOL, docStyle.getOperatorStyle(), "HL Operator" );
+			*out << getCharStyle ( STRING_INTERPOLATION, docStyle.getInterpolationStyle(), "HL Interpolation" );
 			char styleName[20];
 			for ( unsigned int i=0;i<keywordClasses.size();i++ )
 			{
@@ -219,6 +221,7 @@ namespace highlight
 		openTags.push_back ( getOpenTag ( DIRECTIVE_STRING, docStyle.getPreProcStringStyle() ) );
 		openTags.push_back ( getOpenTag ( LINENUMBER, docStyle.getLineStyle() ) );
 		openTags.push_back ( getOpenTag ( SYMBOL, docStyle.getOperatorStyle() ) );
+		openTags.push_back ( getOpenTag ( STRING_INTERPOLATION, docStyle.getInterpolationStyle()) );
 
 		closeTags.push_back ( getCloseTag ( docStyle.getDefaultStyle() ) );
 		closeTags.push_back ( getCloseTag ( docStyle.getStringStyle() ) );
@@ -230,6 +233,7 @@ namespace highlight
 		closeTags.push_back ( getCloseTag ( docStyle.getPreProcStringStyle() ) );
 		closeTags.push_back ( getCloseTag ( docStyle.getLineStyle() ) );
 		closeTags.push_back ( getCloseTag ( docStyle.getOperatorStyle() ) );
+		closeTags.push_back ( getCloseTag ( docStyle.getInterpolationStyle() ) );
 	}
 
 	string RtfGenerator::maskCharacter ( unsigned char c )

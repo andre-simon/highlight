@@ -48,7 +48,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define GLOBAL_INSTANCE_NAME "HL_SRInstance"
 
 using namespace std;
-using namespace boost::xpressive;
+
 
 namespace highlight
 {
@@ -294,14 +294,14 @@ namespace highlight
 			RegexElement ( State oState, State eState, const string&rePattern, unsigned int cID=0, int group=-1, const string& name="" ) :
 					open ( oState ), end ( eState ), kwClass ( cID ), capturingGroup ( group ), langName(name),instanceId(instanceCnt++)
 			{
-				rex=sregex::compile(rePattern);
+				rex=boost::xpressive::sregex::compile(rePattern);
 			}
 
 			~RegexElement() {  instanceCnt--; }
 
 			State open, ///< opening state
 			end;  ///< closing state
-			sregex rex;
+			boost::xpressive::sregex rex;
 			unsigned int kwClass;        ///< keyword class
 			int capturingGroup;          ///< capturing group ID
 			string langName;             ///< language name

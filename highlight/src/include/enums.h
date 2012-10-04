@@ -37,8 +37,9 @@ namespace highlight
 		DIRECTIVE_STRING,
 		LINENUMBER,
 		SYMBOL,
+		STRING_INTERPOLATION,
 
-		// don't use constants > 10 as array indices!
+		// don't use constants > KEYWORD as array indices!
 		KEYWORD,
 		STRING_END,
 		NUMBER_END,
@@ -47,6 +48,7 @@ namespace highlight
 		ESC_CHAR_END,
 		DIRECTIVE_END,
 		SYMBOL_END,
+		STRING_INTERPOLATION_END,
 		KEYWORD_END,
 		IDENTIFIER_BEGIN,
 		IDENTIFIER_END,

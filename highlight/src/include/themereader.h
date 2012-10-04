@@ -39,108 +39,113 @@ using namespace std;
 namespace highlight
 {
 
-	/** maps keyword class names and the corresponding formatting information*/
-	typedef map <string, ElementStyle> KeywordStyles;
+/** maps keyword class names and the corresponding formatting information*/
+typedef map <string, ElementStyle> KeywordStyles;
 
-	/** iterator for keyword styles*/
-	typedef KeywordStyles::const_iterator KSIterator;
+/** iterator for keyword styles*/
+typedef KeywordStyles::const_iterator KSIterator;
 
-	/** \brief Contains information about document formatting properties.
-	 * @author Andre Simon
-	 */
+/** \brief Contains information about document formatting properties.
+ * @author Andre Simon
+ */
 
-	class ThemeReader
-	{
-		private:
-			ElementStyle comment, slcomment, str, dstr,
-			              escapeChar, number, directive, line, operators;
-			ElementStyle defaultElem;
-			ElementStyle  canvas;
+class ThemeReader
+{
+private:
+    ElementStyle comment, slcomment, str, dstr,
+                 escapeChar, number, directive, line, operators, interpolation;
+    ElementStyle defaultElem;
+    ElementStyle canvas;
 
-			string errorMsg;
-			string desc;
-			vector <string> injections;
+    string errorMsg;
+    string desc;
+    vector <string> injections;
 
-			vector<Diluculum::LuaFunction*> pluginChunks;
+    vector<Diluculum::LuaFunction*> pluginChunks;
 
-			bool fileOK;
+    bool fileOK;
 
-			KeywordStyles keywordStyles;
+    KeywordStyles keywordStyles;
 
-			void initStyle(ElementStyle& style, const Diluculum::LuaVariable& var);
+    void initStyle(ElementStyle& style, const Diluculum::LuaVariable& var);
 
-		public:
-			/** Constructor */
-			ThemeReader();
-			~ThemeReader();
+public:
+    /** Constructor */
+    ThemeReader();
+    ~ThemeReader();
 
-			/** load style definition
-			      \param styleDefinitionFile Style definition path
-			      \return True if successfull */
-			bool load ( const string & styleDefinitionFile, OutputType outputType=HTML );
+    /** load style definition
+          \param styleDefinitionFile Style definition path
+          \return True if successfull */
+    bool load ( const string & styleDefinitionFile, OutputType outputType=HTML );
 
-			void addUserChunk(const Diluculum::LuaFunction& chunk){
+    void addUserChunk(const Diluculum::LuaFunction& chunk) {
 
-			  pluginChunks.push_back(new Diluculum::LuaFunction(chunk));
-			}
+        pluginChunks.push_back(new Diluculum::LuaFunction(chunk));
+    }
 
-			/** \return class names defined in the theme file */
-			vector <string> getClassNames() const;
+    /** \return class names defined in the theme file */
+    vector <string> getClassNames() const;
 
-			/** \return keyword styles */
-			KeywordStyles getKeywordStyles() const;
+    /** \return keyword styles */
+    KeywordStyles getKeywordStyles() const;
 
-			/** \return Font size */
-			string getErrorMessage() const;
+    /** \return Font size */
+    string getErrorMessage() const;
 
-			string getDescription() const { return desc;}
-			
-			string getInjections() const;
+    string getDescription() const {
+        return desc;
+    }
 
-			/** \return Background colour*/
-			Colour getBgColour() const;
+    string getInjections() const;
 
-			/** \return Style of default (unrecognized) strings */
-			ElementStyle getDefaultStyle() const;
+    /** \return Background colour*/
+    Colour getBgColour() const;
 
-			/** \return Comment style*/
-			ElementStyle getCommentStyle() const;
+    /** \return Style of default (unrecognized) strings */
+    ElementStyle getDefaultStyle() const;
 
-			/** \return Single line comment style*/
-			ElementStyle getSingleLineCommentStyle() const;
+    /** \return Comment style*/
+    ElementStyle getCommentStyle() const;
 
-			/** \return String style*/
-			ElementStyle getStringStyle() const;
+    /** \return Single line comment style*/
+    ElementStyle getSingleLineCommentStyle() const;
 
-			/** \return Directive line string style*/
-			ElementStyle getPreProcStringStyle() const;
+    /** \return String style*/
+    ElementStyle getStringStyle() const;
 
-			/** \return Escape character style*/
-			ElementStyle getEscapeCharStyle() const;
+    /** \return Directive line string style*/
+    ElementStyle getPreProcStringStyle() const;
 
-			/** \return Number style*/
-			ElementStyle getNumberStyle() const;
+    /** \return Escape character style*/
+    ElementStyle getEscapeCharStyle() const;
+    
+        /** \return String interpolation style*/
+    ElementStyle getInterpolationStyle() const;
 
-			/** \return Directive style*/
-			ElementStyle getPreProcessorStyle() const;
+    /** \return Number style*/
+    ElementStyle getNumberStyle() const;
 
-			/** \return Type style*/
-			ElementStyle getTypeStyle() const;
+    /** \return Directive style*/
+    ElementStyle getPreProcessorStyle() const;
 
-			/** \return Line number style*/
-			ElementStyle getLineStyle() const;
+    /** \return Type style*/
+    ElementStyle getTypeStyle() const;
 
-			/** \return Operator style*/
-			ElementStyle getOperatorStyle() const;
+    /** \return Line number style*/
+    ElementStyle getLineStyle() const;
 
-			/** \param className Name of keyword class (eg kwa, kwb, .., kwd)
-			    \return keyword style of the given className
-			*/
-			ElementStyle getKeywordStyle ( const string &className ) ;
+    /** \return Operator style*/
+    ElementStyle getOperatorStyle() const;
 
-			/** \return True if language definition was found */
-			bool found() const ;
-	};
+    /** \param className Name of keyword class (eg kwa, kwb, .., kwd)
+        \return keyword style of the given className
+    */
+    ElementStyle getKeywordStyle ( const string &className ) ;
+
+    /** \return True if language definition was found */
+    bool found() const ;
+};
 
 }
 

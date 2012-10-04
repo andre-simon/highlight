@@ -363,12 +363,12 @@ string HLCmdLineApp::analyzeFile ( const string& file )
         cin.rdbuf ( cin_bufcopy.rdbuf() );
     }
     StringMap::iterator it;
-    sregex rex;
-    smatch what;
+    boost::xpressive::sregex rex;
+    boost::xpressive::smatch what;
     for ( it=scriptShebangs.begin(); it!=scriptShebangs.end(); it++ )
     {
-        rex = sregex::compile( it->first );
-        if ( regex_search( firstLine, what, rex )  ) return it->second;
+        rex = boost::xpressive::sregex::compile( it->first );
+        if ( boost::xpressive::regex_search( firstLine, what, rex )  ) return it->second;
     }
     return "";
 }

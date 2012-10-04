@@ -51,7 +51,7 @@ using namespace std;
 
 namespace highlight
 {
-	const unsigned int CodeGenerator::NUMBER_BUILTIN_STATES = 10;
+	const unsigned int CodeGenerator::NUMBER_BUILTIN_STATES = highlight::KEYWORD;
 
 	const string CodeGenerator::STY_NAME_STD="std";
 	const string CodeGenerator::STY_NAME_STR="str";
@@ -63,6 +63,7 @@ namespace highlight
 	const string CodeGenerator::STY_NAME_DST="pps"; //preprocessor string
 	const string CodeGenerator::STY_NAME_LIN="lin";
 	const string CodeGenerator::STY_NAME_SYM="opt"; //operator
+	const string CodeGenerator::STY_NAME_IPL="ipl"; //interpolation
 
 	CodeGenerator * CodeGenerator::getInstance ( OutputType type )
 	{
@@ -428,8 +429,8 @@ namespace highlight
 		{
 			RegexElement *regexElem = currentSyntax->getRegexElements() [i];
 
-			 sregex_iterator cur( line.begin(), line.end(), regexElem->rex );
-			 sregex_iterator end;
+			 boost::xpressive::sregex_iterator cur( line.begin(), line.end(), regexElem->rex );
+			 boost::xpressive::sregex_iterator end;
 
 			for( ; cur != end; ++cur )  {
 				groupID = ( regexElem->capturingGroup<0 ) ? cur->size()-1 : regexElem->capturingGroup;
@@ -1485,6 +1486,12 @@ namespace highlight
 						returnedFromOtherState=true;
 					}
 					break;
+				case STRING_INTERPOLATION:
+				  	closeTag ( myState );
+					eof=processInterpolationState();
+					openTag ( myState );
+					returnedFromOtherState=true;
+					break;
 				case _EOF:
 					eof = true;
 					break;
@@ -1565,6 +1572,39 @@ namespace highlight
 		while ( ( !exitState ) && ( !eof ) );
 
 		closeTag ( ESC_CHAR );
+		return eof;
+	}
+	
+	bool CodeGenerator::processInterpolationState()
+	{
+		State newState=STANDARD;
+		bool eof=false, exitState=false;
+		openTag ( STRING_INTERPOLATION );
+		do
+		{
+			printMaskedToken (newState!=_WS );
+			//printMaskedToken ( false, newState!=_WS );
+			newState= getCurrentState(STRING_INTERPOLATION);
+			switch ( newState )
+			{
+				case _EOL:
+					insertLineNumber();
+					exitState=true;
+					break;
+				case _WS:
+					processWsState();
+					break;
+				case _EOF:
+					eof = true;
+					break;
+				default:
+					exitState=newState!=STRING_INTERPOLATION;
+					break;
+			}
+		}
+		while ( ( !exitState ) && ( !eof ) );
+
+		closeTag ( STRING_INTERPOLATION );
 		return eof;
 	}
 
