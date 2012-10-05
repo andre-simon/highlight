@@ -29,7 +29,7 @@ Keywords={
 
 Strings={
   Delimiter=[["|'|`]],
-  Escape = [[ \{[^}]*\} ]],
+  Interpolation = [[ \{[^}]*\} ]],
 
   DelimiterPairs= {
     { Open=[[%q\(]], Close=[[\)]] },
@@ -55,8 +55,8 @@ Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\.|\&|<|>|\!|\-|\+|\/|\*|\=|\?|\%|\|]]
 
 -- resolve issue with # which starts comments and extrapolation sequences in strings
 function OnStateChange(oldState, newState, token)
-   if token=="#" and oldState==HL_STRING and newState==HL_LINE_COMMENT then
-      return HL_ESC_SEQ
+   if string.sub(token,1,1)=="#" and oldState==HL_STRING  then
+      return HL_INTERPOLATION
    end
    return newState
 end

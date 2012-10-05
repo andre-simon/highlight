@@ -5,15 +5,15 @@ Description = "vim maroloccio"
 Default	= { Colour="#8b9aaa" }
 Canvas	= { Colour="#1a202a" }
 Number	= { Colour="#8b8b00" }
-Escape	= { Colour="#3741ad" }
-String	= { Colour="#4c4cad" }
+Escape	= { Colour="#bababa" }
+String	= { Colour="#5B5BD0" }
 BlockComment	= { Colour="#006666" }
 StringPreProc = String
 LineComment   = BlockComment
 Operator      = Default
 LineNum      = BlockComment
 PreProcessor      =  { Colour="#cc6666" }
-Interpolation  = Escape
+Interpolation  = { Colour="#B19160" }
 
 Keywords = {
   { Colour="#9966cc" },

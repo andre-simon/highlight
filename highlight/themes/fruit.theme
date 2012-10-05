@@ -13,7 +13,7 @@ LineComment   = BlockComment
 Operator      = Default
 LineNum      = { Colour="#660000" }
 PreProcessor      =  { Colour="#009933" }
-Interpolation  = Escape
+Interpolation  = { Colour="#6893C7" }
 
 Keywords = {
   { Colour="#f030d0" },

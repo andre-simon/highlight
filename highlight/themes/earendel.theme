@@ -7,13 +7,13 @@ Canvas	= { Colour="#ffffff" }
 Number	= { Colour="#a8660d" }
 Escape	= { Colour="#a80d9e" }
 String	= { Colour="#a8660d" }
-BlockComment	= { Colour="#558817" }
-StringPreProc = String
-LineComment   = BlockComment
-Operator      = Default
-LineNum      = { Colour="#006666" }
-PreProcessor      = { Colour="#0da818" }
-Interpolation  = Escape
+BlockComment   = { Colour="#558817" }
+StringPreProc  = String
+LineComment    = BlockComment
+Operator       = Default
+LineNum        = { Colour="#006666" }
+PreProcessor   = { Colour="#0da818" }
+Interpolation  = { Colour="#8B80DB" }
 
 Keywords = {
   { Colour="#2239a8" , Bold=true},

@@ -2,7 +2,7 @@
 Description = "vim anotherdark"
 
 Default	= { Colour="#dedede" }
-Canvas	= { Colour="#333333" }
+Canvas	= { Colour="#323232" }
 Number	= { Colour="#ffa0a0" }
 Escape	= { Colour="#ffddad" }
 String	= { Colour="#ffa0a0" }
@@ -12,7 +12,7 @@ LineComment   = BlockComment
 Operator      = { Colour="#dedede" }
 LineNum      = BlockComment
 PreProcessor      = { Colour="#5757ff" }
-Interpolation  = Escape
+Interpolation  = { Colour="#8BC4D4" }
 
 Keywords = {
   { Colour="#f0e68c" },

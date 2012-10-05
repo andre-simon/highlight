@@ -4,7 +4,7 @@ Description = "vim clarity"
 Default	= { Colour="#b2dfee" }
 Canvas	= { Colour="#1F3055" }
 Number	= { Colour="#b3ee3a" }
-Escape	= { Colour="#ffdead" }
+Escape	= { Colour="#FFEEA6" }
 String	= { Colour="#cccccc" }
 BlockComment	= { Colour="#9e9e9e" }
 StringPreProc = String
@@ -12,7 +12,7 @@ LineComment   = BlockComment
 Operator      = Default
 LineNum      = BlockComment
 PreProcessor      = Default
-Interpolation  = Escape
+Interpolation  = { Colour="#CEFF9F" }
 
 Keywords = {
   { Colour="#cd919e" },

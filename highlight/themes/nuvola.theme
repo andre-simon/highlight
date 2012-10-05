@@ -5,7 +5,7 @@ Description = "vim nuvola"
 Default	= { Colour="#000000" }
 Canvas	= { Colour="#F9F5F9" }
 Number	= { Colour="#00C226" }
-Escape	= { Colour="#ee0000" }
+Escape	= { Colour="#D66AD5" }
 String	= { Colour="#B91F49" }
 BlockComment	= { Colour="#3F6B5B" }
 StringPreProc = String
@@ -13,7 +13,7 @@ LineComment   = BlockComment
 Operator      = Default
 LineNum      = BlockComment
 PreProcessor      = Default
-Interpolation  = Escape
+Interpolation  = { Colour="#8A70D6" }
 
 Keywords = {
   { Colour="#F06F00" },

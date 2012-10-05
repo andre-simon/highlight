@@ -11,7 +11,7 @@ PreProcessor   = { Colour="#800080" }
 LineNum        = { Colour="#555555" }
 Operator       = { Colour="#676767" }
 LineComment = BlockComment
-Interpolation  = Escape
+Interpolation  = { Colour="#5548A4" }
 
 Keywords = {
   { Colour= "#2e8b57", Bold=true },

@@ -32,7 +32,7 @@ Keywords={
 
 Strings={
   Delimiter=[["|'|`|END]],
-  --Interpolation=[[ [@\$]\w+ ]],
+  Interpolation=[[ [@\$]\w+ ]],
 }
 
 IgnoreCase=false
@@ -48,10 +48,14 @@ Comments={
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\|]]
 
---function OnStateChange(oldState, newState, token)
---   print (token)
---   if  string.sub(token,1) =="$" and oldState==HL_STRING and newState==KEYWORD then
---      return HL_INTERPOLATION
---   end
---   return newState
---end
+-- fix recognition of $
+function OnStateChange(oldState, newState, token)
+  --  print ("old", oldState)
+  --  print ("new", newState)
+  --  print ("tok", token)
+  -- print ("sub", string.sub(token,1,1))
+   if  (string.sub(token,1,1) =="$" or string.sub(token,1,1) =="@") and oldState==HL_STRING and newState==HL_KEYWORD then
+      return HL_INTERPOLATION
+   end
+   return newState
+end

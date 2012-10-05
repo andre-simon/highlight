@@ -34,6 +34,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "showtextfile.h"
 #include "io_report.h"
 
+//#undef DATA_DIR
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass), getDataFromCP(false)

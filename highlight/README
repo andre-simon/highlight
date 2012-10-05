@@ -48,8 +48,8 @@ CONTENT
 1. OVERVIEW
 -------------------------------------------------------------------------------
 
-Highlight converts sourcecode to HTML, XHTML, RTF, LaTeX, TeX, SVG, BBCode and
-terminal escape sequences with coloured syntax highlighting.
+Highlight converts sourcecode to HTML, XHTML, RTF, ODT, LaTeX, TeX, SVG, BBCode
+and terminal escape sequences with coloured syntax highlighting.
 Language definitions and colour themes are customizable.
 
 
@@ -219,7 +219,8 @@ Output formatting options:
  -N, --anchor-filename          use input file name as anchor prefix
  -C, --print-index              print index with hyperlinks to output files
  -n, --ordered-list             print lines as ordered list items
-     --class-name=<str>         set CSS class name prefix
+     --class-name=<str>         set CSS class name prefix;
+                                  omit class name if set to NONE
      --inline-css               output CSS within each tag (verbose output)
      --enclose-pre              enclose fragmented output with pre tag
                                   (assumes -f)
@@ -549,16 +550,17 @@ Comments = { {Block, Nested?, Delimiter={Open, Close?} }
   Block:     Boolean, true if comment is a block comment
   Nested:    Boolean, true if block comments can be nested (optional)
   Delimiter: List, contains open delimiter regex (line comment) or open and close
-	    delimiter regexes (block comment)
+             delimiter regexes (block comment)
 
 
 Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, RawPrefix? }
 
   Delimiter:      String, regular expression which describes string delimiters
   DelimiterPairs: List, includes open and close delimiters if not equal (regex),
-			      includes optional Raw flag as boolean which marks
-			      delimiter pair to contain a raw string
-  Escape:         String, regular expression of escape sequences (optional)
+                  includes optional Raw flag as boolean which marks
+                  delimiter pair to contain a raw string
+  Escape:         String, regex of escape sequences (optional)
+  Interpolation:  String, regex of interpolation sequences (optional)
   RawPrefix:      String, defines raw string indicator (optional)
 
 
@@ -608,6 +610,7 @@ HL_ESC_SEQ
 HL_PREPROC
 HL_PREPROC_STRING
 HL_OPERATOR
+HL_INTERPOLATION
 HL_LINENUMBER
 HL_KEYWORD
 HL_STRING_END
@@ -616,6 +619,7 @@ HL_BLOCK_COMMENT_END
 HL_ESC_SEQ_END
 HL_PREPROC_END
 HL_OPERATOR_END
+HL_INTERPOLATION_END
 HL_KEYWORD_END
 HL_EMBEDDED_CODE_BEGIN
 HL_EMBEDDED_CODE_END
@@ -725,6 +729,8 @@ Canvas         = Attributes (Background colour )
 Number         = Attributes (Formatting of numbers)
 
 Escape         = Attributes (Formatting of escape sequences)
+
+Interpolation  = Attributes (Formatting of interpolation sequences)
 
 String         = Attributes (Formatting of strings)
 

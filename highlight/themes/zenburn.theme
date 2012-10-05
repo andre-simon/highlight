@@ -13,7 +13,7 @@ LineNum	= { Colour="#9fafaf" }
 StringPreProc = String
 LineComment   = BlockComment
 Operator      = Default
-Interpolation  = Escape
+Interpolation  = { Colour="#C07ABE" }
 
 Keywords = {
   { Colour="#e3ceab" },

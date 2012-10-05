@@ -12,7 +12,7 @@ LineComment    = { Colour="#35d6e5", Italic=true }
 PreProcessor   = { Colour="#6b5deb" }
 LineNum        = { Colour="#999999" }
 Operator       = { Colour="#e3d922" }
-Interpolation  = Escape
+Interpolation  = { Colour="#EE532C" }
 
 Keywords = {
   { Colour= "#20c79d", Bold=true },

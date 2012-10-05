@@ -48,8 +48,8 @@ INHALT
 1. UEBERSICHT
 -------------------------------------------------------------------------------
 
-Highlight konvertiert Sourcecode in XHTML, HTML, RTF, TeX, LaTeX, SVG, BBCode
-und Terminal Escape-Sequenzen mit farbiger Syntaxhervorhebung.
+Highlight konvertiert Sourcecode in XHTML, HTML, RTF, ODT, TeX, LaTeX, SVG,
+BBCode und Terminal Escape-Sequenzen mit farbiger Syntaxhervorhebung.
 Sprachdefinitionen und Farbstile sind konfigurierbar.
 
 
@@ -222,7 +222,8 @@ Output formatting options:
  -N, --anchor-filename          use input file name as anchor prefix
  -C, --print-index              print index with hyperlinks to output files
  -n, --ordered-list             print lines as ordered list items
-     --class-name=<str>         set CSS class name prefix
+     --class-name=<str>         set CSS class name prefix;
+                                  omit class name if set to NONE
      --inline-css               output CSS within each tag (verbose output)
      --enclose-pre              enclose fragmented output with pre tag
                                   (assumes -f)
@@ -579,8 +580,9 @@ Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, RawPrefix? }
   DelimiterPairs: Liste, enthaelt Ausdruecke der oeffnenden und der schliessenden
                   Begrenzer wenn diese nicht gleich sind und optional ein Raw-
                   String Flag
-  Escape:         String, Regulaerer Ausdruck der Escapsesequenzen (optional)
-  RawPrefix:      String, Definiert Raw String Prefix (optional)
+  Escape:         String, Regulaerer Ausdruck fuer Escapsesequenzen (optional)
+  Interpolation:  String, Regulaerer Ausdruck fuer Interpolation (optional)
+  RawPrefix:      String, definiert Raw String Prefix (optional)
 
 
 PreProcessor = { Prefix, Continuation? }
@@ -605,7 +607,7 @@ Operators:         String, Regulaerer Ausdruck fuer Operatoren
 
 EnableIndentation: Boolean, True wenn Syntax formatiert und eingerueckt werden kann
 
-IgnoreCase:        Boolean, True wenn Sprache nicht case-sesitive ist
+IgnoreCase:        Boolean, True wenn Sprache nicht case-sensitive ist
 
 
 Globale Variablen:
@@ -632,6 +634,7 @@ HL_ESC_SEQ
 HL_PREPROC
 HL_PREPROC_STRING
 HL_OPERATOR
+HL_INTERPOLATION
 HL_LINENUMBER
 HL_KEYWORD
 HL_STRING_END
@@ -641,6 +644,7 @@ HL_ESC_SEQ_END
 HL_PREPROC_END
 HL_OPERATOR_END
 HL_KEYWORD_END
+HL_INTERPOLATION_END
 HL_EMBEDDED_CODE_BEGIN
 HL_EMBEDDED_CODE_END
 HL_IDENTIFIER_BEGIN
@@ -748,6 +752,8 @@ Canvas         = Attributes (Hintergrundfarbe)
 Number         = Attributes (Formatierung von Zahlen)
 
 Escape         = Attributes (Formatierung von Escape-Sequenzen)
+
+Interpolation  = Attributes (Formatierung von Interpolationen)
 
 String         = Attributes (Formatierung von Strings)
 
