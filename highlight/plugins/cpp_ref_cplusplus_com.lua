@@ -16,7 +16,7 @@ function syntaxUpdate(desc)
     for _, l in ipairs(list) do set[l] = true end
       return set
   end
-  
+
      string_items = Set {"string" }
 
    stl_items = Set {"array", "bitset", "deque", "forward_list", "list",
@@ -51,7 +51,7 @@ function syntaxUpdate(desc)
 
   function getURL(token, cat)
      url='http://www.cplusplus.com/reference/'..cat.. '/' .. token .. '/'
-     
+
      if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
         return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'
      elseif (HL_OUTPUT == HL_FORMAT_LATEX) then

@@ -28,11 +28,12 @@ TRANSLATIONS = highlight_de_DE.ts highlight_es_ES.ts highlight_cs_CZ.ts  highlig
 win32:RC_FILE = highlight-gui.rc
 win32:LIBS += -L../.. -lhighlight
 unix:LIBS += -L.. -lhighlight
-unix:LIBS += -llua
 
+# If Lua 5.2 is not default on your system yet you have to omit 5.1 here:
 unix {
+    LIBS += -llua5.1
     CONFIG += link_pkgconfig
-    PKGCONFIG += lua
+    PKGCONFIG += lua5.1
 }
 
 win32:QMAKE_POST_LINK = f:/upx/upx.exe --best ../../highlight-gui.exe

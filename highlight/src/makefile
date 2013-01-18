@@ -35,8 +35,14 @@ INCLUDE_DIR=./include/
 # Lua paths
 #LUA_CFLAGS=-I/usr/include/lua5.1
 #LUA_LIBS=-llua
-LUA_CFLAGS=$(shell pkg-config --cflags lua)
-LUA_LIBS=$(shell pkg-config --libs lua)
+
+# If Lua 5.2 is not default on your system yet you have to omit 5.1:
+LUA_CFLAGS=$(shell pkg-config --cflags lua5.1)
+
+# default lua lib
+LUA_LIBS=$(shell pkg-config --libs lua5.1)
+# luajit lib
+#LUA_LIBS=$(shell pkg-config --libs luajit)
 
 
 # Third-Party software paths
@@ -146,7 +152,7 @@ bbcodegenerator.o: ${CORE_DIR}bbcodegenerator.cpp ${INCLUDE_DIR}bbcodegenerator.
 
 odtgenerator.o: ${CORE_DIR}odtgenerator.cpp ${INCLUDE_DIR}odtgenerator.h ${INCLUDE_DIR}codegenerator.h
 	${CXX_COMPILE} ${CORE_DIR}odtgenerator.cpp
-	
+
 rtfgenerator.o: ${CORE_DIR}rtfgenerator.cpp ${INCLUDE_DIR}rtfgenerator.h ${INCLUDE_DIR}codegenerator.h
 	${CXX_COMPILE} ${CORE_DIR}rtfgenerator.cpp
 

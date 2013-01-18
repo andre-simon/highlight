@@ -1,5 +1,14 @@
 CHANGELOG Highlight
 
+highlight 3.13
+
+xx.01.2013
+
+-added support for Crack (thanks to Conrad Steenberg)
+-added XML shebang regex (thanks to Ferry Huberts)
+-added hints to makefile to deal with Lua 5.2 and LuaJIT system libs
+
+---
 highlight 3.12
 
 05.10.2012
