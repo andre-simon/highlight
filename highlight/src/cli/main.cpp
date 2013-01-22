@@ -582,6 +582,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         {
             suffix = guessFileType ( getFileSuffix ( inFileList[i] ), inFileList[i] );
         }
+        if ( suffix.empty()  && options.forceOutput()) suffix="txt"; //avoid segfault
         if ( suffix.empty() )
         {
             if ( !options.enableBatchMode() )
