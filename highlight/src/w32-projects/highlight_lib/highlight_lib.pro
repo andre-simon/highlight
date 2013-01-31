@@ -1,8 +1,5 @@
-# -------------------------------------------------
-# Project created by QtCreator 2010-02-03T21:26:53
-# -------------------------------------------------
-QT -= core \
-    gui
+
+QT -= core gui
 TARGET = highlight
 TEMPLATE = lib
 CONFIG += staticlib
@@ -10,18 +7,32 @@ CONFIG += exceptions
 DEFINES -= UNICODE
 DEFINES += NDEBUG
 
-win32:DESTDIR = ../../
-win32:INCLUDEPATH += ../../include/
+win32:DESTDIR = ..\\..
+
 !contains( LINKTYPE, LUA52 ) {
 win32:INCLUDEPATH += d:/devel/cpp/lua_bin_5.1.4
 }
-contains( LINKTYPE, LUA52 ) {
+else {
 win32:INCLUDEPATH += d:/devel/cpp/lua_bin_5.2.0
 DEFINES += USE_LUA52
 }
-win32:INCLUDEPATH += d:/devel/cpp/boost_1_42_0
-SOURCES += ../../core/*.cpp \
-    ../../core/astyle/*.cpp \
-    ../../core/re/*.cpp \
-    ../../core/Diluculum/*.cpp
-HEADERS += ../../include/*.h
+
+win32 { # For Windows
+    # Leave an empty line because of the backslash at the end of the variable
+    DIR_CORE = ..\\..\\core\\
+
+    DIR_ASTYLE = ..\\..\\core\\astyle\\
+
+    DIR_DILU = ..\\..\\core\\Diluculum\\
+
+    INCLUDEPATH += ..\\..\\include
+    INCLUDEPATH += d:/devel/cpp/boost_1_42_0
+}
+else { # For Linux
+    DIR_CORE = ../../core/
+    DIR_ASTYLE = ../../core/astyle/
+    DIR_DILU = ../../core/Diluculum/
+    HEADERS += ../../include/*.h
+}
+
+SOURCES += $$DIR_CORE*.cpp  $$DIR_ASTYLE*.cpp  $$DIR_DILU*.cpp

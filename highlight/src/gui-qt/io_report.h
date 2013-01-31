@@ -26,7 +26,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef IO_REPORT_H
 #define IO_REPORT_H
 
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
 
 namespace Ui {
     class io_report;

@@ -26,20 +26,34 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QtGlobal>
+
+#if (QT_VERSION < QT_VERSION_CHECK(5,0,0))
 #include <QtGui/QMainWindow>
 #include <QtGui/QMessageBox>
 #include <QtGui/QFileDialog>
 #include <QtGui/QListWidget>
+#include <QLineEdit>
+#include <QScrollBar>
+#include <QDropEvent>
+#else
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QScrollBar>
+#include <QDropEvent>
+#endif
 #include <QSettings>
 #include <QDir>
 #include <QClipboard>
 #include <QMimeData>
 #include <QTime>
-#include <QLineEdit>
+
 #include <QString>
 #include <QTextStream>
-#include <QScrollBar>
-#include <QDropEvent>
+
 #include <QDesktopServices>
 
 #include "version.h"

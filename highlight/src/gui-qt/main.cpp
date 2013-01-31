@@ -25,7 +25,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QTranslator>
 #include <QLocale>
 #include <QDir>

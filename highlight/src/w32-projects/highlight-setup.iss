@@ -4,14 +4,14 @@
 [Setup]
 AppName=Highlight Code Converter
 
-AppVerName=WinHighlight
-OutputBaseFilename=highlight-setup-3.10-beta
+AppVerName=Highlight
+OutputBaseFilename=highlight-setup-3.13
 
 AppPublisher=André Simon
 AppPublisherURL=http://www.andre-simon.de
 AppSupportURL=http://wiki.andre-simon.de
 AppUpdatesURL=http://www.andre-simon.de
-DefaultDirName={pf}\WinHighlight
+DefaultDirName={pf}\Highlight
 DefaultGroupName=Highlight Code Converter
 AllowNoIcons=yes
 LicenseFile=..\..\COPYING
@@ -51,10 +51,8 @@ Source: "..\..\examples\web_plugins\serendipity_event_highlight\*.*";  DestDir: 
 
 Source: "..\include\*.*";  DestDir: "{app}\src\include\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\include\astyle\*.*";  DestDir: "{app}\src\include\astyle\";  Flags: ignoreversion; Components: sourcecode;
-Source: "..\include\re\*.*";  DestDir: "{app}\src\include\re\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\include\Diluculum\*.*";  DestDir: "{app}\src\include\Diluculum\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\core\*.*";  Excludes: "*.o,*.depend"; DestDir: "{app}\src\core\";  Flags: ignoreversion; Components: sourcecode;
-Source: "..\core\re\*.*";  Excludes: "*.o"; DestDir: "{app}\src\core\re\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\core\astyle\*.*";  Excludes: "*.o"; DestDir: "{app}\src\core\astyle\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\core\Diluculum\*.*";  Excludes: "*.o"; DestDir: "{app}\src\core\Diluculum\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\gui-qt\*.*";  Excludes: "*.o,*.Release,*.Debug,ui_*,*.user,*.qm,Makefile"; DestDir: "{app}\src\gui-qt\";  Flags: ignoreversion; Components: sourcecode;
@@ -68,7 +66,7 @@ Source: "..\w32-projects\highlight_gui\*.*"; Excludes: "*.o,*.Release,*.Debug,ui
 
 
 [Dirs]
-Name: "{userappdata}\WinHighlight"; Attribs: hidden
+Name: "{userappdata}\Highlight"; Attribs: hidden
 
 [Components]
 Name: "main"; Description: "Highlight GUI"; Types: full compact custom; Flags: fixed
@@ -83,7 +81,7 @@ Filename: "{app}\Highlight.url"; Section: "InternetShortcut"; Key: "URL"; String
 [Icons]
 Name: "{group}\Highlight"; Filename: "{app}\highlight-gui.exe";  IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}"
 Name: "{group}\Highlight Portable"; Filename: "{app}\highlight-gui.exe";  IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}";Parameters: "--portable";  Components: portable;
-Name: "{group}\Highlight on the Web"; Filename: "{app}\WinHighlight.url"
+Name: "{group}\Highlight on the Web"; Filename: "{app}\Highlight.url"
 Name: "{group}\Uninstall Highlight"; Filename: "{uninstallexe}"
 Name: "{userdesktop}\Highlight"; Filename: "{app}\highlight-gui.exe"; Tasks: desktopicon; IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}"
 Name: "{userdesktop}\Highlight Portable"; Filename: "{app}\highlight-gui.exe"; Tasks: desktopicon; IconFilename: "{app}\hl_icon_exe.ico";WorkingDir: "{app}";Parameters: "--portable";  Components: portable;

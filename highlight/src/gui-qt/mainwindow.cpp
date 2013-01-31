@@ -79,6 +79,7 @@ MainWindow::MainWindow(QWidget *parent)
           constIterator != themes.constEnd(); ++constIterator) {
              ui->comboTheme->addItem(QString(*constIterator).section('.',0, 0));
     }
+    ui->comboTheme->setCurrentIndex(0);
 
     // load syntax mappings
    if (!loadFileTypeConfig(&extensions, &shebangs)){
@@ -917,8 +918,9 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
               highlight::OutputType outputType = getOutputType();
               if ( outputType==highlight::RTF){
                    QMimeData *mimeData = new QMimeData();
-#ifdef WIN32
-                  mimeData->setData("Rich Text Format", clipBoardData.toAscii());
+#ifdef Q_OS_WIN32
+                  mimeData->setData("Rich Text Format", clipBoardData.toLatin1());
+
 #else
                   mimeData->setData("text/rtf", clipBoardData.toAscii());
 #endif

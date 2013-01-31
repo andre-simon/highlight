@@ -26,7 +26,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SHOWTEXTFILE_H
 #define SHOWTEXTFILE_H
 
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
 
 
 namespace Ui {
