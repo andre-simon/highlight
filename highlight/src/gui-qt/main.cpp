@@ -24,8 +24,13 @@ You should have received a copy of the GNU General Public License
 along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QtGlobal>
 
+#if (QT_VERSION < QT_VERSION_CHECK(5,0,0))
+#include <QtGui/QApplication>
+#else
 #include <QtWidgets/QApplication>
+#endif
 #include <QTranslator>
 #include <QLocale>
 #include <QDir>

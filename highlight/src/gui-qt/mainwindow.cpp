@@ -920,9 +920,8 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
                    QMimeData *mimeData = new QMimeData();
 #ifdef Q_OS_WIN32
                   mimeData->setData("Rich Text Format", clipBoardData.toLatin1());
-
 #else
-                  mimeData->setData("text/rtf", clipBoardData.toAscii());
+                  mimeData->setData("text/rtf", clipBoardData.toLatin1());
 #endif
                   clipboard->setMimeData(mimeData);
               } else {

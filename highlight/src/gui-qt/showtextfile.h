@@ -26,8 +26,13 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SHOWTEXTFILE_H
 #define SHOWTEXTFILE_H
 
-#include <QtWidgets/QDialog>
+#include <QtGlobal>
 
+#if (QT_VERSION < QT_VERSION_CHECK(5,0,0))
+#include <QtGui/QDialog>
+#else
+#include <QtWidgets/QDialog>
+#endif
 
 namespace Ui {
     class ShowTextFile;
