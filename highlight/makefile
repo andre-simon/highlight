@@ -149,7 +149,7 @@ help:
 	@echo "(all)            Compile the command line interface."
 	@echo "lib-static       Compile only the static library."
 	@echo "lib-shared       Compile only the shared library."
-	@echo "gui              Compile the Qt (4.x) GUI."
+	@echo "gui              Compile the Qt (4.x/5.x) GUI."
 	@echo "install*         Copy all data files to ${data_dir}."
 	@echo "install-gui*     Copy GUI data files to ${data_dir}."
 	@echo "clean            Remove object files and binaries."

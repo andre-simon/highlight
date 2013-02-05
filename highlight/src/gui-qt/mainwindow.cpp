@@ -150,30 +150,11 @@ void MainWindow::openFiles(){
                             fileOpenFilter);
 
      addInputFiles(files, ui->lvInputFiles);
-
-    /*
-     QFileDialog dialog(this, tr("Select one or more files to open"),
-                         "",
-                         fileOpenFilter);
-     dialog.setFileMode(QFileDialog::ExistingFiles);
-     dialog.setViewMode(QFileDialog::Detail);
-
-     if (dialog.exec()) {
-            addInputFiles(dialog.selectedFiles(), ui->lvInputFiles);
-    }*/
 }
 
 void MainWindow::selectSingleFile(QLineEdit* edit, const QString& title, const QString& filter){
     QString fileName = QFileDialog::getOpenFileName(this, title, "", filter);
     if (!fileName.isEmpty()) edit->setText(fileName);
-                        /*
-     QFileDialog dialog(this, title, "", filter);
-     dialog.setFileMode(QFileDialog::ExistingFile);
-     dialog.setViewMode(QFileDialog::Detail);
-     if (dialog.exec()) {
-            edit->setText(dialog.selectedFiles().first());
-    }
-    */
 }
 
 void MainWindow::addInputFiles(const QStringList& list, QListWidget* listWidget, const QString& iconName, bool checkable ){
@@ -520,7 +501,7 @@ void MainWindow::on_action_About_Highlight_triggered()
      QMessageBox::about( this, "About Highlight",
                          QString("Highlight is a code to formatted text converter.\n\n"
                          "Highlight GUI %1\n"
-                         "(C) 2002-2012 Andre Simon <andre.simon1 at gmx.de>\n\n"
+                         "(C) 2002-2013 Andre Simon <andre.simon1 at gmx.de>\n\n"
                          "Artistic Style Classes\n(C) 1998-2002 Tal Davidson\n"
                          "(C) 2006-2011 Jim Pattee <jimp03 at email.com>\n\n"
                          "Diluculum Lua wrapper\n"
@@ -1170,16 +1151,6 @@ void MainWindow::on_pbSelectPlugin_clicked()
                             "*.lua");
 
      addInputFiles(files, ui->lvPluginScripts, ":/plugin.png",  true);
-/*
-    QFileDialog dialog(this, tr("Select one or more plug-ins"),
-                        "",
-                        "*.lua");
-    dialog.setFileMode(QFileDialog::ExistingFiles);
-    dialog.setViewMode(QFileDialog::Detail);
-
-    if (dialog.exec()) {
-           addInputFiles(dialog.selectedFiles(), ui->lvPluginScripts, ":/plugin.png",  true);
-   }*/
 }
 
 void MainWindow::on_pbClearSelPlugin_clicked()

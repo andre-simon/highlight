@@ -45,7 +45,7 @@ void HLCmdLineApp::printVersionInfo()
 {
     cout << "\n highlight version "
          << HIGHLIGHT_VERSION
-         << "\n Copyright (C) 2002-2012 Andre Simon <andre.simon1 at gmx.de>"
+         << "\n Copyright (C) 2002-2013 Andre Simon <andre.simon1 at gmx.de>"
          << "\n\n Argparser class"
          << "\n Copyright (C) 2006-2008 Antonio Diaz Diaz <ant_diaz at teleline.es>"
          << "\n\n Artistic Style Classes (2.02.1)"

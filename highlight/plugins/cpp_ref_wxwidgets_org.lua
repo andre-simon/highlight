@@ -13,7 +13,7 @@ function syntaxUpdate(desc)
 
   function getURL(token)
      urltoken, cnt = string.gsub(token, "%u", "_%1")
-     url='http://docs.wxwidgets.org/2.9.3/class'..string.lower(urltoken).. '.html'
+     url='http://docs.wxwidgets.org/2.9.5/class'..string.lower(urltoken).. '.html'
 
      if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
         return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'

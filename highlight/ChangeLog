@@ -2,11 +2,16 @@ CHANGELOG Highlight
 
 highlight 3.13
 
-xx.01.2013
+05.02.2013
 
 -added support for Crack (thanks to Conrad Steenberg)
 -added XML shebang regex (thanks to Ferry Huberts)
 -added hints to makefile to deal with Lua 5.2 and LuaJIT system libs
+-updated cpp_ref_gtk_gnome.lua plug-in
+-updated cpp_ref_cplusplus_com.lua plug-in
+-CLI: fixed segfault if --force was applied and unknown files were parsed
+  (thanks to Jussi Judin)
+-GUI: fixed unselected theme after first program start
 
 ---
 highlight 3.12
