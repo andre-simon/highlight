@@ -1,12 +1,21 @@
 CHANGELOG Highlight
 
+highlight 3.14
+
+15.04.2013
+
+-fixed handling of CRLF line terminators when run in Linux
+  (thanks to William Bell)
+
+---
+
 highlight 3.13
 
 05.02.2013
 
 -added support for Crack (thanks to Conrad Steenberg)
 -added XML shebang regex (thanks to Ferry Huberts)
--added hints to makefile to deal with Lua 5.2 and LuaJIT system libs
+-added hints to makefile to deal with Lua 5.1 and LuaJIT system libs
 -updated cpp_ref_gtk_gnome.lua plug-in
 -updated cpp_ref_cplusplus_com.lua plug-in
 -CLI: fixed segfault if --force was applied and unknown files were parsed

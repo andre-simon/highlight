@@ -10,13 +10,15 @@ the highlight parser from within your favorite (scripting) language.
 See src/include/codegenerator.h for the library interface.
 
 
-See the makefile how to compile Python and Perl modules:
+See the makefile how to compile Python, Perl or PHP modules:
 
 1. make python
    make perl
+   make php 
 
 2. Run the test scripts
    python testmod.py (use 2.x interpreter)
    perl testmod.pl
+   php testmod.php
 
 See http://wiki.andre-simon.de/ for more information.
