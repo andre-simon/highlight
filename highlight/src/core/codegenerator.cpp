@@ -415,11 +415,12 @@ namespace highlight
 			eof = ! getline ( *in, newLine, eolDelimiter );
 		}
 		
+		#ifndef _WIN32
 		// drop CR of CRLF files
-		//if (newLine.size() && newLine[newLine.size()-1]=='\r') {
-		//  newLine.resize(newLine.size()-1);
-		//}
-
+		if (!newLine.empty() && newLine[newLine.size() - 1] == '\r')
+		  newLine.erase(newLine.size() - 1);
+		#endif
+		
 		return eof || ( lineNumber == maxLineCnt );
 	}
 

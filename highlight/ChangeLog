@@ -4,8 +4,10 @@ highlight 3.14
 
 15.04.2013
 
--fixed handling of CRLF line terminators when run in Linux
-  (thanks to William Bell)
+-fixed handling of CRLF files on Linux (suggested by William Bell)
+-replaced single data directory by a dynamic config file search (see README)
+-CLI: marked --data-dir option as deprecated
+-CLI: removed --add-config-dir option
 
 ---
 

@@ -44,7 +44,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "enums.h"
 
 #define OPT_OUTFORMAT      "out-format"
-#define OPT_ADDCONFDIR     "add-config-dir"
 #define OPT_ANCHORS        "anchors"
 #define OPT_ANCHOR_FN      "anchor-filename"
 #define OPT_ANCHOR_PFX     "anchor-prefix"
@@ -226,13 +225,6 @@ class CmdLineOptions
 		/** \return Data directory*/
 		const string &getDataDir() const;
 
-
-		/** \return Additional config data directory*/
-		const string &getAdditionalConfDir() const;
-
-		/** \return  path of user config file*/
-		const string &getConfigFilePath() const;
-
 		/** \return True if language syntax is given*/
 		bool syntaxGiven() const;
 
@@ -386,7 +378,7 @@ class CmdLineOptions
 		// name of file to be included in external style file
 		styleInFilename,
 		// used to define data directories at runtime
-		dataDir, additionalConfigDir;
+		dataDir;
 		// name of indenation scheme
 		string indentScheme,
 		pageSize, startNestedLang;
@@ -435,7 +427,7 @@ class CmdLineOptions
 
 		string anchorPrefix;
 		string helpLang, encodingName;
-		string configFilePath;
+
 		string pluginPath, pluginReadFilePath;
 
 		/** list of all input file names */

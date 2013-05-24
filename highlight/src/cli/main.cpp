@@ -35,6 +35,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <Diluculum/LuaState.hpp>
 
 #include "main.h"
+#include "../include/datadir.h"
 #include "syntaxreader.h"
 
 #define MAX_LINE__WIDTH       80
@@ -199,21 +200,11 @@ void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader *lang,
     cerr <<"\n\n";
 }
 
-void HLCmdLineApp::printConfigInfo ( const string& configFile )
+void HLCmdLineApp::printConfigInfo ( )
 {
-    cout << "\nRoot paths (modify with --" OPT_DATADIR "):\n";
-    cout << "  Data directory:         "<<dataDir.getDir() <<"\n";
-    cout << "  Language definitions:   "<<dataDir.getLangPath ( "" ) <<"\n";
-    cout << "  Colour themes:          "<<dataDir.getThemePath ( "") <<"\n";
-
-    cout << "\nConfiguration paths:\n";
-    cout << "  Configuration files:    "<<dataDir.getConfDir ( true ) <<"\n";
-    cout << "  User configuration:     "<<configFile<<"\n";
-    if ( !dataDir.getAdditionalConfDir().empty() )
-    {
-        cout << "\nAdditional search paths:\n";
-        cout << "  Configuration files:    "<<dataDir.getAdditionalConfDir() <<"\n";
-    }
+    cout << "\nConfig file search directories:\n";
+    dataDir.printConfigPaths();
+    cout << "\nFiletype config file:\n"<<dataDir.getFiletypesConfPath ( "filetypes" ) <<"\n";
     cout << endl;
 #ifdef HL_DATA_DIR
     cout << "Compiler directive HL_DATA_DIR = " <<HL_DATA_DIR<< "\n";
@@ -221,7 +212,6 @@ void HLCmdLineApp::printConfigInfo ( const string& configFile )
 #ifdef HL_CONFIG_DIR
     cout << "Compiler directive HL_CONFIG_DIR = " <<HL_CONFIG_DIR<< "\n";
 #endif
-
     cout << endl;
 }
 
@@ -251,8 +241,8 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, S
 {
     if ( !extMap || !shebangMap ) return false;
 
-    string confPath=dataDir.getConfDir() + name + ".conf";
-
+  //  string confPath=dataDir.getConfDir() + name + ".conf";
+    string confPath=dataDir.getFiletypesConfPath(name);
     try {
         Diluculum::LuaState ls;
         Diluculum::LuaValueList ret= ls.doFile (confPath);
@@ -402,7 +392,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         return EXIT_SUCCESS;
     }
 
-    dataDir.setAdditionalConfDir ( options.getAdditionalConfDir() );
+    //dataDir.setAdditionalConfDir ( options.getAdditionalConfDir() );
 
     if ( ! dataDir.searchDataDir ( dataDirPath ) )
     {
@@ -418,7 +408,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     if ( options.printConfigInfo() )
     {
-        printConfigInfo ( options.getConfigFilePath() );
+        printConfigInfo ( );
         return EXIT_SUCCESS;
     }
 

@@ -82,7 +82,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 {
 	enum Optcode
 	{
-		S_OPT_ADDCONFDIR = 256, S_OPT_ENCLOSE_PRE, S_OPT_FORCE_OUTPUT,
+		S_OPT_ENCLOSE_PRE = 256, S_OPT_FORCE_OUTPUT,
 		S_OPT_INLINE_CSS, S_OPT_KW_CASE,
 		S_OPT_PRINT_CONFIG, S_OPT_TEST_INPUT, S_OPT_NO_NUMBER_WL,
 		S_OPT_SVG_WIDTH, S_OPT_SVG_HEIGHT, S_OPT_CLASSNAME, S_OPT_RTF_CHAR_STYLES,
@@ -142,7 +142,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ S_OPT_CLASSNAME, OPT_CLASSNAME,      Arg_parser::yes },
 		{ S_OPT_SVG_WIDTH,    OPT_SVG_WIDTH,    Arg_parser::yes  },
 		{ S_OPT_SVG_HEIGHT,   OPT_SVG_HEIGHT,   Arg_parser::yes  },
-		{ S_OPT_ADDCONFDIR,   OPT_ADDCONFDIR,   Arg_parser::yes },
 		{ S_OPT_ENCLOSE_PRE,  OPT_ENCLOSE_PRE,  Arg_parser::no  },
 		{ S_OPT_FORCE_OUTPUT, OPT_FORCE_OUTPUT, Arg_parser::no  },
 		{ S_OPT_INLINE_CSS,   OPT_INLINE_CSS,   Arg_parser::no  },
@@ -356,9 +355,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				break;
 			case S_OPT_SVG_HEIGHT:
 				svg_height = arg;
-				break;
-			case S_OPT_ADDCONFDIR:
-				additionalConfigDir = validateDirPath ( arg );
 				break;
 			case S_OPT_ENCLOSE_PRE:
 				opt_enclose_pre=true;
@@ -681,10 +677,6 @@ string CmdLineOptions::getIndentScheme() const
 	return StringTools::change_case ( indentScheme );
 }
 
-const string &CmdLineOptions::getAdditionalConfDir() const
-{
-	return additionalConfigDir;
-}
 const string &CmdLineOptions::getSyntax() const
 {
 	return syntax;
@@ -753,15 +745,7 @@ bool CmdLineOptions::disableTrailingNL() const
 {
 	return opt_no_trailing_nl;
 }
-/*
-bool CmdLineOptions::useNonBreakingSpace() const
-{
-	return opt_use_nbsp;
-}*/
-const string &CmdLineOptions::getConfigFilePath() const
-{
-	return configFilePath;
-}
+
 
 const string& CmdLineOptions::getDocumentTitle() const
 {

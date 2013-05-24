@@ -69,7 +69,7 @@ class HLCmdLineApp
 		void printVersionInfo();
 
 		/** print configuration info*/
-		void printConfigInfo ( const string& );
+		void printConfigInfo ();
 
 		/** print error message*/
 		void printBadInstallationInfo();

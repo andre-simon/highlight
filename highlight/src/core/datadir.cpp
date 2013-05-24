@@ -43,16 +43,25 @@ bool DataDir::searchDataDir ( const string &userDefinedDir )
 {
 
 #ifndef _WIN32
-	bool found = false;
 
-	vector <string> possibleDirs;
+	possibleDirs.push_back ( Platform::getHomePath() + "/.highlight/" );
 	if ( !userDefinedDir.empty() ) possibleDirs.push_back ( userDefinedDir );
 
 #ifdef HL_DATA_DIR
 	possibleDirs.push_back ( HL_DATA_DIR );
-#endif
+#else
 	possibleDirs.push_back ( LSB_DATA_DIR );
+#endif
+	
+#ifdef HL_CONFIG_DIR
+	possibleDirs.push_back ( HL_CONFIG_DIR);
+#else
+	possibleDirs.push_back ( LSB_CFG_DIR);
+#endif
+	
 
+	
+	/*
 	for ( unsigned int i=0;i<possibleDirs.size();i++ )
 	{
 		if ( Platform::fileExists ( possibleDirs[i] ) )
@@ -61,9 +70,10 @@ bool DataDir::searchDataDir ( const string &userDefinedDir )
 			found = true; break;
 		}
 	}
-	return found;
+	*/
+	return true;
 #else
-	dataDir=userDefinedDir;
+	//dataDir=userDefinedDir;
 	return true;
 #endif
 }
@@ -72,59 +82,73 @@ DataDir::DataDir()
 {
 }
 
-
-void DataDir::setAdditionalConfDir ( const string& dir )
-{
-	additionalConfDir=dir;
+const string DataDir::searchFile(const string path){
+	for ( unsigned int i=0;i<possibleDirs.size();i++ )
+	{
+	  //cerr << "searching "<<possibleDirs[i]<< path<<"\n";
+		if ( Platform::fileExists ( possibleDirs[i] + path ) )
+			return possibleDirs[i]+ path;
+		
+	}
+	return path;
 }
 
-const string & DataDir::getAdditionalConfDir()
-{
-	return additionalConfDir;
-}
-
-const string &DataDir::getDir()
-{
-	return dataDir;
+const void DataDir::printConfigPaths(){
+	for ( unsigned int i=0;i<possibleDirs.size();i++ )
+	{
+		if ( Platform::fileExists ( possibleDirs[i] ) )
+			cout <<possibleDirs[i]<<"\n";
+		
+	}
 }
 
 const string DataDir::getLangPath ( const string & file )
 {
 
-	return dataDir+"langDefs"+Platform::pathSeparator+file;
+	//return dataDir+"langDefs"+Platform::pathSeparator+file;
+	return searchFile(string("langDefs")+Platform::pathSeparator+file);
 }
 
 const string DataDir::getThemePath ( const string & file)
 {
-
-	return dataDir+"themes"+Platform::pathSeparator+file;
+	//return dataDir+"themes"+Platform::pathSeparator+file;
+	return searchFile(string("themes")+Platform::pathSeparator+file);
 }
 
-const string DataDir::getConfDir ( bool forceDefault )
+const string DataDir::getFiletypesConfPath (const string & file)
 {
-	if ( !forceDefault && !additionalConfDir.empty() )
-	{
-		return additionalConfDir;
-	}
-#ifndef _WIN32
-#ifdef HL_CONFIG_DIR
-	return HL_CONFIG_DIR;
-#else
-	return LSB_CFG_DIR;
-#endif
-#else
-	return getDir();
-#endif
+	
+	//return dataDir+"filetypes.conf";
+	return searchFile(file + ".conf");
 }
 
+// FIXME remaining getters are crap
 
 const string  DataDir::getI18nDir()
 {
+#ifndef _WIN32
+#ifdef HL_DATA_DIR
+	string dataDir= HL_DATA_DIR ;
+#else
+	string dataDir=  LSB_DATA_DIR;
+#endif	
+#else
+	string dataDir;
+#endif
 	return dataDir+"gui_files"+Platform::pathSeparator+"i18n"+Platform::pathSeparator;
 }
 
 const string  DataDir::getExtDir()
 {
+#ifndef _WIN32
+#ifdef HL_DATA_DIR
+	string dataDir= HL_DATA_DIR ;
+#else
+	string dataDir=  LSB_DATA_DIR;
+#endif	
+#else
+	string dataDir;
+#endif
 	return dataDir+"gui_files"+Platform::pathSeparator+"ext"+Platform::pathSeparator;
 }
 
@@ -140,12 +164,3 @@ const string DataDir::getDocDir()
 	return getDir();
 #endif
 }
-/*
-bool DataDir::fileExists ( const string&f )
-{
-	ifstream file ( f.c_str() );
-	bool exists=!file.fail();
-	file.close();
-	return exists;
-}
-*/

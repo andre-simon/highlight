@@ -59,13 +59,28 @@ namespace Platform
                 return std::string(drive)+path;
         }
 	#endif
+	
+	std::string getHomePath()
+	{
+		return "";
+	}
 
 #else
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
 	const char pathSeparator = '/';
 
 	std::string getAppPath()
 	{
 		return "";
+	}
+	
+	
+	std::string getHomePath()
+	{
+	  struct passwd *pw = getpwuid(getuid());
+	  return string(pw->pw_dir);
 	}
 #endif
 

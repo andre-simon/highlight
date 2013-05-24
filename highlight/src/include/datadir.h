@@ -39,9 +39,10 @@ using namespace std;
 
 class DataDir
 {
-		string dataDir;
-		string additionalConfDir;
+		//string dataDir;
+		//string additionalConfDir;
 		//bool fileExists ( const string& );
+			vector <string> possibleDirs;
 
 	public:
 
@@ -55,19 +56,23 @@ class DataDir
 		    \param  userDefinedDir Directory defined by user
 		    \return True if directory was found */
 		bool searchDataDir ( const string &userDefinedDir );
+		
+		const void printConfigPaths();
+		
+		const string searchFile(const string path);
 
 
 
 		/** add another installation directory, which is added to search path
 		    \param  dir Directory defined by user */
-		void setAdditionalConfDir ( const string& dir );
+		//void setAdditionalConfDir ( const string& dir );
 
 
 		/** \return data Directory defined by user */
-		const string & getAdditionalConfDir();
+		//const string & getAdditionalConfDir();
 
 		/** \return Data installation directory */
-		const string & getDir() ;
+		//const string & getDir() ;
 
 		/**  \param file filename
 		     \param forceDefault set tue if additional directory should be ignored
@@ -82,7 +87,9 @@ class DataDir
 
 		/** \param forceDefault set tue if additional directory should be ignored
 		    \return Location of configuration files */
-		const string getConfDir ( bool forceDefault=false ) ;
+		//const string getConfDir ( bool forceDefault=false ) ;
+		
+		const string getFiletypesConfPath (const string &);
 
 		/** \return Location of GUI menu translation files */
 		const string getI18nDir();
