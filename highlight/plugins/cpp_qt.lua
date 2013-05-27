@@ -15,22 +15,22 @@ function syntaxUpdate(desc)
                   { Id=1, List={"slots" }
                   } )
 	table.insert( Keywords,
-                  { Id=2, Regex=[[Q\p{Upper}\w+]]
+                  { Id=2, Regex=[[Q[A-Z]\w+]]
                   } )
 	table.insert( Keywords,
                   { Id=5, List={"SIGNAL", "SLOT"}
                   } )
-	table.insert( Keywords,
-                  { Id=5, Regex=[[Q_[\p{Upper}_]+]]
-                  } )
+	--table.insert( Keywords,
+         --         { Id=5, Regex=[[Q_[A-Z]+_]+]]
+          --        } )
   end
 end
 
 -- optional parameter: theme description
 function themeUpdate(desc)
-  if table.getn(Keywords)==4 then
-    table.insert(Keywords, {Colour= "#ff0000", Bold=true})
-  end
+ -- if table.getn(Keywords)==4 then
+ --   table.insert(Keywords, {Colour= "#ff0000", Bold=true})
+ -- end
 end
 
 

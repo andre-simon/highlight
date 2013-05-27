@@ -39,10 +39,7 @@ using namespace std;
 
 class DataDir
 {
-		//string dataDir;
-		//string additionalConfDir;
-		//bool fileExists ( const string& );
-			vector <string> possibleDirs;
+	vector <string> possibleDirs;
 
 	public:
 
@@ -55,42 +52,35 @@ class DataDir
 		/** search for a valid installation directory
 		    \param  userDefinedDir Directory defined by user
 		    \return True if directory was found */
-		bool searchDataDir ( const string &userDefinedDir );
+		void initSearchDirectories ( const string &userDefinedDir );
 		
 		const void printConfigPaths();
 		
 		const string searchFile(const string path);
 
+		/**  \param file file
+		     \return Location of given syntax definition */
+		const string getLangPath ( const string & file) ;
 
+		/** \return System themes location */
+		const string getThemePath ( ) ;
+		
+		/** \return System syntax location */
+		const string getLangPath ( ) ;
+		
+		/** \return System syntax location */
+		const string getSystemDataPath ( ) ;
 
-		/** add another installation directory, which is added to search path
-		    \param  dir Directory defined by user */
-		//void setAdditionalConfDir ( const string& dir );
-
-
-		/** \return data Directory defined by user */
-		//const string & getAdditionalConfDir();
-
-		/** \return Data installation directory */
-		//const string & getDir() ;
-
-		/**  \param file filename
-		     \param forceDefault set tue if additional directory should be ignored
-		     \return Location of languafe definitions */
-		const string getLangPath ( const string & file="") ;
-
-		/** \param file filename
-		    \param forceDefault set tue if additional directory should be ignored
-		    \return Location of themes */
-		const string getThemePath ( const string & file="" ) ;
-
-
-		/** \param forceDefault set tue if additional directory should be ignored
-		    \return Location of configuration files */
-		//const string getConfDir ( bool forceDefault=false ) ;
+		/** \param file file
+		    \return Location of given theme */
+		const string getThemePath ( const string & file ) ;
 		
 		const string getFiletypesConfPath (const string &);
+		
+		const string getPluginPath (const string &);
 
+		const string getPluginPath ();
+		
 		/** \return Location of GUI menu translation files */
 		const string getI18nDir();
 

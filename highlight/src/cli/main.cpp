@@ -72,12 +72,12 @@ void HLCmdLineApp::printBadInstallationInfo()
          << OPT_DATADIR << ".\n";
 }
 
-bool HLCmdLineApp::printInstalledThemes()
+bool HLCmdLineApp::printInstalledFiles(const string& where, const string& wildcard, const string& what, const string&option)
 {
     vector <string> filePaths;
-    string wildcard="*.theme";
-    string directory= dataDir.getThemePath();
-    string searchDir = directory + wildcard;
+    //string wildcard="*."+ ext;
+    //string directory= dataDir.getThemePath();
+    string searchDir = where + wildcard;
 
     bool directoryOK = Platform::getDirectoryEntries ( filePaths, searchDir, true );
     if ( !directoryOK )
@@ -88,19 +88,19 @@ bool HLCmdLineApp::printInstalledThemes()
         return false;
     }
 
-    cout << "\nInstalled themes"
-         << " (located in " << directory << "):\n\n";
+    cout << "\nInstalled "<< what
+         << " (located in " << where << "):\n\n";
 
     sort ( filePaths.begin(), filePaths.end() );
     string temp;
 
     for ( unsigned int i=0; i< filePaths.size(); i++ )
     {
-        temp = ( filePaths[i] ).substr ( directory.length() );
+        temp = ( filePaths[i] ).substr ( where.length() );
         cout <<temp.substr ( 1, temp.length()- wildcard.length() ) << endl;
     }
-    cout <<"\nUse name of the desired theme"
-         << " with the --" OPT_STYLE " option.\n" << endl;
+    cout <<"\nUse name of the desired "<<what
+         << " with the --" <<option<< " option.\n" << endl;
     return true;
 }
 
@@ -214,20 +214,6 @@ void HLCmdLineApp::printConfigInfo ( )
 #endif
     cout << endl;
 }
-
-/*
- *
- * broken:
-string HLCmdLineApp::getFileSuffix ( const string &fileName )
-{
-    size_t ptPos=fileName.rfind ( "." );
-    size_t psPos = fileName.rfind ( Platform::pathSeparator );
-
-    if ( ptPos > psPos && ptPos != string::npos )
-        return fileName.substr ( ptPos+1, fileName.length() );
-    else
-        return "";
-}*/
 
 string HLCmdLineApp::getFileSuffix(const string& fileName)
 {
@@ -378,6 +364,17 @@ string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFi
     // return "";
 }
 
+vector <string> HLCmdLineApp::collectPluginPaths(const vector<string>& plugins){
+  vector<string> absolutePaths;
+  for (unsigned int i=0; i<plugins.size(); i++) {
+    if (Platform::fileExists(plugins[i])){
+      absolutePaths.push_back(plugins[i]);
+    } else {
+	absolutePaths.push_back(dataDir.getPluginPath(plugins[i]+".lua"));
+    }
+  }
+  return absolutePaths;
+}
 
 int HLCmdLineApp::run ( const int argc, const char*argv[] )
 {
@@ -392,13 +389,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         return EXIT_SUCCESS;
     }
 
-    //dataDir.setAdditionalConfDir ( options.getAdditionalConfDir() );
-
-    if ( ! dataDir.searchDataDir ( dataDirPath ) )
-    {
-        printBadInstallationInfo();
-        return EXIT_FAILURE;
-    }
+    dataDir.initSearchDirectories ( dataDirPath );
 
     if ( options.printHelp() )
     {
@@ -414,7 +405,11 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     if ( options.showThemes() )
     {
-        return printInstalledThemes() ?EXIT_SUCCESS:EXIT_FAILURE;
+        return printInstalledFiles(dataDir.getThemePath(), "*.theme", "themes", OPT_STYLE) ?EXIT_SUCCESS:EXIT_FAILURE;
+    }
+    if ( options.showPlugins() )
+    {
+        return printInstalledFiles(dataDir.getPluginPath(), "*.lua", "plug-ins", OPT_PLUGIN) ?EXIT_SUCCESS:EXIT_FAILURE;
     }
 
     //call before printInstalledLanguages!
@@ -431,8 +426,6 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     {
         return EXIT_FAILURE;
     }
-
-    // ios_base::sync_with_stdio(false); no effect on speed
 
     string themePath=options.getAbsThemePath().empty() ? dataDir.getThemePath ( options.getThemeName() ): options.getAbsThemePath();
 
@@ -482,7 +475,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     bool styleFileWanted = !options.fragmentOutput() || options.styleOutPathDefined();
 
-    const  vector <string> pluginFileList=options.getPluginPaths();
+    const  vector <string> pluginFileList=collectPluginPaths( options.getPluginPaths());
     for (unsigned int i=0; i<pluginFileList.size(); i++) {
         if ( !generator->initPluginScript(pluginFileList[i]) )
         {
@@ -528,11 +521,6 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
              << options.getIndentScheme()
              << ".\n";
         return EXIT_FAILURE;
-    }
-
-    if ( !options.getTagsFile().empty() )
-    {
-        cerr << "highlight: ctags option was removed, use the ctags_html_tooltips plug-in instead\n";
     }
 
     string outDirectory = options.getOutDirectory();

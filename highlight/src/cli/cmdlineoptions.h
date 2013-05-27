@@ -71,6 +71,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_LINE_LEN       "line-length"
 #define OPT_LISTLANGS      "list-langs"
 #define OPT_LISTTHEMES     "list-themes"
+#define OPT_LIST_SCRIPTS   "list-scripts"
 #define OPT_LNR_LEN        "line-number-length"
 #define OPT_LNR_START      "line-number-start"
 #define OPT_ORDERED_LIST   "ordered-list"
@@ -94,7 +95,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_SVG_WIDTH      "width"
 #define OPT_SVG_HEIGHT     "height"
 #define OPT_SKIP_UNKNOWN   "skip"
-#define OPT_CTAGS_FILE     "ctags-file"
 #define OPT_PRETTY_SYMBOLS "pretty-symbols"
 #define OPT_EOL_DELIM_CR   "delim-cr"
 #define OPT_START_NESTED   "start-nested"
@@ -204,6 +204,9 @@ class CmdLineOptions
 		/** \return True if list of installed language definitions should be printed*/
 		bool showLangdefs() const;
 
+		/** \return True if list of installed language definitions should be printed*/
+		bool showPlugins() const;
+		
 		/** \return True if loutput directory is given*/
 		bool outDirGiven() const;
 
@@ -245,9 +248,6 @@ class CmdLineOptions
 
 		/** \return List of input file names*/
 		const vector <string> & getInputFileNames() const;
-
-		/** \return Map of marked lines*/
-// 		const map <int,string> &getMarkLines();
 
 		/** \return indentation and reformatting scheme*/
 		string getIndentScheme() const;
@@ -314,9 +314,6 @@ class CmdLineOptions
 
 		/** \return class name */
 		const string& getClassName() const ;
-
-		/** \return ctags file name */
-		const string& getTagsFile() const ;
 
 		const vector <string> &getPluginPaths() const;
 
@@ -387,7 +384,6 @@ class CmdLineOptions
 		string docTitle, className;
 		string skipArg;
 		string svg_height, svg_width;
-		string ctagsFile;
 		string absThemePath, absLangPath;
 
 		bool opt_syntax;
@@ -403,6 +399,7 @@ class CmdLineOptions
 		bool opt_attach_line_anchors;
 		bool opt_show_themes;
 		bool opt_show_langdefs;
+		bool opt_show_plugins;
 		bool opt_asformat_output;
 		bool opt_printindex;
 		bool opt_quiet;
@@ -423,7 +420,6 @@ class CmdLineOptions
 		bool opt_delim_CR;
 		bool opt_print_style;
 		bool opt_no_trailing_nl;
-		bool opt_use_nbsp;
 
 		string anchorPrefix;
 		string helpLang, encodingName;

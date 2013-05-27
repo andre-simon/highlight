@@ -14,7 +14,7 @@ function syntaxUpdate(desc)
   if desc=="C and C++" then
     -- insert wxWidgets keywords
    table.insert( Keywords,
-                  { Id=2, Regex=[[wx\p{Upper}\w+]]
+                  { Id=2, Regex=[[wx[A-Z]\w+]]
                   } )
   end
 end

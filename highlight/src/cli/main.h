@@ -77,10 +77,11 @@ class HLCmdLineApp
 		/** print input and output errors */
 		void printIOErrorReport ( unsigned int numberErrorFiles, vector<string> & fileList, const string &action );
 
-		/** list installed theme files
-		    \return true if theme files were found
+		/** list installed  files
+		    \return true if files were found
 		*/
-		bool printInstalledThemes();
+		//bool printInstalledThemes();
+		bool printInstalledFiles(const string& where, const string& wildcard, const string& what, const string&option);
 
 		/** list installed language definition files
 		    \return true if lang files were found
@@ -109,6 +110,9 @@ class HLCmdLineApp
 
 		string analyzeFile ( const string& file );
 		bool loadFileTypeConfig ( const string& name, StringMap* map, StringMap* shebangMap );
+		void printInstalledFiles();
+		
+		vector <string> collectPluginPaths(const vector<string>& plugins);
 
 };
 

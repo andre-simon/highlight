@@ -1,0 +1,26 @@
+-------------------------------------------------------------------------------
+---  HIGHLIGHT IMPORTANT RELEASE AND PACKAGING INFORMATION ------- May 2013 ---
+-------------------------------------------------------------------------------
+
+The following options are used in third party applications:
+
+  --input, -i
+  --output, -o
+  -encoding, -u
+  --font
+  --font-size
+  --force
+  --line-numbers, -l
+  --replace-tabs, -t
+  --syntax
+  --out-format
+  --include-style
+  --inline-css
+  --style
+  --failsafe
+  --validate-input
+
+The following themes are used in third party applications:
+  - bclear (Evolution)
+  
+See the makefiles and INSTALL for packaging information.

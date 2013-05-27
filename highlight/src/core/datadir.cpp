@@ -39,42 +39,28 @@ string DataDir::LSB_CFG_DIR="/etc/highlight/";
 string DataDir::LSB_DOC_DIR="/usr/share/doc/highlight/";
 
 
-bool DataDir::searchDataDir ( const string &userDefinedDir )
+void DataDir::initSearchDirectories ( const string &userDefinedDir )
 {
 
 #ifndef _WIN32
 
-	possibleDirs.push_back ( Platform::getHomePath() + "/.highlight/" );
-	if ( !userDefinedDir.empty() ) possibleDirs.push_back ( userDefinedDir );
+  possibleDirs.push_back ( Platform::getHomePath() + "/.highlight/" );
+  if ( !userDefinedDir.empty() ) possibleDirs.push_back ( userDefinedDir );
 
-#ifdef HL_DATA_DIR
-	possibleDirs.push_back ( HL_DATA_DIR );
-#else
-	possibleDirs.push_back ( LSB_DATA_DIR );
-#endif
+  #ifdef HL_DATA_DIR
+	  possibleDirs.push_back ( HL_DATA_DIR );
+  #else
+	  possibleDirs.push_back ( LSB_DATA_DIR );
+  #endif
+	  
+  #ifdef HL_CONFIG_DIR
+	  possibleDirs.push_back ( HL_CONFIG_DIR);
+  #else
+	  possibleDirs.push_back ( LSB_CFG_DIR);
+  #endif
 	
-#ifdef HL_CONFIG_DIR
-	possibleDirs.push_back ( HL_CONFIG_DIR);
 #else
-	possibleDirs.push_back ( LSB_CFG_DIR);
-#endif
-	
-
-	
-	/*
-	for ( unsigned int i=0;i<possibleDirs.size();i++ )
-	{
-		if ( Platform::fileExists ( possibleDirs[i] ) )
-		{
-			dataDir=possibleDirs[i];
-			found = true; break;
-		}
-	}
-	*/
-	return true;
-#else
-	//dataDir=userDefinedDir;
-	return true;
+	//possibleDirs.push_back(""); not needed because of fallback in searchFile
 #endif
 }
 
@@ -104,15 +90,17 @@ const void DataDir::printConfigPaths(){
 
 const string DataDir::getLangPath ( const string & file )
 {
-
-	//return dataDir+"langDefs"+Platform::pathSeparator+file;
 	return searchFile(string("langDefs")+Platform::pathSeparator+file);
 }
 
 const string DataDir::getThemePath ( const string & file)
 {
-	//return dataDir+"themes"+Platform::pathSeparator+file;
 	return searchFile(string("themes")+Platform::pathSeparator+file);
+}
+
+const string DataDir::getPluginPath ( const string & file)
+{
+	return searchFile(string("plugins")+Platform::pathSeparator+file);
 }
 
 const string DataDir::getFiletypesConfPath (const string & file)
@@ -122,45 +110,41 @@ const string DataDir::getFiletypesConfPath (const string & file)
 	return searchFile(file + ".conf");
 }
 
-// FIXME remaining getters are crap
+const string DataDir::getThemePath ( ) {
+  return getSystemDataPath()+"themes"+Platform::pathSeparator;
+}
+
+const string DataDir::getLangPath ( ) {
+  return getSystemDataPath()+"langDefs"+Platform::pathSeparator;
+}
+
+const string DataDir::getPluginPath ( ) {
+  return getSystemDataPath()+"plugins"+Platform::pathSeparator;
+}
+
+const string DataDir::getSystemDataPath ( ) {
+ #ifndef _WIN32
+  #ifdef HL_DATA_DIR
+	return HL_DATA_DIR;
+  #else
+	return LSB_DATA_DIR;
+  #endif	
+#else
+	return "";;
+#endif 
+}
 
 const string  DataDir::getI18nDir()
 {
-#ifndef _WIN32
-#ifdef HL_DATA_DIR
-	string dataDir= HL_DATA_DIR ;
-#else
-	string dataDir=  LSB_DATA_DIR;
-#endif	
-#else
-	string dataDir;
-#endif
-	return dataDir+"gui_files"+Platform::pathSeparator+"i18n"+Platform::pathSeparator;
+	return getSystemDataPath()+"gui_files"+Platform::pathSeparator+"i18n"+Platform::pathSeparator;
 }
 
 const string  DataDir::getExtDir()
 {
-#ifndef _WIN32
-#ifdef HL_DATA_DIR
-	string dataDir= HL_DATA_DIR ;
-#else
-	string dataDir=  LSB_DATA_DIR;
-#endif	
-#else
-	string dataDir;
-#endif
-	return dataDir+"gui_files"+Platform::pathSeparator+"ext"+Platform::pathSeparator;
+	return getSystemDataPath() +"gui_files"+Platform::pathSeparator+"ext"+Platform::pathSeparator;
 }
 
 const string DataDir::getDocDir()
 {
-#ifndef _WIN32
-#ifdef HL_DOC_DIR
-	return HL_DOC_DIR;
-#else
-	return LSB_DOC_DIR;
-#endif
-#else
-	return getDir();
-#endif
+  return getSystemDataPath() ;
 }

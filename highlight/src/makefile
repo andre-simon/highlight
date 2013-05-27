@@ -39,7 +39,7 @@ LUA_CFLAGS=$(shell pkg-config --cflags lua5.1)
 # default lua lib
 LUA_LIBS=$(shell pkg-config --libs lua5.1)
 # luajit lib
-#LUA_LIBS=$(shell pkg-config --libs luajit)
+# LUA_LIBS=$(shell pkg-config --libs luajit)
 
 # Third-Party software paths
 ASTYLE_DIR=${CORE_DIR}astyle/
@@ -211,11 +211,6 @@ ASEnhancer.o: ${ASTYLE_DIR}ASResource.cpp
 
 ASStreamIterator.o: ${ASTYLE_DIR}ASStreamIterator.cpp
 	${CXX_COMPILE} ${ASTYLE_DIR}ASStreamIterator.cpp
-
-#Matcher.o:  ${REGEX_DIR}Matcher.cpp
-#	${CXX_COMPILE} ${REGEX_DIR}Matcher.cpp
-#Pattern.o:  ${REGEX_DIR}Pattern.cpp
-#	${CXX_COMPILE} ${REGEX_DIR}Pattern.cpp
 
 InternalUtils.o: ${DILU_DIR}InternalUtils.cpp
 	${CXX_COMPILE}  ${DILU_DIR}InternalUtils.cpp

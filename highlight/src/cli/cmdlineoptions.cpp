@@ -56,6 +56,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		opt_attach_line_anchors ( false ),
 		opt_show_themes ( false ),
 		opt_show_langdefs ( false ),
+		opt_show_plugins (false),
 		opt_printindex ( false ),
 		opt_quiet ( false ),
 		opt_replacequotes ( false ),
@@ -75,7 +76,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		opt_delim_CR (false),
 		opt_print_style(false),
 		opt_no_trailing_nl(false),
-		//opt_use_nbsp(false),
 		anchorPrefix ( "l" ),
 		helpLang ( "en" ),
 		encodingName ( "ISO-8859-1" )
@@ -90,9 +90,9 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		S_OPT_COMPAT_DOC, S_OPT_COMPAT_NODOC, S_OPT_COMPAT_TAB, S_OPT_COMPAT_CSS,
 		S_OPT_COMPAT_OUTDIR, S_OPT_COMPAT_FAILSAFE,
 		S_OPT_COMPAT_SRCLANG, S_OPT_COMPAT_LINENUM, S_OPT_COMPAT_LINEREF,
-		S_OPT_CTAGS_FILE, S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
+		S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
 		S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH,
-		S_OPT_PLUGIN_READFILE
+		S_OPT_PLUGIN_READFILE, S_LIST_SCRIPTS
 	};
 
 	const Arg_parser::Option options[] =
@@ -151,7 +151,6 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ S_OPT_NO_NUMBER_WL, OPT_NO_NUMBER_WL, Arg_parser::no  },
 		{ S_OPT_RTF_CHAR_STYLES, OPT_RTF_CHAR_STYLES, Arg_parser::no  },
 		{ S_OPT_SKIP_UNKNOWN, OPT_SKIP_UNKNOWN, Arg_parser::yes },
-		{ S_OPT_CTAGS_FILE,   OPT_CTAGS_FILE, Arg_parser::maybe },
 		{ S_OPT_START_NESTED,   OPT_START_NESTED,   Arg_parser::yes },
 		{ S_OPT_COMPAT_DOC,   OPT_COMPAT_DOC, Arg_parser::no },
 		{ S_OPT_COMPAT_NODOC, OPT_COMPAT_NODOC, Arg_parser::no },
@@ -166,10 +165,10 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ S_OPT_EOL_DELIM_CR,   OPT_EOL_DELIM_CR,   Arg_parser::no },
 		{ S_OPT_PRINT_STYLE,    OPT_PRINT_STYLE, Arg_parser::no },
 		{ S_OPT_NO_TRAILING_NL, OPT_NO_TRAILING_NL, Arg_parser::no },
-		//{ S_OPT_USE_NBSP, OPT_USE_NBSP, Arg_parser::no },
 		{ S_OPT_PLUGIN, OPT_PLUGIN, Arg_parser::yes },
 		{ S_OPT_PLUGIN_READFILE, OPT_PLUGIN_READFILE, Arg_parser::yes },
 		{ S_OPT_ABS_CFG_PATH, OPT_ABS_CFG_PATH,  Arg_parser::yes},
+		{ S_LIST_SCRIPTS, OPT_LIST_SCRIPTS,  Arg_parser::yes},
 
 		{ 0,                  0,                Arg_parser::no  }
 	};
@@ -387,17 +386,11 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 			case S_OPT_NO_NUMBER_WL:
 				opt_number_wrapped_lines=false;
 				break;
-			//case S_OPT_USE_NBSP:
-			//	opt_use_nbsp=true;
-			//	break;
 			case S_OPT_RTF_CHAR_STYLES:
 				opt_char_styles=true;
 				break;
 			case S_OPT_SKIP_UNKNOWN:
 				skipArg=arg;
-				break;
-			case S_OPT_CTAGS_FILE:
-				ctagsFile = ( arg.empty() ) ? "tags" :arg;
 				break;
 			case S_OPT_PLUGIN:
 				userPlugins.push_back(arg);
@@ -438,6 +431,12 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				else if (arg.find(".theme")!=string::npos) absThemePath=arg;
 				else cerr << "highlight: unknown config file type" << endl;
 				break;
+			case S_LIST_SCRIPTS:
+				opt_show_langdefs=(arg=="syntax" || arg=="langs");
+				opt_show_themes=(arg=="themes");
+				opt_show_plugins=(arg=="plugins");
+				break;
+			  
 			default:
 				cerr << "highlight: option parsing failed" << endl;
 		}
@@ -633,6 +632,10 @@ bool CmdLineOptions::showLangdefs() const
 {
 	return opt_show_langdefs;
 }
+bool CmdLineOptions::showPlugins() const
+{
+	return opt_show_plugins;
+}
 bool CmdLineOptions::outDirGiven() const
 {
 	return !outFilename.empty();
@@ -808,10 +811,6 @@ const string& CmdLineOptions::getClassName() const
 	return className ;
 }
 
-const string& CmdLineOptions::getTagsFile() const
-{
-	return ctagsFile;
-}
 const string& CmdLineOptions::getStartNestedLang() const
 {
 	return startNestedLang;

@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.12 ------------------------- Oktober 2012 ---
+---  HIGHLIGHT MANUAL - Version 3.14 ----------------------------- Mai 2013 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -31,6 +31,7 @@ INHALT
    3.5 SCHLUESSELWORTGRUPPEN
    3.6 PLUG-INS
    3.7 DATEIZUORDNUNGEN
+   3.8 DATEISUCHE
 
 4. HIGHLIGHT INTEGRIEREN
    4.1 BEISPIELSKRIPTE
@@ -87,8 +88,8 @@ mit Plug-Ins angepasst und erweitert werden.
 -------------------------------------------------------------------------------
 
 Die Liste aller unterstuetzten Sprachen befindet sich in README_LANGLIST.
-Das Kommando "highlight --list-langs" zeigt ebenfalls eine Liste aller Sprachen 
-und den damit verknuepften Dateiendungen.
+Das Kommando "highlight --list-scripts=langs" zeigt ebenfalls eine Liste aller
+Sprachen und den damit verknuepften Dateiendungen.
 
 
 2. GEBRAUCH UND OPTIONEN
@@ -136,9 +137,8 @@ namens main.cpp erzeugt:
   bestimmt wurde.
 
 - Font und Schriftgroesse anpassen:
-<<<<<<< .mine  highlight --syntax ada --font-size 12 --font Consolas,\'Courier\ New\'
-=======  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
->>>>>>> .theirs  highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
+  highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
+  highlight --syntax ada --out-format=latex --font-size tiny --font sffamily
 
 - Ausgabeverzeichnis definieren:
   highlight -d some/target/dir/ *.cpp *.h
@@ -155,22 +155,24 @@ General options:
 
  -B, --batch-recursive=<wc>     convert all matching files, searches subdirs
                                   (Example: -B '*.cpp')
- -D, --data-dir=<directory>     set path to data directory
-     --add-config-dir=<dir>     set path to an additional config directory
+ -D, --data-dir=<directory>     set path to data directory (deprecated)
      --config-file=<file>       set path to a lang or theme file
  -d, --outdir=<directory>       name of output directory
  -h, --help                     print this help
  -i, --input=<file>             name of single input file
  -o, --output=<file>            name of single output file
- -p, --list-langs               list installed language definitions
+ -p, --list-langs               list installed language definitions (deprecated)
  -P, --progress                 print progress bar in batch mode
  -q, --quiet                    supress progress info in batch mode
  -S, --syntax=<type>            specify type of source code
  -v, --verbose                  print debug info
- -w, --list-themes              list installed colour themes
+ -w, --list-themes              list installed colour themes (deprecated)
      --force                    generate output if input syntax is unknown
+     --list-scripts=<type>      list installed scripts
+                                  <type>=[langs, themes, plugins]
      --plug-in=<script>         execute Lua plug-in script; repeat option to
-                                  apply multiple plug-ins
+                                  execute multiple plug-ins
+     --plug-in-read=<path>      set input file for a plug-in (e.g. "tags")
      --print-config             print path configuration
      --print-style              print stylesheet only (see --style-outfile)
      --skip=<list>              ignore listed unknown file types
@@ -179,7 +181,7 @@ General options:
                                   without opening delimiter
      --validate-input           test if input is text, remove Unicode BOM
      --version                  print version and copyright information
-
+     
 
 Output formatting options:
 
@@ -866,6 +868,30 @@ Tragen Sie neue Dateiendungen auch in gui_files/ext/fileopenfilter.conf ein,
 damit diese im GUI-Dateiauswahldialog als Filter angezeigt werden
 
 
+3.8 DATEISUCHE
+-------------------------------------------------------------------------------
+
+Seit Version 3.14 werden die Konfigurationsskripte in den folgenden Verzeich-
+nissen gesucht:
+
+1. ~/.highlight/
+2. benutzerdefiniertes Verz. --data-dir (Deprecated)
+3. /usr/share/highlight/
+4. /etc/highlight/ (wegen filetypes.conf)
+5. Akt. Arbeitsverzeicnnis (Fallback)
+
+Es wird erwartet, dass folgende Unterverzeichnisse die entsprechenden Skripte
+enthalten:
+
+-langDefs: *.lang
+-themes: *.theme
+-plugins: *.lua
+
+Eine eigene filetypes.conf kann direkt in in ~/.highlight/ gespeichert werden.
+Diese Suchreihenfolge vereinfacht die Erweiterung und Anpassung bestehender
+Skripte, ohne vorinstallierte Dateien umkopieren zu müssen.
+
+
 4. HIGHLIGHT EINBETTEN
 -------------------------------------------------------------------------------
 
@@ -969,7 +995,7 @@ In INSTALL befinden sich weitere Informationen zu Paketinhalt und Installation.
 
 Highlight kompiliert zumindest mit gcc und suncc. Zum Kompilieren sind Boost
 Header-Pakete und Lua5.1 Development-Pakete nötig.
-Die optionale GUI benötigt die Qt4 Development-Pakete.
+Die optionale GUI benötigt die Qt4/Qt5 Development-Pakete.
 Im Makefile finden Sie weitere Informationen.
 
 
