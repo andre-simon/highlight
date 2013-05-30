@@ -72,11 +72,9 @@ void HLCmdLineApp::printBadInstallationInfo()
          << OPT_DATADIR << ".\n";
 }
 
-bool HLCmdLineApp::printInstalledFiles(const string& where, const string& wildcard, const string& what, const string&option)
+int HLCmdLineApp::printInstalledFiles(const string& where, const string& wildcard, const string& what, const string&option)
 {
     vector <string> filePaths;
-    //string wildcard="*."+ ext;
-    //string directory= dataDir.getThemePath();
     string searchDir = where + wildcard;
 
     bool directoryOK = Platform::getDirectoryEntries ( filePaths, searchDir, true );
@@ -85,11 +83,10 @@ bool HLCmdLineApp::printInstalledFiles(const string& where, const string& wildca
         cerr << "highlight: Could not access directory "
              <<  searchDir
              << ", aborted.\n";
-        return false;
+        return EXIT_FAILURE;
     }
 
-    cout << "\nInstalled "<< what
-         << " (located in " << where << "):\n\n";
+    cout << "\nInstalled "<< what << " (located in " << where << "):\n\n";
 
     sort ( filePaths.begin(), filePaths.end() );
     string temp;
@@ -101,11 +98,12 @@ bool HLCmdLineApp::printInstalledFiles(const string& where, const string& wildca
     }
     cout <<"\nUse name of the desired "<<what
          << " with the --" <<option<< " option.\n" << endl;
-    return true;
+	 
+    return EXIT_SUCCESS;
 }
 
 
-bool HLCmdLineApp::printInstalledLanguages()
+int HLCmdLineApp::printInstalledLanguages()
 {
     vector <string> filePaths;
     string wildcard="*.lang";
@@ -118,7 +116,7 @@ bool HLCmdLineApp::printInstalledLanguages()
         cerr << "highlight: Could not access directory "
              <<  searchDir
              << ", aborted.\n";
-        return false;
+        return EXIT_FAILURE;
     }
 
     sort ( filePaths.begin(), filePaths.end() );
@@ -145,7 +143,7 @@ bool HLCmdLineApp::printInstalledLanguages()
     }
     cout <<"\nUse name of the desired language"
          << " with the --" OPT_SYNTAX " option.\n" << endl;
-    return true;
+    return EXIT_SUCCESS;
 }
 
 void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader *lang,
@@ -417,7 +415,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     if ( options.showLangdefs() )
     {
-        return printInstalledLanguages() ?EXIT_SUCCESS:EXIT_FAILURE;
+        return printInstalledLanguages();
     }
 
     const  vector <string> inFileList=options.getInputFileNames();

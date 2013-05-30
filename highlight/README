@@ -125,6 +125,7 @@ main.cpp as input file:
   tex:      Plain TeX
   latex:    LaTeX
   rtf:      RTF
+  odt:      OpenDocument Text (Flat XML)
   svg:      SVG
   bbcode:   BBCode
   ansi:     Terminal 16 color escape codes
@@ -185,7 +186,7 @@ Output formatting options:
 
  -O, --out-format=<format>      output file in given format
                                   <format>=[html, xhtml, latex, tex,
-                                  rtf, ansi, xterm256, bbcode, svg]
+                                  odt, rtf, ansi, xterm256, bbcode, svg]
  -c, --style-outfile=<file>     name of style file or print to stdout, if
                                   'stdout' is given as file argument
  -e, --style-infile=<file>      file to be included in style-outfile
@@ -205,15 +206,18 @@ Output formatting options:
  -t, --replace-tabs=<num>       replace tabs by <num> spaces
  -T, --doc-title=<title>        document title
  -u, --encoding=<enc>           set output encoding which matches input file
-                                  encoding; omit encoding info if enc=NONE
+                                  encoding; omit encoding info if set to NONE
  -V, --wrap-simple              wrap long lines without indenting function
                                   parameters and statements
  -W, --wrap                     wrap long lines
+     --wrap-no-numbers          omit line numbers of wrapped lines
+                                  (assumes -l)
  -z, --zeroes                   pad line numbers with 0's
      --kw-case=<case>           change case of case insensitive keywords
                                   <case> =  [upper, lower, capitalize]
      --delim-cr                 set CR as end-of-line delimiter (MacOS 9)
      --no-trailing-nl           omit trailing newline
+
 
 (X)HTML output options:
 
@@ -222,11 +226,12 @@ Output formatting options:
  -N, --anchor-filename          use input file name as anchor prefix
  -C, --print-index              print index with hyperlinks to output files
  -n, --ordered-list             print lines as ordered list items
-     --class-name=<str>         set CSS class name prefix;
+     --class-name=<name>        set CSS class name prefix;
                                   omit class name if set to NONE
      --inline-css               output CSS within each tag (verbose output)
-     --enclose-pre              enclose fragmented output with pre tag
+     --enclose-pre              enclose fragmented output with pre tag 
                                   (assumes -f)
+
 
 LaTeX output options:
 
@@ -237,7 +242,7 @@ LaTeX output options:
 
 RTF output options:
 
- -x, --page-size=<ps>           set page size
+ -x, --page-size=<ps>           set page size 
                                   <ps> = [a3, a4, a5, b4, b5, b6, letter]
      --char-styles              include character stylesheets
 
@@ -848,15 +853,15 @@ the GUI's file open filter.
 -------------------------------------------------------------------------------
 
 Since release 3.14 the configuration scripts are searched in the following
-direcories:
+directories:
 
 1. ~/.highlight/
-2. user defined directory --data-dir (deprecated option)
+2. user defined directory set with --data-dir (deprecated option)
 3. /usr/share/highlight/
 4. /etc/highlight/ (because of filetypes.conf)
 5. current working directory (fallback)
 
-These subdirectories are expected to hold the corresponding scripts:
+These subdirectories are expected to contain the corresponding scripts:
 -langDefs: *.lang
 -themes: *.theme
 -plugins: *.lua
@@ -864,6 +869,9 @@ These subdirectories are expected to hold the corresponding scripts:
 A custom filetypes.conf may be placed directly in ~/.highlight/.
 This search order enables you to enhance the installed scripts without the need
 to copy all preinstalled files somewhere else.
+As the --plug-in option of older releases accepted absolute paths only, the 
+given plugin scripts will be searched in the directories above only if the
+absolute file path access fails.
 
 
 4. EMBEDDING HIGHLIGHT
@@ -968,7 +976,7 @@ The file INSTALL contains details about package contents and installation.
 -------------------------------------------------------------------------------
 
 Highlight is known to compile with gcc and suncc.
-It depends on Boost headers and Lua 5.1 developer packages.
+It depends on Boost headers and Lua 5.1/LuaJit developer packages.
 The optional GUI depends on Qt4/Qt5 developer packages.
 Please see the makefile for further options.
 

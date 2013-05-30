@@ -335,5 +335,4 @@ namespace highlight
 		return styleDefinitionCache;
 	}
 
-
 }

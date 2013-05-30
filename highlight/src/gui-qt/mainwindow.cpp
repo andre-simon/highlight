@@ -1143,11 +1143,16 @@ void MainWindow::on_pbCopyToCP_clicked()
 
 void MainWindow::on_pbSelectPlugin_clicked()
 {
+#ifdef DATA_DIR
+    QString pluginsPath = QDir::toNativeSeparators(QString("%1/plugins").arg(DATA_DIR));
+#else
+     QString pluginsPath = QDir::toNativeSeparators(QString("%1/plugins").arg(QDir::currentPath()));
+#endif
 
     QStringList files = QFileDialog::getOpenFileNames(
                             this,
                             tr("Select one or more plug-ins"),
-                            "",
+                            pluginsPath,
                             "*.lua");
 
      addInputFiles(files, ui->lvPluginScripts, ":/plugin.png",  true);
@@ -1176,10 +1181,6 @@ void MainWindow::on_actionVisit_website_triggered()
     QDesktopServices::openUrl(QUrl("http://www.andre-simon.de/"));
 }
 
-void MainWindow::on_lvPluginScripts_itemClicked(QListWidgetItem* item)
-{
-
-}
 
 void MainWindow::on_actionDock_floating_panels_toggled(bool arg1)
 {

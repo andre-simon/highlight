@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT PLUGIN MANUAL - Version 3.10   -------------------- May 2012 ---
+---  HIGHLIGHT PLUGIN MANUAL - Version 3.14   -------------------- May 2013 ---
 -------------------------------------------------------------------------------
 
 CONTENT
@@ -74,6 +74,8 @@ NestedSections: table
 Operators: string
 PreProcessor: table
 Strings: table
+HeaderInjection: string
+FooterInjection: string
 
 Read only:
 
@@ -369,14 +371,24 @@ ctags_html_tooltips.lua
 Description: Add tooltips based on a ctags file (default input file: tags)
 Features:    Uses file input (defined by cli option --plug-in-read) and
              parses tags data before Decorate is called.
+             
+html_curly_brackets_matcher.lua
+Description: Shows matching curly brackets in HTML output.
+Features:    Uses Decorate to add span tags with unique ids to opening and 
+             closing brackets. Adds JavaScript with HeaderInjection variable.
 
-			 
+ 
 6. PLUG-IN USAGE
 -------------------------------------------------------------------------------
 
 Command line interface:
 Use --plug-in to load a plug-in script file. This option can be applied 
-more than once to apply several plug-ins.
+more than once to apply several plug-ins. Omit the .lua suffix.
+You can store your plug-in scripts for testing in ~/.highlight/plugins.
+
+Example:
+highlight 123.cpp -Ilz --plug-in=html_curly_brackets_matcher > ~/test_out/123.html
+
 
 GUI:
 Add the plug-in scripts in the plug-in selection tab and enable them using the

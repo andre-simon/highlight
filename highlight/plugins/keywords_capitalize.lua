@@ -12,7 +12,7 @@ function syntaxUpdate(desc)
   end
 
   function Decorate(token, state)
-    if (state == HL_KEYWORD) then
+    if (state == HL_KEYWORD and not token:match("%W")) then
       cap=token:gsub("^%l", string.upper) --why do I need cap variable here???
       return cap
     end

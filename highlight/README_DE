@@ -128,6 +128,7 @@ namens main.cpp erzeugt:
   tex:      Plain TeX
   latex:    LaTeX
   rtf:      RTF
+  odt:      OpenDocument Text (Flat XML)
   ansi:     Terminal 16 color escape codes
   xterm256: Terminal 256 color escape codes
   svg:      SVG
@@ -181,13 +182,13 @@ General options:
                                   without opening delimiter
      --validate-input           test if input is text, remove Unicode BOM
      --version                  print version and copyright information
-     
+
 
 Output formatting options:
 
  -O, --out-format=<format>      output file in given format
                                   <format>=[html, xhtml, latex, tex,
-                                  rtf, ansi, xterm256, bbcode, svg]
+                                  odt, rtf, ansi, xterm256, bbcode, svg]
  -c, --style-outfile=<file>     name of style file or print to stdout, if
                                   'stdout' is given as file argument
  -e, --style-infile=<file>      file to be included in style-outfile
@@ -207,15 +208,18 @@ Output formatting options:
  -t, --replace-tabs=<num>       replace tabs by <num> spaces
  -T, --doc-title=<title>        document title
  -u, --encoding=<enc>           set output encoding which matches input file
-                                  encoding; omit encoding info if enc=NONE
+                                  encoding; omit encoding info if set to NONE
  -V, --wrap-simple              wrap long lines without indenting function
                                   parameters and statements
  -W, --wrap                     wrap long lines
+     --wrap-no-numbers          omit line numbers of wrapped lines
+                                  (assumes -l)
  -z, --zeroes                   pad line numbers with 0's
      --kw-case=<case>           change case of case insensitive keywords
                                   <case> =  [upper, lower, capitalize]
      --delim-cr                 set CR as end-of-line delimiter (MacOS 9)
      --no-trailing-nl           omit trailing newline
+
 
 (X)HTML output options:
 
@@ -224,11 +228,12 @@ Output formatting options:
  -N, --anchor-filename          use input file name as anchor prefix
  -C, --print-index              print index with hyperlinks to output files
  -n, --ordered-list             print lines as ordered list items
-     --class-name=<str>         set CSS class name prefix;
+     --class-name=<name>        set CSS class name prefix;
                                   omit class name if set to NONE
      --inline-css               output CSS within each tag (verbose output)
-     --enclose-pre              enclose fragmented output with pre tag
+     --enclose-pre              enclose fragmented output with pre tag 
                                   (assumes -f)
+
 
 LaTeX output options:
 
@@ -239,7 +244,7 @@ LaTeX output options:
 
 RTF output options:
 
- -x, --page-size=<ps>           set page size
+ -x, --page-size=<ps>           set page size 
                                   <ps> = [a3, a4, a5, b4, b5, b6, letter]
      --char-styles              include character stylesheets
 
@@ -264,7 +269,6 @@ GNU source-highlight compatibility options:
      --output-dir=path          output directory
      --failsafe                 if no language definition is found for the
                                   input, it is simply copied to the output
-
 
 
 2.3 GUI OPTIONEN
@@ -875,10 +879,10 @@ Seit Version 3.14 werden die Konfigurationsskripte in den folgenden Verzeich-
 nissen gesucht:
 
 1. ~/.highlight/
-2. benutzerdefiniertes Verz. --data-dir (Deprecated)
+2. benutzerdefiniertes Verz., definiert mit --data-dir (deprecated)
 3. /usr/share/highlight/
 4. /etc/highlight/ (wegen filetypes.conf)
-5. Akt. Arbeitsverzeicnnis (Fallback)
+5. aktuelles Arbeitsverzeicnnis (Fallback)
 
 Es wird erwartet, dass folgende Unterverzeichnisse die entsprechenden Skripte
 enthalten:
@@ -890,7 +894,9 @@ enthalten:
 Eine eigene filetypes.conf kann direkt in in ~/.highlight/ gespeichert werden.
 Diese Suchreihenfolge vereinfacht die Erweiterung und Anpassung bestehender
 Skripte, ohne vorinstallierte Dateien umkopieren zu müssen.
-
+Da die plug-in Option aelterer Versionen nur absolute Pfade akzeptierte, werden
+die angegebenen Skripte nur dann in den obigen Verzeichnissen gesucht wenn
+der Zugriff auf den absoluten Pfad fehlschlaegt.
 
 4. HIGHLIGHT EINBETTEN
 -------------------------------------------------------------------------------
@@ -994,7 +1000,7 @@ In INSTALL befinden sich weitere Informationen zu Paketinhalt und Installation.
 -------------------------------------------------------------------------------
 
 Highlight kompiliert zumindest mit gcc und suncc. Zum Kompilieren sind Boost
-Header-Pakete und Lua5.1 Development-Pakete nötig.
+Header-Pakete und Lua5.1/LuaJit Development-Pakete nötig.
 Die optionale GUI benötigt die Qt4/Qt5 Development-Pakete.
 Im Makefile finden Sie weitere Informationen.
 

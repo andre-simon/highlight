@@ -55,6 +55,21 @@ HtmlGenerator::HtmlGenerator () :
     styleCommentClose="*/";
 }
 
+
+string HtmlGenerator::getHeaderStart ( const string &title )
+{
+    ostringstream header;
+    header<<  "<!DOCTYPE html>\n<html>\n<head>\n";
+    if ( encodingDefined() )
+    {
+        header << "<meta charset=\""
+               << encoding
+               << "\">\n";
+    }
+    header << "<title>" << title << "</title>\n";
+    return header.str();
+}
+
 string HtmlGenerator::getHeader()
 {
     ostringstream os;
@@ -74,12 +89,10 @@ string HtmlGenerator::getHeader()
                << getStyleOutputPath()
                << "\">\n";
         }
-        //os << "</head>\n<body class=\"" << cssClassName
-          // << "\">\n";
-	os << "</head>\n<body";
-	if (!cssClassName.empty()) 
-	  os << " class=\""<<cssClassName<<"\"";
-	os << ">\n";
+        os << "</head>\n<body";
+        if (!cssClassName.empty())
+            os << " class=\""<<cssClassName<<"\"";
+        os << ">\n";
     }
     else
     {
@@ -106,8 +119,8 @@ void HtmlGenerator::printBody()
         if ( !useInlineCSS )
         {
             *out << "<pre";
-	    if (!cssClassName.empty()) 
-	      *out<<" class=\"" << cssClassName << "\"";
+            if (!cssClassName.empty())
+                *out<<" class=\"" << cssClassName << "\"";
             *out<< ">";
         }
         else
@@ -154,7 +167,7 @@ void HtmlGenerator::initOutputTags ()
         openTags.push_back ( getOpenTag ( docStyle.getPreProcStringStyle() ) );
         openTags.push_back ( getOpenTag ( docStyle.getLineStyle() ) );
         openTags.push_back ( getOpenTag ( docStyle.getOperatorStyle() ) );
-	openTags.push_back ( getOpenTag ( docStyle.getInterpolationStyle() ) );
+        openTags.push_back ( getOpenTag ( docStyle.getInterpolationStyle() ) );
     }
     else
     {
@@ -167,7 +180,7 @@ void HtmlGenerator::initOutputTags ()
         openTags.push_back ( getOpenTag ( STY_NAME_DST ) );
         openTags.push_back ( getOpenTag ( STY_NAME_LIN ) );
         openTags.push_back ( getOpenTag ( STY_NAME_SYM ) );
-	openTags.push_back ( getOpenTag ( STY_NAME_IPL ) );
+        openTags.push_back ( getOpenTag ( STY_NAME_IPL ) );
     }
 
     closeTags.push_back ( "" );
@@ -183,8 +196,8 @@ string  HtmlGenerator::getAttributes ( const string & elemName, const ElementSty
     ostringstream s;
     if ( !elemName.empty() )
     {
-	if (!cssClassName.empty()) 
-	  s << "."<<cssClassName;
+        if (!cssClassName.empty())
+            s << "."<<cssClassName;
         s <<"."<<elemName<<" { ";
     }
     s << "color:#"
@@ -227,16 +240,16 @@ string HtmlGenerator::getStyleDefinition()
         bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
         ostringstream os;
         os  << "body";
-	if (!cssClassName.empty()) 
-	  os<<"."<<cssClassName;
-	os  <<"\t{ background-color:#"
+        if (!cssClassName.empty())
+            os<<"."<<cssClassName;
+        os  <<"\t{ background-color:#"
             << ( docStyle.getBgColour().getRed ( HTML ) )
             << ( docStyle.getBgColour().getGreen ( HTML ) )
             << ( docStyle.getBgColour().getBlue ( HTML ) )
             << "; }\n";
         os << (orderedList ? "li" : "pre");
-	if (!cssClassName.empty()) 
-	  os<<"."<<cssClassName;
+        if (!cssClassName.empty())
+            os<<"."<<cssClassName;
         os << "\t{ color:#"
            << ( docStyle.getDefaultStyle().getColour().getRed ( HTML ) )
            << ( docStyle.getDefaultStyle().getColour().getGreen ( HTML ) )
@@ -258,7 +271,7 @@ string HtmlGenerator::getStyleDefinition()
             << getAttributes ( STY_NAME_COM, docStyle.getCommentStyle() )
             << getAttributes ( STY_NAME_DIR, docStyle.getPreProcessorStyle() )
             << getAttributes ( STY_NAME_SYM, docStyle.getOperatorStyle() )
-	    << getAttributes ( STY_NAME_IPL, docStyle.getInterpolationStyle() )
+            << getAttributes ( STY_NAME_IPL, docStyle.getInterpolationStyle() )
             << getAttributes ( STY_NAME_LIN, docStyle.getLineStyle() );
 
         KeywordStyles styles = docStyle.getKeywordStyles();
@@ -329,10 +342,10 @@ void HtmlGenerator::insertLineNumber ( bool insertNewLine )
             }
             else
             {
-	      if (!cssClassName.empty()) 
-                numberPrefix<<"<li class=\""<<cssClassName<<"\">";
-	      else
-		numberPrefix<<"<li>";
+                if (!cssClassName.empty())
+                    numberPrefix<<"<li class=\""<<cssClassName<<"\">";
+                else
+                    numberPrefix<<"<li>";
             }
             // Opera 8 ignores empty list items -> add &nbsp;
             //if ( line.empty() ) numberPrefix<<"&nbsp;";
@@ -378,19 +391,6 @@ void HtmlGenerator::insertLineNumber ( bool insertNewLine )
 
 }
 
-string HtmlGenerator::getHeaderStart ( const string &title )
-{
-    ostringstream header;
-    header<<  "<!DOCTYPE html>\n<html>\n<head>\n";
-    if ( encodingDefined() )
-    {
-        header << "<meta charset=\""
-               << encoding
-               << "\">\n";
-    }
-    header << "<title>" << title << "</title>\n";
-    return header.str();
-}
 
 bool HtmlGenerator::printIndexFile ( const vector<string> &fileList,
                                      const string &outPath )

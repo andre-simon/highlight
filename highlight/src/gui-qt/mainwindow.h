@@ -117,7 +117,7 @@ public slots:
     void on_pbCopyFile2CP_clicked();
 
 private slots:
-    void on_lvPluginScripts_itemClicked(QListWidgetItem* item);
+
     void on_actionVisit_website_triggered();
     void on_pbClearAllPlugins_clicked();
     void on_pbClearAll_clicked();

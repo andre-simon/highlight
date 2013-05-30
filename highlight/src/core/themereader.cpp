@@ -84,7 +84,6 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
 
 	desc = ls["Description"].value().asString();
 
-
 	if (pluginChunks.size()){
 	  Diluculum::LuaValueList params;
 	  params.push_back(desc);
@@ -126,7 +125,7 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
         errorMsg = string(err.what());
         return fileOK=false;
     } catch (Diluculum::TypeMismatchError err) {
-        errorMsg = string(err.what());//expected "+err.getExpectedType()+ ", got "+err.getFoundType();
+        errorMsg = string(err.what());
         return fileOK=false;
     } catch (Diluculum::LuaSyntaxError err) {
         errorMsg = "syntax error: "+string(err.what());

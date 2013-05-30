@@ -9,7 +9,7 @@ LUA_CFLAGS=$(shell pkg-config --cflags lua)
 LUA_LIBS=$(shell pkg-config --libs lua)
 PYTHON_CFLAGS=$(shell pkg-config --cflags python-2.7)
 PERL_INC=$(shell perl -MExtUtils::Embed -eccopts)
-PHP_INC=$(shell php-config --includes)
+
 
 lib-stamp:
 	make -C ${HL_SRC} -f ./makefile clean
@@ -25,11 +25,6 @@ perl: lib-stamp
 	swig -c++ -perl -o highlight_wrap.cpp  highlight.i
 	${CXX} ${CFLAGS} -c highlight_wrap.cpp ${LUA_CFLAGS} ${PERL_INC} -I${HL_INC} 
 	${CXX} -shared -s highlight_wrap.o  -L${HL_SRC} -lhighlight ${LUA_LIBS} -o highlight.so
-
-php: lib-stamp
-	swig -c++ -php -o highlight_wrap.cpp highlight.i
-	${CXX} ${CFLAGS} -c highlight_wrap.cpp ${LUA_CFLAGS} ${PHP_INC} -I${HL_INC}
-	${CXX} -shared -s highlight_wrap.o -L${HL_SRC} -lhighlight ${LUA_LIBS} -o highlight.so
 
 clean: python-clean perl-clean
 	rm -f *-stamp

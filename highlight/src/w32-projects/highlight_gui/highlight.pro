@@ -15,18 +15,16 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += core gui widgets
 DEFINES += O2 QT
 
 win32:CONFIG += static
-#CONFIG += precompile_header
-#PRECOMPILED_HEADER =gui-qt/precomp.h
 
 win32:DESTDIR = ..
-unix:DESTDIR = ../
+unix:DESTDIR = ../..
 
 
 win32:INCLUDEPATH += include/
 win32:INCLUDEPATH += gui-qt/
 
 win32:LIBS += -L. -lhighlight
-unix:LIBS += -L.. -lhighlight
+unix:LIBS += -L../.. -lhighlight
 
 !contains( LINKTYPE, LUA52 ) {
 win32:LIBS += -Ld:/devel/cpp/lua_bin_5.1.4. -llua
@@ -49,7 +47,8 @@ FORMS += ..\\..\\gui-qt\\mainwindow.ui  ..\\..\\gui-qt\\io_report.ui ..\\..\\gui
 
 }
 else {
-SOURCES += gui-qt/main.cpp  gui-qt/mainwindow.cpp gui-qt/io_report.cpp  gui-qt/showtextfile.cpp
+INCLUDEPATH += ../../include
+SOURCES += ../../gui-qt/main.cpp  ../../gui-qt/mainwindow.cpp ../../gui-qt/io_report.cpp  ../../gui-qt/showtextfile.cpp
 HEADERS += ../../gui-qt/mainwindow.h ../../gui-qt/io_report.h  ../../gui-qt/showtextfile.h
 FORMS += ../../gui-qt/mainwindow.ui  ../../gui-qt/io_report.ui ../../gui-qt/showtextfile.ui
 }
@@ -62,8 +61,8 @@ win32:RC_FILE = highlight-gui.rc
 win32:QMAKE_POST_LINK = $$quote(D:\Devel\upx308w\upx.exe --best ../$${TARGET}.exe)
 
 unix {
-DEFINES += DATA_DIR=\\\"/usr/share/highlight\\\" \
-    CONFIG_DIR=\\\"/etc/highlight\\\" \
-    DOC_DIR=\\\"/usr/share/doc/highlight\\\"
+DEFINES += DATA_DIR=\\\"/usr/share/highlight/\\\" \
+    CONFIG_DIR=\\\"/etc/highlight/\\\" \
+    DOC_DIR=\\\"/usr/share/doc/highlight/\\\"
     message("setting unix default paths")
 }

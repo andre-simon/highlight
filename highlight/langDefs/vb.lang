@@ -23,6 +23,7 @@ Keywords={
 
 Strings={
   Delimiter=[["]],
+    Escape=[[\"\"]]
 }
 
 IgnoreCase=true

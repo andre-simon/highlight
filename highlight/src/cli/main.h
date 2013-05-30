@@ -80,13 +80,12 @@ class HLCmdLineApp
 		/** list installed  files
 		    \return true if files were found
 		*/
-		//bool printInstalledThemes();
-		bool printInstalledFiles(const string& where, const string& wildcard, const string& what, const string&option);
+		int printInstalledFiles(const string& where, const string& wildcard, const string& what, const string&option);
 
 		/** list installed language definition files
 		    \return true if lang files were found
 		*/
-		bool printInstalledLanguages();
+		int printInstalledLanguages();
 
 		/** print debug information
 		    \param  lang language definition

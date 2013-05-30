@@ -155,13 +155,6 @@ namespace highlight
 			 */
 			bool initIndentationScheme ( const string&indentScheme );
 
-			/**
-			 Load ctags meta information; needs to be called before using a generate* method
-			 \param ctagsPath Path of tags file
-			 \return true if successfull
-			*/
-			bool initTagInformation ( const string& ctagsPath );
-
 			/** \param langDefPath Absolute path to language definition, may be used multiple times for a generator instance
 			    \return   LOAD_OK,
 				      LOAD_FAILED,
@@ -457,11 +450,7 @@ namespace highlight
 			ThemeReader docStyle;
 
 			/** Language definition*/
-			//SyntaxReader langInfo;
 			SyntaxReader* currentSyntax;
-
-			/** CTags meta information */
-			//CTagsReader metaInfo;
 
 			/** Tag for inserting line feeds*/
 			string newLineTag;

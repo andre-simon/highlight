@@ -132,6 +132,12 @@ namespace highlight
 			/** \return description of the programming language */
 			const string & getDescription () const {return langDesc;}
 
+			/** \return header string defined by a plug-in */
+			const string & getHeaderInjection () const {return headerInjection;}
+
+			/** \return footer string defined by a plug-in */
+			const string & getFooterInjection () const {return footerInjection;}
+
 			/**  \param delimID delimiter id
 			     \return true,  if no closing delimiter exists (open and close delimiters are equal)
 			 */
@@ -212,12 +218,14 @@ namespace highlight
 			static const string REGEX_IDENTIFIER;
 			static const string REGEX_NUMBER;
 			static const string REGEX_ESCSEQ;
-
+			
 			// path to loaded language definition
 			string currentPath;
 
 			// Language description
 			string langDesc;
+			
+			string headerInjection, footerInjection;
 
 			string regexErrorMsg, luaErrorMsg;
 
@@ -268,6 +276,7 @@ namespace highlight
 
 			void addKeyword(unsigned int groupID, const string& kw);
 
+			// Functions accessible in Lua State
 			Diluculum::LuaFunction* validateStateChangeFct;
 			Diluculum::LuaFunction* decorateFct;
 

@@ -21,6 +21,7 @@ Keywords={
 
 Strings={
   Delimiter=[["|']],
+  Escape="#[[:digit:]]+"
 }
 
 IgnoreCase=true
@@ -43,5 +44,5 @@ NestedSections = {
   { Lang="assembler", Delimiter= { [[asm]], [[end;]] } }
 }
 
-Operators=[[\(|\)|\[|\]|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\@|\.|\^]]
+Operators=[[\(|\)|\[|\]|,|;|:|&|<|>|\!|\=|\/|\*|\%|\+|\-|\@|\.|\^]]
 

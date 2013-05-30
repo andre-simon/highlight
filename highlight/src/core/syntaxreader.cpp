@@ -34,6 +34,21 @@ using namespace std;
 namespace highlight
 {
 
+const string SyntaxReader::REGEX_IDENTIFIER =
+    "[a-zA-Z_]\\w*";
+
+const string SyntaxReader::REGEX_NUMBER =
+    "(?:0x|0X)[0-9a-fA-F]+|\\d*[\\.]?\\d+(?:[eE][\\-\\+]\\d+)?[lLuU]*";
+
+const string SyntaxReader::REGEX_ESCSEQ =
+    "\\\\u[[:xdigit:]]{4}|\\\\\\d{3}|\\\\x[[:xdigit:]]{2}|\\\\[ntvbrfa\\\\\\?'\"]";
+    
+EmbedLangDelimMap SyntaxReader::exitDelimiters;
+vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
+
+int RegexElement::instanceCnt=0;
+
+
 int SyntaxReader::luaAddKeyword (lua_State *L) {
     int retVal=0;
     if (lua_gettop(L)==2){
@@ -49,24 +64,6 @@ int SyntaxReader::luaAddKeyword (lua_State *L) {
     lua_pushboolean(L, retVal);
     return 1;
 }
-
-const string SyntaxReader::REGEX_IDENTIFIER =
-    "[a-zA-Z_]\\w*";
-
-const string SyntaxReader::REGEX_NUMBER =
-    "(?:0x|0X)[0-9a-fA-F]+|\\d*[\\.]?\\d+(?:[eE][\\-\\+]\\d+)?[lLuU]*";
-
-//const string SyntaxReader::REGEX_ESCSEQ =
-  //  "\\\\u\\p{XDigit}{4}|\\\\\\d{3}|\\\\x\\p{XDigit}{2}|\\\\[ntvbrfa\\\\\\?'\"]";
-
-const string SyntaxReader::REGEX_ESCSEQ =
-    "\\\\u[[:xdigit:]]{4}|\\\\\\d{3}|\\\\x[[:xdigit:]]{2}|\\\\[ntvbrfa\\\\\\?'\"]";
-
-    
-EmbedLangDelimMap SyntaxReader::exitDelimiters;
-vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
-
-int RegexElement::instanceCnt=0;
 
 SyntaxReader::SyntaxReader() :
         ignoreCase ( false ),
@@ -106,10 +103,7 @@ void SyntaxReader::restoreLangEndDelim(const string& langPath) {
     //TODO exitDelimiters be left static?
     if ( !langPath.empty()&& exitDelimiters.count(langPath) )
     {
-  //      Pattern* p = Pattern::compile ( exitDelimiters[langPath]);
-    //    if ( p!=NULL ) {
-            regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, exitDelimiters[langPath] ) );
-      //  }
+       regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, exitDelimiters[langPath] ) );
     }
 }
 
@@ -185,7 +179,6 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
 	ls["HL_FORMAT_SVG"]=SVG;
 	ls["HL_FORMAT_BBCODE"]=BBCODE;
 	ls["HL_FORMAT_ODT"]=ODTFLAT;
-	
 }
 
 
@@ -214,7 +207,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 	initLuaState(ls, langDefPath, pluginReadFilePath, outputType);
 
 	lua_register (ls.getState(),"AddKeyword",luaAddKeyword);
-
+	
 	SyntaxReader **s = (SyntaxReader **)lua_newuserdata(ls.getState(), sizeof(SyntaxReader *));
 	*s=this;
 	lua_setglobal(ls.getState(), GLOBAL_INSTANCE_NAME);
@@ -260,14 +253,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                 if (ls["Keywords"][idx]["Group"].value()!=Diluculum::Nil) {
                     captGroup=ls["Keywords"][idx]["Group"].value().asNumber();
                 }
-
-                //Pattern* p = Pattern::compile ( reString );
-                //if ( p!=NULL )
-                    regex.push_back ( new RegexElement ( KEYWORD, KEYWORD_END, reString, kwId, captGroup ) );
-                //else {
-                  //  regexErrorMsg = reString;
-                    //return LOAD_FAILED_REGEX;
-                //}
+                regex.push_back ( new RegexElement ( KEYWORD, KEYWORD_END, reString, kwId, captGroup ) );
             }
             idx++;
         }
@@ -360,7 +346,6 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
                     ++listIdx;
                 }
-
             }
 
             string  escRegex=(ls["Strings"]["Escape"].value()==Diluculum::Nil)?REGEX_ESCSEQ:ls["Strings"]["Escape"].value().asString();
@@ -398,6 +383,14 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
             }
 
         }
+        
+        if (globals.count("HeaderInjection")) {
+            headerInjection+= ls["HeaderInjection"].value().asString();
+        }
+        
+        if (globals.count("FooterInjection")) {
+            footerInjection+= ls["FooterInjection"].value().asString();
+        }
 
         // load hook functions
         if (globals.count("OnStateChange")) {
@@ -429,12 +422,6 @@ int SyntaxReader::getOpenDelimiterID ( const string& token, State s) {
 	  if( regex_match( token, what, regexElem->rex ) ){
 	         return regexElem->instanceId;
 	  }
-	  /*
-            auto_ptr<Matcher> matcher (regexElem->rePattern->createMatcher ( token ));
-            if (matcher->matches()) {
-
-                return regexElem->instanceId;
-            }*/
         }
     }
     return 0;
@@ -449,12 +436,7 @@ bool SyntaxReader::matchesOpenDelimiter ( const string& token, State s, int open
 	  if( regex_match( token, what, regexElem->rex ) && delimIds2[regexElem->instanceId]==openDelimId){
 	         return true;
 	  }
-	  /*
-            auto_ptr<Matcher> matcher (regexElem->rePattern->createMatcher ( token ));
-            if (matcher->matches()&&delimIds2[regexElem->instanceId]==openDelimId) {
-                return true;
-            }
-            */
+
         }
     }
     return false;
