@@ -115,10 +115,11 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
             idx++;
         }
         
-        idx=1;
+       idx=1;
 	while (ls["Injections"][idx].value() !=Diluculum::Nil) {
-	    injections.push_back (ls["Injections"][idx].value().asString());
-            idx++;
+	  //  injections.push_back (ls["Injections"][idx].value().asString());
+	  themeInjections +=ls["Injections"][idx].value().asString();
+	  idx++;
         }
 
     } catch (Diluculum::LuaFileError err) {
@@ -228,12 +229,15 @@ KeywordStyles ThemeReader::getKeywordStyles() const
 }
 
 string ThemeReader::getInjections() const{
+  return themeInjections;
+  /*
  ostringstream os;
  for ( vector<string>::const_iterator iter = injections.begin(); iter != injections.end(); iter++ )
     {
         os<<*iter<<"\n";
     }
     return os.str();
+ */
 }
 
 }

@@ -5,18 +5,29 @@
 CONTENT
 -------------------------------------------------------------------------------
 
-1. SCRIPT STRUCTURE
-2. SYNTAX CHUNK ELEMENTS
+1. ABOUT
+2. SCRIPT STRUCTURE
+3. SYNTAX CHUNK ELEMENTS
    2.1 FUNCTION ONSTATECHANGE
    2.2 FUNCTION ADDKEYWORD
    2.3 FUNCTION DECORATE
-3. THEME CHUNK ELEMENTS
-4. STEP BY STEP
-5. EXAMPLES
-6. PLUG-IN USAGE
+4. THEME CHUNK ELEMENTS
+5. STEP BY STEP
+6. EXAMPLES
+7. PLUG-IN USAGE
 
 
-1. SCRIPT STRUCTURE
+1, ABOUT
+-------------------------------------------------------------------------------
+
+The plug-in interface allows modifications of syntax parsing and colouring.
+The output may be enhanced with header or footer, and recognized syntax tokens
+may be enhanced with additional information.
+A common task would be to define a new set of syntax keywords, or to enhance
+the existing keyword groups. See the examples in chapter 7.
+
+
+2. SCRIPT STRUCTURE
 -------------------------------------------------------------------------------
 
 The following script contains a minimal plug-in which has no effect on the
@@ -55,7 +66,7 @@ state. It is not required to always define both connections if your plugin
 only affects one of the config script types.
 
 
-2. SYNTAX CHUNK ELEMENTS
+3. SYNTAX CHUNK ELEMENTS
 -------------------------------------------------------------------------------
 
 The following list includes all variables and constants you may use to adjust 
@@ -127,7 +138,7 @@ functions within the lang chunk function referenced in the Plugins array.
 They will be ignored when defined elsewhere in the plug-in script.
 
 
-2.1 FUNCTION ONSTATECHANGE
+3.1 FUNCTION ONSTATECHANGE
 -------------------------------------------------------------------------------
 
 This function is a hook which is called if an internal state changes (e.g. from
@@ -170,7 +181,7 @@ This function resolves a Lua parsing issue with the "]]" close delimiter which
 ends both comments and strings.
 
 
-2.2 FUNCTION ADDKEYWORD
+3.2 FUNCTION ADDKEYWORD
 -------------------------------------------------------------------------------
 
 This function will add a keyword to one of the the internal keyword lists.
@@ -185,7 +196,7 @@ AddKeyword(keyword, kwGroupID)
   Returns:    true if successfull
 
 
-2.3 FUNCTION DECORATE
+3.3 FUNCTION DECORATE
 -------------------------------------------------------------------------------
 
 This function is a hook which is called if a syntax token has been identified.
@@ -230,7 +241,7 @@ end
 This function adds tooltips to keywords which were found in a given tags file.
 
 
-3. THEME CHUNK ELEMENTS
+4. THEME CHUNK ELEMENTS
 -------------------------------------------------------------------------------
 
 The following list includes all items you may overwrite or extend to adjust
@@ -265,7 +276,7 @@ HL_FORMAT_BBCODE: number
 HL_FORMAT_ODT: number
 
 
-4. STEP BY STEP
+5. STEP BY STEP
 -------------------------------------------------------------------------------
 
 -- first add a description of what the plug-in does
@@ -341,7 +352,7 @@ Plugins={
 }
 
 
-5. EXAMPLES
+6. EXAMPLES
 -------------------------------------------------------------------------------
 
 The plugins directory contains some example scripts which show the
@@ -372,16 +383,28 @@ Description: Add tooltips based on a ctags file (default input file: tags)
 Features:    Uses file input (defined by cli option --plug-in-read) and
              parses tags data before Decorate is called.
              
-html_curly_brackets_matcher.lua
+outhtml_curly_brackets_matcher.lua
 Description: Shows matching curly brackets in HTML output.
 Features:    Uses Decorate to add span tags with unique ids to opening and 
-             closing brackets. Adds JavaScript with HeaderInjection variable.
-
+             closing brackets.
+             Adds JavaScript with HeaderInjection variable.
+             Inserts additional CSS styles with themeUpdate();
+             
+outhtml_keyword_matcher.lua
+Description: Shows matching keywords in HTML output.
+Features:    Uses Decorate to add span tags with unique ids to opening and 
+             closing brackets.
+             Uses OnStateChange to assign an internal ID to each keyword.
+             Adds JavaScript with HeaderInjection variable.
+             Inserts additional CSS styles with themeUpdate();
+             
  
-6. PLUG-IN USAGE
+7. PLUG-IN USAGE
 -------------------------------------------------------------------------------
 
 Command line interface:
+Run highlight --list-scripts=plugins to lost all installed plug-ins.
+
 Use --plug-in to load a plug-in script file. This option can be applied 
 more than once to apply several plug-ins. Omit the .lua suffix.
 You can store your plug-in scripts for testing in ~/.highlight/plugins.

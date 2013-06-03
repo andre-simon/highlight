@@ -4,10 +4,11 @@ highlight 3.14
 
 31.04.2013
 
--added HeaderInjection variable for syntax plug-ins
+-added HeaderInjection and FooterInjection variables for syntax plug-ins
 -fixed handling of CRLF files on Linux (suggested by William Bell)
--replaced single data directory by a dynamic config file search (see README)
--added plug-ins html_parantheses_matcher.lua, html_curly_brackets_matcher.lua
+-replaced single data directory by a dynamic config file search; see README
+  (suggested by Daniel)
+-added plug-ins outhtml_parantheses_matcher.lua, outhtml_keyword_matcher.lua
 -CLI: added --list-scripts option
 -CLI: marked --data-dir, --list-langs, --list-themes options as deprecated
 -CLI: removed --add-config-dir option

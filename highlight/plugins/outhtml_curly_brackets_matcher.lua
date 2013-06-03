@@ -1,5 +1,7 @@
 --[[
 Sample plugin file for highlight 3.14
+
+Assumes that CSS is enabled (ie Inline CSS is not set)
 ]]
 
 Description="Shows matching curly brackets in HTML output."
@@ -8,7 +10,7 @@ Description="Shows matching curly brackets in HTML output."
 function syntaxUpdate(desc)
   
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
-    pID=0     -- just a seuqntial counter to generate html IDs
+    pID=0     -- just a sequential counter to generate HTML IDs
     pCount=0    -- paranthesis counter to keep track of opening and closing pairs
     openPID={} -- save opening IDs as they are needed again for the close tag IDs
   
@@ -62,7 +64,7 @@ end
 
 function themeUpdate(desc)
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
-    Injections[#Injections+1]=".hl.box {  border-width:1px;border-style:dotted;border-color:gray; cursor: pointer; }"
+    Injections[#Injections+1]=".hl.box { border-width:1px;border-style:dotted;border-color:gray; cursor: pointer;}"
   end
 end
 --The Plugins array assigns code chunks to themes or language definitions.
