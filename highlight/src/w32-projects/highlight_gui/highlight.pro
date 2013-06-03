@@ -63,6 +63,6 @@ win32:QMAKE_POST_LINK = $$quote(D:\Devel\upx308w\upx.exe --best ../$${TARGET}.ex
 unix {
 DEFINES += DATA_DIR=\\\"/usr/share/highlight/\\\" \
     CONFIG_DIR=\\\"/etc/highlight/\\\" \
-    DOC_DIR=\\\"/usr/share/doc/highlight/\\\"
+    HL_DOC_DIR=\\\"/usr/share/doc/highlight/\\\"
     message("setting unix default paths")
 }

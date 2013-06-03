@@ -2,7 +2,7 @@
                           dataDir.cpp  -  description
                              -------------------
     begin                : Sam March 1 2003
-    copyright            : (C) 2003 by Andre Simon
+    copyright            : (C) 2003-2013 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
