@@ -28,7 +28,7 @@ end
 
 -- optional parameter: theme description
 function themeUpdate(desc)
- -- if table.getn(Keywords)==4 then
+ -- if #Keywords==4 then
  --   table.insert(Keywords, {Colour= "#ff0000", Bold=true})
  -- end
 end

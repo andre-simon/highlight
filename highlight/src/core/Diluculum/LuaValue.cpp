@@ -3,7 +3,7 @@
 * A class that somewhat mimics a Lua value.                                    *
 *                                                                              *
 *                                                                              *
-* Copyright (C) 2005-2010 by Leandro Motta Barros.                             *
+* Copyright (C) 2005-2013 by Leandro Motta Barros.                             *
 *                                                                              *
 * Permission is hereby granted, free of charge, to any person obtaining a copy *
 * of this software and associated documentation files (the "Software"), to     *
@@ -159,6 +159,8 @@ namespace Diluculum
 
 
    LuaValue::LuaValue (const LuaValueList& v)
+      // Avoids possible memory corruption during destroyObjectAtData
+      : dataType_(LUA_TNIL)
    {
       if (v.size() >= 1)
          *this = v[0];
@@ -283,9 +285,14 @@ namespace Diluculum
    lua_Number LuaValue::asNumber() const
    {
       if (dataType_ == LUA_TNUMBER)
-         return *reinterpret_cast<const lua_Number*>(&data_);
+      {
+         const lua_Number* pn = reinterpret_cast<const lua_Number*>(&data_);
+         return *pn;
+      }
       else
+      {
          throw TypeMismatchError ("number", typeName());
+      }
    }
 
 
@@ -295,9 +302,8 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TNUMBER)
       {
-         lua_Number num = (*reinterpret_cast<const lua_Number*>(&data_));
-         lua_Integer res;
-         lua_number2integer (res, num);
+         const lua_Number* num = reinterpret_cast<const lua_Number*>(&data_);
+         lua_Integer res = static_cast<lua_Integer>(*num);
          return res;
       }
       else
@@ -312,9 +318,14 @@ namespace Diluculum
    const std::string& LuaValue::asString() const
    {
       if (dataType_ == LUA_TSTRING)
-         return *reinterpret_cast<const std::string*>(&data_);
+      {
+         const std::string* ps = reinterpret_cast<const std::string*>(&data_);
+         return *ps;
+      }
       else
+      {
          throw TypeMismatchError ("string", typeName());
+      }
    }
 
 
@@ -323,9 +334,14 @@ namespace Diluculum
    bool LuaValue::asBoolean() const
    {
       if (dataType_ == LUA_TBOOLEAN)
-         return *reinterpret_cast<const bool*>(&data_);
+      {
+         const bool* pb = reinterpret_cast<const bool*>(&data_);
+         return *pb;
+      }
       else
+      {
          throw TypeMismatchError ("boolean", typeName());
+      }
    }
 
 
@@ -334,9 +350,14 @@ namespace Diluculum
    LuaValueMap LuaValue::asTable() const
    {
       if (dataType_ == LUA_TTABLE)
-         return *reinterpret_cast<const LuaValueMap*>(&data_);
+      {
+         const LuaValueMap* pm = reinterpret_cast<const LuaValueMap*>(&data_);
+         return *pm;
+      }
       else
+      {
          throw TypeMismatchError ("table", typeName());
+      }
    }
 
 
@@ -346,10 +367,13 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TFUNCTION)
       {
-         return *reinterpret_cast<const LuaFunction*>(&data_);
+         const LuaFunction* pf = reinterpret_cast<const LuaFunction*>(&data_);
+         return *pf;
       }
       else
+      {
          throw TypeMismatchError ("function", typeName());
+      }
    }
 
 
@@ -358,17 +382,27 @@ namespace Diluculum
    const LuaUserData& LuaValue::asUserData() const
    {
       if (dataType_ == LUA_TUSERDATA)
-         return *reinterpret_cast<const LuaUserData*>(&data_);
+      {
+         const LuaUserData* pd = reinterpret_cast<const LuaUserData*>(&data_);
+         return *pd;
+      }
       else
+      {
          throw TypeMismatchError ("userdata", typeName());
+      }
    }
 
    LuaUserData& LuaValue::asUserData()
    {
       if (dataType_ == LUA_TUSERDATA)
-         return *reinterpret_cast<LuaUserData*>(&data_);
+      {
+         LuaUserData* pd = reinterpret_cast<LuaUserData*>(&data_);
+         return *pd;
+      }
       else
+      {
          throw TypeMismatchError ("userdata", typeName());
+      }
    }
 
 
@@ -568,9 +602,9 @@ namespace Diluculum
       if (type() != LUA_TTABLE)
          throw TypeMismatchError ("table", typeName());
 
-      LuaValueMap& table = *reinterpret_cast<LuaValueMap*>(data_);
+      LuaValueMap* pTable = reinterpret_cast<LuaValueMap*>(data_);
 
-      return table[key];
+      return (*pTable)[key];
    }
 
 
@@ -580,11 +614,11 @@ namespace Diluculum
       if (type() != LUA_TTABLE)
          throw TypeMismatchError ("table", typeName());
 
-      const LuaValueMap& table = *reinterpret_cast<const LuaValueMap*>(data_);
+      const LuaValueMap* pTable = reinterpret_cast<const LuaValueMap*>(data_);
 
-      LuaValueMap::const_iterator it = table.find(key);
+      LuaValueMap::const_iterator it = (*pTable).find(key);
 
-      if (it == table.end())
+      if (it == (*pTable).end())
          return Nil;
 
       return it->second;
@@ -598,20 +632,32 @@ namespace Diluculum
       switch (dataType_)
       {
          case LUA_TSTRING:
-            reinterpret_cast<std::string*>(data_)->~basic_string();
+         {
+            std::string* ps = reinterpret_cast<std::string*>(data_);
+            ps->~basic_string();
             break;
+         }
 
          case LUA_TTABLE:
-            reinterpret_cast<LuaValueMap*>(data_)->~LuaValueMap();
+         {
+            LuaValueMap* pm = reinterpret_cast<LuaValueMap*>(data_);
+            pm->~LuaValueMap();
             break;
+         }
 
          case LUA_TUSERDATA:
-            reinterpret_cast<LuaUserData*>(data_)->~LuaUserData();
+         {
+            LuaUserData* pd = reinterpret_cast<LuaUserData*>(data_);
+            pd->~LuaUserData();
             break;
+         }
 
          case LUA_TFUNCTION:
-            reinterpret_cast<LuaFunction*>(data_)->~LuaFunction();
+         {
+            LuaFunction* pf = reinterpret_cast<LuaFunction*>(data_);
+            pf->~LuaFunction();
             break;
+         }
 
          default:
             // no destructor needed.

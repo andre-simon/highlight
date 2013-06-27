@@ -3,7 +3,7 @@
 * Making C++ stuff accessible from Lua.                                        *
 *                                                                              *
 *                                                                              *
-* Copyright (C) 2005-2010 by Leandro Motta Barros.                             *
+* Copyright (C) 2005-2013 by Leandro Motta Barros.                             *
 *                                                                              *
 * Permission is hereby granted, free of charge, to any person obtaining a copy *
 * of this software and associated documentation files (the "Software"), to     *
@@ -311,18 +311,24 @@ void Diluculum_Register_Class__ ## CLASS (Diluculum::LuaVariable className)   \
    if (ls["__Diluculum__Class_Metatables"].value().type() == LUA_TNIL)        \
      ls["__Diluculum__Class_Metatables"] = Diluculum::EmptyLuaValueMap;       \
                                                                               \
-   DILUCULUM_CLASS_TABLE(CLASS)["classname"] = #CLASS;                        \
+   static bool isInited = false;                                              \
+   if (!isInited)                                                             \
+   {                                                                          \
+      isInited = true;                                                        \
                                                                               \
-   DILUCULUM_CLASS_TABLE(CLASS)["new"] =                                      \
-      Diluculum__ ## CLASS ## __Constructor_Wrapper_Function;                 \
+      DILUCULUM_CLASS_TABLE(CLASS)["classname"] = #CLASS;                     \
                                                                               \
-   DILUCULUM_CLASS_TABLE(CLASS)["delete"] =                                   \
-      Diluculum__ ## CLASS ## __Destructor_Wrapper_Function;                  \
+      DILUCULUM_CLASS_TABLE(CLASS)["new"] =                                   \
+         Diluculum__ ## CLASS ## __Constructor_Wrapper_Function;              \
                                                                               \
-   DILUCULUM_CLASS_TABLE(CLASS)["__gc"] =                                     \
-      Diluculum__ ## CLASS ## __Destructor_Wrapper_Function;                  \
+      DILUCULUM_CLASS_TABLE(CLASS)["delete"] =                                \
+         Diluculum__ ## CLASS ## __Destructor_Wrapper_Function;               \
                                                                               \
-   DILUCULUM_CLASS_TABLE(CLASS)["__index"] = DILUCULUM_CLASS_TABLE(CLASS);    \
+      DILUCULUM_CLASS_TABLE(CLASS)["__gc"] =                                  \
+         Diluculum__ ## CLASS ## __Destructor_Wrapper_Function;               \
+                                                                              \
+      DILUCULUM_CLASS_TABLE(CLASS)["__index"] = DILUCULUM_CLASS_TABLE(CLASS); \
+   }                                                                          \
                                                                               \
    className = DILUCULUM_CLASS_TABLE(CLASS);                                  \
                                                                               \

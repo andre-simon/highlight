@@ -30,7 +30,7 @@ end
 -- optional parameter: theme description
 function themeUpdate(desc)
   --add 5th keyword style for syslog levels defined in  syntaxUpdate()
-  if table.getn(Keywords)==4 then
+  if #Keywords==4 then
     table.insert(Keywords, {Colour= "#ff0000", Bold=true})
   end
 end

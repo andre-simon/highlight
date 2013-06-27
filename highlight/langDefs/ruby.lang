@@ -58,5 +58,8 @@ function OnStateChange(oldState, newState, token)
    if string.sub(token,1,1)=="#" and oldState==HL_STRING  then
       return HL_INTERPOLATION
    end
+   if token==")" and oldState~=HL_STRING  then
+      return HL_OPERATOR
+   end
    return newState
 end

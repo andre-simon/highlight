@@ -1,6 +1,5 @@
 # Installation script for highlight.
 # See INSTALL for details.
-# IMPORTANT: Update highlight.spec file after changing paths!
 
 # Installation directories:
 

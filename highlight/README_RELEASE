@@ -1,12 +1,15 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT IMPORTANT RELEASE AND PACKAGING INFORMATION ------- May 2013 ---
+---  HIGHLIGHT IMPORTANT RELEASE AND PACKAGING INFORMATION ------ June 2013 ---
 -------------------------------------------------------------------------------
+
+THIRD PARTY COMPATIBILITY
+-------------------------
 
 The following options are used in third party applications:
 
   --input, -i
   --output, -o
-  -encoding, -u
+  --encoding, -u
   --font
   --font-size
   --force
@@ -22,5 +25,14 @@ The following options are used in third party applications:
 
 The following themes are used in third party applications:
   - bclear (Evolution)
+
+
+LUA 5.2 MIGRATION
+-----------------
   
-See the makefiles and INSTALL for packaging information.
+See src/makefile how to include Lua5.1 OR Lua5.2.
+
+  
+See the makefiles and INSTALL for more packaging information.
+
+ 

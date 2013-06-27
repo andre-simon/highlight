@@ -3,7 +3,7 @@
 * Some utilities related to Lua.                                               *
 *                                                                              *
 *                                                                              *
-* Copyright (C) 2005-2010 by Leandro Motta Barros.                             *
+* Copyright (C) 2005-2013 by Leandro Motta Barros.                             *
 *                                                                              *
 * Permission is hereby granted, free of charge, to any person obtaining a copy *
 * of this software and associated documentation files (the "Software"), to     *
@@ -50,12 +50,19 @@ namespace Diluculum
 
          case LUA_TSTRING:
             return std::string(lua_tostring (state, index),
+#ifdef USE_LUA52
+				lua_rawlen(state, index));
+#else
                                lua_objlen(state, index));
-
+#endif
          case LUA_TUSERDATA:
          {
             void* addr = lua_touserdata (state, index);
+#ifdef USE_LUA52
+	    size_t size = lua_rawlen(state, index);
+#else
             size_t size = lua_objlen (state, index);
+#endif
             LuaUserData ud (size);
             memcpy (ud.getData(), addr, size);
             return ud;
@@ -175,7 +182,11 @@ namespace Diluculum
                LuaFunction* pf = const_cast<LuaFunction*>(&f); // yikes!
                pf->setReaderFlag (false);
                int status = lua_load (state, Impl::LuaFunctionReader, pf,
+#ifdef USE_LUA52
+				      "Diluculum Lua chunk", NULL);
+#else
                                       "Diluculum Lua chunk");
+#endif
                Impl::ThrowOnLuaError (state, status);
             }
             break;

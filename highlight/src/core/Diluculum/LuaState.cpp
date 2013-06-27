@@ -3,7 +3,7 @@
 * A pleasant way to use a Lua state in C++.                                    *
 *                                                                              *
 *                                                                              *
-* Copyright (C) 2005-2010 by Leandro Motta Barros.                             *
+* Copyright (C) 2005-2013 by Leandro Motta Barros.                             *
 *                                                                              *
 * Permission is hereby granted, free of charge, to any person obtaining a copy *
 * of this software and associated documentation files (the "Software"), to     *
@@ -126,8 +126,18 @@ namespace Diluculum
       // Traverse the globals table adding the key/value pairs to 'ret'
       LuaValueMap ret;
 
+#ifdef USE_LUA52
+      // Obtain global table
+      lua_rawgeti (state_, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
+#endif
+      
       lua_pushnil (state_);
+      
+#ifdef USE_LUA52
+      while (lua_next (state_, -2) != 0)
+#else
       while (lua_next (state_, LUA_GLOBALSINDEX) != 0)
+#endif
       {
          // Exclude from the results the tables that would result in infinite
          // recursion
@@ -146,7 +156,11 @@ namespace Diluculum
 
          lua_pop (state_, 1);
       }
-
+      
+#ifdef USE_LUA52   
+      // Remove global table
+      lua_remove (state_, -2);
+#endif
       // Alright, return the result
       return ret;
    }

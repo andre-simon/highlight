@@ -52,8 +52,8 @@ void HLCmdLineApp::printVersionInfo()
          << "\n\n Artistic Style Classes (2.02.1)"
          << "\n Copyright (C) 2006-2011 by Jim Pattee <jimp03 at email.com>"
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
-         << "\n\n Diluculum Lua wrapper (0.5.3)"
-         << "\n Copyright (C) 2005-2010 by Leandro Motta Barros"
+         << "\n\n Diluculum Lua wrapper (1.0)"
+         << "\n Copyright (C) 2005-2013 by Leandro Motta Barros"
          << "\n\n xterm 256 color matching functions"
          << "\n Copyright (C) 2006 Wolfgang Frisch <wf at frexx.de>"
 

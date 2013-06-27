@@ -31,9 +31,9 @@ unix:LIBS += -L.. -lhighlight
 
 # If Lua 5.2 is not default on your system yet you have to omit 5.1 here:
 unix {
-    LIBS += -llua5.1
+    LIBS += -llua
     CONFIG += link_pkgconfig
-    PKGCONFIG += lua5.1
+    PKGCONFIG += lua
 }
 
 win32:QMAKE_POST_LINK = f:/upx/upx.exe --best ../../highlight-gui.exe

@@ -54,15 +54,16 @@ README_DE               # German user manual
 README_LANGLIST         # list of supported languages
 README_PLUGINS          # plug-in manual
 README_REGEX            # regular expression manual
+README_RELEASE          # information for packagers
 TODO                    # just ideas, no plans
 
 
 2. Dependencies
 ===============
 
-In order to compile highlight, you need to install Lua5.1 (devel package)
-and Boost (at least the header files).
-The optional GUI requires Qt4 and its development tools (qmake).
+In order to compile highlight, you need to install Lua (5.1, 5.2 or LuaJIT as
+devel package) and Boost (at least the header files).
+The optional GUI requires Qt (4 or 5) and its development tools (qmake).
 
 
 3. Basic installation
