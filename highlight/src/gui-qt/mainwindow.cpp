@@ -505,7 +505,7 @@ void MainWindow::on_action_About_Highlight_triggered()
                          "Artistic Style Classes\n(C) 1998-2002 Tal Davidson\n"
                          "(C) 2006-2011 Jim Pattee <jimp03 at email.com>\n\n"
                          "Diluculum Lua wrapper\n"
-			 "(C) 2005-2010 by Leandro Motta Barros\n\n"
+			 "(C) 2005-2013 by Leandro Motta Barros\n\n"
                          "Built with Qt version %2\n\n"
                          "Released under the terms of the GNU GPL license.\n\n"
                          "The highlight logo is based on the image \"Alcedo Atthis\" by Lukasz Lukasik.\n"
