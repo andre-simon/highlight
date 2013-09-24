@@ -1,5 +1,14 @@
 CHANGELOG Highlight
 
+highlight 3.16
+
+24.09.2013
+
+-added heredoc string literal parsing for Perl, PHP, Ruby and Bash
+-added DataDir::searchDataDir for the Perl SWIG bindings (thanks to David Bremner)
+-added SWIG PHP binding (patch by G. Wijaya)
+
+---
 highlight 3.15
 
 27.06.2013

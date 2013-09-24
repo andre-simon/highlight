@@ -26,6 +26,9 @@ The following options are used in third party applications:
 The following themes are used in third party applications:
   - bclear (Evolution)
 
+The following platform dependent classes are used in SWIG scripts (ikiwiki):
+  - DataDir
+
 
 LUA 5.2 MIGRATION
 -----------------

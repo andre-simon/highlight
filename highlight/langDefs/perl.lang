@@ -30,8 +30,9 @@ Keywords={
   },
 }
 
+-- hereDoc opening delimiter, see OnStateChange to handle end of string
 Strings={
-  Delimiter=[["|'|`|END]],
+  Delimiter=[["|'|`|END|<<["']?\w+["']?]],
   Interpolation=[[ [@\$]\w+ ]],
 }
 
@@ -50,12 +51,26 @@ Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\
 
 -- fix recognition of $
 function OnStateChange(oldState, newState, token)
-  --  print ("old", oldState)
-  --  print ("new", newState)
-  --  print ("tok", token)
-  -- print ("sub", string.sub(token,1,1))
+  -- print ("hereDoc glb ", hereDoc)
+   -- print ("old", oldState)
+   -- print ("new", newState)
+  -- print ("tok", token)
+   -- print ("match", string.match(token, "<<(%u+)"))
+   -- print ("sub", string.sub(token,1,1))
+   
    if  (string.sub(token,1,1) =="$" or string.sub(token,1,1) =="@") and oldState==HL_STRING and newState==HL_KEYWORD then
       return HL_INTERPOLATION
    end
+   
+   --recognize hereDoc multine strings
+   if (oldState==HL_STANDARD or oldState==HL_STRING) and newState==HL_STRING then
+      hereDoc = string.match(token, "<<'?\"?(%a+)" )
+    --  print ("hd ", hereDoc)
+   end
+   if oldState==HL_STRING and token==hereDoc then
+      hereDoc = nil
+      return HL_STRING_END
+   end
+   
    return newState
 end

@@ -22,8 +22,9 @@ Keywords={
   },
 }
 
+-- hereDoc opening delimiter, see OnStateChange to handle end of string
 Strings={
-  Delimiter=[["|']],
+  Delimiter=[["|'|<<<'?\w+'?]],
   --Interpolation=[[ \$[\w\[\]\->]+ ]],
 }
 
@@ -40,3 +41,17 @@ Comments={
 }
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\|\+|\-|\.|\@]]
+
+function OnStateChange(oldState, newState, token)
+   
+   --recognize hereDoc multine strings
+   if oldState==HL_STANDARD and newState==HL_STRING then
+      hereDoc = string.match(token, "<<<'?(%a+)" )
+   end
+   if oldState==HL_STRING and token==hereDoc then
+      hereDoc = nil
+      return HL_STRING_END
+   end
+   
+   return newState
+end

@@ -22,7 +22,7 @@ formatList = { "html":  highlight.HTML,
 	   "svg":   highlight.SVG
 	 }
 
-HL_DIR="/usr/share/highlight"
+HL_DIR="/usr/share/highlight/"
 
 def highlightFile():
 	
@@ -58,7 +58,7 @@ def highlightFile():
 	
 	gen=highlight.CodeGenerator.getInstance(outFormat)
 	datadir=highlight.DataDir()
-	datadir.searchDataDir("")
+	datadir.initSearchDirectories(HL_DIR)
 
 	#initialize the generator with a colour theme and the language definition
 	gen.initTheme(datadir.getThemePath("%s.theme" % options.theme))
@@ -71,6 +71,7 @@ def highlightFile():
 	else:
 		syntax = infile[infile.rindex(".")+1:]
 
+	print datadir.getLangPath("%s.lang" % syntax)
 	gen.loadLanguage(datadir.getLangPath("%s.lang" % syntax))
 	
 	gen.setIncludeStyle(1)

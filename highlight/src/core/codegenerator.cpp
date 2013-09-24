@@ -135,6 +135,7 @@ CodeGenerator::CodeGenerator ( highlight::OutputType type )
      validateInput ( false ),
      numberWrappedLines ( true ),	//until now, wrapped lines were always numbered, so this remains the default.
      noTrailingNewLine(false),
+     resultOfHook(false),
      keywordCase ( StringTools::CASE_UNCHANGED ),
      eolDelimiter ('\n'),
      outputType ( type )
@@ -564,10 +565,12 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
             currentSyntax->getLuaState()->call ( *currentSyntax->getValidateStateChangeFct(),
                     params,"getValidateStateChangeFct call")  ;
 
-        if (res.size()==1) {
+	resultOfHook = res.size()==1;
+        if (resultOfHook) {
             return (State)res[0].asNumber();
         }
     }
+    resultOfHook  = false;
     return newState;
 }
 
@@ -1427,10 +1430,10 @@ bool CodeGenerator::processStringState ( State oldState )
             wsBuffer += openTags[myState];
             break;
         case STRING_END:
-            if (currentSyntax->matchesOpenDelimiter (token,  STRING_END, openDelimID)) {
+            if (resultOfHook || currentSyntax->matchesOpenDelimiter (token,  STRING_END, openDelimID)) {
                 exitState= true;
                 printMaskedToken();
-            }
+            } 
             break;
         case STRING:
             // if there exist multiple string delimiters, close string if

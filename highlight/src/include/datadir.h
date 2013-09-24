@@ -43,8 +43,6 @@ class DataDir
 
 	public:
 
-		DataDir();
-
 		static string LSB_DATA_DIR;
 		static string LSB_CFG_DIR;
 		static string LSB_DOC_DIR;
@@ -53,6 +51,9 @@ class DataDir
 		    \param  userDefinedDir Directory defined by user
 		    \return True if directory was found */
 		void initSearchDirectories ( const string &userDefinedDir );
+		
+		// Deprecated
+		void searchDataDir( const string &userDefinedDir );
 		
 		const void printConfigPaths();
 		

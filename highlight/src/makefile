@@ -14,14 +14,15 @@
 
 CXX=c++
 
-QMAKE=qmake
+# Added -qt4 because of Arch Linux Qt5 migration
+QMAKE=qmake-qt4
 
 CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG
 #CFLAGS:=-ggdb ${CFLAGS}
 
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.15
+SO_VERSION=3.16
 
 
 # Source paths

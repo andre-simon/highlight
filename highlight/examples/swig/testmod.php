@@ -1,7 +1,7 @@
 <?php
 
-/* Set enable_dl = On in your php.ini and copy highlight.so
-  in /usr/lib/php/modules/*/
+/* Set enable_dl = On in your php.ini and copy highlight.so in /usr/lib/php/modules/ */
+
 if (!extension_loaded('highlight')){
       if (!dl('highlight.so')) {
 	  exit;

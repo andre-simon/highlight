@@ -42,7 +42,7 @@ string DataDir::LSB_DOC_DIR="/usr/share/doc/highlight/";
 void DataDir::initSearchDirectories ( const string &userDefinedDir )
 {
 
-#ifndef _WIN32
+#ifndef WIN32
 
   possibleDirs.push_back ( Platform::getHomePath() + "/.highlight/" );
   if ( !userDefinedDir.empty() ) possibleDirs.push_back ( userDefinedDir );
@@ -60,18 +60,18 @@ void DataDir::initSearchDirectories ( const string &userDefinedDir )
   #endif
 	
 #else
-	//possibleDirs.push_back(""); not needed because of fallback in searchFile
+    possibleDirs.push_back(Platform::getAppPath()); //not needed because of fallback in searchFile
 #endif
 }
 
-DataDir::DataDir()
-{
+void DataDir:: searchDataDir( const string &userDefinedDir ){
+    initSearchDirectories(userDefinedDir);
 }
 
 const string DataDir::searchFile(const string path){
 	for ( unsigned int i=0;i<possibleDirs.size();i++ )
 	{
-	  //cerr << "searching "<<possibleDirs[i]<< path<<"\n";
+	 // cerr << "searching "<<possibleDirs[i]<< path<<"\n";
 		if ( Platform::fileExists ( possibleDirs[i] + path ) )
 			return possibleDirs[i]+ path;
 		
@@ -105,8 +105,6 @@ const string DataDir::getPluginPath ( const string & file)
 
 const string DataDir::getFiletypesConfPath (const string & file)
 {
-	
-	//return dataDir+"filetypes.conf";
 	return searchFile(file + ".conf");
 }
 
@@ -123,14 +121,14 @@ const string DataDir::getPluginPath ( ) {
 }
 
 const string DataDir::getSystemDataPath ( ) {
- #ifndef _WIN32
+ #ifndef WIN32
   #ifdef HL_DATA_DIR
 	return HL_DATA_DIR;
   #else
 	return LSB_DATA_DIR;
   #endif	
 #else
-	return "";;
+    return Platform::getAppPath();
 #endif 
 }
 

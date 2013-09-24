@@ -666,6 +666,9 @@ namespace highlight
 
 			/** Flag to test if trailing newline should be printed */
 			bool noTrailingNewLine;
+			
+			/** indicator if current stae was set by Lua hook function */
+			bool resultOfHook;
 
 			/** flag which determines keyword output (unchangeed, uppercase, lowercase)*/
 			StringTools::KeywordCase keywordCase;

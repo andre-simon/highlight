@@ -10,7 +10,10 @@ my $gen = highlight::CodeGenerator::getInstance($highlight::CodeGenerator::HTML)
  
 my $dir = new highlight::DataDir();
 
-$dir->searchDataDir("");
+#$dir->searchDataDir("");
+$dir->initSearchDirectories("");
+
+
 my $themepath=$dir->getThemePath("seashell.theme");
 my $langpath=$dir->getLangPath("c.lang");
 

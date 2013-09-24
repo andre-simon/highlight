@@ -46,7 +46,7 @@ using namespace std;
 namespace Platform
 {
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 	const char pathSeparator = '\\';
 
