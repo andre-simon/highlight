@@ -11,7 +11,7 @@ Keywords={
 }
 
 Strings={
-  Delimiter=[["]],
+  Delimiter=[[ "|\[\w+\]|\[/\w+\] ]],
 }
 
 Comments={
@@ -26,4 +26,18 @@ Comments={
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\:|\&|<|>|\!|\+|\=|\/|\*|\'|\@|\#|\`]]
 
---FIXME no default escchar param: regex(\\\d{3}|\\x[[:xdigit:]]{2}|\\[ntvbrfa\\\?'"])
+-- fix recognition of $
+function OnStateChange(oldState, newState, token)
+  
+   --recognize hereDoc multine strings
+   if oldState==HL_STANDARD and newState==HL_STRING then
+      exitDelim = string.match(token, "%[(%a+)%]")
+      if exitDelim then exitDelim = "[/"..exitDelim.."]" end
+   end
+   if oldState==HL_STRING and token==exitDelim  then
+      exitDelim=nil
+      return HL_STRING_END
+   end
+   
+   return newState
+end

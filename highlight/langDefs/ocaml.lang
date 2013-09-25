@@ -32,6 +32,6 @@ Comments={
 }
 IgnoreCase=false
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\.]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\.|\|]]
 
 --FIXME no default escchar param: regex(\\\d{3}|\\x[[:xdigit:]]{2}|\\[ntvbrfa\\\?'"])

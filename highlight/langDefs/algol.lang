@@ -31,6 +31,6 @@ Strings = {
   Delimiter=[["]]
 }
 
-IgnoreCase=false
+IgnoreCase=true
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~|\|]]
