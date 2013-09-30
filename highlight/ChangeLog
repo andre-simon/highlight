@@ -2,9 +2,11 @@ CHANGELOG Highlight
 
 highlight 3.16
 
-24.09.2013
+30.09.2013
 
+-updated astyle code to release 2.03
 -added heredoc string literal parsing for Lisp, Perl, PHP, Ruby and Bash
+-revised several language definitions
 -added DataDir::searchDataDir for the Perl SWIG bindings (thanks to David Bremner)
 -added SWIG PHP binding (patch by G. Wijaya)
 

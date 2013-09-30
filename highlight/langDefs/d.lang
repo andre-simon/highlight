@@ -11,19 +11,16 @@ Keywords={
     "continue","creal","dchar","debug","default","delegate","delete","deprecated",
     "do","double","else","enum","export","extern","false", 
     "final","finally","float","for","foreach","foreach_reverse","function","goto",
-    "idouble","if","ifloat","immutable","import ","in ","inout", 
-    "int","interface","invariant ","ireal","is","lazy","long","macro ","mixin", 
+    "idouble","if","ifloat","immutable","import","in","inout", 
+    "int","interface","invariant","ireal","is","lazy","long","macro","mixin", 
     "module","new","nothrow","null","out","override","package","pragma","private",
     "protected","public","pure","real","ref","return","scope","shared","short",
     "static","struct","super","switch","synchronized","template","this","throw",
-    "true ","try","typedef","typeid","typeof","ubyte","ucent","uint","ulong","union",
+    "true","try","typedef","typeid","typeof","ubyte","ucent","uint","ulong","union",
     "unittest","ushort","version","void","volatile","wchar","while","with"
-  },
+    },
   },
   { Id=2,
-    List={"__FILE__", "__LINE__", "__DATE__", "__TIME__", "__TIMESTAMP__"},
-  },
-  { Id=3,
     List={"aaa", "aad", "aam", "aas", "adc",  "add", "addpd", "addps", 
     "addsd", "addss",  "and", "andnpd", "andnps", "andpd", "andps",  "arpl", 
     "bound", "bsf", "bsr", "bswap",  "bt", "btc", "btr", "bts", "call",  
@@ -98,6 +95,9 @@ Keywords={
     "pfpnacc", "pfrcp", "pfrcpit1", "pfrcpit2", "pfrsqit1", "pfrsqrt", "pfsub", 
     "pfsubr", "pi2fd", "pmulhrw", "pswapd"},
   },
+    { Id=3,
+    Regex=[[\@\w+]],
+  },
   { Id=4,
     Regex=[[(\w+)\s*\(]],
   },
@@ -128,4 +128,4 @@ Comments={
   }
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~|\$]]
