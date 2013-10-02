@@ -210,6 +210,9 @@ void HLCmdLineApp::printConfigInfo ( )
 #ifdef HL_CONFIG_DIR
     cout << "Compiler directive HL_CONFIG_DIR = " <<HL_CONFIG_DIR<< "\n";
 #endif
+#ifdef USE_LUA52
+    cout << "\nLua 5.2 compilation enabled\n";
+#endif
     cout << endl;
 }
 

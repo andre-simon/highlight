@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.14 ----------------------------- May 2013 ---
+---  HIGHLIGHT MANUAL - Version 3.16 ------------------------- October 2013 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -526,8 +526,6 @@ array = { first=1, second="2", 3, { 4,5 } }
 Arrays may contain variables and can be nested.
 
 
-
-
 3.2 LANGUAGE DEFINITIONS
 -------------------------------------------------------------------------------
 
@@ -561,7 +559,8 @@ Comments = { {Block, Nested?, Delimiter={Open, Close?} }
              delimiter regexes (block comment)
 
 
-Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, RawPrefix? }
+Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, Interpolation?,
+            RawPrefix? }
 
   Delimiter:      String, regular expression which describes string delimiters
   DelimiterPairs: List, includes open and close delimiters if not equal (regex),
@@ -976,7 +975,7 @@ The file INSTALL contains details about package contents and installation.
 -------------------------------------------------------------------------------
 
 Highlight is known to compile with gcc and suncc.
-It depends on Boost headers and Lua 5.1/LuaJit developer packages.
+It depends on Boost headers and Lua 5.1/Lua 5.2/LuaJit developer packages.
 The optional GUI depends on Qt4/Qt5 developer packages.
 Please see the makefile for further options.
 

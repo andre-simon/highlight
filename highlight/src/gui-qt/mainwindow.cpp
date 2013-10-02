@@ -968,7 +968,8 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
          ui->stackedSpecificOptions->setCurrentIndex(5);
          break;
   }
-     ui->tabWidget->setTabText(1, tr("%1 options").arg(ui->comboFormat->currentText() ));
+     ui->tabWidgetOptions->setTabText(1, tr("%1 options").arg(ui->comboFormat->currentText() ));
+     //ui->tabWidget->setTabText(1, tr("%1 options").arg(ui->comboFormat->currentText() ));
  }
 
  void MainWindow::updatePreview() {

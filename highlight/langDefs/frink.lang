@@ -42,8 +42,7 @@ Keywords={
 "fr_it", "ItalianToEnglish", "Inglese", "it_en", "ItalianToFrench", "Francese", 
 "francese", "it_fr", "PortugueseToEnglish", "Inglês", "pt_en", 
 "PortugueseToFrench", "francês", "Francês", "pt_fr", "JapaneseToEnglish", 
-"ja_en", "KoreanToEnglish", "ko_en", "RussianToEnglish", "ru_en", "
-SimplifiedChineseToEnglish", "zh_en", "TraditionalChineseToEnglish", 
+"ja_en", "KoreanToEnglish", "ko_en", "RussianToEnglish", "ru_en", "SimplifiedChineseToEnglish", "zh_en", "TraditionalChineseToEnglish", 
 "ChineseToEnglish", "zt_en", "DutchToEnglish", "Engels", "nl_en"},
   }
 }

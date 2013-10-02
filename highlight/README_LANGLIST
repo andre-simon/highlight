@@ -7,7 +7,7 @@ The parens contain filename extensions configured in filetypes.conf.
 By default, the *.lang files are located in /usr/share/highlight/langDefs/.
 
 Since release 2.12, it is possible to highlight source files with multiple
-languages (ie HTML+PHP), see the NESTED instruction in README.
+languages (ie HTML+PHP), see the NestedSections parameter in README.
 
 Installed language definitions (located in /usr/share/highlight/langDefs/):
 

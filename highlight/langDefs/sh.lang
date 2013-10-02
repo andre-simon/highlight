@@ -3,6 +3,8 @@
 
 Description="Bash"
 
+Identifiers=[[ [a-zA-Z_][\w\-]* ]]
+
 Keywords={
   { Id=1,
     List={"case", "in", "esac", "for", "do", "done", "function", "if", "then",
@@ -47,7 +49,7 @@ Keywords={
 
 -- hereDoc opening delimiter, see OnStateChange to handle end of string
 Strings={
-  Delimiter=[["|'|`|<<[\-"']?\s*[\w_]+["']?]],
+  Delimiter=[["|'|`|<<[\-"']?\s*[-\w_]+["']?]],
 }
 
 IgnoreCase=false
@@ -62,10 +64,14 @@ Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-]]
 
 
 function OnStateChange(oldState, newState, token)
-  
+
+   if  (string.sub(token,1,1) =="$") and oldState==HL_STRING and newState==HL_KEYWORD then
+      return HL_INTERPOLATION
+   end
+  print("token", token)
    --recognize hereDoc multine strings
-   if oldState==HL_STANDARD and newState==HL_STRING then
-      hereDoc = string.match(token, "<<%-?'?%s*([%a_]+)" )
+   if oldState==HL_STANDARD and newState==HL_STRING and not string.find("\"'`", token) then
+      hereDoc = string.match(token, "<<%-?'?%s*([%-%a%d_]+)" )
    end
    if oldState==HL_STRING and token==hereDoc then
       hereDoc = nil

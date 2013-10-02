@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.14 ----------------------------- Mai 2013 ---
+---  HIGHLIGHT MANUAL - Version 3.16 ------------------------- Oktober 2013 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -580,7 +580,8 @@ Comments = { {Block, Nested?, Delimiter} }
              Regex des oeffnenden und des schliessenden Begrenzers (Blockkommentar)
 
 
-Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, RawPrefix? }
+Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, Interpolation?,
+            RawPrefix? }
 
   Delimiter:      String, Regulaerer Ausdruck der Begrenzer
   DelimiterPairs: Liste, enthaelt Ausdruecke der oeffnenden und der schliessenden
@@ -1000,7 +1001,7 @@ In INSTALL befinden sich weitere Informationen zu Paketinhalt und Installation.
 -------------------------------------------------------------------------------
 
 Highlight kompiliert zumindest mit gcc und suncc. Zum Kompilieren sind Boost
-Header-Pakete und Lua5.1/LuaJit Development-Pakete nötig.
+Header-Pakete und Lua5.1/Lua5.2/LuaJit Development-Pakete nötig.
 Die optionale GUI benötigt die Qt4/Qt5 Development-Pakete.
 Im Makefile finden Sie weitere Informationen.
 

@@ -3,21 +3,43 @@ Description="Perl"
 
 Keywords={
   { Id=1,
-    List={"if", "else", "elsif", "unless", "given", "when", "default", "while", "for", "foreach", "do", "until", "continue", "return", "last", "next", "redo", "goto", "break", "exit", "sub", "package", "use", "no", "dump", "require", "BEGIN", "CHECK", "INIT", "END", "UNITCHECK", },
+    List={"if", "else", "elsif", "unless", "given", "when", "default", "while", "for", "foreach",
+    "do", "until", "continue", "return", "last", "next", "redo", "goto", "break", "exit", "sub",
+    "package", "use", "no", "dump", "require", "BEGIN", "CHECK", "INIT", "END", "UNITCHECK" },
   },
   { Id=2,
     Regex=[[ [$@%]\#?\w+ ]],
   },
   { Id=3,
-    List={"defined", "undef", "eq", "ne", "lt", "gt", "ge", "le", "cmp", "not", "and", "or", "xor", "bless", "ref", "my", "our", "local", "state", "chomp", "chop", "chr", "crypt", "index", "rindex", "lc", "lcfirst", "length", "ord", "pack", "print", "printf", "sprintf", "substr", "uc",
-    "ucfirst", "pos", "quotemeta", "split", "study", "abs", "atan2", "cos", "exp", "hex", "int", "log", "oct", "rand", "sin", "sqrt", "srand", "splice", "unshift", "shift", "push", "pop", "join", "reverse", "grep", "map", "sort", "unpack", "pack", "delete", "each", "exists", "keys",
-    "values", "syscall", "dbmopen", "dbmclose", "binmode", "close", "closedir", "eof", "fileno", "getc", "stat", "lstat", "read", "readdir", "readline", "pipe", "rewinddir", "say", "select", "tell", "telldir", "write", "fcntl", "flock", "ioctl", "open", "opendir", "seek", "seekdir",
-    "sysopen", "sysread", "sysseek", "syswrite", "truncate", "chdir", "chmod", "chown", "chroot", "glob", "link", "mkdir", "readlink", "rename", "rmdir", "symlink", 
-    "umask", "unlink", "utime", "caller", "die", "wantarray", "vec", "alarm", "exec", "fork", "getpgrp", "getppid", "getpriority", "kill", "pipe", "setpgrp", "setpriority", "sleep", "system", "times", "wait", "waitpid", "accept", "bind", "connect", "getpeername", "getsockname",
-    "getsockopt", "listen", "recv", "send", "setsockopt", "shutdown", "socket", "socketpair", "msgctl", "msgget", "msgrcv", "msgsnd", "semctl", "semget", "semop", "shmctl", "shmget", "shmread", "shmwrite", "gethostent", "getnetent", "getprotoent", "getservent", "setpwent",
-    "setgrent", "sethostent", "setnetent", "setprotoent", "setservent", "endpwent", "endgrent", "endhostent", "endnetent", "endprotoent", "endservent", "gethostbyaddr", "gethostbyname", "getnetbyaddr", "getnetbyname", "getprotobyname", "getprotobynumber", "getservbyname",
-    "getservbyport", "getpwuid", "getpwnam", "getgrgid", "getgrnam", "getlogin", "getpwent", "getgrent", "gmtime", "localtime", "time", "warn", "formline", "reset", "scalar", "prototype", "lock", "tied", "untie", "qw", "qq",
- "qx", "q", "eval" },
+    List={"defined", "undef", "eq", "ne", "lt", "gt", "ge", "le", "cmp", "not", 
+    "and", "or", "xor", "bless", "ref", "my", "our", "local", "state", "chomp", 
+    "chop", "chr", "crypt", "index", "rindex", "lc", "lcfirst", "length", "ord", 
+    "pack", "print", "printf", "sprintf", "substr", "uc",
+    "ucfirst", "pos", "quotemeta", "split", "study", "abs", "atan2", "cos", 
+    "exp", "hex", "int", "log", "oct", "rand", "sin", "sqrt", "srand", "splice", 
+    "unshift", "shift", "push", "pop", "join", "reverse", "grep", "map", "sort", 
+    "unpack", "pack", "delete", "each", "exists", "keys",
+    "values", "syscall", "dbmopen", "dbmclose", "binmode", "close", "closedir", 
+    "eof", "fileno", "getc", "stat", "lstat", "read", "readdir", "readline", "pipe", 
+    "rewinddir", "say", "select", "tell", "telldir", "write", "fcntl", "flock", 
+    "ioctl", "open", "opendir", "seek", "seekdir",
+    "sysopen", "sysread", "sysseek", "syswrite", "truncate", "chdir", "chmod", 
+    "chown", "chroot", "glob", "link", "mkdir", "readlink", "rename", "rmdir", "symlink", 
+    "umask", "unlink", "utime", "caller", "die", "wantarray", "vec", "alarm", 
+    "exec", "fork", "getpgrp", "getppid", "getpriority", "kill", "pipe", "setpgrp", 
+    "setpriority", "sleep", "system", "times", "wait", "waitpid", "accept", "bind", 
+    "connect", "getpeername", "getsockname",
+    "getsockopt", "listen", "recv", "send", "setsockopt", "shutdown", "socket", 
+    "socketpair", "msgctl", "msgget", "msgrcv", "msgsnd", "semctl", "semget", 
+    "semop", "shmctl", "shmget", "shmread", "shmwrite", "gethostent", "getnetent", 
+    "getprotoent", "getservent", "setpwent",
+    "setgrent", "sethostent", "setnetent", "setprotoent", "setservent", 
+    "endpwent", "endgrent", "endhostent", "endnetent", "endprotoent", "endservent", 
+    "gethostbyaddr", "gethostbyname", "getnetbyaddr", "getnetbyname", 
+    "getprotobyname", "getprotobynumber", "getservbyname",
+    "getservbyport", "getpwuid", "getpwnam", "getgrgid", "getgrnam", "getlogin", 
+    "getpwent", "getgrent", "gmtime", "localtime", "time", "warn", "formline", 
+    "reset", "scalar", "prototype", "lock", "tied", "untie", "qw", "qq", "qx", "q", "eval" },
   },
   { Id=4,
 	Regex=[[->([a-zA-Z0-9_]+)]],
@@ -32,7 +54,7 @@ Keywords={
 
 -- hereDoc opening delimiter, see OnStateChange to handle end of string
 Strings={
-  Delimiter=[["|'|`|END|<<["']?\w+["']?]],
+  Delimiter=[["|'|`|<<["']?\w+["']?]],
   Interpolation=[[ [@\$]\w+ ]],
 }
 
@@ -51,21 +73,15 @@ Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\
 
 -- fix recognition of $
 function OnStateChange(oldState, newState, token)
-  -- print ("hereDoc glb ", hereDoc)
-   -- print ("old", oldState)
-   -- print ("new", newState)
-  -- print ("tok", token)
-   -- print ("match", string.match(token, "<<(%u+)"))
-   -- print ("sub", string.sub(token,1,1))
    
    if  (string.sub(token,1,1) =="$" or string.sub(token,1,1) =="@") and oldState==HL_STRING and newState==HL_KEYWORD then
       return HL_INTERPOLATION
    end
    
    --recognize hereDoc multine strings
-   if (oldState==HL_STANDARD or oldState==HL_STRING) and newState==HL_STRING then
+   --do not clear hereDoc if token is ",' or `
+   if (oldState==HL_STANDARD or oldState==HL_STRING) and newState==HL_STRING  and not string.find("\"'`", token) then
       hereDoc = string.match(token, "<<'?\"?(%a+)" )
-    --  print ("hd ", hereDoc)
    end
    if oldState==HL_STRING and token==hereDoc then
       hereDoc = nil

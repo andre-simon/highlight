@@ -8,9 +8,9 @@ CONTENT
 1. ABOUT
 2. SCRIPT STRUCTURE
 3. SYNTAX CHUNK ELEMENTS
-   2.1 FUNCTION ONSTATECHANGE
-   2.2 FUNCTION ADDKEYWORD
-   2.3 FUNCTION DECORATE
+   3.1 FUNCTION ADDKEYWORD
+   3.2 FUNCTION ONSTATECHANGE
+   3.3 FUNCTION DECORATE
 4. THEME CHUNK ELEMENTS
 5. STEP BY STEP
 6. EXAMPLES
@@ -138,7 +138,22 @@ functions within the lang chunk function referenced in the Plugins array.
 They will be ignored when defined elsewhere in the plug-in script.
 
 
-3.1 FUNCTION ONSTATECHANGE
+3.1 FUNCTION ADDKEYWORD
+-------------------------------------------------------------------------------
+
+This function will add a keyword to one of the the internal keyword lists.
+It has no effect if the keyword was added before.
+Keywords added with AddKeyword will remain active for all files of the same
+syntax if highlight is in batch mode.
+
+AddKeyword(keyword, kwGroupID)
+
+  Parameters: keyword:   string which should be added to a keyword list
+              kwGroupID: keyword group ID of the keyword
+  Returns:    true if successfull
+  
+
+3.2 FUNCTION ONSTATECHANGE
 -------------------------------------------------------------------------------
 
 This function is a hook which is called if an internal state changes (e.g. from
@@ -181,21 +196,6 @@ This function resolves a Lua parsing issue with the "]]" close delimiter which
 ends both comments and strings.
 
 
-3.2 FUNCTION ADDKEYWORD
--------------------------------------------------------------------------------
-
-This function will add a keyword to one of the the internal keyword lists.
-It has no effect if the keyword was added before.
-Keywords added with AddKeyword will remain active for all files of the same
-syntax if highlight is in batch mode.
-
-AddKeyword(keyword, kwGroupID)
-
-  Parameters: keyword:   string which should be added to a keyword list
-              kwGroupID: keyword group ID of the keyword
-  Returns:    true if successfull
-
-
 3.3 FUNCTION DECORATE
 -------------------------------------------------------------------------------
 
@@ -224,21 +224,6 @@ function Decorate(token, state)
 end
 
 This function converts all keywords to upper case.
-
-
-knowntags={}
-file = assert(io.open(HL_INPUT_FILE, "r"))
--- read file and fill knowntags
-
-function Decorate(token, state, kwclass)
-  for k,v in pairs(knowntags) do
-    if k==token  then
-      return '<span title="'..v..'">'..token .. '</span>'
-    end
-  end
-end
-
-This function adds tooltips to keywords which were found in a given tags file.
 
 
 4. THEME CHUNK ELEMENTS

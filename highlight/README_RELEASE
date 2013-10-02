@@ -1,6 +1,33 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT IMPORTANT RELEASE AND PACKAGING INFORMATION ------ June 2013 ---
+---  HIGHLIGHT IMPORTANT RELEASE AND PACKAGING INFORMATION --- October 2013 ---
 -------------------------------------------------------------------------------
+
+TEST CASES
+----------
+
+highlight --print-config
+
+This will print the config file search paths and compilation options.
+
+
+To test syntax definitions, run
+
+highlight --list-scripts=langs
+
+This command compiles all syntax scripts.
+
+highlight --list-scripts=themes
+highlight --list-scripts=plugins
+
+These commands show installed files.
+
+
+To quickly test highlighting on the command line, type:
+highlight -ISc
+Now type some C code and hit CTRL+D to quit.
+
+Add --verbose to print additional syntax parsing information.
+
 
 THIRD PARTY COMPATIBILITY
 -------------------------
