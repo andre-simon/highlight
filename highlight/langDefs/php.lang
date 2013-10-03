@@ -26,7 +26,7 @@ Keywords={
 Strings={
   Delimiter=[["|'|<<<'?\w+'?]],
   --Interpolation=[[ \$[\w\[\]\->]+ ]],
-    Interpolation=[[ [@\$]\w+ ]]
+    Interpolation=[[ [@\$%]\w+ ]]
 }
 
 IgnoreCase=true

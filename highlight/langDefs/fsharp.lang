@@ -22,7 +22,7 @@ Keywords={
 Strings={
   Delimiter=[["|']],
   RawPrefix="@",
-  Interpolation=[[ \{\d+\} ]]
+  Interpolation=[[ \{\d+\}|%\w ]]
 }
 
 IgnoreCase=false

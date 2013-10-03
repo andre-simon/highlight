@@ -46,6 +46,7 @@ Keywords={
 
 Strings={
   Delimiter=[["|']],
+  Interpolation=[[ %\w ]],
 }
 
 IgnoreCase=true

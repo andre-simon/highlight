@@ -55,7 +55,7 @@ Keywords={
 -- hereDoc opening delimiter, see OnStateChange to handle end of string
 Strings={
   Delimiter=[["|'|`|<<["']?\w+["']?]],
-  Interpolation=[[ [@\$]\w+ ]],
+  Interpolation=[[ [@\$%]\w+ ]],
 }
 
 IgnoreCase=false
@@ -74,7 +74,7 @@ Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\
 -- fix recognition of $
 function OnStateChange(oldState, newState, token)
    
-   if  (string.sub(token,1,1) =="$" or string.sub(token,1,1) =="@") and oldState==HL_STRING and newState==HL_KEYWORD then
+   if  (string.sub(token,1,1) =="$" or string.sub(token,1,1) =="@" or string.sub(token,1,1) =="%") and oldState==HL_STRING and newState==HL_KEYWORD then
       return HL_INTERPOLATION
    end
    
