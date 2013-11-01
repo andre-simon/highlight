@@ -1,5 +1,12 @@
 CHANGELOG Highlight
 
+highlight 3.16.1
+
+01.11.2013
+
+-fixed debug output in sh.lang (https://sourceforge.net/p/syntaxhighlight/bugs/9/)
+
+---
 highlight 3.16
 
 30.09.2013
