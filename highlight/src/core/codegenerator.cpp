@@ -1400,14 +1400,19 @@ bool CodeGenerator::processStringState ( State oldState )
     int openDelimID=currentSyntax->getOpenDelimiterID ( token, myState);
     string openDelim=token;
 
+    
+    //Raw String by definition:
+    bool isRawString=currentSyntax->delimiterIsRawString(openDelimID);
+    
     // Test if character before string open delimiter token equals to the
     // raw string prefix (Example: r" ", r""" """ in Python)
-    bool isRawString=currentSyntax->delimiterIsRawString(openDelimID);
+    
+    //Raw String Prefix:
     if ( lineIndex>token.length() &&line[lineIndex-token.length()-1]==currentSyntax->getRawStringPrefix() )
     {
         isRawString=true;
     }
-
+    
     openTag ( myState );
     do
     {
@@ -1442,13 +1447,17 @@ bool CodeGenerator::processStringState ( State oldState )
             printMaskedToken();
             break;
         case ESC_CHAR:
-            if ( !isRawString )
-            {
+            if ( !isRawString ) {
                 closeTag ( myState );
                 eof=processEscapeCharState();
                 openTag ( myState );
                 returnedFromOtherState=true;
-            }
+            } else {
+	        // FIXME not a fix for Python r"""\"""
+	        //exitState=(openDelim=="\"" && token=="\\\""); // C# raw string that ends with '\'
+	        exitState=token.size()>1 && token[1] == openDelim[0];// token=="\\"+openDelim;
+	        printMaskedToken();
+	    }
             break;
         case STRING_INTERPOLATION:
             closeTag ( myState );
