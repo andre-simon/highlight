@@ -2,9 +2,12 @@ CHANGELOG Highlight
 
 highlight 3.17
 
-05.01.2013
+06.01.2013
 
 -updated astyle code to release 2.04
+-added astyle reformatting styles google, pico and lisp
+-improved raw string parsing (patch by smdn.jp)
+-added PDF langage definition (thanks to Roland Hieber)
 
 ---
 highlight 3.16.1

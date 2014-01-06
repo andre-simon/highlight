@@ -675,6 +675,18 @@ bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
     {
         formatter->setFormattingStyle ( astyle::STYLE_1TBS );
     }
+    else if ( indentScheme=="google")
+    {
+        formatter->setFormattingStyle ( astyle::STYLE_GOOGLE );
+    }
+    else if ( indentScheme=="pico" ||  indentScheme=="a11")
+    {
+        formatter->setFormattingStyle ( astyle::STYLE_PICO );
+    }
+    else if ( indentScheme=="lisp" ||  indentScheme=="python"||  indentScheme=="a12")
+    {
+        formatter->setFormattingStyle ( astyle::STYLE_LISP );
+    } 
     else
     {
         return false;
@@ -1455,7 +1467,7 @@ bool CodeGenerator::processStringState ( State oldState )
             } else {
 	        // FIXME not a fix for Python r"""\"""
 	        //exitState=(openDelim=="\"" && token=="\\\""); // C# raw string that ends with '\'
-	        exitState=token.size()>1 && token[1] == openDelim[0];// token=="\\"+openDelim;
+	        exitState=token.size()>1 && token[1] == openDelim[0];
 	        printMaskedToken();
 	    }
             break;
