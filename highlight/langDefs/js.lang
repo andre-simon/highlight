@@ -20,6 +20,14 @@ Keywords={
  --   { Id=3,
  --   Regex=[[ \[\w+\] ]],
  -- },
+
+  { Id=3,
+    -- supports simple inline regex, e.g. /regex/
+    -- not sure if this works for all cases!
+    Regex=[[\/[^*].*?\/[msixpodualgc]*]],
+    Group=0
+  },
+
   { Id=4,
     Regex=[[(\w+)\s*\(]],
   },

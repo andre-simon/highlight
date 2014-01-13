@@ -6,8 +6,9 @@ highlight 3.17
 
 -updated astyle code to release 2.04
 -added astyle reformatting styles google, pico and lisp
--improved raw string parsing (patch by smdn.jp)
--added PDF langage definition (thanks to Roland Hieber)
+-improved raw string parsing in cs.lang (patch by smdn.jp)
+-added regex recognition in js.lang (patch by Troy Sankey)
+-added PDF language definition (thanks to Roland Hieber)
 
 ---
 highlight 3.16.1
