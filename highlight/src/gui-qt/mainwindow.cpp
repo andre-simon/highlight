@@ -32,6 +32,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_mainwindow.h"
 #include "version.h"
 #include "showtextfile.h"
+
 #include "io_report.h"
 
 //#undef DATA_DIR
@@ -80,6 +81,12 @@ MainWindow::MainWindow(QWidget *parent)
              ui->comboTheme->addItem(QString(*constIterator).section('.',0, 0));
     }
     ui->comboTheme->setCurrentIndex(0);
+
+    //does not work in GUI editor when adding > 10 items ?!?
+    QStringList fmts;
+    fmts << "Allman" << "Banner" << "GNU" <<"Google"<< "Horstmann"<<"Lisp"<<"Java"<<"K&R"<<"Linux"<<"OTBS"<<"Pico"<<"Stroustrup"<<"Whitesmith";
+    ui->comboReformat->clear();
+    ui->comboReformat->addItems(fmts);
 
     // load syntax mappings
    if (!loadFileTypeConfig(&extensions, &shebangs)){
@@ -1065,6 +1072,8 @@ void MainWindow::on_action_License_triggered()
     show.setFileName("COPYING");
     show.exec();
 }
+
+
 
 void MainWindow::on_pbHTMLChooseStyleIncFile_clicked()
 {
