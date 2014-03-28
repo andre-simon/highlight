@@ -482,8 +482,13 @@ string MainWindow::getFileType(const string& suffix, const string &inputFile)
 string MainWindow::getFileSuffix(const string& fileName)
 {
   size_t ptPos=fileName.rfind(".");
-  return (ptPos == string::npos) ? "" : fileName.substr(ptPos+1,
-                                        fileName.length());
+  size_t psPos = fileName.rfind ( Platform::pathSeparator );
+  
+  if (ptPos == string::npos){
+     return  (psPos==string::npos) ? fileName : fileName.substr(psPos+1, fileName.length());
+  }
+  //return  fileName.substr(ptPos+1, fileName.length());
+  return (psPos!=string::npos && psPos>ptPos) ? "" : fileName.substr(ptPos+1, fileName.length());
 }
 
 /*

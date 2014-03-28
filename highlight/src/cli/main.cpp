@@ -220,8 +220,12 @@ string HLCmdLineApp::getFileSuffix(const string& fileName)
 {
     size_t ptPos=fileName.rfind(".");
     size_t psPos = fileName.rfind ( Platform::pathSeparator );
-    return (ptPos == string::npos || (psPos!=string::npos && psPos>ptPos)) ? "" : fileName.substr(ptPos+1,
-            fileName.length());
+    if (ptPos == string::npos){
+     return  (psPos==string::npos) ? fileName : fileName.substr(psPos+1, fileName.length());
+    }
+    //return (ptPos == string::npos || (psPos!=string::npos && psPos>ptPos)) ? "" : fileName.substr(ptPos+1, fileName.length()); 
+    return (psPos!=string::npos && psPos>ptPos) ? "" : fileName.substr(ptPos+1, fileName.length()); 
+  
 }
 
 bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, StringMap* shebangMap )

@@ -1,11 +1,19 @@
 CHANGELOG Highlight
 
--added GDB language definition (thanks to A. Aniruddha)
-TODO: Makefile -> mak + Rubyfile
+highlight 3.18
 
+28.03.2014
+
+-filenames without extension (ie. makefile) can be mapped in filetypes.conf
+  (suggested by Sam Craig)
+-fixed Rexx highlighting
+-added GDB language definition (thanks to A. Aniruddha)
+-added the.theme (thanks to Mark Hessling)
+
+---
 highlight 3.17
 
-06.01.2013
+06.01.2014
 
 -updated astyle code to release 2.04
 -added astyle reformatting styles google, pico and lisp
