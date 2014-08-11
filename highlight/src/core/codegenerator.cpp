@@ -1754,7 +1754,13 @@ bool CodeGenerator::initPluginScript(const string& script) {
         userScriptError="";
 
         Diluculum::LuaState ls;
+	
+	
+#ifdef NACL_BUILD
+	ls.doString(script);
+#else
         ls.doFile (script);
+#endif
 
         int listIdx=1;
 

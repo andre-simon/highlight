@@ -62,7 +62,13 @@ LUA 5.2 MIGRATION
   
 See src/makefile how to include Lua5.1 OR Lua5.2.
 
+
+SO-LIB VERSION
+--------------
+
+Increase SO_VERSION in src/makefile.
   
+
 See the makefiles and INSTALL for more packaging information.
 
  

@@ -80,8 +80,15 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
 	ls["HL_FORMAT_ODT"]=ODTFLAT;
 	ls["HL_OUTPUT"] = type;
 	ls.doString("Injections={}");
-        ls.doFile (styleDefinitionPath);
+	
+	#ifdef NACL_BUILD
+  ls.doString(styleDefinitionPath);
+	
+#else
+	  ls.doFile (styleDefinitionPath);
 
+#endif
+      
 	desc = ls["Description"].value().asString();
 
 	if (pluginChunks.size()){

@@ -97,7 +97,14 @@ namespace highlight
 		rgb[2] = ( unsigned char ) strtoll ( c.getBlue ( HTML ).c_str(), NULL, 16 );
 
 		ostringstream s;
-		s  << "\033[38;5;"<< ( int ) rgb2xterm ( rgb ) << "m";
+		//s  << "\033[38;5;"<< ( int ) rgb2xterm ( rgb ) << "m";
+		s  << "\033[";
+
+		if ( col.isBold() ) s << "1;";
+		if ( col.isItalic() ) s << "3;";
+		if ( col.isUnderline() ) s << "4;";
+		
+		s << "38;5;"<< ( int ) rgb2xterm ( rgb ) << "m";
 		return  s.str();
 	}
 

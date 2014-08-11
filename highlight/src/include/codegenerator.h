@@ -669,6 +669,10 @@ namespace highlight
 			
 			/** indicator if current stae was set by Lua hook function */
 			bool resultOfHook;
+			
+#ifdef NACL_BUILD
+			bool readScriptAsFile;
+#endif
 
 			/** flag which determines keyword output (unchangeed, uppercase, lowercase)*/
 			StringTools::KeywordCase keywordCase;

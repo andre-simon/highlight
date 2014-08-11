@@ -1,5 +1,13 @@
 CHANGELOG Highlight
 
+highlight 3.19
+
+11.08.2014
+
+-added bold, italic and underline attributes in xterm256 ANSI output
+  (original patch by Andrew Fuller)
+
+---
 highlight 3.18
 
 28.03.2014

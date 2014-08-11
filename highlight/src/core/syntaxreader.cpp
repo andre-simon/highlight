@@ -194,9 +194,11 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
     currentPath=langDefPath;
     disableHighlighting=false;
     
+    #ifndef NACL_BUILD
     if (!Platform::fileExists(langDefPath)){
       return LOAD_FAILED;
     }
+#endif
 
     try {
 
@@ -214,6 +216,11 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
         // ececute script and read values
         ls.doFile (langDefPath);
+#ifdef NACL_BUILD
+	ls.doString(langDefPath);
+#else
+        ls.doFile (langDefPath);
+#endif
 
         langDesc = ls["Description"].value().asString();
 
