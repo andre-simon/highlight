@@ -50,7 +50,7 @@ INHALT
 -------------------------------------------------------------------------------
 
 Highlight konvertiert Sourcecode in XHTML, HTML, RTF, ODT, TeX, LaTeX, SVG,
-BBCode und Terminal Escape-Sequenzen mit farbiger Syntaxhervorhebung.
+BBCode, Pango Markup und Terminal Escape-Sequenzen mit farbiger Syntaxhervorhebung.
 Sprachdefinitionen und Farbstile sind konfigurierbar.
 
 
@@ -69,8 +69,8 @@ mit Plug-Ins angepasst und erweitert werden.
 
 * Hervorhebung von Schluesselwoertern, Typbezeichnern, Strings, Zahlen,
   Escapesequenzen, Operatoren, Praeprozessor-Direktiven und Kommentaren
-* Farbige Ausgabe in HTML, XHTML, RTF, TeX, LaTeX, SVG, BBCode und Terminal-
-  Escapesequenzen
+* Farbige Ausgabe in HTML, XHTML, RTF, TeX, LaTeX, SVG, BBCode, Pango Markup und 
+  Terminal-Escapesequenzen
 * Speichern von Stylesheets wahlweise in separater Datei oder innerhalb der
   Ausgabedatei (HTML, LaTeX, TeX, SVG)
 * Alle Konfigurationsdateien sind Lua-Skripte
@@ -133,6 +133,7 @@ namens main.cpp erzeugt:
   xterm256: Terminal 256 color escape codes
   svg:      SVG
   bbcode:   BBCode
+  pango:    Pango Markup
 
   HTML wird als Standard ausgegeben, wenn kein anderes Format mit --out-format
   bestimmt wurde.
@@ -188,7 +189,7 @@ Output formatting options:
 
  -O, --out-format=<format>      output file in given format
                                   <format>=[html, xhtml, latex, tex,
-                                  odt, rtf, ansi, xterm256, bbcode, svg]
+                                  odt, rtf, ansi, xterm256, bbcode, pango, svg]
  -c, --style-outfile=<file>     name of style file or print to stdout, if
                                   'stdout' is given as file argument
  -e, --style-infile=<file>      file to be included in style-outfile

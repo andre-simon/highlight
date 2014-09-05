@@ -77,16 +77,15 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
 	ls["HL_FORMAT_HTML32"]=HTML32;
 	ls["HL_FORMAT_SVG"]=SVG;
 	ls["HL_FORMAT_BBCODE"]=BBCODE;
+	ls["HL_FORMAT_PANGO"]=PANGO;
 	ls["HL_FORMAT_ODT"]=ODTFLAT;
 	ls["HL_OUTPUT"] = type;
 	ls.doString("Injections={}");
 	
-	#ifdef NACL_BUILD
+#ifdef NACL_BUILD
   ls.doString(styleDefinitionPath);
-	
 #else
 	  ls.doFile (styleDefinitionPath);
-
 #endif
       
 	desc = ls["Description"].value().asString();
@@ -237,14 +236,6 @@ KeywordStyles ThemeReader::getKeywordStyles() const
 
 string ThemeReader::getInjections() const{
   return themeInjections;
-  /*
- ostringstream os;
- for ( vector<string>::const_iterator iter = injections.begin(); iter != injections.end(); iter++ )
-    {
-        os<<*iter<<"\n";
-    }
-    return os.str();
- */
 }
 
 }

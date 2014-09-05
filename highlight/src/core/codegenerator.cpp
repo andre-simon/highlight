@@ -38,6 +38,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "texgenerator.h"
 #include "svggenerator.h"
 #include "bbcodegenerator.h"
+#include "pangogenerator.h"
 #include "odtgenerator.h"
 #include "astyle/astyle.h"
 #include "astyle/ASStreamIterator.h"
@@ -90,6 +91,9 @@ CodeGenerator * CodeGenerator::getInstance ( OutputType type )
         break;
     case BBCODE:
         generator = new BBCodeGenerator();
+        break;
+    case PANGO:
+        generator = new PangoGenerator();
         break;
     case ODTFLAT:
         generator = new ODTGenerator();

@@ -125,6 +125,7 @@ HL_FORMAT_ANSI: number
 HL_FORMAT_XTERM256: number
 HL_FORMAT_SVG: number
 HL_FORMAT_BBCODE: number
+HL_FORMAT_PANGO: number
 HL_FORMAT_ODT: number
 
 Functions:
@@ -258,6 +259,7 @@ HL_FORMAT_ANSI: number
 HL_FORMAT_XTERM256: number
 HL_FORMAT_SVG: number
 HL_FORMAT_BBCODE: number
+HL_FORMAT_PANGO: number
 HL_FORMAT_ODT: number
 
 

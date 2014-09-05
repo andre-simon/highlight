@@ -8,6 +8,9 @@ Keywords={
   { Id=1,
     Regex=[[\(([\w\-\_]+)]],
   },
+      { Id=2,
+    Regex=[[ def(un|method)\s+([\w\-]+)]], Group=2
+  },
 }
 
 Strings={
@@ -38,6 +41,6 @@ function OnStateChange(oldState, newState, token)
       exitDelim=nil
       return HL_STRING_END
    end
-   
+
    return newState
 end

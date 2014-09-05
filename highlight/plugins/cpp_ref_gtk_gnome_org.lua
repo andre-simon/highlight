@@ -12,7 +12,7 @@ function syntaxUpdate(desc)
   end
   
   function getURL(token)
-     url='http://developer.gnome.org/gtk3/3.6/'..token.. '.html'
+     url='http://developer.gnome.org/gtk3/stable/'..token.. '.html'
      
       if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
         return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'

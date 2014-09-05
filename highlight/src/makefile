@@ -80,7 +80,7 @@ ARFLAGS=-crs
 CORE_OBJECTS:=stylecolour.o stringtools.o \
 	xhtmlgenerator.o latexgenerator.o texgenerator.o rtfgenerator.o \
 	htmlgenerator.o ansigenerator.o svggenerator.o codegenerator.o \
-	xterm256generator.o bbcodegenerator.o odtgenerator.o\
+	xterm256generator.o pangogenerator.o bbcodegenerator.o odtgenerator.o\
 	syntaxreader.o elementstyle.o themereader.o \
 	datadir.o preformatter.o platform_fs.o\
 	ASStreamIterator.o ASResource.o ASFormatter.o ASBeautifier.o ASEnhancer.o
@@ -151,6 +151,9 @@ latexgenerator.o: ${CORE_DIR}latexgenerator.cpp ${INCLUDE_DIR}latexgenerator.h $
 bbcodegenerator.o: ${CORE_DIR}bbcodegenerator.cpp ${INCLUDE_DIR}bbcodegenerator.h ${INCLUDE_DIR}codegenerator.h
 	${CXX_COMPILE} ${CORE_DIR}bbcodegenerator.cpp
 
+pangogenerator.o: ${CORE_DIR}pangogenerator.cpp ${INCLUDE_DIR}pangogenerator.h ${INCLUDE_DIR}codegenerator.h
+	${CXX_COMPILE} ${CORE_DIR}pangogenerator.cpp
+
 odtgenerator.o: ${CORE_DIR}odtgenerator.cpp ${INCLUDE_DIR}odtgenerator.h ${INCLUDE_DIR}codegenerator.h
 	${CXX_COMPILE} ${CORE_DIR}odtgenerator.cpp
 	
@@ -178,9 +181,6 @@ stringtools.o: ${CORE_DIR}stringtools.cpp ${INCLUDE_DIR}stringtools.h
 
 stylecolour.o: ${CORE_DIR}stylecolour.cpp ${INCLUDE_DIR}stylecolour.h ${INCLUDE_DIR}enums.h ${INCLUDE_DIR}stringtools.h
 	${CXX_COMPILE} ${CORE_DIR}stylecolour.cpp
-
-#ctagsreader.o: ${CORE_DIR}ctagsreader.cpp ${INCLUDE_DIR}ctagsreader.h
-#	${CXX_COMPILE} ${CORE_DIR}ctagsreader.cpp
 
 # cli stuff
 arg_parser.o: ${CLI_DIR}arg_parser.cc

@@ -4,7 +4,14 @@ Description="ASP"
 
 Keywords={
   { Id=1,
-    List={"and", "response", "write", "case", "select", "continue", "date", "dim", "server", "createobject", "do", "if", "else", "end", "empty", "then", "next", "set", "default", "movenext", "open", "close", "activeconnection", "false", "true", "BOF", "eof", "each", "for", "sub", "function", "len", "cstr", "include", "cdbl", "cdate", "is", "null", "object", "redirect", "request", "querystring", "exit", "clng", "redim", "session", "form", "not", "nothing", "loop", "while"},
+    Regex=[[<[!?]?(?!\-\-)\/?[\w\:\-]+>?|[/?]?>]],
+    Group=0,
+  },
+  { Id=2,
+    Regex=[[([-\w]+)="]],
+  },
+  { Id=4,
+    Regex=[[\&\#?\w+;]],
   },
 }
 
@@ -15,11 +22,14 @@ Strings={
 IgnoreCase=true
 
 Comments={
-  { Block=false,
-    Delimiter= { [[']] },
-  },
+  { Block=true,
+    Nested=false,
+    Delimiter= { [[<!\-\-]],[[\-\->]] }
+  }
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-]]
 
---FIXME no default escchar param: regex(\\\d{3}|\\x[[:xdigit:]]{2}|\\[ntvbrfa\\\?'"])
+NestedSections = {
+  { Lang="csharp", Delimiter= { [[<%[=#\$]?]], [[%>]] } },
+
+}

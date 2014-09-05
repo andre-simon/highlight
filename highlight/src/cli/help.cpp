@@ -70,8 +70,8 @@ namespace Help
 		cout<<"Output formatting options:\n";
 		cout<<"\n";
 		cout<<" -O, --out-format=<format>      output file in given format\n";
-		cout<<"                                  <format>=[html, xhtml, latex, tex,\n";
-		cout<<"                                  odt, rtf, ansi, xterm256, bbcode, svg]\n";
+		cout<<"                                  <format>=[html, xhtml, latex, tex, odt, rtf,\n";
+		cout<<"                                  ansi, xterm256, bbcode, pango, svg]\n";
 		cout<<" -c, --style-outfile=<file>     name of style file or print to stdout, if\n";
 		cout<<"                                  'stdout' is given as file argument\n";
 

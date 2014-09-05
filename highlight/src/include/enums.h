@@ -101,6 +101,7 @@ namespace highlight
 		HTML32,
 		SVG,
 		BBCODE,
+		PANGO,
 		ODTFLAT
 	};
 

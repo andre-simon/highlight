@@ -2,10 +2,14 @@ CHANGELOG Highlight
 
 highlight 3.19
 
-11.08.2014
+05.09.2014
 
--added bold, italic and underline attributes in xterm256 ANSI output
-  (original patch by Andrew Fuller)
+-added bold, italic and underline attributes to xterm256 ANSI output
+  (patch by Andrew Fuller)
+-fixed assembler mapping in filetypes.conf (thanks to Jens Schleusener)
+-improved ASP, F#, OCaml and Lisp syntax definitions
+-updated base URLs in cpp_ref_gtk_gnome and cpp_ref_qtproject plug-ins
+-CLI: added Pango markup output option (patch by Dominik Schmidt)
 
 ---
 highlight 3.18

@@ -209,6 +209,8 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 					outputType = highlight::SVG;
 				else if ( tmp == "bbcode" )
 					outputType = highlight::BBCODE;
+				else if ( tmp == "pango" )
+					outputType = highlight::PANGO;
 				else if ( tmp == "odt" )
 					outputType = highlight::ODTFLAT;
 				else
