@@ -7,7 +7,9 @@ highlight 3.19
 -added bold, italic and underline attributes to xterm256 ANSI output
   (patch by Andrew Fuller)
 -fixed assembler mapping in filetypes.conf (thanks to Jens Schleusener)
+-added Swift definition
 -improved ASP, F#, OCaml and Lisp syntax definitions
+-added interpolation patterns to several definitions
 -updated base URLs in cpp_ref_gtk_gnome and cpp_ref_qtproject plug-ins
 -CLI: added Pango markup output option (patch by Dominik Schmidt)
 

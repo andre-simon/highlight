@@ -107,6 +107,7 @@ Keywords={
 Strings={
   Delimiter=[["|'|`]],
   RawPrefix="r",
+    Interpolation=[[ %\d?\$?s ]],
   --  DelimiterPairs= {
   --    { Open=[[ q"\[ ]], Close=[[ "\] ]], Raw=true }
   --  }
