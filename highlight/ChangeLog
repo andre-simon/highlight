@@ -1,5 +1,13 @@
 CHANGELOG Highlight
 
+highlight 3.20
+
+xx.11.2014
+
+-updated astyle code to release 2.05
+-added astyle reformatting style vtk
+
+---
 highlight 3.19
 
 05.09.2014

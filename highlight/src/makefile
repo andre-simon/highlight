@@ -22,7 +22,7 @@ CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG
 
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.17
+SO_VERSION=3.20
 
 
 # Source paths

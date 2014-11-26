@@ -1,8 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *   ASResource.cpp
  *
- *   Copyright (C) 2006-2013 by Jim Pattee <jimp03@email.com>
- *   Copyright (C) 1998-2002 by Tal Davidson
+ *   Copyright (C) 2014 by Jim Pattee
  *   <http://www.gnu.org/licenses/lgpl-3.0.html>
  *
  *   This file is a part of Artistic Style - an indentation and
@@ -41,6 +40,9 @@ const string ASResource::AS_CASE = string("case");
 const string ASResource::AS_DEFAULT = string("default");
 const string ASResource::AS_CLASS = string("class");
 const string ASResource::AS_VOLATILE = string("volatile");
+const string ASResource::AS_INTERRUPT = string("interrupt");
+const string ASResource::AS_NOEXCEPT = string("noexcept");
+const string ASResource::AS_AUTORELEASEPOOL = string("autoreleasepool");
 const string ASResource::AS_STRUCT = string("struct");
 const string ASResource::AS_UNION = string("union");
 const string ASResource::AS_INTERFACE = string("interface");
@@ -68,6 +70,7 @@ const string ASResource::AS_CONST = string("const");
 const string ASResource::AS_SEALED = string("sealed");
 const string ASResource::AS_OVERRIDE = string("override");
 const string ASResource::AS_WHERE = string("where");
+const string ASResource::AS_LET = string("let");
 const string ASResource::AS_NEW = string("new");
 
 const string ASResource::AS_ASM = string("asm");
@@ -142,6 +145,9 @@ const string ASResource::AS_COLON = string(":");
 const string ASResource::AS_COMMA = string(",");
 const string ASResource::AS_SEMICOLON = string(";");
 
+const string ASResource::AS_QFOREACH = string("Q_FOREACH");
+const string ASResource::AS_QFOREVER = string("Q_FOREVER");
+const string ASResource::AS_FOREVER = string("forever");
 const string ASResource::AS_FOREACH = string("foreach");
 const string ASResource::AS_LOCK = string("lock");
 const string ASResource::AS_UNSAFE = string("unsafe");
@@ -166,7 +172,7 @@ const string ASResource::AS_NS_HANDLER = string("NS_HANDLER");
  * Compares the length of the value of pointers in the vectors.
  * The LONGEST strings will be first in the vector.
  *
- * @params the string pointers to be compared.
+ * @param a and b, the string pointers to be compared.
  */
 bool sortOnLength(const string* a, const string* b)
 {
@@ -177,7 +183,7 @@ bool sortOnLength(const string* a, const string* b)
  * Sort comparison function.
  * Compares the value of pointers in the vectors.
  *
- * @params the string pointers to be compared.
+ * @param a and b, the string pointers to be compared.
  */
 bool sortOnName(const string* a, const string* b)
 {
@@ -245,6 +251,10 @@ void ASResource::buildHeaders(vector<const string*>* headers, int fileType, bool
 	headers->push_back(&AS_DEFAULT);
 	headers->push_back(&AS_TRY);
 	headers->push_back(&AS_CATCH);
+	headers->push_back(&AS_QFOREACH);		// QT
+	headers->push_back(&AS_QFOREVER);		// QT
+	headers->push_back(&AS_FOREACH);		// QT & C#
+	headers->push_back(&AS_FOREVER);		// Qt & Boost
 
 	if (fileType == C_TYPE)
 	{
@@ -261,7 +271,6 @@ void ASResource::buildHeaders(vector<const string*>* headers, int fileType, bool
 	if (fileType == SHARP_TYPE)
 	{
 		headers->push_back(&AS_FINALLY);
-		headers->push_back(&AS_FOREACH);
 		headers->push_back(&AS_LOCK);
 		headers->push_back(&AS_FIXED);
 		headers->push_back(&AS_GET);
@@ -296,6 +305,32 @@ void ASResource::buildIndentableHeaders(vector<const string*>* indentableHeaders
 	indentableHeaders->push_back(&AS_RETURN);
 
 	sort(indentableHeaders->begin(), indentableHeaders->end(), sortOnName);
+}
+
+/**
+* Build the vector of indentable macros pairs.
+* Initialized by ASFormatter, used by ONLY ASEnhancer.cpp
+*
+* @param indentableMacros       a reference to the vector to be built.
+*/
+void ASResource::buildIndentableMacros(vector<const pair<const string, const string>* >* indentableMacros)
+{
+	// the pairs must be retained in memory
+	static const struct pair<const string, const string> macros[] =
+	{
+		// wxWidgets
+		make_pair("BEGIN_EVENT_TABLE", "END_EVENT_TABLE"),
+		make_pair("wxBEGIN_EVENT_TABLE", "wxEND_EVENT_TABLE"),
+		// MFC
+		make_pair("BEGIN_DISPATCH_MAP", "END_DISPATCH_MAP"),
+		make_pair("BEGIN_EVENT_MAP", "END_EVENT_MAP"),
+		make_pair("BEGIN_MESSAGE_MAP", "END_MESSAGE_MAP"),
+		make_pair("BEGIN_PROPPAGEIDS", "END_PROPPAGEIDS"),
+	};
+
+	size_t elements = sizeof(macros) / sizeof(macros[0]);
+	for (size_t i = 0; i < elements; i++)
+		indentableMacros->push_back(&macros[i]);
 }
 
 /**
@@ -339,6 +374,8 @@ void ASResource::buildNonParenHeaders(vector<const string*>* nonParenHeaders, in
 	nonParenHeaders->push_back(&AS_CATCH);		// can be paren or non-paren
 	nonParenHeaders->push_back(&AS_CASE);		// can be paren or non-paren
 	nonParenHeaders->push_back(&AS_DEFAULT);
+	nonParenHeaders->push_back(&AS_QFOREVER);	// QT
+	nonParenHeaders->push_back(&AS_FOREVER);	// Boost
 
 	if (fileType == C_TYPE)
 	{
@@ -478,8 +515,11 @@ void ASResource::buildPreCommandHeaders(vector<const string*>* preCommandHeaders
 	{
 		preCommandHeaders->push_back(&AS_CONST);
 		preCommandHeaders->push_back(&AS_VOLATILE);
-		preCommandHeaders->push_back(&AS_SEALED);		// Visual C only
-		preCommandHeaders->push_back(&AS_OVERRIDE);		// Visual C only
+		preCommandHeaders->push_back(&AS_INTERRUPT);
+		preCommandHeaders->push_back(&AS_NOEXCEPT);
+		preCommandHeaders->push_back(&AS_OVERRIDE);
+		preCommandHeaders->push_back(&AS_SEALED);			// Visual C only
+		preCommandHeaders->push_back(&AS_AUTORELEASEPOOL);	// Obj-C only
 	}
 
 	if (fileType == JAVA_TYPE)

@@ -38,7 +38,7 @@ Digits=[[ (?:0x|0o|0b)[0-9a-fA-F]+|\d*[\.\_]?\d+(?:[eE][\-\+]\d+)? ]]
 
 Strings = {
   Delimiter=[["]],
-  Interpolation = [[ \\\(.+?\) ]],
+  Interpolation = [[ \\\(.+?\)\)? ]],
   RawPrefix="R",
 }
 

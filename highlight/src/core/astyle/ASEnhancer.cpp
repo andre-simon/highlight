@@ -1,8 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *   ASEnhancer.cpp
  *
- *   Copyright (C) 2006-2013 by Jim Pattee <jimp03@email.com>
- *   Copyright (C) 1998-2002 by Tal Davidson
+ *   Copyright (C) 2014 by Jim Pattee
  *   <http://www.gnu.org/licenses/lgpl-3.0.html>
  *
  *   This file is a part of Artistic Style - an indentation and
@@ -54,9 +53,12 @@ void ASEnhancer::init(int  _fileType,
                       int  _tabLength,
                       bool _useTabs,
                       bool _forceTab,
+                      bool _namespaceIndent,
                       bool _caseIndent,
-                      bool _preprocessorIndent,
-                      bool _emptyLineFill)
+                      bool _preprocBlockIndent,
+                      bool _preprocDefineIndent,
+                      bool _emptyLineFill,
+                      vector<const pair<const string, const string>* >* _indentableMacros)
 {
 	// formatting variables from ASFormatter and ASBeautifier
 	ASBase::init(_fileType);
@@ -64,9 +66,12 @@ void ASEnhancer::init(int  _fileType,
 	tabLength = _tabLength;
 	useTabs = _useTabs;
 	forceTab = _forceTab;
+	namespaceIndent = _namespaceIndent;
 	caseIndent = _caseIndent;
-	preprocessorIndent = _preprocessorIndent;
+	preprocBlockIndent = _preprocBlockIndent;
+	preprocDefineIndent = _preprocDefineIndent;
 	emptyLineFill = _emptyLineFill;
+	indentableMacros = _indentableMacros;
 	quoteChar = '\'';
 
 	// unindent variables
@@ -75,6 +80,7 @@ void ASEnhancer::init(int  _fileType,
 	isInComment = false;
 	isInQuote = false;
 	switchDepth = 0;
+	eventPreprocDepth = 0;
 	lookingForCaseBracket = false;
 	unindentNextLine = false;
 	shouldUnindentLine = false;
@@ -102,7 +108,7 @@ void ASEnhancer::init(int  _fileType,
  *
  * @param line       the original formatted line will be updated if necessary.
  */
-void ASEnhancer::enhance(string &line, bool isInPreprocessor, bool isInSQL)
+void ASEnhancer::enhance(string &line, bool isInNamespace, bool isInPreprocessor, bool isInSQL)
 {
 	shouldUnindentLine = true;
 	shouldUnindentComment = false;
@@ -139,9 +145,21 @@ void ASEnhancer::enhance(string &line, bool isInPreprocessor, bool isInSQL)
 	// parse characters in the current line
 	parseCurrentLine(line, isInPreprocessor, isInSQL);
 
-	if (isInEventTable || isInDeclareSection)
+	// check for SQL indentable lines
+	if (isInDeclareSection)
 	{
-		if (line.length() == 0 || line[0] != '#')
+		size_t firstText = line.find_first_not_of(" \t");
+		if (firstText == string::npos || line[firstText] != '#')
+			indentLine(line, 1);
+	}
+
+	// check for event table indentable lines
+	if (isInEventTable
+	        && (eventPreprocDepth == 0
+	            || (namespaceIndent && isInNamespace)))
+	{
+		size_t firstText = line.find_first_not_of(" \t");
+		if (firstText == string::npos || line[firstText] != '#')
 			indentLine(line, 1);
 	}
 
@@ -192,7 +210,7 @@ void ASEnhancer::convertSpaceIndentToForceTab(string &line) const
  * find the colon following a 'case' statement
  *
  * @param line          a reference to the line.
- * @param i             the line index of the case statement.
+ * @param caseIndex     the line index of the case statement.
  * @return              the line index of the colon.
  */
 size_t ASEnhancer::findCaseColon(string  &line, size_t caseIndex) const
@@ -378,7 +396,7 @@ bool ASEnhancer::isEndDeclareSectionSQL(string  &line, size_t index) const
 /**
  * check if a one-line bracket has been reached,
  * i.e. if the currently reached '{' character is closed
- * with a complimentry '}' elsewhere on the current line,
+ * with a complimentary '}' elsewhere on the current line,
  *.
  * @return     false = one-line bracket has not been reached.
  *             true  = one-line bracket has been reached.
@@ -559,29 +577,41 @@ void ASEnhancer::parseCurrentLine(string &line, bool isInPreprocessor, bool isIn
 		if (line[i] == '}')
 			bracketCount--;
 
+		// check for preprocessor within an event table
+		if (isInEventTable && line[i] == '#' && preprocBlockIndent)
+		{
+			string preproc;
+			preproc = line.substr(i + 1);
+			if (preproc.substr(0, 2) == "if") // #if, #ifdef, #ifndef)
+				eventPreprocDepth += 1;
+			if (preproc.substr(0, 5) == "endif" && eventPreprocDepth > 0)
+				eventPreprocDepth -= 1;
+		}
+
 		bool isPotentialKeyword = isCharPotentialHeader(line, i);
 
 		// ----------------  wxWidgets and MFC macros  ----------------------------------
 
 		if (isPotentialKeyword)
 		{
-			if (findKeyword(line, i, "BEGIN_EVENT_TABLE")
-			        || findKeyword(line, i, "BEGIN_DISPATCH_MAP")
-			        || findKeyword(line, i, "BEGIN_EVENT_MAP")
-			        || findKeyword(line, i, "BEGIN_MESSAGE_MAP")
-			        || findKeyword(line, i, "BEGIN_PROPPAGEIDS"))
+			for (size_t j = 0; j < indentableMacros->size(); j++)
 			{
-				nextLineIsEventIndent = true;
-				break;
+				// 'first' is the beginning macro
+				if (findKeyword(line, i, indentableMacros->at(j)->first))
+				{
+					nextLineIsEventIndent = true;
+					break;
+				}
 			}
-			if (findKeyword(line, i, "END_EVENT_TABLE")
-			        || findKeyword(line, i, "END_DISPATCH_MAP")
-			        || findKeyword(line, i, "END_EVENT_MAP")
-			        || findKeyword(line, i, "END_MESSAGE_MAP")
-			        || findKeyword(line, i, "END_PROPPAGEIDS"))
+			for (size_t j = 0; j < indentableMacros->size(); j++)
 			{
-				isInEventTable = false;
-				break;
+				// 'second' is the ending macro
+				if (findKeyword(line, i, indentableMacros->at(j)->second))
+				{
+					isInEventTable = false;
+					eventPreprocDepth = 0;
+					break;
+				}
 			}
 		}
 
@@ -612,7 +642,7 @@ void ASEnhancer::parseCurrentLine(string &line, bool isInPreprocessor, bool isIn
 
 		if (caseIndent
 		        || switchDepth == 0
-		        || (isInPreprocessor && !preprocessorIndent))
+		        || (isInPreprocessor && !preprocDefineIndent))
 		{
 			// bypass the entire word
 			if (isPotentialKeyword)

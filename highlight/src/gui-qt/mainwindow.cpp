@@ -84,7 +84,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //does not work in GUI editor when adding > 10 items ?!?
     QStringList fmts;
-    fmts << "Allman" << "Banner" << "GNU" <<"Google"<< "Horstmann"<<"Lisp"<<"Java"<<"K&R"<<"Linux"<<"OTBS"<<"Pico"<<"Stroustrup"<<"Whitesmith";
+    fmts << "Allman" << "Banner" << "GNU" <<"Google"<< "Horstmann"<<"Lisp"<<"Java"<<"K&R"<<"Linux"<<"OTBS"<<"Pico"<<"Stroustrup"<<"VTK"<<"Whitesmith";
     ui->comboReformat->clear();
     ui->comboReformat->addItems(fmts);
 

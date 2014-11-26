@@ -691,6 +691,10 @@ bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
     {
         formatter->setFormattingStyle ( astyle::STYLE_LISP );
     } 
+    else if ( indentScheme=="vtk")
+    {
+        formatter->setFormattingStyle ( astyle::STYLE_VTK );
+    }
     else
     {
         return false;

@@ -51,6 +51,9 @@ class ASStreamIterator : public ASSourceIterator
 		bool compareToInputBuffer(const string &nextLine) const { return nextLine == prevBuffer; }
 		const char* getOutputEOL() const { return outputEOL; }
 		bool hasMoreLines() const { return !inStream->eof(); }
+		
+		int getStreamLength() const { return 0; }
+		streamoff tellg() { return 0; }
 
 	private:
 		istream * inStream;          // pointer to the input stream
