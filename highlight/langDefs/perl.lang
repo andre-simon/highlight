@@ -53,8 +53,9 @@ Keywords={
 }
 
 -- hereDoc opening delimiter, see OnStateChange to handle end of string
+-- do not allow digits as heredoc delimiters
 Strings={
-  Delimiter=[["|'|`|<<["']?\w+["']?]],
+  Delimiter=[=["|'|`|<<["']?[[:alpha:]]+["']?]=],
   Interpolation=[[ [@\$%]\w+ ]],
 }
 
@@ -81,7 +82,9 @@ function OnStateChange(oldState, newState, token)
    --recognize hereDoc multine strings
    --do not clear hereDoc if token is ",' or `
    if (oldState==HL_STANDARD or oldState==HL_STRING) and newState==HL_STRING  and not string.find("\"'`", token) then
+      
       hereDoc = string.match(token, "<<'?\"?(%a+)" )
+
    end
    if oldState==HL_STRING and token==hereDoc then
       hereDoc = nil
