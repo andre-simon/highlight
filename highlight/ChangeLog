@@ -1,7 +1,15 @@
 CHANGELOG Highlight
 
 
+highlight 3.21
+
+xx.01.2015
+
+-added support for LESS, SASS and Stylus CSS processors (suggested by Marcel Bischoff)
 -fixed heredoc matching in perl.lang (thanks to cornucopia@gmx-topmail.de)
+-fixed Haskell lang (thanks to Daan Michiels)
+-fixed RNC lang (thanks to Daan Michiels)
+-fixed regex pattern in js.lang
 
 ---
 highlight 3.20
