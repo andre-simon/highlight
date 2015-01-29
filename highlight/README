@@ -976,7 +976,7 @@ The file INSTALL contains details about package contents and installation.
 -------------------------------------------------------------------------------
 
 Highlight is known to compile with gcc and suncc.
-It depends on Boost headers and Lua 5.1/Lua 5.2/LuaJit developer packages.
+It depends on Boost headers and Lua 5.x/LuaJit developer packages.
 The optional GUI depends on Qt4/Qt5 developer packages.
 Please see the makefile for further options.
 

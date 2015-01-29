@@ -126,14 +126,14 @@ namespace Diluculum
       // Traverse the globals table adding the key/value pairs to 'ret'
       LuaValueMap ret;
 
-#ifdef USE_LUA52
+#if LUA_VERSION_NUM >= 502
       // Obtain global table
       lua_rawgeti (state_, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
 #endif
       
       lua_pushnil (state_);
       
-#ifdef USE_LUA52
+#if LUA_VERSION_NUM >= 502
       while (lua_next (state_, -2) != 0)
 #else
       while (lua_next (state_, LUA_GLOBALSINDEX) != 0)
@@ -157,7 +157,7 @@ namespace Diluculum
          lua_pop (state_, 1);
       }
       
-#ifdef USE_LUA52   
+#if LUA_VERSION_NUM >= 502
       // Remove global table
       lua_remove (state_, -2);
 #endif

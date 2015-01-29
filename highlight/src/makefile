@@ -22,7 +22,7 @@ CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG
 
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.20
+SO_VERSION=3.21
 
 
 # Source paths
@@ -34,11 +34,10 @@ GUI_QT_DIR=./gui-qt/
 INCLUDE_DIR=./include/
 
 
-# If Lua 5.2 is not default on your system yet you have to:
-# - remove -DUSE_LUA52
-# - use lua5.1 in the pkg-config calls
+# If Lua 5.2 is not default on your system yet you have to
+# use lua5.1 in the pkg-config calls
 
-LUA_CFLAGS=$(shell pkg-config --cflags lua) -DUSE_LUA52
+LUA_CFLAGS=$(shell pkg-config --cflags lua)
 
 # default lua lib
 LUA_LIBS=$(shell pkg-config --libs lua)

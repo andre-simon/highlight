@@ -151,7 +151,7 @@ namespace Diluculum
    void LuaVariable::pushLastTable()
    {
       // Push the globals table onto the stack
-#ifdef USE_LUA52
+#if LUA_VERSION_NUM >= 502
       lua_pushglobaltable (state_);
 #else
       lua_pushstring (state_, "_G");
@@ -182,7 +182,7 @@ namespace Diluculum
    {
       assert (keys_.size() > 0 && "There should be at least one key here.");
 
-#ifdef USE_LUA52
+#if LUA_VERSION_NUM >= 502
       lua_rawgeti (state_, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
 #else
       int index = LUA_GLOBALSINDEX;
@@ -191,14 +191,14 @@ namespace Diluculum
       for (iter_t p = keys_.begin(); p != keys_.end(); ++p)
       {
          PushLuaValue (state_, *p);
-#ifdef USE_LUA52
+#if LUA_VERSION_NUM >= 502
 	  lua_gettable (state_, -2);
 #else
          lua_gettable (state_, index);
 #endif
          if (keys_.size() > 1 && p != keys_.end()-1 && !lua_istable(state_, -1))
             throw TypeMismatchError ("table", p->typeName());
-#ifdef USE_LUA52
+#if LUA_VERSION_NUM >= 502
 	  lua_remove (state_, -2);
 #else
          if (index != LUA_GLOBALSINDEX)

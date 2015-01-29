@@ -57,10 +57,10 @@ The following platform dependent classes are used in SWIG scripts (ikiwiki):
   - DataDir
 
 
-LUA 5.2 MIGRATION
------------------
+LUA 5.2/5.3 MIGRATION
+---------------------
   
-See src/makefile how to include Lua5.1 OR Lua5.2.
+See src/makefile how to compile highlight with a specific Lua version.
 
 
 SO-LIB VERSION
