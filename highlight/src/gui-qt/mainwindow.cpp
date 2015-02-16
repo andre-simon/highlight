@@ -472,11 +472,17 @@ bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap) {
 
 string MainWindow::getFileType(const string& suffix, const string &inputFile)
 {
-    string lcSuffix = StringTools::change_case(suffix);
-    string fileType = (extensions.count(lcSuffix)) ? extensions[lcSuffix] : lcSuffix ;
-    if (!fileType.empty()) return fileType;
-
-    return analyzeFile(inputFile);
+    string lcSuffix = StringTools::change_case(suffix);    
+    if (extensions.count(lcSuffix))
+    {
+      return extensions[lcSuffix];
+    }
+    
+ //   if (!useUserSuffix){
+      string shebang =  analyzeFile(inputFile);
+      if (!shebang.empty()) return shebang;
+   // }
+    return lcSuffix;
 }
 
 string MainWindow::getFileSuffix(const string& fileName)

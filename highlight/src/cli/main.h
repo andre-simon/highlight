@@ -96,7 +96,7 @@ class HLCmdLineApp
 
 		string getFileSuffix ( const string &fileName );
 
-		string guessFileType ( const string &suffix, const string &inputFile="" );
+		string guessFileType ( const string &suffix, const string &inputFile="", bool useUserSuffix=false );
 
 		int getNumDigits ( int i );
 

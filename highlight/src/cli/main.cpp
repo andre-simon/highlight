@@ -351,19 +351,19 @@ string HLCmdLineApp::analyzeFile ( const string& file )
     return "";
 }
 
-string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFile )
+string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFile, bool useUserSuffix )
 {
-    string lcSuffix = StringTools::change_case(suffix);
-
-    string fileType = (extensions.count(lcSuffix)) ? extensions[lcSuffix] : lcSuffix ;
-    if (!fileType.empty()) return fileType;
-    return analyzeFile(inputFile);
-
-    /*if (suffix.empty()) return analyzeFile ( inputFile );
-    string lcSuffix = StringTools::change_case ( suffix );
-    return ( extensions.count ( lcSuffix ) ) ? extensions[lcSuffix] : lcSuffix ;*/
-    // if ( !fileType.empty() ) return fileType;
-    // return "";
+    string lcSuffix = StringTools::change_case(suffix);    
+    if (extensions.count(lcSuffix))
+    {
+      return extensions[lcSuffix];
+    }
+    
+    if (!useUserSuffix){
+      string shebang =  analyzeFile(inputFile);
+      if (!shebang.empty()) return shebang;
+    }
+    return lcSuffix;
 }
 
 vector <string> HLCmdLineApp::collectPluginPaths(const vector<string>& plugins){
@@ -553,7 +553,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     if ( options.syntaxGiven() )  // user defined language definition, valid for all files
     {
-        suffix = guessFileType ( options.getSyntax() );
+        suffix = guessFileType ( options.getSyntax(), "", true );
     }
 
     while ( i < fileCount && !initError )

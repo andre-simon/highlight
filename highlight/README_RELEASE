@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT IMPORTANT RELEASE AND PACKAGING INFORMATION --- October 2013 ---
+---  HIGHLIGHT IMPORTANT RELEASE AND PACKAGING INFORMATION -- February 2015 ---
 -------------------------------------------------------------------------------
 
 TEST CASES
@@ -27,6 +27,12 @@ highlight -ISc
 Now type some C code and hit CTRL+D to quit.
 
 Add --verbose to print additional syntax parsing information.
+
+
+Test filetype recognition:
+-file suffix (default)
+-no suffix (i.e. makefile)
+-shebang (i.e. Bash script)
 
 
 THIRD PARTY COMPATIBILITY
