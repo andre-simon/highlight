@@ -24,6 +24,9 @@ You should have received a copy of the GNU General Public License
 along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
+//?? https://codereview.qt-project.org/#change,51048
+
 #include <QtGlobal>
 
 #if (QT_VERSION < QT_VERSION_CHECK(5,0,0))

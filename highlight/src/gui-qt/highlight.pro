@@ -6,7 +6,7 @@ TEMPLATE = app
 INCLUDEPATH += . \
     ../include
 win32:CONFIG += static
-CONFIG += precompile_header
+
 PRECOMPILED_HEADER = precomp.h
 DEFINES += O2 QT
 win32:DESTDIR = ../../

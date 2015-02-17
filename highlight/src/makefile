@@ -22,7 +22,7 @@ CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG
 
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.21
+SO_VERSION=3.22
 
 
 # Source paths
@@ -249,3 +249,4 @@ clean:
 	@rm -f gui-qt/object_script.*
 	@rm -f gui-qt/ui_*.h gui-qt/qrc_*.cpp gui-qt/moc_*.cpp
 	@rm -rf gui-qt/highlight-gui.gch/
+>>>>>>> .r95

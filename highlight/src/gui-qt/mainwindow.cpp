@@ -33,6 +33,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include "showtextfile.h"
 
+//#include "debuginfo.h"
 #include "io_report.h"
 
 //#undef DATA_DIR
@@ -133,6 +134,7 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->comboSelectSyntax, SIGNAL(currentIndexChanged(int)), this, SLOT(updatePreview()));
 
     QObject::connect(ui->sbLineNoWidth, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+    QObject::connect(ui->sbLineNoStart, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
     QObject::connect(ui->leFontSize, SIGNAL(textChanged(QString)), this, SLOT(updatePreview()));
     QObject::connect(ui->cbOmitWrappedLineNumbers, SIGNAL(clicked()), this, SLOT(updatePreview()));
 
@@ -330,6 +332,12 @@ void MainWindow::on_pbOutputDest_clicked(){
      settings.setValue(ui->tabIOSelection->property(name).toString(),
                        ui->tabIOSelection->currentIndex());
 
+     settings.setValue(ui->sbLineNoWidth->property(name).toString(),
+                       ui->sbLineNoWidth->value());
+
+     settings.setValue(ui->sbLineNoStart->property(name).toString(),
+                       ui->sbLineNoStart->value());
+
      settings.endGroup();
  }
 
@@ -414,6 +422,10 @@ void MainWindow::on_pbOutputDest_clicked(){
      ui->tabWidget->setCurrentIndex(settings.value(ui->tabWidget->property(name).toString()).toInt());
      ui->tabIOSelection->setCurrentIndex(settings.value(ui->tabIOSelection->property(name).toString()).toInt());
 
+     ui->sbLineNoWidth->setValue(settings.value(ui->sbLineNoWidth->property(name).toString()).toInt());
+     ui->sbLineNoStart->setValue(settings.value(ui->sbLineNoStart->property(name).toString()).toInt());
+
+
      settings.endGroup();
  }
 
@@ -431,7 +443,7 @@ bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap) {
         ls.doFile (filetypesPath.toStdString());
         int idx=1;
         string langName;
-	Diluculum::LuaValue mapEntry;
+    Diluculum::LuaValue mapEntry;
         while ((mapEntry = ls["FileMapping"][idx].value()) !=Diluculum::Nil) {
             langName = mapEntry["Lang"].asString();
             if (mapEntry["Extensions"] !=Diluculum::Nil) {
@@ -477,7 +489,7 @@ string MainWindow::getFileType(const string& suffix, const string &inputFile)
     {
       return extensions[lcSuffix];
     }
-    
+
  //   if (!useUserSuffix){
       string shebang =  analyzeFile(inputFile);
       if (!shebang.empty()) return shebang;
@@ -488,27 +500,14 @@ string MainWindow::getFileType(const string& suffix, const string &inputFile)
 string MainWindow::getFileSuffix(const string& fileName)
 {
   size_t ptPos=fileName.rfind(".");
-  size_t psPos = fileName.rfind ( Platform::pathSeparator );
-  
+  size_t psPos = fileName.rfind ( /*Platform::pathSeparator*/ '/' );
+
   if (ptPos == string::npos){
      return  (psPos==string::npos) ? fileName : fileName.substr(psPos+1, fileName.length());
   }
-  //return  fileName.substr(ptPos+1, fileName.length());
-  return (psPos!=string::npos && psPos>ptPos) ? "" : fileName.substr(ptPos+1, fileName.length());
+  return (psPos!=string::npos && psPos>ptPos) ? fileName.substr(psPos+1, fileName.length()) : fileName.substr(ptPos+1, fileName.length());
 }
 
-/*
-string MainWindow::getFileSuffix ( const string &fileName )
-{
-    size_t ptPos=fileName.rfind ( "." );
-    size_t psPos = fileName.rfind ( Platform::pathSeparator );
-
-    if ( ptPos > psPos && ptPos != string::npos )
-        return fileName.substr ( ptPos+1, fileName.length() );
-    else
-        return "";
-}
-*/
 void MainWindow::on_action_Exit_triggered()
 {
     this->close();
@@ -519,7 +518,7 @@ void MainWindow::on_action_About_Highlight_triggered()
      QMessageBox::about( this, "About Highlight",
                          QString("Highlight is a code to formatted text converter.\n\n"
                          "Highlight GUI %1\n"
-                         "(C) 2002-2013 Andre Simon <andre.simon1 at gmx.de>\n\n"
+                         "(C) 2002-2015 Andre Simon <andre.simon1 at gmx.de>\n\n"
                          "Artistic Style Classes\n(C) 1998-2002 Tal Davidson\n"
                          "(C) 2006-2013 Jim Pattee <jimp03 at email.com>\n\n"
                          "Diluculum Lua wrapper\n"
@@ -619,7 +618,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
           generator->setSVGSize(ui->leSVGWidth->text().toStdString(), ui->leSVGHeight->text().toStdString());
     }
 
-    generator->setPrintLineNumbers( ui->cbIncLineNo->isChecked());
+    generator->setPrintLineNumbers( ui->cbIncLineNo->isChecked(), ui->sbLineNoStart->value());
     generator->setPrintZeroes(ui->cbPadZeroes->isEnabled() && ui->cbPadZeroes->isChecked());
     generator->setPluginReadFile(ui->lePluginReadFilePath->text().toStdString());
 
@@ -957,6 +956,7 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP){
 
      ui->cbFragment->setEnabled( getOutputType()!=highlight::RTF && getOutputType()!=highlight::SVG );
      ui->sbLineNoWidth->setEnabled(ui->cbIncLineNo->isChecked());
+     ui->sbLineNoStart->setEnabled(ui->cbIncLineNo->isChecked());
      ui->cbHTMLIndex->setEnabled(!ui->cbWrite2Src->isChecked());
      ui->cbHTMLEnclosePreTags->setEnabled(ui->cbFragment->isChecked());
      ui->cbHTMLAnchors->setEnabled(ui->cbIncLineNo->isChecked());

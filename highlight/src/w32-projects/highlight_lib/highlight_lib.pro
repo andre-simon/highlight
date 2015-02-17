@@ -7,17 +7,15 @@ CONFIG += exceptions
 DEFINES -= UNICODE
 DEFINES += NDEBUG
 
+win32:DEFINES += WIN32
 win32:DESTDIR = ..\\..
 
-!contains( LINKTYPE, LUA52 ) {
-win32:INCLUDEPATH += d:/devel/cpp/lua_bin_5.1.4
-}
-else {
-win32:INCLUDEPATH += d:/devel/cpp/lua_bin_5.2.0
-DEFINES += USE_LUA52
-}
 
-win32 { # For Windows
+win32:INCLUDEPATH += d:/devel/cpp/lua_bin_5.3.0
+DEFINES += USE_LUA52
+DEFINES += USE_LUA53
+
+win32 {
     # Leave an empty line because of the backslash at the end of the variable
     DIR_CORE = ..\\..\\core\\
 

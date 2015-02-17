@@ -150,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -591,7 +591,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -714,6 +714,25 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="sbLineNoStart">
+             <property name="toolTip">
+              <string>Set line numbering start</string>
+             </property>
+             <property name="buttonSymbols">
+              <enum>QAbstractSpinBox::UpDownArrows</enum>
+             </property>
+             <property name="accelerated">
+              <bool>true</bool>
+             </property>
+             <property name="maximum">
+              <number>500</number>
+             </property>
+             <property name="value">
+              <number>1</number>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QSpinBox" name="sbLineNoWidth">
@@ -1707,56 +1726,9 @@ This feature is enabled tor C, C++, C# and Java code.</string>
              <property name="toolTip">
               <string>Choose a formatting scheme.</string>
              </property>
-             <item>
-              <property name="text">
-               <string>Allman</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Banner</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>GNU</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Horstmann</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Java</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>K&amp;R</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Linux</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>OTBS</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Stroustrup</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Whitesmith</string>
-              </property>
-             </item>
+             <property name="maxVisibleItems">
+              <number>10</number>
+             </property>
             </widget>
            </item>
           </layout>
