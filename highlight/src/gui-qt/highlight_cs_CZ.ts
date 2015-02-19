@@ -117,6 +117,15 @@ Prověřte instalaci.</translation>
         <source>Choose a plug-in input file</source>
         <translation>Vyberte vstupní soubor s přídavným modulem</translation>
     </message>
+    <message>
+        <source>Lua error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not convert %1:
+Lua Syntax error: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindowClass</name>
@@ -149,14 +158,6 @@ Prověřte instalaci.</translation>
         <translation>...</translation>
     </message>
     <message>
-        <source>GNU</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>K&amp;R</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>RTF</source>
         <translation></translation>
     </message>
@@ -173,16 +174,8 @@ Prověřte instalaci.</translation>
         <translation></translation>
     </message>
     <message>
-        <source>Java</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Misc</source>
         <translation>Různé</translation>
-    </message>
-    <message>
-        <source>OTBS</source>
-        <translation></translation>
     </message>
     <message>
         <source>&amp;Exit</source>
@@ -236,7 +229,7 @@ Podívejte se na ctags.sf.net, abyste se dozvěděl více.</translation>
     </message>
     <message>
         <source>Linux</source>
-        <translation>Linux</translation>
+        <translation type="obsolete">Linux</translation>
     </message>
     <message>
         <source>Plug-In description</source>
@@ -469,14 +462,6 @@ Odstraní značku Unicode BOM.</translation>
         <translation>BBCode</translation>
     </message>
     <message>
-        <source>Allman</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Banner</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>List of plug-ins. Toggle checkbox to enable the scripts.</source>
         <translation>Seznam přídavných modulů. Klepněte na zaškrtávací okénko pro povolení skriptů.</translation>
     </message>
@@ -551,10 +536,6 @@ Odstraní značku Unicode BOM.</translation>
     <message>
         <source>Font size:</source>
         <translation>Velikost písma:</translation>
-    </message>
-    <message>
-        <source>Stroustrup</source>
-        <translation></translation>
     </message>
     <message>
         <source>Select syntax:</source>
@@ -655,10 +636,6 @@ The result has to match the input file encoding.</source>
 Výsledné kódování musí odpovídat kódování vstupního souboru.</translation>
     </message>
     <message>
-        <source>Horstmann</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Select or enter the font name.</source>
         <translation type="obsolete">Vyberte nebo zadejte název písma.</translation>
     </message>
@@ -683,10 +660,6 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     <message>
         <source>Remove the selected plug-ins.</source>
         <translation>Odstranit vybrané přídavné moduly ze seznamu.</translation>
-    </message>
-    <message>
-        <source>Whitesmith</source>
-        <translation></translation>
     </message>
     <message>
         <source>Index/ctags</source>
@@ -898,7 +871,7 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Use non breaking spaces</source>
-        <translation>Použít tvrdé mezery</translation>
+        <translation type="obsolete">Použít tvrdé mezery</translation>
     </message>
     <message>
         <source>Do not add line numbering to lines which were automatically wrapped.</source>
@@ -910,7 +883,15 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Replace spaces by nbsp entities.</source>
-        <translation>Nahradit mezery entitami nbsp.</translation>
+        <translation type="obsolete">Nahradit mezery entitami nbsp.</translation>
+    </message>
+    <message>
+        <source>ODT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set line numbering start</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -347,6 +347,7 @@ void MainWindow::on_pbOutputDest_clicked(){
      QSettings settings(QSettings::IniFormat, QSettings::UserScope,
                         "andre-simon.de", "highlight-gui");
 
+     //QMessageBox::information(this, "path", settings.fileName());
      if (!QFile(settings.fileName()).exists()) return;
 
      settings.beginGroup("MainWindow");
@@ -422,8 +423,8 @@ void MainWindow::on_pbOutputDest_clicked(){
      ui->tabWidget->setCurrentIndex(settings.value(ui->tabWidget->property(name).toString()).toInt());
      ui->tabIOSelection->setCurrentIndex(settings.value(ui->tabIOSelection->property(name).toString()).toInt());
 
-     ui->sbLineNoWidth->setValue(settings.value(ui->sbLineNoWidth->property(name).toString()).toInt());
-     ui->sbLineNoStart->setValue(settings.value(ui->sbLineNoStart->property(name).toString()).toInt());
+     ui->sbLineNoWidth->setValue(settings.value(ui->sbLineNoWidth->property(name).toString(), 2).toInt());
+     ui->sbLineNoStart->setValue(settings.value(ui->sbLineNoStart->property(name).toString(), 1).toInt());
 
 
      settings.endGroup();
@@ -520,7 +521,7 @@ void MainWindow::on_action_About_Highlight_triggered()
                          "Highlight GUI %1\n"
                          "(C) 2002-2015 Andre Simon <andre.simon1 at gmx.de>\n\n"
                          "Artistic Style Classes\n(C) 1998-2002 Tal Davidson\n"
-                         "(C) 2006-2013 Jim Pattee <jimp03 at email.com>\n\n"
+                         "(C) 2006-2014 Jim Pattee <jimp03 at email.com>\n\n"
                          "Diluculum Lua wrapper\n"
 			 "(C) 2005-2013 by Leandro Motta Barros\n\n"
                          "Built with Qt version %2\n\n"

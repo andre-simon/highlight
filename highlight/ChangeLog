@@ -1,6 +1,15 @@
 CHANGELOG Highlight
 
 
+highlight 3.22
+
+17.02.2015
+
+-updated astyle code to release 2.05.1
+-fixed shebang recognition (thanks to Victor Ananjevsky)
+-GUI: added option to define line numbering start
+
+---
 highlight 3.21
 
 02.02.2015

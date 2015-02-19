@@ -33,6 +33,7 @@ Test filetype recognition:
 -file suffix (default)
 -no suffix (i.e. makefile)
 -shebang (i.e. Bash script)
+-force syntax using -S
 
 
 THIRD PARTY COMPATIBILITY
@@ -61,12 +62,6 @@ The following themes are used in third party applications:
 
 The following platform dependent classes are used in SWIG scripts (ikiwiki):
   - DataDir
-
-
-LUA 5.2/5.3 MIGRATION
----------------------
-  
-See src/makefile how to compile highlight with a specific Lua version.
 
 
 SO-LIB VERSION

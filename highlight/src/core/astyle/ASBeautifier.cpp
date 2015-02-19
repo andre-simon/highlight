@@ -48,7 +48,7 @@ ASBeautifier::ASBeautifier()
 	waitingBeautifierStackLengthStack = NULL;
 	activeBeautifierStackLengthStack = NULL;
 
-	headerStack  = NULL;
+	headerStack = NULL;
 	tempStacks = NULL;
 	blockParenDepthStack = NULL;
 	blockStatementStack = NULL;
@@ -111,7 +111,7 @@ ASBeautifier::ASBeautifier(const ASBeautifier &other) : ASBase(other)
 
 	// vector '=' operator performs a DEEP copy of all elements in the vector
 
-	headerStack  = new vector<const string*>;
+	headerStack = new vector<const string*>;
 	*headerStack = *other.headerStack;
 
 	tempStacks = copyTempStacks(other);
@@ -122,7 +122,7 @@ ASBeautifier::ASBeautifier(const ASBeautifier &other) : ASBase(other)
 	blockStatementStack = new vector<bool>;
 	*blockStatementStack = *other.blockStatementStack;
 
-	parenStatementStack =  new vector<bool>;
+	parenStatementStack = new vector<bool>;
 	*parenStatementStack = *other.parenStatementStack;
 
 	bracketBlockStateStack = new vector<bool>;
@@ -309,7 +309,7 @@ void ASBeautifier::init(ASSourceIterator* iter)
 	initContainer(waitingBeautifierStackLengthStack, new vector<int>);
 	initContainer(activeBeautifierStackLengthStack, new vector<int>);
 
-	initContainer(headerStack,  new vector<const string*>);
+	initContainer(headerStack, new vector<const string*>);
 
 	initTempStacksContainer(tempStacks, new vector<vector<const string*>*>);
 	tempStacks->push_back(new vector<const string*>);
@@ -1336,7 +1336,7 @@ void ASBeautifier::registerInStatementIndentColon(const string &line, int i, int
 pair<int, int> ASBeautifier::computePreprocessorIndent()
 {
 	computePreliminaryIndentation();
-	pair<int, int> entry (indentCount, spaceIndentCount);
+	pair<int, int> entry(indentCount, spaceIndentCount);
 	if (!headerStack->empty()
 	        && entry.first > 0
 	        && (headerStack->back() == &AS_IF
@@ -1420,7 +1420,7 @@ const string* ASBeautifier::findHeader(const string &line, int i,
 		// goto default; is NOT a header
 		// default(int) keyword in C# is NOT a header
 		else if ((header == &AS_GET || header == &AS_SET || header == &AS_DEFAULT)
-		         && (peekChar == ';' ||  peekChar == '(' || peekChar == '='))
+		         && (peekChar == ';' || peekChar == '(' || peekChar == '='))
 			break;
 		return header;
 	}
@@ -1622,7 +1622,7 @@ void ASBeautifier::initContainer(T &container, T value)
 {
 	// since the ASFormatter object is never deleted,
 	// the existing vectors must be deleted before creating new ones
-	if (container != NULL )
+	if (container != NULL)
 		deleteContainer(container);
 	container = value;
 }
@@ -2734,7 +2734,7 @@ void ASBeautifier::parseCurrentLine(const string &line)
 					        && (*headerStack).back() == &AS_CLASS)
 					{
 						int nextChar = getNextProgramCharDistance(line, i);
-						if ((int)line.length() > nextChar && line[nextChar] == '}')
+						if ((int) line.length() > nextChar && line[nextChar] == '}')
 							--indentCount;
 					}
 				}
@@ -2805,6 +2805,13 @@ void ASBeautifier::parseCurrentLine(const string &line)
 		if (isPotentialHeader && !squareBracketCount)
 		{
 			const string* newHeader = findHeader(line, i, headers);
+
+			// Qt headers may be variables in C++
+			if (newHeader == &AS_FOREVER || newHeader == &AS_FOREACH)
+			{
+				if (line.find_first_of("=;", i) != string::npos)
+					newHeader = NULL;
+			}
 
 			if (newHeader != NULL)
 			{
@@ -2963,7 +2970,7 @@ void ASBeautifier::parseCurrentLine(const string &line)
 			if (isCStyle() && findKeyword(line, i, AS_NS_HANDLER))
 				foundPreCommandMacro = true;
 
-			if (isCStyle() && parenDepth == 0 && findKeyword(line, i, AS_ENUM))
+			if (parenDepth == 0 && findKeyword(line, i, AS_ENUM))
 				isInEnum = true;
 
 			if (isSharpStyle() && findKeyword(line, i, AS_LET))
@@ -3064,7 +3071,7 @@ void ASBeautifier::parseCurrentLine(const string &line)
 			}
 		}
 
-		if ((ch == ';'  || (parenDepth > 0 && ch == ','))  && !inStatementIndentStackSizeStack->empty())
+		if ((ch == ';' || (parenDepth > 0 && ch == ',')) && !inStatementIndentStackSizeStack->empty())
 			while ((int) inStatementIndentStackSizeStack->back() + (parenDepth > 0 ? 1 : 0)
 			        < (int) inStatementIndentStack->size())
 				inStatementIndentStack->pop_back();
@@ -3185,7 +3192,7 @@ void ASBeautifier::parseCurrentLine(const string &line)
 
 					if (!tempStacks->empty())
 					{
-						vector<const string*>* temp =  tempStacks->back();
+						vector<const string*>* temp = tempStacks->back();
 						tempStacks->pop_back();
 						delete temp;
 					}
