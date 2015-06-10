@@ -2,7 +2,7 @@
                           version.h  -  description
                              -------------------
     begin                : Mon March 3 2003
-    copyright            : (C) 2003-2011 by Andre Simon
+    copyright            : (C) 2003-2015 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -28,7 +28,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef VERSION_H
 #define VERSION_H
 
-#define HIGHLIGHT_VERSION "3.22"
+#define HIGHLIGHT_VERSION "3.23"
 
 #define HIGHLIGHT_URL "http://www.andre-simon.de/"
 #define HIGHLIGHT_EMAIL "andre.simon1@gmx.de"

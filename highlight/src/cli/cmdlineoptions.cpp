@@ -434,9 +434,9 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				else cerr << "highlight: unknown config file type" << endl;
 				break;
 			case S_LIST_SCRIPTS:
-				opt_show_langdefs=(arg=="syntax" || arg=="langs");
 				opt_show_themes=(arg=="themes");
 				opt_show_plugins=(arg=="plugins");
+				opt_show_langdefs=!(opt_show_themes&&opt_show_plugins);
 				break;
 			  
 			default:

@@ -1,6 +1,16 @@
 CHANGELOG Highlight
 
 
+highlight 3.23
+
+08.06.2015
+
+-added conf.lang (thanks to Victor Ananjevsky)
+-added some extensions in filetypes.conf (patch by Victor Ananjevsky)
+-fixed Matlab definition and style (thanks to Justin Pearson)
+-CLI: fixed --list-scripts with unknown argument (thanks to Jens Schleusener)
+
+---
 highlight 3.22
 
 17.02.2015

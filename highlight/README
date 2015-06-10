@@ -644,7 +644,7 @@ OnStateChange(oldState, newState, token, kwGroupID)
   Parameters: oldState:  old state
               newState:  intended new state
               token:     the current token which triggered
-	                     the new state
+                         the new state
               kwGroupID: if newState is HL_KEYWORD, the parameter
                          contains the keyword group ID
   Returns:    Correct state to continue
