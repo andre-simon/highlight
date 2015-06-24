@@ -3,8 +3,9 @@ CHANGELOG Highlight
 
 highlight 3.23
 
-08.06.2015
+24.06.2015
 
+-added rs.lang
 -added conf.lang (thanks to Victor Ananjevsky)
 -added some extensions in filetypes.conf (patch by Victor Ananjevsky)
 -fixed Matlab definition and style (thanks to Justin Pearson)
