@@ -7,7 +7,7 @@
 --  * Does not (yet) highlight inside streams due to limitations in the library
 --
 
-Description="Highlighting definitions for the Portable Document Format (PDF)"
+Description="Portable Document Format"
 
 IgnoreCase=false
 

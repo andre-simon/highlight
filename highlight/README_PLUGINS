@@ -17,7 +17,7 @@ CONTENT
 7. PLUG-IN USAGE
 
 
-1, ABOUT
+1. ABOUT
 -------------------------------------------------------------------------------
 
 The plug-in interface allows modifications of syntax parsing and colouring.
@@ -166,8 +166,7 @@ OnStateChange(oldState, newState, token, kwGroupID)
   Hook Event: Highlighting parser state change
   Parameters: oldState:  old state
               newState:  intended new state
-              token:     the current token which triggered
-	                 the new state
+              token:     the current token which triggered the new state
               kwGroupID: if newState is HL_KEYWORD, the parameter
                          contains the keyword group ID
   Returns:    Correct state to continue
@@ -210,7 +209,7 @@ Decorate(token, state, kwGroupID)
 
   Hook Event: Token identification
   Parameters: token:     the current token
-	      state:     the current state
+              state:     the current state
               kwGroupID: if state is HL_KEYWORD, the parameter
                          contains the keyword group ID
   Returns:    Altered token string or nothing if original token should be 
