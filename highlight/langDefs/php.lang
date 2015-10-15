@@ -3,16 +3,24 @@ Description="PHP"
 
 Keywords={
   { Id=1,
-    List={"abstract",   "and",   "array",   "as",   "break", "case",   "catch",     "cfunction",   "class",   "clone", "const", 
-	  "continue",   "declare",   "default",   "do", "else",   "elseif",   "enddeclare",   "endfor",   "endforeach", "endif", 
-	  "endswitch",   "endwhile",   "extends",   "final", "for",   "foreach",   "function",   "global",   "goto", "if",   "implements", 
-	  "interface",   "instanceof", "namespace",    "new",    "old_function",   "or",   "private", "protected",    "public",   "static", 
-	  "switch",   "throw", "try",    "use",   "var",   "while",   "xor", "__CLASS__",   "__DIR__",    "__FILE__",   "__FUNCTION__", 
-	  "__METHOD__",  "__NAMESPACE__", "die",   "echo",   "empty",   "exit",   "eval", "include",   "include_once",   "isset",   "list", 
-	  "require", "require_once",   "return",   "print",   "unset"},
+	List={"abstract", "and", "array", "as", "break", "case",
+	"catch",   "cfunction", "class", "clone", "const",
+	"continue", "declare", "default", "do", "else", "elseif",
+	"enddeclare", "endfor", "endforeach", "endif", "endswitch",
+	"endwhile", "extends", "final", "for", "foreach",
+	"function", "global", "goto", "if", "implements",
+	"interface", "instanceof", "namespace",  "new",
+	"old_function", "or", "private", "protected",  "public",
+	"static", "switch", "throw", "try",  "use", "var", "while",
+	"xor", "__CLASS__", "__DIR__",  "__LINE__", "__FILE__",
+	"__FUNCTION__", "__TRAIT__", "__METHOD__",  "__NAMESPACE__",
+	"die", "echo", "empty", "exit", "eval", "include",
+	"include_once", "isset", "list", "require", "require_once",
+	"return", "print", "unset",  "true", "false", "null", "resource"
+	  },
   },
   { Id=2,
-    List={"int", "integer", "real", "double", "float", "string", "array", "object"},
+    List={"int", "integer", "real", "double", "float", "string", "array", "object", "bool", "mixed", "numeric"},
   },
   { Id=3,
     Regex=[[\$\w+]],
@@ -48,7 +56,7 @@ function OnStateChange(oldState, newState, token)
    if  (string.sub(token,1,1) =="$") and oldState==HL_STRING and newState==HL_KEYWORD then
       return HL_INTERPOLATION
    end
-   
+
    --recognize hereDoc multine strings
    if oldState==HL_STANDARD and newState==HL_STRING and not string.find("\"'", token) then
       hereDoc = string.match(token, "<<<'?(%a+)" )
@@ -57,6 +65,6 @@ function OnStateChange(oldState, newState, token)
       hereDoc = nil
       return HL_STRING_END
    end
-   
+
    return newState
 end

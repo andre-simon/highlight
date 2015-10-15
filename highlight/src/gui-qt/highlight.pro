@@ -5,6 +5,9 @@ TARGET = highlight-gui
 TEMPLATE = app
 INCLUDEPATH += . \
     ../include
+        
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+    
 win32:CONFIG += static
 
 PRECOMPILED_HEADER = precomp.h

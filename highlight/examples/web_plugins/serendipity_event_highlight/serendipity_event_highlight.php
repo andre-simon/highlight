@@ -9,7 +9,7 @@ This plugin uses highlight (http://www.andre-simon.de/) to add syntax highlighti
 
 == Description ==
 
-The highlight utility converts source code of 120 programming languages to HTML 
+The highlight utility converts source code of 120 programming languages to HTML
 with syntax highlighting. This plugin pipes the content of [highlight] tags associated
 with a lang parameter to highlight, and returns the output code which is included
 in the Serendipity blog entry.
@@ -37,8 +37,8 @@ Execute 'highlight --list-langs' to get a list of all supported programming lang
 3. Activate and configure the plugin in the serendipity administration menu
 
    IMPORTANT:
-   To avoid insertion of superfluous <br> Tags by the nl2br plugin, add the 
-   string "highlight" to the  "list of HTML-tags where no breaks shall be 
+   To avoid insertion of superfluous <br> Tags by the nl2br plugin, add the
+   string "highlight" to the  "list of HTML-tags where no breaks shall be
    converted" in the nl2br configuration menu.
 
  */
@@ -70,9 +70,9 @@ class serendipity_event_highlight extends serendipity_event
         $propbag->add('author',        'Andre Simon');
         $propbag->add('requirements',  array(
             'serendipity' => '0.9',
-            'highlight'   => '3.3'
+            'highlight'   => '3.23'
         ));
-        $propbag->add('version',       '0.1');
+        $propbag->add('version',       '0.2');
         $propbag->add('event_hooks', array('frontend_display' => true, 'frontend_comment' => true));
         $propbag->add('groups', array('MARKUP'));
 
@@ -98,22 +98,27 @@ class serendipity_event_highlight extends serendipity_event
 	#Colour themes of a highlight default installation
         $this->themes = array(
 	"acid", "aiseered", "andes", "anotherdark", "autumn", "baycomb",
-	"bclear", "biogoo", "bipolar", "blacknblue", "bluegreen", "breeze", "bright",
-	"camo", "candy", "clarity", "dante", "darkblue", "darkbone", "darkness",
-	"darkslategray", "darkspectrum", "denim", "desertEx", "dusk", "earendel",
-	"easter", "edit-anjuta", "edit-eclipse", "edit-emacs", "edit-flashdevelop",
-	"edit-gedit", "edit-jedit", "edit-kwrite", "edit-matlab", "edit-msvs2008",
-	"edit-nedit", "edit-vim-dark", "edit-vim", "edit-xcode", "ekvoli", "fine_blue",
-	"freya", "fruit", "golden", "greenlcd", "kellys", "leo", "lucretia", "manxome",
-	"maroloccio", "matrix", "moe", "molokai", "moria", "navajo-night", "navy",
-	"neon", "night", "nightshimmer", "nuvola", "olive", "orion", "pablo", "peaksea",
-	"print", "rand01", "rdark", "relaxedgreen", "rootwater", "seashell", "sienna",
-	"tabula", "tcsoft", "vampire", "whitengrey", "xoria256", "zellner", "zenburn",
-	"zmrok"
+	"bclear", "biogoo", "bipolar", "blacknblue", "bluegreen", "breeze",
+	"bright", "camo", "candy", "clarity", "dante", "darkblue",
+	"darkbone", "darkness", "darkslategray", "darkspectrum", "denim",
+	"dusk", "earendel", "easter", "edit-anjuta", "edit-eclipse",
+	"edit-emacs", "edit-flashdevelop", "edit-gedit", "edit-jedit",
+	"edit-kwrite", "edit-matlab", "edit-msvs2008", "edit-nedit",
+	"edit-vim-dark", "edit-vim", "edit-xcode", "ekvoli", "fine_blue",
+	"freya", "fruit", "golden", "greenlcd", "kellys", "leo",
+	"lucretia", "manxome", "maroloccio", "matrix", "moe", "molokai",
+	"moria", "navajo-night", "navy", "neon", "night", "nightshimmer",
+	"nuvola", "olive", "orion", "oxygenated", "pablo", "peaksea",
+	"print", "rand01", "rdark", "relaxedgreen", "rootwater",
+	"seashell", "solarized-dark", "solarized-light", "tabula",
+	"tcsoft", "the", "vampire", "whitengrey", "xoria256", "zellner",
+	"zenburn", "zmrok"
         );
 
 	#Reformatting schemes of a highlight default installation
-        $this->reformatschemes = array ("disabled","allman", "ansi", "banner", "gnu", "horstmann", "java", "kr", "linux", "otbs", "stroustrup", "whitesmith");
+        $this->reformatschemes = array ("disabled","allman", "ansi", "banner",
+        "gnu", "google", "horstmann", "java", "kr", "linux", "lisp",
+        "otbs", "pico", "stroustrup", "vtk", "whitesmith");
 
 	#highlight output options
         $conf_array = array('hl_bin_dir','hl_data_dir','hl_linenumbers','hl_linenumberstart','hl_linenumberzeroes','hl_linenumberlen',
@@ -169,7 +174,7 @@ class serendipity_event_highlight extends serendipity_event
                 $propbag->add('type', 'string');
                 $propbag->add('description', PLUGIN_EVENT_HIGHLIGHT_LINENUMBERLEN_DESC);
                 $propbag->add('default', '2');
- 		$propbag->add('validate', 'number');
+				$propbag->add('validate', 'number');
                 break;
 
             case 'hl_theme' :
@@ -201,14 +206,14 @@ class serendipity_event_highlight extends serendipity_event
                 $propbag->add('type', 'string');
                 $propbag->add('description', PLUGIN_EVENT_HIGHLIGHT_WRAPLEN_DESC);
                 $propbag->add('default', '60');
- 		$propbag->add('validate', 'number');
+				$propbag->add('validate', 'number');
                 break;
             case 'hl_tab_len' :
                 $propbag->add('name',        PLUGIN_EVENT_HIGHLIGHT_TABLEN);
                 $propbag->add('type', 'string');
                 $propbag->add('description', PLUGIN_EVENT_HIGHLIGHT_TABLEN_DESC);
                 $propbag->add('default', '4');
- 		$propbag->add('validate', 'number');
+				$propbag->add('validate', 'number');
                 break;
             default :
                 $propbag->add('name',        constant($name));
@@ -268,10 +273,10 @@ class serendipity_event_highlight extends serendipity_event
 	0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
 	1 => array("pipe", "w")  // stdout is a pipe that the child will write to
 	);
-	
+
 	$hl_cmd_str =  $this->get_config('hl_bin_dir');
 	$hl_cmd_str .= ' --inline-css -f ';
-	
+
 	if ( $this->get_config('hl_linenumbers')){
 		$hl_cmd_str .= " -l -m ";
 		$hl_cmd_str .= $this->get_config('hl_linenumberstart');
@@ -281,23 +286,23 @@ class serendipity_event_highlight extends serendipity_event
 		$hl_cmd_str .= ' -j ';
 		$hl_cmd_str .= $this->get_config('hl_linenumberlen');
 	}
-	
+
 	if ($this->get_config('hl_tab_len')) {
 		$hl_cmd_str .= " -t ";
 		$hl_cmd_str .= $this->get_config('hl_tab_len');
 	}
-	
+
 	if ($this->get_config('hl_wrap')>0){
 		$hl_cmd_str .= ($this->get_config('hl_wrap') == 1)? ' -V ':' -W ';
 		$hl_cmd_str .= " -J ";
 		$hl_cmd_str .= $this->get_config('hl_wrap_len');
 	}
-	
+
 	if ($this->get_config('hl_format')>1){
 		$hl_cmd_str .= " -F ";
 		$hl_cmd_str .= $this->reformatschemes[$this->get_config('hl_format')];
 	}
-	
+
 
 	$hl_cmd_str .= " -s ";
 	$hl_cmd_str .= $this->themes[$this->get_config('hl_theme')];
@@ -321,15 +326,15 @@ class serendipity_event_highlight extends serendipity_event
 	}
 	$result='';
 	if (!strlen($output)) {
-		$result .= "<small>ERROR: Execution of highlight ($hl_cmd_str) failed or missing input. Check binary  path.</small>"; 
+		$result .= "<small>ERROR: Execution of highlight ($hl_cmd_str) failed or missing input. Check binary  path.</small>";
 		$result .= "<pre style=\"font-size:9pt;\">";
-		$result .= $input_code; 
-		$result .= "</pre>"; 
-		
+		$result .= $input_code;
+		$result .= "</pre>";
+
 	} else {
 		$result .= "<pre style=\"font-size:9pt;\">";
 		$result .= $output;
-		$result .= "</pre>"; 
+		$result .= "</pre>";
 	}
 	return $result;
     }

@@ -2,7 +2,7 @@
                           themereader.cpp  -  description
                              -------------------
     begin                : Son Nov 10 2002
-    copyright            : (C) 2002-2010 by Andre Simon
+    copyright            : (C) 2002-2015 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -42,7 +42,6 @@ ThemeReader::~ThemeReader()
 
 }
 
-
 void ThemeReader::initStyle(ElementStyle& style, const Diluculum::LuaVariable& var) {
     string styleColor="#000000";
     bool styleBold=false, styleItalic=false, styleUnderline=false;
@@ -81,13 +80,9 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
 	ls["HL_FORMAT_ODT"]=ODTFLAT;
 	ls["HL_OUTPUT"] = type;
 	ls.doString("Injections={}");
-	
-#ifdef NACL_BUILD
-  ls.doString(styleDefinitionPath);
-#else
-	  ls.doFile (styleDefinitionPath);
-#endif
-      
+    
+        ls.doFile (styleDefinitionPath);
+ 
 	desc = ls["Description"].value().asString();
 
 	if (pluginChunks.size()){
@@ -121,9 +116,8 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
             idx++;
         }
         
-       idx=1;
-	while (ls["Injections"][idx].value() !=Diluculum::Nil) {
-	  //  injections.push_back (ls["Injections"][idx].value().asString());
+        idx=1;
+        while (ls["Injections"][idx].value() !=Diluculum::Nil) {
 	  themeInjections +=ls["Injections"][idx].value().asString();
 	  idx++;
         }
@@ -186,7 +180,6 @@ ElementStyle ThemeReader::getInterpolationStyle() const
 {
     return interpolation;
 }
-
 
 ElementStyle ThemeReader::getNumberStyle() const
 {

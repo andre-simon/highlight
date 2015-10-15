@@ -4,7 +4,7 @@ This plugin uses highlight (http://www.andre-simon.de) to add syntax highlightin
 
 == Description ==
 
-The highlight utility converts source code of 120 programming languages to HTML 
+The highlight utility converts source code of 190 programming languages to HTML
 with syntax highlighting. This plugin pipes the content of <pre>-Tags associated
 with a lang parameter to highlight, and returns the output code which is included
 in the WordPress blog entry.
@@ -28,6 +28,12 @@ indentation, line wrapping etc).
 == Installation ==
 
 1. Install highlight (www.andre-simon.de) on your host
-2. Unzip the wp_highlight.zip file and upload the content to the 
+
+2. Unzip the wp_highlight.zip file and upload the content to the
    `/wp-content/plugins/` directory
-3. Activate the plugin
+
+   OR
+
+   Copy the highlight.php file to the `/wp-content/plugins/` directory
+
+3. Activate the plugin in the WordPress backend

@@ -2,7 +2,7 @@
                           codegenerator.h  -  description
                              -------------------
     begin                : Die Jul 9 2002
-    copyright            : (C) 2002-2010 by Andre Simon
+    copyright            : (C) 2002-2015 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -667,12 +667,8 @@ namespace highlight
 			/** Flag to test if trailing newline should be printed */
 			bool noTrailingNewLine;
 			
-			/** indicator if current stae was set by Lua hook function */
+			/** indicator if current state was set by Lua hook function */
 			bool resultOfHook;
-			
-#ifdef NACL_BUILD
-			bool readScriptAsFile;
-#endif
 
 			/** flag which determines keyword output (unchangeed, uppercase, lowercase)*/
 			StringTools::KeywordCase keywordCase;

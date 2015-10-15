@@ -40,9 +40,9 @@ class HighlightPipe {
         return array(
             'author' => 'Andre Simon',
             'email'  => 'andre.simon1@gmx.de',
-            'date'   => '2008-02-20',
+            'date'   => '2015-10-13',
             'url'    => 'http://www.andre-simon.de/',
-            'version'    => '1.1',
+            'version'    => '1.2',
         );
   }
 
@@ -57,10 +57,10 @@ class HighlightPipe {
 	0 => array("pipe", "r"),
 	1 => array("pipe", "w")
 	);
-	
+
 	$this->hl_cmd_str = $this->hl_option['hl_bin'];
-	
-	if ($this->hl_option['linenumbers']){
+
+	if ($this->hl_option['line-numbers']){
 		$this->hl_cmd_str .= " -l -m 1";
 		/*$this->hl_cmd_str .= $this->get_config('hl_linenumbersberstart');*/
 		if ($this->hl_option['zeroes']){
@@ -71,12 +71,12 @@ class HighlightPipe {
 			$this->hl_cmd_str .=$this->hl_option['line-number-length'];
 		}
 	}
-	
+
 	if (is_numeric($this->hl_option['replace-tabs']) and $this->hl_option['replace-tabs']>0) {
 		$this->hl_cmd_str .= " -t ";
                 $this->hl_cmd_str .= $this->hl_option['replace-tabs'];
 	}
-	
+
 	if ($this->hl_option['wraptype']>0){
 		$this->hl_cmd_str .= ($this->hl_option['wraptype'] == 1)? ' -V ':' -W ';
 		if ($this->hl_option['line-length']>0 && is_numeric($this->hl_option['line-length'])) {
@@ -84,7 +84,7 @@ class HighlightPipe {
 			$this->hl_cmd_str .= $this->hl_option['line-length'];
 		}
 	}
-	
+
 	if (strlen($this->hl_option['reformat'])>1){
 		$this->hl_cmd_str .= " -F ";
 		$this->hl_cmd_str .= $this->hl_option['reformat'];
@@ -106,7 +106,7 @@ class HighlightPipe {
 	if ($this->hl_option['fragment']){
 		$this->hl_cmd_str .= " -f ";
 	}
-	
+
 	if ($this->hl_option['theme']){
 		$this->hl_cmd_str .= " -s ";
 		$this->hl_cmd_str .= $this->hl_option['theme'];
@@ -140,7 +140,7 @@ class HighlightPipe {
         return $output;
     }
 
- 
+
    // PRIVATE STUFF
    var $special = array(' ', '/','!','&','*','\\', '.', '|', '´','\'', '<', '>');
 

@@ -1,6 +1,14 @@
 CHANGELOG Highlight
 
+highlight 3.24
 
+13.10.2015
+
+-added plug-in reduce_filesize.lua
+-updated php.lang 
+-updated scripts in examples directory
+
+---
 highlight 3.23
 
 16.07.2015

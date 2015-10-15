@@ -6,7 +6,7 @@ if (!extension_loaded('highlight')){
       if (!dl('highlight.so')) {
 	  exit;
       }
-} 
+}
 
 /**
  * return value options
@@ -90,6 +90,8 @@ if (empty($options)) {
 $outformat = valueOptions($options,'O','outformat');
 $outformat = strtolower($outformat);
 $out = 0; // default, HTML
+
+
 if($outformat) {
     switch ($outformat) {
         case 'xhtml': $out = 1; break;
@@ -101,7 +103,8 @@ if($outformat) {
         case 'html32': $out = 7; break;
         case 'svg': $out = 8; break;
         case 'bbcode': $out = 9; break;
-        case 'odt': $out = 10; break;
+        case 'pango': $out = 10; break;
+        case 'odt': $out = 11; break;
         default: $out = 0;
     }
 }

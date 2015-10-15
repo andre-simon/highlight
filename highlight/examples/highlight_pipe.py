@@ -4,13 +4,13 @@ class HighlightPipe:
 	""" This Python package serves as interface to the highlight utility.
 	Input and output streams are handled with pipes.
 	Command line parameter length is validated before use."""
-	
+
 	def __init__(self):
 		self.cmd = 'highlight'
 		self.src=''
 		self.options=dict()
 		self.success=False
-		
+
 	def getResult(self):
 		cmd = self.cmd
 		for k, v in self.options.iteritems():
@@ -26,14 +26,14 @@ class HighlightPipe:
 		if (len(err_msg)>0): return err_msg
 		self.success=True
 		return child_stdout.readlines()
-			
-			
+
+
 ###############################################################################
 
 def main():
 	gen = HighlightPipe();
 	gen.options['syntax'] = 'c'
-	gen.options['style'] = 'vim'
+	gen.options['style'] = 'edit-vim'
 	gen.options['enclose-pre'] = '1'
 	gen.options['fragment'] = '1'
 	gen.options['inline-css'] = '1'
@@ -41,6 +41,6 @@ def main():
 
 	print gen.getResult()
 	if not gen.success: print "Execution failed."
- 
+
 if __name__=="__main__":
 	main()

@@ -2,7 +2,7 @@
                           cmdlineoptions.cpp  -  description
                              -------------------
     begin                : Sun Nov 25 2001
-    copyright            : (C) 2001-2010 by Andre Simon
+    copyright            : (C) 2001-2015 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -68,7 +68,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		opt_ordered_list ( false ),
 		opt_fnames_as_anchors ( false ),
 		opt_validate ( false ),
-		opt_number_wrapped_lines ( true ), //before the patch, this was always true, so by default it stays true.
+		opt_number_wrapped_lines ( true ),
 		opt_inline_css ( false ),
 		opt_enclose_pre ( false ),
 		opt_char_styles ( false ),
@@ -170,12 +170,12 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 		{ S_OPT_ABS_CFG_PATH, OPT_ABS_CFG_PATH,  Arg_parser::yes},
 		{ S_LIST_SCRIPTS, OPT_LIST_SCRIPTS,  Arg_parser::yes},
 
-		{ 0,                  0,                Arg_parser::no  }
+		{ 0, 0, Arg_parser::no }
 	};
 
 
 	Arg_parser parser ( argc, argv, options );
-	if ( parser.error().size() )				// bad option
+	if ( parser.error().size() ) // bad option
 	{
 		cerr << "highlight: "<< parser.error() <<"\n";
 		cerr << "Try `highlight --help' for more information.\n";
@@ -187,7 +187,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 	{
 		const int code = parser.code ( argind );
 		const std::string & arg = parser.argument ( argind );
-		if ( !code ) break;					// no more options
+		if ( !code ) break; // no more options
 		switch ( code )
 		{
 			case 'O':
@@ -477,8 +477,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
 				wildcard="*."+*ext;
 				if ( Platform::wildcmp ( wildcard.c_str(), ( *file ).c_str() ) )
 				{
-					inputFileNames.erase ( file );
-					file--;
+					file = inputFileNames.erase ( file );
 					break;
 				}
 			}
@@ -750,13 +749,10 @@ bool CmdLineOptions::disableTrailingNL() const
 {
 	return opt_no_trailing_nl;
 }
-
-
 const string& CmdLineOptions::getDocumentTitle() const
 {
 	return docTitle;
 }
-
 highlight::WrapMode CmdLineOptions::getWrappingStyle() const
 {
 	return wrappingStyle;

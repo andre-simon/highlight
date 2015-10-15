@@ -2,7 +2,7 @@
                           syntaxreader.cpp  -  description
                              -------------------
     begin                : Wed Nov 28 2001
-    copyright            : (C) 2001-2010 by Andre Simon
+    copyright            : (C) 2001-2015 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -47,7 +47,6 @@ EmbedLangDelimMap SyntaxReader::exitDelimiters;
 vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
 
 int RegexElement::instanceCnt=0;
-
 
 int SyntaxReader::luaAddKeyword (lua_State *L) {
     int retVal=0;
@@ -195,11 +194,9 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
     currentPath=langDefPath;
     disableHighlighting=false;
     
-    #ifndef NACL_BUILD
     if (!Platform::fileExists(langDefPath)){
       return LOAD_FAILED;
     }
-#endif
 
     try {
 
@@ -217,11 +214,6 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
         // ececute script and read values
         ls.doFile (langDefPath);
-#ifdef NACL_BUILD
-	ls.doString(langDefPath);
-#else
-        ls.doFile (langDefPath);
-#endif
 
         langDesc = ls["Description"].value().asString();
 
@@ -297,7 +289,6 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                 }
                 ++listIdx;
             }
-
         }
 
         //move behind comment section because of fortran comments (^cC.*$)
@@ -357,9 +348,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
             }
 
             string  escRegex=(ls["Strings"]["Escape"].value()==Diluculum::Nil)?REGEX_ESCSEQ:ls["Strings"]["Escape"].value().asString();
-            
             regex.push_back ( new RegexElement ( ESC_CHAR,ESC_CHAR_END, StringTools::trim(escRegex), 0, -1 ) );
-            
         }
 
         if (globals.count("PreProcessor")) {

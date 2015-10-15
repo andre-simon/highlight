@@ -28,7 +28,7 @@ sub getResult {
   }
   local(*HIS_IN, *HIS_OUT, *HIS_ERR);
 
-  my $childpid = IPC::Open3::open3(\*HIS_IN, \*HIS_OUT, \*HIS_ERR, $hl_bin. join ' ', @hl_args) 
+  my $childpid = IPC::Open3::open3(\*HIS_IN, \*HIS_OUT, \*HIS_ERR, $hl_bin. join ' ', @hl_args)
                  or die ("error invoking highlight");
 
   print HIS_IN $src;
@@ -57,9 +57,9 @@ $html->{'syntax'} ='c';
 $html->{'fragment'} = 1;
 $html->{'inline-css'} = 1;
 $html->{'enclose-pre'} = 1;
-$html->{'style'} = 'vim';
+$html->{'style'} = 'edit-vim';
 
 my $input='int main () { return 0; }';
 my $output=$html->getResult($input);
 
-print "Result:\n$output\n";
+print "$output\n";

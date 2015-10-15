@@ -29,7 +29,6 @@ You should have received a copy of the GNU General Public License
 along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include <memory>
 #include <algorithm>
 #include <Diluculum/LuaState.hpp>
@@ -220,16 +219,12 @@ string HLCmdLineApp::getFileSuffix(const string& fileName)
     if (ptPos == string::npos){
      return  (psPos==string::npos) ? fileName : fileName.substr(psPos+1, fileName.length());
     }
-    //return (ptPos == string::npos || (psPos!=string::npos && psPos>ptPos)) ? "" : fileName.substr(ptPos+1, fileName.length()); 
-    return (psPos!=string::npos && psPos>ptPos) ? "" : fileName.substr(ptPos+1, fileName.length()); 
-  
+    return (psPos!=string::npos && psPos>ptPos) ? "" : fileName.substr(ptPos+1, fileName.length());   
 }
 
 bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, StringMap* shebangMap )
 {
     if ( !extMap || !shebangMap ) return false;
-
-  //  string confPath=dataDir.getConfDir() + name + ".conf";
     string confPath=dataDir.getFiletypesConfPath(name);
     try {
         Diluculum::LuaState ls;
@@ -259,7 +254,6 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, S
     }
     return true;
 }
-
 
 int HLCmdLineApp::getNumDigits ( int i )
 {
@@ -422,7 +416,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         return printInstalledLanguages();
     }
 
-    const  vector <string> inFileList=options.getInputFileNames();
+    const vector <string> inFileList=options.getInputFileNames();
 
     if ( options.enableBatchMode() && inFileList[0].empty() )
     {
@@ -473,7 +467,6 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->setStartingNestedLang( options.getStartNestedLang());
     generator->disableTrailingNL(options.disableTrailingNL());
     generator->setPluginReadFile(options.getPluginReadFilePath());
-
 
     bool styleFileWanted = !options.fragmentOutput() || options.styleOutPathDefined();
 
@@ -604,7 +597,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
                 {
                     cerr << "highlight: Unknown source file extension \""
                          << suffix
-                         << "\".\n";
+                         << "\". Consider using the --skip option.\n";
                 }
                 if ( !options.forceOutput() )
                 {
@@ -696,8 +689,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         ++i;
     }
 
-
-    if ( i &&   !options.includeStyleDef()
+    if ( i  && !options.includeStyleDef()
             && styleFileWanted
             && options.formatSupportsExtStyle() )
     {

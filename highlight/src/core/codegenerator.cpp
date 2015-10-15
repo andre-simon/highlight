@@ -2,7 +2,7 @@
                           codegenerator.cpp  -  description
                              -------------------
     begin                : Die Jul 9 2002
-    copyright            : (C) 2002-2012 by Andre Simon
+    copyright            : (C) 2002-2015 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -1760,16 +1760,8 @@ bool CodeGenerator::initPluginScript(const string& script) {
 
     try {
         userScriptError="";
-
         Diluculum::LuaState ls;
-	
-	
-#ifdef NACL_BUILD
-	ls.doString(script);
-#else
         ls.doFile (script);
-#endif
-
         int listIdx=1;
 
         while (ls["Plugins"][listIdx].value() !=Diluculum::Nil) {
@@ -1786,7 +1778,6 @@ bool CodeGenerator::initPluginScript(const string& script) {
                     currentSyntax->addUserChunk(ls["Plugins"][listIdx]["Chunk"].value().asFunction());
                 }
             }
-
             listIdx++;
         }
     }  catch (Diluculum::LuaError err) {
@@ -1798,9 +1789,7 @@ bool CodeGenerator::initPluginScript(const string& script) {
 
 bool CodeGenerator::checkSpecialCmd()
 {
-
     string noParseCmd="@highlight";
-
     size_t cmdPos = line.find ( noParseCmd );
 
     if ( cmdPos!=string::npos )
@@ -1816,7 +1805,6 @@ bool CodeGenerator::checkSpecialCmd()
 
         return true; // do not parse line as comment
     }
-
     return false; //parse comment as usual
 }
 
