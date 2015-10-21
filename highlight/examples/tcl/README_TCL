@@ -1,0 +1,13 @@
+HIGHLIGHT TCL EXTENSION
+-----------------------
+
+Run make to compile the TCL extension.
+
+The extension provides these functions in the highlight namespace:
+html, tex, latex, xterm256, ansi, bbcode, pango
+
+tclsh example:
+
+% load tclhighlight.so
+% ::highlight::html "int main()"
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">()</span>
