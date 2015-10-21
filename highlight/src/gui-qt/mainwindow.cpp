@@ -1123,12 +1123,16 @@ void MainWindow::on_actionAbout_translations_triggered()
      if (mimeData && mimeData->hasUrls()) {
          QList<QUrl> urlList = mimeData->urls();
          QString url;
+         QStringList localURLs;
+
          for (int i = 0; i < urlList.size(); ++i) {
              url=urlList.at(i).toLocalFile();
              if (ui->lvInputFiles->findItems ( url, Qt::MatchExactly ).empty()) {
-               ui->lvInputFiles->addItem(url);
+               //ui->lvInputFiles->addItem(url);
+               localURLs << url;
              }
          }
+         addInputFiles(localURLs, ui->lvInputFiles);
      }
      event->acceptProposedAction();
  }

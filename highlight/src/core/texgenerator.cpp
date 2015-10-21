@@ -148,8 +148,8 @@ namespace highlight
 				return "{\\bf\\^{}}";
 				break;
 			case '_':
-				return "\\_{}";
-				break;
+			//	return "\\_{}";
+			//	break;
 			case '&':
 			case '$':
 			case '#':
@@ -157,6 +157,7 @@ namespace highlight
 			{
 				string m ( "\\" );
 				m += c;
+                                m += "{}";
 				return m;
 			}
 			break;
