@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.19 ----------------------- September 2014 ---
+---  HIGHLIGHT MANUAL - Version 3.24 ------------------------- Oktober 2015 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -35,8 +35,9 @@ INHALT
 
 4. HIGHLIGHT INTEGRIEREN
    4.1 BEISPIELSKRIPTE
-   4.2 SWIG SCHNITTSTELLE
-   4.3 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
+   4.2 SWIG
+   4.3 TCL
+   4.4 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
 
 5. KOMPILIEREN UND INSTALLIEREN
    5.1 VORKOMPILIERTE PAKETE
@@ -908,18 +909,22 @@ der Zugriff auf den absoluten Pfad fehlschlaegt.
 
 Im /examples Unterverzeichnis befinden sich Beispielskripte in PHP, Perl und
 Python, die highlight aufrufen und die Ausgabe als String auswerten. Diese
-Skripte können als Ausgangspunkt fuer neue Erweiterungen genutzt werden.
+Skripte koennen als Ausgangspunkt fuer neue Erweiterungen genutzt werden.
 
-
-4.2 SWIG SCHNITTSTELLE
+4.2 SWIG
 -------------------------------------------------------------------------------
 
 Eine SWIG Interface-Datei befindet sich in /examples/swig.
 Installationshinweise finden Sie in README_SWIG, Programmierbeispiele in
 den vorhandenen Skripten.
 
+4.3 TCL
+-------------------------------------------------------------------------------
 
-4.3 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
+Eine TCL-Erweiterung befindet sich in /examples/tcl.
+Installationshinweise finden Sie in README_TCL.
+
+4.4 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
 -------------------------------------------------------------------------------
 
 Im /examples/web_plugins Unterverzeichnis der highlight-Installation befinden
@@ -947,6 +952,9 @@ http://cran.r-project.org/web/packages/highlight/index.html
 Inkscape plug-in
 http://xico.freeshell.org/inksyntax/index.html
 
+Webgit:
+http://andre-simon.de/dokuwiki/doku.php?id=en:webgit
+
 
 5. KOMPILIEREN UND INSTALLIEREN
 -------------------------------------------------------------------------------
@@ -972,7 +980,7 @@ Arch Linux
 http://www.archlinux.org/packages/community/i686/highlight/
 
 Debian GNU/Linux
-http://packages.debian.org/unstable/devel/highlight
+https://packages.debian.org/search?keywords=highlight
 
 Fedora
 http://koji.fedoraproject.org/koji/packageinfo?packageID=2044
@@ -981,10 +989,10 @@ FreeBSD
 http://www.freshports.org/textproc/highlight/
 
 Gentoo Portage
-http://www.gentoo-portage.com/app-text/highlight
+https://packages.gentoo.org/packages/app-text/highlight
 
 Mac OS X
-http://www.hmug.org/pub/MacOS_X/BSD/Applications/Text/highlight/
+http://braumeister.org/formula/highlight
 
 Slackware
 http://sotirov-bg.net/slackpack/search.cgi?q=highlight
@@ -994,6 +1002,9 @@ http://packman.links2linux.de/package/highlight
 
 Ubuntu
 http://packages.ubuntu.com/oneiric/allpackages
+
+Windows Chocolatey
+https://chocolatey.org/packages/highlight
 
 In INSTALL befinden sich weitere Informationen zu Paketinhalt und Installation.
 

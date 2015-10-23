@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.19 ----------------------- September 2014 ---
+---  HIGHLIGHT MANUAL - Version 3.24 ------------------------- October 2015 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -35,7 +35,8 @@ CONTENT
 
 4. EMBEDDING HIGHLIGHT
    4.1 SAMPLE SCRIPTS
-   4.2 SWIG INTERFACE
+   4.2 SWIG
+   4.3 TCL
    4.3 THIRD PARTY SCRIPTS AND PLUG-INS
 
 5. BUILDING AND INSTALLING
@@ -884,15 +885,21 @@ See the examples subdirectory in the highlight package for some scripts in PHP,
 Perl and Python  which invoke highlight and retrieve its output as string.
 These scripts may be used as reference to develop plug-ins for other apps.
 
-4.2 SWIG INTERFACE
+4.2 SWIG
 -------------------------------------------------------------------------------
 
 A SWIG interface file is located in /examples/swig.
 See README_SWIG for installation instructions and the example scripts as
 programming reference.
 
+4.3 TCL
+-------------------------------------------------------------------------------
 
-4.3 THIRD PARTY SCRIPTS AND PLUG-INS
+A TCL extension is located in /examples/tcl.
+See README_TCL for installation instructions.
+
+
+4.4 THIRD PARTY SCRIPTS AND PLUG-INS
 -------------------------------------------------------------------------------
 
 See the /examples/web_plugins subdirectory in the highlight package for
@@ -920,6 +927,9 @@ http://cran.r-project.org/web/packages/highlight/index.html
 Inkscape plug-in
 http://xico.freeshell.org/inksyntax/index.html
 
+Webgit:
+http://andre-simon.de/dokuwiki/doku.php?id=en:webgit
+
 
 5. BUILDING AND INSTALLING
 -------------------------------------------------------------------------------
@@ -946,7 +956,7 @@ Arch Linux
 http://www.archlinux.org/packages/community/i686/highlight/
 
 Debian GNU/Linux
-http://packages.debian.org/unstable/devel/highlight
+https://packages.debian.org/search?keywords=highlight
 
 Fedora
 http://koji.fedoraproject.org/koji/packageinfo?packageID=2044
@@ -955,10 +965,10 @@ FreeBSD
 http://www.freshports.org/textproc/highlight/
 
 Gentoo Portage
-http://www.gentoo-portage.com/app-text/highlight
+https://packages.gentoo.org/packages/app-text/highlight
 
 Mac OS X
-http://www.hmug.org/pub/MacOS_X/BSD/Applications/Text/highlight/
+http://braumeister.org/formula/highlight
 
 Slackware
 http://sotirov-bg.net/slackpack/search.cgi?q=highlight
@@ -968,6 +978,9 @@ http://packman.links2linux.de/package/highlight
 
 Ubuntu
 http://packages.ubuntu.com/oneiric/allpackages
+
+Windows Chocolatey
+https://chocolatey.org/packages/highlight
 
 The file INSTALL contains details about package contents and installation.
 
@@ -979,6 +992,7 @@ Highlight is known to compile with gcc and suncc.
 It depends on Boost headers and Lua 5.x/LuaJit developer packages.
 The optional GUI depends on Qt4/Qt5 developer packages.
 Please see the makefile for further options.
+
 
 5.3 PACKAGING EXAMPLE
 -------------------------------------------------------------------------------

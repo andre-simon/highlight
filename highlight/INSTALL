@@ -21,6 +21,7 @@ root of highlight-x.x
 |
 |-- examples            # examples for highlight scripting
 |   |-- web_plugins     # plugins for various web toolkits
+|   |-- tcl             # TCL extension
 |   `-- swig            # SWIG interface and sample code
 |-- gui_files           # supporting files for the optional GUI
 |   |-- ext             # file open filter configuration

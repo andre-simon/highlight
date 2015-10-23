@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT LANGUAGE LIST ------------------------------------ July 2015 ---
+---  HIGHLIGHT LANGUAGE LIST --------------------------------- October 2015 ---
 -------------------------------------------------------------------------------
 
 All supported languages and the syntax definition file names are listed below.
@@ -13,7 +13,7 @@ Filetypes.conf contains also special filenames without extensions (like
 makefile) and script shebang expressions.
 
 
-Installed language definitions (located in /usr/share/highlight/langDefs/):
+Packaged language definitions (highlight --list-langs):
 
 ABAP/4                        : abap4 ( abp )
 ABC                           : abc
@@ -58,7 +58,7 @@ Clojure                       : clojure
 Clips                         : clp
 COBOL                         : cobol ( cbl cob )
 ColdFusion MX                 : coldfusion ( cfc cfm )
-Generic configuration files   : conf
+Generic config files          : conf
 Crack                         : crack
 Crack                         : crk
 C#                            : csharp ( cs )
@@ -101,6 +101,8 @@ Jasmin                        : jasmin ( j )
 Java                          : java ( groovy grv )
 Javascript                    : js
 JSP                           : jsp
+Julia                         : julia ( jl )
+Kotlin                        : kotlin ( kt )
 LDAP                          : ldif
 LESS                          : less
 Haskell LHS                   : lhs
@@ -126,11 +128,12 @@ MoonScript                    : moon
 MaxScript                     : ms
 MSSQL                         : mssql
 Magic eXtensible Markup       : mxml
-Notation3 (N3), N-Triples     : n3 ( nt ttl )
+Notation3 (N3), N-Triples, Turtle, SPARQL: n3 ( nt ttl )
 Nasal                         : nasal ( nas )
 NeXT Byte Codes               : nbc
 Nemerle                       : nemerle ( n )
 NetRexx                       : netrexx ( nrx )
+Nginx configuration           : nginx
 Nice                          : nice
 NSIS                          : nsis ( nsi )
 Not eXactly C                 : nxc
@@ -143,7 +146,7 @@ Object Script                 : os
 Oz                            : oz
 Paradox                       : paradox ( sc )
 Pascal                        : pas
-PDF                           : pdf
+Portable Document Format      : pdf
 Perl                          : perl ( cgi perl pl plex plx pm )
 PHP                           : php ( php3 php4 php5 php6 )
 Pike                          : pike ( pmod )

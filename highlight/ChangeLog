@@ -1,14 +1,14 @@
 CHANGELOG Highlight
 
-highlight 3.24
 
-tips: fonts 
+highlight 3.24
 
 21.10.2015
 
 -fixed TeX output for cweb documents (patch by Ingo Krabbe)
 -added plug-in reduce_filesize.lua
 -added TCL extension in examples/tcl
+-added kotlin.lang, nginx.lang and julia.lang
 -updated php.lang to include PHP 7 keywords 
 -updated scripts in examples directory
 
