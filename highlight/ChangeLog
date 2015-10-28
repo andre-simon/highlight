@@ -3,10 +3,11 @@ CHANGELOG Highlight
 
 highlight 3.24
 
-21.10.2015
+28.10.2015
 
 -fixed TeX output for cweb documents (patch by Ingo Krabbe)
--added plug-in reduce_filesize.lua
+-added reduce_filesize.lua, outhtml_add_shadow.lua and 
+  outhtml_add_background_svg.lua plug-ins 
 -added TCL extension in examples/tcl
 -added kotlin.lang, nginx.lang and julia.lang
 -updated php.lang to include PHP 7 keywords 

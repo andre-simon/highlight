@@ -1,5 +1,5 @@
 /***************************************************************************
-                          htmlcode.cpp  -  description
+                     XHtmlGenerator.cpp  -  description
                              -------------------
     begin                : Wed Nov 28 2001
     copyright            : (C) 2001 by Andre Simon

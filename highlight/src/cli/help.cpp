@@ -2,7 +2,7 @@
                           help.cpp  -  description
                              -------------------
     begin                : Die Apr 23 2002
-    copyright            : (C) 2002-2010 by Andre Simon
+    copyright            : (C) 2002-2015 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -45,15 +45,15 @@ namespace Help
 		cout<<" -i, --input=<file>             name of single input file\n";
 		cout<<" -o, --output=<file>            name of single output file\n";
 
-		cout<<" -p, --list-langs               list installed language definitions (deprecated)\n";
+		//cout<<" -p, --list-langs               list installed language definitions (deprecated)\n";
 		cout<<" -P, --progress                 print progress bar in batch mode\n";
 		cout<<" -q, --quiet                    supress progress info in batch mode\n";
 		cout<<" -S, --syntax=<type>            specify type of source code\n";
 		cout<<" -v, --verbose                  print debug info\n";
-		cout<<" -w, --list-themes              list installed colour themes (deprecated)\n";
+		//cout<<" -w, --list-themes              list installed colour themes (deprecated)\n";
 		cout<<"     --force                    generate output if input syntax is unknown\n";
 		cout<<"     --list-scripts=<type>      list installed scripts\n";
-		cout<<"                                  <type>=[langs, themes, plugins]\n";
+		cout<<"                                  <type> = [langs, themes, plugins]\n";
 		cout<<"     --plug-in=<script>         execute Lua plug-in script; repeat option to\n";
 		cout<<"                                  execute multiple plug-ins\n";
 		cout<<"     --plug-in-read=<path>      set input file for a plug-in (e.g. \"tags\")\n";
@@ -79,7 +79,7 @@ namespace Help
 
 		cout<<" -f, --fragment                 omit document header and footer\n";
 		cout<<" -F, --reformat=<style>         reformats and indents output in given style\n";
-		cout<<"                                  <style>=[allman, banner, gnu,\n";
+		cout<<"                                  <style> = [allman, banner, gnu,\n";
 		cout<<"                                  horstmann, java, kr, linux, otbs, vtk,\n";
 		cout<<"                                  stroustrup, whitesmith, google, pico, lisp]\n";
 		cout<<" -I, --include-style            include style definition\n";
@@ -89,7 +89,7 @@ namespace Help
 		cout<<" -K, --font-size=<num?>         set font size (specific to output format)\n";
 		cout<<" -l, --line-numbers             print line numbers in output file\n";
 		cout<<" -m, --line-number-start=<cnt>  start line numbering with cnt (assumes -l)\n";
-		cout<<" -s, --style=<style>            set colour style (see -w)\n";
+		cout<<" -s, --style=<style>            set colour style (theme)\n";
 		cout<<" -t, --replace-tabs=<num>       replace tabs by <num> spaces\n";
 		cout<<" -T, --doc-title=<title>        document title\n";
 		cout<<" -u, --encoding=<enc>           set output encoding which matches input file\n";

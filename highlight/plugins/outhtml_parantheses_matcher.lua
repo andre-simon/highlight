@@ -10,8 +10,8 @@ Description="Shows matching parantheses and curly brackets in HTML output."
 function syntaxUpdate(desc)
   
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
-    pID=0     -- just a sequential counter to generate HTML IDs
-    pCnt=0    -- paranthesis counter to keep track of opening and closing pairs
+    pID=0      -- just a sequential counter to generate HTML IDs
+    pCnt=0     -- paranthesis counter to keep track of opening and closing pairs
     openPID={} -- save opening IDs as they are needed again for the close tag IDs
   
     HeaderInjection=[[
