@@ -36,57 +36,57 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   \brief This class generates OpenDocument Textfiles (Flat XML).
+/**
+   \brief This class generates OpenDocument Textfiles (Flat XML).
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
-	class ODTGenerator : public highlight::CodeGenerator
-	{
-		public:
-			ODTGenerator();
-			~ODTGenerator();
+class ODTGenerator : public highlight::CodeGenerator
+{
+public:
+    ODTGenerator();
+    ~ODTGenerator();
 
-			/** prints document header
-			 */
-			string getHeader();
+    /** prints document header
+     */
+    string getHeader();
 
-			/** Prints document footer*/
-			string getFooter();
+    /** Prints document footer*/
+    string getFooter();
 
-			/** Prints document body*/
-			void printBody();
+    /** Prints document body*/
+    void printBody();
 
-		private:
+private:
 
-			/** \return escaped character*/
-			virtual string maskCharacter ( unsigned char );
+    /** \return escaped character*/
+    virtual string maskCharacter ( unsigned char );
 
-			/** @return ODT open tags */
-			string getOpenTag ( const string& styleName );
+    /** @return ODT open tags */
+    string getOpenTag ( const string& styleName );
 
-			/** initialize tags in specific format according to colouring information provided in DucumentStyle */
-			void initOutputTags();
+    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    void initOutputTags();
 
-			/** @param styleID current style ID
-			    @return matching sequence to begin a new element formatting*/
-			string getKeywordOpenTag ( unsigned int styleID );
+    /** @param styleID current style ID
+        @return matching sequence to begin a new element formatting*/
+    string getKeywordOpenTag ( unsigned int styleID );
 
-			/** @param styleID current style ID
-			    @return matching  sequence to stop element formatting*/
-			string getKeywordCloseTag ( unsigned int styleID );
-			
-			string styleDefinitionCache;
+    /** @param styleID current style ID
+        @return matching  sequence to stop element formatting*/
+    string getKeywordCloseTag ( unsigned int styleID );
 
-			string getStyleDefinition();
+    string styleDefinitionCache;
 
-			string getAttributes ( const string &, const ElementStyle & );
-	};
+    string getStyleDefinition();
+
+    string getAttributes ( const string &, const ElementStyle & );
+};
 
 }
 #endif

@@ -35,86 +35,98 @@ using namespace std;
 namespace highlight
 {
 
-	/** \brief The class stores the basic text formatting properties.
+/** \brief The class stores the basic text formatting properties.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
-	class ElementStyle
-	{
-		public:
+class ElementStyle
+{
+public:
 
-			/** Constructor
-			    \param col Style colour
-			    \param b Bold flag
-			    \param i Italic flag
-			    \param u Underline flag */
-			ElementStyle ( const Colour& col, bool b, bool i, bool u );
+    /** Constructor
+        \param col Style colour
+        \param b Bold flag
+        \param i Italic flag
+        \param u Underline flag */
+    ElementStyle ( const Colour& col, bool b, bool i, bool u );
 
-			/** Constuctor
-			     \param elementStyleString String with formatting information (eg "00 aa ff bold") */
-			ElementStyle ( const string & elementStyleString );
+    /** Constuctor
+         \param elementStyleString String with formatting information (eg "00 aa ff bold") */
+    ElementStyle ( const string & elementStyleString );
 
-			/** Constuctor */
-			ElementStyle();
+    /** Constuctor */
+    ElementStyle();
 
-			/**copy constructor */
-			ElementStyle ( const ElementStyle &other )
-			{
-				colour = other.getColour();
-				bold = other.isBold();
-				italic = other.isItalic();
-				underline = other.isUnderline();
-			}
+    /**copy constructor */
+    ElementStyle ( const ElementStyle &other )
+    {
+        colour = other.getColour();
+        bold = other.isBold();
+        italic = other.isItalic();
+        underline = other.isUnderline();
+    }
 
-			/** operator overloading */
-			ElementStyle& operator= ( const ElementStyle &other )
-			{
-				colour = other.getColour();
-				bold = other.isBold();
-				italic = other.isItalic();
-				underline = other.isUnderline();
-				return *this;
-			}
+    /** operator overloading */
+    ElementStyle& operator= ( const ElementStyle &other )
+    {
+        colour = other.getColour();
+        bold = other.isBold();
+        italic = other.isItalic();
+        underline = other.isUnderline();
+        return *this;
+    }
 
-			~ElementStyle();
+    ~ElementStyle();
 
-			/** initialize object
-			    \param elementStyleString String which contains formatting attributes
-			           (Format: "color attr" where
-			            color can be HTML hex notation or a hex RGB tuple (ie "#2244ff" or "22 44 ff")
-			            attr can be a combination of "italic, "bold" and "underline")
-			*/
-			void set ( const string & elementStyleString );
+    /** initialize object
+        \param elementStyleString String which contains formatting attributes
+               (Format: "color attr" where
+                color can be HTML hex notation or a hex RGB tuple (ie "#2244ff" or "22 44 ff")
+                attr can be a combination of "italic, "bold" and "underline")
+    */
+    void set ( const string & elementStyleString );
 
-			/** \return True if italic */
-			bool isItalic() const;
+    /** \return True if italic */
+    bool isItalic() const;
 
-			/** \return True if bold */
-			bool isBold() const;
+    /** \return True if bold */
+    bool isBold() const;
 
-			/** \return True if underline */
-			bool isUnderline() const;
+    /** \return True if underline */
+    bool isUnderline() const;
 
-			/** \param b set italic flag */
-			void setItalic ( bool b ) {italic = b;}
+    /** \param b set italic flag */
+    void setItalic ( bool b )
+    {
+        italic = b;
+    }
 
-			/** \param b set bold flag */
-			void setBold ( bool b ) { bold = b; }
+    /** \param b set bold flag */
+    void setBold ( bool b )
+    {
+        bold = b;
+    }
 
-			/** \param b set underline flag */
-			void setUnderline ( bool b ) {underline = b; }
+    /** \param b set underline flag */
+    void setUnderline ( bool b )
+    {
+        underline = b;
+    }
 
-			/** \return Element colour */
-			Colour getColour() const;
+    /** \return Element colour */
+    Colour getColour() const;
 
-			/** \param col colour of this element */
-			void setColour (const Colour& col ) {colour = col;}
+    /** \param col colour of this element */
+    void setColour (const Colour& col )
+    {
+        colour = col;
+    }
 
-		private:
-			Colour colour;
-			bool bold, italic, underline;
-	};
+private:
+    Colour colour;
+    bool bold, italic, underline;
+};
 
 }
 

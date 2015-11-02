@@ -39,57 +39,57 @@ using namespace std;
 
 class DataDir
 {
-	vector <string> possibleDirs;
+    vector <string> possibleDirs;
 
-	public:
+public:
 
-		static string LSB_DATA_DIR;
-		static string LSB_CFG_DIR;
-		static string LSB_DOC_DIR;
+    static string LSB_DATA_DIR;
+    static string LSB_CFG_DIR;
+    static string LSB_DOC_DIR;
 
-		/** search for a valid installation directory
-		    \param  userDefinedDir Directory defined by user
-		    \return True if directory was found */
-		void initSearchDirectories ( const string &userDefinedDir );
-		
-		// Deprecated
-		void searchDataDir( const string &userDefinedDir );
-		
-		const void printConfigPaths();
-		
-		const string searchFile(const string path);
+    /** search for a valid installation directory
+        \param  userDefinedDir Directory defined by user
+        \return True if directory was found */
+    void initSearchDirectories ( const string &userDefinedDir );
 
-		/**  \param file file
-		     \return Location of given syntax definition */
-		const string getLangPath ( const string & file) ;
+    // Deprecated
+    void searchDataDir( const string &userDefinedDir );
 
-		/** \return System themes location */
-		const string getThemePath ( ) ;
-		
-		/** \return System syntax location */
-		const string getLangPath ( ) ;
-		
-		/** \return System syntax location */
-		const string getSystemDataPath ( ) ;
+    const void printConfigPaths();
 
-		/** \param file file
-		    \return Location of given theme */
-		const string getThemePath ( const string & file ) ;
-		
-		const string getFiletypesConfPath (const string &);
-		
-		const string getPluginPath (const string &);
+    const string searchFile(const string path);
 
-		const string getPluginPath ();
-		
-		/** \return Location of GUI menu translation files */
-		const string getI18nDir();
+    /**  \param file file
+         \return Location of given syntax definition */
+    const string getLangPath ( const string & file) ;
 
-		/** \return Location of GUI file extension filter files */
-		const string getExtDir();
+    /** \return System themes location */
+    const string getThemePath ( ) ;
 
-		/** \return Location of documentation (README) files (GUI) */
-		const string getDocDir();
+    /** \return System syntax location */
+    const string getLangPath ( ) ;
+
+    /** \return System syntax location */
+    const string getSystemDataPath ( ) ;
+
+    /** \param file file
+        \return Location of given theme */
+    const string getThemePath ( const string & file ) ;
+
+    const string getFiletypesConfPath (const string &);
+
+    const string getPluginPath (const string &);
+
+    const string getPluginPath ();
+
+    /** \return Location of GUI menu translation files */
+    const string getI18nDir();
+
+    /** \return Location of GUI file extension filter files */
+    const string getExtDir();
+
+    /** \return Location of documentation (README) files (GUI) */
+    const string getDocDir();
 };
 
 #endif

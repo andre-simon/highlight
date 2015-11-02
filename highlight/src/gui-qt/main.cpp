@@ -44,25 +44,25 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QTranslator translator;
-    #ifdef DATA_DIR
-     translator.load(QString("%1/gui_files/l10n/highlight_%2").arg(DATA_DIR).arg(QLocale::system().name()));
-    #else
-     translator.load(QString("%1/gui_files/l10n/highlight_%2").arg(QDir::currentPath()).arg(QLocale::system().name()));
-    #endif
+#ifdef DATA_DIR
+    translator.load(QString("%1/gui_files/l10n/highlight_%2").arg(DATA_DIR).arg(QLocale::system().name()));
+#else
+    translator.load(QString("%1/gui_files/l10n/highlight_%2").arg(QDir::currentPath()).arg(QLocale::system().name()));
+#endif
     app.installTranslator(&translator);
 
-    if (QCoreApplication::arguments().contains("--portable")){
+    if (QCoreApplication::arguments().contains("--portable")) {
         QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, QDir::currentPath());
     }
 
     MainWindow w;
-/*
-    QStringList args=QCoreApplication::arguments();
-    if (args.count()>1){
-        args.removeFirst(); // drop highlight-gui.exe path
-        w.addInputFiles(args);
-    }
-*/
+    /*
+        QStringList args=QCoreApplication::arguments();
+        if (args.count()>1){
+            args.removeFirst(); // drop highlight-gui.exe path
+            w.addInputFiles(args);
+        }
+    */
     w.show();
     return app.exec();
 }

@@ -21,7 +21,6 @@ CONTENT
    2.4 INPUT AND OUTPUT
    2.5 GNU SOURCE-HIGHLIGHT COMPATIBILITY
    2.6 ADVANCED OPTIONS
-   2.7 TIPS AND TRICKS
 
 3. CONFIGURATION
    3.1 FILE FORMAT
@@ -42,7 +41,6 @@ CONTENT
 5. BUILDING AND INSTALLING
    5.1 PRECOMPILED PACKAGES
    5.2 BUILDING DEPENDENCIES
-   5.3 PACKAGING EXAMPLE
 
 6. DEVELOPER CONTACT
 
@@ -86,8 +84,8 @@ may be altered or enhanced with plug-in scripts.
 -------------------------------------------------------------------------------
 
 Please see README_LANGLIST for the current set of supported languages.
-You may also run "highlight --list-scripts=langs" to get a list of supported
-languages and the associated file extensions.
+You may also run "highlight --list-scripts=langs" to get a list and associated
+file extensions.
 
 
 2. USAGE AND OPTIONS
@@ -162,15 +160,13 @@ General options:
  -h, --help                     print this help
  -i, --input=<file>             name of single input file
  -o, --output=<file>            name of single output file
- -p, --list-langs               list installed language definitions (deprecated)
  -P, --progress                 print progress bar in batch mode
  -q, --quiet                    supress progress info in batch mode
  -S, --syntax=<type>            specify type of source code
  -v, --verbose                  print debug info
- -w, --list-themes              list installed colour themes (deprecated)
      --force                    generate output if input syntax is unknown
      --list-scripts=<type>      list installed scripts
-                                  <type>=[langs, themes, plugins]
+                                  <type> = [langs, themes, plugins]
      --plug-in=<script>         execute Lua plug-in script; repeat option to
                                   execute multiple plug-ins
      --plug-in-read=<path>      set input file for a plug-in (e.g. "tags")
@@ -194,7 +190,7 @@ Output formatting options:
  -e, --style-infile=<file>      file to be included in style-outfile
  -f, --fragment                 omit document header and footer
  -F, --reformat=<style>         reformats and indents output in given style
-                                  <style>=[allman, banner, gnu,
+                                  <style> = [allman, banner, gnu,
                                   horstmann, java, kr, linux, otbs,
                                   stroustrup, whitesmith]
  -I, --include-style            include style definition
@@ -275,8 +271,8 @@ GNU source-highlight compatibility options:
 -------------------------------------------------------------------------------
 
 The Graphical User Interface offers a subset of the CLI's features. It includes
-a dynamic preview of the output file's apperarance. Please see screenshots
-and flash animations on the project website.
+a dynamic preview of the output file's apperarance. Please see screenshots and
+screencasts on the project website.
 Invoke highlight-gui with the --portable option to let it save its settings
 in the binary's current directory (instead of using the registry).
 
@@ -294,20 +290,18 @@ line). In this case you have to pass highlight the given langage with --syntax
 (this should be the file suffix of the source file in most cases).
 Example: If you want to convert a Python file, highlight needs to load the
 py.lang language definition. The correct argument of --syntax would be "py".
-If you pass the filename directly to highlight, the program fetches the ".py"
-extension from the file name.
 
 highlight test.py
 highlight < test.py --syntax py       # --syntax option necessary
 cat test.py | highlight --syntax py
 
 If there exist multiple suffixes (like C, cc, cpp, h for C++ - files),
-they are mapped to al language definition in $CONF_DIR/filetypes.conf.
+they are mapped to a language definition in $CONF_DIR/filetypes.conf.
 
 Highlight enters the batch processing mode if multiple input files are defined
 or if --batch-recursive is set.
 In batch mode, highlight will save the generated files using the original
-filename, and appending the extension of the chosen output type.
+filename, appending the extension of the chosen output type.
 If files in the input directories happen to share the same name, the output
 files will be prefixed with their source path name.
 The --out-dir option is recommended in batch mode. Use --quiet to improve
@@ -336,6 +330,7 @@ information in a single file, which affects all referencing documents.
 With --style-infile you define a file to be included in the final formatting
 information of the document. This way you enhance or redefine the default
 highlight style definitions without editing generated code.
+Note: Using a plug-in script is the preferred way to enhance styling.
 
 Terminal output:
 ----------------
@@ -417,7 +412,7 @@ delimiter, the --start-nested option will switch to the nested language mode.
 This can happen with LuaTeX files:
 highlight luatex.tex --latex --start-nested=inc_luatex
 
-The inc_luatex definition is a Lua language definition with TeX line comments.
+inc_luatex is a Lua language definition with TeX line comments.
 Note that the nested code section has to end with the ending delimiter defined
 in the host language definition.
 
@@ -446,54 +441,6 @@ Invoke highlight-gui.exe with the --portable switch to save its configuration
 in text files instead of the registry.
 
 
-2.7 TIPS AND TRICKS
--------------------------------------------------------------------------------
-
-Modify HTML line number formatting:
------------------------------------
-
-/* content of user.css */
- pre.hl {
-   border-width: 1px;
-   border-style:solid;
-   border-left-color: silver;
-   border-top-color: silver;
-   border-right-color: gray;
-   border-bottom-color: gray;
- }
-
- .hl.lin {
-   border-right:1px solid #555555;
-   padding-left:0.5em;
-   padding-right:0.5em;
-   margin-right:1em;
-   text-decoration:none;
- }
-
-Usage: highlight -l --style-infile user.css main.cpp
-
-HTML list formatting tricks:
-----------------------------
-
-The following examples assume that HTML was generated as ordered list using
-the --ordered-list switch. Include the CSS snippets with --style-infile.
-
-/* highlight odd lines */
-ol li:nth-child(odd) {
-  background-color: #1f3030;
-}
-
-/* highlight every 5th line*/
-ol li:nth-child(5n) {
-  background-color: #1f3030;
-}
-
-/* highlight every 10th line number*/
-ol li:nth-child(10n) {
-  color: #ffff00;
-}
-
-
 3. CONFIGURATION
 -------------------------------------------------------------------------------
 
@@ -514,7 +461,7 @@ Strings:
 string1="string literal with escape: \n"
 string2=[[raw string without escape sequence]]
 
-If a raw string content starts with "[" or ends with "]", pad the paranthesis
+If raw string content starts with "[" or ends with "]", pad the paranthesis
 with space to avoid a syntax error. Highlight will strip the string.
 If the string is a regular expression containing a set with a character class
 like [[:space:]], use string delimiters with a "filler": [=[ regex string ]=]
@@ -544,13 +491,13 @@ Syntax elements:
 
 Keywords = { Id, List|Regex, Group? }
 
-  Id:    Integer, keyword group id (values 1-4, can be used for several keyword
-	groups)
+  Id:    Integer, keyword group id (values 1-4, can be reused for several keyword
+          groups)
   List:  List, list of keywords
   Regex: String, regular expression
   Group: Integer, capturing group id of regular expression, defines part of regex
-	which should be returned as keyword (optional; if not set, the match
-	with the highest group number is returned (counts from left to right))
+          which should be returned as keyword (optional; if not set, the match
+          with the highest group number is returned (counts from left to right))
 
 
 Comments = { {Block, Nested?, Delimiter={Open, Close?} }
@@ -814,7 +761,7 @@ You define a new group in two steps:
 
 It is recommended to define keyword groups in user-defined plugin scripts to
 avoid editing of original highlight files.
-See the PLUG-IN SCRIPT section for details.
+See the cpp_qt.lua sample plug-in script and README_PLUGINS for details.
 
 
 3.6 PLUG-INS
@@ -822,11 +769,11 @@ See the PLUG-IN SCRIPT section for details.
 
 The --plug-in option receives the path of a Lua script which overrides or
 enhances the settings of theme and language definition files. Plug-ins make
-it is possible to apply costum settings without the need to edit installed
+it possible to apply costum settings without the need to edit installed
 configuration files.
 You can apply multiple plugins by using the --plug-in option more than once.
 
-See README_PLUGINS for a detailed description.
+See README_PLUGINS for a detailed description and examples of packaged plugins.
 
 
 3.7 FILE MAPPING
@@ -859,7 +806,7 @@ directories:
 1. ~/.highlight/
 2. user defined directory set with --data-dir (deprecated option)
 3. /usr/share/highlight/
-4. /etc/highlight/ (because of filetypes.conf)
+4. /etc/highlight/ (location of filetypes.conf)
 5. current working directory (fallback)
 
 These subdirectories are expected to contain the corresponding scripts:
@@ -992,13 +939,6 @@ Highlight is known to compile with gcc and suncc.
 It depends on Boost headers and Lua 5.x/LuaJit developer packages.
 The optional GUI depends on Qt4/Qt5 developer packages.
 Please see the makefile for further options.
-
-
-5.3 PACKAGING EXAMPLE
--------------------------------------------------------------------------------
-
-See http://andre-simon.de/dokuwiki/doku.php?id=packaging_resources for
-Debian and Fedora packaging examples.
 
 
 6. DEVELOPER CONTACT

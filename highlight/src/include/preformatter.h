@@ -34,121 +34,127 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/** \brief Class which provides intelligent line wrapping.
-	* @author Andre Simon
-	*/
+/** \brief Class which provides intelligent line wrapping.
+* @author Andre Simon
+*/
 
-	class PreFormatter
-	{
-		public:
+class PreFormatter
+{
+public:
 
-			PreFormatter();
+    PreFormatter();
 
-			~PreFormatter();
+    ~PreFormatter();
 
-			/**
-			 Set wrapping mode
-			 \param wrap set to true if long lines should be wrapped
-			*/
-			void setWrap ( bool wrap ) {wrapLines = wrap;}
+    /**
+     Set wrapping mode
+     \param wrap set to true if long lines should be wrapped
+    */
+    void setWrap ( bool wrap )
+    {
+        wrapLines = wrap;
+    }
 
-			/**
-			 Replace tabs by spaces
-			 \param replTabs set to true if tabs should be replaced by spaces
-			*/
-			void setReplaceTabs ( bool replTabs ) {replaceTabs = replTabs;}
+    /**
+     Replace tabs by spaces
+     \param replTabs set to true if tabs should be replaced by spaces
+    */
+    void setReplaceTabs ( bool replTabs )
+    {
+        replaceTabs = replTabs;
+    }
 
-			/**
-			 \return True if current line can be wrapped again
-			*/
-			bool hasMoreLines();
+    /**
+     \return True if current line can be wrapped again
+    */
+    bool hasMoreLines();
 
-			/**
-			 Sets new line to be wrapped
-			 \param newline New line
-			*/
-			void setLine ( const std::string & newline );
+    /**
+     Sets new line to be wrapped
+     \param newline New line
+    */
+    void setLine ( const std::string & newline );
 
-			/**
-			 The method will indent function calls and statements
-			 \return Next line
-			*/
-			std::string getNextLine();
+    /**
+     The method will indent function calls and statements
+     \return Next line
+    */
+    std::string getNextLine();
 
-			/**
-			 \return True if lines following open braces should be indented
-			*/
-			bool indentCode();
+    /**
+     \return True if lines following open braces should be indented
+    */
+    bool indentCode();
 
-			/**
-			  Maximum line length
-			  \param maxlength max. length of output lines
-			*/
-			void setWrapLineLength ( unsigned int maxlength );
+    /**
+      Maximum line length
+      \param maxlength max. length of output lines
+    */
+    void setWrapLineLength ( unsigned int maxlength );
 
-			/**
-			  Indentation mode
-			  \param indentAfterOpenBraces set true if lines should be indented after braces
-			*/
-			void setWrapIndentBraces ( bool indentAfterOpenBraces=true );
+    /**
+      Indentation mode
+      \param indentAfterOpenBraces set true if lines should be indented after braces
+    */
+    void setWrapIndentBraces ( bool indentAfterOpenBraces=true );
 
-			/**
-			  Number of spaces
-			  \param num number of spaces which replace a tab
-			*/
-			void setNumberSpaces ( unsigned int num );
+    /**
+      Number of spaces
+      \param num number of spaces which replace a tab
+    */
+    void setNumberSpaces ( unsigned int num );
 
-			/**
-			  \return true if preformatting is enabled
-			*/
-			bool isEnabled()
-			{
-				return wrapLines || replaceTabs;
-			}
-			
-			bool getReplaceTabs() 
-			{ 
-				return replaceTabs; 
-			}
+    /**
+      \return true if preformatting is enabled
+    */
+    bool isEnabled()
+    {
+        return wrapLines || replaceTabs;
+    }
 
-			/**
-			  reset preformatting state to use the object with new input data
-			*/
-			void reset ()
-			{
-				lineNumber=0;
-				wrappedLines.clear();
-			}
+    bool getReplaceTabs()
+    {
+        return replaceTabs;
+    }
 
-			/**
-			 \param lineNumber line number
-			  \return true if input line linenumber was wrapped
-			*/
-			bool isWrappedLine ( int lineNumber )
-			{
-				return wrappedLines.count ( lineNumber );
-			}
+    /**
+      reset preformatting state to use the object with new input data
+    */
+    void reset ()
+    {
+        lineNumber=0;
+        wrappedLines.clear();
+    }
 
-		private:
+    /**
+     \param lineNumber line number
+      \return true if input line linenumber was wrapped
+    */
+    bool isWrappedLine ( int lineNumber )
+    {
+        return wrappedLines.count ( lineNumber );
+    }
 
-			unsigned int maxLineLength;
+private:
 
-			std::string line, wsPrefix;
-			unsigned int index;
-			unsigned int numberSpaces;
-			unsigned int lineNumber;
-			size_t wsPrefixLength;
-			bool hasMore, indentAfterOpenBraces;
-			bool redefineWsPrefix;
-			bool wrapLines, replaceTabs;
+    unsigned int maxLineLength;
 
-			std::set<int> wrappedLines;
+    std::string line, wsPrefix;
+    unsigned int index;
+    unsigned int numberSpaces;
+    unsigned int lineNumber;
+    size_t wsPrefixLength;
+    bool hasMore, indentAfterOpenBraces;
+    bool redefineWsPrefix;
+    bool wrapLines, replaceTabs;
 
-			static const std::string LB_CHARS;
-			static const std::string WS_CHARS;
-			static const std::string INDENT_MARKERS;
+    std::set<int> wrappedLines;
 
-	};
+    static const std::string LB_CHARS;
+    static const std::string WS_CHARS;
+    static const std::string INDENT_MARKERS;
+
+};
 
 }
 

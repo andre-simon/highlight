@@ -36,13 +36,14 @@ ThemeReader::ThemeReader() : fileOK ( false )
 
 ThemeReader::~ThemeReader()
 {
-  for (unsigned int i=0;i<pluginChunks.size();i++){
-      delete pluginChunks[i];
-  }
+    for (unsigned int i=0; i<pluginChunks.size(); i++) {
+        delete pluginChunks[i];
+    }
 
 }
 
-void ThemeReader::initStyle(ElementStyle& style, const Diluculum::LuaVariable& var) {
+void ThemeReader::initStyle(ElementStyle& style, const Diluculum::LuaVariable& var)
+{
     string styleColor="#000000";
     bool styleBold=false, styleItalic=false, styleUnderline=false;
 
@@ -66,32 +67,32 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
     try {
         fileOK=true;
         Diluculum::LuaState ls;
-	ls["HL_FORMAT_HTML"]=HTML;
-	ls["HL_FORMAT_XHTML"]=XHTML;
-	ls["HL_FORMAT_TEX"]=TEX;
-	ls["HL_FORMAT_LATEX"]=LATEX;
-	ls["HL_FORMAT_RTF"]=RTF;
-	ls["HL_FORMAT_ANSI"]=ANSI;
-	ls["HL_FORMAT_XTERM256"]=XTERM256;
-	ls["HL_FORMAT_HTML32"]=HTML32;
-	ls["HL_FORMAT_SVG"]=SVG;
-	ls["HL_FORMAT_BBCODE"]=BBCODE;
-	ls["HL_FORMAT_PANGO"]=PANGO;
-	ls["HL_FORMAT_ODT"]=ODTFLAT;
-	ls["HL_OUTPUT"] = type;
-	ls.doString("Injections={}");
-    
-        ls.doFile (styleDefinitionPath);
- 
-	desc = ls["Description"].value().asString();
+        ls["HL_FORMAT_HTML"]=HTML;
+        ls["HL_FORMAT_XHTML"]=XHTML;
+        ls["HL_FORMAT_TEX"]=TEX;
+        ls["HL_FORMAT_LATEX"]=LATEX;
+        ls["HL_FORMAT_RTF"]=RTF;
+        ls["HL_FORMAT_ANSI"]=ANSI;
+        ls["HL_FORMAT_XTERM256"]=XTERM256;
+        ls["HL_FORMAT_HTML32"]=HTML32;
+        ls["HL_FORMAT_SVG"]=SVG;
+        ls["HL_FORMAT_BBCODE"]=BBCODE;
+        ls["HL_FORMAT_PANGO"]=PANGO;
+        ls["HL_FORMAT_ODT"]=ODTFLAT;
+        ls["HL_OUTPUT"] = type;
+        ls.doString("Injections={}");
 
-	if (pluginChunks.size()){
-	  Diluculum::LuaValueList params;
-	  params.push_back(desc);
-	  for (unsigned int i=0;i<pluginChunks.size();i++){
-	    ls.call(*pluginChunks[i], params, "theme user function");
-	  }
-	}
+        ls.doFile (styleDefinitionPath);
+
+        desc = ls["Description"].value().asString();
+
+        if (pluginChunks.size()) {
+            Diluculum::LuaValueList params;
+            params.push_back(desc);
+            for (unsigned int i=0; i<pluginChunks.size(); i++) {
+                ls.call(*pluginChunks[i], params, "theme user function");
+            }
+        }
 
         initStyle(canvas, ls["Canvas"]);
         initStyle(defaultElem, ls["Default"]);
@@ -100,7 +101,7 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
         initStyle(directive, ls["PreProcessor"]);
         initStyle(str, ls["String"]);
         initStyle(escapeChar, ls["Escape"]);
-	initStyle(interpolation, ls["Interpolation"]);
+        initStyle(interpolation, ls["Interpolation"]);
         initStyle(number, ls["Number"]);
         initStyle(dstr, ls["StringPreProc"]);
         initStyle(line, ls["LineNum"]);
@@ -111,15 +112,15 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
         char kwName[5];
         while (ls["Keywords"][idx].value() !=Diluculum::Nil) {
             initStyle(kwStyle, ls["Keywords"][idx]);
-            snprintf(kwName, sizeof(kwName), "kw%c", ('a'+idx-1)); // TODO kwa -> kw1...
+            snprintf(kwName, sizeof(kwName), "kw%c", ('a'+idx-1));
             keywordStyles.insert ( make_pair ( string(kwName),kwStyle ));
             idx++;
         }
-        
+
         idx=1;
         while (ls["Injections"][idx].value() !=Diluculum::Nil) {
-	  themeInjections +=ls["Injections"][idx].value().asString();
-	  idx++;
+            themeInjections +=ls["Injections"][idx].value().asString();
+            idx++;
         }
 
     } catch (Diluculum::LuaFileError err) {
@@ -215,8 +216,7 @@ ElementStyle ThemeReader::getKeywordStyle ( const string &className )
 vector <string> ThemeReader::getClassNames() const
 {
     vector <string> kwClassNames;
-    for ( KSIterator iter = keywordStyles.begin(); iter != keywordStyles.end(); iter++ )
-    {
+    for ( KSIterator iter = keywordStyles.begin(); iter != keywordStyles.end(); iter++ ) {
         kwClassNames.push_back ( ( *iter ).first );
     }
     return kwClassNames;
@@ -227,8 +227,9 @@ KeywordStyles ThemeReader::getKeywordStyles() const
     return keywordStyles;
 }
 
-string ThemeReader::getInjections() const{
-  return themeInjections;
+string ThemeReader::getInjections() const
+{
+    return themeInjections;
 }
 
 }

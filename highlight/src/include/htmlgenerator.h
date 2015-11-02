@@ -39,153 +39,165 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   \brief This class generates HTML.
+/**
+   \brief This class generates HTML.
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
-	class HtmlGenerator  : public highlight::CodeGenerator
-	{
-		public:
+class HtmlGenerator  : public highlight::CodeGenerator
+{
+public:
 
-			HtmlGenerator();
+    HtmlGenerator();
 
-			/** Destructor, virtual as it is base for xhtmlgenerator*/
-			virtual ~HtmlGenerator() {};
+    /** Destructor, virtual as it is base for xhtmlgenerator*/
+    virtual ~HtmlGenerator() {};
 
-			/** Print style definitions to external file
-			 \param outFile Path of external style definition
-			 */
-			bool printExternalStyle ( const string &outFile );
+    /** Print style definitions to external file
+     \param outFile Path of external style definition
+     */
+    bool printExternalStyle ( const string &outFile );
 
-			/** Print index file with all input file names
-			  \param fileList List of output file names
-			  \param outPath Output path
-			*/
-			bool printIndexFile ( const vector<string> & fileList, const string &outPath );
+    /** Print index file with all input file names
+      \param fileList List of output file names
+      \param outPath Output path
+    */
+    bool printIndexFile ( const vector<string> & fileList, const string &outPath );
 
-			/**
-			  \param  b set true if anchors should be attached to line numbers
-			*/
-			void setHTMLAttachAnchors ( bool b ) { attachAnchors = b; }
+    /**
+      \param  b set true if anchors should be attached to line numbers
+    */
+    void setHTMLAttachAnchors ( bool b )
+    {
+        attachAnchors = b;
+    }
 
-			/**
-			  \param  prefix anchor prefix
-			*/
-			void setHTMLAnchorPrefix ( const string & prefix ) { anchorPrefix = prefix; }
+    /**
+      \param  prefix anchor prefix
+    */
+    void setHTMLAnchorPrefix ( const string & prefix )
+    {
+        anchorPrefix = prefix;
+    }
 
-			/**
-			  \param  b if true line numbers should be replaced by list items
-			*/
-			void setHTMLOrderedList ( bool b ) ;
+    /**
+      \param  b if true line numbers should be replaced by list items
+    */
+    void setHTMLOrderedList ( bool b ) ;
 
-			/**
-			  \param  b if true CSS formatting will be inserted into each tag
-			*/
-			void setHTMLInlineCSS ( bool b ) { useInlineCSS = b; }
+    /**
+      \param  b if true CSS formatting will be inserted into each tag
+    */
+    void setHTMLInlineCSS ( bool b )
+    {
+        useInlineCSS = b;
+    }
 
-			/**
-			  \param  b if true fragmented output will be enclosed in pre tag
-			*/
-			void setHTMLEnclosePreTag ( bool b ) { enclosePreTag = b; }
-			
-			/**
-			  \param name CSS Class name
-			*/
-			void setHTMLClassName ( const string& name )
-			{
-				cssClassName  = (StringTools::change_case ( name ) =="none") ? "" : name;
-			}
+    /**
+      \param  b if true fragmented output will be enclosed in pre tag
+    */
+    void setHTMLEnclosePreTag ( bool b )
+    {
+        enclosePreTag = b;
+    }
 
-		protected:
+    /**
+      \param name CSS Class name
+    */
+    void setHTMLClassName ( const string& name )
+    {
+        cssClassName  = (StringTools::change_case ( name ) =="none") ? "" : name;
+    }
 
-			string brTag,       ///< break tag
-			hrTag,       ///< horizontal ruler tag
-			idAttr,      ///< ID tag
-			fileSuffix,   ///< filename extension
-			cssClassName; ///< css class name prefix
+protected:
 
-			/** caches style definition */
-			string styleDefinitionCache;
+    string brTag,       ///< break tag
+           hrTag,       ///< horizontal ruler tag
+           idAttr,      ///< ID tag
+           fileSuffix,   ///< filename extension
+           cssClassName; ///< css class name prefix
 
-			/** line count should be replaced by ordered list*/
-			bool orderedList;
+    /** caches style definition */
+    string styleDefinitionCache;
 
-			/** CSS definition should be outputted inline */
-			bool useInlineCSS;
+    /** line count should be replaced by ordered list*/
+    bool orderedList;
 
-			/** pre tag should be outputted in fragment mode*/
-			bool enclosePreTag;
+    /** CSS definition should be outputted inline */
+    bool useInlineCSS;
 
-			/** \return CSS definition */
-			string  getStyleDefinition();
+    /** pre tag should be outputted in fragment mode*/
+    bool enclosePreTag;
 
-			/** \return Content of user defined style file */
-			string readUserStyleDef();
+    /** \return CSS definition */
+    string  getStyleDefinition();
 
-			/** \param title Dociment title
-			    \return Start of file header */
-			virtual string getHeaderStart ( const string &title );
+    /** \return Content of user defined style file */
+    string readUserStyleDef();
 
-			/** \return Comment with program information */
-			string getGeneratorComment();
+    /** \param title Dociment title
+        \return Start of file header */
+    virtual string getHeaderStart ( const string &title );
 
-		private:
+    /** \return Comment with program information */
+    string getGeneratorComment();
 
-			/** insert line number in the beginning of the new line
-			*/
-			virtual void insertLineNumber ( bool insertNewLine=true );
+private:
 
-			/** Print document header
-			*/
-			string getHeader();
+    /** insert line number in the beginning of the new line
+    */
+    virtual void insertLineNumber ( bool insertNewLine=true );
 
-			/** Print document body*/
-			void printBody();
+    /** Print document header
+    */
+    string getHeader();
 
-			/** Print document footer*/
-			string getFooter();
+    /** Print document body*/
+    void printBody();
 
-			/** initialize tags in specific format according to colouring information provided in DucumentStyle */
-			void initOutputTags();
+    /** Print document footer*/
+    string getFooter();
 
-			/**  \param styleName Style name
-			     \return Opening tag of the given style
-			*/
-			string getOpenTag ( const string& styleName );
+    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    void initOutputTags();
 
-			string getOpenTag ( const ElementStyle& elem );
-			
-			/** \return escaped character*/
-			virtual string maskCharacter ( unsigned char );
+    /**  \param styleName Style name
+         \return Opening tag of the given style
+    */
+    string getOpenTag ( const string& styleName );
 
-			/** test if anchors should be appied to line numbers*/
-			bool attachAnchors;
+    string getOpenTag ( const ElementStyle& elem );
 
-			/**Optional anchor prefix */
-			string anchorPrefix;
+    /** \return escaped character*/
+    virtual string maskCharacter ( unsigned char );
 
-			/**\return text formatting attributes in HTML format */
-			string  getAttributes ( const string & elemName, const ElementStyle & elem );
+    /** test if anchors should be appied to line numbers*/
+    bool attachAnchors;
 
-			/**  \param styleID Style ID
-			     \return Opening tag of the given style
-			*/
-			string getKeywordOpenTag ( unsigned int styleID );
+    /**Optional anchor prefix */
+    string anchorPrefix;
 
-			/**  \param styleID Style ID
-			     \return Closing tag of the given style
-			*/
-			string getKeywordCloseTag ( unsigned int styleID );
+    /**\return text formatting attributes in HTML format */
+    string  getAttributes ( const string & elemName, const ElementStyle & elem );
 
-			/** @return Newline string */
-			string getNewLine();
-	};
+    /**  \param styleID Style ID
+         \return Opening tag of the given style
+    */
+    string getKeywordOpenTag ( unsigned int styleID );
+
+    /**  \param styleID Style ID
+         \return Closing tag of the given style
+    */
+    string getKeywordCloseTag ( unsigned int styleID );
+
+    /** @return Newline string */
+    string getNewLine();
+};
 
 }
 

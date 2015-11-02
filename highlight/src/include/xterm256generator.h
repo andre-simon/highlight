@@ -36,76 +36,76 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   \brief This class generates xterm 256 color escape sequences.
+/**
+   \brief This class generates xterm 256 color escape sequences.
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
-	class Xterm256Generator : public highlight::CodeGenerator
-	{
-		public:
-			Xterm256Generator();
-			~Xterm256Generator();
+class Xterm256Generator : public highlight::CodeGenerator
+{
+public:
+    Xterm256Generator();
+    ~Xterm256Generator();
 
-		private:
+private:
 
-			/** prints document header
-			 */
-			string getHeader();
+    /** prints document header
+     */
+    string getHeader();
 
-			/** Prints document footer*/
-			string getFooter();
+    /** Prints document footer*/
+    string getFooter();
 
-			/** Prints document body*/
-			void printBody();
+    /** Prints document body*/
+    void printBody();
 
-			/** \return escaped character*/
-			virtual string maskCharacter ( unsigned char );
+    /** \return escaped character*/
+    virtual string maskCharacter ( unsigned char );
 
-			/** initialize tags in specific format according to colouring information provided in DucumentStyle */
-			void initOutputTags();
+    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    void initOutputTags();
 
-			/** @param style associated element style
-			    @return formatting seqence */
-			string getOpenTag (const ElementStyle &style );
+    /** @param style associated element style
+        @return formatting seqence */
+    string getOpenTag (const ElementStyle &style );
 
-			/** @param styleID current style ID
-			    @return matching sequence to begin a new element formatting*/
-			string getKeywordOpenTag ( unsigned int styleID );
+    /** @param styleID current style ID
+        @return matching sequence to begin a new element formatting*/
+    string getKeywordOpenTag ( unsigned int styleID );
 
-			/** @param styleID current style ID
-			    @return matching sequence to close element formatting*/
-			string getKeywordCloseTag ( unsigned int styleID );
+    /** @param styleID current style ID
+        @return matching sequence to close element formatting*/
+    string getKeywordCloseTag ( unsigned int styleID );
 
-			/** convert an xterm color value (0-253) to 3 unsigned chars rgb
-			    @param color xterm color
-			    @param rgb RGB destination string */
-			void xterm2rgb ( unsigned char color, unsigned char* rgb );
+    /** convert an xterm color value (0-253) to 3 unsigned chars rgb
+        @param color xterm color
+        @param rgb RGB destination string */
+    void xterm2rgb ( unsigned char color, unsigned char* rgb );
 
-			/** fill the colortable for use with rgb2xterm */
-			void maketable();
+    /** fill the colortable for use with rgb2xterm */
+    void maketable();
 
-			/** selects the nearest xterm color for a 3xBYTE rgb value
-			    @param RGB colour string */
-			unsigned char rgb2xterm ( unsigned char* rgb );
+    /** selects the nearest xterm color for a 3xBYTE rgb value
+        @param RGB colour string */
+    unsigned char rgb2xterm ( unsigned char* rgb );
 
-			/// Flag to determine if colourtable is calculated
-			static bool initialized;
+    /// Flag to determine if colourtable is calculated
+    static bool initialized;
 
-			/// color tzable for nearest match calculation
-			static unsigned char colortable[254][3];
+    /// color tzable for nearest match calculation
+    static unsigned char colortable[254][3];
 
-			/// the 6 value iterations in the xterm color cube
-			static const unsigned char valuerange[] ;
+    /// the 6 value iterations in the xterm color cube
+    static const unsigned char valuerange[] ;
 
-			/// 16 basic colors
-			static const unsigned char basic16[16][3];
-	};
+    /// 16 basic colors
+    static const unsigned char basic16[16][3];
+};
 
 }
 #endif

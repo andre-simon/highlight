@@ -2,7 +2,7 @@
                           cmdlineoptions.h  -  description
                              -------------------
     begin                : Sun Nov 25 2001
-    copyright            : (C) 2001-2010 by Andre Simon
+    copyright            : (C) 2001-2015 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -104,7 +104,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_ABS_CFG_PATH   "config-file"
 #define OPT_PLUGIN_READFILE  "plug-in-read"
 #define OPT_NO_NUMBER_WL   "wrap-no-numbers"
-#define OPT_USE_NBSP       "nbsp"
 
 // Improve CLI option compatibility with GNU source-highlight
 #define OPT_COMPAT_DOC       "doc"

@@ -29,83 +29,74 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	ElementStyle::ElementStyle (const Colour &col, bool b, bool i, bool u )
-			: colour ( col ) , bold ( b ), italic ( i ), underline ( u )
-	{}
+ElementStyle::ElementStyle (const Colour &col, bool b, bool i, bool u )
+    : colour ( col ) , bold ( b ), italic ( i ), underline ( u )
+{}
 
-	ElementStyle:: ElementStyle ( const string & elementStyleString )
-			: bold ( false ), italic ( false ), underline ( false )
-	{
-		set ( elementStyleString );
-	}
+ElementStyle:: ElementStyle ( const string & elementStyleString )
+    : bold ( false ), italic ( false ), underline ( false )
+{
+    set ( elementStyleString );
+}
 
-	ElementStyle::ElementStyle()
-			: bold ( false ), italic ( false ), underline ( false )
-	{}
+ElementStyle::ElementStyle()
+    : bold ( false ), italic ( false ), underline ( false )
+{}
 
-	void ElementStyle::set ( const string & elementStyleString )
-	{
-		istringstream valueStream ( elementStyleString );
-		string r, g, b, attr;
+void ElementStyle::set ( const string & elementStyleString )
+{
+    istringstream valueStream ( elementStyleString );
+    string r, g, b, attr;
 
-		char c='\0';
-		valueStream >> c;
+    char c='\0';
+    valueStream >> c;
 
-		if ( c=='#' )
-		{
-			string htmlNotation;
-			valueStream >> htmlNotation;
-			if ( htmlNotation.size() < 6 ) return;
-			r = htmlNotation.substr ( 0, 2 );
-			g = htmlNotation.substr ( 2, 2 );
-			b = htmlNotation.substr ( 4, 2 );
-		}
-		else
-		{
-			valueStream.putback ( c );
-			valueStream >> r;
-			valueStream >> g;
-			valueStream >> b;
-		}
+    if ( c=='#' ) {
+        string htmlNotation;
+        valueStream >> htmlNotation;
+        if ( htmlNotation.size() < 6 ) return;
+        r = htmlNotation.substr ( 0, 2 );
+        g = htmlNotation.substr ( 2, 2 );
+        b = htmlNotation.substr ( 4, 2 );
+    } else {
+        valueStream.putback ( c );
+        valueStream >> r;
+        valueStream >> g;
+        valueStream >> b;
+    }
 
-		colour.setRed ( r );
-		colour.setGreen ( g );
-		colour.setBlue ( b );
-		while ( valueStream >> attr )
-		{
-			if ( attr=="italic" )
-			{
-				italic = true;
-			}
-			else if ( attr=="bold" )
-			{
-				bold = true;
-			}
-			else if ( attr=="underline" )
-			{
-				underline = true;
-			}
-		}
-	}
+    colour.setRed ( r );
+    colour.setGreen ( g );
+    colour.setBlue ( b );
+    while ( valueStream >> attr ) {
+        if ( attr=="italic" ) {
+            italic = true;
+        } else if ( attr=="bold" ) {
+            bold = true;
+        } else if ( attr=="underline" ) {
+            underline = true;
+        }
+    }
+}
 
-	ElementStyle::~ElementStyle()
-	{}
+ElementStyle::~ElementStyle()
+{}
 
-	bool ElementStyle::isItalic() const
-	{
-		return italic;
-	}
-	bool ElementStyle::isBold() const
-	{
-		return bold;
-	}
-	bool ElementStyle::isUnderline() const
-	{
-		return underline;
-	}
-	Colour ElementStyle::getColour() const
-	{
-		return colour;
-	}
+bool ElementStyle::isItalic() const
+{
+    return italic;
+}
+bool ElementStyle::isBold() const
+{
+    return bold;
+}
+bool ElementStyle::isUnderline() const
+{
+    return underline;
+}
+Colour ElementStyle::getColour() const
+{
+    return colour;
+}
 
 }

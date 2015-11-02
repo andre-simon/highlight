@@ -48,8 +48,7 @@ ODTGenerator::~ODTGenerator() {}
 
 string ODTGenerator::getStyleDefinition()
 {
-    if ( styleDefinitionCache.empty() )
-    {
+    if ( styleDefinitionCache.empty() ) {
         ostringstream os;
 
         os  << "<office:styles>\n<style:style style:name=\"Standard\" style:family=\"paragraph\" style:class=\"text\">\n"
@@ -66,12 +65,11 @@ string ODTGenerator::getStyleDefinition()
            << getAttributes ( STY_NAME_COM, docStyle.getCommentStyle() )
            << getAttributes ( STY_NAME_DIR, docStyle.getPreProcessorStyle() )
            << getAttributes ( STY_NAME_SYM, docStyle.getOperatorStyle() )
-	   << getAttributes ( STY_NAME_IPL, docStyle.getInterpolationStyle() )
+           << getAttributes ( STY_NAME_IPL, docStyle.getInterpolationStyle() )
            << getAttributes ( STY_NAME_LIN, docStyle.getLineStyle() );
 
         KeywordStyles styles = docStyle.getKeywordStyles();
-        for ( KSIterator it=styles.begin(); it!=styles.end(); it++ )
-        {
+        for ( KSIterator it=styles.begin(); it!=styles.end(); it++ ) {
             os << getAttributes (it->first, it->second );
         }
 
@@ -177,10 +175,9 @@ void ODTGenerator::initOutputTags ()
     openTags.push_back ( getOpenTag ( STY_NAME_LIN ) );
     openTags.push_back ( getOpenTag ( STY_NAME_SYM ) );
     openTags.push_back ( getOpenTag ( STY_NAME_IPL ) );
- 
+
     closeTags.push_back ( "" );
-    for (unsigned int i=1; i<NUMBER_BUILTIN_STATES; i++ )
-    {
+    for (unsigned int i=1; i<NUMBER_BUILTIN_STATES; i++ ) {
         closeTags.push_back ( "</text:span>" );
     }
 
@@ -188,8 +185,7 @@ void ODTGenerator::initOutputTags ()
 
 string ODTGenerator::maskCharacter ( unsigned char c )
 {
-    switch ( c )
-    {
+    switch ( c ) {
     case '<' :
         return "&lt;";
         break;
@@ -205,9 +201,9 @@ string ODTGenerator::maskCharacter ( unsigned char c )
     case ' ':
         return spacer;
         break;
-        //	case '\t':
-        //		return "<text:tab/>";
-        //		break;
+    //	case '\t':
+    //		return "<text:tab/>";
+    //		break;
     default:
         return string ( 1, c );
     }

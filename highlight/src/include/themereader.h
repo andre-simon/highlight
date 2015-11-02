@@ -80,7 +80,8 @@ public:
           \return True if successfull */
     bool load ( const string & styleDefinitionFile, OutputType outputType=HTML );
 
-    void addUserChunk(const Diluculum::LuaFunction& chunk) {
+    void addUserChunk(const Diluculum::LuaFunction& chunk)
+    {
 
         pluginChunks.push_back(new Diluculum::LuaFunction(chunk));
     }
@@ -94,7 +95,8 @@ public:
     /** \return Font size */
     string getErrorMessage() const;
 
-    string getDescription() const {
+    string getDescription() const
+    {
         return desc;
     }
 
@@ -120,8 +122,8 @@ public:
 
     /** \return Escape character style*/
     ElementStyle getEscapeCharStyle() const;
-    
-        /** \return String interpolation style*/
+
+    /** \return String interpolation style*/
     ElementStyle getInterpolationStyle() const;
 
     /** \return Number style*/

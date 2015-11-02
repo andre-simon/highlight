@@ -40,78 +40,87 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   \brief This class generates LaTeX.
+/**
+   \brief This class generates LaTeX.
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
-	class LatexGenerator : public highlight::CodeGenerator
-	{
-		public:
-			LatexGenerator();
-			~LatexGenerator();
+class LatexGenerator : public highlight::CodeGenerator
+{
+public:
+    LatexGenerator();
+    ~LatexGenerator();
 
-			/** set replace quotes flag
-			   \param b flag
-			*/
-			void setLATEXReplaceQuotes ( bool b ) { replaceQuotes = b;}
+    /** set replace quotes flag
+       \param b flag
+    */
+    void setLATEXReplaceQuotes ( bool b )
+    {
+        replaceQuotes = b;
+    }
 
-			/** set disable babel shorthand flag
-			   \param b flag
-			*/
-			void setLATEXNoShorthands ( bool b ) { disableBabelShortHand = b; }
+    /** set disable babel shorthand flag
+       \param b flag
+    */
+    void setLATEXNoShorthands ( bool b )
+    {
+        disableBabelShortHand = b;
+    }
 
-			/** set pretty symbols flag
-			   \param b flag
-			*/
-			void setLATEXPrettySymbols ( bool b ) { prettySymbols = b; }
+    /** set pretty symbols flag
+       \param b flag
+    */
+    void setLATEXPrettySymbols ( bool b )
+    {
+        prettySymbols = b;
+    }
 
-		private:
+private:
 
-			/** prints document header
-			 */
-			string getHeader();
+    /** prints document header
+     */
+    string getHeader();
 
-			/** Prints document footer*/
-			string getFooter();
+    /** Prints document footer*/
+    string getFooter();
 
-			/** Prints document body*/
-			void printBody();
+    /** Prints document body*/
+    void printBody();
 
-			/** initialize tags in specific format according to colouring information provided in DucumentStyle */
-			void initOutputTags();
+    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    void initOutputTags();
 
-			string styleDefinitionCache;
-			string longLineTag;
+    string styleDefinitionCache;
+    string longLineTag;
 
-			/** \return escaped character*/
-			virtual string maskCharacter ( unsigned char );
+    /** \return escaped character*/
+    virtual string maskCharacter ( unsigned char );
 
-			/**\return text formatting attributes in LaTeX format */
-			string getAttributes ( const string & elemName,
-			                       const ElementStyle & elem );
+    /**\return text formatting attributes in LaTeX format */
+    string getAttributes ( const string & elemName,
+                           const ElementStyle & elem );
 
-			/** test if double quotes should be replaced by \dq{} */
-			bool replaceQuotes;
+    /** test if double quotes should be replaced by \dq{} */
+    bool replaceQuotes;
 
-			/** test if Babel shorthand for " should be disabled */
-			bool disableBabelShortHand;
+    /** test if Babel shorthand for " should be disabled */
+    bool disableBabelShortHand;
 
-			/** test if symbols like <,>,{,},~ should be replaced by nicer definitions */
-			bool prettySymbols;
+    /** test if symbols like <,>,{,},~ should be replaced by nicer definitions */
+    bool prettySymbols;
 
-			string getNewLine();
+    string getNewLine();
 
-			string getStyleDefinition();
+    string getStyleDefinition();
 
-			string getKeywordOpenTag ( unsigned int styleID );
-			string getKeywordCloseTag ( unsigned int styleID );
-	};
+    string getKeywordOpenTag ( unsigned int styleID );
+    string getKeywordCloseTag ( unsigned int styleID );
+};
 
 }
 

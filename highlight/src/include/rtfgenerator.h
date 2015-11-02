@@ -35,112 +35,111 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   PageSize contains the RTF page dimensions.
-	*/
-	struct PageSize
-	{
-		/// RTF page width
-		int width;
-		/// RTF page height
-		int height;
+/**
+   PageSize contains the RTF page dimensions.
+*/
+struct PageSize {
+    /// RTF page width
+    int width;
+    /// RTF page height
+    int height;
 
-		PageSize()
-		{
-		}
+    PageSize()
+    {
+    }
 
-		/** Constructor to define page dimensions
-		    @param w width
-		    @param h height*/
-		PageSize ( int w, int h )
-		{
-			width=w;
-			height = h;
-		}
+    /** Constructor to define page dimensions
+        @param w width
+        @param h height*/
+    PageSize ( int w, int h )
+    {
+        width=w;
+        height = h;
+    }
 
-	};
+};
 
-	/** mapping of page size names and dimensions */
-	typedef  map<string, struct PageSize> PagesizeMap;
+/** mapping of page size names and dimensions */
+typedef  map<string, struct PageSize> PagesizeMap;
 
-	/**
-	   \brief This class generates RTF.
+/**
+   \brief This class generates RTF.
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
-	class RtfGenerator : public highlight::CodeGenerator
-	{
-		public:
+class RtfGenerator : public highlight::CodeGenerator
+{
+public:
 
-			RtfGenerator();
+    RtfGenerator();
 
-			~RtfGenerator();
+    ~RtfGenerator();
 
-			/**  Define RTF page size
-			     \param ps RTF page size (a3, a4, a5, b4, b5, b6, letter, legal) */
-			void setRTFPageSize ( const string & ps );
+    /**  Define RTF page size
+         \param ps RTF page size (a3, a4, a5, b4, b5, b6, letter, legal) */
+    void setRTFPageSize ( const string & ps );
 
-			/** \param cs flag to enable character styles*/
-			void setRTFCharStyles ( bool cs );
+    /** \param cs flag to enable character styles*/
+    void setRTFCharStyles ( bool cs );
 
-		private:
+private:
 
-			/** prints document header
-			 */
-			string getHeader();
+    /** prints document header
+     */
+    string getHeader();
 
-			/** Prints document footer*/
-			string getFooter();
+    /** Prints document footer*/
+    string getFooter();
 
-			/** Prints document body*/
-			void printBody();
+    /** Prints document body*/
+    void printBody();
 
-			/** initialize tags in specific format according to colouring information provided in DucumentStyle */
-			void initOutputTags();
+    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    void initOutputTags();
 
-			/** Map of several pagesizes */
-			PagesizeMap psMap;
+    /** Map of several pagesizes */
+    PagesizeMap psMap;
 
-			/** name of page size which is mapped to page dimensions*/
-			string pageSize;
+    /** name of page size which is mapped to page dimensions*/
+    string pageSize;
 
-			/** flag to add character styles */
-			bool addCharStyles;
+    /** flag to add character styles */
+    bool addCharStyles;
 
-			/** \return escaped character*/
-			virtual string maskCharacter ( unsigned char );
+    /** \return escaped character*/
+    virtual string maskCharacter ( unsigned char );
 
-			/**\return text formatting attributes in RTF format */
-			string  getAttributes ( const ElementStyle & col );
+    /**\return text formatting attributes in RTF format */
+    string  getAttributes ( const ElementStyle & col );
 
-			/** @param styleNumber number of current style
-			    @param elem associated element style
-			    @return RTF formatting seqence (colour index + bold + italic)*/
-			string getOpenTag ( int styleNumber,const ElementStyle &elem );
+    /** @param styleNumber number of current style
+        @param elem associated element style
+        @return RTF formatting seqence (colour index + bold + italic)*/
+    string getOpenTag ( int styleNumber,const ElementStyle &elem );
 
-			/** @param styleNumber number of current style
-			@param elem associated element style
-			@param styleName style name
-			@return RTF character style definition */
-			string getCharStyle ( int styleNumber,const ElementStyle &elem, const string&styleName );
+    /** @param styleNumber number of current style
+    @param elem associated element style
+    @param styleName style name
+    @return RTF character style definition */
+    string getCharStyle ( int styleNumber,const ElementStyle &elem, const string&styleName );
 
-			/** @param elem associated element style
-			    @return RTF formatting sequnce to close element formatting */
-			string getCloseTag ( const ElementStyle &elem );
+    /** @param elem associated element style
+        @return RTF formatting sequnce to close element formatting */
+    string getCloseTag ( const ElementStyle &elem );
 
-			/** @param styleID current style ID
-			    @return matching sequence to begin a new element formatting*/
-			string getKeywordOpenTag ( unsigned int styleID );
+    /** @param styleID current style ID
+        @return matching sequence to begin a new element formatting*/
+    string getKeywordOpenTag ( unsigned int styleID );
 
-			/** @param styleID current style ID
-			    @return matching  sequence to stop element formatting*/
-			string getKeywordCloseTag ( unsigned int styleID );
-	};
+    /** @param styleID current style ID
+        @return matching  sequence to stop element formatting*/
+    string getKeywordCloseTag ( unsigned int styleID );
+};
 
 }
 #endif

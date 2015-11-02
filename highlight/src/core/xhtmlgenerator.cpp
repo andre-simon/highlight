@@ -32,63 +32,58 @@ using namespace std;
 namespace highlight
 {
 
-	XHtmlGenerator::XHtmlGenerator ()
-	{
-		fileSuffix=".xhtml";
-		brTag="<br />";
-		hrTag="<hr />";
-		idAttr="id";
-		cssClassName="hl";
-	}
+XHtmlGenerator::XHtmlGenerator ()
+{
+    fileSuffix=".xhtml";
+    brTag="<br />";
+    hrTag="<hr />";
+    idAttr="id";
+    cssClassName="hl";
+}
 
-	string XHtmlGenerator::getHeaderStart ( const string &title )
-	{
-		ostringstream header;
-		header << "<?xml version=\"1.0\"";
-		if ( encodingDefined() )
-		{
-			header << " encoding=\"" << encoding << "\"";
-		}
-		header << "?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\""
-		<< "  \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
-		<< "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-		<< "<head>\n<title>" << title << "</title>\n";
+string XHtmlGenerator::getHeaderStart ( const string &title )
+{
+    ostringstream header;
+    header << "<?xml version=\"1.0\"";
+    if ( encodingDefined() ) {
+        header << " encoding=\"" << encoding << "\"";
+    }
+    header << "?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\""
+           << "  \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
+           << "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+           << "<head>\n<title>" << title << "</title>\n";
 
-		return header.str();
-	}
+    return header.str();
+}
 
 
-	string XHtmlGenerator::getHeader()
-	{
-		ostringstream os;
-		os << getHeaderStart ( docTitle );
+string XHtmlGenerator::getHeader()
+{
+    ostringstream os;
+    os << getHeaderStart ( docTitle );
 
-		if ( currentSyntax->highlightingEnabled() )
-		{
-			if ( includeStyleDef )
-			{
-				os << "<style type=\"text/css\">\n";
-				os << "<![CDATA[\n";
-				os << getStyleDefinition();
-				os << CodeGenerator::readUserStyleDef();
-				os << "]]>\n";
-				os << "</style>\n";
-			}
-			else
-			{
-				os << "<link rel=\"stylesheet\" type=\"text/css\" href=\""
-				<< getStyleOutputPath()
-				<< "\""
-				<< "/"
-				<< ">\n";
-			}
-		}
-		os << "</head>\n<body";
-		if (!cssClassName.empty()) 
-		  os << " class=\""<<cssClassName<<"\"";
-		os << ">\n";
+    if ( currentSyntax->highlightingEnabled() ) {
+        if ( includeStyleDef ) {
+            os << "<style type=\"text/css\">\n";
+            os << "<![CDATA[\n";
+            os << getStyleDefinition();
+            os << CodeGenerator::readUserStyleDef();
+            os << "]]>\n";
+            os << "</style>\n";
+        } else {
+            os << "<link rel=\"stylesheet\" type=\"text/css\" href=\""
+               << getStyleOutputPath()
+               << "\""
+               << "/"
+               << ">\n";
+        }
+    }
+    os << "</head>\n<body";
+    if (!cssClassName.empty())
+        os << " class=\""<<cssClassName<<"\"";
+    os << ">\n";
 
-		return os.str();
-	}
+    return os.str();
+}
 
 }

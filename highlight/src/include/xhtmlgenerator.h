@@ -34,34 +34,34 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   \brief This class generates XHTML.
+/**
+   \brief This class generates XHTML.
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
 
-	class XHtmlGenerator : public highlight::HtmlGenerator
-	{
-		public:
+class XHtmlGenerator : public highlight::HtmlGenerator
+{
+public:
 
-			XHtmlGenerator();
+    XHtmlGenerator();
 
-			~XHtmlGenerator() {};
+    ~XHtmlGenerator() {};
 
-		private:
+private:
 
-			/** prints document header
-			*/
-			string getHeader();
+    /** prints document header
+    */
+    string getHeader();
 
-			string getHeaderStart ( const string &title );
+    string getHeaderStart ( const string &title );
 
-	};
+};
 
 }
 

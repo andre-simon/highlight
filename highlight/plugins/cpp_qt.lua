@@ -1,11 +1,11 @@
 --[[
-Sample plugin file for highlight 3.1
+Sample plugin file for highlight
 
 Adds additional keywords to C++ syntax description and corresponding
 formatting in colour theme
 ]]
 
-Description="Add Qt keywords to C and C++ definition"
+Description="Add Qt keywords to C and C++ definition XX"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -20,17 +20,18 @@ function syntaxUpdate(desc)
 	table.insert( Keywords,
                   { Id=5, List={"SIGNAL", "SLOT"}
                   } )
-	--table.insert( Keywords,
-         --         { Id=5, Regex=[[Q_[A-Z]+_]+]]
-          --        } )
+	table.insert( Keywords,
+                  { Id=6, Regex=[[Q_[A-Z]+]]
+                  } )
   end
 end
 
 -- optional parameter: theme description
 function themeUpdate(desc)
- -- if #Keywords==4 then
- --   table.insert(Keywords, {Colour= "#ff0000", Bold=true})
- -- end
+  --if #Keywords==4 then
+    table.insert(Keywords, {Colour= Keywords[1].Colour, Italic=true}) -- SIGNAL, SLOT keywords
+    table.insert(Keywords, {Colour= Keywords[2].Colour, Bold=true})   -- Q_* constants
+  --end
 end
 
 

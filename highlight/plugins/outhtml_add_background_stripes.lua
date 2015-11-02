@@ -1,21 +1,18 @@
 --[[
 Sample plugin file for highlight
 
-Adds a background pattern using an inline SVG
+Adds background stripes
 ]]
 
-Description="Adds a background inline SVG pattern (edit parameters in the file)"
+Description="Adds background stripes"
 
 -- function to update theme definition
 -- optional parameter: theme description
 function themeUpdate()
-
-  --EDIT to change grid size
-  gridsize = 25
   
   function lighten(colour)
     if string.match(colour, "#%x+")==nil then
-      return "rgb(0,0,0)"
+      return "rgba(0,0,0,0)"
     end
     
     base_rr = ("0x"..string.match(colour, "%x%x", 2))
@@ -27,7 +24,7 @@ function themeUpdate()
     brightness = (min_bright + max_bright) / (255*2.0)
     
     if (brightness < 0.1) then
-      return "rgb(50,50,50)"
+      return "rgba(50,50,50, 0.5)"
     elseif (brightness < 0.5) then
       percent = 100
     elseif (brightness > 0.95) then
@@ -43,16 +40,14 @@ function themeUpdate()
     if (rr>255) then rr = 255 end
     if (gg>255) then gg = 255 end
     if (bb>255) then bb = 255 end
-    return string.format("rgb(%d,%d,%d)", rr, gg, bb)
+    return string.format("rgba(%d,%d,%d,0.25)", rr, gg, bb)
   end
 
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
     
-    -- EDIT Play with the x and y coordinates of the lines to obtain different patterns
-    Injections[#Injections+1]="pre.hl { background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='"..gridsize..
-			      "'  height='"..gridsize.."'><line x1='0' y1='0' x2='0' y2='"..gridsize.."' style='stroke:"..lighten(Canvas.Colour)..
-			      ";stroke-width:1'/><line x1='0' y1='0' x2='"..gridsize.."' y2='0' style='stroke:"..lighten(Canvas.Colour)..
-			      ";stroke-width:1'/></svg>\");}"
+    -- inspired by prismjs ;)
+    Injections[#Injections+1]="pre.hl { background-image: linear-gradient(transparent 50%, "..lighten(Canvas.Colour)..
+			      " 50%); background-size:3em 3em; background-origin:content-box; font-size:100%/1.5;line-height: 1.5; }"
   end 
 end
 

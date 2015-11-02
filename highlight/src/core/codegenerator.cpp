@@ -69,8 +69,7 @@ const string CodeGenerator::STY_NAME_IPL="ipl"; //interpolation
 CodeGenerator * CodeGenerator::getInstance ( OutputType type )
 {
     CodeGenerator* generator=NULL;
-    switch ( type )
-    {
+    switch ( type ) {
     case HTML:
         generator = new HtmlGenerator();
         break;
@@ -262,7 +261,8 @@ void CodeGenerator::setNumberWrappedLines ( bool flag )
     numberWrappedLines=flag;
 }
 
-bool CodeGenerator::getNumberWrappedLines() {
+bool CodeGenerator::getNumberWrappedLines()
+{
     return numberWrappedLines;
 }
 
@@ -276,15 +276,15 @@ void CodeGenerator::setBaseFontSize ( const string& s )
     baseFontSize = s ;
 }
 
-void CodeGenerator::setStartingNestedLang(const string &langName) {
+void CodeGenerator::setStartingNestedLang(const string &langName)
+{
     embedLangStart = langName;
 }
 
 const string CodeGenerator::getBaseFont() const
 {
     if ( !baseFont.empty() ) return baseFont;
-    switch ( outputType )
-    {
+    switch ( outputType ) {
     case HTML:
     case XHTML:
         return "'Courier New',monospace";
@@ -345,8 +345,7 @@ void CodeGenerator::setPreformatting ( WrapMode lineWrappingStyle,
     bool enableWrap = lineWrappingStyle!=WRAP_DISABLED;
     bool replaceTabs = numberSpaces > 0;
 
-    if ( enableWrap || replaceTabs )
-    {
+    if ( enableWrap || replaceTabs ) {
         preFormatter.setWrap ( enableWrap );
         preFormatter.setWrapIndentBraces ( lineWrappingStyle==WRAP_DEFAULT );
         preFormatter.setWrapLineLength ( lineLength );
@@ -360,7 +359,8 @@ void CodeGenerator::setKeyWordCase ( StringTools::KeywordCase keyCase )
     keywordCase = keyCase;
 }
 
-void CodeGenerator::setEOLDelimiter(char delim) {
+void CodeGenerator::setEOLDelimiter(char delim)
+{
     eolDelimiter = delim;
 }
 
@@ -377,22 +377,27 @@ void CodeGenerator::reset()
     printNewLines=true;
 }
 
-string CodeGenerator::getThemeInitError() {
+string CodeGenerator::getThemeInitError()
+{
     return  docStyle.getErrorMessage();
 }
 
-string CodeGenerator::getPluginScriptError() {
+string CodeGenerator::getPluginScriptError()
+{
     return userScriptError;
 }
 
-string CodeGenerator::getSyntaxRegexError() {
+string CodeGenerator::getSyntaxRegexError()
+{
     return (currentSyntax)? currentSyntax->getFailedRegex(): "syntax undef";
 }
-string CodeGenerator::getSyntaxLuaError() {
+string CodeGenerator::getSyntaxLuaError()
+{
     return (currentSyntax)? currentSyntax->getLuaErrorText(): "syntax undef";
 
 }
-string CodeGenerator::getSyntaxDescription() {
+string CodeGenerator::getSyntaxDescription()
+{
     return (currentSyntax)? currentSyntax->getDescription(): "syntax undef";
 
 }
@@ -406,16 +411,12 @@ bool CodeGenerator::readNewLine ( string &newLine )
 {
     bool eof;
     if ( lineIndex ) terminatingChar=newLine[lineIndex-1];
-    if ( formattingPossible && formattingEnabled )
-    {
+    if ( formattingPossible && formattingEnabled ) {
         eof=!formatter->hasMoreLines();
-        if ( !eof )
-        {
+        if ( !eof ) {
             newLine = formatter->nextLine();
         }
-    }
-    else
-    {
+    } else {
         eof = ! getline ( *in, newLine, eolDelimiter );
     }
 
@@ -435,8 +436,7 @@ void CodeGenerator::matchRegex ( const string &line )
     int groupID=0;
 
     // cycle through all regex, save the start and ending indices of matches to report them later
-    for ( unsigned int i=0; i<currentSyntax->getRegexElements().size(); i++ )
-    {
+    for ( unsigned int i=0; i<currentSyntax->getRegexElements().size(); i++ ) {
         RegexElement *regexElem = currentSyntax->getRegexElements() [i];
 
         boost::xpressive::sregex_iterator cur( line.begin(), line.end(), regexElem->rex );
@@ -455,13 +455,10 @@ unsigned char CodeGenerator::getInputChar()
 {
     bool eol = lineIndex == line.length();
 
-    if ( eol )
-    {
+    if ( eol ) {
         bool eof=false;
-        if ( preFormatter.isEnabled() )
-        {
-            if ( !preFormatter.hasMoreLines() )
-            {
+        if ( preFormatter.isEnabled() ) {
+            if ( !preFormatter.hasMoreLines() ) {
                 eof=readNewLine ( line );
                 preFormatter.setLine ( line );
                 ++lineNumber;
@@ -473,9 +470,7 @@ unsigned char CodeGenerator::getInputChar()
             }
 
             line = preFormatter.getNextLine();
-        }
-        else
-        {
+        } else {
             eof=readNewLine ( line );
             ++lineNumber;
 
@@ -495,36 +490,28 @@ State CodeGenerator::getCurrentState (State oldState)
 
     unsigned char c='\0';
 
-    if ( token.length() ==0 )
-    {
+    if ( token.length() ==0 ) {
         c=getInputChar();
-    }
-    else
-    {
+    } else {
         lineIndex-= ( token.length()-1 );
         c=token[0];
     }
-    if ( c=='\n' )
-    {
+    if ( c=='\n' ) {
         return _EOL;   // End of line
     }
 
-    if ( c=='\0' )
-    {
+    if ( c=='\0' ) {
         return _EOF;   // End of file
     }
 
-    if ( c==' ' || c=='\t' )
-    {
+    if ( c==' ' || c=='\t' ) {
         token= c;
         return _WS;
     }
 
     // Test if a regular expression was found at the current position
-    if ( !regexGroups.empty() )
-    {
-        if ( regexGroups.count ( lineIndex ) )
-        {
+    if ( !regexGroups.empty() ) {
+        if ( regexGroups.count ( lineIndex ) ) {
             token = line.substr ( lineIndex-1, regexGroups[lineIndex].length );
             unsigned int oldIndex= lineIndex;
             if ( regexGroups[oldIndex].length>1 ) lineIndex+= regexGroups[oldIndex].length-1;
@@ -534,16 +521,13 @@ State CodeGenerator::getCurrentState (State oldState)
                 embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
             }
 
-            if ( regexGroups[oldIndex].state==IDENTIFIER_BEGIN || regexGroups[oldIndex].state==KEYWORD )
-            {
+            if ( regexGroups[oldIndex].state==IDENTIFIER_BEGIN || regexGroups[oldIndex].state==KEYWORD ) {
                 string reservedWord= ( currentSyntax->isIgnoreCase() ) ? StringTools::change_case ( token ) :token;
                 currentKeywordClass=currentSyntax->isKeyword ( reservedWord );
                 if ( !currentKeywordClass && regexGroups[oldIndex].state==KEYWORD )
                     currentKeywordClass = regexGroups[oldIndex].kwClass;
                 return validateState(( currentKeywordClass ) ? KEYWORD : STANDARD, oldState, currentKeywordClass);
-            }
-            else
-            {
+            } else {
                 return validateState(regexGroups[oldIndex].state, oldState, 0);
             }
         }
@@ -555,7 +539,8 @@ State CodeGenerator::getCurrentState (State oldState)
 }
 
 
-State CodeGenerator::validateState(State newState, State oldState, unsigned int kwClass) {
+State CodeGenerator::validateState(State newState, State oldState, unsigned int kwClass)
+{
 
     if (currentSyntax->getValidateStateChangeFct()) {
 
@@ -569,7 +554,7 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
             currentSyntax->getLuaState()->call ( *currentSyntax->getValidateStateChangeFct(),
                     params,"getValidateStateChangeFct call")  ;
 
-	resultOfHook = res.size()==1;
+        resultOfHook = res.size()==1;
         if (resultOfHook) {
             return (State)res[0].asNumber();
         }
@@ -581,8 +566,7 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
 //it is faster to pass ostream reference
 void CodeGenerator::maskString ( ostream& ss, const string & s )
 {
-    for ( unsigned int i=0; i< s.length(); i++ )
-    {
+    for ( unsigned int i=0; i< s.length(); i++ ) {
         ss << maskCharacter ( s[i] );
     }
 }
@@ -628,8 +612,7 @@ bool CodeGenerator::printIndexFile ( const vector<string> &fileList,
 bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
 {
 
-    if ( formatter!=NULL )
-    {
+    if ( formatter!=NULL ) {
         return true;
     }
 
@@ -639,64 +622,35 @@ bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
 
     formatter->setParensHeaderPaddingMode(true);
 
-    if ( indentScheme=="allman" || indentScheme=="bsd" || indentScheme=="ansi" )
-    {
+    if ( indentScheme=="allman" || indentScheme=="bsd" || indentScheme=="ansi" ) {
         formatter->setFormattingStyle ( astyle::STYLE_ALLMAN );
-    }
-    else if ( indentScheme=="kr"||indentScheme=="k&r"||indentScheme=="k/r" )
-    {
+    } else if ( indentScheme=="kr"||indentScheme=="k&r"||indentScheme=="k/r" ) {
         formatter->setFormattingStyle ( astyle::STYLE_KR );
-    }
-    else if ( indentScheme=="java" )
-    {
+    } else if ( indentScheme=="java" ) {
         formatter->setFormattingStyle ( astyle::STYLE_JAVA );
-    }
-    else if ( indentScheme=="stroustrup" )
-    {
+    } else if ( indentScheme=="stroustrup" ) {
         formatter->setFormattingStyle ( astyle::STYLE_STROUSTRUP );
-    }
-    else if ( indentScheme=="whitesmith" )
-    {
+    } else if ( indentScheme=="whitesmith" ) {
         formatter->setFormattingStyle ( astyle::STYLE_WHITESMITH );
-    }
-    else if ( indentScheme=="banner" )
-    {
+    } else if ( indentScheme=="banner" ) {
         formatter->setFormattingStyle ( astyle::STYLE_BANNER );
-    }
-    else if ( indentScheme=="gnu" )
-    {
+    } else if ( indentScheme=="gnu" ) {
         formatter->setFormattingStyle ( astyle::STYLE_GNU );
-    }
-    else if ( indentScheme=="linux" )
-    {
+    } else if ( indentScheme=="linux" ) {
         formatter->setFormattingStyle ( astyle::STYLE_LINUX );
-    }
-    else if ( indentScheme=="horstmann" )
-    {
+    } else if ( indentScheme=="horstmann" ) {
         formatter->setFormattingStyle ( astyle::STYLE_HORSTMANN );
-    }
-    else if ( indentScheme=="otbs" ||  indentScheme=="1tbs")
-    {
+    } else if ( indentScheme=="otbs" ||  indentScheme=="1tbs") {
         formatter->setFormattingStyle ( astyle::STYLE_1TBS );
-    }
-    else if ( indentScheme=="google")
-    {
+    } else if ( indentScheme=="google") {
         formatter->setFormattingStyle ( astyle::STYLE_GOOGLE );
-    }
-    else if ( indentScheme=="pico" ||  indentScheme=="a11")
-    {
+    } else if ( indentScheme=="pico" ||  indentScheme=="a11") {
         formatter->setFormattingStyle ( astyle::STYLE_PICO );
-    }
-    else if ( indentScheme=="lisp" ||  indentScheme=="python"||  indentScheme=="a12")
-    {
+    } else if ( indentScheme=="lisp" ||  indentScheme=="python"||  indentScheme=="a12") {
         formatter->setFormattingStyle ( astyle::STYLE_LISP );
-    } 
-    else if ( indentScheme=="vtk")
-    {
+    } else if ( indentScheme=="vtk") {
         formatter->setFormattingStyle ( astyle::STYLE_VTK );
-    }
-    else
-    {
+    } else {
         return false;
     }
     return formattingEnabled=true;
@@ -708,8 +662,7 @@ LoadResult CodeGenerator::loadLanguage ( const string& langDefPath )
     bool reloadNecessary= currentSyntax ? currentSyntax->needsReload ( langDefPath ): true;
     LoadResult result=LOAD_OK;
 
-    if ( reloadNecessary )
-    {
+    if ( reloadNecessary ) {
         if (syntaxReaders.count(langDefPath)) {
             currentSyntax=syntaxReaders[langDefPath];
             result=LOAD_OK;
@@ -719,12 +672,10 @@ LoadResult CodeGenerator::loadLanguage ( const string& langDefPath )
             syntaxReaders[langDefPath]=currentSyntax;
         }
 
-        if ( result==LOAD_OK )
-        {
+        if ( result==LOAD_OK ) {
             formattingPossible=currentSyntax->enableReformatting();
 
-            if ( openTags.size() >NUMBER_BUILTIN_STATES )
-            {
+            if ( openTags.size() >NUMBER_BUILTIN_STATES ) {
                 // remove dynamic keyword tag delimiters of the old language definition
                 vector<string>::iterator keyStyleOpenBegin =
                     openTags.begin() + NUMBER_BUILTIN_STATES;
@@ -734,8 +685,7 @@ LoadResult CodeGenerator::loadLanguage ( const string& langDefPath )
                 closeTags.erase ( keyStyleCloseBegin, closeTags.end() );
             }
             // add new keyword tag delimiters
-            for ( unsigned int i=0; i< currentSyntax->getKeywordClasses().size(); i++ )
-            {
+            for ( unsigned int i=0; i< currentSyntax->getKeywordClasses().size(); i++ ) {
                 openTags.push_back ( getKeywordOpenTag ( i ) );
                 closeTags.push_back ( getKeywordCloseTag ( i ) );
             }
@@ -779,17 +729,14 @@ bool CodeGenerator::validateInputStream()
     in->read ( buffer,8 );  //only read the first 8 bytes of input stream
 
     int magic_index=0;
-    while ( magic_table[magic_index] )
-    {
-        if ( !strncmp ( buffer, magic_table[magic_index], strlen ( magic_table[magic_index] ) ) )
-        {
+    while ( magic_table[magic_index] ) {
+        if ( !strncmp ( buffer, magic_table[magic_index], strlen ( magic_table[magic_index] ) ) ) {
             break;
         }
         magic_index++;
     }
     int streamReadPos=0;
-    if ( magic_table[magic_index] == magic_utf8 )
-    {
+    if ( magic_table[magic_index] == magic_utf8 ) {
         //setEncoding("utf-8");
         streamReadPos=3; // remove UTF-8 magic number from output
     }
@@ -804,8 +751,7 @@ bool CodeGenerator::validateInputStream()
 ParseError CodeGenerator::generateFile ( const string &inFileName,
         const string &outFileName )
 {
-    if ( !docStyle.found() )
-    {
+    if ( !docStyle.found() ) {
         return BAD_STYLE;
     }
 
@@ -820,48 +766,39 @@ ParseError CodeGenerator::generateFile ( const string &inFileName,
     if ( validateInput )
         if ( !validateInputStream() ) error= BAD_INPUT;
 
-    if ( !in->fail() && error==PARSE_OK )
-    {
+    if ( !in->fail() && error==PARSE_OK ) {
         out = ( outFileName.empty() ? &cout :new ofstream ( outFileName.c_str() ) );
-        if ( out->fail() )
-        {
+        if ( out->fail() ) {
             error=BAD_OUTPUT;
         }
     }
 
-    if ( in->fail() )
-    {
+    if ( in->fail() ) {
         error=BAD_INPUT;
     }
 
-    if ( error==PARSE_OK )
-    {
-        if ( formatter != NULL )
-        {
+    if ( error==PARSE_OK ) {
+        if ( formatter != NULL ) {
             formatter->init ( new astyle::ASStreamIterator ( in ) );
         }
-        if ( ! fragmentOutput )
-        {
+        if ( ! fragmentOutput ) {
             *out << getHeader();
-	    *out << currentSyntax->getHeaderInjection();
+            *out << currentSyntax->getHeaderInjection();
         }
 
         printBody();
 
-        if ( ! fragmentOutput )
-        {
-	    *out << currentSyntax->getFooterInjection();
+        if ( ! fragmentOutput ) {
+            *out << currentSyntax->getFooterInjection();
             *out << getFooter();
         }
     }
 
-    if ( !outFileName.empty() )
-    {
+    if ( !outFileName.empty() ) {
         delete out;
         out=NULL;
     }
-    if ( !inFileName.empty() )
-    {
+    if ( !inFileName.empty() ) {
         delete in;
         in=NULL;
     }
@@ -871,8 +808,7 @@ ParseError CodeGenerator::generateFile ( const string &inFileName,
 string CodeGenerator::generateString ( const string &input )
 {
 
-    if ( !docStyle.found() )
-    {
+    if ( !docStyle.found() ) {
         return "";
     }
 
@@ -881,26 +817,22 @@ string CodeGenerator::generateString ( const string &input )
     in = new istringstream ( input );
     out = new ostringstream ();
 
-    if ( in->fail() || out->fail() )
-    {
+    if ( in->fail() || out->fail() ) {
         return "";
     }
 
-    if ( formatter != NULL )
-    {
+    if ( formatter != NULL ) {
         formatter->init ( new astyle::ASStreamIterator ( in ) );
     }
-    if ( ! fragmentOutput )
-    {
+    if ( ! fragmentOutput ) {
         *out << getHeader();
-	*out << currentSyntax->getHeaderInjection();
+        *out << currentSyntax->getHeaderInjection();
     }
 
     printBody();
 
-    if ( ! fragmentOutput )
-    {
-      *out << currentSyntax->getFooterInjection();
+    if ( ! fragmentOutput ) {
+        *out << currentSyntax->getFooterInjection();
         *out << getFooter();
     }
 
@@ -917,8 +849,7 @@ string CodeGenerator::generateString ( const string &input )
 string CodeGenerator::generateStringFromFile ( const string &inFileName )
 {
 
-    if ( !docStyle.found() )
-    {
+    if ( !docStyle.found() ) {
         return "";
     }
 
@@ -928,32 +859,27 @@ string CodeGenerator::generateStringFromFile ( const string &inFileName )
     in = new ifstream ( inFileName.c_str() );
     out = new ostringstream ();
 
-    if ( in->fail() || out->fail() )
-    {
+    if ( in->fail() || out->fail() ) {
         return "";
     }
 
-    if ( validateInput && !validateInputStream() )
-    {
+    if ( validateInput && !validateInputStream() ) {
         return "ERROR: detected binary input";
     }
 
-    if ( formatter != NULL )
-    {
+    if ( formatter != NULL ) {
         formatter->init ( new astyle::ASStreamIterator ( in ) );
     }
-    if ( ! fragmentOutput )
-    {
+    if ( ! fragmentOutput ) {
         *out << getHeader();
-	*out << currentSyntax->getHeaderInjection();
+        *out << currentSyntax->getHeaderInjection();
     }
 
     printBody();
 
-    if ( ! fragmentOutput )
-    {
-      *out << currentSyntax->getFooterInjection();
-      *out << getFooter();
+    if ( ! fragmentOutput ) {
+        *out << currentSyntax->getFooterInjection();
+        *out << getFooter();
     }
 
     string result = static_cast<ostringstream*> ( out )->str();
@@ -968,8 +894,7 @@ string CodeGenerator::generateStringFromFile ( const string &inFileName )
 
 unsigned int CodeGenerator::getStyleID ( State s, unsigned int kwClassID )
 {
-    if ( s==KEYWORD && kwClassID )
-    {
+    if ( s==KEYWORD && kwClassID ) {
         return NUMBER_BUILTIN_STATES + kwClassID-1;
     }
     return ( unsigned int ) s ;
@@ -1001,7 +926,8 @@ void CodeGenerator::closeKWTag ( unsigned int kwClassID )
     currentState=_UNKNOWN;
 }
 
-bool CodeGenerator::loadEmbeddedLang(const string&embedLangDefPath) {
+bool CodeGenerator::loadEmbeddedLang(const string&embedLangDefPath)
+{
     //save path of host language
     if (hostLangDefPath.empty()) {
         hostLangDefPath =currentSyntax->getCurrentPath();
@@ -1020,11 +946,9 @@ void CodeGenerator::processRootState()
     bool eof=false,
          firstLine=true; // avoid newline before printing the first output line
 
-    if ( currentSyntax->highlightingDisabled() )
-    {
+    if ( currentSyntax->highlightingDisabled() ) {
         string line;
-        while ( getline ( *in, line ) )
-        {
+        while ( getline ( *in, line ) ) {
             ++lineNumber;
             insertLineNumber ( !firstLine );
             flushWs();
@@ -1042,14 +966,12 @@ void CodeGenerator::processRootState()
     State state=STANDARD;
 
     openTag ( STANDARD );
-    do
-    {
+    do {
         // determine next state
         state= getCurrentState(STANDARD);
 
         // handle current state
-        switch ( state )
-        {
+        switch ( state ) {
         case KEYWORD:
             closeTag ( STANDARD );
             eof=processKeywordState ( state );
@@ -1110,8 +1032,7 @@ void CodeGenerator::processRootState()
             printMaskedToken ();
             break;
         }
-    }
-    while ( !eof );
+    } while ( !eof );
     closeTag ( STANDARD );
     printNewLines = !noTrailingNewLine;
     *out << getNewLine();
@@ -1124,8 +1045,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
     bool eof=false,
          exitState=false;
     openTag ( KEYWORD );
-    do
-    {
+    do {
         if (myState==EMBEDDED_CODE_BEGIN) {
             if (!loadEmbeddedLang(embedLangDefPath)) {
                 // exit or segfault
@@ -1133,8 +1053,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
             }
             //test current line again to match tokens of the embedded language
             matchRegex(line);
-        }
-        else if (myState==EMBEDDED_CODE_END) {
+        } else if (myState==EMBEDDED_CODE_END) {
             // load host language syntax
             loadLanguage(hostLangDefPath);
             //test current line again to match tokens of the host language
@@ -1143,8 +1062,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
 
         printMaskedToken ( newState!=_WS );
         newState= getCurrentState(myState);
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _WS:
             processWsState();
             break;
@@ -1159,8 +1077,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
             exitState=true;
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeTag ( KEYWORD );
     return eof;
@@ -1174,13 +1091,11 @@ bool CodeGenerator::processKeywordState ( State myState )
          exitState=false;
 
     openKWTag ( myClassID );
-    do
-    {
+    do {
         printMaskedToken ( newState!=_WS,
                            ( currentSyntax->isIgnoreCase() ) ? keywordCase : StringTools::CASE_UNCHANGED );
         newState= getCurrentState(myState);
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _WS:
             processWsState();
             break;
@@ -1198,8 +1113,7 @@ bool CodeGenerator::processKeywordState ( State myState )
             exitState= ( myClassID!=currentKeywordClass ) || ( myState!=newState );
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeKWTag ( myClassID );
 
@@ -1213,12 +1127,10 @@ bool CodeGenerator::processNumberState()
     bool eof=false,
          exitState=false;
     openTag ( NUMBER );
-    do
-    {
+    do {
         printMaskedToken ( newState!=_WS );
         newState= getCurrentState(NUMBER);
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _WS:
             processWsState();
             break;
@@ -1233,8 +1145,7 @@ bool CodeGenerator::processNumberState()
             exitState=newState!=NUMBER;
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeTag ( NUMBER );
     return eof;
@@ -1247,13 +1158,11 @@ bool CodeGenerator::processMultiLineCommentState()
     State newState=STANDARD;
     bool eof=false, exitState=false;
     openTag ( ML_COMMENT );
-    do
-    {
+    do {
         printMaskedToken (newState!=_WS );
         newState= getCurrentState(ML_COMMENT);
 
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _WS:
             processWsState();
             break;
@@ -1267,8 +1176,7 @@ bool CodeGenerator::processMultiLineCommentState()
             break;
         case ML_COMMENT:
 
-            if ( currentSyntax->allowNestedMLComments() )
-            {
+            if ( currentSyntax->allowNestedMLComments() ) {
                 ++commentCount;
             }
             // if delimiters are equal, close the comment by continueing to
@@ -1281,8 +1189,7 @@ bool CodeGenerator::processMultiLineCommentState()
                 break;
             }
             commentCount--;
-            if ( !commentCount )
-            {
+            if ( !commentCount ) {
                 printMaskedToken();
                 exitState=true;
             }
@@ -1290,8 +1197,7 @@ bool CodeGenerator::processMultiLineCommentState()
         default:
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeTag ( ML_COMMENT );
     return eof;
@@ -1300,8 +1206,7 @@ bool CodeGenerator::processMultiLineCommentState()
 
 bool CodeGenerator::processSingleLineCommentState()
 {
-    if ( checkSpecialCmd() )
-    {
+    if ( checkSpecialCmd() ) {
         return in->bad(); // if input stream is bad, report eof to calling method
     }
 
@@ -1309,24 +1214,19 @@ bool CodeGenerator::processSingleLineCommentState()
     bool eof=false, exitState=false;
 
     openTag ( SL_COMMENT );
-    do
-    {
+    do {
         printMaskedToken ( newState!=_WS );
         newState= getCurrentState(SL_COMMENT);
 
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _WS:
             processWsState();
             break;
         case _EOL:
             printMaskedToken();
-            if ( preFormatter.isEnabled() && preFormatter.isWrappedLine ( lineNumber-1 ) )
-            {
+            if ( preFormatter.isEnabled() && preFormatter.isWrappedLine ( lineNumber-1 ) ) {
                 exitState=false;
-            }
-            else
-            {
+            } else {
                 exitState=true;
             }
             if ( !exitState ) wsBuffer += closeTags[SL_COMMENT];
@@ -1340,8 +1240,7 @@ bool CodeGenerator::processSingleLineCommentState()
         default:
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeTag ( SL_COMMENT );
     return eof;
@@ -1353,12 +1252,10 @@ bool CodeGenerator::processDirectiveState()
     bool eof=false, exitState=false;
 
     openTag ( DIRECTIVE );
-    do
-    {
+    do {
         printMaskedToken ( newState!=_WS );
         newState= getCurrentState(DIRECTIVE);
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _WS:
             processWsState();
             break;
@@ -1368,12 +1265,9 @@ bool CodeGenerator::processDirectiveState()
             break;
         case _EOL:
             printMaskedToken();
-            if ( preFormatter.isEnabled() && preFormatter.isWrappedLine ( lineNumber-1 ) )
-            {
+            if ( preFormatter.isEnabled() && preFormatter.isWrappedLine ( lineNumber-1 ) ) {
                 exitState=false;
-            }
-            else
-            {
+            } else {
                 exitState= ( terminatingChar!=currentSyntax->getContinuationChar() );
             }
             if ( !exitState ) wsBuffer += closeTags[DIRECTIVE];
@@ -1402,8 +1296,7 @@ bool CodeGenerator::processDirectiveState()
         default:
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeTag ( DIRECTIVE );
     return eof;
@@ -1420,32 +1313,28 @@ bool CodeGenerator::processStringState ( State oldState )
     int openDelimID=currentSyntax->getOpenDelimiterID ( token, myState);
     string openDelim=token;
 
-    
+
     //Raw String by definition:
     bool isRawString=currentSyntax->delimiterIsRawString(openDelimID);
-    
+
     // Test if character before string open delimiter token equals to the
     // raw string prefix (Example: r" ", r""" """ in Python)
-    
+
     //Raw String Prefix:
-    if ( lineIndex>token.length() &&line[lineIndex-token.length()-1]==currentSyntax->getRawStringPrefix() )
-    {
+    if ( lineIndex>token.length() &&line[lineIndex-token.length()-1]==currentSyntax->getRawStringPrefix() ) {
         isRawString=true;
     }
-    
+
     openTag ( myState );
-    do
-    {
+    do {
         // true if last token was an escape char
-        if ( !returnedFromOtherState )
-        {
+        if ( !returnedFromOtherState ) {
             printMaskedToken (newState!=_WS );
         }
         returnedFromOtherState=false;
         newState= getCurrentState(myState);
 
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _WS:
             processWsState();
             break;
@@ -1458,7 +1347,7 @@ bool CodeGenerator::processStringState ( State oldState )
             if (resultOfHook || currentSyntax->matchesOpenDelimiter (token,  STRING_END, openDelimID)) {
                 exitState= true;
                 printMaskedToken();
-            } 
+            }
             break;
         case STRING:
             // if there exist multiple string delimiters, close string if
@@ -1473,11 +1362,11 @@ bool CodeGenerator::processStringState ( State oldState )
                 openTag ( myState );
                 returnedFromOtherState=true;
             } else {
-	        // FIXME not a fix for Python r"""\"""
-	        //exitState=(openDelim=="\"" && token=="\\\""); // C# raw string that ends with '\'
-	        exitState=token.size()>1 && token[1] == openDelim[0];
-	        printMaskedToken();
-	    }
+                // FIXME not a fix for Python r"""\"""
+                //exitState=(openDelim=="\"" && token=="\\\""); // C# raw string that ends with '\'
+                exitState=token.size()>1 && token[1] == openDelim[0];
+                printMaskedToken();
+            }
             break;
         case STRING_INTERPOLATION:
             closeTag ( myState );
@@ -1492,8 +1381,7 @@ bool CodeGenerator::processStringState ( State oldState )
             printMaskedToken();
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeTag ( myState );
     return eof;
@@ -1507,12 +1395,10 @@ bool CodeGenerator::processSymbolState()
          exitState=false;
 
     openTag ( SYMBOL );
-    do
-    {
+    do {
         printMaskedToken ( newState!=_WS );
         newState= getCurrentState(SYMBOL);
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _WS:
             processWsState();
             break;
@@ -1527,8 +1413,7 @@ bool CodeGenerator::processSymbolState()
             exitState=newState!=SYMBOL;
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeTag ( SYMBOL );
     return eof;
@@ -1539,12 +1424,10 @@ bool CodeGenerator::processEscapeCharState()
     State newState=STANDARD;
     bool eof=false, exitState=false;
     openTag ( ESC_CHAR );
-    do
-    {
+    do {
         printMaskedToken (newState!=_WS );
         newState= getCurrentState(ESC_CHAR);
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _EOL:
             insertLineNumber();
             exitState=true;
@@ -1559,8 +1442,7 @@ bool CodeGenerator::processEscapeCharState()
             exitState=newState!=ESC_CHAR;
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeTag ( ESC_CHAR );
     return eof;
@@ -1571,12 +1453,10 @@ bool CodeGenerator::processInterpolationState()
     State newState=STANDARD;
     bool eof=false, exitState=false;
     openTag ( STRING_INTERPOLATION );
-    do
-    {
+    do {
         printMaskedToken (newState!=_WS );
         newState= getCurrentState(STRING_INTERPOLATION);
-        switch ( newState )
-        {
+        switch ( newState ) {
         case _EOL:
             insertLineNumber();
             exitState=true;
@@ -1591,8 +1471,7 @@ bool CodeGenerator::processInterpolationState()
             exitState=newState!=STRING_INTERPOLATION;
             break;
         }
-    }
-    while ( ( !exitState ) && ( !eof ) );
+    } while ( ( !exitState ) && ( !eof ) );
 
     closeTag ( STRING_INTERPOLATION );
     return eof;
@@ -1600,8 +1479,7 @@ bool CodeGenerator::processInterpolationState()
 
 void CodeGenerator::processWsState()
 {
-    if ( !maskWs )
-    {
+    if ( !maskWs ) {
         wsBuffer += token;
         token.clear();
         return;
@@ -1611,32 +1489,25 @@ void CodeGenerator::processWsState()
     lineIndex--;
 
     // while (iswspace(line[lineIndex])  ) {
-    while ( line[lineIndex]==' ' || line[lineIndex]=='\t' )
-    {
+    while ( line[lineIndex]==' ' || line[lineIndex]=='\t' ) {
         ++cntWs;
         ++lineIndex;
     }
 
-    if ( cntWs>1 )
-    {
+    if ( cntWs>1 ) {
         unsigned int styleID=getStyleID ( currentState, currentKeywordClass );
-        if ( excludeWs && styleID!=_UNKNOWN )
-        {
+        if ( excludeWs && styleID!=_UNKNOWN ) {
             *out << closeTags[styleID];
         }
         *out << maskWsBegin;
-        for ( int i=0; i<cntWs; i++ )
-        {
+        for ( int i=0; i<cntWs; i++ ) {
             *out << spacer;
         }
         *out << maskWsEnd;
-        if ( excludeWs && styleID!=_UNKNOWN )
-        {
+        if ( excludeWs && styleID!=_UNKNOWN ) {
             *out << openTags[styleID];
         }
-    }
-    else
-    {
+    } else {
         *out << spacer; //Bugfix fehlender Space nach Strings
     }
     token.clear();
@@ -1655,21 +1526,17 @@ string CodeGenerator::getNewLine()
 
 void CodeGenerator::insertLineNumber ( bool insertNewLine )
 {
-    if ( insertNewLine )
-    {
+    if ( insertNewLine ) {
         wsBuffer += getNewLine();
     }
 
-    if ( showLineNumbers )
-    {
+    if ( showLineNumbers ) {
         ostringstream os;
         ostringstream numberPrefix;
 
         os << setw ( getLineNumberWidth() ) << right;
-        if( numberCurrentLine )
-        {
-            if ( lineNumberFillZeroes )
-            {
+        if( numberCurrentLine ) {
+            if ( lineNumberFillZeroes ) {
                 os.fill ( '0' );
             }
             os << lineNumber+lineNumberOffset;
@@ -1692,11 +1559,9 @@ unsigned int CodeGenerator::getLineIndex()
 
 bool CodeGenerator::printExternalStyle ( const string &outFile )
 {
-    if ( !includeStyleDef )
-    {
+    if ( !includeStyleDef ) {
         ostream *cssOutFile = ( outFile.empty() ? &cout :new ofstream ( outFile.c_str() ) );
-        if ( !cssOutFile->fail() )
-        {
+        if ( !cssOutFile->fail() ) {
             *cssOutFile << styleCommentOpen
                         <<" Style definition file generated by highlight "
                         << HIGHLIGHT_VERSION << ", " << HIGHLIGHT_URL
@@ -1710,9 +1575,7 @@ bool CodeGenerator::printExternalStyle ( const string &outFile )
                         << "\n";
             *cssOutFile << readUserStyleDef();
             if ( !outFile.empty() ) delete cssOutFile;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -1722,23 +1585,18 @@ bool CodeGenerator::printExternalStyle ( const string &outFile )
 string CodeGenerator::readUserStyleDef()
 {
     ostringstream ostr;
-    if ( !styleInputPath.empty() )
-    {
+    if ( !styleInputPath.empty() ) {
         ifstream userStyleDef ( styleInputPath.c_str() );
-        if ( userStyleDef )
-        {
+        if ( userStyleDef ) {
             ostr 	<< "\n" << styleCommentOpen
                     << " Content of " << styleInputPath
                     << ": " <<styleCommentClose << "\n";
             string line;
-            while ( getline ( userStyleDef, line ) )
-            {
+            while ( getline ( userStyleDef, line ) ) {
                 ostr << line << "\n";
             }
             userStyleDef.close();
-        }
-        else
-        {
+        } else {
             ostr 	<< styleCommentOpen
                     << " ERROR: Could not include " << styleInputPath
                     << "." << styleCommentClose << "\n";
@@ -1754,7 +1612,8 @@ string CodeGenerator::readUserStyleDef()
     return ostr.str();
 }
 
-bool CodeGenerator::initPluginScript(const string& script) {
+bool CodeGenerator::initPluginScript(const string& script)
+{
 
     if (script.empty()) return true;
 
@@ -1792,8 +1651,7 @@ bool CodeGenerator::checkSpecialCmd()
     string noParseCmd="@highlight";
     size_t cmdPos = line.find ( noParseCmd );
 
-    if ( cmdPos!=string::npos )
-    {
+    if ( cmdPos!=string::npos ) {
         *out<<line.substr ( noParseCmd.size() +cmdPos + 1 );
 
         // hide comment line from output

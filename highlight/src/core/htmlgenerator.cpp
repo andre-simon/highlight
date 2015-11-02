@@ -60,8 +60,7 @@ string HtmlGenerator::getHeaderStart ( const string &title )
 {
     ostringstream header;
     header<<  "<!DOCTYPE html>\n<html>\n<head>\n";
-    if ( encodingDefined() )
-    {
+    if ( encodingDefined() ) {
         header << "<meta charset=\""
                << encoding
                << "\">\n";
@@ -74,17 +73,13 @@ string HtmlGenerator::getHeader()
 {
     ostringstream os;
     os << getHeaderStart ( docTitle );
-    if ( !useInlineCSS )
-    {
-        if ( includeStyleDef )
-        {
+    if ( !useInlineCSS ) {
+        if ( includeStyleDef ) {
             os << "<style type=\"text/css\">\n";
             os << getStyleDefinition();
             os << CodeGenerator::readUserStyleDef();
             os << "</style>\n";
-        }
-        else
-        {
+        } else {
             os << "<link rel=\"stylesheet\" type=\"text/css\" href=\""
                << getStyleOutputPath()
                << "\">\n";
@@ -93,9 +88,7 @@ string HtmlGenerator::getHeader()
         if (!cssClassName.empty())
             os << " class=\""<<cssClassName<<"\"";
         os << ">\n";
-    }
-    else
-    {
+    } else {
         os << "</head>\n<body style=\""
            << "background-color:#"
            << ( docStyle.getBgColour().getRed ( HTML ) )
@@ -114,17 +107,13 @@ string HtmlGenerator::getFooter()
 
 void HtmlGenerator::printBody()
 {
-    if ( (!(showLineNumbers && orderedList) && !fragmentOutput) || enclosePreTag )
-    {
-        if ( !useInlineCSS )
-        {
+    if ( (!(showLineNumbers && orderedList) && !fragmentOutput) || enclosePreTag ) {
+        if ( !useInlineCSS ) {
             *out << "<pre";
             if (!cssClassName.empty())
                 *out<<" class=\"" << cssClassName << "\"";
             *out<< ">";
-        }
-        else
-        {
+        } else {
             bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
             *out << "<pre style=\""
                  << "color:#"
@@ -156,8 +145,7 @@ void HtmlGenerator::printBody()
 void HtmlGenerator::initOutputTags ()
 {
     openTags.push_back ( "" );
-    if ( useInlineCSS )
-    {
+    if ( useInlineCSS ) {
         openTags.push_back ( getOpenTag ( docStyle.getStringStyle() ) );
         openTags.push_back ( getOpenTag ( docStyle.getNumberStyle() ) );
         openTags.push_back ( getOpenTag ( docStyle.getSingleLineCommentStyle() ) );
@@ -168,9 +156,7 @@ void HtmlGenerator::initOutputTags ()
         openTags.push_back ( getOpenTag ( docStyle.getLineStyle() ) );
         openTags.push_back ( getOpenTag ( docStyle.getOperatorStyle() ) );
         openTags.push_back ( getOpenTag ( docStyle.getInterpolationStyle() ) );
-    }
-    else
-    {
+    } else {
         openTags.push_back ( getOpenTag ( STY_NAME_STR ) );
         openTags.push_back ( getOpenTag ( STY_NAME_NUM ) );
         openTags.push_back ( getOpenTag ( STY_NAME_SLC ) );
@@ -184,8 +170,7 @@ void HtmlGenerator::initOutputTags ()
     }
 
     closeTags.push_back ( "" );
-    for (unsigned int i=1; i<NUMBER_BUILTIN_STATES; i++ )
-    {
+    for (unsigned int i=1; i<NUMBER_BUILTIN_STATES; i++ ) {
         closeTags.push_back ( "</span>" );
     }
 
@@ -194,8 +179,7 @@ void HtmlGenerator::initOutputTags ()
 string  HtmlGenerator::getAttributes ( const string & elemName, const ElementStyle & elem )
 {
     ostringstream s;
-    if ( !elemName.empty() )
-    {
+    if ( !elemName.empty() ) {
         if (!cssClassName.empty())
             s << "."<<cssClassName;
         s <<"."<<elemName<<" { ";
@@ -207,8 +191,7 @@ string  HtmlGenerator::getAttributes ( const string & elemName, const ElementSty
       << ( elem.isBold() ?     "; font-weight:bold" :"" )
       << ( elem.isItalic() ?   "; font-style:italic" :"" )
       << ( elem.isUnderline() ? "; text-decoration:underline" :"" );
-    if ( !elemName.empty() )
-    {
+    if ( !elemName.empty() ) {
         s << "; }\n" ;
     }
     return s.str();
@@ -235,8 +218,7 @@ string HtmlGenerator::getGeneratorComment()
 
 string HtmlGenerator::getStyleDefinition()
 {
-    if ( styleDefinitionCache.empty() )
-    {
+    if ( styleDefinitionCache.empty() ) {
         bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
         ostringstream os;
         os  << "body";
@@ -275,8 +257,7 @@ string HtmlGenerator::getStyleDefinition()
             << getAttributes ( STY_NAME_LIN, docStyle.getLineStyle() );
 
         KeywordStyles styles = docStyle.getKeywordStyles();
-        for ( KSIterator it=styles.begin(); it!=styles.end(); it++ )
-        {
+        for ( KSIterator it=styles.begin(); it!=styles.end(); it++ ) {
             os << getAttributes ( it->first, it->second );
         }
         styleDefinitionCache=os.str();
@@ -286,8 +267,7 @@ string HtmlGenerator::getStyleDefinition()
 
 string HtmlGenerator::maskCharacter ( unsigned char c )
 {
-    switch ( c )
-    {
+    switch ( c ) {
     case '<' :
         return "&lt;";
         break;
@@ -320,18 +300,14 @@ string HtmlGenerator::getNewLine()
 
 void HtmlGenerator::insertLineNumber ( bool insertNewLine )
 {
-    if ( insertNewLine )
-    {
+    if ( insertNewLine ) {
         wsBuffer += getNewLine();
     }
-    if ( showLineNumbers )
-    {
+    if ( showLineNumbers ) {
         ostringstream numberPrefix;
         int lineNo = lineNumber+lineNumberOffset;
-        if ( orderedList )
-        {
-            if ( useInlineCSS )
-            {
+        if ( orderedList ) {
+            if ( useInlineCSS ) {
                 bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
                 numberPrefix<< "<li style=\""
                             << getAttributes ( "", docStyle.getLineStyle() )
@@ -339,9 +315,7 @@ void HtmlGenerator::insertLineNumber ( bool insertNewLine )
                             << "pt; font-family:"<<((quoteFont)?"'":"")
                             << getBaseFont() << ((quoteFont)?"'":"")
                             << ";\">";
-            }
-            else
-            {
+            } else {
                 if (!cssClassName.empty())
                     numberPrefix<<"<li class=\""<<cssClassName<<"\">";
                 else
@@ -352,8 +326,7 @@ void HtmlGenerator::insertLineNumber ( bool insertNewLine )
         }
 
         //attach Anchor only if we're in a new line.
-        if ( attachAnchors && numberCurrentLine )
-        {
+        if ( attachAnchors && numberCurrentLine ) {
             numberPrefix << "<a "
                          << idAttr
                          << "=\""
@@ -363,19 +336,16 @@ void HtmlGenerator::insertLineNumber ( bool insertNewLine )
                          << "\"></a>";
         }
 
-        if ( !orderedList )
-        {
+        if ( !orderedList ) {
             //if we're in a wrapped line, don't fill with zeroes.
             ostringstream os;
-            if ( lineNumberFillZeroes && numberCurrentLine )
-            {
+            if ( lineNumberFillZeroes && numberCurrentLine ) {
                 os.fill ( '0' );
             }
 
             os << setw ( getLineNumberWidth() ) << right;
             //if we're in a wrapped line, don't attach lineNo.
-            if ( numberCurrentLine )
-            {
+            if ( numberCurrentLine ) {
                 os << lineNo;
             } else {
                 os << "";
@@ -399,8 +369,7 @@ bool HtmlGenerator::printIndexFile ( const vector<string> &fileList,
     string outFilePath = outPath + "index" + suffix;
     ofstream indexfile ( outFilePath.c_str() );
 
-    if ( !indexfile.fail() )
-    {
+    if ( !indexfile.fail() ) {
         string inFileName;
         string inFilePath, newInFilePath;
         std::set<string> usedFileNames;
@@ -409,19 +378,14 @@ bool HtmlGenerator::printIndexFile ( const vector<string> &fileList,
                   << hrTag
                   <<  "\n<ul>\n";
         string::size_type pos;
-        for ( unsigned int i=0; i < fileList.size();  i++ )
-        {
+        for ( unsigned int i=0; i < fileList.size();  i++ ) {
             pos= ( fileList[i] ).find_last_of ( Platform::pathSeparator );
-            if ( pos!=string::npos )
-            {
+            if ( pos!=string::npos ) {
                 newInFilePath = ( fileList[i] ).substr ( 0, pos+1 );
-            }
-            else
-            {
+            } else {
                 newInFilePath=Platform::pathSeparator;
             }
-            if ( newInFilePath!=inFilePath )
-            {
+            if ( newInFilePath!=inFilePath ) {
                 indexfile << "</ul>\n<h2>";
                 indexfile << newInFilePath;
                 indexfile << "</h2>\n<ul>\n";
@@ -448,9 +412,7 @@ bool HtmlGenerator::printIndexFile ( const vector<string> &fileList,
                   << ", <a href=\"" << HIGHLIGHT_URL << "\" target=\"new\">"
                   << HIGHLIGHT_URL << "</a></small>";
         indexfile << getGeneratorComment();
-    }
-    else
-    {
+    } else {
         return false;
     }
     return true;
@@ -458,8 +420,7 @@ bool HtmlGenerator::printIndexFile ( const vector<string> &fileList,
 
 string HtmlGenerator::getKeywordOpenTag ( unsigned int styleID )
 {
-    if ( useInlineCSS )
-    {
+    if ( useInlineCSS ) {
         return getOpenTag ( docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
     }
     return getOpenTag ( currentSyntax->getKeywordClasses() [styleID] );
@@ -470,7 +431,8 @@ string HtmlGenerator::getKeywordCloseTag ( unsigned int styleID )
     return "</span>";
 }
 
-void HtmlGenerator::setHTMLOrderedList ( bool b ) {
+void HtmlGenerator::setHTMLOrderedList ( bool b )
+{
     orderedList = b;
     spacer = b ? "&nbsp;": " ";
     maskWs = b;

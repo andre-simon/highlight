@@ -37,54 +37,54 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   \brief This class generates Pango markup.
+/**
+   \brief This class generates Pango markup.
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Dominik Schmidt
-	*/
+* @author Dominik Schmidt
+*/
 
-	class PangoGenerator : public highlight::CodeGenerator
-	{
-		public:
-			PangoGenerator();
-			~PangoGenerator();
+class PangoGenerator : public highlight::CodeGenerator
+{
+public:
+    PangoGenerator();
+    ~PangoGenerator();
 
-			/** prints document header
-			 */
-			string getHeader();
+    /** prints document header
+     */
+    string getHeader();
 
-			/** Prints document footer*/
-			string getFooter();
+    /** Prints document footer*/
+    string getFooter();
 
-			/** Prints document body*/
-			void printBody();
+    /** Prints document body*/
+    void printBody();
 
-		private:
+private:
 
-			/** \return escaped character*/
-			virtual string maskCharacter ( unsigned char );
+    /** \return escaped character*/
+    virtual string maskCharacter ( unsigned char );
 
-			/**\return text formatting attributes in Pango markup */
-			string getAttributes ( const ElementStyle & elem );
+    /**\return text formatting attributes in Pango markup */
+    string getAttributes ( const ElementStyle & elem );
 
-			/** gibt Pangotags zurück*/
-			string getOpenTag ( const ElementStyle & elem );
+    /** gibt Pangotags zurück*/
+    string getOpenTag ( const ElementStyle & elem );
 
-			/** initialize tags in specific format according to colouring information provided in DucumentStyle */
-			void initOutputTags();
+    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    void initOutputTags();
 
-			/** @param styleID current style ID
-			    @return matching sequence to begin a new element formatting*/
-			string getKeywordOpenTag ( unsigned int styleID );
+    /** @param styleID current style ID
+        @return matching sequence to begin a new element formatting*/
+    string getKeywordOpenTag ( unsigned int styleID );
 
-			/** @param styleID current style ID
-			    @return matching  sequence to stop element formatting*/
-			string getKeywordCloseTag ( unsigned int styleID );
-	};
+    /** @param styleID current style ID
+        @return matching  sequence to stop element formatting*/
+    string getKeywordCloseTag ( unsigned int styleID );
+};
 
 }
 #endif

@@ -78,8 +78,7 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void addInputFiles(const QStringList& list, QListWidget* listWidget, const QString &iconName=":/file.png", bool checkable=false);
-
+    void addToView(const QStringList& list, QListWidget* listWidget, const QString &iconName=":/file.png", bool checkable=false, bool baseName = false);
 private:
     Ui::MainWindowClass *ui;
     StringMap extensions,  shebangs;

@@ -38,68 +38,67 @@ using namespace std;
 namespace highlight
 {
 
-	/**\brief Stores colours and returns red, green and blue values in different formats
-	* @author Andre Simon
-	 */
+/**\brief Stores colours and returns red, green and blue values in different formats
+* @author Andre Simon
+ */
 
-	struct RGBVal
-	{
-		int iRed,    ///< Red value
-		iGreen,  ///< Green value
-		iBlue;   ///< Blue value
-	};
+struct RGBVal {
+    int iRed,    ///< Red value
+        iGreen,  ///< Green value
+        iBlue;   ///< Blue value
+};
 
-	class Colour
-	{
-		public:
-			/** Constructor
-			    \param red Red value in hex notation
-			    \param green Blue value in hex notation
-			    \param blue Green value in hex notation
-			*/
-			Colour ( const string & red, const string & green, const string & blue );
+class Colour
+{
+public:
+    /** Constructor
+        \param red Red value in hex notation
+        \param green Blue value in hex notation
+        \param blue Green value in hex notation
+    */
+    Colour ( const string & red, const string & green, const string & blue );
 
-			/** Constructor
-			    \param ColourString String with rgb values
-			*/
-			Colour ( const string & colourString );
+    /** Constructor
+        \param ColourString String with rgb values
+    */
+    Colour ( const string & colourString );
 
-			Colour();
-			~Colour() {};
+    Colour();
+    ~Colour() {};
 
-			/** Sets red, green and blue values
-			  \param ColourString String containing colour attributes
-			*/
-			void setRGB ( const string & colourString );
+    /** Sets red, green and blue values
+      \param ColourString String containing colour attributes
+    */
+    void setRGB ( const string & colourString );
 
 
-			/** Sets red value
-			    \param red New red value */
-			void setRed ( const string & red );
+    /** Sets red value
+        \param red New red value */
+    void setRed ( const string & red );
 
-			/** Sets green value
-			    \param green New green value */
-			void setGreen ( const string & green );
+    /** Sets green value
+        \param green New green value */
+    void setGreen ( const string & green );
 
-			/** Sets blue value
-			    \param blue New blue value */
-			void setBlue ( const string & blue );
+    /** Sets blue value
+        \param blue New blue value */
+    void setBlue ( const string & blue );
 
-			/**  @param type Output type
-			     @return Red value in color representation according to output type */
-			string getRed ( OutputType type ) const;
-			/**  @param type Output type
-			     @return Green value in color representation according to output type */
-			string getGreen ( OutputType type ) const;
-			/**  @param type Output type
-			     @return Blue value in color representation according to output type */
-			string getBlue ( OutputType type ) const;
+    /**  @param type Output type
+         @return Red value in color representation according to output type */
+    string getRed ( OutputType type ) const;
+    /**  @param type Output type
+         @return Green value in color representation according to output type */
+    string getGreen ( OutputType type ) const;
+    /**  @param type Output type
+         @return Blue value in color representation according to output type */
+    string getBlue ( OutputType type ) const;
 
-		private:
-			RGBVal rgb;
-			string int2str ( int, std::ios_base& ( *f ) ( std::ios_base& ) ) const;
-			string float2str ( double ) const;
-	};
+private:
+    RGBVal rgb;
+    string int2str ( int, std::ios_base& ( *f ) ( std::ios_base& ) ) const;
+    string float2str ( double ) const;
+};
 
 }
 

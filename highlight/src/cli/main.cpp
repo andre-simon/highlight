@@ -2,7 +2,7 @@
                           main.cpp  -  description
                              -------------------
     begin                : Die Apr 23 22:16:35 CEST 2002
-    copyright            : (C) 2002-2012 by Andre Simon
+    copyright            : (C) 2002-2015 by Andre Simon
     email                : andre.simon1@gmx.de
 
    Highlight is a universal source code to HTML converter. Syntax highlighting
@@ -77,8 +77,7 @@ int HLCmdLineApp::printInstalledFiles(const string& where, const string& wildcar
     string searchDir = where + wildcard;
 
     bool directoryOK = Platform::getDirectoryEntries ( filePaths, searchDir, true );
-    if ( !directoryOK )
-    {
+    if ( !directoryOK ) {
         cerr << "highlight: Could not access directory "
              <<  searchDir
              << ", aborted.\n";
@@ -90,14 +89,13 @@ int HLCmdLineApp::printInstalledFiles(const string& where, const string& wildcar
     sort ( filePaths.begin(), filePaths.end() );
     string temp;
 
-    for ( unsigned int i=0; i< filePaths.size(); i++ )
-    {
+    for ( unsigned int i=0; i< filePaths.size(); i++ ) {
         temp = ( filePaths[i] ).substr ( where.length() );
         cout <<temp.substr ( 1, temp.length()- wildcard.length() ) << endl;
     }
     cout <<"\nUse name of the desired "<<what
          << " with the --" <<option<< " option.\n" << endl;
-	 
+
     return EXIT_SUCCESS;
 }
 
@@ -110,8 +108,7 @@ int HLCmdLineApp::printInstalledLanguages()
     string searchDir = directory + wildcard;
 
     bool directoryOK = Platform::getDirectoryEntries ( filePaths, searchDir, true );
-    if ( !directoryOK )
-    {
+    if ( !directoryOK ) {
         cerr << "highlight: Could not access directory "
              <<  searchDir
              << ", aborted.\n";
@@ -123,8 +120,7 @@ int HLCmdLineApp::printInstalledLanguages()
     cout << "\nInstalled language definitions"
          << " (located in " << directory << "):\n\n";
 
-    for ( unsigned int i=0; i< filePaths.size(); i++ )
-    {
+    for ( unsigned int i=0; i< filePaths.size(); i++ ) {
         Diluculum::LuaState ls;
         highlight::SyntaxReader::initLuaState(ls, filePaths[i],"");
         ls.doFile(filePaths[i]);
@@ -157,8 +153,7 @@ void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader *lang,
         cerr << "\n\nLUA GLOBALS:\n" ;
         Diluculum::LuaValueMap::iterator it;
         Diluculum::LuaValueMap glob =luaState->globals();
-        for(it = glob.begin(); it != glob.end(); it++)
-        {
+        for(it = glob.begin(); it != glob.end(); it++) {
             Diluculum::LuaValue first = it->first;
             Diluculum::LuaValue second = it->second;
             std::cerr << first.asString()<<": ";
@@ -190,8 +185,7 @@ void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader *lang,
     cerr << "\nKEYWORDS:\n";
     highlight::KeywordMap::iterator it;
     highlight::KeywordMap keys=lang->getKeywords();
-    for ( it=keys.begin(); it!=keys.end(); it++ )
-    {
+    for ( it=keys.begin(); it!=keys.end(); it++ ) {
         cerr << " "<< it->first << "("<< it->second << ")";
     }
     cerr <<"\n\n";
@@ -216,10 +210,10 @@ string HLCmdLineApp::getFileSuffix(const string& fileName)
 {
     size_t ptPos=fileName.rfind(".");
     size_t psPos = fileName.rfind ( Platform::pathSeparator );
-    if (ptPos == string::npos){
-     return  (psPos==string::npos) ? fileName : fileName.substr(psPos+1, fileName.length());
+    if (ptPos == string::npos) {
+        return  (psPos==string::npos) ? fileName : fileName.substr(psPos+1, fileName.length());
     }
-    return (psPos!=string::npos && psPos>ptPos) ? "" : fileName.substr(ptPos+1, fileName.length());   
+    return (psPos!=string::npos && psPos>ptPos) ? "" : fileName.substr(ptPos+1, fileName.length());
 }
 
 bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, StringMap* shebangMap )
@@ -247,8 +241,7 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, S
             idx++;
         }
 
-    }
-    catch (Diluculum::LuaError err) {
+    } catch (Diluculum::LuaError err) {
         cerr <<err.what()<<"\n";
         return false;
     }
@@ -258,8 +251,7 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, S
 int HLCmdLineApp::getNumDigits ( int i )
 {
     int res=0;
-    while ( i )
-    {
+    while ( i ) {
         i/=10;
         ++res;
     }
@@ -272,13 +264,11 @@ void HLCmdLineApp::printProgressBar ( int total, int count )
     int p=100*count / total;
     int numProgressItems=p/10;
     cout << "\r[";
-    for ( int i=0; i<10; i++ )
-    {
+    for ( int i=0; i<10; i++ ) {
         cout << ( ( i<numProgressItems ) ?"#":" " );
     }
     cout<< "] " <<setw ( 3 ) <<p<<"%, "<<count << " / " << total << "  " <<flush;
-    if ( p==100 )
-    {
+    if ( p==100 ) {
         cout << endl;
     }
 }
@@ -304,8 +294,7 @@ void HLCmdLineApp::printIOErrorReport ( unsigned int numberErrorFiles,
          << " file"
          << ( ( numberErrorFiles>1 ) ?"s":"" ) <<":\n";
     copy ( fileList.begin(), fileList.end(), ostream_iterator<string> ( cerr, "\n" ) );
-    if ( fileList.size() < numberErrorFiles )
-    {
+    if ( fileList.size() < numberErrorFiles ) {
         cerr << "... ["
              << ( numberErrorFiles - fileList.size() )
              << " of "
@@ -319,13 +308,10 @@ void HLCmdLineApp::printIOErrorReport ( unsigned int numberErrorFiles,
 string HLCmdLineApp::analyzeFile ( const string& file )
 {
     string firstLine;
-    if ( !file.empty() )
-    {
+    if ( !file.empty() ) {
         ifstream inFile ( file.c_str() );
         getline ( inFile, firstLine );
-    }
-    else
-    {
+    } else {
         //  This copies all the data to a new buffer, uses the data to get the
         //  first line, then makes cin use the new buffer that underlies the
         //  stringstream instance
@@ -337,8 +323,7 @@ string HLCmdLineApp::analyzeFile ( const string& file )
     StringMap::iterator it;
     boost::xpressive::sregex rex;
     boost::xpressive::smatch what;
-    for ( it=scriptShebangs.begin(); it!=scriptShebangs.end(); it++ )
-    {
+    for ( it=scriptShebangs.begin(); it!=scriptShebangs.end(); it++ ) {
         rex = boost::xpressive::sregex::compile( it->first );
         if ( boost::xpressive::regex_search( firstLine, what, rex )  ) return it->second;
     }
@@ -347,29 +332,29 @@ string HLCmdLineApp::analyzeFile ( const string& file )
 
 string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFile, bool useUserSuffix )
 {
-    string lcSuffix = StringTools::change_case(suffix);    
-    if (extensions.count(lcSuffix))
-    {
-      return extensions[lcSuffix];
+    string lcSuffix = StringTools::change_case(suffix);
+    if (extensions.count(lcSuffix)) {
+        return extensions[lcSuffix];
     }
-    
-    if (!useUserSuffix){
-      string shebang =  analyzeFile(inputFile);
-      if (!shebang.empty()) return shebang;
+
+    if (!useUserSuffix) {
+        string shebang =  analyzeFile(inputFile);
+        if (!shebang.empty()) return shebang;
     }
     return lcSuffix;
 }
 
-vector <string> HLCmdLineApp::collectPluginPaths(const vector<string>& plugins){
-  vector<string> absolutePaths;
-  for (unsigned int i=0; i<plugins.size(); i++) {
-    if (Platform::fileExists(plugins[i])){
-      absolutePaths.push_back(plugins[i]);
-    } else {
-	absolutePaths.push_back(dataDir.getPluginPath(plugins[i]+".lua"));
+vector <string> HLCmdLineApp::collectPluginPaths(const vector<string>& plugins)
+{
+    vector<string> absolutePaths;
+    for (unsigned int i=0; i<plugins.size(); i++) {
+        if (Platform::fileExists(plugins[i])) {
+            absolutePaths.push_back(plugins[i]);
+        } else {
+            absolutePaths.push_back(dataDir.getPluginPath(plugins[i]+".lua"));
+        }
     }
-  }
-  return absolutePaths;
+    return absolutePaths;
 }
 
 int HLCmdLineApp::run ( const int argc, const char*argv[] )
@@ -379,47 +364,40 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     // set data directory path, where /langDefs and /themes reside
     string dataDirPath = ( options.getDataDir().empty() ) ?  Platform::getAppPath() :options.getDataDir();
 
-    if ( options.printVersion() )
-    {
+    if ( options.printVersion() ) {
         printVersionInfo();
         return EXIT_SUCCESS;
     }
 
     dataDir.initSearchDirectories ( dataDirPath );
 
-    if ( options.printHelp() )
-    {
+    if ( options.printHelp() ) {
         Help::printHelp();
         return EXIT_SUCCESS;
     }
 
-    if ( options.printConfigInfo() )
-    {
+    if ( options.printConfigInfo() ) {
         printConfigInfo ( );
         return EXIT_SUCCESS;
     }
 
-    if ( options.showThemes() )
-    {
+    if ( options.showThemes() ) {
         return printInstalledFiles(dataDir.getThemePath(), "*.theme", "themes", OPT_STYLE) ?EXIT_SUCCESS:EXIT_FAILURE;
     }
-    if ( options.showPlugins() )
-    {
+    if ( options.showPlugins() ) {
         return printInstalledFiles(dataDir.getPluginPath(), "*.lua", "plug-ins", OPT_PLUGIN) ?EXIT_SUCCESS:EXIT_FAILURE;
     }
 
     //call before printInstalledLanguages!
     loadFileTypeConfig ( "filetypes", &extensions, &scriptShebangs );
 
-    if ( options.showLangdefs() )
-    {
+    if ( options.showLangdefs() ) {
         return printInstalledLanguages();
     }
 
     const vector <string> inFileList=options.getInputFileNames();
 
-    if ( options.enableBatchMode() && inFileList[0].empty() )
-    {
+    if ( options.enableBatchMode() && inFileList[0].empty() ) {
         return EXIT_FAILURE;
     }
 
@@ -472,8 +450,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     const  vector <string> pluginFileList=collectPluginPaths( options.getPluginPaths());
     for (unsigned int i=0; i<pluginFileList.size(); i++) {
-        if ( !generator->initPluginScript(pluginFileList[i]) )
-        {
+        if ( !generator->initPluginScript(pluginFileList[i]) ) {
             cerr << "highlight: "
                  << generator->getPluginScriptError()
                  << " in "
@@ -483,16 +460,14 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         }
     }
 
-    if ( !generator->initTheme ( themePath ) )
-    {
+    if ( !generator->initTheme ( themePath ) ) {
         cerr << "highlight: "
              << generator->getThemeInitError()
              << "\n";
         return EXIT_FAILURE;
     }
 
-    if ( options.printOnlyStyle() )
-    {
+    if ( options.printOnlyStyle() ) {
         if (!options.formatSupportsExtStyle()) {
             cerr << "highlight: output format supports no external styles.\n";
             return EXIT_FAILURE;
@@ -500,8 +475,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         bool useStdout =  options.getStyleOutFilename() =="stdout";
         string cssOutFile=options.getOutDirectory()  + options.getStyleOutFilename();
         bool success=generator->printExternalStyle ( useStdout?"":cssOutFile );
-        if ( !success )
-        {
+        if ( !success ) {
             cerr << "highlight: Could not write " << cssOutFile <<".\n";
             return EXIT_FAILURE;
         }
@@ -510,8 +484,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     bool formattingEnabled = generator->initIndentationScheme ( options.getIndentScheme() );
 
-    if ( !formattingEnabled && !options.getIndentScheme().empty() )
-    {
+    if ( !formattingEnabled && !options.getIndentScheme().empty() ) {
         cerr << "highlight: Undefined indentation scheme "
              << options.getIndentScheme()
              << ".\n";
@@ -521,8 +494,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     string outDirectory = options.getOutDirectory();
 #ifndef WIN32
     ifstream dirTest ( outDirectory.c_str() );
-    if ( !outDirectory.empty() && !options.quietMode() && !dirTest )
-    {
+    if ( !outDirectory.empty() && !options.quietMode() && !dirTest ) {
         cerr << "highlight: Output directory \""
              << outDirectory
              << "\" does not exist.\n";
@@ -544,69 +516,55 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     string inFileName, outFilePath;
     string suffix, lastSuffix;
 
-    if ( options.syntaxGiven() )  // user defined language definition, valid for all files
-    {
+    if ( options.syntaxGiven() ) { // user defined language definition, valid for all files
         suffix = guessFileType ( options.getSyntax(), "", true );
     }
 
-    while ( i < fileCount && !initError )
-    {
-        if ( !options.syntaxGiven() )  // determine file type for each file
-        {
+    while ( i < fileCount && !initError ) {
+        if ( !options.syntaxGiven() ) { // determine file type for each file
             suffix = guessFileType ( getFileSuffix ( inFileList[i] ), inFileList[i] );
         }
         if ( suffix.empty()  && options.forceOutput()) suffix="txt"; //avoid segfault
-        if ( suffix.empty() )
-        {
+        if ( suffix.empty() ) {
             if ( !options.enableBatchMode() )
                 cerr << "highlight: Undefined language definition. Use --"
                      << OPT_SYNTAX << " option.\n";
-            if ( !options.forceOutput() )
-            {
+            if ( !options.forceOutput() ) {
                 initError = true;
                 break;
             }
         }
 
-        if ( suffix != lastSuffix )
-        {
+        if ( suffix != lastSuffix ) {
             string langDefPath=options.getAbsLangPath().empty() ? dataDir.getLangPath ( suffix+".lang" ) : options.getAbsLangPath();
 
             highlight::LoadResult loadRes= generator-> loadLanguage( langDefPath );
 
-            if ( loadRes==highlight::LOAD_FAILED_REGEX )
-            {
+            if ( loadRes==highlight::LOAD_FAILED_REGEX ) {
                 cerr << "highlight: Regex error ( "
                      << generator->getSyntaxRegexError()
                      << " ) in "<<suffix<<".lang\n";
                 initError = true;
                 break;
-            }
-            else if ( loadRes==highlight::LOAD_FAILED_LUA )
-            {
+            } else if ( loadRes==highlight::LOAD_FAILED_LUA ) {
                 cerr << "highlight: Lua error ( "
                      << generator->getSyntaxLuaError()
                      << " ) in "<<suffix<<".lang\n";
                 initError = true;
                 break;
-            }
-            else if ( loadRes==highlight::LOAD_FAILED )
-            {
+            } else if ( loadRes==highlight::LOAD_FAILED ) {
                 // do also ignore error msg if --syntax parameter should be skipped
-                if ( ! (options.quietMode() || options.isSkippedExt ( suffix )) )
-                {
+                if ( ! (options.quietMode() || options.isSkippedExt ( suffix )) ) {
                     cerr << "highlight: Unknown source file extension \""
                          << suffix
                          << "\". Consider using the --skip option.\n";
                 }
-                if ( !options.forceOutput() )
-                {
+                if ( !options.forceOutput() ) {
                     initError = true;
                     break;
                 }
             }
-            if ( options.printDebugInfo() && loadRes==highlight::LOAD_OK )
-            {
+            if ( options.printDebugInfo() && loadRes==highlight::LOAD_OK ) {
                 printDebugInfo ( generator->getSyntaxReader(), langDefPath );
             }
             lastSuffix = suffix;
@@ -615,8 +573,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
         string::size_type pos= ( inFileList[i] ).find_last_of ( Platform::pathSeparator );
         inFileName = inFileList[i].substr ( pos+1 );
 
-        if ( options.enableBatchMode() )
-        {
+        if ( options.enableBatchMode() ) {
             if (usedFileNames.count(inFileName)) {
                 string prefix=inFileList[i].substr (0, pos+1 );
                 replace (prefix.begin(), prefix.end(), Platform::pathSeparator, '_');
@@ -628,23 +585,16 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             outFilePath += inFileName;
             outFilePath += options.getOutFileSuffix();
 
-            if ( !options.quietMode() )
-            {
-                if ( options.printProgress() )
-                {
+            if ( !options.quietMode() ) {
+                if ( options.printProgress() ) {
                     printProgressBar ( fileCount, i+1 );
-                }
-                else
-                {
+                } else {
                     printCurrentAction ( outFilePath, fileCount, i+1, fileCountWidth );
                 }
             }
-        }
-        else
-        {
+        } else {
             outFilePath = options.getSingleOutFilename();
-            if ( outFilePath.size() && outFilePath==options.getSingleInFilename() )
-            {
+            if ( outFilePath.size() && outFilePath==options.getSingleInFilename() ) {
                 cerr 	<< "highlight: Output path equals input path: \""
                         << outFilePath << "\".\n";
                 initError = true;
@@ -653,8 +603,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
         }
 
-        if ( options.useFNamesAsAnchors() )
-        {
+        if ( options.useFNamesAsAnchors() ) {
             generator->setHTMLAnchorPrefix ( inFileName );
         }
 
@@ -665,24 +614,17 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
         highlight::ParseError error = generator->generateFile ( inFileList[i], outFilePath );
 
-        if ( error==highlight::BAD_INPUT )
-        {
-            if ( numBadInput++ < IO_ERROR_REPORT_LENGTH || options.printDebugInfo() )
-            {
+        if ( error==highlight::BAD_INPUT ) {
+            if ( numBadInput++ < IO_ERROR_REPORT_LENGTH || options.printDebugInfo() ) {
                 badInputFiles.push_back ( inFileList[i] );
             }
-        }
-        else if ( error==highlight::BAD_OUTPUT )
-        {
-            if ( numBadOutput++ < IO_ERROR_REPORT_LENGTH || options.printDebugInfo() )
-            {
+        } else if ( error==highlight::BAD_OUTPUT ) {
+            if ( numBadOutput++ < IO_ERROR_REPORT_LENGTH || options.printDebugInfo() ) {
                 badOutputFiles.push_back ( outFilePath );
             }
         }
-        if ( formattingEnabled && !generator->formattingIsPossible() )
-        {
-            if ( numBadFormatting++ < IO_ERROR_REPORT_LENGTH || options.printDebugInfo() )
-            {
+        if ( formattingEnabled && !generator->formattingIsPossible() ) {
+            if ( numBadFormatting++ < IO_ERROR_REPORT_LENGTH || options.printDebugInfo() ) {
                 badFormattedFiles.push_back ( outFilePath );
             }
         }
@@ -691,39 +633,32 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     if ( i  && !options.includeStyleDef()
             && styleFileWanted
-            && options.formatSupportsExtStyle() )
-    {
+            && options.formatSupportsExtStyle() ) {
         string cssOutFile=outDirectory  + options.getStyleOutFilename();
         bool success=generator->printExternalStyle ( cssOutFile );
-        if ( !success )
-        {
+        if ( !success ) {
             cerr << "highlight: Could not write " << cssOutFile <<".\n";
             IOError = true;
         }
     }
 
-    if ( i && options.printIndexFile() )
-    {
+    if ( i && options.printIndexFile() ) {
         bool success=generator -> printIndexFile ( inFileList, outDirectory );
-        if ( !success )
-        {
+        if ( !success ) {
             cerr << "highlight: Could not write index file.\n";
             IOError = true;
         }
     }
 
-    if ( numBadInput )
-    {
+    if ( numBadInput ) {
         printIOErrorReport ( numBadInput, badInputFiles, "read input" );
         IOError = true;
     }
-    if ( numBadOutput )
-    {
+    if ( numBadOutput ) {
         printIOErrorReport ( numBadOutput, badOutputFiles, "write output" );
         IOError = true;
     }
-    if ( numBadFormatting )
-    {
+    if ( numBadFormatting ) {
         printIOErrorReport ( numBadFormatting, badFormattedFiles, "reformat" );
     }
     return ( initError || IOError ) ? EXIT_FAILURE : EXIT_SUCCESS;

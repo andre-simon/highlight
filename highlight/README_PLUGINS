@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT PLUGIN MANUAL - Version 3.14   -------------------- May 2013 ---
+---  HIGHLIGHT PLUGIN MANUAL - Version 3.24   ---------------- October 2015 ---
 -------------------------------------------------------------------------------
 
 CONTENT
@@ -341,8 +341,7 @@ Plugins={
 6. EXAMPLES
 -------------------------------------------------------------------------------
 
-The plugins directory contains some example scripts which show the
-functionality explained above:
+The plugins directory contains example scripts, including: 
 
 bash_functions.lua
 Description: Add function names to keyword list
@@ -374,7 +373,7 @@ Description: Shows matching curly brackets in HTML output.
 Features:    Uses Decorate to add span tags with unique ids to opening and 
              closing brackets.
              Adds JavaScript with HeaderInjection variable.
-             Inserts additional CSS styles with themeUpdate();
+             Inserts additional CSS styles with Injections variable.
              
 outhtml_keyword_matcher.lua
 Description: Shows matching keywords in HTML output.
@@ -382,21 +381,21 @@ Features:    Uses Decorate to add span tags with unique ids to opening and
              closing brackets.
              Uses OnStateChange to assign an internal ID to each keyword.
              Adds JavaScript with HeaderInjection variable.
-             Inserts additional CSS styles with themeUpdate();
+             Inserts additional CSS styles with Injections variable.
              
  
 7. PLUG-IN USAGE
 -------------------------------------------------------------------------------
 
 Command line interface:
-Run highlight --list-scripts=plugins to lost all installed plug-ins.
+Run highlight --list-scripts=plugins to show all installed plug-ins.
 
 Use --plug-in to load a plug-in script file. This option can be applied 
 more than once to apply several plug-ins. Omit the .lua suffix.
 You can store your plug-in scripts for testing in ~/.highlight/plugins.
 
 Example:
-highlight 123.cpp -Ilz --plug-in=html_curly_brackets_matcher > ~/test_out/123.html
+highlight my.cpp -Ilz --plug-in=html_curly_brackets_matcher > ~/test_out/my.html
 
 
 GUI:

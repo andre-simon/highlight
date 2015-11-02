@@ -21,7 +21,6 @@ INHALT
    2.4 EIN- UND AUSGABE
    2.5 GNU SOURCE-HIGHLIGHT KOMPATIBILITAET
    2.6 FORTGESCHRITTENE OPTIONEN
-   2.7 TIPS UND TRICKS
 
 3. KONFIGURATION
    3.1 DATEIFORMAT
@@ -42,7 +41,6 @@ INHALT
 5. KOMPILIEREN UND INSTALLIEREN
    5.1 VORKOMPILIERTE PAKETE
    5.2 KOMPILIER-ABHAENGIGKEITEN
-   5.3 BEISPIELPAKETE
 
 6. ENTWICKLERKONTAKT
 
@@ -90,7 +88,7 @@ mit Plug-Ins angepasst und erweitert werden.
 
 Die Liste aller unterstuetzten Sprachen befindet sich in README_LANGLIST.
 Das Kommando "highlight --list-scripts=langs" zeigt ebenfalls eine Liste aller
-Sprachen und den damit verknuepften Dateiendungen.
+Sprachen und den verknuepften Dateiendungen.
 
 
 2. GEBRAUCH UND OPTIONEN
@@ -164,15 +162,13 @@ General options:
  -h, --help                     print this help
  -i, --input=<file>             name of single input file
  -o, --output=<file>            name of single output file
- -p, --list-langs               list installed language definitions (deprecated)
  -P, --progress                 print progress bar in batch mode
  -q, --quiet                    supress progress info in batch mode
  -S, --syntax=<type>            specify type of source code
  -v, --verbose                  print debug info
- -w, --list-themes              list installed colour themes (deprecated)
      --force                    generate output if input syntax is unknown
      --list-scripts=<type>      list installed scripts
-                                  <type>=[langs, themes, plugins]
+                                  <type> = [langs, themes, plugins]
      --plug-in=<script>         execute Lua plug-in script; repeat option to
                                   execute multiple plug-ins
      --plug-in-read=<path>      set input file for a plug-in (e.g. "tags")
@@ -196,7 +192,7 @@ Output formatting options:
  -e, --style-infile=<file>      file to be included in style-outfile
  -f, --fragment                 omit document header and footer
  -F, --reformat=<style>         reformats and indents output in given style
-                                  <style>=[allman, banner, gnu,
+                                  <style> = [allman, banner, gnu,
                                   horstmann, java, kr, linux, otbs,
                                   stroustrup, whitesmith]
  -I, --include-style            include style definition
@@ -276,9 +272,9 @@ GNU source-highlight compatibility options:
 2.3 GUI OPTIONEN
 -------------------------------------------------------------------------------
 
-Die Graphische Oberflaeche bietet eine Teilmenge der CLI-Funktionen. Sie enthaelt
+Die graphische Oberflaeche bietet eine Teilmenge der CLI-Funktionen. Sie enthaelt
 eine dynamische Vorschau der sichtbaren Ausgabe. Auf der Projekt-Webseite finden
-Sie Screenshots und Flash-Animationen.
+Sie Screenshots und Screencasts.
 Wird highlight-gui mit der Option --portable gestartet, speichert es die 
 Einstellungen im Programmverzeichnis (anstatt zB. die Registry zu benutzen).
 
@@ -343,6 +339,7 @@ zentralen Stelle verwalten zu koennen, auf die alle Ausgabedokumente verweisen.
 Mit --style-infile kann eine Datei mit zusaetzlichen Formatierungsangaben in
 die Ausgabedateien eingebunden werden, welche die vorgegebene highlight-
 Formatierung erweitert oder ueberschreibt.
+Hinweis: Ein Plug-In Skript ist die bessere Methode das Styling anzupassen.
 
 
 Terminal-Ausgabe:
@@ -416,8 +413,8 @@ Skripte, Plugins etc.
 Parsen von Binaerdaten vermeiden
 --------------------------------
 
-Wenn highlight mit einer unbestimmten Menge von Eingabedaten aufgerufen wird,
-kann die Verarbeitung von binaeren Daten mit --validate-input verhindert werden.
+Wird highlight mit unbekannten Eingabedaten aufgerufen, verhindert 
+--validate-input die Verarbeitung von binaeren Daten.
 Dieser Schalter fuehrt zu einem Vergleich der Datei-Header mit einer Liste von
 "Magic Numbers". Wenn ein Binaer-Typ erkannt wird, bricht highlight die
 Verarbeitung mit einer Fehlermeldung ab.
@@ -459,55 +456,6 @@ Starten Sie highlight-gui.exe mit der --portable Option, damit die
 Konfiguration in Textdateien und nicht in der Registry gespeichert wird.
 
 
-2.7 TIPS UND TRICKS
--------------------------------------------------------------------------------
-
-Anpassen der HTML-Zeilennummerierung:
--------------------------------------
-
-/* content of user.css */
- pre.hl {
-   border-width: 1px;
-   border-style:solid;
-   border-left-color: silver;
-   border-top-color: silver;
-   border-right-color: gray;
-   border-bottom-color: gray;
- }
-
- .hl.lin {
-   border-right:1px solid #555555;
-   padding-left:0.5em;
-   padding-right:0.5em;
-   margin-right:1em;
-   text-decoration:none;
- }
-
-Aufruf: highlight -l --style-infile user.css main.cpp
-
-HTML Listentricks:
-------------------
-
-Diese Beispiele gehen davon aus, dass HTML mit der Option --ordered-list als
-Liste ausgegeben wurde. Fuegen Sie diese CSS-Schnipsel mit style-infile in
-Ihre Ausgabe ein:
-
-/* Hervorhebung ungerader Zeilen */
-ol li:nth-child(odd) {
-  background-color: #1f3030;
-}
-
-/* Hervorhebung jeder 5. Zeile */
-ol li:nth-child(5n) {
-  background-color: #1f3030;
-}
-
-/* Hervorhebung jeder 10. Zeilennummer */
-ol li:nth-child(10n) {
-  color: #ffff00;
-}
-
-
 3. KONFIGURATION
 -------------------------------------------------------------------------------
 
@@ -542,7 +490,7 @@ Kommentare:
 
 Arrays:
 array = { first=1, second="2", 3, { 4,5 } }
-Arrays koennen Variablen enthalten und verschachtelt werden.
+Arrays koennen Variablen enthalten und geschachtelt sein.
 
 
 3.2 SPRACHDEFINITIONEN
@@ -838,21 +786,21 @@ Eine Gruppe wird in zwei Schritten definiert:
     }
 
 Es wird empfohlen, eigene Keyword-Gruppen in Plugin-Skripten zu definieren,
-um keine Original-Dateien veraendern uzu muessen.
-Siehe den Abschnitt PLUG-INS.
+um keine Original-Dateien zu veraendern.
+Weitere Infos finden sich im cpp_qt.lua Beispiel-Plugin sowie in README_PLUGINS.
 
 
 3.6 PLUG-INS
 -------------------------------------------------------------------------------
 
 Die --plug-in Option erwartet den Pfad eines Lua Skripts, das Elemente einer
-Sprachdefintion oder eines Themes ueberschreibt oder erweitert.
+Sprachdefinition oder eines Themes ueberschreibt oder erweitert.
 Mit Hilfe dieser Plugins kann die Ausgabe angepasst werden, ohne installierte
 Konfigurations-Dateien zu aendern.
-Man kann mehrere Plugins anwenden, indem die --plug-in Option mehrfach
+Man kann mehrere Plugins anwenden, indem die --plug-in Option wiederholt
 angegeben wird.
 
-Siehe README_PLUGINS um mehr darüber zu erfahren.
+Siehe README_PLUGINS um mehr darueber zu erfahren.
 
 
 3.7 DATEIZUORDNUNGEN
@@ -1016,13 +964,6 @@ Highlight kompiliert zumindest mit gcc und suncc. Zum Kompilieren sind Boost
 Header-Pakete und Lua5.x/LuaJit Development-Pakete nötig.
 Die optionale GUI benötigt die Qt4/Qt5 Development-Pakete.
 Im Makefile finden Sie weitere Informationen.
-
-
-5.3 BEISPIELPAKETE
--------------------------------------------------------------------------------
-
-Unter http://andre-simon.de/dokuwiki/doku.php?id=packaging_resources befinden
-sich Beispiele fuer das Paketieren unter Debian und Fedora.
 
 
 6. ENTWICKLERKONTAKT

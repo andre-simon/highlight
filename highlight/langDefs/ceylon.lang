@@ -3,17 +3,19 @@ Description="Ceylon"
 
 Keywords={
   {  Id=1,
-   List={ "import", "class", "interface", "object", "given", "value", "assign", "void", "function", "of", "extends", "satisfies", "adapts",
-	  "abstracts", "in", "out", "return", "break", "continue", "throw", "if", "else", "switch", "case", "for", "while", "try", "catch",
-	  "finally", "then", "this", "outer", "super", "is", "exists", "nonempty"
-        }
+   List={ "assembly", "module", "package", "import", "alias", "class", 
+	  "interface", "object", "given", "value", "assign", "void", "function", "new", 
+	  "of", "extends", "satisfies", "abstracts", "in", "out", "return", "break", 
+	  "continue", "throw", "assert", "dynamic", "if", "else", "switch", "case", "for", 
+	  "while", "try", "catch", "finally", "then", "let", "this", "outer", "super", 
+	  "is", "exists", "nonempty"}
   },
   { Id=2,
-    List= {
+    List= { "shared", "formal", "abstract", "actual", "variable"
           }
   },
   { Id=3,
-    List= { 
+    List= { "String", "Integer", "Float", "Boolean", "Element", "Object", "Decimal", "Whole"
           }
   },
   { Id=4,
@@ -22,8 +24,9 @@ Keywords={
 }
 
 Strings = {
-  Delimiter=[["|']],
+  Delimiter=[["""|"|']],
   RawPrefix="R",
+  Interpolation=[[ ``[\w\(\)]+?`` ]],
 }
 
 Comments = {
@@ -39,14 +42,9 @@ Comments = {
 
 IgnoreCase=false
 
-PreProcessor = {
-  Prefix=[[#]],
-  Continuation="\\",
-}
-
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~|\|]]
 
-Digits=[[ [\d\.\_]*\d+(?:[eE][\-\+]?\d+)?[kMGTPmunpf]* ]]
+Digits=[[ [\d\.\_]*\d+(?:[eE][\-\+]?\d+)?[kMGTPmunpf]*|#[[:alnum:]\_]+|\$[01_]+ ]]
 
 
 EnableIndentation=true

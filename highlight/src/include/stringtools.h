@@ -39,52 +39,51 @@ using namespace std;
 namespace StringTools
 {
 
-	/** Change Keyword case */
-	enum KeywordCase
-	{
-		CASE_UNCHANGED, ///< do not alter case
-		CASE_LOWER,     ///< convert to lower case
-		CASE_UPPER,     ///< convert to upper case
-		CASE_CAPITALIZE ///< convert first character to upper case
-	};
+/** Change Keyword case */
+enum KeywordCase {
+    CASE_UNCHANGED, ///< do not alter case
+    CASE_LOWER,     ///< convert to lower case
+    CASE_UPPER,     ///< convert to upper case
+    CASE_CAPITALIZE ///< convert first character to upper case
+};
 
-	/** Change character case of strings
-	    \param s input string
-	    \param kcase case modification indicator
-	    \return modified string
-	*/
-	string change_case ( const string & s,
-	                     const KeywordCase kcase = CASE_LOWER ) throw();
+/** Change character case of strings
+    \param s input string
+    \param kcase case modification indicator
+    \return modified string
+*/
+string change_case ( const string & s,
+                     const KeywordCase kcase = CASE_LOWER ) throw();
 
-	/** Trim string (remove whitespace)
-	   \param value String
-	   \return string trimmed on the right
-	*/
-	string trimRight ( const string &value );
+/** Trim string (remove whitespace)
+   \param value String
+   \return string trimmed on the right
+*/
+string trimRight ( const string &value );
 
-	string trim(const string& s);
+string trim(const string& s);
 
-	/** Split string and return items separated by a delimiter
-	    \param s string containing tokens
-	    \param delim Token delimiter
-	    \return vector containing found tokens */
-	vector <string> splitString ( const string& s, unsigned char delim );
+/** Split string and return items separated by a delimiter
+    \param s string containing tokens
+    \param delim Token delimiter
+    \return vector containing found tokens */
+vector <string> splitString ( const string& s, unsigned char delim );
 
-	/** Convert string to a numeric value of the given type
-	    \param val variable of specified type which will contain the numeric value
-	    \param s string containing a number
-	    \param f format specifier function (IO manipulator)
-	    \return true if successfull */
-	template <class T>
-	bool str2num ( T &val, const std::string& s, std::ios_base& ( *f ) ( std::ios_base& ) )
-	{
-		std::istringstream iss ( s );
-		return ! ( iss >> f >> val ).fail();
-	}
+/** Convert string to a numeric value of the given type
+    \param val variable of specified type which will contain the numeric value
+    \param s string containing a number
+    \param f format specifier function (IO manipulator)
+    \return true if successfull */
+template <class T>
+bool str2num ( T &val, const std::string& s, std::ios_base& ( *f ) ( std::ios_base& ) )
+{
+    std::istringstream iss ( s );
+    return ! ( iss >> f >> val ).fail();
+}
 
-	int calcWeight(const string&s);
+int calcWeight(const string&s);
 
-	string getPathAcronym(const string&path, char delim);
+string getPathAcronym(const string&path, char delim);
 }
 
 #endif

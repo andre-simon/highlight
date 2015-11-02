@@ -3,15 +3,20 @@ CHANGELOG Highlight
 
 highlight 3.24
 
-28.10.2015
+02.11.2015
 
 -fixed TeX output for cweb documents (patch by Ingo Krabbe)
--added reduce_filesize.lua, outhtml_add_shadow.lua and 
-  outhtml_add_background_svg.lua plug-ins 
+-fixed string interpolation in bat.lang
+-added reduce_filesize.lua, outhtml_add_shadow.lua, 
+  outhtml_add_background_svg.lua, outhtml_add_background_stripes.lua, 
+  outhtml_add_line.lua plug-ins 
 -added TCL extension in examples/tcl
 -added kotlin.lang, nginx.lang and julia.lang
--updated php.lang to include PHP 7 keywords 
+-updated php.lang to include version 7 keywords 
+-updated ceylon.lang to include version 1.2 keywords 
 -updated scripts in examples directory
+-CLI: style-infile option marked as deprecated
+-GUI: shortened paths in file input lists
 
 ---
 highlight 3.23

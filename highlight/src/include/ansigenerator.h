@@ -37,53 +37,53 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   \brief This class generates ANSI escape sequences.
+/**
+   \brief This class generates ANSI escape sequences.
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
-	class AnsiGenerator : public highlight::CodeGenerator
-	{
-		public:
-			AnsiGenerator();
-			~AnsiGenerator();
+class AnsiGenerator : public highlight::CodeGenerator
+{
+public:
+    AnsiGenerator();
+    ~AnsiGenerator();
 
-			/** prints document header
-			 */
-			string getHeader();
+    /** prints document header
+     */
+    string getHeader();
 
-			/** Prints document footer*/
-			string getFooter();
+    /** Prints document footer*/
+    string getFooter();
 
-			/** Prints document body*/
-			void printBody();
+    /** Prints document body*/
+    void printBody();
 
-		private:
+private:
 
-			/** \return escaped character*/
-			virtual string maskCharacter ( unsigned char );
+    /** \return escaped character*/
+    virtual string maskCharacter ( unsigned char );
 
 
-			/** gibt ANSI-"Tags" zurueck (Farbindex+bold+kursiv)*/
-			string getOpenTag ( const string&font,
-			                    const string&fgCol, const string&bgCol="" );
+    /** gibt ANSI-"Tags" zurueck (Farbindex+bold+kursiv)*/
+    string getOpenTag ( const string&font,
+                        const string&fgCol, const string&bgCol="" );
 
-			/** initialize tags in specific format according to colouring information provided in DucumentStyle */
-			void initOutputTags();
+    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    void initOutputTags();
 
-			/** @param styleID current style ID
-			    @return matching sequence to begin a new element formatting*/
-			string getKeywordOpenTag ( unsigned int styleID );
+    /** @param styleID current style ID
+        @return matching sequence to begin a new element formatting*/
+    string getKeywordOpenTag ( unsigned int styleID );
 
-			/** @param styleID current style ID
-			    @return matching  sequence to stop element formatting*/
-			string getKeywordCloseTag ( unsigned int styleID );
-	};
+    /** @param styleID current style ID
+        @return matching  sequence to stop element formatting*/
+    string getKeywordCloseTag ( unsigned int styleID );
+};
 
 }
 #endif

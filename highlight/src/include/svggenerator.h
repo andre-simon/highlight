@@ -33,62 +33,62 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   \brief This class generates SVG.
+/**
+   \brief This class generates SVG.
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
-	class SVGGenerator : public highlight::CodeGenerator
-	{
-		public:
+class SVGGenerator : public highlight::CodeGenerator
+{
+public:
 
-			SVGGenerator();
-			~SVGGenerator();
+    SVGGenerator();
+    ~SVGGenerator();
 
-			/** Set SVG dimensions
-			    \param w page width
-			    \param h page height
-			*/
-			void setSVGSize ( const string& w, const string& h );
+    /** Set SVG dimensions
+        \param w page width
+        \param h page height
+    */
+    void setSVGSize ( const string& w, const string& h );
 
-		private:
+private:
 
-			/** prints document header
-			 */
-			string getHeader();
+    /** prints document header
+     */
+    string getHeader();
 
-			/** Prints document footer*/
-			string getFooter();
+    /** Prints document footer*/
+    string getFooter();
 
-			/** Prints document body*/
-			void printBody();
+    /** Prints document body*/
+    void printBody();
 
-			/** initialize tags in specific format according to colouring information provided in DucumentStyle */
-			void initOutputTags();
+    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    void initOutputTags();
 
-			string styleDefinitionCache;
-			string width, height;
+    string styleDefinitionCache;
+    string width, height;
 
-			string getStyleDefinition();
+    string getStyleDefinition();
 
-			string getAttributes ( const string &, const ElementStyle & );
+    string getAttributes ( const string &, const ElementStyle & );
 
-			/** \return escaped character*/
-			virtual string maskCharacter ( unsigned char );
+    /** \return escaped character*/
+    virtual string maskCharacter ( unsigned char );
 
-			string getOpenTag ( const string& );
+    string getOpenTag ( const string& );
 
-			string getKeywordOpenTag ( unsigned int styleID );
-			string getKeywordCloseTag ( unsigned int styleID );
+    string getKeywordOpenTag ( unsigned int styleID );
+    string getKeywordCloseTag ( unsigned int styleID );
 
-			/** @return Newline string */
-			string getNewLine();
-	};
+    /** @return Newline string */
+    string getNewLine();
+};
 
 }
 

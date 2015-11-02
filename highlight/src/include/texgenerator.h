@@ -36,57 +36,57 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
-	/**
-	   \brief This class generates TeX.
+/**
+   \brief This class generates TeX.
 
-	   It contains information about the resulting document structure (document
-	   header and footer), the colour system, white space handling and text
-	   formatting attributes.
+   It contains information about the resulting document structure (document
+   header and footer), the colour system, white space handling and text
+   formatting attributes.
 
-	* @author Andre Simon
-	*/
+* @author Andre Simon
+*/
 
-	class TexGenerator : public highlight::CodeGenerator
-	{
-		public:
+class TexGenerator : public highlight::CodeGenerator
+{
+public:
 
-			TexGenerator();
-			~TexGenerator();
+    TexGenerator();
+    ~TexGenerator();
 
-		private:
+private:
 
-			/** prints document header
-			 */
-			string getHeader();
+    /** prints document header
+     */
+    string getHeader();
 
-			/** Prints document footer*/
-			string getFooter();
+    /** Prints document footer*/
+    string getFooter();
 
-			/** Prints document body*/
-			void printBody();
+    /** Prints document body*/
+    void printBody();
 
-			/** initialize tags in specific format according to colouring information provided in DucumentStyle */
-			void initOutputTags();
+    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    void initOutputTags();
 
-			string styleDefinitionCache;
+    string styleDefinitionCache;
 
-			string getStyleDefinition();
+    string getStyleDefinition();
 
-			/** \return escaped character*/
-			virtual string maskCharacter ( unsigned char );
+    /** \return escaped character*/
+    virtual string maskCharacter ( unsigned char );
 
-			/**\return text formatting attributes in RTF format */
-			string getAttributes ( const string & elemName, const ElementStyle & elem );
+    /**\return text formatting attributes in RTF format */
+    string getAttributes ( const string & elemName, const ElementStyle & elem );
 
-			/** @param styleID current style ID
-			    @return matching sequence to begin a new element formatting*/
-			string getKeywordOpenTag ( unsigned int styleID );
+    /** @param styleID current style ID
+        @return matching sequence to begin a new element formatting*/
+    string getKeywordOpenTag ( unsigned int styleID );
 
-			/** @param styleID current style ID
-			    @return matching  sequence to stop element formatting*/
-			string getKeywordCloseTag ( unsigned int styleID );
+    /** @param styleID current style ID
+        @return matching  sequence to stop element formatting*/
+    string getKeywordCloseTag ( unsigned int styleID );
 
-	};
+};
 
 }
 

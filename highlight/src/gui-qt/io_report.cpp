@@ -49,20 +49,24 @@ void io_report::changeEvent(QEvent *e)
     }
 }
 
-void io_report::addInputErrors(QStringList & list){
+void io_report::addInputErrors(QStringList & list)
+{
     m_ui->listInputErrors->clear();
     m_ui->listInputErrors->addItems(list);
 }
 
-    void io_report::addOutputErrors(QStringList & list){
-            m_ui->listOutputErrors->clear();
+void io_report::addOutputErrors(QStringList & list)
+{
+    m_ui->listOutputErrors->clear();
     m_ui->listOutputErrors->addItems(list);
-    }
-    void io_report::addReformatErrors(QStringList & list){
-            m_ui->listReformatErrors->clear();
+}
+void io_report::addReformatErrors(QStringList & list)
+{
+    m_ui->listReformatErrors->clear();
     m_ui->listReformatErrors->addItems(list);
-    }
+}
 
-bool io_report::removeInputErrorFiles() {
-       return m_ui->cbRemoveFiles->isChecked();
+bool io_report::removeInputErrorFiles()
+{
+    return m_ui->cbRemoveFiles->isChecked();
 }

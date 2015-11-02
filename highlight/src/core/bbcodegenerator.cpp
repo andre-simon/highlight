@@ -34,97 +34,97 @@ using namespace std;
 namespace highlight
 {
 
-	BBCodeGenerator::BBCodeGenerator() : CodeGenerator ( BBCODE )
-	{
-		newLineTag = "\n";
-		spacer = " ";
-	}
+BBCodeGenerator::BBCodeGenerator() : CodeGenerator ( BBCODE )
+{
+    newLineTag = "\n";
+    spacer = " ";
+}
 
-	BBCodeGenerator::~BBCodeGenerator() {}
+BBCodeGenerator::~BBCodeGenerator() {}
 
-	string BBCodeGenerator::getHeader()
-	{
-		return string();
-	}
+string BBCodeGenerator::getHeader()
+{
+    return string();
+}
 
-	void BBCodeGenerator::printBody()
-	{
-                *out << "[size="<<getBaseFontSize()<<"]"; // TODO hier pt?
-		processRootState();
-		*out << "[/size]";
-	}
+void BBCodeGenerator::printBody()
+{
+    *out << "[size="<<getBaseFontSize()<<"]"; // TODO hier pt?
+    processRootState();
+    *out << "[/size]";
+}
 
-	string BBCodeGenerator::getFooter()
-	{
-		return string();
-	}
+string BBCodeGenerator::getFooter()
+{
+    return string();
+}
 
-	string  BBCodeGenerator::getOpenTag (const ElementStyle & elem )
-	{
-		ostringstream s;
+string  BBCodeGenerator::getOpenTag (const ElementStyle & elem )
+{
+    ostringstream s;
 
-		s << "[color=#";
-		s  << elem.getColour().getRed ( HTML )
-		   << elem.getColour().getGreen ( HTML )
-		   << elem.getColour().getBlue ( HTML )
-		   << "]";
+    s << "[color=#";
+    s  << elem.getColour().getRed ( HTML )
+       << elem.getColour().getGreen ( HTML )
+       << elem.getColour().getBlue ( HTML )
+       << "]";
 
-		if ( elem.isBold() ) s << "[b]";
-		if ( elem.isItalic() ) s << "[i]";
-		if ( elem.isUnderline() ) s << "[u]";
-		return  s.str();
-	}
+    if ( elem.isBold() ) s << "[b]";
+    if ( elem.isItalic() ) s << "[i]";
+    if ( elem.isUnderline() ) s << "[u]";
+    return  s.str();
+}
 
-	string  BBCodeGenerator::getCloseTag ( const ElementStyle &elem )
-	{
-		ostringstream s;
-		if ( elem.isUnderline() ) s << "[/u]";
-		if ( elem.isItalic() ) s << "[/i]";
-		if ( elem.isBold() ) s << "[/b]";
-		s << "[/color]";
-		return  s.str();
-	}
+string  BBCodeGenerator::getCloseTag ( const ElementStyle &elem )
+{
+    ostringstream s;
+    if ( elem.isUnderline() ) s << "[/u]";
+    if ( elem.isItalic() ) s << "[/i]";
+    if ( elem.isBold() ) s << "[/b]";
+    s << "[/color]";
+    return  s.str();
+}
 
-	void BBCodeGenerator::initOutputTags ()
-	{
-		openTags.push_back ( "");
-		openTags.push_back ( getOpenTag ( docStyle.getStringStyle() ) );
-		openTags.push_back ( getOpenTag ( docStyle.getNumberStyle() ) );
-		openTags.push_back ( getOpenTag ( docStyle.getSingleLineCommentStyle() ) );
-		openTags.push_back ( getOpenTag ( docStyle.getCommentStyle() ) );
-		openTags.push_back ( getOpenTag ( docStyle.getEscapeCharStyle() ) );
-		openTags.push_back ( getOpenTag ( docStyle.getPreProcessorStyle() ) );
-		openTags.push_back ( getOpenTag ( docStyle.getPreProcStringStyle() ) );
-		openTags.push_back ( getOpenTag ( docStyle.getLineStyle() ) );
-		openTags.push_back ( getOpenTag ( docStyle.getOperatorStyle() ) );
-		openTags.push_back ( getOpenTag ( docStyle.getInterpolationStyle() ) );
+void BBCodeGenerator::initOutputTags ()
+{
+    openTags.push_back ( "");
+    openTags.push_back ( getOpenTag ( docStyle.getStringStyle() ) );
+    openTags.push_back ( getOpenTag ( docStyle.getNumberStyle() ) );
+    openTags.push_back ( getOpenTag ( docStyle.getSingleLineCommentStyle() ) );
+    openTags.push_back ( getOpenTag ( docStyle.getCommentStyle() ) );
+    openTags.push_back ( getOpenTag ( docStyle.getEscapeCharStyle() ) );
+    openTags.push_back ( getOpenTag ( docStyle.getPreProcessorStyle() ) );
+    openTags.push_back ( getOpenTag ( docStyle.getPreProcStringStyle() ) );
+    openTags.push_back ( getOpenTag ( docStyle.getLineStyle() ) );
+    openTags.push_back ( getOpenTag ( docStyle.getOperatorStyle() ) );
+    openTags.push_back ( getOpenTag ( docStyle.getInterpolationStyle() ) );
 
-		closeTags.push_back ( "" );
-		closeTags.push_back ( getCloseTag ( docStyle.getStringStyle() ) );
-		closeTags.push_back ( getCloseTag ( docStyle.getNumberStyle() ) );
-		closeTags.push_back ( getCloseTag ( docStyle.getSingleLineCommentStyle() ) );
-		closeTags.push_back ( getCloseTag ( docStyle.getCommentStyle() ) );
-		closeTags.push_back ( getCloseTag ( docStyle.getEscapeCharStyle() ) );
-		closeTags.push_back ( getCloseTag ( docStyle.getPreProcessorStyle() ) );
-		closeTags.push_back ( getCloseTag ( docStyle.getPreProcStringStyle() ) );
-		closeTags.push_back ( getCloseTag ( docStyle.getLineStyle() ) );
-		closeTags.push_back ( getCloseTag ( docStyle.getOperatorStyle() ) );
-		closeTags.push_back ( getCloseTag ( docStyle.getInterpolationStyle() ) );
-	}
+    closeTags.push_back ( "" );
+    closeTags.push_back ( getCloseTag ( docStyle.getStringStyle() ) );
+    closeTags.push_back ( getCloseTag ( docStyle.getNumberStyle() ) );
+    closeTags.push_back ( getCloseTag ( docStyle.getSingleLineCommentStyle() ) );
+    closeTags.push_back ( getCloseTag ( docStyle.getCommentStyle() ) );
+    closeTags.push_back ( getCloseTag ( docStyle.getEscapeCharStyle() ) );
+    closeTags.push_back ( getCloseTag ( docStyle.getPreProcessorStyle() ) );
+    closeTags.push_back ( getCloseTag ( docStyle.getPreProcStringStyle() ) );
+    closeTags.push_back ( getCloseTag ( docStyle.getLineStyle() ) );
+    closeTags.push_back ( getCloseTag ( docStyle.getOperatorStyle() ) );
+    closeTags.push_back ( getCloseTag ( docStyle.getInterpolationStyle() ) );
+}
 
-	string BBCodeGenerator::maskCharacter ( unsigned char c )
-	{
-		return string ( 1, c );
-	}
+string BBCodeGenerator::maskCharacter ( unsigned char c )
+{
+    return string ( 1, c );
+}
 
-	string BBCodeGenerator::getKeywordOpenTag ( unsigned int styleID )
-	{
-		return getOpenTag (docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
-	}
+string BBCodeGenerator::getKeywordOpenTag ( unsigned int styleID )
+{
+    return getOpenTag (docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
+}
 
-	string BBCodeGenerator::getKeywordCloseTag ( unsigned int styleID )
-	{
-		return getCloseTag ( docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
-	}
+string BBCodeGenerator::getKeywordCloseTag ( unsigned int styleID )
+{
+    return getCloseTag ( docStyle.getKeywordStyle ( currentSyntax->getKeywordClasses() [styleID] ) );
+}
 
 }
