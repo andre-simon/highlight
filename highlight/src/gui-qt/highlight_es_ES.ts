@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_MX">
+<TS version="2.1" language="es_MX">
 <context>
     <name>MainWindow</name>
     <message>
@@ -10,12 +10,12 @@ Check installation.</source>
 Revise su instalación.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="94"/>
+        <location filename="mainwindow.cpp" line="93"/>
         <source>Initialization error</source>
         <translation>Error de inicialización</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="95"/>
+        <location filename="mainwindow.cpp" line="94"/>
         <source>Could not find syntax definitions. Check installation.</source>
         <translation>Definiciones de sintaxis no encontradas.
 Revise su instalacion.</translation>
@@ -26,7 +26,7 @@ Revise su instalacion.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="189"/>
+        <location filename="mainwindow.cpp" line="203"/>
         <source>Select destination directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39,88 +39,93 @@ Revise su instalacion.</translation>
         <translation type="obsolete">No se pudieron leer las etiquetas de &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="700"/>
-        <location filename="mainwindow.cpp" line="731"/>
+        <location filename="mainwindow.cpp" line="746"/>
+        <location filename="mainwindow.cpp" line="777"/>
         <source>Output error</source>
         <translation>Error de salida</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="700"/>
+        <location filename="mainwindow.cpp" line="746"/>
         <source>Output directory does not exist!</source>
         <translation>¡Directorio de salida no existe!</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="731"/>
+        <location filename="mainwindow.cpp" line="777"/>
         <source>You must define a style output file!</source>
         <translation>¡Debe especificar un archivo de estilo de salida!</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="770"/>
+        <location filename="mainwindow.cpp" line="806"/>
+        <source>Processing %1 (%2/%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="818"/>
         <source>Language definition error</source>
         <translation>Error de definición de lenguaje</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="771"/>
+        <location filename="mainwindow.cpp" line="819"/>
         <source>Invalid regular expression in %1:
 %2</source>
         <translation>Expresión regular inválida en %1:
 %2</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="775"/>
+        <location filename="mainwindow.cpp" line="823"/>
         <source>Unknown syntax</source>
         <translation>Sintaxis desconocida</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="775"/>
+        <location filename="mainwindow.cpp" line="823"/>
         <source>Could not convert %1</source>
         <translation>No se pudo convertir %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="778"/>
+        <location filename="mainwindow.cpp" line="826"/>
         <source>Lua error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="778"/>
+        <location filename="mainwindow.cpp" line="826"/>
         <source>Could not convert %1:
 Lua Syntax error: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="847"/>
+        <location filename="mainwindow.cpp" line="893"/>
         <source>Converted %1 files in %2 ms</source>
         <translation>Se convirtieron%1 archivos en %2 ms</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="932"/>
+        <location filename="mainwindow.cpp" line="984"/>
         <source>Conversion of &quot;%1&quot; not possible.</source>
         <translation>No es posible la conversión de &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="932"/>
-        <location filename="mainwindow.cpp" line="1036"/>
-        <location filename="mainwindow.cpp" line="1059"/>
+        <location filename="mainwindow.cpp" line="984"/>
+        <location filename="mainwindow.cpp" line="1090"/>
+        <location filename="mainwindow.cpp" line="1112"/>
         <source>clipboard data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="990"/>
+        <location filename="mainwindow.cpp" line="1043"/>
         <source>%1 options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1035"/>
+        <location filename="mainwindow.cpp" line="1089"/>
         <source>Preview (%1):</source>
         <translation>Previsualización (%1):</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1038"/>
+        <location filename="mainwindow.cpp" line="1092"/>
         <source>Current syntax: %1</source>
         <translation>Sintaxis actual: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1059"/>
+        <location filename="mainwindow.cpp" line="1112"/>
         <source>Preview of &quot;%1&quot; not possible.</source>
         <translation>No es posible previsualizar &quot;%1&quot;.</translation>
     </message>
@@ -129,20 +134,20 @@ Lua Syntax error: %2</source>
         <translation type="obsolete">Elija un archivo de ctags</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1092"/>
-        <location filename="mainwindow.cpp" line="1096"/>
-        <location filename="mainwindow.cpp" line="1100"/>
-        <location filename="mainwindow.cpp" line="1105"/>
+        <location filename="mainwindow.cpp" line="1145"/>
+        <location filename="mainwindow.cpp" line="1149"/>
+        <location filename="mainwindow.cpp" line="1153"/>
+        <location filename="mainwindow.cpp" line="1158"/>
         <source>Choose a style include file</source>
         <translation>Elija un archivo de inclusión de estilo</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1110"/>
+        <location filename="mainwindow.cpp" line="1163"/>
         <source>About providing translations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1111"/>
+        <location filename="mainwindow.cpp" line="1164"/>
         <source>The GUI was developed using the Qt toolkit, and translations may be provided using the tools Qt Linguist and lrelease.
 The highlight.ts file for Linguist resides in the src/gui-qt subdirectory.
 The qm file generated by lrelease has to be saved in gui-files/l10n.
@@ -151,12 +156,12 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1176"/>
+        <location filename="mainwindow.cpp" line="1230"/>
         <source>Select one or more plug-ins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1214"/>
+        <location filename="mainwindow.cpp" line="1268"/>
         <source>Choose a plug-in input file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -245,8 +250,9 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location filename="mainwindow.ui" line="618"/>
-        <source>Output format:</source>
-        <translation>Formato de salida:</translation>
+        <source>Output for&amp;mat:</source>
+        <oldsource>Output format:</oldsource>
+        <translation type="unfinished">Formato de salida:</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="640"/>
@@ -709,7 +715,8 @@ Vea ctags.sf.net para más detalles.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="131"/>
-        <source>Highlighting options</source>
+        <source>High&amp;lighting options</source>
+        <oldsource>Highlighting options</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -744,12 +751,14 @@ Vea ctags.sf.net para más detalles.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="534"/>
-        <source>Plug-in input file</source>
+        <source>Plug-in parameter</source>
+        <oldsource>Plug-in input file</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="543"/>
-        <source>Optional path to a plug-in input file</source>
+        <source>Optional plug-in parameter, this may be a path to a plug-in input file</source>
+        <oldsource>Optional path to a plug-in input file</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1020,8 +1029,9 @@ En caso de ser 0 se mantendrán los tabuladores.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1881"/>
-        <source>Font name:</source>
-        <translation>Nombre de la fuente:</translation>
+        <source>Font na&amp;me:</source>
+        <oldsource>Font name:</oldsource>
+        <translation type="unfinished">Nombre de la fuente:</translation>
     </message>
     <message>
         <source>Select or enter the font name.</source>
@@ -1039,7 +1049,8 @@ En caso de ser 0 se mantendrán los tabuladores.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1997"/>
-        <source>Visit andre-simon.de</source>
+        <source>&amp;Visit andre-simon.de</source>
+        <oldsource>Visit andre-simon.de</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1154,8 +1165,9 @@ En caso de ser 0 se mantendrán los tabuladores.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1964"/>
-        <source>Readme</source>
-        <translation>Leeme</translation>
+        <source>&amp;Readme</source>
+        <oldsource>Readme</oldsource>
+        <translation type="unfinished">Leeme</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1969"/>
@@ -1179,7 +1191,8 @@ En caso de ser 0 se mantendrán los tabuladores.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1992"/>
-        <source>About &amp;translations</source>
+        <source>A&amp;bout translations</source>
+        <oldsource>About &amp;translations</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>

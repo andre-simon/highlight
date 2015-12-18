@@ -635,7 +635,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
         generator->setFragmentCode(ui->cbFragment->isChecked());
 
         generator->setHTMLAttachAnchors(ui->cbHTMLAnchors->isChecked());
-        generator->setHTMLOrderedList(ui->cbHTMLOrderedList->isChecked());
+        generator->setHTMLOrderedList(ui->cbIncLineNo->isChecked() && ui->cbHTMLOrderedList->isChecked());
         generator->setHTMLInlineCSS(ui->cbHTMLInlineCSS->isChecked() && ui->cbHTMLInlineCSS->isEnabled());
         generator->setHTMLEnclosePreTag(ui->cbHTMLEnclosePreTags->isChecked());
 
@@ -736,11 +736,19 @@ void MainWindow::on_pbStartConversion_clicked()
 
     if (!ui->lvInputFiles->count()) return;
 
-    if (!ui->cbWrite2Src->isChecked() && !QDir(ui->leOutputDest->text()).exists()) {
-        QMessageBox::warning(this, tr("Output error"), tr("Output directory does not exist!"));
-        ui->leOutputDest->setFocus();
-        return;
+    if (!ui->cbWrite2Src->isChecked() ) {
+
+        if (ui->leOutputDest->text().isEmpty()){
+            ui->pbOutputDest->click();
+            return;
+        }
+        if (!QDir(ui->leOutputDest->text()).exists()){
+            QMessageBox::warning(this, tr("Output error"), tr("Output directory does not exist!"));
+            ui->leOutputDest->setFocus();
+            return;
+        }
     }
+
     highlight::OutputType outType = getOutputType();
     QCheckBox* cbEmbed=NULL;
     QLineEdit* leStyleFile=NULL;
@@ -795,6 +803,8 @@ void MainWindow::on_pbStartConversion_clicked()
         inFilePath =  ui->lvInputFiles->item(i)->data(Qt::UserRole).toString();
         currentFile = inFilePath.toStdString();
 
+          statusBar()->showMessage(tr("Processing %1 (%2/%3)").arg(inFilePath).arg(i+1).arg(ui->lvInputFiles->count()));
+
 #ifdef DATA_DIR
         langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(DATA_DIR).arg(
                 QString::fromStdString(getFileType(getFileSuffix(currentFile), currentFile))));
@@ -821,7 +831,7 @@ void MainWindow::on_pbStartConversion_clicked()
                 reformatErrors.append(inFilePath);
             }
 
-            inFileName = QFileInfo(inFilePath).fileName();
+            inFileName = ui->lvInputFiles->item(i)->text(); // QFileInfo(inFilePath).fileName();
 
             if (ui->cbWrite2Src->isChecked()) {
                 outfileName = currentFile;
@@ -838,8 +848,7 @@ void MainWindow::on_pbStartConversion_clicked()
                 outFileInfo.setFile(ui->leOutputDest->text(),fName);
                 outfileName = outFileInfo.absoluteFilePath().toStdString();
             }
-            outfileName +=  getOutFileSuffix().toStdString();;
-
+            outfileName +=  getOutFileSuffix().toStdString();
 
             if (ui->cbHTMLFileNameAnchor->isChecked()) {
                 generator->setHTMLAnchorPrefix(inFileName.toStdString());
@@ -896,16 +905,12 @@ void MainWindow::on_pbStartConversion_clicked()
         if (report.removeInputErrorFiles()) {
 
             for (int i=0; i<inputErrors.count(); i++) {
-
-
                 for (int j = 0 ; j < ui->lvInputFiles->count(); ++j) {
                     if (ui->lvInputFiles->item(j)->data(Qt::UserRole).toString()==inputErrors.at(i)) {
                         delete ui->lvInputFiles->item(j);
                         break;
                     }
                 }
-
-
             }
         }
     }

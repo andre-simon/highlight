@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="zh_CN">
+<TS version="2.1" language="zh_CN">
 <context>
     <name>@default</name>
     <message>
@@ -127,7 +127,7 @@ Check installation.</source>
 Revise su instalación.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="+94"/>
+        <location filename="mainwindow.cpp" line="+93"/>
         <source>Initialization error</source>
         <translation type="unfinished">初始化错误</translation>
     </message>
@@ -137,12 +137,12 @@ Revise su instalación.</translation>
         <translation type="unfinished">找不到语法定义文件.请检查安装.</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+63"/>
         <source>Select one or more files to open</source>
         <translation type="unfinished">选择一个或多个文件打开</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+46"/>
         <source>Select destination directory</source>
         <translation type="unfinished">选择目标路径</translation>
     </message>
@@ -155,7 +155,7 @@ Revise su instalación.</translation>
         <translation type="obsolete">无法读取 &quot;%1&quot; 的Tag信息</translation>
     </message>
     <message>
-        <location line="+511"/>
+        <location line="+543"/>
         <location line="+31"/>
         <source>Output error</source>
         <translation type="unfinished">输出错误</translation>
@@ -171,7 +171,12 @@ Revise su instalación.</translation>
         <translation type="unfinished">你必须等译一个style输出文件！</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+29"/>
+        <source>Processing %1 (%2/%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Language definition error</source>
         <translation type="unfinished">语言定义错误</translation>
     </message>
@@ -204,19 +209,19 @@ Lua Syntax error: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+67"/>
         <source>Converted %1 files in %2 ms</source>
         <translation type="unfinished">文件%1 转换完毕，用时 %2 ms</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+91"/>
         <source>Conversion of &quot;%1&quot; not possible.</source>
         <translation type="unfinished">No es posible la conversión de &quot;%1&quot;.</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+104"/>
-        <location line="+23"/>
+        <location line="+106"/>
+        <location line="+22"/>
         <source>clipboard data</source>
         <translation type="unfinished">剪贴板数据</translation>
     </message>
@@ -226,7 +231,7 @@ Lua Syntax error: %2</source>
         <translation type="unfinished">%1 选项</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+46"/>
         <source>Preview (%1):</source>
         <translation type="unfinished">预览 (%1):</translation>
     </message>
@@ -236,7 +241,7 @@ Lua Syntax error: %2</source>
         <translation type="unfinished">当前语言: %1</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+20"/>
         <source>Preview of &quot;%1&quot; not possible.</source>
         <translation type="unfinished">&quot;%1&quot;.的预览不可用.</translation>
     </message>
@@ -271,7 +276,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
 请通过as (at) andre-simon (dot) de联系我.</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+66"/>
         <source>Select one or more plug-ins</source>
         <translation type="unfinished">选择一个或多个插件</translation>
     </message>
@@ -365,8 +370,9 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+20"/>
-        <source>Output format:</source>
-        <translation>输出格式：</translation>
+        <source>Output for&amp;mat:</source>
+        <oldsource>Output format:</oldsource>
+        <translation type="unfinished">输出格式：</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -840,8 +846,9 @@ See ctags.sf.net for details.</source>
     </message>
     <message>
         <location line="+20"/>
-        <source>Highlighting options</source>
-        <translation>代码高亮选项</translation>
+        <source>High&amp;lighting options</source>
+        <oldsource>Highlighting options</oldsource>
+        <translation type="unfinished">代码高亮选项</translation>
     </message>
     <message>
         <location line="+263"/>
@@ -875,13 +882,15 @@ See ctags.sf.net for details.</source>
     </message>
     <message>
         <location line="+28"/>
-        <source>Plug-in input file</source>
-        <translation>输入插件的文件</translation>
+        <source>Plug-in parameter</source>
+        <oldsource>Plug-in input file</oldsource>
+        <translation type="unfinished">输入插件的文件</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Optional path to a plug-in input file</source>
-        <translation>传递给插件的一个可选路径</translation>
+        <source>Optional plug-in parameter, this may be a path to a plug-in input file</source>
+        <oldsource>Optional path to a plug-in input file</oldsource>
+        <translation type="unfinished">传递给插件的一个可选路径</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1164,8 +1173,9 @@ Set the width to 0 to keep tabs.</source>
     </message>
     <message>
         <location line="+26"/>
-        <source>Font name:</source>
-        <translation>字体：</translation>
+        <source>Font na&amp;me:</source>
+        <oldsource>Font name:</oldsource>
+        <translation type="unfinished">字体：</translation>
     </message>
     <message>
         <source>Select or enter the font name.</source>
@@ -1183,8 +1193,9 @@ Set the width to 0 to keep tabs.</source>
     </message>
     <message>
         <location line="+73"/>
-        <source>Visit andre-simon.de</source>
-        <translation>访问 andre-simon.de</translation>
+        <source>&amp;Visit andre-simon.de</source>
+        <oldsource>Visit andre-simon.de</oldsource>
+        <translation type="unfinished">访问 andre-simon.de</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1298,8 +1309,9 @@ Set the width to 0 to keep tabs.</source>
     </message>
     <message>
         <location line="+5"/>
-        <source>Readme</source>
-        <translation>ReadMe</translation>
+        <source>&amp;Readme</source>
+        <oldsource>Readme</oldsource>
+        <translation type="unfinished">ReadMe</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1323,8 +1335,9 @@ Set the width to 0 to keep tabs.</source>
     </message>
     <message>
         <location line="+5"/>
-        <source>About &amp;translations</source>
-        <translation>关于翻译(&amp;T)</translation>
+        <source>A&amp;bout translations</source>
+        <oldsource>About &amp;translations</oldsource>
+        <translation type="unfinished">关于翻译(&amp;T)</translation>
     </message>
 </context>
 <context>

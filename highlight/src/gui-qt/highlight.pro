@@ -30,13 +30,24 @@ TRANSLATIONS = highlight_de_DE.ts highlight_es_ES.ts highlight_cs_CZ.ts  highlig
 
 win32:RC_FILE = highlight-gui.rc
 win32:LIBS += -L../.. -lhighlight
-unix:LIBS += -L.. -lhighlight
 
 # If Lua 5.2 is not default on your system yet you have to omit 5.1 here:
 unix {
+    LIBS += -L.. -lhighlight
     LIBS += -llua
     CONFIG += link_pkgconfig
     PKGCONFIG += lua
+
+    # to make it run within Qt Creator
+    !contains(DEFINES, DATA_DIR) {
+        DEFINES+=DATA_DIR=\\\"/usr/share/highlight/\\\"
+    }
+    !contains(DEFINES, CONFIG_DIR) {
+        DEFINES+=CONFIG_DIR=\\\"/etc/highlight/\\\"
+    }
+    !contains(DEFINES, DOC_DIR) {
+        DEFINES+=DOC_DIR=\\\"/usr/share/highlight/\\\"
+    }
 }
 
 win32:QMAKE_POST_LINK = f:/upx/upx.exe --best ../../highlight-gui.exe

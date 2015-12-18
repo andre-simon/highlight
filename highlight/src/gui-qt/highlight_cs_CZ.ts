@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="cs_CZ">
+<TS version="2.1" language="cs_CZ">
 <context>
     <name>MainWindow</name>
     <message>
@@ -124,6 +124,10 @@ Prověřte instalaci.</translation>
     <message>
         <source>Could not convert %1:
 Lua Syntax error: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Processing %1 (%2/%3)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -351,7 +355,7 @@ Tato funkce je povolena pro C, C++, C# a pro kód Java.</translation>
     </message>
     <message>
         <source>Output format:</source>
-        <translation>Výstupní formát:</translation>
+        <translation type="vanished">Výstupní formát:</translation>
     </message>
     <message>
         <source>Select the correct syntax of the code snippet.</source>
@@ -499,7 +503,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Readme</source>
-        <translation>Příručka</translation>
+        <translation type="vanished">Příručka</translation>
     </message>
     <message>
         <source>Choose input files</source>
@@ -515,7 +519,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Highlighting options</source>
-        <translation>Volby pro zvýrazňování</translation>
+        <translation type="vanished">Volby pro zvýrazňování</translation>
     </message>
     <message>
         <source>Select a CSS include file.</source>
@@ -531,7 +535,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Font name:</source>
-        <translation>Název písma:</translation>
+        <translation type="vanished">Název písma:</translation>
     </message>
     <message>
         <source>Font size:</source>
@@ -603,7 +607,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>About &amp;translations</source>
-        <translation>&amp;Překlady</translation>
+        <translation type="vanished">&amp;Překlady</translation>
     </message>
     <message>
         <source>Paste clipboard content into the preview window.</source>
@@ -755,7 +759,7 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Visit andre-simon.de</source>
-        <translation>Navštivte andre-simon.de</translation>
+        <translation type="vanished">Navštivte andre-simon.de</translation>
     </message>
     <message>
         <source>Load &amp;default project</source>
@@ -859,11 +863,11 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Plug-in input file</source>
-        <translation>Vstupní soubor s přídavným modulem</translation>
+        <translation type="vanished">Vstupní soubor s přídavným modulem</translation>
     </message>
     <message>
         <source>Optional path to a plug-in input file</source>
-        <translation>Volitelná cesta k vstupnímu souboru s přídavným modulem</translation>
+        <translation type="vanished">Volitelná cesta k vstupnímu souboru s přídavným modulem</translation>
     </message>
     <message>
         <source>Select the plug-in input file.</source>
@@ -891,6 +895,38 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Set line numbering start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High&amp;lighting options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plug-in parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optional plug-in parameter, this may be a path to a plug-in input file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output for&amp;mat:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font na&amp;me:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Readme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;bout translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Visit andre-simon.de</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

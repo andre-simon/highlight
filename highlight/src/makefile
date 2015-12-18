@@ -15,14 +15,14 @@
 CXX=c++
 
 # Added -qt4 because of Arch Linux Qt5 migration
-QMAKE=qmake-qt4
+QMAKE=qmake-qt5
 
 CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG
 #CFLAGS:=-ggdb ${CFLAGS}
 
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.24
+SO_VERSION=3.25
 
 
 # Source paths
@@ -108,7 +108,7 @@ gui-qt: highlight-gui
 
 highlight-gui: libhighlight.a ${GUI_OBJECTS}
 	cd gui-qt && \
-	${QMAKE} 'DEFINES+=DATA_DIR=\\\"${HL_DATA_DIR}\\\" CONFIG_DIR=\\\"${HL_CONFIG_DIR}\\\" DOC_DIR=\\\"${HL_DOC_DIR}\\\" ' && \
+	${QMAKE} && \
 	$(MAKE)
 
 $(OBJECTFILES) : makefile

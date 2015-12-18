@@ -90,6 +90,7 @@ FooterInjection: string
 
 Read only:
 
+HL_PLUGIN_PARAM: string
 HL_LANG_DIR: string
 HL_BLOCK_COMMENT: number
 HL_BLOCK_COMMENT_END: number

@@ -21,6 +21,7 @@ Keywords={
 
 Strings={
   Delimiter=[["|']],
+  Escape= [=[ \\[[:xdigit:]]{4} ]=],
 }
 
 Comments={

@@ -1,6 +1,19 @@
 CHANGELOG Highlight
 
 
+highlight 3.25
+
+18.12.2015
+
+-added new SVG definition to support embedded scripting
+-improved js.lang, css.lang, scss.lang, less.lang, tsql.lang
+-modified HTML ordered list output to work better with new plug-ins
+-renamed plug-in variable HL_INPUT_FILE to HL_PLUGIN_PARAM
+-CLI: renamed --plug-in-read option to --plug-in-param
+-GUI: updated plug-in parameter label and tool-tips
+-GUI: fixed minor issues
+
+---
 highlight 3.24
 
 02.11.2015

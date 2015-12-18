@@ -132,7 +132,13 @@ void HtmlGenerator::printBody()
                  <<";\">";
         }
     }
-    if ( showLineNumbers && orderedList ) *out << "<ol>\n";
+    if ( showLineNumbers && orderedList )
+    {
+        *out << "<ol";
+        if (!cssClassName.empty())
+            *out<<" class=\"" << cssClassName << "\"";
+        *out<< ">\n";
+    }
 
     processRootState();
 
@@ -229,7 +235,7 @@ string HtmlGenerator::getStyleDefinition()
             << ( docStyle.getBgColour().getGreen ( HTML ) )
             << ( docStyle.getBgColour().getBlue ( HTML ) )
             << "; }\n";
-        os << (orderedList ? "li" : "pre");
+        os << (orderedList ? "ol" : "pre");
         if (!cssClassName.empty())
             os<<"."<<cssClassName;
         os << "\t{ color:#"

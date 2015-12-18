@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>957</width>
-    <height>775</height>
+    <height>852</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -20,7 +20,7 @@
    <string>Highlight</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../w32-projects/highlight_gui/highlight-gui.qrc">
+   <iconset resource="highlight-gui.qrc">
     <normaloff>:/hl_icon2.png</normaloff>:/hl_icon2.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -81,7 +81,7 @@
      <x>0</x>
      <y>0</y>
      <width>957</width>
-     <height>21</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -128,7 +128,7 @@
     <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
-    <string>Highlighting options</string>
+    <string>High&amp;lighting options</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -150,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -169,7 +169,7 @@
             <string>Choose input files</string>
            </property>
            <property name="icon">
-            <iconset resource="../w32-projects/highlight_gui/highlight-gui.qrc">
+            <iconset resource="highlight-gui.qrc">
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -374,7 +374,7 @@
             <string>Paste from clipboard</string>
            </property>
            <property name="icon">
-            <iconset resource="../w32-projects/highlight_gui/highlight-gui.qrc">
+            <iconset resource="highlight-gui.qrc">
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -449,7 +449,7 @@
             <string>Add plug-in to pool</string>
            </property>
            <property name="icon">
-            <iconset resource="../w32-projects/highlight_gui/highlight-gui.qrc">
+            <iconset resource="highlight-gui.qrc">
              <normaloff>:/plugin.png</normaloff>:/plugin.png</iconset>
            </property>
           </widget>
@@ -531,7 +531,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Plug-in input file</string>
+            <string>Plug-in parameter</string>
            </property>
           </widget>
          </item>
@@ -540,7 +540,7 @@
            <item>
             <widget class="QLineEdit" name="lePluginReadFilePath">
              <property name="toolTip">
-              <string>Optional path to a plug-in input file</string>
+              <string>Optional plug-in parameter, this may be a path to a plug-in input file</string>
              </property>
             </widget>
            </item>
@@ -591,7 +591,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -615,7 +615,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Output format:</string>
+              <string>Output for&amp;mat:</string>
              </property>
              <property name="buddy">
               <cstring>comboFormat</cstring>
@@ -1878,7 +1878,7 @@ Set the width to 0 to keep tabs.</string>
            <item row="0" column="0">
             <widget class="QLabel" name="label_23">
              <property name="text">
-              <string>Font name:</string>
+              <string>Font na&amp;me:</string>
              </property>
              <property name="buddy">
               <cstring>comboFontName</cstring>
@@ -1961,7 +1961,7 @@ Set the width to 0 to keep tabs.</string>
   </action>
   <action name="action_Manual">
    <property name="text">
-    <string>Readme</string>
+    <string>&amp;Readme</string>
    </property>
   </action>
   <action name="action_Tips">
@@ -1989,12 +1989,12 @@ Set the width to 0 to keep tabs.</string>
   </action>
   <action name="actionAbout_translations">
    <property name="text">
-    <string>About &amp;translations</string>
+    <string>A&amp;bout translations</string>
    </property>
   </action>
   <action name="actionVisit_website">
    <property name="text">
-    <string>Visit andre-simon.de</string>
+    <string>&amp;Visit andre-simon.de</string>
    </property>
   </action>
   <action name="actionDock_floating_panels">
@@ -2069,7 +2069,7 @@ Set the width to 0 to keep tabs.</string>
   <tabstop>pbCopyFile2CP</tabstop>
  </tabstops>
  <resources>
-  <include location="../w32-projects/highlight_gui/highlight-gui.qrc"/>
+  <include location="highlight-gui.qrc"/>
  </resources>
  <connections>
   <connection>

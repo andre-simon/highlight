@@ -56,7 +56,7 @@ void printHelp()
     cout<<"                                  <type> = [langs, themes, plugins]\n";
     cout<<"     --plug-in=<script>         execute Lua plug-in script; repeat option to\n";
     cout<<"                                  execute multiple plug-ins\n";
-    cout<<"     --plug-in-read=<path>      set input file for a plug-in (e.g. \"tags\")\n";
+    cout<<"     --plug-in-param=<value>    set plug-in input parameter\n";
     cout<<"     --print-config             print path configuration\n";
     cout<<"     --print-style              print stylesheet only (see --style-outfile)\n";
     cout<<"     --skip=<list>              ignore listed unknown file types\n";

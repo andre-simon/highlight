@@ -49,7 +49,7 @@ function themeUpdate()
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
     
     -- EDIT Play with the x and y coordinates of the lines to obtain different patterns
-    Injections[#Injections+1]="pre.hl { background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='"..gridsize..
+    Injections[#Injections+1]="pre.hl, ol.hl { background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='"..gridsize..
 			      "'  height='"..gridsize.."'><line x1='0' y1='0' x2='0' y2='"..gridsize.."' style='stroke:"..lighten(Canvas.Colour)..
 			      ";stroke-width:1'/><line x1='0' y1='0' x2='"..gridsize.."' y2='0' style='stroke:"..lighten(Canvas.Colour)..
 			      ";stroke-width:1'/></svg>\");}"

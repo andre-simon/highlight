@@ -103,6 +103,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_PLUGIN         "plug-in"
 #define OPT_ABS_CFG_PATH   "config-file"
 #define OPT_PLUGIN_READFILE  "plug-in-read"
+#define OPT_PLUGIN_PARAMETER  "plug-in-param"
 #define OPT_NO_NUMBER_WL   "wrap-no-numbers"
 
 // Improve CLI option compatibility with GNU source-highlight
@@ -423,7 +424,7 @@ class CmdLineOptions
 		string anchorPrefix;
 		string helpLang, encodingName;
 
-		string pluginPath, pluginReadFilePath;
+		string pluginPath, pluginParameter;
 
 		/** list of all input file names */
 		vector <string> inputFileNames;

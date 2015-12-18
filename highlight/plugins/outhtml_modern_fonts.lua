@@ -11,7 +11,7 @@ Description="Adds modern monospace fonts"
 function themeUpdate()
 
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
-    Injections[#Injections+1]="pre.hl { font-family: Consolas,Monaco,\"Andale Mono\",\"Ubuntu Mono\",monospace;}"
+    Injections[#Injections+1]="pre.hl, ol.hl { font-family: Consolas,Monaco,\"Andale Mono\",\"Ubuntu Mono\",monospace;}"
   end
  
 end

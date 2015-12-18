@@ -28,16 +28,11 @@ function syntaxUpdate(desc)
 --case 'u': return	"union name";
 --case 'v': return	"variable";
 
-  --use highlight file reader??
-  --tagsfile=ReadFile('tags')
-  --if (#tagsfile==0) then return end
-  --lines=string.split(tagsfile, '\n')
-
   knowntags={}
 
-  if #HL_INPUT_FILE==0 then HL_INPUT_FILE='tags' end
-  --print("file:" .. HL_INPUT_FILE)
-  file = assert(io.open(HL_INPUT_FILE, "r"))
+  if #HL_PLUGIN_PARAM==0 then HL_PLUGIN_PARAM='tags' end
+  --print("file:" .. HL_PLUGIN_PARAM)
+  file = assert(io.open(HL_PLUGIN_PARAM, "r"))
 
   for line in file:lines() do
     if line[1]~='!' then

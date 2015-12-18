@@ -23,6 +23,7 @@ Keywords={
 
 Strings={
   Delimiter=[["|']],
+  Escape= [=[ \\[[:xdigit:]]{4} ]=], 
   Interpolation=[[ %\d?\$?s ]],  
 }
 
