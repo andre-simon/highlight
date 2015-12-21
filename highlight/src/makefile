@@ -56,6 +56,10 @@ endif
 ifndef HL_DATA_DIR
 	HL_DATA_DIR = /usr/share/highlight/
 endif
+ifndef HL_DOC_DIR
+	HL_DOC_DIR = /usr/share/doc/highlight/
+endif
+
 ifdef PIC
 	CFLAGS+=-fPIC
 endif
@@ -108,7 +112,7 @@ gui-qt: highlight-gui
 
 highlight-gui: libhighlight.a ${GUI_OBJECTS}
 	cd gui-qt && \
-	${QMAKE} && \
+	${QMAKE} 'DEFINES+=DATA_DIR=\\\"${HL_DATA_DIR}\\\" CONFIG_DIR=\\\"${HL_CONFIG_DIR}\\\" DOC_DIR=\\\"${HL_DOC_DIR}\\\" ' && \
 	$(MAKE)
 
 $(OBJECTFILES) : makefile

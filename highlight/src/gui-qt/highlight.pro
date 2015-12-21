@@ -46,7 +46,7 @@ unix {
         DEFINES+=CONFIG_DIR=\\\"/etc/highlight/\\\"
     }
     !contains(DEFINES, DOC_DIR) {
-        DEFINES+=DOC_DIR=\\\"/usr/share/highlight/\\\"
+        DEFINES+=DOC_DIR=\\\"/usr/share/doc/highlight/\\\"
     }
 }
 
