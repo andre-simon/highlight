@@ -5,7 +5,8 @@ Keywords={
   { Id=1,
     List={"if", "else", "elsif", "unless", "given", "when", "default", "while", "for", "foreach",
     "do", "until", "continue", "return", "last", "next", "redo", "goto", "break", "exit", "sub",
-    "package", "use", "no", "dump", "require", "BEGIN", "CHECK", "INIT", "END", "UNITCHECK" },
+    "package", "use", "no", "dump", "require", "BEGIN", "CHECK", "INIT", "END", "UNITCHECK", 
+    "NEXT", "loop", "class", "in" },
   },
   { Id=2,
     Regex=[[ [$@%]\#?\w+ ]],
@@ -70,7 +71,7 @@ Comments={
   },
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\|]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|~|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\|]]
 
 -- fix recognition of $
 function OnStateChange(oldState, newState, token)

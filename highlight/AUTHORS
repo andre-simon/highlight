@@ -17,9 +17,6 @@ Wolfgang Frisch <wf at frexx de>
 Developer of the argparser class:
 Antonio Diaz Diaz
 
-GUI translators:
-Spanish: Fidel Barrera
-
 Language definitions:
 Christian Perle (Povray)
 Andreas Schoenberg (AWK)
@@ -37,7 +34,7 @@ Viraj Sinha (UPC)
 A. Aniruddha (GDB, Yang)
 Roland Hieber (PDF)
 Conrad Steenberg (Crack)
-
+Victor Ananjevsky (conf.lang)
 
 Colour themes:
 David (matlab)
@@ -69,3 +66,8 @@ G. Wijaya (SWIG PHP binding)
 Troy Sankey (Javascript regex)
 Andrew Fuller (xterm256 bold and italic attributes)
 Dominik Schmidt (Pango markup)
+Ingo Krabbe (cweb LaTeX output)
+Victor Ananjevsky (various)
+Andrew Fuller (xterm256 font attributes)
+Dominik Schmidt (Pango markup)
+Troy Sankey (JS regex)

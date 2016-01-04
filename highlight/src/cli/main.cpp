@@ -45,7 +45,7 @@ void HLCmdLineApp::printVersionInfo()
 {
     cout << "\n highlight version "
          << HIGHLIGHT_VERSION
-         << "\n Copyright (C) 2002-2015 Andre Simon <andre.simon1 at gmx.de>"
+         << "\n Copyright (C) 2002-2016 Andre Simon <andre.simon1 at gmx.de>"
          << "\n\n Argparser class"
          << "\n Copyright (C) 2006-2008 Antonio Diaz Diaz <ant_diaz at teleline.es>"
          << "\n\n Artistic Style Classes (2.05)"
@@ -216,10 +216,10 @@ string HLCmdLineApp::getFileSuffix(const string& fileName)
     return (psPos!=string::npos && psPos>ptPos) ? "" : fileName.substr(ptPos+1, fileName.length());
 }
 
-bool HLCmdLineApp::loadFileTypeConfig ( const string& name, StringMap* extMap, StringMap* shebangMap )
+bool HLCmdLineApp::loadFileTypeConfig ( const string& confName, StringMap* extMap, StringMap* shebangMap )
 {
     if ( !extMap || !shebangMap ) return false;
-    string confPath=dataDir.getFiletypesConfPath(name);
+    string confPath=dataDir.getFiletypesConfPath(confName);
     try {
         Diluculum::LuaState ls;
         Diluculum::LuaValueList ret= ls.doFile (confPath);

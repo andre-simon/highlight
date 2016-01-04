@@ -27,6 +27,8 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "themereader.h"
 #include <Diluculum/LuaState.hpp>
 #include <sstream>
+#include <iostream>
+
 
 namespace highlight
 {
@@ -113,7 +115,7 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
         while (ls["Keywords"][idx].value() !=Diluculum::Nil) {
             initStyle(kwStyle, ls["Keywords"][idx]);
             snprintf(kwName, sizeof(kwName), "kw%c", ('a'+idx-1));
-            keywordStyles.insert ( make_pair ( string(kwName),kwStyle ));
+            keywordStyles.insert ( make_pair ( string(kwName), kwStyle ));
             idx++;
         }
 

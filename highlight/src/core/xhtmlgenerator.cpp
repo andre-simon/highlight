@@ -24,10 +24,7 @@ You should have received a copy of the GNU General Public License
 along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "xhtmlgenerator.h"
-
-using namespace std;
 
 namespace highlight
 {

@@ -27,8 +27,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <sstream>
 #include "odtgenerator.h"
 
-using namespace std;
-
 namespace highlight
 {
 
@@ -135,7 +133,7 @@ string ODTGenerator::getHeader()
            " xmlns:formx=\"urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0\" xmlns:css3t=\"http://www.w3.org/TR/css3-text/\" office:version=\"1.2\""\
            " office:mimetype=\"application/vnd.oasis.opendocument.text\">\n"\
            " <office:font-face-decls>\n"\
-           "  <style:font-face style:name=\"FreeMono\" svg:font-family=\"FreeMono\" style:font-family-generic=\"modern\" style:font-pitch=\"fixed\"/>\n"\
+           "  <style:font-face style:name=\""<< getBaseFont()<<"\" svg:font-family=\""<< getBaseFont()<<"\" style:font-family-generic=\"modern\" style:font-pitch=\"fixed\"/>\n"\
            " </office:font-face-decls>\n";
 
     header << getStyleDefinition();

@@ -24,14 +24,7 @@ You should have received a copy of the GNU General Public License
 along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "stringtools.h"
-
-// Avoid problems with isspace and UTF-8 characters, use iswspace
-//#include <wctype.h>
-
-
-using namespace std;
 
 namespace StringTools
 {

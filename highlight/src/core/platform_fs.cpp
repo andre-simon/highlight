@@ -41,7 +41,8 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <errno.h>
 
-using namespace std;
+using std::string;
+using std::vector;
 
 namespace Platform
 {

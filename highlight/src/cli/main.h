@@ -46,72 +46,76 @@ typedef map<string, string> StringMap;
 class HLCmdLineApp
 {
 
-	public:
+public:
 
-		HLCmdLineApp() {};
-		~HLCmdLineApp() {};
+    HLCmdLineApp() {};
+    ~HLCmdLineApp() {};
 
-		/** Start application
-		  \param argc Number of command line arguments
-		  \param argv values of command line arguments
-		  \return EXIT_SUCCESS or EXIT_FAILURE
-		*/
-		int run ( const int argc, const char *argv[] );
+    /** Start application
+      \param argc Number of command line arguments
+      \param argv values of command line arguments
+      \return EXIT_SUCCESS or EXIT_FAILURE
+    */
+    int run ( const int argc, const char *argv[] );
 
-	private:
+private:
 
-		DataDir dataDir;
-		StringMap extensions;
-		StringMap scriptShebangs;
-		stringstream cin_bufcopy;
+    DataDir dataDir;
+    StringMap extensions;
+    StringMap scriptShebangs;
+    stringstream cin_bufcopy;
 
-		/** print version info*/
-		void printVersionInfo();
+    /** print version info*/
+    void printVersionInfo();
 
-		/** print configuration info*/
-		void printConfigInfo ();
+    /** print configuration info*/
+    void printConfigInfo ();
 
-		/** print error message*/
-		void printBadInstallationInfo();
+    /** print error message*/
+    void printBadInstallationInfo();
 
-		/** print input and output errors */
-		void printIOErrorReport ( unsigned int numberErrorFiles, vector<string> & fileList, const string &action );
+    /** print input and output errors */
+    void printIOErrorReport ( unsigned int numberErrorFiles, vector<string> & fileList, const string &action );
 
-		/** list installed  files
-		    \return true if files were found
-		*/
-		int printInstalledFiles(const string& where, const string& wildcard, const string& what, const string&option);
+    /** list installed  files
+        \return true if files were found
+    */
+    int printInstalledFiles(const string& where, const string& wildcard, const string& what, const string&option);
 
-		/** list installed language definition files
-		    \return true if lang files were found
-		*/
-		int printInstalledLanguages();
+    /** list installed language definition files
+        \return true if lang files were found
+    */
+    int printInstalledLanguages();
 
-		/** print debug information
-		    \param  lang language definition
-		    \param langDefPath path to language definition
-		*/
-		void printDebugInfo ( const highlight::SyntaxReader *lang,
-		                      const string &langDefPath );
+    /** print debug information
+        \param  lang language definition
+        \param langDefPath path to language definition
+    */
+    void printDebugInfo ( const highlight::SyntaxReader *lang,
+                          const string &langDefPath );
 
-		string getFileSuffix ( const string &fileName );
+    /** \return file extension or the base filename if no extension exists
+    */
+    string getFileSuffix ( const string &fileName );
 
-		string guessFileType ( const string &suffix, const string &inputFile="", bool useUserSuffix=false );
+    /** \return file type deferred from extension or file shebang comment
+    */
+    string guessFileType ( const string &suffix, const string &inputFile, bool useUserSuffix=false );
 
-		int getNumDigits ( int i );
+    int getNumDigits ( int i );
 
-		void printProgressBar ( int total, int count );
-		void printCurrentAction ( const string&outfilePath,
-		                          int total, int count, int countWidth );
+    void printProgressBar ( int total, int count );
+    void printCurrentAction ( const string&outfilePath,
+                              int total, int count, int countWidth );
 
-		bool readInputFilePaths ( vector<string> &fileList, string wildcard,
-		                          bool recursiveSearch );
+    bool readInputFilePaths ( vector<string> &fileList, string wildcard,
+                              bool recursiveSearch );
 
-		string analyzeFile ( const string& file );
-		bool loadFileTypeConfig ( const string& name, StringMap* map, StringMap* shebangMap );
-		void printInstalledFiles();
-		
-		vector <string> collectPluginPaths(const vector<string>& plugins);
+    string analyzeFile ( const string& file );
+    bool loadFileTypeConfig ( const string& name, StringMap* map, StringMap* shebangMap );
+    void printInstalledFiles();
+
+    vector <string> collectPluginPaths(const vector<string>& plugins);
 
 };
 

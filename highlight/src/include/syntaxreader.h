@@ -73,6 +73,25 @@ public:
     SyntaxReader();
 
     ~SyntaxReader();
+    
+    
+    /** Load new language definition
+        Will only read a new language definition if the given
+          file path is not equal to the path of the current language definition.
+        \param langDefPath Path of language definition
+        \param pluginReadFilePath path to file which is read by plugin
+        \param outputType output format
+        \param clear Test if current data should be resetted to defaults
+        \return LoadResult  */
+    LoadResult load( const string& langDefPath, const string& pluginReadFilePath,  OutputType outputType=HTML, bool clear=true );
+
+    /** \return True if the next load() call would load a new language definition
+        \param  langDefPath Path to language definition  */
+    bool needsReload ( const string &langDefPath ) const
+    {
+        return currentPath!=langDefPath;
+    }
+    
 
     /** \return Failed regular expression */
     string getFailedRegex() const
@@ -114,16 +133,7 @@ public:
          \return class id of keyword, 0 if s is not a keyword */
     int isKeyword ( const string &s ) ;
 
-    /** Load new language definition
-        Will only read a new language definition if the given
-          file path is not equal to the path of the current language definition.
-        \param langDefPath Path of language definition
-        \param pluginReadFilePath path to file which is read by plugin
-        \param outputType output format
-        \param clear Test if current data should be resetted to defaults
-        \return LoadResult  */
-    LoadResult load( const string& langDefPath, const string& pluginReadFilePath,  OutputType outputType=HTML, bool clear=true );
-
+    
     /** \return True if multi line comments may be nested */
     bool allowNestedMLComments() const
     {
@@ -135,13 +145,6 @@ public:
     bool highlightingDisabled() const
     {
         return disableHighlighting;
-    }
-
-    /** \return True if the next load() call would load a new language definition
-        \param  langDefPath Path to language definition  */
-    bool needsReload ( const string &langDefPath ) const
-    {
-        return currentPath!=langDefPath;
     }
 
     /** \return True if current language may be reformatted (c, c++, c#, java) */

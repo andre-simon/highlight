@@ -48,8 +48,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "xterm256generator.h"
 #endif
 
-using namespace std;
-
 namespace highlight
 {
 const unsigned int CodeGenerator::NUMBER_BUILTIN_STATES = highlight::KEYWORD;
@@ -294,9 +292,6 @@ const string CodeGenerator::getBaseFont() const
         break;
     case TEX:
         return "tt";
-        break;
-    case ODTFLAT:
-        return "FreeMono";
         break;
     default:
         return "Courier New";
@@ -1363,7 +1358,6 @@ bool CodeGenerator::processStringState ( State oldState )
                 returnedFromOtherState=true;
             } else {
                 // FIXME not a fix for Python r"""\"""
-                //exitState=(openDelim=="\"" && token=="\\\""); // C# raw string that ends with '\'
                 exitState=token.size()>1 && token[1] == openDelim[0];
                 printMaskedToken();
             }

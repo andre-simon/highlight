@@ -29,8 +29,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "stringtools.h"
 #include "enums.h"
 
-using namespace std;
-
 namespace highlight
 {
 
@@ -48,22 +46,6 @@ vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
 
 int RegexElement::instanceCnt=0;
 
-int SyntaxReader::luaAddKeyword (lua_State *L)
-{
-    int retVal=0;
-    if (lua_gettop(L)==2) {
-        const char*keyword=lua_tostring(L, 1);
-        unsigned int kwgroupID=lua_tonumber(L, 2);
-        lua_getglobal(L, GLOBAL_INSTANCE_NAME);
-        SyntaxReader **a=reinterpret_cast<SyntaxReader **>(lua_touserdata(L, 3));
-        if (*a) {
-            (*a)->addKeyword(kwgroupID, keyword);
-            retVal=1;
-        }
-    }
-    lua_pushboolean(L, retVal);
-    return 1;
-}
 
 SyntaxReader::SyntaxReader() :
     ignoreCase ( false ),
@@ -92,42 +74,6 @@ SyntaxReader::~SyntaxReader()
     }
     pluginChunks.clear();
 }
-
-int SyntaxReader::isKeyword ( const string &s )
-{
-    return ( s.length() && keywords.count ( s ) ) ? keywords[s] : 0;
-}
-
-void SyntaxReader::restoreLangEndDelim(const string& langPath)
-{
-    //TODO exitDelimiters be left static?
-    if ( !langPath.empty()&& exitDelimiters.count(langPath) ) {
-        regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, exitDelimiters[langPath] ) );
-    }
-}
-
-unsigned int SyntaxReader::generateNewKWClass ( const string& newClassName )
-{
-    unsigned int newClassID=0;
-    bool found=false;
-    while (!keywordClasses.empty() && newClassID<keywordClasses.size() && !found ) {
-        found = ( newClassName==keywordClasses.at(newClassID++) );
-    }
-    if ( !found ) {
-        newClassID++;
-        keywordClasses.push_back ( newClassName );
-    }
-
-    return newClassID;
-}
-
-
-bool SyntaxReader::readFlag(const Diluculum::LuaVariable& var)
-{
-    if (var.value()==Diluculum::Nil) return false;
-    return var.value().asBoolean();
-}
-
 
 void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginParameter, OutputType type )
 {
@@ -181,17 +127,9 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
     ls["HL_FORMAT_ODT"]=ODTFLAT;
 }
 
-
-void SyntaxReader::addKeyword(unsigned int groupID, const string& kw)
-{
-    if (!isKeyword ( kw )) {
-        keywords.insert ( make_pair (kw, groupID ) );
-    }
-}
-
 LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginReadFilePath, OutputType outputType, bool clear )
 {
-
+  
     currentPath=langDefPath;
     disableHighlighting=false;
 
@@ -379,7 +317,6 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
                 ++listIdx;
             }
-
         }
 
         if (globals.count("HeaderInjection")) {
@@ -404,6 +341,68 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
     }
     return LOAD_OK;
 }
+
+
+void SyntaxReader::addKeyword(unsigned int groupID, const string& kw)
+{
+    if (!isKeyword ( kw )) {
+        keywords.insert ( make_pair (kw, groupID ) );
+    }
+}
+
+int SyntaxReader::isKeyword ( const string &s )
+{
+    return ( s.length() && keywords.count ( s ) ) ? keywords[s] : 0;
+}
+
+int SyntaxReader::luaAddKeyword (lua_State *L)
+{
+    int retVal=0;
+    if (lua_gettop(L)==2) {
+        const char*keyword=lua_tostring(L, 1);
+        unsigned int kwgroupID=lua_tonumber(L, 2);
+        lua_getglobal(L, GLOBAL_INSTANCE_NAME);
+        SyntaxReader **a=reinterpret_cast<SyntaxReader **>(lua_touserdata(L, 3));
+        if (*a) {
+            (*a)->addKeyword(kwgroupID, keyword);
+            retVal=1;
+        }
+    }
+    lua_pushboolean(L, retVal);
+    return 1;
+}
+
+
+void SyntaxReader::restoreLangEndDelim(const string& langPath)
+{
+    //TODO exitDelimiters be left static?
+    if ( !langPath.empty()&& exitDelimiters.count(langPath) ) {
+        regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, exitDelimiters[langPath] ) );
+    }
+}
+
+unsigned int SyntaxReader::generateNewKWClass ( const string& newClassName )
+{
+    unsigned int newClassID=0;
+    bool found=false;
+    while (!keywordClasses.empty() && newClassID<keywordClasses.size() && !found ) {
+        found = ( newClassName==keywordClasses.at(newClassID++) );
+    }
+    if ( !found ) {
+        newClassID++;
+        keywordClasses.push_back ( newClassName );
+    }
+
+    return newClassID;
+}
+
+
+bool SyntaxReader::readFlag(const Diluculum::LuaVariable& var)
+{
+    if (var.value()==Diluculum::Nil) return false;
+    return var.value().asBoolean();
+}
+
 
 string SyntaxReader::getNewPath(const string& lang)
 {

@@ -126,6 +126,7 @@ ASFormatter::~ASFormatter()
 	ASBeautifier::deleteBeautifierVectors();
 
 	delete enhancer;
+	delete sourceIterator; //ASim
 }
 
 /**

@@ -34,7 +34,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "charcodes.h"
 #include "version.h"
 
-using namespace std;
 
 namespace highlight
 {
@@ -180,6 +179,7 @@ unsigned char Xterm256Generator::rgb2xterm ( unsigned char* rgb )
 }
 
 bool Xterm256Generator::initialized=false;
+
 unsigned char Xterm256Generator::colortable[254][3] = { {0} };
 
 const unsigned char Xterm256Generator::valuerange[] = { 0x00, 0x5F, 0x87, 0xAF, 0xD7, 0xFF };

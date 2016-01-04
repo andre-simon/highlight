@@ -31,8 +31,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include "rtfgenerator.h"
 
-using namespace std;
-
 namespace highlight
 {
 
@@ -91,6 +89,16 @@ string  RtfGenerator::getOpenTag ( int styleNumber,const ElementStyle & elem )
 }
 
 
+string  RtfGenerator::getCloseTag ( const ElementStyle &elem )
+{
+    ostringstream s;
+    if ( elem.isBold() ) s << "\\b0 ";
+    if ( elem.isItalic() ) s << "\\i0 ";
+    if ( elem.isUnderline() ) s << "\\ul0 ";
+    s << "}}";
+    return  s.str();
+}
+
 string RtfGenerator::getCharStyle ( int styleNumber,const ElementStyle &elem,
                                     const string&styleName )
 {
@@ -107,17 +115,6 @@ string RtfGenerator::getCharStyle ( int styleNumber,const ElementStyle &elem,
     return  s.str();
 }
 // {\*\cs2\additive\cf2\f1\fs20\sbasedon222\snext0 HL Default;}
-
-string  RtfGenerator::getCloseTag ( const ElementStyle &elem )
-{
-    ostringstream s;
-    if ( elem.isBold() ) s << "\\b0 ";
-    if ( elem.isItalic() ) s << "\\i0 ";
-    if ( elem.isUnderline() ) s << "\\ul0 ";
-    s << "}}";
-    return  s.str();
-}
-
 
 
 void RtfGenerator::printBody()

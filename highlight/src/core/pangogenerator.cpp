@@ -29,8 +29,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pangogenerator.h"
 
-using namespace std;
-
 namespace highlight
 {
 

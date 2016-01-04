@@ -123,335 +123,333 @@ using namespace std;
 
 class CmdLineOptions
 {
-	public:
+public:
 
-		/**Constructor
-		 \param argc Argument count
-		 \param argv Argument strings
-		*/
-		CmdLineOptions ( const int argc, const char *argv[] );
-		~CmdLineOptions();
+    /**Constructor
+     \param argc Argument count
+     \param argv Argument strings
+    */
+    CmdLineOptions ( const int argc, const char *argv[] );
+    ~CmdLineOptions();
 
-		/** \return Single output file name*/
-		const string &getSingleOutFilename();
+    /** \return Single output file name*/
+    const string &getSingleOutFilename();
 
-		/** \return Single input file name*/
-		const string &getSingleInFilename() const;
+    /** \return Single input file name*/
+    const string &getSingleInFilename() const;
 
-		/** \return Output directory*/
-		const string& getOutDirectory() ;
+    /** \return Output directory*/
+    const string& getOutDirectory() ;
 
-		/** \return Style output file name*/
-		const string getStyleOutFilename() const;
+    /** \return Style output file name*/
+    const string getStyleOutFilename() const;
 
-		/** \return Style input file name*/
-		const string& getStyleInFilename() const;
+    /** \return Style input file name*/
+    const string& getStyleInFilename() const;
 
-		/** \return Char set*/
-		const string& getEncoding() const;
+    /** \return Char set*/
+    const string& getEncoding() const;
 
-		/** \return SVG width*/
-		const string& getSVGWidth() const;
+    /** \return SVG width*/
+    const string& getSVGWidth() const;
 
-		/** \return SVG height*/
-		const string& getSVGHeight() const;
+    /** \return SVG height*/
+    const string& getSVGHeight() const;
 
-		/** \return Number of spaces to replace a tab*/
-		int getNumberSpaces() const;
+    /** \return Number of spaces to replace a tab*/
+    int getNumberSpaces() const;
 
-		/** \return True if version information should be printed*/
-		bool printVersion() const;
+    /** \return True if version information should be printed*/
+    bool printVersion() const;
 
-		/** \return True if help information should be printed*/
-		bool printHelp() const;
+    /** \return True if help information should be printed*/
+    bool printHelp() const;
 
-		/** \return True if debug information should be printed*/
-		bool printDebugInfo() const;
+    /** \return True if debug information should be printed*/
+    bool printDebugInfo() const;
 
-		/** \return True if configuration information should be printed*/
-		bool printConfigInfo() const;
+    /** \return True if configuration information should be printed*/
+    bool printConfigInfo() const;
 
-		/** \return True if Style definition should be included in output*/
-		bool includeStyleDef() const;
+    /** \return True if Style definition should be included in output*/
+    bool includeStyleDef() const;
 
-		/** \return True if line numbers should be printed*/
-		bool printLineNumbers() const;
+    /** \return True if line numbers should be printed*/
+    bool printLineNumbers() const;
 
-		/** \return True if CR is eol delimiter */
-		bool useCRDelimiter() const;
+    /** \return True if CR is eol delimiter */
+    bool useCRDelimiter() const;
 
-		/** \return colour theme name */
-		string getThemeName() const ;
+    /** \return colour theme name */
+    string getThemeName() const ;
 
-		/** gibt true zurck, falls deutsche Hilfe ausgegeben werden soll */
-		int helpLanguage() const;
+    /** gibt true zurck, falls deutsche Hilfe ausgegeben werden soll */
+    int helpLanguage() const;
 
-		/** \return True if batch mode is active*/
-		bool enableBatchMode() const;
+    /** \return True if batch mode is active*/
+    bool enableBatchMode() const;
 
-		/** \return True if output shluld be fragmented*/
-		bool fragmentOutput() const;
+    /** \return True if output shluld be fragmented*/
+    bool fragmentOutput() const;
 
-		/** \return output file suffix */
-		string getOutFileSuffix() const;
+    /** \return output file suffix */
+    string getOutFileSuffix() const;
 
-		/** \return True if anchors should be attached to line numbers*/
-		bool attachLineAnchors() const;
+    /** \return True if anchors should be attached to line numbers*/
+    bool attachLineAnchors() const;
 
-		/** \return True if list of installed themes should be printed*/
-		bool showThemes() const;
+    /** \return True if list of installed themes should be printed*/
+    bool showThemes() const;
 
-		/** \return True if list of installed language definitions should be printed*/
-		bool showLangdefs() const;
+    /** \return True if list of installed language definitions should be printed*/
+    bool showLangdefs() const;
 
-		/** \return True if list of installed language definitions should be printed*/
-		bool showPlugins() const;
-		
-		/** \return True if loutput directory is given*/
-		bool outDirGiven() const;
+    /** \return True if list of installed language definitions should be printed*/
+    bool showPlugins() const;
 
-		/** \return True if a new data directory is given*/
-		bool dataDirGiven() const;
+    /** \return True if loutput directory is given*/
+    bool outDirGiven() const;
 
-		/** \return True if index file should be printed*/
-		bool printIndexFile() const;
+    /** \return True if a new data directory is given*/
+    bool dataDirGiven() const;
 
-		/** \return True if quotes should be replaced by /dq in LaTeX*/
-		bool replaceQuotes() const;
+    /** \return True if index file should be printed*/
+    bool printIndexFile() const;
 
-		/** \return True if shorthands of LaTeX Babel package should be disabled*/
-		bool disableBabelShorthands() const;
+    /** \return True if quotes should be replaced by /dq in LaTeX*/
+    bool replaceQuotes() const;
 
-		/** \return True if input file name should be used as anchor name */
-		bool useFNamesAsAnchors() const;
+    /** \return True if shorthands of LaTeX Babel package should be disabled*/
+    bool disableBabelShorthands() const;
 
-		/** \return Data directory*/
-		const string &getDataDir() const;
+    /** \return True if input file name should be used as anchor name */
+    bool useFNamesAsAnchors() const;
 
-		/** \return True if language syntax is given*/
-		bool syntaxGiven() const;
+    /** \return Data directory*/
+    const string &getDataDir() const;
 
-		/** \return True if quiet mode is active*/
-		bool quietMode() const;
+    /** \return True if language syntax is given*/
+    bool syntaxGiven() const;
 
-		/** \return True if progress bar should be printed in batch mode */
-		bool printProgress() const;
+    /** \return True if quiet mode is active*/
+    bool quietMode() const;
 
-		/** \return True if line numbers are filled with leading zeroes */
-		bool fillLineNrZeroes() const;
+    /** \return True if progress bar should be printed in batch mode */
+    bool printProgress() const;
 
-		/** \return programming syntax */
-		const string &getSyntax() const ;
+    /** \return True if line numbers are filled with leading zeroes */
+    bool fillLineNrZeroes() const;
 
-		/** \return Wrapping style*/
-		highlight::WrapMode getWrappingStyle() const;
+    /** \return programming syntax */
+    const string &getSyntax() const ;
 
-		/** \return List of input file names*/
-		const vector <string> & getInputFileNames() const;
+    /** \return Wrapping style*/
+    highlight::WrapMode getWrappingStyle() const;
 
-		/** \return indentation and reformatting scheme*/
-		string getIndentScheme() const;
+    /** \return List of input file names*/
+    const vector <string> & getInputFileNames() const;
 
-		/** \return RTF page size */
-		const string &getPageSize() const;
+    /** \return indentation and reformatting scheme*/
+    string getIndentScheme() const;
 
-		/** \return Output file format */
-		highlight::OutputType getOutputType() const;
+    /** \return RTF page size */
+    const string &getPageSize() const;
 
-		/** \return True if chosen output format supports referenced style files */
-		bool formatSupportsExtStyle();
+    /** \return Output file format */
+    highlight::OutputType getOutputType() const;
 
-		/** \return True if style output path was defined by user*/
-		bool styleOutPathDefined() const
-		{
-			return opt_stylepath_explicit;
-		}
+    /** \return True if chosen output format supports referenced style files */
+    bool formatSupportsExtStyle();
 
-		/** \return True if encoding specification should be omitted in output*/
-		bool omitEncoding() const;
+    /** \return True if style output path was defined by user*/
+    bool styleOutPathDefined() const
+    {
+        return opt_stylepath_explicit;
+    }
 
-		/** \return True if output should be generated if languege type is unknown*/
-		bool forceOutput() const;
+    /** \return True if encoding specification should be omitted in output*/
+    bool omitEncoding() const;
 
-		/** \return True if line numbers should be replaced by ordered list (HTML) */
-		bool orderedList() const;
-		
-		/** \return True if spaces should be replaced by &nbsp; (HTML) */
-		//bool useNonBreakingSpace() const;
+    /** \return True if output should be generated if languege type is unknown*/
+    bool forceOutput() const;
 
-		/** \return True if a base font has been given */
-		bool hasBaseFont() const ;
+    /** \return True if line numbers should be replaced by ordered list (HTML) */
+    bool orderedList() const;
 
-		/** \return True if input should be validated */
-		bool validateInput() const ;
+    /** \return True if a base font has been given */
+    bool hasBaseFont() const ;
 
-		/** \return True if wrapped lines should get unique numbers */
-		bool numberWrappedLines() const ;
+    /** \return True if input should be validated */
+    bool validateInput() const ;
 
-		/** \return True if CSS should be outputted within tag elements */
-		bool inlineCSS() const ;
+    /** \return True if wrapped lines should get unique numbers */
+    bool numberWrappedLines() const ;
 
-		/** \return True if fragmented html output should be enclosed with pre tags */
-		bool enclosePreTag() const ;
+    /** \return True if CSS should be outputted within tag elements */
+    bool inlineCSS() const ;
 
-		/** \return True if RTF output should include character styles */
-		bool includeCharStyles() const ;
+    /** \return True if fragmented html output should be enclosed with pre tags */
+    bool enclosePreTag() const ;
 
-		/** \return True if LaTeX output should includ fancier symbols */
-		bool prettySymbols() const;
+    /** \return True if RTF output should include character styles */
+    bool includeCharStyles() const ;
 
-		/** \return True if style should be printed */
-		bool printOnlyStyle() const;
-
-		/** \return The given base font, empty string by default */
-		const string& getBaseFont() const ;
-
-		/** \return Document title */
-		const string& getDocumentTitle() const ;
-
-		/** \return anchor prefix */
-		const string& getAnchorPrefix() const ;
-
-		/** \return class name */
-		const string& getClassName() const ;
-
-		const vector <string> &getPluginPaths() const;
-
-		/** \return True if trailing nl should be omitted */
-		bool disableTrailingNL() const ;
-
-		/** \return The given base font size, empty string by default */
-		const string& getBaseFontSize() const ;
-
-		/** \return name of nested syntax which starts the input */
-		const string& getStartNestedLang() const ;
-
-		/** \return absolute theme definition path name */
-		const string& getAbsThemePath() const ;
-
-		/** \return absolute language definition path name */
-		const string& getAbsLangPath() const ;
-		
-		/** \return path of input file passed to plugin */
-		const string& getPluginReadFilePath() const ;
-
-		/** \return line number width */
-		int getNumberWidth();
-
-		/** \return line length */
-		int getLineLength();
-
-		/** \return Line number start count */
-		int getNumberStart();
-
-		/** \return Keyword Case (upper, lower, unchanged) */
-		StringTools::KeywordCase getKeywordCase() const;
-
-		bool isSkippedExt ( const string& ext )
-		{
-			return ignoredFileTypes.count ( ext );
-		}
-
-	private:
-
-		int numberSpaces;   // number of spaces which replace a tab
-		int lineNrWidth;    // width of line number (left padding)
-		int lineLength;    // length of line before wrapping
-		int lineNrStart;    // line number start count
-		highlight::WrapMode wrappingStyle; // line wrapping mode
-		highlight::OutputType outputType;
-		StringTools::KeywordCase keywordCase;
-
-		// name of single output file
-		string outFilename,
-		// output directory
-		outDirectory,
-		// programming syntax which will be loaded
-		syntax,
-		// name of colour theme
-		styleName,
-		// name of external style file
-		styleOutFilename,
-		// name of file to be included in external style file
-		styleInFilename,
-		// used to define data directories at runtime
-		dataDir;
-		// name of indenation scheme
-		string indentScheme,
-		pageSize, startNestedLang;
-
-		string baseFont, baseFontSize;
-		string docTitle, className;
-		string skipArg;
-		string svg_height, svg_width;
-		string absThemePath, absLangPath;
-
-		bool opt_syntax;
-		bool opt_include_style;
-		bool opt_help;
-		bool opt_version ;
-		bool opt_verbose;
-		bool opt_print_config;
-		bool opt_linenumbers;
-		bool opt_style;
-		bool opt_batch_mode;
-		bool opt_fragment;
-		bool opt_attach_line_anchors;
-		bool opt_show_themes;
-		bool opt_show_langdefs;
-		bool opt_show_plugins;
-		bool opt_asformat_output;
-		bool opt_printindex;
-		bool opt_quiet;
-		bool opt_replacequotes;
-		bool opt_babel;
-		bool opt_print_progress;
-		bool opt_fill_zeroes;
-		bool opt_stylepath_explicit;
-		bool opt_force_output;
-		bool opt_ordered_list;
-		bool opt_fnames_as_anchors;
-		bool opt_validate;
-		bool opt_number_wrapped_lines;
-		bool opt_inline_css;
-		bool opt_enclose_pre;
-		bool opt_char_styles;
-		bool opt_pretty_symbols;
-		bool opt_delim_CR;
-		bool opt_print_style;
-		bool opt_no_trailing_nl;
-
-		string anchorPrefix;
-		string helpLang, encodingName;
-
-		string pluginPath, pluginParameter;
-
-		/** list of all input file names */
-		vector <string> inputFileNames;
-
-		/** list of plugin file names */
-		vector <string> userPlugins;
-
-		/** list lines which should be marked and supplied with help string */
-		map <int, string> markLines;
-
-		/** list of file types which should be ignored */
-		set <string> ignoredFileTypes;
-
-		/** \return file suffix */
-		string getFileSuffix ( const string & fileName ) const;
-
-		/** \return directory name of path */
-		string getDirName ( const string & path );
-
-		/** get all entries in the directory defined by wildcard */
-		void readDirectory ( const string & wildcard );
-
-		/** \return Boolean value of paramVal */
-		bool getFlag ( const string& paramVal );
-
-		/** \return Valid path name */
-		string validateDirPath ( const string & path );
+    /** \return True if LaTeX output should includ fancier symbols */
+    bool prettySymbols() const;
+
+    /** \return True if style should be printed */
+    bool printOnlyStyle() const;
+
+    /** \return The given base font, empty string by default */
+    const string& getBaseFont() const ;
+
+    /** \return Document title */
+    const string& getDocumentTitle() const ;
+
+    /** \return anchor prefix */
+    const string& getAnchorPrefix() const ;
+
+    /** \return class name */
+    const string& getClassName() const ;
+
+    const vector <string> &getPluginPaths() const;
+
+    /** \return True if trailing nl should be omitted */
+    bool disableTrailingNL() const ;
+
+    /** \return The given base font size, empty string by default */
+    const string& getBaseFontSize() const ;
+
+    /** \return name of nested syntax which starts the input */
+    const string& getStartNestedLang() const ;
+
+    /** \return absolute theme definition path name */
+    const string& getAbsThemePath() const ;
+
+    /** \return absolute language definition path name */
+    const string& getAbsLangPath() const ;
+
+    /** \return path of input file passed to plugin */
+    const string& getPluginReadFilePath() const ;
+
+    /** \return line number width */
+    int getNumberWidth();
+
+    /** \return line length */
+    int getLineLength();
+
+    /** \return Line number start count */
+    int getNumberStart();
+
+    /** \return Keyword Case (upper, lower, unchanged) */
+    StringTools::KeywordCase getKeywordCase() const;
+
+    /** \return true if file extension should be ignored */
+    bool isSkippedExt ( const string& ext )
+    {
+        return ignoredFileTypes.count ( ext );
+    }
+
+private:
+
+    int numberSpaces;   // number of spaces which replace a tab
+    int lineNrWidth;    // width of line number (left padding)
+    int lineLength;    // length of line before wrapping
+    int lineNrStart;    // line number start count
+    highlight::WrapMode wrappingStyle; // line wrapping mode
+    highlight::OutputType outputType;
+    StringTools::KeywordCase keywordCase;
+
+    // name of single output file
+    string outFilename,
+           // output directory
+           outDirectory,
+           // programming syntax which will be loaded
+           syntax,
+           // name of colour theme
+           styleName,
+           // name of external style file
+           styleOutFilename,
+           // name of file to be included in external style file
+           styleInFilename,
+           // used to define data directories at runtime
+           dataDir;
+    // name of indenation scheme
+    string indentScheme,
+           pageSize, startNestedLang;
+
+    string baseFont, baseFontSize;
+    string docTitle, className;
+    string skipArg;
+    string svg_height, svg_width;
+    string absThemePath, absLangPath;
+
+    bool opt_syntax;
+    bool opt_include_style;
+    bool opt_help;
+    bool opt_version ;
+    bool opt_verbose;
+    bool opt_print_config;
+    bool opt_linenumbers;
+    bool opt_style;
+    bool opt_batch_mode;
+    bool opt_fragment;
+    bool opt_attach_line_anchors;
+    bool opt_show_themes;
+    bool opt_show_langdefs;
+    bool opt_show_plugins;
+    bool opt_asformat_output;
+    bool opt_printindex;
+    bool opt_quiet;
+    bool opt_replacequotes;
+    bool opt_babel;
+    bool opt_print_progress;
+    bool opt_fill_zeroes;
+    bool opt_stylepath_explicit;
+    bool opt_force_output;
+    bool opt_ordered_list;
+    bool opt_fnames_as_anchors;
+    bool opt_validate;
+    bool opt_number_wrapped_lines;
+    bool opt_inline_css;
+    bool opt_enclose_pre;
+    bool opt_char_styles;
+    bool opt_pretty_symbols;
+    bool opt_delim_CR;
+    bool opt_print_style;
+    bool opt_no_trailing_nl;
+
+    string anchorPrefix;
+    string helpLang, encodingName;
+
+    string pluginPath, pluginParameter;
+
+    /** list of all input file names */
+    vector <string> inputFileNames;
+
+    /** list of plugin file names */
+    vector <string> userPlugins;
+
+    /** list lines which should be marked and supplied with help string */
+    map <int, string> markLines;
+
+    /** list of file types which should be ignored */
+    set <string> ignoredFileTypes;
+
+    /** \return file suffix */
+    string getFileSuffix ( const string & fileName ) const;
+
+    /** \return directory name of path */
+    string getDirName ( const string & path );
+
+    /** get all entries in the directory defined by wildcard */
+    void readDirectory ( const string & wildcard );
+
+    /** \return Boolean value of paramVal */
+    bool getFlag ( const string& paramVal );
+
+    /** \return Valid path name */
+    string validateDirPath ( const string & path );
 };
 
 #endif

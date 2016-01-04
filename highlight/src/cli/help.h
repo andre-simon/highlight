@@ -34,9 +34,9 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace Help
 {
-	/** print help message to stdout
-	 */
-	void printHelp();
+/** print help message to stdout
+ */
+void printHelp();
 }
 
 #endif

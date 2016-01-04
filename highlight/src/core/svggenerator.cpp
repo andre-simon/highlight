@@ -31,7 +31,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include "svggenerator.h"
 
-using namespace std;
 namespace highlight
 {
 

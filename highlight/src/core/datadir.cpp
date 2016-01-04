@@ -32,7 +32,6 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "datadir.h"
 
-using namespace std;
 
 string DataDir::LSB_DATA_DIR="/usr/share/highlight/";
 string DataDir::LSB_CFG_DIR="/etc/highlight/";

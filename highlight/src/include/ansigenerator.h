@@ -69,9 +69,9 @@ private:
     virtual string maskCharacter ( unsigned char );
 
 
-    /** gibt ANSI-"Tags" zurueck (Farbindex+bold+kursiv)*/
-    string getOpenTag ( const string&font,
-                        const string&fgCol, const string&bgCol="" );
+    /** \return ANSI formatting sequences */
+    string getOpenTag ( const string& font,
+                        const string& fgCol, const string& bgCol="" );
 
     /** initialize tags in specific format according to colouring information provided in DucumentStyle */
     void initOutputTags();
