@@ -18,6 +18,7 @@ Keywords={
         "static", "decimal", "enum", "sbyte", "uint", "ulong", "ushort", "void"},
   },
 
+  -- see OnStateChange below
   { Id=3,
     Regex=[[\/[^*\s/].*?[^\\]/[msixpodualgc]*]],
     Group=0
@@ -46,3 +47,11 @@ Comments={
 }
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|.]]
+
+-- resolve issue with regex expression which spans strings like "</i>" + VAR + "</i>"
+function OnStateChange(oldState, newState, token, groupID)
+   if string.sub(token,1,1)=="/" and oldState==HL_STRING and newState==HL_KEYWORD and groupID == 3 then
+      return HL_REJECT
+   end
+   return newState
+end

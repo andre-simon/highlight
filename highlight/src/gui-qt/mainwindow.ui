@@ -20,7 +20,7 @@
    <string>Highlight</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="highlight-gui.qrc">
+   <iconset>
     <normaloff>:/hl_icon2.png</normaloff>:/hl_icon2.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -108,7 +108,7 @@
    </widget>
    <widget class="QMenu" name="menuWindows">
     <property name="title">
-     <string>&amp;Windows</string>
+     <string>Wi&amp;ndows</string>
     </property>
     <addaction name="actionDock_floating_panels"/>
    </widget>
@@ -150,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -169,7 +169,7 @@
             <string>Choose input files</string>
            </property>
            <property name="icon">
-            <iconset resource="highlight-gui.qrc">
+            <iconset>
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -374,7 +374,7 @@
             <string>Paste from clipboard</string>
            </property>
            <property name="icon">
-            <iconset resource="highlight-gui.qrc">
+            <iconset>
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -449,7 +449,7 @@
             <string>Add plug-in to pool</string>
            </property>
            <property name="icon">
-            <iconset resource="highlight-gui.qrc">
+            <iconset>
              <normaloff>:/plugin.png</normaloff>:/plugin.png</iconset>
            </property>
           </widget>
@@ -2068,9 +2068,7 @@ Set the width to 0 to keep tabs.</string>
   <tabstop>pbStartConversion</tabstop>
   <tabstop>pbCopyFile2CP</tabstop>
  </tabstops>
- <resources>
-  <include location="highlight-gui.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>pbClearAll</sender>

@@ -46,8 +46,10 @@ Keywords={
 	Regex=[[->([a-zA-Z0-9_]+)]],
 	Group=1,
   },
+  
+  --# Still only covers more common usage but by far not all
+    -- see OnStateChange below
   { Id=4,
-	--# Still only covers more common usage but by far not all
     Regex=[[\/.*?\/[msixpodualgc]*|m\/.*?\/[msixpodualgc]*|qr\/.*?\/[msixpodual]*|s\/.*?\/.*?\/[msixpodualgcer]*|(?:tr|y)\/.*?\/.*?\/[cdsr]*|m!.*?![msixpodualgc]*|qr!.*?![msixpodual]*|s!.*?!.*?![msixpodualgcer]*|(?:tr|y)!.*?!.*?![cdsr]*|m\?.*?\?[msixpodualgc]*|m\{.*?\}[msixpodualgc]*|qr\{.*?\}[msixpodual]*|s\{.*?\}\s*\{.*?\}[msixpodualgcer]*|(?:tr|y)\{.*?\}\s*\{.*?\}[cdsr]*]],
     Group=0
   },
@@ -74,8 +76,13 @@ Comments={
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|~|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\|]]
 
 -- fix recognition of $
-function OnStateChange(oldState, newState, token)
-   
+function OnStateChange(oldState, newState, token, groupID)
+
+   -- resolve issue with regex expression which spans strings like "</i>" + VAR + "</i>"
+   if string.sub(token,1,1)=="/" and oldState==HL_STRING and newState==HL_KEYWORD and groupID == 4 then
+      return HL_REJECT
+   end
+
    if  (string.sub(token,1,1) =="$" or string.sub(token,1,1) =="@" or string.sub(token,1,1) =="%") and oldState==HL_STRING and newState==HL_KEYWORD then
       return HL_INTERPOLATION
    end

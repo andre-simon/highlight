@@ -482,7 +482,6 @@ unsigned char CodeGenerator::getInputChar()
 
 State CodeGenerator::getCurrentState (State oldState)
 {
-
     unsigned char c='\0';
 
     if ( token.length() ==0 ) {
@@ -508,6 +507,7 @@ State CodeGenerator::getCurrentState (State oldState)
     if ( !regexGroups.empty() ) {
         if ( regexGroups.count ( lineIndex ) ) {
             token = line.substr ( lineIndex-1, regexGroups[lineIndex].length );
+    
             unsigned int oldIndex= lineIndex;
             if ( regexGroups[oldIndex].length>1 ) lineIndex+= regexGroups[oldIndex].length-1;
 
@@ -551,7 +551,14 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
 
         resultOfHook = res.size()==1;
         if (resultOfHook) {
-            return (State)res[0].asNumber();
+            State validatedState = (State)res[0].asNumber();
+            if ( validatedState== _REJECT){
+                // proceed using only the first character of the token
+                lineIndex -= (token.length() -1);
+                token=token.substr(0, 1); 
+                return oldState;
+            }
+            return validatedState;
         }
     }
     resultOfHook  = false;

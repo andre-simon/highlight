@@ -113,6 +113,7 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
     ls["HL_IDENTIFIER_END"]=IDENTIFIER_END;
     ls["HL_INTERPOLATION_END"]=STRING_INTERPOLATION_END;
     ls["HL_UNKNOWN"]=_UNKNOWN;
+    ls["HL_REJECT"]=_REJECT;
     ls["HL_FORMAT_HTML"]=HTML;
     ls["HL_FORMAT_XHTML"]=XHTML;
     ls["HL_FORMAT_TEX"]=TEX;

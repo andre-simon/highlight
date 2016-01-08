@@ -15,6 +15,8 @@ Keywords={
   { Id=2,
     Regex=[[[\$\@][\/\w]+]],
   },
+  
+  -- see OnStateChange below
   { Id=3,
     Regex=[[m?\/.*?\/|(s|tr)\/.*?\/.*?\/[cegimosx]*]],
     Group=0,
@@ -55,7 +57,13 @@ Comments={
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\.|\&|<|>|\!|\-|\+|\/|\*|\=|\?|\%|\|]]
 
 -- resolve issue with # which starts comments and extrapolation sequences in strings
-function OnStateChange(oldState, newState, token)
+function OnStateChange(oldState, newState, token, groupID)
+
+   -- resolve issue with regex expression which spans strings like "</i>" + VAR + "</i>"
+   if string.sub(token,1,1)=="/" and oldState==HL_STRING and newState==HL_KEYWORD then
+      return HL_REJECT
+   end
+    
    if string.sub(token,1,1)=="#" and oldState==HL_STRING  then
       return HL_INTERPOLATION
    end

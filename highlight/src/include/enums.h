@@ -55,6 +55,7 @@ enum State {
     EMBEDDED_CODE_END,
 
     _UNKNOWN=100,
+    _REJECT,
     _EOL,
     _EOF,
     _WS

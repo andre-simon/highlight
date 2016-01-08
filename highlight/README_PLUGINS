@@ -115,6 +115,7 @@ HL_STANDARD: number
 HL_STRING: number
 HL_STRING_END: number
 HL_UNKNOWN: number
+HL_REJECT: number
 
 HL_OUTPUT: number
 HL_FORMAT_HTML: number
@@ -170,7 +171,10 @@ OnStateChange(oldState, newState, token, kwGroupID)
               token:     the current token which triggered the new state
               kwGroupID: if newState is HL_KEYWORD, the parameter
                          contains the keyword group ID
-  Returns:    Correct state to continue
+  Returns:    Correct state to continue OR HL_REJECT
+
+Return HL_REJECT if the recognized token and state should be discarded; only the 
+first character of token will be outputted using the state defined as oldState.
 
 Examples:
 
