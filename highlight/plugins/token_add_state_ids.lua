@@ -1,15 +1,9 @@
---[[
-Sample plugin file for highlight 3.9
-]]
 
-Description="Add internal state IDs behind each token (for debugging purposes)."
+Description="Add internal state IDs behind each token (for debugging)."
 
--- optional parameter: syntax description
 function syntaxUpdate(desc)
-  
-
   function Decorate(token, state)
-      return token .. ' ('.. state .. ')'
+    return token .. ' ('.. string.format("%d",state) .. ')'
   end
 end
 

@@ -135,6 +135,8 @@ Functions:
 AddKeyword: function
 OnStateChange: function
 Decorate: function
+DecorateLineBegin: function
+DecorateLineEnd: function
 
 IMPORTANT: Functions will only be executed if they are defined as local
 functions within the lang chunk function referenced in the Plugins array. 
@@ -201,14 +203,14 @@ This function resolves a Lua parsing issue with the "]]" close delimiter which
 ends both comments and strings.
 
 
-3.3 FUNCTION DECORATE
+3.3 DECORATE FUNCTIONS
 -------------------------------------------------------------------------------
 
-This function is a hook which is called if a syntax token has been identified.
-It can be used to alter the token or to add additional text in the target output
-format (e.g. hyperlinks). Important: The return value of Decorate will be 
-embedded in the formatting tags of the output format. The return value is not
-modified or validated by highlight.
+This function Decorate is a hook which is called if a syntax token has been 
+identified. It can be used to alter the token or to add additional text in the
+target output format (e.g. hyperlinks). Important: The return value of Decorate
+will be embedded in the formatting tags of the output format. The return value
+is not modified or validated by highlight.
 
 Decorate(token, state, kwGroupID)
 
@@ -231,6 +233,22 @@ end
 This function converts all keywords to upper case.
 
 
+The functions DecorateLineBegin and DecorateLineEnd are called if a new line
+starts or ends. They can be used to add special formttting to lines of code.
+
+DecorateLineBegin(lineNumber)
+
+  Hook Event: output of a new line
+  Parameters: lineNumber: the current line number
+  Returns:    A string to be prepended to a new line (or nothing) 
+
+DecorateLineEnd(lineNumber)
+
+  Hook Event: output of a line ending
+  Parameters: lineNumber: the current line number
+  Returns:    A string to be appended to a line (or nothing)
+  
+  
 4. THEME CHUNK ELEMENTS
 -------------------------------------------------------------------------------
 

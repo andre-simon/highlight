@@ -563,6 +563,14 @@ protected:
         return StringTools::change_case ( encoding ) !="none";
     }
 
+    /** Invoke plugin decorate user function */
+    Diluculum::LuaValueList callDecorateFct();
+    
+    /** Invoke plugin decorate line user function 
+     @param isLineStart set true if line start function should be called, 
+            otherwise line end function is invoked */
+    Diluculum::LuaValueList callDecorateLineFct(bool isLineStart);
+    
     /** contains white space, which will be printed after a closing tag */
     string wsBuffer;
 
@@ -760,7 +768,7 @@ private:
      \param kwClass keyword class ID if newState is KEYWORD
      */
     State validateState(State newState, State oldState, unsigned int kwClass);
-
+    
     /** \deprecated replace by Lua functionality */
     bool checkSpecialCmd();
 };

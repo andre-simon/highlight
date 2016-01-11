@@ -538,7 +538,7 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
 {
 
     if (currentSyntax->getValidateStateChangeFct()) {
-
+	//TODO method
         Diluculum::LuaValueList params;
         params.push_back(Diluculum::LuaValue(oldState));
         params.push_back(Diluculum::LuaValue(newState));
@@ -573,21 +573,25 @@ void CodeGenerator::maskString ( ostream& ss, const string & s )
     }
 }
 
-void CodeGenerator::printMaskedToken ( /*bool addMetaInfo,*/ bool flushWhiteSpace,
-        StringTools::KeywordCase tcase )
+
+Diluculum::LuaValueList CodeGenerator::callDecorateFct(){
+    Diluculum::LuaValueList params;
+    params.push_back(Diluculum::LuaValue(token));
+    params.push_back(Diluculum::LuaValue(currentState));
+    params.push_back(Diluculum::LuaValue(currentKeywordClass));
+
+    return currentSyntax->getLuaState()->call ( *currentSyntax->getDecorateFct(),
+                                               params,"getDecorateFct call")  ;
+}
+
+void CodeGenerator::printMaskedToken (bool flushWhiteSpace, StringTools::KeywordCase tcase )
 {
     if ( flushWhiteSpace )
         flushWs();
 
     if (currentSyntax->getDecorateFct()) {
-        Diluculum::LuaValueList params;
-        params.push_back(Diluculum::LuaValue(token));
-        params.push_back(Diluculum::LuaValue(currentState));
-        params.push_back(Diluculum::LuaValue(currentKeywordClass));
-
-        Diluculum::LuaValueList res=
-            currentSyntax->getLuaState()->call ( *currentSyntax->getDecorateFct(),
-                    params,"getDecorateFct call")  ;
+        
+        Diluculum::LuaValueList res=callDecorateFct();    
         if (res.size()==1) {
             *out<<res[0].asString();
         } else {
@@ -1036,6 +1040,14 @@ void CodeGenerator::processRootState()
         }
     } while ( !eof );
     closeTag ( STANDARD );
+    
+    if (currentSyntax->getDecorateLineEndFct()) {
+      Diluculum::LuaValueList res=callDecorateLineFct(false);    
+      if (res.size()==1) {
+        *out << res[0].asString();
+      } 
+    } 
+    
     printNewLines = !noTrailingNewLine;
     *out << getNewLine();
     *out << flush;
@@ -1525,12 +1537,38 @@ string CodeGenerator::getNewLine()
     return (printNewLines) ? newLineTag : "";
 }
 
+Diluculum::LuaValueList CodeGenerator::callDecorateLineFct(bool isLineStart){
+   Diluculum::LuaValueList params;
+   params.push_back(Diluculum::LuaValue(lineNumber));
+
+    return currentSyntax->getLuaState()->call ( isLineStart ? 
+           *currentSyntax->getDecorateLineBeginFct(): *currentSyntax->getDecorateLineEndFct(),
+           params,"getDecorateLineFct call")  ;
+  
+}
+
 void CodeGenerator::insertLineNumber ( bool insertNewLine )
 {
     if ( insertNewLine ) {
-        wsBuffer += getNewLine();
+
+      if (currentSyntax->getDecorateLineEndFct()) {
+        Diluculum::LuaValueList res=callDecorateLineFct(false);    
+        if (res.size()==1) {
+          wsBuffer +=res[0].asString();
+        } 
+      } 
+      
+      wsBuffer += getNewLine();
     }
 
+    
+    if (currentSyntax->getDecorateLineBeginFct()) {
+      Diluculum::LuaValueList res=callDecorateLineFct(true);    
+      if (res.size()==1) {
+        wsBuffer +=res[0].asString();
+      } 
+    } 
+    
     if ( showLineNumbers ) {
         ostringstream os;
         ostringstream numberPrefix;

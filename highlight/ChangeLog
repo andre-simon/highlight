@@ -6,6 +6,8 @@ highlight 3.26
 xx-xx.2016
 
 -added HL_REJECT state to be used in a OnStateChange function
+-added DecorateLineBegin and DecorateLineEnd hooks
+-added mark_lines.lua, outhtml_codefold.lua, comment_links.lua plug-ins
 -fixed font face in ODT output
 -fixed Operators parameter in frink.lang and oorexx.lang
 -fixed regular expression parsing within strings for JS, Perl and Ruby

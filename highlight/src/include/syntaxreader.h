@@ -254,6 +254,21 @@ public:
         return decorateFct;
     }
 
+     /**
+    	\return pointer to line begin decorate function
+    */
+    Diluculum::LuaFunction* getDecorateLineBeginFct() const
+    {
+        return decorateLineBeginFct;
+    }
+     /**
+    	\return pointer to line end decorate function
+    */
+    Diluculum::LuaFunction* getDecorateLineEndFct() const
+    {
+        return decorateLineEndFct;
+    }
+    
     /**
     	\return pointer to Lua state
     */
@@ -342,7 +357,7 @@ private:
 
     // Functions accessible in Lua State
     Diluculum::LuaFunction* validateStateChangeFct;
-    Diluculum::LuaFunction* decorateFct;
+    Diluculum::LuaFunction* decorateFct, *decorateLineBeginFct, *decorateLineEndFct;
 
     Diluculum::LuaState* luaState; // make member to allow interaction with codeparser instance
 

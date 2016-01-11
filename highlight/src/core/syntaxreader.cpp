@@ -56,6 +56,8 @@ SyntaxReader::SyntaxReader() :
     continuationChar(0),
     validateStateChangeFct(NULL),
     decorateFct(NULL),
+    decorateLineBeginFct(NULL),
+    decorateLineEndFct(NULL),
     luaState(NULL)
 {
 
@@ -68,6 +70,8 @@ SyntaxReader::~SyntaxReader()
     }
     if (validateStateChangeFct) delete validateStateChangeFct;
     if (decorateFct) delete decorateFct;
+    if (decorateLineBeginFct) delete decorateLineBeginFct;
+    if (decorateLineEndFct) delete decorateLineEndFct;
     if (luaState) delete luaState;
     for (unsigned int i=0; i<pluginChunks.size(); i++) {
         delete pluginChunks[i];
@@ -335,7 +339,13 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
         if (globals.count("Decorate")) {
             decorateFct=new Diluculum::LuaFunction(ls["Decorate"].value().asFunction());
         }
-
+        if (globals.count("DecorateLineBegin")) {
+            decorateLineBeginFct=new Diluculum::LuaFunction(ls["DecorateLineBegin"].value().asFunction());
+        }
+        if (globals.count("DecorateLineEnd")) {
+            decorateLineEndFct=new Diluculum::LuaFunction(ls["DecorateLineEnd"].value().asFunction());
+        }
+        
     } catch (Diluculum::LuaError err) {
         luaErrorMsg = string(err.what());
         return LOAD_FAILED_LUA;

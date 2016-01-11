@@ -304,9 +304,28 @@ string HtmlGenerator::getNewLine()
 
 void HtmlGenerator::insertLineNumber ( bool insertNewLine )
 {
-    if ( insertNewLine ) {
-        wsBuffer += getNewLine();
+  
+   
+  
+    if ( insertNewLine ) {      
+  
+      if (currentSyntax->getDecorateLineEndFct()) {
+        Diluculum::LuaValueList res=callDecorateLineFct(false);    
+        if (res.size()==1) {
+          wsBuffer +=res[0].asString();
+        } 
+      }
+      
+      wsBuffer += getNewLine();
     }
+    
+    if (currentSyntax->getDecorateLineBeginFct()) {
+      Diluculum::LuaValueList res=callDecorateLineFct(true);    
+      if (res.size()==1) {
+        wsBuffer +=res[0].asString();
+      } 
+    } 
+    
     if ( showLineNumbers ) {
         ostringstream numberPrefix;
         int lineNo = lineNumber+lineNumberOffset;
