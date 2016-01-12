@@ -60,7 +60,6 @@ private:
     string errorMsg;
     string desc;
     string themeInjections;
-    //vector <string> injections;
 
     vector<Diluculum::LuaFunction*> pluginChunks;
 

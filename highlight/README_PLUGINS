@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT PLUGIN MANUAL - Version 3.24   ---------------- October 2015 ---
+---  HIGHLIGHT PLUGIN MANUAL - Version 3.26   ---------------- January 2016 ---
 -------------------------------------------------------------------------------
 
 CONTENT
@@ -10,7 +10,7 @@ CONTENT
 3. SYNTAX CHUNK ELEMENTS
    3.1 FUNCTION ADDKEYWORD
    3.2 FUNCTION ONSTATECHANGE
-   3.3 FUNCTION DECORATE
+   3.3 DECORATE FUNCTIONS
 4. THEME CHUNK ELEMENTS
 5. STEP BY STEP
 6. EXAMPLES
@@ -208,9 +208,7 @@ ends both comments and strings.
 
 This function Decorate is a hook which is called if a syntax token has been 
 identified. It can be used to alter the token or to add additional text in the
-target output format (e.g. hyperlinks). Important: The return value of Decorate
-will be embedded in the formatting tags of the output format. The return value
-is not modified or validated by highlight.
+target output format (e.g. hyperlinks). 
 
 Decorate(token, state, kwGroupID)
 
@@ -234,7 +232,7 @@ This function converts all keywords to upper case.
 
 
 The functions DecorateLineBegin and DecorateLineEnd are called if a new line
-starts or ends. They can be used to add special formttting to lines of code.
+starts or ends. They can be used to add special formatting to lines of code.
 
 DecorateLineBegin(lineNumber)
 
@@ -248,6 +246,11 @@ DecorateLineEnd(lineNumber)
   Parameters: lineNumber: the current line number
   Returns:    A string to be appended to a line (or nothing)
   
+
+IMPORTANT: The return value of Decorate functions will be embedded in the 
+formatting tags of the output format. The return values are not modified or 
+validated by highlight.
+
   
 4. THEME CHUNK ELEMENTS
 -------------------------------------------------------------------------------
