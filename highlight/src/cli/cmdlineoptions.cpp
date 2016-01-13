@@ -72,6 +72,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
     opt_inline_css ( false ),
     opt_enclose_pre ( false ),
     opt_char_styles ( false ),
+    opt_page_color(false),
     opt_pretty_symbols ( false ),
     opt_delim_CR (false),
     opt_print_style(false),
@@ -84,7 +85,8 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         S_OPT_ENCLOSE_PRE = 256, S_OPT_FORCE_OUTPUT,
         S_OPT_INLINE_CSS, S_OPT_KW_CASE,
         S_OPT_PRINT_CONFIG, S_OPT_TEST_INPUT, S_OPT_NO_NUMBER_WL,
-        S_OPT_SVG_WIDTH, S_OPT_SVG_HEIGHT, S_OPT_CLASSNAME, S_OPT_RTF_CHAR_STYLES,
+        S_OPT_SVG_WIDTH, S_OPT_SVG_HEIGHT, S_OPT_CLASSNAME,
+        S_OPT_RTF_CHAR_STYLES, S_OPT_RTF_PAGE_COLOR,
         S_OPT_SKIP_UNKNOWN,
         S_OPT_COMPAT_DOC, S_OPT_COMPAT_NODOC, S_OPT_COMPAT_TAB, S_OPT_COMPAT_CSS,
         S_OPT_COMPAT_OUTDIR, S_OPT_COMPAT_FAILSAFE,
@@ -148,6 +150,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         { S_OPT_TEST_INPUT,   OPT_TEST_INPUT,   Arg_parser::no  },
         { S_OPT_NO_NUMBER_WL, OPT_NO_NUMBER_WL, Arg_parser::no  },
         { S_OPT_RTF_CHAR_STYLES, OPT_RTF_CHAR_STYLES, Arg_parser::no  },
+        { S_OPT_RTF_PAGE_COLOR, OPT_RTF_PAGE_COLOR, Arg_parser::no  },
         { S_OPT_SKIP_UNKNOWN, OPT_SKIP_UNKNOWN, Arg_parser::yes },
         { S_OPT_START_NESTED,   OPT_START_NESTED,   Arg_parser::yes },
         { S_OPT_COMPAT_DOC,   OPT_COMPAT_DOC, Arg_parser::no },
@@ -385,6 +388,10 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         case S_OPT_RTF_CHAR_STYLES:
             opt_char_styles=true;
             break;
+        case S_OPT_RTF_PAGE_COLOR:
+             opt_page_color=true;
+            break;
+          
         case S_OPT_SKIP_UNKNOWN:
             skipArg=arg;
             break;
@@ -733,6 +740,10 @@ bool CmdLineOptions::enclosePreTag() const
 bool CmdLineOptions::includeCharStyles() const
 {
     return opt_char_styles;
+}
+bool CmdLineOptions::includePageColor() const
+{
+  return opt_page_color;
 }
 bool CmdLineOptions::disableTrailingNL() const
 {

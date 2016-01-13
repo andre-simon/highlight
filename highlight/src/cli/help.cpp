@@ -128,6 +128,7 @@ void printHelp()
     cout<<"\n";
     cout<<"RTF output options:\n";
     cout<<"\n";
+    cout<<"     --page-color               include page color attributes\n";
     cout<<" -x, --page-size=<ps>           set page size \n";
     cout<<"                                  <ps> = [a3, a4, a5, b4, b5, b6, letter]\n";
     cout<<"     --char-styles              include character stylesheets\n";

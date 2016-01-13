@@ -93,6 +93,16 @@ public:
     /**  @param type Output type
          @return Blue value in color representation according to output type */
     string getBlue ( OutputType type ) const;
+    
+    
+    /**  @return red value */
+    int getRed () const;
+    
+    /**  @return green value */
+    int getGreen () const;
+    
+    /**  @return blue value */
+    int getBlue () const;
 
 private:
     RGBVal rgb;

@@ -1,4 +1,4 @@
-Description="Marks the lines defined as plug-in parameter (BETA status)."
+Description="Marks the lines defined as plug-in parameter in HTML output (BETA status)."
 
 function syntaxUpdate(desc)
   
@@ -6,9 +6,8 @@ function syntaxUpdate(desc)
     return
    end
   
-  
-   -- explode(seperator, string)
-   function explode(d,p)
+  -- explode(seperator, string)
+  function explode(d,p)
      local t, ll
      t={}
      ll=0
@@ -26,15 +25,15 @@ function syntaxUpdate(desc)
      end
    end
    return t
-end
+  end
 
-linesToMark=explode(',', HL_PLUGIN_PARAM)
-
-
-
-currentLineNumber=0
+  linesToMark=explode(',', HL_PLUGIN_PARAM)
+  currentLineNumber=0
 
   function DecorateLineBegin(lineNumber)
+    if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
+      return
+    end
     currentLineNumber = lineNumber
     if (linesToMark[currentLineNumber]) then
       return '<span class="hl mark"'..string.format("%d", lineNumber)..'">'
@@ -42,6 +41,9 @@ currentLineNumber=0
   end
 
   function DecorateLineEnd()
+    if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
+      return
+    end
     if (linesToMark[currentLineNumber]) then
       return '</span>'
     end
@@ -50,8 +52,42 @@ currentLineNumber=0
 end
 
 function themeUpdate(desc)
+  
+  function lighten(colour)
+    if string.match(colour, "#%x+")==nil then
+      return "rgba(0,0,0,0)"
+    end
+    
+    base_rr = ("0x"..string.match(colour, "%x%x", 2))
+    base_gg = ("0x"..string.match(colour, "%x%x", 4))
+    base_bb = ("0x"..string.match(colour, "%x%x", 6))
+    
+    min_bright=math.min(base_rr, base_gg, base_bb)
+    max_bright=math.max(base_rr, base_gg, base_bb)
+    brightness = (min_bright + max_bright) / (255*2.0)
+    
+    if (brightness < 0.1) then
+      return "rgba(50,50,50, 0.5)"
+    elseif (brightness < 0.5) then
+      percent = 100
+    elseif (brightness > 0.95) then
+      percent = -10
+    else
+      percent = 80
+    end
+    
+    rr = math.floor(base_rr * (100 + percent) / 100 )
+    gg = math.floor(base_gg * (100 + percent) / 100 )
+    bb = math.floor(base_bb * (100 + percent) / 100 )
+    
+    if (rr>255) then rr = 255 end
+    if (gg>255) then gg = 255 end
+    if (bb>255) then bb = 255 end
+    return string.format("rgba(%d,%d,%d,0.25)", rr, gg, bb)
+  end
+  
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
-    Injections[#Injections+1]=".hl.mark { background-color:yellow; width:100%;float:left;}"
+    Injections[#Injections+1]=".hl.mark { background-color:"..lighten(Canvas.Colour).."; width:100%;float:left;}"
   end
 end
 

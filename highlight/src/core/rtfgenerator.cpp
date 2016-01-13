@@ -2,7 +2,7 @@
                           rtfcode.cpp  -  description
                              -------------------
     begin                : Die Jul 9 2002
-    copyright            : (C) 2002-2007 by Andre Simon
+    copyright            : (C) 2002-2016 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -37,7 +37,8 @@ namespace highlight
 RtfGenerator::RtfGenerator()
     : CodeGenerator ( RTF ),
       pageSize ( "a4" ), // Default: DIN A4
-      addCharStyles ( false )
+      addCharStyles ( false ),
+      addPageColor(false)
 {
     newLineTag = "}\\par\\pard\n\\cbpat1{";
     spacer = " ";
@@ -182,6 +183,13 @@ void RtfGenerator::printBody()
             *out << getCharStyle ( KEYWORD+i, docStyle.getKeywordStyle ( keywordClasses[i] ), string ( styleName ) );
         }
         *out << "}}\n";
+    }
+    
+    if (addPageColor) {
+      long svVal =  docStyle.getBgColour().getRed() +  
+                    docStyle.getBgColour().getGreen() * 256+ 
+                    docStyle.getBgColour().getBlue() * 256 * 256;
+                    *out<<"\\viewbksp1\\ilfomacatclnup0{\\*\\background{\\shp{{\\sp{\\sn fillColor}{\\sv "<<svVal<<"}}}}}\n";
     }
 
     *out  << "\\paperw"<< psMap[pageSize].width <<"\\paperh"<< psMap[pageSize].height
@@ -355,5 +363,11 @@ void RtfGenerator::setRTFCharStyles ( bool cs )
 {
     addCharStyles = cs;
 }
+
+void RtfGenerator::setRTFPageColor ( bool pc )
+{
+  addPageColor = pc;
+}
+
 
 }

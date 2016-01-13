@@ -98,6 +98,12 @@ void Colour::setBlue ( const string & blue )
     StringTools::str2num<int> ( rgb.iBlue, blue, std::hex );
 }
 
+int Colour::getRed () const { return rgb.iRed; }
+
+int Colour::getGreen () const { return rgb.iGreen; }
+
+int Colour::getBlue () const { return rgb.iBlue; }
+
 string Colour::getRed ( OutputType type ) const
 {
     switch ( type ) {

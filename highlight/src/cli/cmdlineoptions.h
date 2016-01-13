@@ -79,6 +79,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_OUTDIR         "outdir"
 #define OPT_RTF_PAGE_SIZE  "page-size"
 #define OPT_RTF_CHAR_STYLES "char-styles"
+#define OPT_RTF_PAGE_COLOR "page-color"
 #define OPT_PRINT_CONFIG   "print-config"
 #define OPT_PROGRESSBAR    "progress"
 #define OPT_QUIET          "quiet"
@@ -294,6 +295,9 @@ public:
     /** \return True if RTF output should include character styles */
     bool includeCharStyles() const ;
 
+    /** \return True if RTF output should include page color */
+    bool includePageColor() const ;
+    
     /** \return True if LaTeX output should includ fancier symbols */
     bool prettySymbols() const;
 
@@ -414,6 +418,7 @@ private:
     bool opt_inline_css;
     bool opt_enclose_pre;
     bool opt_char_styles;
+    bool opt_page_color;
     bool opt_pretty_symbols;
     bool opt_delim_CR;
     bool opt_print_style;

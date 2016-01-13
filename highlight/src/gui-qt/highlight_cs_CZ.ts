@@ -467,7 +467,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>List of plug-ins. Toggle checkbox to enable the scripts.</source>
-        <translation>Seznam přídavných modulů. Klepněte na zaškrtávací okénko pro povolení skriptů.</translation>
+        <translation type="vanished">Seznam přídavných modulů. Klepněte na zaškrtávací okénko pro povolení skriptů.</translation>
     </message>
     <message>
         <source>Name of the referenced style file.</source>
@@ -851,7 +851,7 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>&amp;Windows</source>
-        <translation>&amp;Okna</translation>
+        <translation type="vanished">&amp;Okna</translation>
     </message>
     <message>
         <source>&amp;Dock floating panels</source>
@@ -927,6 +927,22 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>&amp;Visit andre-simon.de</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wi&amp;ndows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of plug-ins. Toggle checkbox to enable the scripts. The preview window may not display all plug-in effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set page color attribute to background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set page color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -155,7 +155,7 @@ Revise su instalación.</translation>
         <translation type="obsolete">无法读取 &quot;%1&quot; 的Tag信息</translation>
     </message>
     <message>
-        <location line="+543"/>
+        <location line="+547"/>
         <location line="+31"/>
         <source>Output error</source>
         <translation type="unfinished">输出错误</translation>
@@ -345,12 +345,12 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <location line="+493"/>
         <location line="+237"/>
         <location line="+96"/>
-        <location line="+236"/>
+        <location line="+246"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="-1313"/>
+        <location line="-1323"/>
         <source>Save output in the input file directories.</source>
         <translation>将输出保存在输入路径中.</translation>
     </message>
@@ -579,18 +579,18 @@ The result has to match the input file encoding.</source>
         <location line="+49"/>
         <location line="+244"/>
         <location line="+96"/>
-        <location line="+236"/>
+        <location line="+246"/>
         <source>Include the style information in each output file.</source>
         <translation>将样式表信息保存到每个输出文件中.</translation>
     </message>
     <message>
-        <location line="-573"/>
-        <location line="+576"/>
+        <location line="-583"/>
+        <location line="+586"/>
         <source>Embed style (CSS)</source>
         <translation>内嵌样式表 (CSS)</translation>
     </message>
     <message>
-        <location line="-563"/>
+        <location line="-573"/>
         <source>Add CSS information to each tag (do not use CSS class definitions).</source>
         <translation>CSS信息保存到每个Tag中(不使用CSS的类定义).</translation>
     </message>
@@ -606,13 +606,13 @@ The result has to match the input file encoding.</source>
     <message>
         <location line="+27"/>
         <location line="+316"/>
-        <location line="+236"/>
+        <location line="+246"/>
         <source>Name of the referenced style file.</source>
         <translation>外链样式表文件的名字.</translation>
     </message>
     <message>
-        <location line="-549"/>
-        <location line="+552"/>
+        <location line="-559"/>
+        <location line="+562"/>
         <source>highlight.css</source>
         <translation></translation>
     </message>
@@ -621,13 +621,13 @@ The result has to match the input file encoding.</source>
         <translation type="obsolete">Archivo de estilo a incluir:</translation>
     </message>
     <message>
-        <location line="-534"/>
-        <location line="+569"/>
+        <location line="-544"/>
+        <location line="+579"/>
         <source>Path of the CSS include file.</source>
         <translation>外链样式表的路径.</translation>
     </message>
     <message>
-        <location line="-562"/>
+        <location line="-572"/>
         <source>Select a CSS include file.</source>
         <translation>选择一个外链的样式表.</translation>
     </message>
@@ -789,14 +789,14 @@ See ctags.sf.net for details.</source>
         <location line="+746"/>
         <location line="+223"/>
         <location line="+96"/>
-        <location line="+236"/>
+        <location line="+246"/>
         <source>Stylesheet file:</source>
         <translation>外链样式表文件名：</translation>
     </message>
     <message>
-        <location line="-308"/>
+        <location line="-318"/>
         <location line="+96"/>
-        <location line="+236"/>
+        <location line="+246"/>
         <source>Stylesheet include file:</source>
         <translation>包含的样式表文件：</translation>
     </message>
@@ -805,7 +805,7 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">读取ctags文件：</translation>
     </message>
     <message>
-        <location line="-1561"/>
+        <location line="-1571"/>
         <source>Highlight</source>
         <translation>Highlight</translation>
     </message>
@@ -841,8 +841,9 @@ See ctags.sf.net for details.</source>
     </message>
     <message>
         <location line="-276"/>
-        <source>&amp;Windows</source>
-        <translation>窗口(&amp;W)</translation>
+        <source>Wi&amp;ndows</source>
+        <oldsource>&amp;Windows</oldsource>
+        <translation type="unfinished">窗口(&amp;W)</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -952,7 +953,7 @@ See ctags.sf.net for details.</source>
     <message>
         <location line="-89"/>
         <location line="+96"/>
-        <location line="+236"/>
+        <location line="+246"/>
         <source>Select a style include file.</source>
         <translation>选择一个样式表文件.</translation>
     </message>
@@ -961,7 +962,7 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">Opciones de TeX</translation>
     </message>
     <message>
-        <location line="-300"/>
+        <location line="-310"/>
         <source>Embed style (macros)</source>
         <translation>内嵌页面样式 (macros)</translation>
     </message>
@@ -983,7 +984,7 @@ You can select the stylesheets in your word processor to reformat additional tex
         <translation>添加字体样式</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+19"/>
         <source>Page size:</source>
         <translation>页面大小：</translation>
     </message>
@@ -1203,7 +1204,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>停靠浮动面板(&amp;D)</translation>
     </message>
     <message>
-        <location line="-1975"/>
+        <location line="-1985"/>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
@@ -1239,8 +1240,9 @@ Set the width to 0 to keep tabs.</source>
     </message>
     <message>
         <location line="+14"/>
-        <source>List of plug-ins. Toggle checkbox to enable the scripts.</source>
-        <translation>插件列表. 打钩激活对应脚本.</translation>
+        <source>List of plug-ins. Toggle checkbox to enable the scripts. The preview window may not display all plug-in effects.</source>
+        <oldsource>List of plug-ins. Toggle checkbox to enable the scripts.</oldsource>
+        <translation type="unfinished">插件列表. 打钩激活对应脚本.</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1268,7 +1270,17 @@ Set the width to 0 to keep tabs.</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location line="+1763"/>
+        <location line="+1319"/>
+        <source>Set page color attribute to background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Set page color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+451"/>
         <source>Do not add line numbering to lines which were automatically wrapped.</source>
         <translation type="unfinished"></translation>
     </message>

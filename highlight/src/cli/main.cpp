@@ -418,7 +418,8 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     generator->setRTFPageSize ( options.getPageSize() );
     generator->setRTFCharStyles ( options.includeCharStyles() );
-
+    generator->setRTFPageColor ( options.includePageColor() );
+    
     generator->setSVGSize ( options.getSVGWidth(),  options.getSVGHeight() );
 
     if (options.useCRDelimiter())

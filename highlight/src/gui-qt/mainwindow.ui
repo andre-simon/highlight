@@ -20,7 +20,7 @@
    <string>Highlight</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="highlight-gui.qrc">
     <normaloff>:/hl_icon2.png</normaloff>:/hl_icon2.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -150,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -169,7 +169,7 @@
             <string>Choose input files</string>
            </property>
            <property name="icon">
-            <iconset>
+            <iconset resource="highlight-gui.qrc">
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -374,7 +374,7 @@
             <string>Paste from clipboard</string>
            </property>
            <property name="icon">
-            <iconset>
+            <iconset resource="highlight-gui.qrc">
              <normaloff>:/file.png</normaloff>:/file.png</iconset>
            </property>
           </widget>
@@ -449,7 +449,7 @@
             <string>Add plug-in to pool</string>
            </property>
            <property name="icon">
-            <iconset>
+            <iconset resource="highlight-gui.qrc">
              <normaloff>:/plugin.png</normaloff>:/plugin.png</iconset>
            </property>
           </widget>
@@ -457,7 +457,7 @@
          <item>
           <widget class="QListWidget" name="lvPluginScripts">
            <property name="toolTip">
-            <string>List of plug-ins. Toggle checkbox to enable the scripts.</string>
+            <string>List of plug-ins. Toggle checkbox to enable the scripts. The preview window may not display all plug-in effects.</string>
            </property>
            <property name="alternatingRowColors">
             <bool>true</bool>
@@ -591,7 +591,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -935,7 +935,7 @@ The result has to match the input file encoding.</string>
             </size>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="HTMLOptions">
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -1407,6 +1407,16 @@ You can select the stylesheets in your word processor to reformat additional tex
                </property>
                <property name="text">
                 <string>Add character styles</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbRTFPageColor">
+               <property name="toolTip">
+                <string>Set page color attribute to background color</string>
+               </property>
+               <property name="text">
+                <string>Set page color</string>
                </property>
               </widget>
              </item>
@@ -2068,7 +2078,9 @@ Set the width to 0 to keep tabs.</string>
   <tabstop>pbStartConversion</tabstop>
   <tabstop>pbCopyFile2CP</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="highlight-gui.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>pbClearAll</sender>

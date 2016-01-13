@@ -2,7 +2,7 @@
                           rtfcode.h  -  description
                              -------------------
     begin                : Die Jul 9 2002
-    copyright            : (C) 2002-2008 by Andre Simon
+    copyright            : (C) 2002-2016 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -81,11 +81,14 @@ public:
     ~RtfGenerator();
 
     /**  Define RTF page size
-         \param ps RTF page size (a3, a4, a5, b4, b5, b6, letter, legal) */
+         @param ps RTF page size (a3, a4, a5, b4, b5, b6, letter, legal) */
     void setRTFPageSize ( const string & ps );
 
-    /** \param cs flag to enable character styles*/
+    /** @param cs flag to enable character styles*/
     void setRTFCharStyles ( bool cs );
+    
+    /** @param pc flag to enable page color output */
+    void setRTFPageColor ( bool pc );
 
 private:
 
@@ -111,7 +114,10 @@ private:
     /** flag to add character styles */
     bool addCharStyles;
 
-    /** \return escaped character*/
+    /** flag to add page color */
+    bool addPageColor;
+    
+    /** @return escaped character*/
     virtual string maskCharacter ( unsigned char );
 
     /**\return text formatting attributes in RTF format */
@@ -123,9 +129,9 @@ private:
     string getOpenTag ( int styleNumber,const ElementStyle &elem );
 
     /** @param styleNumber number of current style
-    @param elem associated element style
-    @param styleName style name
-    @return RTF character style definition */
+        @param elem associated element style
+        @param styleName style name
+        @return RTF character style definition */
     string getCharStyle ( int styleNumber,const ElementStyle &elem, const string&styleName );
 
     /** @param elem associated element style

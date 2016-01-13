@@ -283,6 +283,8 @@ void MainWindow::writeSettings()
                       ui->cbReformat->isChecked());
     settings.setValue(ui->cbRTFCharStyles->property(name).toString(),
                       ui->cbRTFCharStyles->isChecked());
+    settings.setValue(ui->cbRTFPageColor->property(name).toString(),
+                      ui->cbRTFPageColor->isChecked());
     settings.setValue(ui->cbWrapping->property(name).toString(),
                       ui->cbWrapping->isChecked());
     settings.setValue(ui->cbValidateInput->property(name).toString(),
@@ -404,6 +406,7 @@ void MainWindow::readSettings()
     ui->cbPadZeroes->setChecked(settings.value(ui->cbPadZeroes->property(name).toString()).toBool());
     ui->cbReformat->setChecked(settings.value(ui->cbReformat->property(name).toString()).toBool());
     ui->cbRTFCharStyles->setChecked(settings.value(ui->cbRTFCharStyles->property(name).toString()).toBool());
+    ui->cbRTFPageColor->setChecked(settings.value(ui->cbRTFPageColor->property(name).toString()).toBool());
     ui->cbWrapping->setChecked(settings.value(ui->cbWrapping->property(name).toString()).toBool());
     ui->cbValidateInput->setChecked(settings.value(ui->cbValidateInput->property(name).toString()).toBool());
 
@@ -648,6 +651,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
 
         generator->setRTFPageSize(ui->comboRTFPageSize->currentText().toLower().toStdString());
         generator->setRTFCharStyles(ui->cbRTFCharStyles->isChecked());
+        generator->setRTFPageColor(ui->cbRTFPageColor->isChecked());
 
         generator->setSVGSize(ui->leSVGWidth->text().toStdString(), ui->leSVGHeight->text().toStdString());
     }

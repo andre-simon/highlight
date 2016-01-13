@@ -413,6 +413,10 @@ public:
      */
     virtual void setRTFCharStyles ( bool )  {};
 
+    /** set RTF page color flag
+     */
+    virtual void setRTFPageColor ( bool )  {};
+    
     /** set SVG page size
      */
     virtual void setSVGSize ( const string&, const string& )  {};

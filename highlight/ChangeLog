@@ -3,7 +3,7 @@ CHANGELOG Highlight
 
 highlight 3.26
 
-xx-xx.2016
+13.01.2016
 
 -added HL_REJECT state to be used in a OnStateChange function
 -added DecorateLineBegin and DecorateLineEnd hooks
@@ -11,6 +11,8 @@ xx-xx.2016
 -fixed font face in ODT output
 -fixed Operators parameter in frink.lang and oorexx.lang
 -fixed regular expression parsing within strings for JS, Perl and Ruby
+-CLI: added --page-color option to include a page color in RTF output
+-GUI: added in RTF page color option
 
 ---
 highlight 3.25
