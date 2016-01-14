@@ -1,4 +1,4 @@
-Description="Marks the lines defined as plug-in parameter in HTML output (BETA status)."
+Description="Marks the lines defined as comma separated list in the plug-in parameter (BETA status)."
 
 function syntaxUpdate(desc)
   
@@ -36,7 +36,7 @@ function syntaxUpdate(desc)
     end
     currentLineNumber = lineNumber
     if (linesToMark[currentLineNumber]) then
-      return '<span class="hl mark"'..string.format("%d", lineNumber)..'">'
+      return '<span class="hl mark">'
     end
   end
 

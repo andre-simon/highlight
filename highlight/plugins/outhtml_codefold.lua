@@ -16,16 +16,16 @@ function syntaxUpdate(desc)
     return
   end
   
-  if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
-    pID=0      -- just a sequential counter to generate HTML IDs
-    pCount=0   -- paranthesis counter to keep track of opening and closing pairs
-    openPID={} -- save opening IDs as they are needed again for the close tag IDs
-    currentLineNumber=0 -- remember the current line number
-    
+  if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
+    return
+  end
+   
     HeaderInjection=[=[
   <script type="text/javascript">
+  /* <![CDATA[ */
   var beginOfBlock = [];
   var endOfBlock = {};
+  var foldedLines = {};
 
   function make_handler (elem) {
     return function (event) {
@@ -42,14 +42,21 @@ function syntaxUpdate(desc)
   }
   function hlToggleFold(sender){ 
     elem =    document.getElementById(sender.id);
+	var num = parseInt(sender.id.substr(4));
     var isFolding = elem.className.indexOf ('unfold')>0;
+	foldedLines[num] = isFolding ;
     elem.className = "hl fld hl arrow_" + (isFolding ? "fold":"unfold");
-    for (var i=parseInt(sender.id.substr(4))+1; i<=endOfBlock[sender.id.substr(4)]-1; i++){
-      elem =    document.getElementById('line'+i);
-      elem.style.display = (isFolding || elem.style.display=='block') ? 'none' : 'block';   
-      if (isFolding && elem.className.indexOf ('_fold') > 0){
-        elem.className = "hl fld hl arrow_unfold";
-      }
+	for (var i=num+1; i<=endOfBlock[num]-1; i++){
+      if (!foldedLines[i]) foldedLines[i] = 0 ;
+	  foldedLines[i] = foldedLines[i] + (isFolding ? 1:-1);
+	  elem = document.getElementById('line'+i);	  
+	  if (    (isFolding || elem.style.display=='block')
+	       || (!isFolding && foldedLines[i]>=1 && elem.className.indexOf ('_fold') < 0) 
+	       || (!isFolding && foldedLines[i]>=2 && elem.className.indexOf ('_fold') > 0)) {
+	    elem.style.display = 'none';
+	  } else {
+	    elem.style.display = 'block';
+	  }
       if (elem.nextSibling 
         && elem.nextSibling.nodeType==3 
         && !elem.nextSibling.data.match(/\S/) ) {
@@ -58,12 +65,14 @@ function syntaxUpdate(desc)
         }
       }
     }
+   /* ]]> */
   </script>
 ]=]
 
-FooterInjection=[[
-  
+  FooterInjection=[=[
+
   <script type="text/javascript">
+  /* <![CDATA[ */
     beginOfBlock.forEach(function (item) {
       hlAddBtn(item);
     });
@@ -74,9 +83,9 @@ FooterInjection=[[
         pre.style.setProperty('min-height', pre.clientHeight+'px');   
       }
     }
+	/* ]]> */
   </script>  
-  ]]
-    end
+  ]=]
  
   function getOpenParen(token)
      pID=pID+1
@@ -111,8 +120,16 @@ FooterInjection=[[
     if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
       return
     end
+	
+	--TODO we need an initialization hook:
+	if lineNumber==1 then
+		pID=0      -- just a sequential counter to generate HTML IDs
+		pCount=0   -- paranthesis counter to keep track of opening and closing pairs
+		openPID={} -- save opening IDs as they are needed again for the close tag IDs
+		currentLineNumber=0 -- remember the current line number
+	end 	
     currentLineNumber = string.format("%d", lineNumber)
-    return '<span id="line'..currentLineNumber..'" class="hl fld">' 
+	return '<span id="line'..currentLineNumber..'" class="hl fld">' 
   end
 
   function DecorateLineEnd()

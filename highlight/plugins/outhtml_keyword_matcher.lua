@@ -17,8 +17,9 @@ function syntaxUpdate(desc)
     kwID = { }
     kwIDCnt=0
   
-    HeaderInjection=[[
+    HeaderInjection=[=[
 <script type="text/javascript">
+/* <![CDATA[ */
 function showSameKW(sender){
   var myRegexp = /(kw_\d+)/;
   var kwID = myRegexp.exec(sender.id)[1]; 
@@ -29,8 +30,9 @@ function showSameKW(sender){
      }
   }
 }
+/* ]]> */
 </script>
-]]
+]=]
     end
   
    --may be triggered twice per keyword  

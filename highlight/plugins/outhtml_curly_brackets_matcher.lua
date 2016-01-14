@@ -14,8 +14,9 @@ function syntaxUpdate(desc)
     pCount=0    -- paranthesis counter to keep track of opening and closing pairs
     openPID={} -- save opening IDs as they are needed again for the close tag IDs
   
-    HeaderInjection=[[
+    HeaderInjection=[=[
 <script type="text/javascript">
+  /* <![CDATA[ */
   function showMB(sender){
     sender.style.background= (sender.style.background=='') ?  'yellow' : '';
     var otherParenID = (sender.id[0]=='c') ? 'o' : 'c';
@@ -23,8 +24,9 @@ function syntaxUpdate(desc)
     other=document.getElementById(otherParenID);
     other.style.background= (other.style.background=='') ? 'yellow': '';
   }
+  /* ]]> */
 </script>
-]]
+]=]
     end
   
   function getTag(token, id, kind)

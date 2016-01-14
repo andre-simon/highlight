@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.25 ------------------------ December 2015 ---
+---  HIGHLIGHT MANUAL - Version 3.26 ------------------------- January 2016 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -240,6 +240,7 @@ LaTeX output options:
 
 RTF output options:
 
+     --page-color               include page color attribute
  -x, --page-size=<ps>           set page size 
                                   <ps> = [a3, a4, a5, b4, b5, b6, letter]
      --char-styles              include character stylesheets
@@ -584,30 +585,7 @@ HL_IDENTIFIER_END
 HL_UNKNOWN
 
 
-Hook functions:
-
-OnStateChange(oldState, newState, token, kwGroupID)
-
-  Hook Event: Highlighting parser state change
-  Parameters: oldState:  old state
-              newState:  intended new state
-              token:     the current token which triggered
-                         the new state
-              kwGroupID: if newState is HL_KEYWORD, the parameter
-                         contains the keyword group ID
-  Returns:    Correct state to continue
-
-
-Other functions:
-
-AddKeyword(keyword, kwGroupID)
-
-  Parameters: keyword:   string which should be added to a keyword list
-              kwGroupID: keyword group ID of the keyword
-  Returns:    true if successfull
-
-Keywords added with AddKeyword will remain active for all files of the same
-syntax if highlight is run in batch mode.
+Hook functions: see README_PLUGINS.
 
 Example:
 --------
