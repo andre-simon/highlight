@@ -206,7 +206,7 @@ ends both comments and strings.
 3.3 DECORATE FUNCTIONS
 -------------------------------------------------------------------------------
 
-This function Decorate is a hook which is called if a syntax token has been 
+The Decorate function is a hook which is called if a syntax token has been 
 identified. It can be used to alter the token or to add additional text in the
 target output format (e.g. hyperlinks). 
 

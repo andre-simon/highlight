@@ -1538,6 +1538,7 @@ string CodeGenerator::getNewLine()
 }
 
 Diluculum::LuaValueList CodeGenerator::callDecorateLineFct(bool isLineStart){
+       
    Diluculum::LuaValueList params;
    params.push_back(Diluculum::LuaValue(lineNumber));
 
@@ -1550,7 +1551,6 @@ Diluculum::LuaValueList CodeGenerator::callDecorateLineFct(bool isLineStart){
 void CodeGenerator::insertLineNumber ( bool insertNewLine )
 {
     if ( insertNewLine ) {
-
       if (currentSyntax->getDecorateLineEndFct()) {
         Diluculum::LuaValueList res=callDecorateLineFct(false);    
         if (res.size()==1) {

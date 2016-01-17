@@ -17,27 +17,24 @@ function syntaxUpdate(desc)
      if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
         return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'
       elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
-	return '\\href{'..url..'}{'..token..'}'
+        return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
-	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+        return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
       elseif (HL_OUTPUT == HL_FORMAT_ODT) then
-	return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
+        return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
      end
    end
 
   function Decorate(token, state)
-
     if (state ~= HL_STANDARD and state ~= HL_KEYWORD and state ~=HL_PREPROC) then
       return
     end
-
     if string.find(token, "Q%u%l")==1 then
       return getURL(token)
     end
-
   end
+  
 end
-
 
 function themeUpdate(desc)
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
@@ -46,10 +43,6 @@ function themeUpdate(desc)
     Injections[#Injections+1]="\\usepackage[colorlinks=false, pdfborderstyle={/S/U/W 1}]{hyperref}"
   end
 end
-
---The Plugins array assigns code chunks to themes or language definitions.
---The chunks are interpreted after the theme or lang file were parsed,
---so you can refer to elements of these files
 
 Plugins={
 

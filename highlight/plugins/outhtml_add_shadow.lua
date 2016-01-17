@@ -32,11 +32,6 @@ function themeUpdate()
  
 end
 
-
---The Plugins array assigns code chunks to themes or language definitions.
---The chunks are interpreted after the theme or lang file were parsed,
---so you can refer to elements of these files
-
 Plugins={
 
   { Type="theme", Chunk=themeUpdate }

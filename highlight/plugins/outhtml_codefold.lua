@@ -2,6 +2,16 @@
 Description="Adds code folding for C style languages to HTML output (BETA)."
 
 function syntaxUpdate(desc)
+    
+  function init()
+    pID=0      -- just a sequential counter to generate HTML IDs
+    pCount=0   -- paranthesis counter to keep track of opening and closing pairs
+    openPID={} -- save opening IDs as they are needed again for the close tag IDs
+    currentLineNumber=0 -- remember the current line number
+    notEmbedded=false   -- disable plugin for nested code snippets (like JS in HTML)
+  end
+    
+  init()  
   
   function Set (list)
     local set = {}
@@ -42,21 +52,21 @@ function syntaxUpdate(desc)
   }
   function hlToggleFold(sender){ 
     elem =    document.getElementById(sender.id);
-	var num = parseInt(sender.id.substr(4));
+    var num = parseInt(sender.id.substr(4));
     var isFolding = elem.className.indexOf ('unfold')>0;
-	foldedLines[num] = isFolding ;
+    foldedLines[num] = isFolding ;
     elem.className = "hl fld hl arrow_" + (isFolding ? "fold":"unfold");
-	for (var i=num+1; i<=endOfBlock[num]-1; i++){
+    for (var i=num+1; i<=endOfBlock[num]-1; i++){
       if (!foldedLines[i]) foldedLines[i] = 0 ;
-	  foldedLines[i] = foldedLines[i] + (isFolding ? 1:-1);
-	  elem = document.getElementById('line'+i);	  
-	  if (    (isFolding || elem.style.display=='block')
-	       || (!isFolding && foldedLines[i]>=1 && elem.className.indexOf ('_fold') < 0) 
-	       || (!isFolding && foldedLines[i]>=2 && elem.className.indexOf ('_fold') > 0)) {
-	    elem.style.display = 'none';
-	  } else {
-	    elem.style.display = 'block';
-	  }
+      foldedLines[i] = foldedLines[i] + (isFolding ? 1:-1);
+      elem = document.getElementById('line'+i);	  
+      if (    (isFolding || elem.style.display=='block')
+           || (!isFolding && foldedLines[i]>=1 && elem.className.indexOf ('_fold') < 0) 
+           || (!isFolding && foldedLines[i]>=2 && elem.className.indexOf ('_fold') > 0)) {
+          elem.style.display = 'none';
+      } else {
+          elem.style.display = 'block';
+      }
       if (elem.nextSibling 
         && elem.nextSibling.nodeType==3 
         && !elem.nextSibling.data.match(/\S/) ) {
@@ -102,7 +112,7 @@ function syntaxUpdate(desc)
    
   function Decorate(token, state)
 
-    if (state ~= HL_OPERATOR or HL_OUTPUT ~= HL_FORMAT_HTML) then
+    if (state ~= HL_OPERATOR or HL_OUTPUT ~= HL_FORMAT_HTML or notEmbedded==false) then
       return
     end
 
@@ -120,20 +130,25 @@ function syntaxUpdate(desc)
     if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
       return
     end
-	
-	--TODO we need an initialization hook:
-	if lineNumber==1 then
-		pID=0      -- just a sequential counter to generate HTML IDs
-		pCount=0   -- paranthesis counter to keep track of opening and closing pairs
-		openPID={} -- save opening IDs as they are needed again for the close tag IDs
-		currentLineNumber=0 -- remember the current line number
-	end 	
+    
+    --TODO we need an initialization hook:
+    if lineNumber==1 then
+        init()
+        notEmbedded=true
+    end 
+    -- the line number does not increase for wrapped lines (--wrap, --wrap-simple)
+    if (tonumber(currentLineNumber)==lineNumber or notEmbedded==false) then
+      return
+    end
     currentLineNumber = string.format("%d", lineNumber)
-	return '<span id="line'..currentLineNumber..'" class="hl fld">' 
+    return '<span id="line'..currentLineNumber..'" class="hl fld">' 
   end
 
-  function DecorateLineEnd()
+  function DecorateLineEnd(lineNumber)
     if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
+      return
+    end
+    if (tonumber(currentLineNumber)==lineNumber or notEmbedded==false) then
       return
     end
     return '</span>'
@@ -146,7 +161,7 @@ function themeUpdate(desc)
     Injections[#Injections+1]=
   [[
     
-.hl.fld { padding-left:2em; }
+.hl.fld { padding-left: 2em; }
 .hl.arrow_fold:before {
   content: '+';
   color: ]]..Default.Colour..[[; 
