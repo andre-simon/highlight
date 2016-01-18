@@ -1,5 +1,5 @@
 
-Description="Adds code folding for C style languages to HTML output (BETA)."
+Description="Adds code folding for C style languages to HTML output (not compatible with inline CSS or ordered list output)."
 
 function syntaxUpdate(desc)
     
@@ -43,7 +43,11 @@ function syntaxUpdate(desc)
     };
   }
   function hlAddEOB(openId, eob)  {
-    endOfBlock[beginOfBlock[openId -1]] = eob;
+    if (eob==beginOfBlock[openId -1]){
+      delete beginOfBlock[openId -1];
+    } else {
+      endOfBlock[beginOfBlock[openId -1]] = eob;
+    }
   }
   function hlAddBtn(openId)  {
     elem = document.getElementById('line' + openId);    
@@ -79,6 +83,7 @@ function syntaxUpdate(desc)
   </script>
 ]=]
 
+  -- assign some CSS via JS to keep output sane for browsers with JS disabled
   FooterInjection=[=[
 
   <script type="text/javascript">
@@ -93,7 +98,11 @@ function syntaxUpdate(desc)
         pre.style.setProperty('min-height', pre.clientHeight+'px');   
       }
     }
-	/* ]]> */
+    hlElements=document.getElementsByClassName('hl fld');
+    for (var i=0; i<hlElements.length; i++){
+      hlElements[i].style.setProperty('padding-left', '1.5em');   
+    }
+    /* ]]> */
   </script>  
   ]=]
  
@@ -158,10 +167,7 @@ end
 
 function themeUpdate(desc)
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
-    Injections[#Injections+1]=
-  [[
-    
-.hl.fld { padding-left: 2em; }
+    Injections[#Injections+1]=[[
 .hl.arrow_fold:before {
   content: '+';
   color: ]]..Default.Colour..[[; 

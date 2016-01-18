@@ -104,8 +104,9 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_PLUGIN         "plug-in"
 #define OPT_ABS_CFG_PATH   "config-file"
 #define OPT_PLUGIN_READFILE  "plug-in-read"
-#define OPT_PLUGIN_PARAMETER  "plug-in-param"
-#define OPT_NO_NUMBER_WL   "wrap-no-numbers"
+#define OPT_PLUGIN_PARAMETER "plug-in-param"
+#define OPT_NO_NUMBER_WL    "wrap-no-numbers"
+#define OPT_KEEP_INJECTIONS "keep-injections"
 
 // Improve CLI option compatibility with GNU source-highlight
 #define OPT_COMPAT_DOC       "doc"
@@ -240,6 +241,9 @@ public:
 
     /** \return True if line numbers are filled with leading zeroes */
     bool fillLineNrZeroes() const;
+    
+    /** \return True if plug-in injections are outputted despite of --fragment */
+    bool keepInjections() const;
 
     /** \return programming syntax */
     const string &getSyntax() const ;
@@ -423,6 +427,7 @@ private:
     bool opt_delim_CR;
     bool opt_print_style;
     bool opt_no_trailing_nl;
+    bool opt_keep_injections;
 
     string anchorPrefix;
     string helpLang, encodingName;

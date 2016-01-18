@@ -119,6 +119,7 @@ CodeGenerator::CodeGenerator ( highlight::OutputType type )
      maskWs ( false ),
      excludeWs ( false ),
      fragmentOutput ( false ),
+     keepInjections( false ),
      showLineNumbers ( false ),
      lineNumberFillZeroes ( false ),
      printNewLines(true),
@@ -242,7 +243,15 @@ bool CodeGenerator::getFragmentCode()
 {
     return fragmentOutput;
 }
+void CodeGenerator::setKeepInjections ( bool flag )
+{
+  keepInjections=flag;
+}
 
+bool CodeGenerator::getKeepInjections()
+{
+  return keepInjections;
+}
 void CodeGenerator::setValidateInput ( bool flag )
 {
     validateInput=flag;
@@ -264,14 +273,14 @@ bool CodeGenerator::getNumberWrappedLines()
     return numberWrappedLines;
 }
 
-void CodeGenerator::setBaseFont ( const string& s )
+void CodeGenerator::setBaseFont ( const string& fontName )
 {
-    baseFont = s;
+    baseFont = fontName;
 }
 
-void CodeGenerator::setBaseFontSize ( const string& s )
+void CodeGenerator::setBaseFontSize ( const string& fontSize)
 {
-    baseFontSize = s ;
+    baseFontSize = fontSize;
 }
 
 void CodeGenerator::setStartingNestedLang(const string &langName)
@@ -754,6 +763,22 @@ bool CodeGenerator::validateInputStream()
            || magic_table[magic_index] == magic_utf8;
 }
 
+void CodeGenerator::printHeader(){
+  if ( ! fragmentOutput ) 
+    *out << getHeader();
+  
+  if ( !fragmentOutput || keepInjections) 
+    *out << currentSyntax->getHeaderInjection();
+}
+
+void CodeGenerator::printFooter(){
+  if ( !fragmentOutput || keepInjections) 
+    *out << currentSyntax->getFooterInjection();
+  
+  if ( ! fragmentOutput )
+    *out << getFooter();
+}
+
 ParseError CodeGenerator::generateFile ( const string &inFileName,
         const string &outFileName )
 {
@@ -787,17 +812,9 @@ ParseError CodeGenerator::generateFile ( const string &inFileName,
         if ( formatter != NULL ) {
             formatter->init ( new astyle::ASStreamIterator ( in ) );
         }
-        if ( ! fragmentOutput ) {
-            *out << getHeader();
-            *out << currentSyntax->getHeaderInjection();
-        }
-
+        printHeader();
         printBody();
-
-        if ( ! fragmentOutput ) {
-            *out << currentSyntax->getFooterInjection();
-            *out << getFooter();
-        }
+        printFooter();
     }
 
     if ( !outFileName.empty() ) {
@@ -830,17 +847,9 @@ string CodeGenerator::generateString ( const string &input )
     if ( formatter != NULL ) {
         formatter->init ( new astyle::ASStreamIterator ( in ) );
     }
-    if ( ! fragmentOutput ) {
-        *out << getHeader();
-        *out << currentSyntax->getHeaderInjection();
-    }
-
+    printHeader();
     printBody();
-
-    if ( ! fragmentOutput ) {
-        *out << currentSyntax->getFooterInjection();
-        *out << getFooter();
-    }
+    printFooter();
 
     string result = static_cast<ostringstream*> ( out )->str();
 
@@ -876,18 +885,10 @@ string CodeGenerator::generateStringFromFile ( const string &inFileName )
     if ( formatter != NULL ) {
         formatter->init ( new astyle::ASStreamIterator ( in ) );
     }
-    if ( ! fragmentOutput ) {
-        *out << getHeader();
-        *out << currentSyntax->getHeaderInjection();
-    }
-
+    printHeader();
     printBody();
-
-    if ( ! fragmentOutput ) {
-        *out << currentSyntax->getFooterInjection();
-        *out << getFooter();
-    }
-
+    printFooter();
+    
     string result = static_cast<ostringstream*> ( out )->str();
 
     delete out;

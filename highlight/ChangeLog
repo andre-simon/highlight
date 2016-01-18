@@ -1,5 +1,14 @@
 CHANGELOG Highlight
 
+highlight 3.27
+
+18.01.2016
+
+-improved outhtml_codefold.lua to ignore brackets on the same line
+-CLI: added --keep-injections option to force plugin injections output with -f
+-GUI: added keep injections checkbox
+
+---
 highlight 3.26
 
 13.01.2016
@@ -11,7 +20,7 @@ highlight 3.26
 -fixed Operators parameter in frink.lang and oorexx.lang
 -fixed regular expression parsing within strings for JS, Perl and Ruby
 -CLI: added --page-color option to include a page color in RTF output
--GUI: added RTF page color option
+-GUI: added RTF page color checkbox
 
 ---
 highlight 3.25

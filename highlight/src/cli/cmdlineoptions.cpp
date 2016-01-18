@@ -77,6 +77,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
     opt_delim_CR (false),
     opt_print_style(false),
     opt_no_trailing_nl(false),
+    opt_keep_injections(false),
     anchorPrefix ( "l" ),
     helpLang ( "en" ),
     encodingName ( "ISO-8859-1" )
@@ -93,7 +94,8 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         S_OPT_COMPAT_SRCLANG, S_OPT_COMPAT_LINENUM, S_OPT_COMPAT_LINEREF,
         S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
         S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH,
-        S_OPT_PLUGIN_READFILE, S_OPT_PLUGIN_PARAMETER, S_LIST_SCRIPTS
+        S_OPT_PLUGIN_READFILE, S_OPT_PLUGIN_PARAMETER, S_LIST_SCRIPTS,
+        S_OPT_KEEP_INJECTIONS
     };
 
     const Arg_parser::Option options[] = {
@@ -166,6 +168,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         { S_OPT_EOL_DELIM_CR,   OPT_EOL_DELIM_CR,   Arg_parser::no },
         { S_OPT_PRINT_STYLE,    OPT_PRINT_STYLE, Arg_parser::no },
         { S_OPT_NO_TRAILING_NL, OPT_NO_TRAILING_NL, Arg_parser::no },
+        { S_OPT_KEEP_INJECTIONS, OPT_KEEP_INJECTIONS, Arg_parser::no },
         { S_OPT_PLUGIN, OPT_PLUGIN, Arg_parser::yes },
         { S_OPT_PLUGIN_READFILE, OPT_PLUGIN_READFILE, Arg_parser::yes },
         { S_OPT_PLUGIN_PARAMETER, OPT_PLUGIN_PARAMETER, Arg_parser::yes },
@@ -426,6 +429,9 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
             break;
         case S_OPT_NO_TRAILING_NL:
             opt_no_trailing_nl = true;
+            break;
+        case S_OPT_KEEP_INJECTIONS:
+            opt_keep_injections = true;
             break;
         case S_OPT_ABS_CFG_PATH:
             if (arg.find(".lang")!=string::npos) {
@@ -748,6 +754,10 @@ bool CmdLineOptions::includePageColor() const
 bool CmdLineOptions::disableTrailingNL() const
 {
     return opt_no_trailing_nl;
+}
+bool CmdLineOptions::keepInjections() const
+{
+  return opt_keep_injections;
 }
 const string& CmdLineOptions::getDocumentTitle() const
 {

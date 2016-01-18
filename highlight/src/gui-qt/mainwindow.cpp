@@ -252,6 +252,8 @@ void MainWindow::writeSettings()
                       ui->cbEncoding->isChecked());
     settings.setValue(ui->cbFragment->property(name).toString(),
                       ui->cbFragment->isChecked());
+    settings.setValue(ui->cbKeepInjections->property(name).toString(),
+                      ui->cbKeepInjections->isChecked());
     settings.setValue(ui->cbHTMLAnchors->property(name).toString(),
                       ui->cbHTMLAnchors->isChecked());
 
@@ -390,6 +392,7 @@ void MainWindow::readSettings()
     ui->cbAdvWrapping->setChecked(settings.value(ui->cbAdvWrapping->property(name).toString()).toBool());
     ui->cbEncoding->setChecked(settings.value(ui->cbEncoding->property(name).toString()).toBool());
     ui->cbFragment->setChecked(settings.value(ui->cbFragment->property(name).toString()).toBool());
+    ui->cbKeepInjections->setChecked(settings.value(ui->cbKeepInjections->property(name).toString()).toBool());
     ui->cbHTMLAnchors->setChecked(settings.value(ui->cbHTMLAnchors->property(name).toString()).toBool());
     ui->cbHTMLEmbedStyle->setChecked(settings.value(ui->cbHTMLEmbedStyle->property(name).toString()).toBool());
     ui->cbHTMLEnclosePreTags->setChecked(settings.value(ui->cbHTMLEnclosePreTags->property(name).toString()).toBool());
@@ -636,6 +639,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
             generator->setIncludeStyle(embedStyle->isChecked());
 
         generator->setFragmentCode(ui->cbFragment->isChecked());
+        generator->setKeepInjections(ui->cbKeepInjections->isChecked());
 
         generator->setHTMLAttachAnchors(ui->cbHTMLAnchors->isChecked());
         generator->setHTMLOrderedList(ui->cbIncLineNo->isChecked() && ui->cbHTMLOrderedList->isChecked());
@@ -1017,6 +1021,7 @@ void MainWindow::plausibility()
     ui->sbLineNoStart->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbHTMLIndex->setEnabled(!ui->cbWrite2Src->isChecked());
     ui->cbHTMLEnclosePreTags->setEnabled(ui->cbFragment->isChecked());
+    ui->cbKeepInjections->setEnabled(ui->cbFragment->isChecked());
     ui->cbHTMLAnchors->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbHTMLFileNameAnchor->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbHTMLOrderedList->setEnabled(ui->cbIncLineNo->isChecked());

@@ -155,7 +155,7 @@ Revise su instalación.</translation>
         <translation type="obsolete">无法读取 &quot;%1&quot; 的Tag信息</translation>
     </message>
     <message>
-        <location line="+547"/>
+        <location line="+551"/>
         <location line="+31"/>
         <source>Output error</source>
         <translation type="unfinished">输出错误</translation>
@@ -220,7 +220,7 @@ Lua Syntax error: %2</source>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+106"/>
+        <location line="+107"/>
         <location line="+22"/>
         <source>clipboard data</source>
         <translation type="unfinished">剪贴板数据</translation>
@@ -342,7 +342,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     <message>
         <location line="+3"/>
         <location line="+260"/>
-        <location line="+493"/>
+        <location line="+503"/>
         <location line="+237"/>
         <location line="+96"/>
         <location line="+246"/>
@@ -350,7 +350,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation>...</translation>
     </message>
     <message>
-        <location line="-1323"/>
+        <location line="-1333"/>
         <source>Save output in the input file directories.</source>
         <translation>将输出保存在输入路径中.</translation>
     </message>
@@ -453,6 +453,16 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <location line="+3"/>
         <source>Omit header and footer</source>
         <translation>去掉文档的头部和尾部声明</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Output any plug-in text injections even if document header and footer is omitted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Keep Plug-In injections</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -781,12 +791,12 @@ See ctags.sf.net for details.</source>
         <translation>编码设置：</translation>
     </message>
     <message>
-        <location line="-547"/>
+        <location line="-557"/>
         <source>Output destination:</source>
         <translation>输出路径：</translation>
     </message>
     <message>
-        <location line="+746"/>
+        <location line="+756"/>
         <location line="+223"/>
         <location line="+96"/>
         <location line="+246"/>
@@ -805,7 +815,7 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">读取ctags文件：</translation>
     </message>
     <message>
-        <location line="-1571"/>
+        <location line="-1581"/>
         <source>Highlight</source>
         <translation>Highlight</translation>
     </message>
@@ -904,7 +914,7 @@ See ctags.sf.net for details.</source>
         <translation>BBCode</translation>
     </message>
     <message>
-        <location line="+282"/>
+        <location line="+292"/>
         <source>Stylesheets</source>
         <translation>样式表</translation>
     </message>
@@ -1204,7 +1214,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>停靠浮动面板(&amp;D)</translation>
     </message>
     <message>
-        <location line="-1985"/>
+        <location line="-1995"/>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
@@ -1270,7 +1280,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location line="+1319"/>
+        <location line="+1329"/>
         <source>Set page color attribute to background color</source>
         <translation type="unfinished"></translation>
     </message>

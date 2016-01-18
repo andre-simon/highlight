@@ -591,7 +591,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -778,6 +778,16 @@
            </property>
            <property name="text">
             <string>Omit header and footer</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbKeepInjections">
+           <property name="toolTip">
+            <string>Output any plug-in text injections even if document header and footer is omitted.</string>
+           </property>
+           <property name="text">
+            <string>Keep Plug-In injections</string>
            </property>
           </widget>
          </item>

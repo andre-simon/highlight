@@ -945,6 +945,14 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
         <source>Set page color</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Output any plug-in text injections even if document header and footer is omitted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep Plug-In injections</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ShowTextFile</name>

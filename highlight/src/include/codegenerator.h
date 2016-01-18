@@ -24,7 +24,6 @@ You should have received a copy of the GNU General Public License
 along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef CODEPARSER_H
 #define CODEPARSER_H
 
@@ -261,8 +260,17 @@ public:
     /** \return input validation flag */
     bool getValidateInput();
 
-    /** if true, wrapped lines receive unique line numbers.
-     *  else, wrapped lines don't have line numbers at all. */
+    /** set keep injections flag
+     * \param  flag true if plug-in injections should be outputted if header 
+     * and footer are omitted (fragmentCode is true)
+     */
+    void setKeepInjections( bool flag );;
+
+    /** \return keep injection flag */
+    bool getKeepInjections();
+
+    /** \param  flag true if wrapped lines receive unique line numbers.
+     *  otherwise wrapped lines don't have line numbers at all. */
     void setNumberWrappedLines ( bool flag );
 
     /** return number wrapped lines flag */
@@ -272,17 +280,17 @@ public:
     const string& getStyleName();
 
     /** use this font as base font
-    \param s the font name, e.g. "Courier New"
+      * \param fontName the font name, e.g. "Courier New"
      */
-    void setBaseFont ( const string& s );
+    void setBaseFont ( const string& fontName);
 
     /** \return base font */
     const string getBaseFont() const ;
 
     /** use this size as base font size
-    \param s the font size, e.g. "12"
+      * \param fontSize the font size, e.g. "12"
      */
-    void setBaseFontSize ( const string& s );
+    void setBaseFontSize ( const string& fontSize );
 
     /** \return base font size*/
     const string getBaseFontSize();
@@ -503,6 +511,9 @@ protected:
     /** Test if header and footer should be omitted */
     bool fragmentOutput;
 
+    /** Test if plugin injections should be printed if fragmentOutput is true */
+    bool keepInjections;
+    
     /** Test if line numbers should be printed */
     bool showLineNumbers;
 
@@ -600,39 +611,34 @@ private:
     /** Insert line number at the beginning of current output line */
     virtual void insertLineNumber ( bool insertNewLine=true );
 
-    /** Prints document footer
+    /** returns output specific document footer
         @return footer */
     virtual string getFooter() = 0;
 
+    /** returns output specific document header
+      * @return header */             
+    virtual string getHeader() = 0;
+    
+    /** Prints document header*/
+    void printHeader();
+    
     /** Prints document body*/
     virtual void printBody() = 0;
 
-    /** Prints document header
-        @return header
-    */
-    virtual string getHeader() = 0;
+    /** Prints document footer*/
+    void printFooter();
 
-    /** initialize tags in specific format according to colouring information provided in DucumentStyle */
+    /** initialize tags in specific format according to colouring information 
+     *  provided in DucumentStyle */
     virtual void initOutputTags() = 0;
 
-    /** 	\param keyword group id
+    /** \param keyword group id
     	\return  open tag  */
     virtual string getKeywordOpenTag ( unsigned int ) = 0;
 
-    /** 	\param keyword group id
+    /** \param keyword group id
     	\return  close tag  */
     virtual string getKeywordCloseTag ( unsigned int ) = 0;
-
-    /** return open tag to include ctags meta information
-       \param info tag information of current token
-       \return opening tag
-     */
-    //virtual string getMetaInfoOpenTag ( const TagInfo& info ) {return "";}
-
-    /** return close tag of meta information
-       \return closing tag
-     */
-    //virtual string getMetaInfoCloseTag() {return "";}
 
     /** open a new tag, set current state to s*/
     void openTag ( State s );
@@ -688,9 +694,6 @@ private:
     /** Flag if wrapped lines should receive unique line numbers as well */
     bool numberWrappedLines;
 
-    /** Flag to test if ctags information is available */
-    //bool tagsEnabled;
-
     /** Flag to test if trailing newline should be printed */
     bool noTrailingNewLine;
 
@@ -731,7 +734,7 @@ private:
     bool processNumberState() ;               ///< process numbers
     bool processMultiLineCommentState();      ///< process multi line comments
     bool processSingleLineCommentState();     ///< process single line comments
-    bool processStringState ( State oldState );  ///< process strings
+    bool processStringState ( State oldState ); ///< process strings
     bool processEscapeCharState();            ///< process escape characters
     bool processInterpolationState();         ///< process string interpolation sequences
     bool processDirectiveState();             ///< process directives
@@ -745,7 +748,7 @@ private:
        \param flushWhiteSpace set true if white space should be flushed
        \param tcase keyword case
     */
-    void printMaskedToken ( /*bool addMetaInfo = false,*/ bool flushWhiteSpace = true,
+    void printMaskedToken ( bool flushWhiteSpace = true,
             StringTools::KeywordCase tcase = StringTools::CASE_UNCHANGED );
 
     /** association of matched regexes and the corresponding keyword class ids*/

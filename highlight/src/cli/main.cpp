@@ -2,7 +2,7 @@
                           main.cpp  -  description
                              -------------------
     begin                : Die Apr 23 22:16:35 CEST 2002
-    copyright            : (C) 2002-2015 by Andre Simon
+    copyright            : (C) 2002-2016 by Andre Simon
     email                : andre.simon1@gmx.de
 
    Highlight is a universal source code to HTML converter. Syntax highlighting
@@ -434,6 +434,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->setPrintLineNumbers ( options.printLineNumbers(), options.getNumberStart() );
     generator->setPrintZeroes ( options.fillLineNrZeroes() );
     generator->setFragmentCode ( options.fragmentOutput() );
+    generator->setKeepInjections ( options.keepInjections());
     generator->setPreformatting ( options.getWrappingStyle(),
                                   ( generator->getPrintLineNumbers() ) ?
                                   options.getLineLength() - options.getNumberWidth() : options.getLineLength(),
