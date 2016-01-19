@@ -15,9 +15,7 @@ function syntaxUpdate(desc)
   end
  
   --see comment in themeUpdate
-  table.insert( Keywords,
-               { Id=6, Regex=[[\w+\.h[px]*]]
-               } )
+  table.insert( Keywords, { Id=#Keywords+1, Regex=[[\w+\.h[px]*]] } )
 
   function getURL(token)
      url=base_url..string.lower(token).. '.html'
@@ -25,11 +23,11 @@ function syntaxUpdate(desc)
      if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
         return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'
      elseif (HL_OUTPUT == HL_FORMAT_LATEX) then
-	return '\\href{'..url..'}{'..token..'}'
+        return '\\href{'..url..'}{'..token..'}'
       elseif (HL_OUTPUT == HL_FORMAT_RTF) then
-	return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
+        return '{{\\field{\\*\\fldinst HYPERLINK "'..url..'" }{\\fldrslt\\ul\\ulc0 '..token..'}}}'
       elseif (HL_OUTPUT == HL_FORMAT_ODT) then
-	return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
+        return '<text:a xlink:type="simple" xlink:href="'..url..'">'..token..'</text:a>'
      end
    end
    

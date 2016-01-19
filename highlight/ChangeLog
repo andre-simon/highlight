@@ -2,10 +2,13 @@ CHANGELOG Highlight
 
 highlight 3.27
 
-18.01.2016
+19.01.2016
 
 -improved outhtml_codefold.lua to ignore brackets on the same line
--CLI: added --keep-injections option to force plugin injections output with -f
+-added RTF output to mark_lines.lua 
+-fixed Powershell and NSIS definitions
+-added JSON and Github Markdown definitions
+-CLI: added --keep-injections option to force plugin injection output with -f
 -GUI: added keep injections checkbox
 
 ---

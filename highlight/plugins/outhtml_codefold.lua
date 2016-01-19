@@ -121,7 +121,7 @@ function syntaxUpdate(desc)
    
   function Decorate(token, state)
 
-    if (state ~= HL_OPERATOR or HL_OUTPUT ~= HL_FORMAT_HTML or notEmbedded==false) then
+    if (state ~= HL_OPERATOR or notEmbedded==false) then
       return
     end
 
@@ -136,9 +136,6 @@ function syntaxUpdate(desc)
   end
   
   function DecorateLineBegin(lineNumber)
-    if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
-      return
-    end
     
     --TODO we need an initialization hook:
     if lineNumber==1 then
@@ -154,9 +151,7 @@ function syntaxUpdate(desc)
   end
 
   function DecorateLineEnd(lineNumber)
-    if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
-      return
-    end
+    
     if (tonumber(currentLineNumber)==lineNumber or notEmbedded==false) then
       return
     end

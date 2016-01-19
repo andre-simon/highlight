@@ -1,5 +1,7 @@
 Description="Microsoft PowerShell"
 
+Identifiers=[[ [a-zA-Z_][\w\-]* ]]
+
 Keywords={
   { Id=1,
     List={"Add-Content", "Add-History", "Add-Member", "Add-PSSnapin", 
@@ -65,7 +67,7 @@ Strings={
     Interpolation=[[ \$\w+|\$\(.+?\) ]],
 }
 
-IgnoreCase=true
+IgnoreCase=false
 
 Comments={
   { Block=false,
