@@ -2,6 +2,8 @@
 Description="Adds code folding for C style languages to HTML output (not compatible with inline CSS or ordered list output)."
 
 function syntaxUpdate(desc)
+  
+  MIN_FOLD_LINE_NUM=10 -- change to control folding of small blocks  
     
   function init()
     pID=0      -- just a sequential counter to generate HTML IDs
@@ -36,6 +38,7 @@ function syntaxUpdate(desc)
   var beginOfBlock = [];
   var endOfBlock = {};
   var foldedLines = {};
+  var hlFoldElements=document.getElementsByClassName('hl fld');
 
   function make_handler (elem) {
     return function (event) {
@@ -43,7 +46,7 @@ function syntaxUpdate(desc)
     };
   }
   function hlAddEOB(openId, eob)  {
-    if (eob==beginOfBlock[openId -1]){
+    if (eob==beginOfBlock[openId -1] || eob - beginOfBlock[openId -1]< ]=]..MIN_FOLD_LINE_NUM..[=[ ){
       delete beginOfBlock[openId -1];
     } else {
       endOfBlock[beginOfBlock[openId -1]] = eob;
@@ -88,22 +91,21 @@ function syntaxUpdate(desc)
 
   <script type="text/javascript">
   /* <![CDATA[ */
-    beginOfBlock.forEach(function (item) {
-      hlAddBtn(item);
-    });
-    var hlElements=document.getElementsByClassName('hl');
-    if (hlElements.length>1){
-      var pre = hlElements[1];
-      if (pre instanceof HTMLPreElement) {
-        pre.style.setProperty('min-height', pre.clientHeight+'px');   
-      }
+  beginOfBlock.forEach(function (item) {
+    hlAddBtn(item);
+  });
+  var hlElements=document.getElementsByClassName('hl');
+  if (hlElements.length>1){
+    var pre = hlElements[1];
+    if (pre instanceof HTMLPreElement) {
+      pre.style.setProperty('min-height', pre.clientHeight+'px');   
     }
-    hlElements=document.getElementsByClassName('hl fld');
-    for (var i=0; i<hlElements.length; i++){
-      hlElements[i].style.setProperty('padding-left', '1.5em');   
-    }
-    /* ]]> */
-  </script>  
+  }
+  for (var i=0; i<hlFoldElements; i++){
+    hlFoldElements[i].style.setProperty('padding-left', '1.5em');   
+  }
+  /* ]]> */
+</script>  
   ]=]
  
   function getOpenParen(token)
@@ -162,12 +164,21 @@ end
 
 function themeUpdate(desc)
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
+    
+    -- edit to use different folding symbols (i.e. arrows)
+    FOLD_OPEN_SYMBOL='+'   -- possible: + > \\27a4 \\27a7 \\21db \\2261
+    FOLD_CLOSE_SYMBOL='-'  -- possible: - > \\27a4 \\27a7 \\21db \\2212
+    
+    rotation=''
+    if (FOLD_OPEN_SYMBOL==FOLD_CLOSE_SYMBOL) then rotation='transform:rotate(90deg);' end
+    
     Injections[#Injections+1]=[[
 .hl.arrow_fold:before {
-  content: '+';
+  content: ']]..FOLD_OPEN_SYMBOL..[[';
   color: ]]..Default.Colour..[[; 
   position: absolute;     
   left: 1em;   
+  ]]..rotation..[[
 }
 .hl.arrow_fold:after {
   content: '\2026';
@@ -177,7 +188,7 @@ function themeUpdate(desc)
   padding:0px 2px 0px;
 }
 .hl.arrow_unfold:before {
-  content: '-';
+  content: ']]..FOLD_CLOSE_SYMBOL..[[';
   color: ]]..Default.Colour..[[; 
   position: absolute;     
   left: 1em;  
