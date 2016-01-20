@@ -137,12 +137,17 @@ Revise su instalación.</translation>
         <translation type="unfinished">找不到语法定义文件.请检查安装.</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+50"/>
+        <source>Always at your service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <source>Select one or more files to open</source>
         <translation type="unfinished">选择一个或多个文件打开</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+37"/>
         <source>Select destination directory</source>
         <translation type="unfinished">选择目标路径</translation>
     </message>
@@ -220,18 +225,18 @@ Lua Syntax error: %2</source>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+107"/>
+        <location line="+106"/>
         <location line="+22"/>
         <source>clipboard data</source>
         <translation type="unfinished">剪贴板数据</translation>
     </message>
     <message>
-        <location line="-69"/>
+        <location line="-68"/>
         <source>%1 options</source>
         <translation type="unfinished">%1 选项</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+45"/>
         <source>Preview (%1):</source>
         <translation type="unfinished">预览 (%1):</translation>
     </message>
@@ -246,11 +251,16 @@ Lua Syntax error: %2</source>
         <translation type="unfinished">&quot;%1&quot;.的预览不可用.</translation>
     </message>
     <message>
+        <location line="+174"/>
+        <source>Some plug-in effects may not be visible in the preview.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Choose a ctags file</source>
         <translation type="obsolete">选择一个ctags文件</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="-141"/>
         <location line="+4"/>
         <location line="+4"/>
         <location line="+5"/>
@@ -281,7 +291,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="unfinished">选择一个或多个插件</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+46"/>
         <source>Choose a plug-in input file</source>
         <translation type="unfinished">选择插件输入目录</translation>
     </message>

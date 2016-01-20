@@ -141,6 +141,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     readSettings();
     plausibility();
+    statusBar()->showMessage(tr("Always at your service"), 2500);
 }
 
 MainWindow::~MainWindow()
@@ -186,15 +187,6 @@ void MainWindow::addToView(const QStringList& list, QListWidget* listWidget, con
         if (checkable) listItem->setCheckState( Qt::Unchecked);
         listWidget->addItem(listItem );
 
-    }
-}
-
-
-void MainWindow::on_pbClearSelection_clicked()
-{
-    QList<QListWidgetItem *> selectedItems = ui->lvInputFiles->selectedItems();
-    for (int i = 0; i < selectedItems.size(); ++i) {
-        delete selectedItems.at(i);
     }
 }
 
@@ -1050,7 +1042,6 @@ void MainWindow::plausibility()
         break;
     }
     ui->tabWidgetOptions->setTabText(1, tr("%1 options").arg(ui->comboFormat->currentText() ));
-    //ui->tabWidget->setTabText(1, tr("%1 options").arg(ui->comboFormat->currentText() ));
 }
 
 void MainWindow::updatePreview()
@@ -1245,7 +1236,16 @@ void MainWindow::on_pbSelectPlugin_clicked()
 
 void MainWindow::on_pbClearSelPlugin_clicked()
 {
+
     QList<QListWidgetItem *> selectedItems = ui->lvPluginScripts->selectedItems();
+    for (int i = 0; i < selectedItems.size(); ++i) {
+        delete selectedItems.at(i);
+    }
+}
+
+void MainWindow::on_pbClearSelection_clicked()
+{
+    QList<QListWidgetItem *> selectedItems = ui->lvInputFiles->selectedItems();
     for (int i = 0; i < selectedItems.size(); ++i) {
         delete selectedItems.at(i);
     }
@@ -1266,7 +1266,6 @@ void MainWindow::on_actionVisit_website_triggered()
     QDesktopServices::openUrl(QUrl("http://www.andre-simon.de/"));
 }
 
-
 void MainWindow::on_actionDock_floating_panels_toggled(bool arg1)
 {
     ui->dockWidget->setFloating(arg1);
@@ -1279,10 +1278,12 @@ void MainWindow::on_pbPluginReadFilePath_clicked()
 
 void MainWindow::on_lvPluginScripts_currentRowChanged(int currentRow)
 {
+    if ( !ui->lvPluginScripts->item(currentRow)) return; // Removing item?
     try {
         Diluculum::LuaState ls;
         ls.doFile ( ui->lvPluginScripts->item(currentRow)->data(Qt::UserRole).toString().toStdString());
         ui->lblPluginDescription->setText(QString::fromStdString(ls["Description"].value().asString()));
+        statusBar()->showMessage(tr("Some plug-in effects may not be visible in the preview."));
     } catch (Diluculum::LuaError err) {
         QMessageBox::warning(this, "Plug-In error", QString::fromStdString( err.what()));
     }

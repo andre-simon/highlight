@@ -130,6 +130,14 @@ Lua Syntax error: %2</source>
         <source>Processing %1 (%2/%3)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Always at your service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some plug-in effects may not be visible in the preview.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindowClass</name>
