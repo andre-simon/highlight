@@ -10,6 +10,7 @@ highlight 3.27
 -added JSON and Github Markdown definitions
 -CLI: added --keep-injections option to force plugin injection output with -f
 -GUI: added keep injections checkbox
+-GUI: fixed crash after removing selected plugins
 
 ---
 highlight 3.26

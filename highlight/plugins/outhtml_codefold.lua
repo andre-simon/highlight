@@ -3,7 +3,7 @@ Description="Adds code folding for C style languages to HTML output (not compati
 
 function syntaxUpdate(desc)
   
-  MIN_FOLD_LINE_NUM=10 -- change to control folding of small blocks  
+  MIN_FOLD_LINE_NUM=5 -- change to control folding of small blocks  
     
   function init()
     pID=0      -- just a sequential counter to generate HTML IDs
@@ -38,7 +38,6 @@ function syntaxUpdate(desc)
   var beginOfBlock = [];
   var endOfBlock = {};
   var foldedLines = {};
-  var hlFoldElements=document.getElementsByClassName('hl fld');
 
   function make_handler (elem) {
     return function (event) {
@@ -101,7 +100,8 @@ function syntaxUpdate(desc)
       pre.style.setProperty('min-height', pre.clientHeight+'px');   
     }
   }
-  for (var i=0; i<hlFoldElements; i++){
+  var hlFoldElements=document.getElementsByClassName('hl fld');
+  for (var i=0; i<hlFoldElements.length; i++){
     hlFoldElements[i].style.setProperty('padding-left', '1.5em');   
   }
   /* ]]> */
