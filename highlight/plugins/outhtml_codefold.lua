@@ -1,12 +1,18 @@
 
-Description="Adds code folding for C style languages to HTML output (not compatible with inline CSS or ordered list output)."
+Description="Adds code folding for C style languages, Pascal, Lua and Ruby to HTML output (not compatible with inline CSS or ordered list output)."
 
 function syntaxUpdate(desc)
   
-  MIN_FOLD_LINE_NUM=5 -- change to control folding of small blocks  
-    
+  if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
+    return
+  end
+  
+  MIN_FOLD_LINE_NUM=1    -- change to control folding of small blocks  
+  ADD_BLOCK_RESIZE=false -- set to true if pre block should  keep its initial size after folding
+  -- see themeUpdate below for CSS modifications  
+  
   function init()
-    pID=0      -- just a sequential counter to generate HTML IDs
+    pID=0      -- a sequential counter to generate HTML IDs
     pCount=0   -- paranthesis counter to keep track of opening and closing pairs
     openPID={} -- save opening IDs as they are needed again for the close tag IDs
     currentLineNumber=0 -- remember the current line number
@@ -21,15 +27,49 @@ function syntaxUpdate(desc)
     return set
   end
   
-  local bracketLangs = Set { "C and C++", "C#", "Java", "Javascript", "ASCEND", 
-    "Ceylon", "Crack", "Not eXactly C", "Rust","TTCN3", "Yang"}
+  local foldable = Set { "C and C++", "C#", "Java", "Javascript", "ASCEND", 
+    "Ceylon", "Crack", "Not eXactly C", "Rust","TTCN3", "Yang", "(G)AWK", "D", "Dart",
+    "Nemerle", "Perl", "PHP", "Microsoft PowerShell", "Pike", "Scala", "Swift",
+    "Pascal", "Ruby", "Lua"}
   
-  if not bracketLangs[desc] then
+  if not foldable[desc] then
     return
   end
   
-  if (HL_OUTPUT ~= HL_FORMAT_HTML and HL_OUTPUT ~= HL_FORMAT_XHTML) then
-    return
+  --default for curly braces
+  blockBegin = Set { "{" }
+  blockEnd = Set { "}" }
+  blockStates = Set{ HL_OPERATOR }
+  
+  --delimiters for other languages
+  if desc=="Pascal" then   
+    blockBegin["begin"] = true
+    blockBegin["repeat"] = true
+    blockBegin["case"] =  true
+    blockEnd["end"] = true
+    blockEnd["until"] = true   
+    blockStates[HL_KEYWORD] = true
+    blockStates[HL_BLOCK_COMMENT] = true
+    blockStates[HL_OPERATOR] = false
+  elseif desc=="C#" then   
+    blockBegin["region"] = true
+    blockEnd["endregion"] = true
+    blockStates[HL_PREPROC] = true
+  elseif desc=="Lua" then   
+    blockBegin["then"] = true
+    blockBegin["do"] = true
+    blockBegin["function"] = true
+    blockEnd["end"] = true
+    blockStates[HL_KEYWORD] = true
+  elseif desc=="Ruby" then
+    blockBegin["do"] = true
+    blockBegin["def"] = true
+    blockBegin["class"] = true
+    blockBegin["begin"] = true
+    blockBegin["when"] = true
+    blockBegin["module"] = true
+    blockEnd["end"] = true
+    blockStates[HL_KEYWORD] = true
   end
    
     HeaderInjection=[=[
@@ -51,21 +91,26 @@ function syntaxUpdate(desc)
       endOfBlock[beginOfBlock[openId -1]] = eob;
     }
   }
+  function hlAddTitle(line, num, isFolding){
+    elem.title="Click to "+(isFolding? "unfold ": "fold ") + num + " line"+(num>1?"s":"");
+  }
   function hlAddBtn(openId)  {
-    elem = document.getElementById('line' + openId);    
+    elem = document.getElementById('l_' + openId);    
     elem.className = "hl fld hl arrow_unfold";
     elem.addEventListener("click", make_handler(elem));
+    hlAddTitle(elem, (endOfBlock[openId]-openId-1), false);
   }
   function hlToggleFold(sender){ 
     elem =    document.getElementById(sender.id);
-    var num = parseInt(sender.id.substr(4));
+    var num = parseInt(sender.id.substr(2));
     var isFolding = elem.className.indexOf ('unfold')>0;
     foldedLines[num] = isFolding ;
     elem.className = "hl fld hl arrow_" + (isFolding ? "fold":"unfold");
+    hlAddTitle(elem, (endOfBlock[num]-num-1), isFolding);
     for (var i=num+1; i<=endOfBlock[num]-1; i++){
       if (!foldedLines[i]) foldedLines[i] = 0 ;
       foldedLines[i] = foldedLines[i] + (isFolding ? 1:-1);
-      elem = document.getElementById('line'+i);	  
+      elem = document.getElementById('l_'+i);
       if (    (isFolding || elem.style.display=='block')
            || (!isFolding && foldedLines[i]>=1 && elem.className.indexOf ('_fold') < 0) 
            || (!isFolding && foldedLines[i]>=2 && elem.className.indexOf ('_fold') > 0)) {
@@ -85,6 +130,20 @@ function syntaxUpdate(desc)
   </script>
 ]=]
 
+  ResizeSnippet=''
+  
+  if ADD_BLOCK_RESIZE==true then
+      ResizeSnippet=[[
+  var hlElements=document.getElementsByClassName('hl');
+  if (hlElements.length>1){
+    var pre = hlElements[1];
+    if (pre instanceof HTMLPreElement) {
+      pre.style.setProperty('min-height', pre.clientHeight+'px');   
+    }
+  }        
+  ]]
+  end
+  
   -- assign some CSS via JS to keep output sane for browsers with JS disabled
   FooterInjection=[=[
 
@@ -93,13 +152,7 @@ function syntaxUpdate(desc)
   beginOfBlock.forEach(function (item) {
     hlAddBtn(item);
   });
-  var hlElements=document.getElementsByClassName('hl');
-  if (hlElements.length>1){
-    var pre = hlElements[1];
-    if (pre instanceof HTMLPreElement) {
-      pre.style.setProperty('min-height', pre.clientHeight+'px');   
-    }
-  }
+   ]=]..ResizeSnippet..[=[
   var hlFoldElements=document.getElementsByClassName('hl fld');
   for (var i=0; i<hlFoldElements.length; i++){
     hlFoldElements[i].style.setProperty('padding-left', '1.5em');   
@@ -108,30 +161,34 @@ function syntaxUpdate(desc)
 </script>  
   ]=]
  
+  
+  
   function getOpenParen(token)
-     pID=pID+1
-     pCount=pCount+1
-     openPID[pCount] = pID     
-     return '<script>beginOfBlock.push('..currentLineNumber..');</script>'..token
-   end
-
-   function getCloseParen(token)
-     oID=openPID[pCount]
-     pCount=pCount-1
-     return '<script>hlAddEOB('..oID..', '.. currentLineNumber..');</script>'..token   
-   end
-   
+    pID=pID+1
+    pCount=pCount+1
+    openPID[pCount] = pID    
+    return '<script>beginOfBlock.push('..currentLineNumber..');</script>'..token
+  end
+  
+  function getCloseParen(token)
+    oID=openPID[pCount]
+    if oID then
+      pCount=pCount-1
+      return '<script>hlAddEOB('..oID..', '.. currentLineNumber..');</script>'..token  
+    end
+  end
+  
   function Decorate(token, state)
-
-    if (state ~= HL_OPERATOR or notEmbedded==false) then
+    
+    if (not blockStates[state] or notEmbedded==false) then
       return
     end
-
-    if token=='{' then
+    
+    if blockBegin[token] then
       return getOpenParen(token)
     end
-
-    if token=='}' then
+    
+    if blockEnd[token] then
       return getCloseParen(token)
     end
     
@@ -149,7 +206,7 @@ function syntaxUpdate(desc)
       return
     end
     currentLineNumber = string.format("%d", lineNumber)
-    return '<span id="line'..currentLineNumber..'" class="hl fld">' 
+    return '<span id="l_'..currentLineNumber..'" class="hl fld">' 
   end
 
   function DecorateLineEnd(lineNumber)
@@ -193,8 +250,16 @@ function themeUpdate(desc)
   position: absolute;     
   left: 1em;  
 }
-.hl.arrow_fold, .hl.arrow_unfold  { 
+.hl.arrow_fold, .hl.arrow_unfold  {
   cursor: pointer;
+  /*background-color: #eee;*/
+  width: 100%;
+  display: inline-block;
+}
+.hl.arrow_fold {
+  border-width: 1px;
+  border-bottom-style: groove;
+  border-color: ]]..Default.Colour..[[;
 } ]]
   end
 end

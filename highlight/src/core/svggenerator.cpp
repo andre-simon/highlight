@@ -37,7 +37,9 @@ namespace highlight
 SVGGenerator::SVGGenerator()
     : CodeGenerator ( SVG )
 {
-    spacer = " ";
+    //spacer = " ";
+    spacer = "&#160;";
+    maskWs=true;
     newLineTag = "\n";
     styleCommentOpen="/*";
     styleCommentClose="*/";
@@ -186,6 +188,9 @@ string SVGGenerator::getFooter()
 string SVGGenerator::maskCharacter ( unsigned  char c )
 {
     switch ( c ) {
+      case ' ' :
+        return spacer;
+        break;
     case '<' :
         return "&lt;";
         break;

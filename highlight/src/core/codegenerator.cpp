@@ -294,6 +294,7 @@ const string CodeGenerator::getBaseFont() const
     switch ( outputType ) {
     case HTML:
     case XHTML:
+    case SVG:
         return "'Courier New',monospace";
         break;
     case LATEX:
@@ -547,7 +548,6 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
 {
 
     if (currentSyntax->getValidateStateChangeFct()) {
-	//TODO method
         Diluculum::LuaValueList params;
         params.push_back(Diluculum::LuaValue(oldState));
         params.push_back(Diluculum::LuaValue(newState));
@@ -558,6 +558,7 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
             currentSyntax->getLuaState()->call ( *currentSyntax->getValidateStateChangeFct(),
                     params,"getValidateStateChangeFct call")  ;
 
+        //TODO remember why string state end condition checked this (breaks "]]" in Lua)
         resultOfHook = res.size()==1;
         if (resultOfHook) {
             State validatedState = (State)res[0].asNumber();

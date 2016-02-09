@@ -1,5 +1,17 @@
 CHANGELOG Highlight
 
+
+highlight 3.28
+
+xx.02.2016
+
+-improved outhtml_codefold.lua to support Pascal, Lua, Ruby and C# regions
+-added string delimiters in the Ruby definition
+-improved heredoc parsing
+-improved SVG whitespace output (patch by Paul de Vrieze)
+-added Nim and mIRC Scripting definitions
+
+---
 highlight 3.27
 
 19.01.2016
