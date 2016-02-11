@@ -52,6 +52,7 @@ SyntaxReader::SyntaxReader() :
     disableHighlighting ( false ),
     allowNestedComments ( true ),
     reformatCode ( false ),
+    assertEqualLength(false),
     rawStringPrefix(0),
     continuationChar(0),
     validateStateChangeFct(NULL),
@@ -229,7 +230,8 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                     delimIds2[closeDelimId]=openDelimId;
 
                 } else {
-                    regex.push_back ( new RegexElement ( SL_COMMENT, SL_COMMENT_END, StringTools::trim(ls["Comments"][listIdx]["Delimiter"][1].value().asString()), 0, -1 ) );
+                    regex.push_back ( new RegexElement ( SL_COMMENT, SL_COMMENT_END, 
+                                                         StringTools::trim(ls["Comments"][listIdx]["Delimiter"][1].value().asString()), 0, -1 ) );
                 }
                 ++listIdx;
             }
@@ -258,7 +260,8 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                 regex.push_back (elem );
             }
             if (ls["Strings"]["Interpolation"].value()!=Diluculum::Nil) {
-                RegexElement* elem=new RegexElement ( STRING_INTERPOLATION, STRING_INTERPOLATION_END, StringTools::trim( ls["Strings"]["Interpolation"].value().asString()), 0, -1 );
+                RegexElement* elem=new RegexElement ( STRING_INTERPOLATION, STRING_INTERPOLATION_END, 
+                                                      StringTools::trim( ls["Strings"]["Interpolation"].value().asString()), 0, -1 );
                 regex.push_back (elem );
             }
 
@@ -286,12 +289,13 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                     if (ls["Strings"]["DelimiterPairs"][listIdx]["Raw"].value()!=Diluculum::Nil) {
                         rawStringOpenDelims[openDelimId]=ls["Strings"]["DelimiterPairs"][listIdx]["Raw"].value().asBoolean();
                     }
-
                     ++listIdx;
                 }
             }
+            
+            assertEqualLength=readFlag(ls["Strings"]["AssertEqualLength"]);
 
-            string  escRegex=(ls["Strings"]["Escape"].value()==Diluculum::Nil)?REGEX_ESCSEQ:ls["Strings"]["Escape"].value().asString();
+            string escRegex=(ls["Strings"]["Escape"].value()==Diluculum::Nil)?REGEX_ESCSEQ:ls["Strings"]["Escape"].value().asString();
             regex.push_back ( new RegexElement ( ESC_CHAR,ESC_CHAR_END, StringTools::trim(escRegex), 0, -1 ) );
         }
 

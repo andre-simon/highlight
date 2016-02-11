@@ -29,8 +29,9 @@ Keywords={
 Strings={
   Delimiter=[["|']],
   DelimiterPairs= {
-    { Open=[[ \[\[ ]], Close=[[ \]\] ]], Raw=true }
-  }
+    { Open=[[ \[=*\[ ]], Close=[[ \]=*\] ]], Raw=true }
+  },
+  AssertEqualLength=true
 }
 
 IgnoreCase=false

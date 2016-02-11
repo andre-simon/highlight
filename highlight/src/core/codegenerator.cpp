@@ -1329,7 +1329,6 @@ bool CodeGenerator::processStringState ( State oldState )
     int openDelimID=currentSyntax->getOpenDelimiterID ( token, myState);
     string openDelim=token;
 
-
     //Raw String by definition:
     bool isRawString=currentSyntax->delimiterIsRawString(openDelimID);
 
@@ -1361,13 +1360,17 @@ bool CodeGenerator::processStringState ( State oldState )
             break;
         case STRING_END:
             if (resultOfHook || currentSyntax->matchesOpenDelimiter (token,  STRING_END, openDelimID)) {
+              if (currentSyntax->assertDelimEqualLength()){
+                exitState= openDelim.length()==token.length();
+              }else {
                 exitState= true;
+              }
                 printMaskedToken();
             }
             break;
         case STRING:
             // if there exist multiple string delimiters, close string if
-            // current delimiters is equal to the opening delimiter
+            // current delimiter is equal to the opening delimiter
             exitState=currentSyntax->delimiterIsDistinct(currentSyntax->getOpenDelimiterID ( token, STRING  ))&&token==openDelim;
             printMaskedToken();
             break;

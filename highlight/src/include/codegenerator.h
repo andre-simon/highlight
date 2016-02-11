@@ -675,7 +675,7 @@ private:
 
     /**maximum count of input lines to be processed*/
     unsigned int maxLineCnt;
-
+    
     /**last character of the last line*/
     unsigned char terminatingChar;
 

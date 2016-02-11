@@ -43,8 +43,10 @@ function syntaxUpdate(desc)
 
    function getCloseParen(token, kind)
      oID=openPID[pCnt]
-     pCnt=pCnt-1
-     return getTag(token, oID, kind) 
+     if oID then
+      pCnt=pCnt-1
+      return getTag(token, oID, kind) 
+     end
    end
    
   function Decorate(token, state)

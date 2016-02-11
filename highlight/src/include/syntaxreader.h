@@ -152,6 +152,11 @@ public:
     {
         return reformatCode;
     }
+    
+    bool assertDelimEqualLength() const
+    {
+      return assertEqualLength;
+    }
 
     /** \return keywords*/
     const KeywordMap& getKeywords() const
@@ -334,7 +339,10 @@ private:
          allowNestedComments,
 
          // code formatting is enabled if set
-         reformatCode;
+         reformatCode,
+         
+         // string open and close delimiters must have the same length
+         assertEqualLength;
 
     // character which is prefix of raw string (c#)
     unsigned char rawStringPrefix,

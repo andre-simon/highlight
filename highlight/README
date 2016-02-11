@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.26 ------------------------- January 2016 ---
+---  HIGHLIGHT MANUAL - Version 3.28 ------------------------ February 2016 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -497,8 +497,8 @@ Keywords = { Id, List|Regex, Group? }
   List:  List, list of keywords
   Regex: String, regular expression
   Group: Integer, capturing group id of regular expression, defines part of regex
-          which should be returned as keyword (optional; if not set, the match
-          with the highest group number is returned (counts from left to right))
+         which should be returned as keyword (optional; if not set, the match
+         with the highest group number is returned (counts from left to right))
 
 
 Comments = { {Block, Nested?, Delimiter={Open, Close?} }
@@ -512,13 +512,14 @@ Comments = { {Block, Nested?, Delimiter={Open, Close?} }
 Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, Interpolation?,
             RawPrefix? }
 
-  Delimiter:      String, regular expression which describes string delimiters
-  DelimiterPairs: List, includes open and close delimiters if not equal (regex),
-                  includes optional Raw flag as boolean which marks
-                  delimiter pair to contain a raw string
-  Escape:         String, regex of escape sequences (optional)
-  Interpolation:  String, regex of interpolation sequences (optional)
-  RawPrefix:      String, defines raw string indicator (optional)
+  Delimiter:         String, regular expression which describes string delimiters
+  DelimiterPairs:    List, includes open and close delimiter expressions if not
+                     equal, includes optional Raw flag as boolean which marks
+                     delimiter pair to contain a raw string
+  AssertEqualLength: Boolean, set true if delimiters must have the same length
+  Escape:            String, regex of escape sequences (optional)
+  Interpolation:     String, regex of interpolation sequences (optional)
+  RawPrefix:         String, defines raw string indicator (optional)
 
 
 PreProcessor = { Prefix, Continuation? }

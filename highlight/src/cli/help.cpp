@@ -84,8 +84,8 @@ void printHelp()
     cout<<"                                  horstmann, java, kr, linux, otbs, vtk,\n";
     cout<<"                                  stroustrup, whitesmith, google, pico, lisp]\n";
     cout<<" -I, --include-style            include style definition in output file\n";
-    cout<<" -J, --line-length=<num>        line length before wrapping (see -W, -V)\n";
-    cout<<" -j, --line-number-length=<num> line number width incl. left padding\n";
+    cout<<" -J, --line-length=<num>        line length before wrapping (see -V, -W)\n";
+    cout<<" -j, --line-number-length=<num> line number width incl. left padding (default: 5)\n";
     cout<<" -k, --font=<font>              set font (specific to output format)\n";
     cout<<" -K, --font-size=<num?>         set font size (specific to output format)\n";
     cout<<" -l, --line-numbers             print line numbers in output file\n";
@@ -95,9 +95,9 @@ void printHelp()
     cout<<" -T, --doc-title=<title>        document title\n";
     cout<<" -u, --encoding=<enc>           set output encoding which matches input file\n";
     cout<<"                                  encoding; omit encoding info if set to NONE\n";
-    cout<<" -V, --wrap-simple              wrap long lines without indenting function\n";
-    cout<<"                                  parameters and statements\n";
-    cout<<" -W, --wrap                     wrap long lines\n";
+    cout<<" -V, --wrap-simple              wrap lines after 80 (default) characters w/o\n";
+    cout<<"                                  indenting function parameters and statements\n";
+    cout<<" -W, --wrap                     wrap lines after 80 (default) characters\n";
     cout<<"     --wrap-no-numbers          omit line numbers of wrapped lines\n";
     cout<<"                                  (assumes -l)\n";
     cout<<" -z, --zeroes                   pad line numbers with 0's\n";

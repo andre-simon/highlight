@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.26 -------------------------- Januar 2016 ---
+---  HIGHLIGHT MANUAL - Version 3.28 ------------------------- Februar 2016 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -534,13 +534,14 @@ Comments = { {Block, Nested?, Delimiter} }
 Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, Interpolation?,
             RawPrefix? }
 
-  Delimiter:      String, Regulaerer Ausdruck der Begrenzer
-  DelimiterPairs: Liste, enthaelt Ausdruecke der oeffnenden und der schliessenden
-                  Begrenzer wenn diese nicht gleich sind und optional ein Raw-
-                  String Flag
-  Escape:         String, Regulaerer Ausdruck fuer Escapsesequenzen (optional)
-  Interpolation:  String, Regulaerer Ausdruck fuer Interpolation (optional)
-  RawPrefix:      String, definiert Raw String Prefix (optional)
+  Delimiter:         String, Regulaerer Ausdruck der Begrenzer
+  DelimiterPairs:    Liste, enthaelt Ausdruecke der oeffnenden und der schliessenden
+                     Begrenzer wenn diese nicht gleich sind und optional ein Raw-
+                     String Flag
+  AssertEqualLength: Boolean, True wenn die Begrenzer gleich lang sein muessen
+  Escape:            String, Regulaerer Ausdruck fuer Escapsesequenzen (optional)
+  Interpolation:     String, Regulaerer Ausdruck fuer Interpolation (optional)
+  RawPrefix:         String, definiert Raw String Prefix (optional)
 
 
 PreProcessor = { Prefix, Continuation? }

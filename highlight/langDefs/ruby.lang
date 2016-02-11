@@ -17,7 +17,8 @@ Keywords={
           "ruby-platform", "include", "extend", "eval", "private", "raise"},
   },
   { Id=3,
-   List = {"TRUE","FALSE","NIL","STDIN","STDOUT","STDERR","ENV","ARGF","ARGV","DATA","RUBY_VERSION","RUBY_RELEASE_DATE","RUBY_PLATFORM"}
+   List = {"TRUE","FALSE","NIL","STDIN","STDOUT","STDERR","ENV","ARGF","ARGV",
+           "DATA","RUBY_VERSION","RUBY_RELEASE_DATE","RUBY_PLATFORM"}
   },
   { Id=2,
     Regex=[[[\$\@][\/\w]+]],
@@ -95,7 +96,8 @@ function OnStateChange(oldState, newState, token, groupID)
   
    --recognize hereDoc multine strings
    --do not clear hereDoc if token is ",' or `
-   if (oldState==HL_STANDARD or oldState==HL_STRING) and newState==HL_STRING and not string.find("\"'`", token) then
+   if (oldState==HL_STANDARD or oldState==HL_STRING) and newState==HL_STRING 
+       and not string.find("\"'`", token) then
       hereDoc = string.match(token, "<<[%-\"'`]?([%a_]+)" )
    end
    

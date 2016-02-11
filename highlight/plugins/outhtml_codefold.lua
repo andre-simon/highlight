@@ -21,6 +21,9 @@ function syntaxUpdate(desc)
     
   init()  
   
+  -- move DecorateLineBegin and DecorateLineEnd defined below here if anchors 
+  -- should be added if syntax is not foldable
+  
   function Set (list)
     local set = {}
     for _, l in ipairs(list) do set[l] = true end
@@ -88,7 +91,7 @@ function syntaxUpdate(desc)
     if (eob==beginOfBlock[openId -1] || eob - beginOfBlock[openId -1]< ]=]..MIN_FOLD_LINE_NUM..[=[ ){
       delete beginOfBlock[openId -1];
     } else {
-      endOfBlock[beginOfBlock[openId -1]] = eob;
+      endOfBlock[beginOfBlock[openId -1] ] = eob;
     }
   }
   function hlAddTitle(line, num, isFolding){

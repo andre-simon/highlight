@@ -185,7 +185,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         cerr << "Try `highlight --help' for more information.\n";
         exit ( 1 );
     }
-
+    
     int argind = 0;
     for ( ; argind < parser.arguments(); ++argind ) {
         const int code = parser.code ( argind );

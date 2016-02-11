@@ -3,13 +3,16 @@ CHANGELOG Highlight
 
 highlight 3.28
 
-xx.02.2016
+11.02.2016
 
 -improved outhtml_codefold.lua to support Pascal, Lua, Ruby and C# regions
 -added string delimiters in the Ruby definition
+-added new AssertEqualLength flag in string section of language definitions
 -improved heredoc parsing
+-fixed Lua multiline string recognition
 -improved SVG whitespace output (patch by Paul de Vrieze)
 -added Nim and mIRC Scripting definitions
+-CLI: marked -J as deprecated, added optional length parameter to -V, -W
 
 ---
 highlight 3.27
