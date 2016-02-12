@@ -579,7 +579,7 @@ protected:
     }
 
     /** Invoke plugin decorate user function */
-    Diluculum::LuaValueList callDecorateFct();
+    Diluculum::LuaValueList callDecorateFct(const string& token);
     
     /** Invoke plugin decorate line user function 
      @param isLineStart set true if line start function should be called, 

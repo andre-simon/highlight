@@ -21,8 +21,8 @@ function syntaxUpdate(desc)
     
   init()  
   
-  -- move DecorateLineBegin and DecorateLineEnd defined below here if anchors 
-  -- should be added if syntax is not foldable
+  -- move DecorateLineBegin and DecorateLineEnd defined below HERE if anchors 
+  -- should be added even if syntax is not foldable
   
   function Set (list)
     local set = {}
@@ -64,13 +64,15 @@ function syntaxUpdate(desc)
     blockBegin["function"] = true
     blockEnd["end"] = true
     blockStates[HL_KEYWORD] = true
-  elseif desc=="Ruby" then
+  elseif desc=="Ruby" then  
     blockBegin["do"] = true
     blockBegin["def"] = true
     blockBegin["class"] = true
     blockBegin["begin"] = true
-    blockBegin["when"] = true
+    blockBegin["case"] = true
+    blockBegin["while"] = true
     blockBegin["module"] = true
+    blockBegin["if"] = true
     blockEnd["end"] = true
     blockStates[HL_KEYWORD] = true
   end
@@ -187,11 +189,11 @@ function syntaxUpdate(desc)
       return
     end
     
-    if blockBegin[token] then
+    if blockBegin[ string.lower(token) ] then
       return getOpenParen(token)
     end
     
-    if blockEnd[token] then
+    if blockEnd[ string.lower(token) ] then
       return getCloseParen(token)
     end
     

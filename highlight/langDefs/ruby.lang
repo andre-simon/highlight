@@ -90,7 +90,7 @@ function OnStateChange(oldState, newState, token, groupID)
       return HL_REJECT
    end
     
-   if token==")" and oldState~=HL_STRING  then
+   if token==")" or token=="}" and oldState~=HL_STRING  then
       return HL_OPERATOR
    end
   
