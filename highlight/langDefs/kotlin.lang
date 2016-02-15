@@ -3,12 +3,17 @@ Description="Kotlin"
 
 Keywords={
   {  Id=1,
-   List={"import", "package", "if", "then", "else", "while", "for", "do", 
-        "type", "val", "var", "return", "true", "false", "null", "this", "super", "Any", 
-        "Unit", "String", "Array", "Int", "Boolean", "Char", "Long", "Double", "Float", 
-        "Short", "Byte", "abstract", "final", "enum", "open", "attribute", "public", 
-        "private", "protected", "abstract", "final", "open", "override", "throw", "try", 
-        "catch", "finally", "class", "trait", "object", "fun" }
+   List={    "package", "as", "typealias", "class", "this", "super", "val", "var", 
+   "fun", "for", "null", "true", "false", "is", "in", "throw", "return", "break", 
+   "continue", "object", "if", "try", "else", "while", "do", "when", "interface", 
+   "yield", "typeof", "yield", "typeof", "import", "internal" }
+  },
+  {  Id=2,
+   List={"Any","Unit", "String", "Array", "Int", "Boolean", "Char", "Long", "Double", "Float", 
+        "Short", "Byte" }
+  },
+  { Id=3,
+    Regex=[[@\w+]]
   },
   { Id=4,
     Regex=[[(\w+)\s*\(]]

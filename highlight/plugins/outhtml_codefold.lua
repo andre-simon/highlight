@@ -54,9 +54,9 @@ function syntaxUpdate(desc)
   end
   
   local foldable = Set { "C and C++", "C#", "Java", "Javascript", "ASCEND", 
-    "Ceylon", "Crack", "Not eXactly C", "Rust","TTCN3", "Yang", "(G)AWK", "D", "Dart",
-    "Nemerle", "Perl", "PHP", "Microsoft PowerShell", "Pike", "Scala", "Swift",
-    "Pascal", "Ruby", "Lua"}
+    "Ceylon", "Crack", "Not eXactly C", "Rust","TTCN3", "Yang", "(G)AWK", "D", 
+    "Dart", "Nemerle", "Perl", "PHP", "Microsoft PowerShell", "Pike", "Scala", 
+    "Swift", "Kotlin", "Pascal", "Ruby", "Lua"}
   
   if not foldable[desc] then
     return
