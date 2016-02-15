@@ -23,6 +23,29 @@ function syntaxUpdate(desc)
   
   -- move DecorateLineBegin and DecorateLineEnd defined below HERE if anchors 
   -- should be added even if syntax is not foldable
+ 
+  function DecorateLineBegin(lineNumber)
+  
+    --TODO we need an initialization hook:
+    if lineNumber==1 then
+      init()
+      notEmbedded=true
+    end 
+    -- the line number does not increase for wrapped lines (--wrap, --wrap-simple)
+    if (tonumber(currentLineNumber)==lineNumber) then
+      return
+    end
+    currentLineNumber = string.format("%d", lineNumber)
+    return '<span id="l_'..currentLineNumber..'" class="hl fld">' 
+  end
+  
+  function DecorateLineEnd(lineNumber)  
+    if (tonumber(currentLineNumber)==lineNumber) then
+      return
+    end
+    return '</span>'
+  end
+  
   
   function Set (list)
     local set = {}
@@ -47,6 +70,7 @@ function syntaxUpdate(desc)
   --delimiters for other languages
   if desc=="Pascal" then   
     blockBegin["begin"] = true
+    blockBegin["asm"] = true
     blockBegin["repeat"] = true
     blockBegin["case"] =  true
     blockEnd["end"] = true
@@ -73,6 +97,8 @@ function syntaxUpdate(desc)
     blockBegin["while"] = true
     blockBegin["module"] = true
     blockBegin["if"] = true
+    blockBegin["unless"] = true
+    blockBegin["until"] = true
     blockEnd["end"] = true
     blockStates[HL_KEYWORD] = true
   end
@@ -197,29 +223,6 @@ function syntaxUpdate(desc)
       return getCloseParen(token)
     end
     
-  end
-  
-  function DecorateLineBegin(lineNumber)
-    
-    --TODO we need an initialization hook:
-    if lineNumber==1 then
-        init()
-        notEmbedded=true
-    end 
-    -- the line number does not increase for wrapped lines (--wrap, --wrap-simple)
-    if (tonumber(currentLineNumber)==lineNumber or notEmbedded==false) then
-      return
-    end
-    currentLineNumber = string.format("%d", lineNumber)
-    return '<span id="l_'..currentLineNumber..'" class="hl fld">' 
-  end
-
-  function DecorateLineEnd(lineNumber)
-    
-    if (tonumber(currentLineNumber)==lineNumber or notEmbedded==false) then
-      return
-    end
-    return '</span>'
   end
   
 end

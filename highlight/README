@@ -169,7 +169,7 @@ General options:
                                   <type> = [langs, themes, plugins]
      --plug-in=<script>         execute Lua plug-in script; repeat option to
                                   execute multiple plug-ins
-     --plug-in-read=<path>      set input file for a plug-in (e.g. "tags")
+     --plug-in-param=<value>    set plug-in input parameter
      --print-config             print path configuration
      --print-style              print stylesheet only (see --style-outfile)
      --skip=<list>              ignore listed unknown file types
@@ -183,37 +183,39 @@ General options:
 Output formatting options:
 
  -O, --out-format=<format>      output file in given format
-                                  <format>=[html, xhtml, latex, tex,
-                                  odt, rtf, ansi, xterm256, bbcode, pango, svg]
+                                  <format>=[html, xhtml, latex, tex, odt, rtf,
+                                  ansi, xterm256, bbcode, pango, svg]
  -c, --style-outfile=<file>     name of style file or print to stdout, if
                                   'stdout' is given as file argument
- -e, --style-infile=<file>      file to be included in style-outfile
+ -e, --style-infile=<file>      to be included in style-outfile (deprecated)
+                                  use a plug-in file instead
  -f, --fragment                 omit document header and footer
  -F, --reformat=<style>         reformats and indents output in given style
                                   <style> = [allman, banner, gnu,
-                                  horstmann, java, kr, linux, otbs,
-                                  stroustrup, whitesmith]
- -I, --include-style            include style definition
- -J, --line-length=<num>        line length before wrapping (see -W, -V)
- -j, --line-number-length=<num> line number width incl. left padding
+                                  horstmann, java, kr, linux, otbs, vtk,
+                                  stroustrup, whitesmith, google, pico, lisp]
+ -I, --include-style            include style definition in output file
+ -J, --line-length=<num>        line length before wrapping (see -V, -W)
+ -j, --line-number-length=<num> line number width incl. left padding (default: 5)
  -k, --font=<font>              set font (specific to output format)
  -K, --font-size=<num?>         set font size (specific to output format)
  -l, --line-numbers             print line numbers in output file
  -m, --line-number-start=<cnt>  start line numbering with cnt (assumes -l)
- -s, --style=<style>            set colour style (see -w)
+ -s, --style=<style>            set colour style (theme)
  -t, --replace-tabs=<num>       replace tabs by <num> spaces
  -T, --doc-title=<title>        document title
  -u, --encoding=<enc>           set output encoding which matches input file
                                   encoding; omit encoding info if set to NONE
- -V, --wrap-simple              wrap long lines without indenting function
-                                  parameters and statements
- -W, --wrap                     wrap long lines
+ -V, --wrap-simple              wrap lines after 80 (default) characters w/o
+                                  indenting function parameters and statements
+ -W, --wrap                     wrap lines after 80 (default) characters
      --wrap-no-numbers          omit line numbers of wrapped lines
                                   (assumes -l)
  -z, --zeroes                   pad line numbers with 0's
+     --delim-cr                 set CR as end-of-line delimiter (MacOS 9)
+     --keep-injections          output plug-in injections in spite of -f
      --kw-case=<case>           change case of case insensitive keywords
                                   <case> =  [upper, lower, capitalize]
-     --delim-cr                 set CR as end-of-line delimiter (MacOS 9)
      --no-trailing-nl           omit trailing newline
 
 
@@ -240,7 +242,7 @@ LaTeX output options:
 
 RTF output options:
 
-     --page-color               include page color attribute
+     --page-color               include page color attributes
  -x, --page-size=<ps>           set page size 
                                   <ps> = [a3, a4, a5, b4, b5, b6, letter]
      --char-styles              include character stylesheets
@@ -267,7 +269,7 @@ GNU source-highlight compatibility options:
      --failsafe                 if no language definition is found for the
                                   input, it is simply copied to the output
 
-
+                                  
 2.3 GUI OPTIONS
 -------------------------------------------------------------------------------
 
@@ -510,16 +512,16 @@ Comments = { {Block, Nested?, Delimiter={Open, Close?} }
 
 
 Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, Interpolation?,
-            RawPrefix? }
+            RawPrefix?, AssertEqualLength? }
 
   Delimiter:         String, regular expression which describes string delimiters
   DelimiterPairs:    List, includes open and close delimiter expressions if not
                      equal, includes optional Raw flag as boolean which marks
                      delimiter pair to contain a raw string
-  AssertEqualLength: Boolean, set true if delimiters must have the same length
   Escape:            String, regex of escape sequences (optional)
   Interpolation:     String, regex of interpolation sequences (optional)
   RawPrefix:         String, defines raw string indicator (optional)
+  AssertEqualLength: Boolean, set true if delimiters must have the same length
 
 
 PreProcessor = { Prefix, Continuation? }

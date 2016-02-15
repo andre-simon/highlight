@@ -1665,7 +1665,7 @@ bool CodeGenerator::initPluginScript(const string& script)
         Diluculum::LuaState ls;
         ls.doFile (script);
         int listIdx=1;
-
+        
         while (ls["Plugins"][listIdx].value() !=Diluculum::Nil) {
 
             // Theme plugins
