@@ -1,6 +1,8 @@
 
 Description="C and C++"
 
+Digits = [[ (?:0x|0X|0b)[0-9a-fA-F']+|\d*[\.]?\d+(?:[eE][\-\+]\d+)?[lLuU]* ]]
+
 Keywords={
   {  Id=1,
    List={"goto", "break", "return", "continue", "asm", "case", "default", "if", "else", "switch", "while", "for", "do", "sizeof",
@@ -55,3 +57,13 @@ PreProcessor = {
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|=|\/|\*|\%|\+|\-|\~|\||\^]]
 
 EnableIndentation=true
+
+-- resolve issue with ]] close delimiter which ends comments and strings
+function OnStateChange(oldState, newState, token)
+
+   if token=="'" and oldState==HL_NUMBER and newState==HL_STRING then
+      return HL_NUMBER
+   end
+   
+   return newState
+end

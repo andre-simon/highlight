@@ -6,7 +6,8 @@ Keywords={
    List={    "package", "as", "typealias", "class", "this", "super", "val", "var", 
    "fun", "for", "null", "true", "false", "is", "in", "throw", "return", "break", 
    "continue", "object", "if", "try", "else", "while", "do", "when", "interface", 
-   "yield", "typeof", "yield", "typeof", "import", "internal" }
+   "yield", "typeof", "yield", "typeof", "import", "internal", "private", "protected", "public", 
+    "override",  "open",  "final",  "abstract",   "abstract",  "final",  "enum",  "open",  "annotation"}
   },
   {  Id=2,
    List={"Any","Unit", "String", "Array", "Int", "Boolean", "Char", "Long", "Double", "Float", 
