@@ -1,7 +1,6 @@
 
 Description="Rexx"
 
---Digits=[[ (?:0x|0X)[0-9a-fA-F]+|\d+[\.]?\d+(?:[eE][\-\+]\d+)?[lLuU]* ]]
 Digits=[[ (?:0x|0X)[0-9a-fA-F]+|\d+[\.]?\d*(?:[eE][\-\+]?\d+)?[lLuU]*  ]]
 
 Keywords={
@@ -30,7 +29,7 @@ Keywords={
 	  "stream", "streamtype", "strip", "subword", "substr", "symbol", "sys", "time", 
 	  "timestamp", "translate", "trunc", "var", "value", "verify", "word", 
 	  "wordindex", "wordlength", "wordpos", "words", "write", "xrange", "x2b", "x2c", 
-	  "x2d", "pid", "pprio", "ptime", "rxfuncadd", "rxfuncdrop", "rxfuncquery", 
+	  "x2d","pid", "pprio", "ptime", "rxfuncadd", "rxfuncdrop", "rxfuncquery",
 	  "rxqueue", "rxmessagebox", "rxwinexec", "sysaddrexxmacro", "sysbootdrive", 
 	  "sysclearrexxmacrospace", 
 	  "syscloseeventsem", "sysclosemutexsem", "syscls", "syscreateeventsem", 

@@ -177,13 +177,9 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
         disableHighlighting=readFlag(ls["DisableHighlighting"]);
 
         int idx=1;
-        int keywordIdx=0;
         int kwId=0;
-        char kwName[5]= {0};
         while (ls["Keywords"][idx].value() !=Diluculum::Nil) {
-            keywordIdx=ls["Keywords"][idx]["Id"].value().asNumber();
-            snprintf(kwName, sizeof(kwName), "kw%c", ('a'+keywordIdx-1)); // TODO kwa -> kw1...
-            kwId= generateNewKWClass ( kwName );
+            kwId= generateNewKWClass ( ls["Keywords"][idx]["Id"].value().asNumber() );
 
             if (ls["Keywords"][idx]["List"].value()!=Diluculum::Nil) {
                 int listIdx=1;
@@ -396,16 +392,19 @@ void SyntaxReader::restoreLangEndDelim(const string& langPath)
     }
 }
 
-unsigned int SyntaxReader::generateNewKWClass ( const string& newClassName )
+unsigned int SyntaxReader::generateNewKWClass ( int classID )
 {
+    char className[5]= {0};
+    snprintf(className, sizeof(className), "kw%c", ('a'+classID-1)); 
+    
     unsigned int newClassID=0;
     bool found=false;
     while (!keywordClasses.empty() && newClassID<keywordClasses.size() && !found ) {
-        found = ( newClassName==keywordClasses.at(newClassID++) );
+      found = ( className==keywordClasses.at(newClassID++) );
     }
     if ( !found ) {
         newClassID++;
-        keywordClasses.push_back ( newClassName );
+        keywordClasses.push_back ( className );
     }
 
     return newClassID;

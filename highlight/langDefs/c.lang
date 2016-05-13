@@ -58,7 +58,7 @@ Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|=|\/|\*|\%|\+|\-|\~|\||\^]]
 
 EnableIndentation=true
 
--- resolve issue with ]] close delimiter which ends comments and strings
+-- resolve issue with C++14 number separator syntax
 function OnStateChange(oldState, newState, token)
 
    if token=="'" and oldState==HL_NUMBER and newState==HL_STRING then

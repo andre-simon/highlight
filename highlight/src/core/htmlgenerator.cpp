@@ -284,7 +284,10 @@ string HtmlGenerator::maskCharacter ( unsigned char c )
     case '\"' :
         return "&quot;";
         break;
-
+    case '\'' :
+      return "&apos;";
+      break;
+      
     case '@' :
         return "&#64;";
         break;
@@ -304,9 +307,6 @@ string HtmlGenerator::getNewLine()
 
 void HtmlGenerator::insertLineNumber ( bool insertNewLine )
 {
-  
-   
-  
     if ( insertNewLine ) {      
   
       if (currentSyntax->getDecorateLineEndFct()) {

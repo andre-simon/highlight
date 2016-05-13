@@ -403,7 +403,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
     string themePath=options.getAbsThemePath().empty() ? dataDir.getThemePath ( options.getThemeName() ): options.getAbsThemePath();
 
-    auto_ptr<highlight::CodeGenerator> generator ( highlight::CodeGenerator::getInstance ( options.getOutputType() ) );
+    unique_ptr<highlight::CodeGenerator> generator ( highlight::CodeGenerator::getInstance ( options.getOutputType() ) );
 
     generator->setHTMLAttachAnchors ( options.attachLineAnchors() );
     generator->setHTMLOrderedList ( options.orderedList() );

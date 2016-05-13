@@ -132,7 +132,6 @@ public:
     /** \param s String
          \return class id of keyword, 0 if s is not a keyword */
     int isKeyword ( const string &s ) ;
-
     
     /** \return True if multi line comments may be nested */
     bool allowNestedMLComments() const
@@ -296,7 +295,7 @@ public:
     	\param pluginReadFilePath absolute path of plugin input file
     */
     static void initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginReadFilePath, OutputType outputType=HTML );
-
+   
 private:
 
     static const string REGEX_IDENTIFIER;
@@ -350,17 +349,16 @@ private:
              //character which continues curreent style on next line
              continuationChar;
 
-    // generate a unique class ID from the class name
-    unsigned int generateNewKWClass ( const string& newClassName );
+
 
     bool readFlag(const Diluculum::LuaVariable& var) ;
 
     // interface for plug-ins: add keywords dynamically
     static int luaAddKeyword (lua_State *L);
 
-    // interface for plug-ins: read text file and return content string
-    //static int luaReadFile (lua_State *L);
-
+    // generate a keyword class 
+    unsigned int generateNewKWClass ( int classID );
+    
     void addKeyword(unsigned int groupID, const string& kw);
 
     // Functions accessible in Lua State

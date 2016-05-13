@@ -785,7 +785,7 @@ void MainWindow::on_pbStartConversion_clicked()
     QTime t;
     t.start();
 
-    auto_ptr<highlight::CodeGenerator> generator(highlight::CodeGenerator::getInstance(outType));
+    std::unique_ptr<highlight::CodeGenerator> generator(highlight::CodeGenerator::getInstance(outType));
 
     applyCtrlValues(generator.get(), false);
     string currentFile;
@@ -795,6 +795,7 @@ void MainWindow::on_pbStartConversion_clicked()
 
     QString langDefPath;
     QString inFileName, inFilePath;
+    QString lastStyleDestDir;
     QSet<QString> usedFileNames;
 
     QStringList inputErrors, outputErrors, reformatErrors;
@@ -803,7 +804,7 @@ void MainWindow::on_pbStartConversion_clicked()
         inFilePath =  ui->lvInputFiles->item(i)->data(Qt::UserRole).toString();
         currentFile = inFilePath.toStdString();
 
-          statusBar()->showMessage(tr("Processing %1 (%2/%3)").arg(inFilePath).arg(i+1).arg(ui->lvInputFiles->count()));
+        statusBar()->showMessage(tr("Processing %1 (%2/%3)").arg(inFilePath).arg(i+1).arg(ui->lvInputFiles->count()));
 
 #ifdef DATA_DIR
         langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(DATA_DIR).arg(
@@ -864,16 +865,32 @@ void MainWindow::on_pbStartConversion_clicked()
             }
             ui->progressBar->setValue(100*i / ui->lvInputFiles->count());
         }
+
+        // write external Stylesheet
+        if ( cbEmbed && leStyleFile && !cbEmbed->isChecked()) {
+
+            QString styleDestDir(ui->cbWrite2Src->isChecked() ? QFileInfo(inFilePath).path() : ui->leOutputDest->text() );
+
+            if (lastStyleDestDir!=styleDestDir){
+                lastStyleDestDir = styleDestDir;
+                QString stylePath=QFileInfo(styleDestDir, leStyleFile->text()).absoluteFilePath();
+                bool styleFileOK=generator -> printExternalStyle(QDir::toNativeSeparators(stylePath).toStdString());
+                if (!styleFileOK) {
+                    outputErrors.append(stylePath);
+                }
+            }
+        }
     }
 
-    // write external Stylesheet
-    if (cbEmbed && leStyleFile && !cbEmbed->isChecked()) {
-        QString stylePath=QFileInfo(ui->leOutputDest->text(),   leStyleFile->text()).absoluteFilePath();
+    // write external Stylesheet (one for all output files)
+    /*
+    if (!ui->cbWrite2Src->isChecked() && cbEmbed && leStyleFile && !cbEmbed->isChecked()) {
+        QString stylePath=QFileInfo(ui->leOutputDest->text(), leStyleFile->text()).absoluteFilePath();
         bool styleFileOK=generator -> printExternalStyle(QDir::toNativeSeparators(stylePath).toStdString());
         if (!styleFileOK) {
             outputErrors.append(stylePath);
         }
-    }
+    }*/
 
     // write HTML index file
     if (    (outType==highlight::HTML || outType==highlight::XHTML)
@@ -930,7 +947,7 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP)
 
     this->setCursor(Qt::WaitCursor);
 
-    auto_ptr<highlight::CodeGenerator> generator(
+    unique_ptr<highlight::CodeGenerator> generator(
         highlight::CodeGenerator::getInstance(getOutputType()));
 
     applyCtrlValues(generator.get(), false);
@@ -990,8 +1007,7 @@ void MainWindow::plausibility()
 {
     ui->leOutputDest->setEnabled(!ui->cbWrite2Src->isChecked());
     ui->pbOutputDest->setEnabled(!ui->cbWrite2Src->isChecked());
-    ui->pbOutputDest->setEnabled(!ui->cbWrite2Src->isChecked());
-    ui->leOutputDest->setEnabled(!ui->cbWrite2Src->isChecked());
+
     ui->cbPadZeroes->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbAdvWrapping->setEnabled(ui->cbWrapping->isChecked());
     ui->comboEncoding->setEnabled(ui->cbEncoding->isChecked());

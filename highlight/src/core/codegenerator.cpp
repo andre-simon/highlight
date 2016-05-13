@@ -558,7 +558,7 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
             currentSyntax->getLuaState()->call ( *currentSyntax->getValidateStateChangeFct(),
                     params,"getValidateStateChangeFct call")  ;
 
-        resultOfHook = res.size()==1;
+        resultOfHook = res.size()>=1;
         if (resultOfHook) {
             State validatedState = (State)res[0].asNumber();
             if ( validatedState== _REJECT){

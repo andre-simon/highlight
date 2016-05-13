@@ -3,21 +3,19 @@ Description="Swift"
 
 Keywords={
   {  Id=1,
-   List={"class", "deinit", "enum", "extension", "func", "import", "init",
-	"internal", "let", "operator", "private", "protocol", "public", "static",
-	"struct", "subscript", "typealias", "var",
-	 "break", "case", "continue", "default", "do", "else", "fallthrough", "for", "if", "in", "return", "switch", "where", "while",
-	 "try","throw","catch"
+   List= {"class", "deinit", "enum", "extension", "func", "import", "init",
+          "internal", "let", "operator", "private", "protocol", "public", "static",
+          "struct", "subscript", "typealias", "var",
+          "break", "case", "continue", "default", "do", "else", "fallthrough", 
+          "for", "if", "in", "return", "switch", "where", "while", "try","throw","catch"
         }
   },
   { Id=2,
-    List= { "as", "dynamicType", "false", "is", "nil", "self", "Self", "super", "true", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__"
-          }
+    List= { "as", "dynamicType", "false", "is", "nil", "self", "Self", "super", 
+            "true", "__COLUMN__", "__FILE__", "__FUNCTION__", "__LINE__"
+        }
   },
- -- { Id=3,
-   -- Regex=[[ @\w*]]
- -- },
-    { Id=3,
+  { Id=3,
     Regex=[[ (let|var)\s+(\w+)]], Group=2
   },
   { Id=4,
@@ -25,13 +23,13 @@ Keywords={
   }
 }
 
- -- add keywords to list 3
-     function OnStateChange(oldState, newState, token, kwgroup)
-       if  newState==HL_KEYWORD and kwgroup==3 then
-	    AddKeyword(token, 3)
-      end
-      return newState
-    end
+-- add keywords to list 3
+function OnStateChange(oldState, newState, token, kwgroup)
+   if newState==HL_KEYWORD and kwgroup==3 then
+        AddKeyword(token, 3)
+   end
+   return newState
+end
 
 Identifiers=[[ [a-zA-Z_]\w* ]]
 

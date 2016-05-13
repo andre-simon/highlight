@@ -1,6 +1,16 @@
 CHANGELOG Highlight
 
+highlight 3.29
 
+13.05.2016
+
+-added Ansible Yaml definition (thanks to Raphael Droz)
+-added Chapel definition (thanks to Lydia Duncan)
+-fixed gcc 6 warnings about deprecated auto_ptr usage
+-GUI: fixed style file output if "write to source directory" option is
+  checked (thanks to Jim Pattee)
+
+---
 highlight 3.28
 
 15.02.2016
@@ -438,7 +448,7 @@ highlight 2.15
 25-02-2010
 
 -improved HTML nested language patterns (thanks to Simone)
--improved Rexx and PL1 definitions (thabnks to Robert Prins)
+-improved Rexx and PL1 definitions (thanks to Robert Prins)
 -added support for NXC and NBC
 -GUI: added copy and paste support (thanks to Torsten Flammiger)
 -GUI: fixed preview of UTF-8 input

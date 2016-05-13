@@ -22,7 +22,7 @@ Execute_Escape_Cmd(highlight::OutputType type, Tcl_Interp *interp, int objc, Tcl
 {
     int i;
     // XXX this creates and destroys new instances for every call!
-    auto_ptr<highlight::CodeGenerator> generator(highlight::CodeGenerator::getInstance(type));
+    unique_ptr<highlight::CodeGenerator> generator(highlight::CodeGenerator::getInstance(type));
 
     generator->initTheme ( "/usr/share/highlight/themes/edit-kwrite.theme" ); //EDIT theme
     generator->loadLanguage ( "/usr/share/highlight/langDefs/c.lang" );       //EDIT language definition
