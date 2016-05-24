@@ -5,7 +5,7 @@
 AppName=Highlight Code Converter
 
 AppVerName=Highlight
-OutputBaseFilename=highlight-setup-3.22
+OutputBaseFilename=highlight-setup-3.29
 
 AppPublisher=André Simon
 AppPublisherURL=http://www.andre-simon.de
@@ -16,7 +16,7 @@ DefaultGroupName=Highlight Code Converter
 AllowNoIcons=yes
 LicenseFile=..\..\COPYING
 InfoAfterFile=..\..\README
-Compression=lzma/max
+Compression=lzma2/ultra 
 SolidCompression=yes
 PrivilegesRequired=none
 
@@ -38,16 +38,19 @@ Source: "..\..\filetypes.conf"; DestDir: "{app}";  Flags: ignoreversion
 Source: "..\..\gui_files\l10n\*.qm"; DestDir: "{app}\gui_files\l10n\";  Flags: ignoreversion sortfilesbyextension
 Source: "..\..\gui_files\ext\*.*"; DestDir: "{app}\gui_files\ext\";  Flags: ignoreversion
 Source: "..\..\examples\*.py";  DestDir: "{app}\examples\";  Flags: ignoreversion;
+Source: "..\..\examples\*.pm";  DestDir: "{app}\examples\";  Flags: ignoreversion;
+Source: "..\..\examples\*.php";  DestDir: "{app}\examples\";  Flags: ignoreversion;
 Source: "..\..\plugins\*.lua";  DestDir: "{app}\plugins\";  Flags: ignoreversion;
 
 Source: "..\..\highlight.exe";   DestDir: "{app}";  Flags: ignoreversion; Components: cli;
 Source: "..\..\man\*.*";  DestDir: "{app}\man\";  Flags: ignoreversion; Components: cli;
-Source: "..\..\examples\highlight_pipe.*";  DestDir: "{app}\examples\";  Flags: ignoreversion; Components: cli;
-Source: "..\..\examples\swig\*.*";  DestDir: "{app}\examples\swig";  Flags: ignoreversion; Components: cli;
-Source: "..\..\examples\web_plugins\dokuwiki\*.*";  DestDir: "{app}\examples\plugins\dokuwiki\";  Flags: ignoreversion; Components: cli;
-Source: "..\..\examples\web_plugins\movabletype\*.*";  DestDir: "{app}\examples\plugins\movabletype\";  Flags: ignoreversion; Components: cli;
-Source: "..\..\examples\web_plugins\wordpress\*.*";  DestDir: "{app}\examples\plugins\wordpress";  Flags: ignoreversion; Components: cli;
-Source: "..\..\examples\web_plugins\serendipity_event_highlight\*.*";  DestDir: "{app}\examples\plugins\serendipity_event_highlight";  Flags: ignoreversion; Components: cli;
+Source: "..\..\examples\highlight_pipe.*";  DestDir: "{app}\examples\";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\..\examples\swig\*.*";  DestDir: "{app}\examples\swig";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\..\examples\tcl\*.*";  DestDir: "{app}\examples\tcl";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\..\examples\web_plugins\dokuwiki\*.*";  DestDir: "{app}\examples\plugins\dokuwiki\";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\..\examples\web_plugins\movabletype\*.*";  DestDir: "{app}\examples\plugins\movabletype\";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\..\examples\web_plugins\wordpress\*.*";  DestDir: "{app}\examples\plugins\wordpress";  Flags: ignoreversion; Components: sourcecode;
+Source: "..\..\examples\web_plugins\serendipity_event_highlight\*.*";  DestDir: "{app}\examples\plugins\serendipity_event_highlight";  Flags: ignoreversion; Components: sourcecode;
 
 Source: "..\include\*.*";  DestDir: "{app}\src\include\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\include\astyle\*.*";  DestDir: "{app}\src\include\astyle\";  Flags: ignoreversion; Components: sourcecode;
@@ -61,7 +64,7 @@ Source: "..\cli\*.*";  Excludes: "*.o"; DestDir: "{app}\src\cli\";  Flags: ignor
 Source: "..\w32-projects\*.iss";   DestDir: "{app}\projectfiles\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\w32-projects\highlight_cli\*.pro";   DestDir: "{app}\projectfiles\highlight_cli\";  Flags: ignoreversion; Components: sourcecode;
 Source: "..\w32-projects\highlight_lib\*.pro";   DestDir: "{app}\projectfiles\highlight_lib\";  Flags: ignoreversion; Components: sourcecode;
-Source: "..\w32-projects\highlight_gui\*.*"; Excludes: "*.o,*.Release,*.Debug,ui_*,*.user,*.qm,Makefile"; DestDir: "{app}\projectfiles\highlight_gui\";  Flags: ignoreversion; Components: sourcecode;
+;Source: "..\w32-projects\highlight_gui\*.*"; Excludes: "*.o,*.Release,*.Debug,ui_*,*.user,*.qm,Makefile"; DestDir: "{app}\projectfiles\highlight_gui\";  Flags: ignoreversion; Components: sourcecode;
 
 
 

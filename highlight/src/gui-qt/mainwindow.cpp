@@ -733,7 +733,6 @@ highlight::WrapMode MainWindow::getWrappingStyle()
 
 void MainWindow::on_pbStartConversion_clicked()
 {
-
     if (!ui->lvInputFiles->count()) return;
 
     if (!ui->cbWrite2Src->isChecked() ) {
@@ -935,7 +934,6 @@ void MainWindow::on_pbStartConversion_clicked()
 
 void MainWindow::on_pbCopyFile2CP_clicked()
 {
-
     highlight2Clipboard(false);
 }
 
@@ -1132,7 +1130,6 @@ void MainWindow::updatePreview()
     this->setCursor(Qt::ArrowCursor);
 }
 
-
 void MainWindow::on_action_Manual_triggered()
 {
     ShowTextFile show;
@@ -1153,8 +1150,6 @@ void MainWindow::on_action_License_triggered()
     show.setFileName("COPYING");
     show.exec();
 }
-
-
 
 void MainWindow::on_pbHTMLChooseStyleIncFile_clicked()
 {

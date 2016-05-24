@@ -150,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -398,13 +398,6 @@
           </layout>
          </item>
          <item>
-          <widget class="Line" name="line_14">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="pbCopyToCP">
            <property name="font">
             <font>
@@ -561,13 +554,6 @@
       </widget>
      </item>
      <item>
-      <widget class="Line" name="line_7">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QTabWidget" name="tabWidgetOptions">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -591,7 +577,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -945,7 +931,7 @@ The result has to match the input file encoding.</string>
             </size>
            </property>
            <property name="currentIndex">
-            <number>3</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="HTMLOptions">
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -964,7 +950,7 @@ The result has to match the input file encoding.</string>
                 </size>
                </property>
                <property name="currentIndex">
-                <number>1</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="tabWidgetPage1">
                 <attribute name="title">
@@ -1884,13 +1870,6 @@ Set the width to 0 to keep tabs.</string>
              </property>
             </widget>
            </widget>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line_3">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
           </widget>
          </item>
          <item>

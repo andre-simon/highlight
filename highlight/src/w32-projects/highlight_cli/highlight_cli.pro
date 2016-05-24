@@ -19,9 +19,9 @@ HEADERS += ..\\..\\cli\\main.h \
 INCLUDEPATH += d:\\devel\\cpp\\lua_bin_5.3.0
 #INCLUDEPATH +=D:/Devel/cpp/LuaJIT-2.0.0/src
 
-INCLUDEPATH += d:\\devel\\cpp\\boost_1_42_0
+INCLUDEPATH += d:\\devel\\cpp\\boost_1_61_0
 INCLUDEPATH += ..\\..\\include
-
+QMAKE_CXXFLAGS += -std=c++11
 }
 else {
 SOURCES += cli/main.cpp \
@@ -38,9 +38,6 @@ win32:LIBS += -L../../ -lhighlight
 unix:LIBS += -L.. -lhighlight
 
 win32:LIBS += -LD:\Devel\cpp\lua_bin_5.3.0 -llua
-win32:DEFINES += USE_LUA52
-win32:DEFINES += USE_LUA53
-
 
 !contains( LINKTYPE, LUA52 ) {
 unix:LIBS += -L.. -llua5.1
@@ -50,4 +47,4 @@ unix:LIBS += -L.. -llua5.2
 unix:DEFINES += USE_LUA52
 }
 
-win32:QMAKE_POST_LINK = D:\Devel\upx308w\upx.exe --best ..\..\..\highlight.exe
+win32:QMAKE_POST_LINK = D:\Devel\upx391w\upx.exe --best ..\..\..\highlight.exe

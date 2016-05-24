@@ -2,11 +2,13 @@ CHANGELOG Highlight
 
 highlight 3.29
 
-13.05.2016
+24.05.2016
 
 -added Ansible Yaml definition (thanks to Raphael Droz)
 -added Chapel definition (thanks to Lydia Duncan)
 -fixed gcc 6 warnings about deprecated auto_ptr usage
+-src/makefile: added -std=c++11 because of auto_ptr to unique_ptr transition
+  (thanks to Jens Schleusener)
 -GUI: fixed style file output if "write to source directory" option is
   checked (thanks to Jim Pattee)
 

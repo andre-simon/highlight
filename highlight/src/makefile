@@ -17,12 +17,13 @@ CXX=c++
 # Added -qt4 because of Arch Linux Qt5 migration
 QMAKE=qmake-qt5
 
-CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG
+# Added -std=c++11 because of auto_ptr to unique_ptr transition
+CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG -std=c++11
 #CFLAGS:=-ggdb ${CFLAGS}
 
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.28
+SO_VERSION=3.29
 
 
 # Source paths
