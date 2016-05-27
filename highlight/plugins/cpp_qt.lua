@@ -5,7 +5,7 @@ Adds additional keywords to C++ syntax description and corresponding
 formatting in colour theme
 ]]
 
-Description="Add Qt keywords to C and C++ definition XX"
+Description="Add Qt keywords to C and C++"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
