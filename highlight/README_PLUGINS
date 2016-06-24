@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT PLUGIN MANUAL - Version 3.26   ---------------- January 2016 ---
+---  HIGHLIGHT PLUGIN MANUAL - Version 3.29   -------------------- May 2016 ---
 -------------------------------------------------------------------------------
 
 CONTENT
@@ -21,17 +21,18 @@ CONTENT
 -------------------------------------------------------------------------------
 
 The plug-in interface allows modifications of syntax parsing and colouring.
-The output may be enhanced with header or footer, and recognized syntax tokens
-may be enhanced with additional information.
-A common task would be to define a new set of syntax keywords, or to enhance
-the existing keyword groups. See the examples in chapter 7.
+The output's header or footer can be enhanced, and recognized syntax elements
+may be outputted with additional information.
+A common task would be to define a new set of syntax keywords, or to add items
+to existing keyword groups. More advanced plug-ins add tooltips based on ctags 
+input or source code folding to the output (see section 6).
 
 
 2. SCRIPT STRUCTURE
 -------------------------------------------------------------------------------
 
-The following script contains a minimal plug-in which has no effect on the
-output, since all update functions have empty definitions:
+The following script contains the basic plug-in structure which has no effect 
+on the output:
 
 Description="NOOP plugin"
 
@@ -72,7 +73,7 @@ only affects one of the config script types.
 The following list includes all variables and constants you may use to adjust 
 the parser's syntax highlighting.
 
-Items available in the syntax chunk:
+Syntax definition items:
 
 Comments: table
 Description: string
@@ -85,13 +86,15 @@ NestedSections: table
 Operators: string
 PreProcessor: table
 Strings: table
+
+Document modification items:
+
 HeaderInjection: string
 FooterInjection: string
 
-Read only:
+Read only (internal highlighting states):
 
-HL_PLUGIN_PARAM: string
-HL_LANG_DIR: string
+HL_STANDARD: number
 HL_BLOCK_COMMENT: number
 HL_BLOCK_COMMENT_END: number
 HL_EMBEDDED_CODE_BEGIN: number
@@ -111,13 +114,20 @@ HL_OPERATOR_END: number
 HL_PREPROC: number
 HL_PREPROC_END: number
 HL_PREPROC_STRING: number
-HL_STANDARD: number
 HL_STRING: number
 HL_STRING_END: number
 HL_UNKNOWN: number
 HL_REJECT: number
 
-HL_OUTPUT: number
+Read only (other):
+
+HL_PLUGIN_PARAM: string (set with --plug-in-param)
+HL_LANG_DIR: string (path of language definition directory)
+
+
+Read only (output document format):
+
+HL_OUTPUT: number (selected format)
 HL_FORMAT_HTML: number
 HL_FORMAT_XHTML: number
 HL_FORMAT_TEX: number
@@ -139,8 +149,8 @@ DecorateLineBegin: function
 DecorateLineEnd: function
 
 IMPORTANT: Functions will only be executed if they are defined as local
-functions within the lang chunk function referenced in the Plugins array. 
-They will be ignored when defined elsewhere in the plug-in script.
+functions within the "lang" chunk function referenced in the Plugins array. 
+They will be ignored when defined elsewhere in the script.
 
 
 3.1 FUNCTION ADDKEYWORD
@@ -258,6 +268,8 @@ validated by highlight.
 The following list includes all items you may overwrite or extend to adjust
 the formatting (colour and font attributes) of the output:
 
+Output formatting items:
+
 Default: table
 Canvas: table
 Number: table
@@ -270,9 +282,12 @@ LineNum: table
 Operator: table
 LineComment: table
 Keywords: table
+
+Custom theme items:
+
 Injections: table
 
-Read only:
+Read only (output document format)::
 
 HL_OUTPUT: number
 HL_FORMAT_HTML: number

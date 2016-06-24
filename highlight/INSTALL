@@ -115,6 +115,7 @@ b) Install MingW (gcc toolchain)
     -Download Online-Installer: 
      https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/
     -Start mingw-w64-install.exe and select default options
+     (compilation of 64 bit libs and applications requires extra steps later, marked by *64*)
     -Add bin directory of the downloaded files to the system PATH
     -open cmd.exe and type "g++ --version" to check
 
@@ -124,10 +125,11 @@ c) Compile Qt:
      https://www.qt.io/download-open-source/ -> qt-everywhere-opensource-src-5.6.0.tar.gz
     -Open cmd.exe and change into the Qt directory
     -Configure Qt. Use static if you do not want to ship Qt DLLs:
-     configure -release -nomake examples -opensource -static -strip -opengl desktop
-    -make-mingw32 -j4
+     configure -release -opensource -confirm-license -static  -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -qt-sql-sqlite -no-openssl -nomake examples -opengl  desktop
+    -Compile Qt:
+     mingw32-make -k -j4
 
-d) Add compiler and Qt build paths (location of qmake.exe) in QtCreator
+d) Add compiler and Qt paths (location of qmake.exe) in QtCreator
 
 e) Install Boost
 
@@ -153,7 +155,7 @@ g) Install upx from http://upx.sourceforge.net/
 h) Open the pro files in src/w32-projects and src/gui_qt in QtCreator and 
    adjust the paths of libraries and tools. Compile the lib project first.
 
-i) Ship highlight with libgcc_s_dw2-1.dll libstdc++-6.dll libwinpthread-1.dll
+i) Ship highlight with libgcc_s_dw2-1.dll (32 bit) libgcc_s_seh-1.dll (*64* bit)  libstdc++-6.dll libwinpthread-1.dll
    (all DLLs are located in the mingw32 installation)
 
 4. Known compiler issues

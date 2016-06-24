@@ -94,8 +94,10 @@ int HLCmdLineApp::printInstalledFiles(const string& where, const string& wildcar
         cout <<temp.substr ( 1, temp.length()- wildcard.length() ) << endl;
     }
     cout <<"\nUse name of the desired "<<what
-         << " with the --" <<option<< " option.\n" << endl;
+         << " with the --" <<option<< " option." << endl;
 
+    printConfigInfo();
+    
     return EXIT_SUCCESS;
 }
 
@@ -137,7 +139,10 @@ int HLCmdLineApp::printInstalledLanguages()
         cout << ((extCnt)?" )":"")<<endl;
     }
     cout <<"\nUse name of the desired language"
-         << " with the --" OPT_SYNTAX " option.\n" << endl;
+         << " with the --" OPT_SYNTAX " option." << endl;
+         
+    printConfigInfo();
+         
     return EXIT_SUCCESS;
 }
 

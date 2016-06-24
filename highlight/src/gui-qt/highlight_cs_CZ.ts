@@ -341,7 +341,7 @@ Podívejte se na ctags.sf.net, abyste se dozvěděl více.</translation>
     </message>
     <message>
         <source>Paste from clipboard</source>
-        <translation>Vložit ze schránky</translation>
+        <translation type="vanished">Vložit ze schránky</translation>
     </message>
     <message>
         <source>Enable line wrapping.</source>
@@ -507,7 +507,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Copy preview to clipboard</source>
-        <translation>Kopírovat náhled do schránky</translation>
+        <translation type="vanished">Kopírovat náhled do schránky</translation>
     </message>
     <message>
         <source>Readme</source>
@@ -959,6 +959,14 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Keep Plug-In injections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste from clipboard (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy preview to clipboard (%1)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

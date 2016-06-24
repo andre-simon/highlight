@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.29 ----------------------------- May 2016 ---
+---  HIGHLIGHT MANUAL - Version 3.30 ---------------------------- June 2016 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -437,8 +437,8 @@ Remove an UTF8 BOM:
 
 Use --validate-input to get rid of UTF8 byte order marks.
 
-Portable GUI (W32 build)
-------------------------
+Portable GUI (Windows build)
+----------------------------
 
 Invoke highlight-gui.exe with the --portable switch to save its configuration
 in text files instead of the registry.
@@ -554,7 +554,7 @@ Global variables:
 
 The following variables are available within a language definition:
 
-hl_lang_dir: path of language definition directory (use with Lua dofile function)
+HL_LANG_DIR: path of language definition directory (use with Lua dofile function)
 
 Identifiers: Default regex for identifiers
 Digits:      Default regex for numbers
@@ -586,7 +586,7 @@ HL_EMBEDDED_CODE_END
 HL_IDENTIFIER_BEGIN
 HL_IDENTIFIER_END
 HL_UNKNOWN
-
+HL_REJECT
 
 Hook functions: see README_PLUGINS.
 
@@ -781,14 +781,14 @@ the GUI's file open filter.
 3.8 CONFIG FILE SEARCH
 -------------------------------------------------------------------------------
 
-Since release 3.14 the configuration scripts are searched in the following
-directories:
+Configuration scripts are searched in the following directories:
 
 1. ~/.highlight/
-2. user defined directory set with --data-dir (deprecated option)
-3. /usr/share/highlight/
-4. /etc/highlight/ (location of filetypes.conf)
-5. current working directory (fallback)
+2. value of the environment variable HIGHLIGHT_DATADIR
+3. user defined directory set with --data-dir (deprecated option)
+4. /usr/share/highlight/
+5. /etc/highlight/ (location of filetypes.conf)
+6. current working directory (fallback)
 
 These subdirectories are expected to contain the corresponding scripts:
 -langDefs: *.lang
@@ -797,7 +797,7 @@ These subdirectories are expected to contain the corresponding scripts:
 
 A custom filetypes.conf may be placed directly in ~/.highlight/.
 This search order enables you to enhance the installed scripts without the need
-to copy all preinstalled files somewhere else.
+to copy preinstalled files somewhere else.
 As the --plug-in option of older releases accepted absolute paths only, the 
 given plugin scripts will be searched in the directories above only if the
 absolute file path access fails.
@@ -839,24 +839,10 @@ some plugins which integrate highlight in Wiki and Blogging software:
 -Serendipity
 
 Other uses of highlight can be found online:
+http://andre-simon.de/dokuwiki/doku.php?id=plugins_and_extensions
 
-MediaWiki plugin
-http://www.mediawiki.org/wiki/Extension:ASHighlight
-
-MacOS X Quicklook plugin
-http://code.google.com/p/qlcolorcode/
-
-CamlHighlight (Ocsigen extension)
-http://camlhighlight.forge.ocamlcore.org/
-
-highlighter package for the R language
-http://cran.r-project.org/web/packages/highlight/index.html
-
-Inkscape plug-in
-http://xico.freeshell.org/inksyntax/index.html
-
-Webgit:
-http://andre-simon.de/dokuwiki/doku.php?id=en:webgit
+This site shows several use cases of highlight in projects like Webgit, 
+Evolution, Inkscape, Ranger and more.
 
 
 5. BUILDING AND INSTALLING
@@ -866,8 +852,8 @@ http://andre-simon.de/dokuwiki/doku.php?id=en:webgit
 -------------------------------------------------------------------------------
 
 Highlight is written in ISO C++. The following packages are available:
-- UNIX console  and GUI application
-- W32 console and GUI application
+- UNIX console and GUI application
+- Windows console and GUI application
 - statically and dynamically linked library
 
 The website www.andre-simon.de offers links to precompiled packages for several
@@ -877,7 +863,7 @@ Threre is also a Sourceforge project available:
 http://sourceforge.net/projects/syntaxhighlight/
 
 Source tarball
-Windows W32 executables
+Windows executables
 http://www.andre-simon.de
 
 Arch Linux

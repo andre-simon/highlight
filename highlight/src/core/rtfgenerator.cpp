@@ -26,6 +26,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include <sstream>
+#include <string>
 
 #include "charcodes.h"
 #include "version.h"
@@ -38,11 +39,14 @@ RtfGenerator::RtfGenerator()
     : CodeGenerator ( RTF ),
       pageSize ( "a4" ), // Default: DIN A4
       addCharStyles ( false ),
-      addPageColor(false)
+      addPageColor(false),
+      isUtf8(false),
+      utf16Char(0),
+      utf8SeqLen(0)
 {
     newLineTag = "}\\par\\pard\n\\cbpat1{";
     spacer = " ";
-
+   
     // Page dimensions
     psMap["a3"] = PageSize ( 16837,23811 );
     psMap["a4"] = PageSize ( 11905,16837 );
@@ -120,7 +124,9 @@ string RtfGenerator::getCharStyle ( int styleNumber,const ElementStyle &elem,
 
 void RtfGenerator::printBody()
 {
-    *out << "{\\rtf1\\ansi\\uc0 \\deff1"
+  isUtf8 = StringTools::change_case ( encoding ) == "utf-8";
+  
+  *out << "{\\rtf1\\ansi \\deff1" // drop \\uc0 because of unicode output
          << "{\\fonttbl{\\f1\\fmodern\\fprq1\\fcharset0 " ;
     *out << this->getBaseFont() ;
     *out << ";}}"
@@ -238,15 +244,55 @@ void RtfGenerator::initOutputTags ( )
 }
 
 string RtfGenerator::maskCharacter ( unsigned char c )
-{
-    switch ( c ) {
+{  
+  if (isUtf8 && c > 0x7f  && utf8SeqLen==0){
+    
+    //http://stackoverflow.com/questions/7153935/how-to-convert-utf-8-stdstring-to-utf-16-stdwstring
+    
+    if (c <= 0xDF)
+    {
+      utf16Char = c&0x1F;
+      utf8SeqLen = 1;
+    }
+    else if (c <= 0xEF)
+    {
+      utf16Char = c&0x0F;
+      utf8SeqLen = 2;
+    }
+    else if (c <= 0xF7)
+    {
+      utf16Char = c&0x07;
+      utf8SeqLen = 3;
+    } else {
+      utf8SeqLen = 0;
+    }
+    return "";
+  }
+  
+  if (utf8SeqLen) {
+      utf16Char <<= 6;
+      utf16Char += c & 0x3f;   
+      --utf8SeqLen;
+    
+      if (!utf8SeqLen){
+        string m ( "\\u" );
+        m += to_string(utf16Char);
+        m += '?';
+        utf16Char=0L;
+        return m;
+      } else {
+        return "";
+      }
+  }
+  
+  switch ( c ) {
     case '}' :
     case '{' :
     case '\\' : {
-        string m ( "\\" );
-        return m += c;
-    }
-    break;
+          string m ( "\\" );
+          return m += c;
+        }
+        break;
     case '0':
     case '1':
     case '2':
@@ -257,12 +303,12 @@ string RtfGenerator::maskCharacter ( unsigned char c )
     case '7':
     case '8':
     case '9': {
-        string m ( 1, '{' );
-        m += c;
-        m += '}';
-        return m;
-    }
-    break;
+          string m ( 1, '{' );
+          m += c;
+          m += '}';
+          return m;
+        }
+        break;
 
     case AUML_LC:
         return "\\'e4";

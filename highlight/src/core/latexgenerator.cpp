@@ -81,7 +81,7 @@ string LatexGenerator::getHeader()
        << "\\usepackage{alltt}\n"
        << "\\usepackage[T1]{fontenc}\n";
 
-    if ( StringTools::change_case ( encoding ) =="utf-8" ) {
+    if ( StringTools::change_case ( encoding ) == "utf-8" ) {
         os << "\\usepackage{ucs}\n\\usepackage[utf8x]{inputenc}\n";
     } else if ( encodingDefined() ) {
         os << "\\usepackage[latin1]{inputenc}\n";

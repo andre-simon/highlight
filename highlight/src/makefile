@@ -12,10 +12,10 @@
 
 # See src/gui-qt/highlight.pro for the Qt GUI compilation options
 
-CXX=c++
+CXX=g++
 
-# Added -qt4 because of Arch Linux Qt5 migration
-QMAKE=qmake-qt5
+# was: qmake-qt5
+QMAKE=qmake
 
 # Added -std=c++11 because of auto_ptr to unique_ptr transition
 CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG -std=c++11
@@ -23,7 +23,7 @@ CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG -std=c++11
 
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.29
+SO_VERSION=3.30
 
 
 # Source paths

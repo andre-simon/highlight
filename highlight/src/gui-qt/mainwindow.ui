@@ -150,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -371,7 +371,7 @@
             <string>Paste clipboard content into the preview window.</string>
            </property>
            <property name="text">
-            <string>Paste from clipboard</string>
+            <string>Paste from clipboard (%1)</string>
            </property>
            <property name="icon">
             <iconset resource="highlight-gui.qrc">
@@ -409,7 +409,7 @@
             <string>Copy highlighted code into the clipboard.</string>
            </property>
            <property name="text">
-            <string>Copy preview to clipboard</string>
+            <string>Copy preview to clipboard (%1)</string>
            </property>
           </widget>
          </item>

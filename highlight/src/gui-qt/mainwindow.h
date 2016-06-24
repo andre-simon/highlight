@@ -50,7 +50,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <QClipboard>
 #include <QMimeData>
 #include <QTime>
-
+#include <QShortcut>
 #include <QString>
 #include <QTextStream>
 
@@ -84,6 +84,9 @@ private:
     StringMap extensions,  shebangs;
     QString fileOpenFilter;
     QString savedClipboardContent;
+    QShortcut *copyShortcut;
+    QShortcut *pasteShortcut;
+
     bool getDataFromCP;
 
     void readSettings();

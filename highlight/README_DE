@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.29 ----------------------------- Mai 2016 ---
+---  HIGHLIGHT MANUAL - Version 3.30 ---------------------------- Juni 2016 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -30,7 +30,7 @@ INHALT
    3.5 SCHLUESSELWORTGRUPPEN
    3.6 PLUG-INS
    3.7 DATEIZUORDNUNGEN
-   3.8 DATEISUCHE
+   3.8 PFADE DER KONFIG-DATEIEN
 
 4. HIGHLIGHT INTEGRIEREN
    4.1 BEISPIELSKRIPTE
@@ -121,7 +121,7 @@ namens main.cpp erzeugt:
 - LaTeX ausgeben:
   highlight --latex -i main.cpp -o main.cpp.tex
 
-  Folgende Ausgabeformate können mit --out-format bestimmt werden:
+  Folgende Ausgabeformate koennen mit --out-format bestimmt werden:
   html:     HTML5
   xhtml:    XHTML 1.1
   tex:      Plain TeX
@@ -452,8 +452,8 @@ UTF8 BOM entfernen:
 Geben Sie --validate-input an, um das UTF8 Byte Order Mark (Startsequenz) zu
 entfernen.
 
-Portable GUI (W32 build)
-------------------------
+Portable GUI (Windows build)
+----------------------------
 
 Starten Sie highlight-gui.exe mit der --portable Option, damit die
 Konfiguration in Textdateien und nicht in der Registry gespeichert wird.
@@ -575,14 +575,10 @@ Globale Variablen:
 
 Die folgenden Variablen sind in einer Sprachbeschreibung verfuegbar:
 
-hl_lang_dir: Verzeichnis der Sprachdefinitionen (Parameter der Lua dofile-Funktion)
+HL_LANG_DIR: Verzeichnis der Sprachdefinitionen (Parameter der Lua dofile-Funktion)
 
 Identifiers: Default regex fuer Bezeichner
 Digits:      Default regex fuer Zahlenliterale
-
-In der Datei README_REGEX finden Sie detaillierte Informationen zu regulaeren
-Ausdruecken.
-
 
 Diese Integer-Variablen beschreiben die internen Zustaende des highlight-Parsers:
 
@@ -611,7 +607,7 @@ HL_EMBEDDED_CODE_END
 HL_IDENTIFIER_BEGIN
 HL_IDENTIFIER_END
 HL_UNKNOWN
-
+HL_REJECT
 
 Hook-Funktionen: siehe README_PLUGINS.
 
@@ -804,17 +800,17 @@ Tragen Sie neue Dateiendungen auch in gui_files/ext/fileopenfilter.conf ein,
 damit diese im GUI-Dateiauswahldialog als Filter angezeigt werden
 
 
-3.8 DATEISUCHE
+3.8 PFADE DER KONFIG-DATEIEN
 -------------------------------------------------------------------------------
 
-Seit Version 3.14 werden die Konfigurationsskripte in den folgenden Verzeich-
-nissen gesucht:
+Die Konfigurationsskripte in den folgenden Verzeichnissen gesucht:
 
 1. ~/.highlight/
-2. benutzerdefiniertes Verz., definiert mit --data-dir (deprecated)
-3. /usr/share/highlight/
-4. /etc/highlight/ (wegen filetypes.conf)
-5. aktuelles Arbeitsverzeicnnis (Fallback)
+2. Wert der Umgebungsvariablen HIGHLIGHT_DATADIR
+3. benutzerdefiniertes Verz., definiert mit --data-dir (deprecated)
+4. /usr/share/highlight/
+5. /etc/highlight/ (wegen filetypes.conf)
+6. aktuelles Arbeitsverzeicnnis (Fallback)
 
 Es wird erwartet, dass folgende Unterverzeichnisse die entsprechenden Skripte
 enthalten:
@@ -825,10 +821,11 @@ enthalten:
 
 Eine eigene filetypes.conf kann direkt in in ~/.highlight/ gespeichert werden.
 Diese Suchreihenfolge vereinfacht die Erweiterung und Anpassung bestehender
-Skripte, ohne vorinstallierte Dateien umkopieren zu müssen.
+Skripte, ohne vorinstallierte Dateien umkopieren zu muessen.
 Da die plug-in Option aelterer Versionen nur absolute Pfade akzeptierte, werden
 die angegebenen Skripte nur dann in den obigen Verzeichnissen gesucht wenn
 der Zugriff auf den absoluten Pfad fehlschlaegt.
+
 
 4. HIGHLIGHT EINBETTEN
 -------------------------------------------------------------------------------
@@ -864,25 +861,11 @@ sich einige Plugins, die Highlight in Webanwendungen integrieren:
 -Wordpress
 -Serendipity
 
-Sie finden weitere Anwendungsfaelle im Internet:
+Andere Anwendungen von highlight sind im Wiki aufgelistet:
+http://andre-simon.de/dokuwiki/doku.php?id=plugins_and_extensions
 
-MediaWiki plugin
-http://www.mediawiki.org/wiki/Extension:ASHighlight
-
-MacOS X Quicklook plugin
-http://code.google.com/p/qlcolorcode/
-
-CamlHighlight (Ocsigen extension)
-http://camlhighlight.forge.ocamlcore.org/
-
-highlighter package for the R language
-http://cran.r-project.org/web/packages/highlight/index.html
-
-Inkscape plug-in
-http://xico.freeshell.org/inksyntax/index.html
-
-Webgit:
-http://andre-simon.de/dokuwiki/doku.php?id=en:webgit
+Diese Seite verweist auf unterschiedliche Projekte die highlight integrieren, 
+z.B. Webgit, Evolution, Inkscape, Ranger, ...).
 
 
 5. KOMPILIEREN UND INSTALLIEREN
@@ -893,7 +876,7 @@ http://andre-simon.de/dokuwiki/doku.php?id=en:webgit
 
 Highlight ist in ISO C++ geschrieben. Es existieren folgende Pakete:
 - UNIX Kommandozeilen- und GUI-Anwendung
-- W32 Kommandozeilen- und GUI-Anwendung
+- Windows Kommandozeilen- und GUI-Anwendung
 - Statische/dynamische Bibliothek
 
 Auf der Website www.andre-simon.de sind Links auf vorkompilierte Pakete fuer
@@ -902,7 +885,7 @@ FreeBSD).
 Auf der Website sind immer die aktuellsten Source-Pakete (upstream) verfuegbar.
 
 Source tarball
-Windows W32 executables
+Windows executables
 http://www.andre-simon.de
 
 Arch Linux
@@ -942,8 +925,8 @@ In INSTALL befinden sich weitere Informationen zu Paketinhalt und Installation.
 -------------------------------------------------------------------------------
 
 Highlight kompiliert zumindest mit gcc und suncc. Zum Kompilieren sind Boost
-Header-Pakete und Lua5.x/LuaJit Development-Pakete nötig.
-Die optionale GUI benötigt die Qt4/Qt5 Development-Pakete.
+Header-Pakete und Lua5.x/LuaJit Development-Pakete noetig.
+Die optionale GUI benoetigt die Qt4/Qt5 Development-Pakete.
 Im Makefile finden Sie weitere Informationen.
 
 

@@ -137,6 +137,16 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->leFontSize, SIGNAL(textChanged(QString)), this, SLOT(updatePreview()));
     QObject::connect(ui->cbOmitWrappedLineNumbers, SIGNAL(clicked()), this, SLOT(updatePreview()));
 
+
+    copyShortcut = new QShortcut(QKeySequence(QKeySequence::Copy), this);
+    pasteShortcut = new QShortcut(QKeySequence(QKeySequence::Paste), this);
+
+    QObject::connect(copyShortcut, SIGNAL(activated()), ui->pbCopyToCP, SLOT(click()));
+    QObject::connect(pasteShortcut, SIGNAL(activated()), ui->pbPasteFromCB, SLOT(click()));
+
+    ui->pbCopyToCP->setText(ui->pbCopyToCP->text().arg(QKeySequence(QKeySequence::Copy).toString()));
+    ui->pbPasteFromCB->setText(ui->pbPasteFromCB->text().arg(QKeySequence(QKeySequence::Paste).toString()));
+
     setAcceptDrops(true);
 
     readSettings();
@@ -148,6 +158,8 @@ MainWindow::~MainWindow()
 {
     writeSettings();
     delete ui;
+    delete copyShortcut;
+    delete pasteShortcut;
 }
 
 void MainWindow::openFiles()

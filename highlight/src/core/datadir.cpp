@@ -45,7 +45,12 @@ void DataDir::initSearchDirectories ( const string &userDefinedDir )
 
     possibleDirs.push_back ( Platform::getHomePath() + "/.highlight/" );
     if ( !userDefinedDir.empty() ) possibleDirs.push_back ( userDefinedDir );
-
+    
+    char* hlEnvPath=getenv("HIGHLIGHT_DATADIR");
+    if (hlEnvPath!=NULL){
+      possibleDirs.push_back ( hlEnvPath );
+    }
+    
 #ifdef HL_DATA_DIR
     possibleDirs.push_back ( HL_DATA_DIR );
 #else
@@ -74,7 +79,6 @@ const string DataDir::searchFile(const string path)
         // cerr << "searching "<<possibleDirs[i]<< path<<"\n";
         if ( Platform::fileExists ( possibleDirs[i] + path ) )
             return possibleDirs[i]+ path;
-
     }
     return path;
 }
@@ -84,7 +88,6 @@ const void DataDir::printConfigPaths()
     for ( unsigned int i=0; i<possibleDirs.size(); i++ ) {
         if ( Platform::fileExists ( possibleDirs[i] ) )
             cout <<possibleDirs[i]<<"\n";
-
     }
 }
 

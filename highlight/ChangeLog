@@ -1,5 +1,18 @@
 CHANGELOG Highlight
 
+
+highlight 3.30
+
+xx.06.2016
+
+-the data directory can be defined with the HIGHLIGHT_DATADIR environment variable
+-fixed RTF output of UTF-8 input; needs input encoding set to utf-8 
+  (thanks to Kamigishi Rei)
+-data search directories were appended to the result of --list-scripts
+-GUI: added system copy and paste shortcuts for clipboard functions 
+  (suggested by Kamigishi Rei)
+
+---
 highlight 3.29
 
 24.05.2016
