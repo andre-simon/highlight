@@ -2,7 +2,7 @@
 Sample plugin file for highlight 3.9
 ]]
 
-Description="Add linuxmanpages.com reference links to HTML, LaTeX, RTF and ODT output of Bash scripts"
+Description="Add linuxmanpages.net reference links to HTML, LaTeX, RTF and ODT output of Bash scripts"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -110,7 +110,8 @@ function syntaxUpdate(desc)
 "gnome","gnome-about","gnome-bug","gnome-config","gnome-dictionary","gnome-doc",
 "gnome-dump-metadata","gnome-gen-mimedb","gnomemeeting","gnome-mkstub","gnome-moz-remote",
 "gnome-name-service","gnome-panel","gnome-pty-helper","gnome-search-tool","gnome_segv",
-"gnome-session","gnome-session-save","gnome-smproxy","gnome-system-log","gnome-wm","gnroff","gnuattach","gnucash","gnuclient","gnudoit",
+"gnome-session","gnome-session-save","gnome-smproxy","gnome-system-log","gnome-wm",
+"gnroff","gnuattach","gnucash","gnuclient","gnudoit",
 "gnumeric","gnuplot","gnuserv","gnutls-cli","gnutls-cli-debug","gnutls-serv",
 "goad-browser","gob2","gobject-query","goop","gpasswd","gperf","gpg","gpgv",
 "gphoto2","gpic","gpilot-install-file","gpm-root","gprof","grav","grefer","grep"
@@ -184,7 +185,8 @@ function syntaxUpdate(desc)
 "mpg123","mpic++","mpicc","mpiCC","mpiexec","mpif77","mpimsg","mpirun","mpitask"
 ,"mplayer","mpost","mpstat","mpto","mrd","mren","mrtg","mrtg-contrib","mrtg-faq"
 ,"mrtg-forum","mrtg-ipv6","mrtglib","mrtg-logfile","mrtg-mibhelp","mrtg-nt-guide",
-    "mrtg-reference","mrtg-rrd","mrtg-squid","mrtg-unix-guide","mrtg-webserver","msgattrib","msgcat","msgcmp","msgcomm","msgconv","msgen","msgexec",
+    "mrtg-reference","mrtg-rrd","mrtg-squid","mrtg-unix-guide","mrtg-webserver",
+    "msgattrib","msgcat","msgcmp","msgcomm","msgconv","msgen","msgexec",
 "msgfilter","msgfmt","msggrep","msginit","msgmerge","msgunfmt","msguniq",
 "mshowfat","mt","mtools","mtoolstest","mtx","mtype","multixterm","munch",
 "munchlist","mupdatetest","mutt","mv","mvdic","mwm","mysql","mysqlaccess",
@@ -212,7 +214,8 @@ function syntaxUpdate(desc)
 "pcretest","pdf2dsc","pdf2ps","pdfetex","pdffonts","pdfimages","pdfinfo",
 "pdfinitex","pdflatex","pdfopt","pdftex","pdftoppm","pdftops","pdftotext",
 "pdfvirtex","pdiff","pdksh","pdl","PDL::API","PDL::BadValues","PDL::Dataflow",
-"PDL::Delta","pdldoc","PDL::FAQ","PDL::Impatient","PDL::Indexing","pedal","penetrate","penrose","perl","perl5004delta","perl5005delta",
+"PDL::Delta","pdldoc","PDL::FAQ","PDL::Impatient","PDL::Indexing","pedal",
+"penetrate","penrose","perl","perl5004delta","perl5005delta",
 "perl561delta","perl56delta","perl570delta","perl571delta","perl572delta",
 "perl573delta","perl581delta","perl582delta","perl583delta","perl584delta",
 "perl585delta","perl58delta","perlaix","perlamiga","perlapi","perlapio",
@@ -262,7 +265,8 @@ function syntaxUpdate(desc)
 "read","readcd","readelf","read-expenses","read-ical","readlink","read-notepad",
 "readonly","read-palmpix","readprofile","read-todos","rec","recode","recon",
 "recountdiff","red","rediff","refer","rename","replace","repoman","req","reset",
-"resize","restorefont","restorepalette","restoretextmode","return","rev","revdep-rebuild","revpath","rexec","rfcomm","rgb2ycbcr","ripemd160","ripples","rjoe",
+"resize","restorefont","restorepalette","restoretextmode","return","rev","revdep-rebuild",
+"revpath","rexec","rfcomm","rgb2ycbcr","ripemd160","ripples","rjoe",
 "rlog","rlogin","rm","rman","rmdfile","rmdic","rmdir","rmdtopvf","rmdtovbox",
 "rmic","rmid","rmiregistry","rnews","rngtest","rocks","rorschach","rotor",
 "rotzoomer","rpcclient","rpdump","rpload","rsa","rsautl","rsh","rstart",
@@ -271,7 +275,8 @@ function syntaxUpdate(desc)
 "ruptime","rusers","rvi","rview","rvim","rwall","rwho","rz","s2p","sabcmd",
 "safe_mysqld","sa-learn","sane-config","saned","sane-find-scanner","sar","sash",
 "savetextmode","sballs","scanadf","scanimage","scanpci","sccmap","scgcheck",
-"s_client","scm2scm","scp","screen","script","scrollkeeper-config","scrollkeeper-gen-seriesid","scs2ascii","scs2pdf","scs2ps","scsitape","sdiff","sdptool","sed"
+"s_client","scm2scm","scp","screen","script","scrollkeeper-config","scrollkeeper-gen-seriesid",
+"scs2ascii","scs2pdf","scs2ps","scsitape","sdiff","sdptool","sed"
 ,"sendiso","sendmail.postfix","sensors","seq","serialver","servertool","sess_id"
 ,"session-properties","sessreg","set","setfacl","setfattr","setleds","setmclk",
 "setmetamode","setterm","setxkbmap","sff2g3","sftp","sfxload","sg","sgi2tiff",
@@ -282,7 +287,8 @@ function syntaxUpdate(desc)
 "simpleftp","single2bin","sivtest","size","skill","skkinput","slabtop","sleep",
 "sliceprint","slidescreen","slip","slist","slocate","slogin","slrn","smbcacls",
 "smbclient","smbcontrol","smbcquotas","smbget","smbsh","smbstatus","smbtar",
-"smbtree","smime","smproxy","smtp-sink","smtp-source","smtptest","sndfile-convert","sndfile-info","sndfile-play","snice","snmpbulkget","snmpbulkwalk",
+"smbtree","smime","smproxy","smtp-sink","smtp-source","smtptest","sndfile-convert",
+"sndfile-info","sndfile-play","snice","snmpbulkget","snmpbulkwalk",
 "snmpcmd","snmpdelta","snmpdf","snmpget","snmpgetnext","snmpinform",
 "snmpnetstat","snmpset","snmpstatus","snmptable","snmptest","snmptranslate",
 "snmptrap","snmpusm","snmpvacm","snmpwalk","sodipodi","soelim","sonar","sort",
@@ -295,7 +301,8 @@ function syntaxUpdate(desc)
 "starwars","stat","states","statserial","s_time","stonerview","strace","strange"
 ,"strings","strip","stty","su","sum","superquadrics","suspend","svgakeymap",
 "svn","svnadmin","svndumpfilter","svnlook","svnversion","swirl","switch2",
-"switchdesk","switchto","sxpm","sync","synclient","syndaemon","system-config-httpd","systool","sz","t1mapper","t3d","tac","tack","tail","tailf","talk",
+"switchdesk","switchto","sxpm","sync","synclient","syndaemon","system-config-httpd",
+"systool","sz","t1mapper","t3d","tac","tack","tail","tailf","talk",
 "tangle","tapeinfo","tar","taskset","tbl","tclsh","tcsh","tee","telnet",
 "tempfile","test","testlibraw","testparm","testprns","tethereal","tex",
 "texconfig","texdoc","texdoctk","texexec","texhash","texi2dvi","texi2dvi4a2ps",
@@ -306,7 +313,8 @@ function syntaxUpdate(desc)
 "time","timeout","times","timidity","tkill","tknewsbiff","tload","tn5250",
 "tnameserv","toe","tomac","top","totem","touch","tping","tput","tr","transfig",
 "trap","tred","tree","triangle","troff","truchet","true","tryaffix","tsclient",
-"tset","tsort","ttcp","tty","tvtime","tvtime-command","tvtime-configure","tvtime-scanner","twang","twm","twopi","type","typeset","ucs2any","uic","uil","ul",
+"tset","tsort","ttcp","tty","tvtime","tvtime-command","tvtime-configure","tvtime-scanner",
+"twang","twm","twopi","type","typeset","ucs2any","uic","uil","ul",
 "ulimit","umask","umb-scheme","unalias","uname","unbin","unbuffer","uncompress",
 "unexpand","unflatten","unhex","unicode_start","unicode_stop","uniq","units",
 "unix2dos","unlink","unset","unshar","unsingle","unsq","unwrapdiff","unzip",
@@ -403,7 +411,7 @@ man2_items = Set {
    
 
    function getURL(token, manId)
-     url='http://www.linuxmanpages.com/man'..manId .. '/' .. token .. '.'..manId..'.php'
+     url='http://linuxmanpages.net/manpages/fedora21/man'..manId .. '/' .. token .. '.'..manId..'.php'
      
      if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
         return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'

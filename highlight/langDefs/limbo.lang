@@ -3,7 +3,8 @@ Description="Limbo"
 
 Keywords={
   {  Id=1,
-   List={ "if", "else", "while", "do", "return", "list", "of", "ref", "load", "import", "include"}
+   List={ "if", "else", "while", "do", "return", "list", "of", 
+          "ref", "load", "import", "include"}
   },
 
   { Id=2,
@@ -29,6 +30,5 @@ Comments = {
 }
 
 IgnoreCase=false
-
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~|\|]]

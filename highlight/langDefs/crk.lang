@@ -2,6 +2,8 @@
 
 Description="Crack"
 
+Digits = [[(?:0x|0X)[0-9a-fA-F]+|\d*[\.]?\d+(?:[eE][\-\+]?\d+)?[lLuU]*]]
+
 Keywords={
   {  Id=1,
    List={"class", "for", "while", "in", "if", "else", "const",
@@ -46,9 +48,6 @@ Comments = {
 }
 
 IgnoreCase=false
-
-Digits = [[(?:0x|0X)[0-9a-fA-F]+|\d*[\.]?\d+(?:[eE][\-\+]?\d+)?[lLuU]*]]
-
 
 Operators=[[\{|\}\@|\$|\`|\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|\<|\>|\!|\=|\/|\*|\%|\+|\-|\~|\||\^]]
 

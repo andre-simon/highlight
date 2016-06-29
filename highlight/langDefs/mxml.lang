@@ -19,10 +19,9 @@ Strings={
 }
 
 Comments={
-
   { Block=true,
     Nested=false,
-    Delimiter= { [[\<\!\-\-]],[[\-\-\>]],}
+    Delimiter= { [[<!\-\-]],[[\-\->]] }
   }
 }
 

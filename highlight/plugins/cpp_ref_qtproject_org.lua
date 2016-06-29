@@ -1,8 +1,5 @@
---[[
-Sample plugin file for highlight 3.9
-]]
 
-Description="Add qtproject.org reference links to HTML, LaTeX, RTF and ODT output of C++ code"
+Description="Add doc.qt.io reference links to HTML, LaTeX, RTF and ODT output of C++ code"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -12,7 +9,7 @@ function syntaxUpdate(desc)
   end
       
   function getURL(token)
-     url='http://qt-project.org/doc/qt-5/'..string.lower(token).. '.html'
+     url='http://doc.qt.io/qt-5/'..string.lower(token).. '.html'
      
      if (HL_OUTPUT== HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
         return '<a class="hl" target="new" href="' .. url .. '">'.. token .. '</a>'

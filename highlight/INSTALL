@@ -147,6 +147,8 @@ f) Compile Lua
      CONFIG -= app_bundle
      CONFIG -= qt
      DEFINES -= UNICODE
+     SOURCES += $$files(../lua-5.3.0/src/*.c)
+     SOURCES -= ../lua-5.3.0/src/lua.c ../lua-5.3.0/src/luac.c
 
     -Compile the Lua library
 

@@ -3,12 +3,15 @@ CHANGELOG Highlight
 
 highlight 3.30
 
-xx.06.2016
+29.06.2016
 
 -the data directory can be defined with the HIGHLIGHT_DATADIR environment variable
 -fixed RTF output of UTF-8 input; needs input encoding set to utf-8 
   (thanks to Kamigishi Rei)
+-fixed XML comment recognition (thanks to Mani)
 -data search directories were appended to the result of --list-scripts
+-revised older syntax definitions
+-updated base URLs of bash_ref_linuxmanpages and cpp_ref_qtproject plug-ins
 -GUI: added system copy and paste shortcuts for clipboard functions 
   (suggested by Kamigishi Rei)
 
