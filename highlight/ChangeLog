@@ -3,7 +3,7 @@ CHANGELOG Highlight
 
 highlight 3.30
 
-29.06.2016
+30.06.2016
 
 -the data directory can be defined with the HIGHLIGHT_DATADIR environment variable
 -fixed RTF output of UTF-8 input; needs input encoding set to utf-8 

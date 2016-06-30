@@ -1039,7 +1039,7 @@ void MainWindow::plausibility()
     ui->sbLineNoStart->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbHTMLIndex->setEnabled(!ui->cbWrite2Src->isChecked());
     ui->cbHTMLEnclosePreTags->setEnabled(ui->cbFragment->isChecked());
-    ui->cbKeepInjections->setEnabled(ui->cbFragment->isChecked());
+    ui->cbKeepInjections->setEnabled(ui->cbFragment->isEnabled() && ui->cbFragment->isChecked());
     ui->cbHTMLAnchors->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbHTMLFileNameAnchor->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbHTMLOrderedList->setEnabled(ui->cbIncLineNo->isChecked());
