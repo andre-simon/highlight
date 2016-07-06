@@ -1046,6 +1046,9 @@ void MainWindow::plausibility()
 
     ui->pbCopyToCP->setEnabled(!savedClipboardContent.isEmpty());
 
+    copyShortcut->setEnabled(ui->tabIOSelection->currentWidget()==ui->tab_clipboard);
+    pasteShortcut->setEnabled(ui->tabIOSelection->currentWidget()==ui->tab_clipboard);
+
     switch (ui->comboFormat->currentIndex()) {
     case 0:
     case 1:
