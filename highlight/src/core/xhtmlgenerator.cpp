@@ -60,26 +60,36 @@ string XHtmlGenerator::getHeader()
     os << getHeaderStart ( docTitle );
 
     if ( currentSyntax->highlightingEnabled() ) {
-        if ( includeStyleDef ) {
-            os << "<style type=\"text/css\">\n";
-            os << "<![CDATA[\n";
-            os << getStyleDefinition();
-            os << CodeGenerator::readUserStyleDef();
-            os << "]]>\n";
-            os << "</style>\n";
-        } else {
-            os << "<link rel=\"stylesheet\" type=\"text/css\" href=\""
-               << getStyleOutputPath()
-               << "\""
-               << "/"
-               << ">\n";
-        }
-    }
-    os << "</head>\n<body";
-    if (!cssClassName.empty())
-        os << " class=\""<<cssClassName<<"\"";
-    os << ">\n";
+        if ( !useInlineCSS ) {
+            if ( includeStyleDef ) {
+                os << "<style type=\"text/css\">\n";
+                os << "<![CDATA[\n";
+                os << getStyleDefinition();
+                os << CodeGenerator::readUserStyleDef();
+                os << "]]>\n";
+                os << "</style>\n";
+            } else {
+                os << "<link rel=\"stylesheet\" type=\"text/css\" href=\""
+                   << getStyleOutputPath()
+                   << "\""
+                   << "/"
+                   << ">\n";
+            }
+            os << "</head>\n<body";
+            if (!cssClassName.empty())
+                os << " class=\""<<cssClassName<<"\"";
+            os << ">\n";
 
+
+    } else {
+        os << "</head>\n<body style=\""
+           << "background-color:#"
+           << ( docStyle.getBgColour().getRed ( HTML ) )
+           << ( docStyle.getBgColour().getGreen ( HTML ) )
+           << ( docStyle.getBgColour().getBlue ( HTML ) )
+           << "\">\n";
+    }
+    }
     return os.str();
 }
 

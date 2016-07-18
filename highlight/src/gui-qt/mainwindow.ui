@@ -150,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -284,6 +284,12 @@
                 <size>
                  <width>20</width>
                  <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="toolTip">
@@ -539,6 +545,18 @@
            </item>
            <item>
             <widget class="QPushButton" name="pbPluginReadFilePath">
+             <property name="minimumSize">
+              <size>
+               <width>20</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>30</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="toolTip">
               <string>Select the plug-in input file.</string>
              </property>
@@ -577,7 +595,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -1035,6 +1053,18 @@ The result has to match the input file encoding.</string>
                    </item>
                    <item>
                     <widget class="QPushButton" name="pbHTMLChooseStyleIncFile">
+                     <property name="minimumSize">
+                      <size>
+                       <width>20</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>30</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="toolTip">
                       <string>Select a CSS include file.</string>
                      </property>
@@ -1279,6 +1309,18 @@ The result has to match the input file encoding.</string>
                </item>
                <item>
                 <widget class="QPushButton" name="pbLATEXChooseStyleIncFile">
+                 <property name="minimumSize">
+                  <size>
+                   <width>20</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="toolTip">
                   <string>Select a style include file.</string>
                  </property>
@@ -1375,6 +1417,18 @@ The result has to match the input file encoding.</string>
                </item>
                <item>
                 <widget class="QPushButton" name="pbTEXChooseStyleIncFile">
+                 <property name="minimumSize">
+                  <size>
+                   <width>20</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="toolTip">
                   <string>Select a style include file.</string>
                  </property>
@@ -1434,6 +1488,12 @@ You can select the stylesheets in your word processor to reformat additional tex
                </item>
                <item>
                 <widget class="QComboBox" name="comboRTFPageSize">
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="toolTip">
                   <string>Select a page size.</string>
                  </property>
@@ -1500,7 +1560,7 @@ You can select the stylesheets in your word processor to reformat additional tex
             </layout>
            </widget>
            <widget class="QWidget" name="SVGOptions">
-            <layout class="QVBoxLayout" name="verticalLayout_10">
+            <layout class="QVBoxLayout" name="verticalLayout_8">
              <item>
               <widget class="QLabel" name="label_10">
                <property name="text">
@@ -1509,8 +1569,8 @@ You can select the stylesheets in your word processor to reformat additional tex
               </widget>
              </item>
              <item>
-              <layout class="QGridLayout" name="gridLayout_8">
-               <item row="0" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_12">
+               <item>
                 <widget class="QLabel" name="label_3">
                  <property name="text">
                   <string>Width:</string>
@@ -1520,7 +1580,7 @@ You can select the stylesheets in your word processor to reformat additional tex
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
+               <item>
                 <widget class="QLineEdit" name="leSVGWidth">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -1528,12 +1588,37 @@ You can select the stylesheets in your word processor to reformat additional tex
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>50</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>50</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="toolTip">
                   <string>Enter the SVG width (may contain units).</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
+               <item>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>18</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
                 <widget class="QLabel" name="label_12">
                  <property name="text">
                   <string>Height:</string>
@@ -1543,8 +1628,14 @@ You can select the stylesheets in your word processor to reformat additional tex
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
+               <item>
                 <widget class="QLineEdit" name="leSVGHeight">
+                 <property name="maximumSize">
+                  <size>
+                   <width>50</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="toolTip">
                   <string>Enter the SVG height (may contain units).</string>
                  </property>
@@ -1621,6 +1712,18 @@ You can select the stylesheets in your word processor to reformat additional tex
                </item>
                <item>
                 <widget class="QPushButton" name="pbSVGChooseStyleIncFile">
+                 <property name="minimumSize">
+                  <size>
+                   <width>20</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="toolTip">
                   <string>Select a style include file.</string>
                  </property>
@@ -1833,6 +1936,12 @@ Set the width to 0 to keep tabs.</string>
             </property>
            </widget>
            <widget class="QSpinBox" name="sbLineLength">
+            <property name="maximumSize">
+             <size>
+              <width>60</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string>Enter the maximum line length.</string>
             </property>
@@ -1893,6 +2002,12 @@ Set the width to 0 to keep tabs.</string>
            </item>
            <item row="0" column="1">
             <widget class="QFontComboBox" name="comboFontName">
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="font">
               <font>
                <family>MS Shell Dlg 2</family>
@@ -1925,6 +2040,12 @@ Set the width to 0 to keep tabs.</string>
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>16777215</height>
+              </size>
              </property>
              <property name="toolTip">
               <string>Enter the font size.</string>

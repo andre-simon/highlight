@@ -1027,8 +1027,8 @@ void MainWindow::plausibility()
     ui->cbHTMLInlineCSS->setEnabled(ui->cbHTMLEmbedStyle->isChecked());
     ui->cbHTMLFileNameAnchor->setEnabled(ui->cbHTMLAnchors->isChecked());
     ui->leHTMLStyleFile->setEnabled(!ui->cbHTMLEmbedStyle->isChecked());
-    ui->leHTMLStyleIncFile->setEnabled(ui->cbHTMLEmbedStyle->isChecked() && !ui->cbHTMLInlineCSS->isChecked());
-    ui->pbHTMLChooseStyleIncFile->setEnabled(ui->cbHTMLEmbedStyle->isChecked() &&!ui->cbHTMLInlineCSS->isChecked());
+    ui->leHTMLStyleIncFile->setEnabled(!(ui->cbHTMLInlineCSS->isEnabled() && ui->cbHTMLInlineCSS->isChecked()));
+    ui->pbHTMLChooseStyleIncFile->setEnabled(!(ui->cbHTMLInlineCSS->isEnabled() && ui->cbHTMLInlineCSS->isChecked()));
     ui->leHTMLCssPrefix->setEnabled(!ui->cbHTMLInlineCSS->isChecked());
     ui->leLATEXStyleFile->setEnabled(!ui->cbLATEXEmbedStyle->isChecked());
     ui->leTEXStyleFile->setEnabled(!ui->cbTEXEmbedStyle->isChecked());
