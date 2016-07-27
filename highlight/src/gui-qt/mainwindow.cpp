@@ -1020,8 +1020,9 @@ void MainWindow::plausibility()
 
     ui->cbPadZeroes->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbAdvWrapping->setEnabled(ui->cbWrapping->isChecked());
+    ui->sbLineLength->setEnabled(ui->cbWrapping->isChecked());
+    ui->cbOmitWrappedLineNumbers->setEnabled(ui->cbWrapping->isChecked());
     ui->comboEncoding->setEnabled(ui->cbEncoding->isChecked());
-
     ui->comboReformat->setEnabled(ui->cbReformat->isChecked());
     ui->comboKwCase->setEnabled(ui->cbKwCase->isChecked());
     ui->cbHTMLInlineCSS->setEnabled(ui->cbHTMLEmbedStyle->isChecked());
@@ -1043,7 +1044,6 @@ void MainWindow::plausibility()
     ui->cbHTMLAnchors->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbHTMLFileNameAnchor->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbHTMLOrderedList->setEnabled(ui->cbIncLineNo->isChecked());
-
     ui->pbCopyToCP->setEnabled(!savedClipboardContent.isEmpty());
 
     copyShortcut->setEnabled(ui->tabIOSelection->currentWidget()==ui->tab_clipboard);

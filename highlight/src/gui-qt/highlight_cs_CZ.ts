@@ -487,7 +487,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Include:</source>
-        <translation>Zařadit vstupní soubor:</translation>
+        <translation type="vanished">Zařadit vstupní soubor:</translation>
     </message>
     <message>
         <source>Include file name in anchor</source>
@@ -523,7 +523,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Šířka:</translation>
+        <translation type="vanished">Šířka:</translation>
     </message>
     <message>
         <source>Highlighting options</source>
@@ -555,7 +555,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Image size:</source>
-        <translation>Velikost obrázku:</translation>
+        <translation type="vanished">Velikost obrázku:</translation>
     </message>
     <message>
         <source>Add plug-in to pool</source>
@@ -967,6 +967,10 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>Copy preview to clipboard (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;mage width:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

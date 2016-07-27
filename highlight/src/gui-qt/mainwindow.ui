@@ -24,7 +24,7 @@
     <normaloff>:/hl_icon2.png</normaloff>:/hl_icon2.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_25">
+   <layout class="QVBoxLayout" name="verticalLayout_17">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_13">
       <item>
@@ -150,7 +150,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -949,7 +949,7 @@ The result has to match the input file encoding.</string>
             </size>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>4</number>
            </property>
            <widget class="QWidget" name="HTMLOptions">
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -968,14 +968,14 @@ The result has to match the input file encoding.</string>
                 </size>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="tabWidgetPage1">
                 <attribute name="title">
                  <string>Stylesheets</string>
                 </attribute>
-                <layout class="QGridLayout" name="gridLayout_4">
-                 <item row="0" column="0">
+                <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_10">
                    <item>
                     <widget class="QCheckBox" name="cbHTMLEmbedStyle">
@@ -1008,8 +1008,8 @@ The result has to match the input file encoding.</string>
                    </item>
                   </layout>
                  </item>
-                 <item row="1" column="0">
-                  <layout class="QHBoxLayout" name="horizontalLayout_14">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_9">
                    <item>
                     <widget class="QLabel" name="label_19">
                      <property name="text">
@@ -1025,6 +1025,12 @@ The result has to match the input file encoding.</string>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>100</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="toolTip">
                       <string>Name of the referenced style file.</string>
                      </property>
@@ -1035,17 +1041,40 @@ The result has to match the input file encoding.</string>
                    </item>
                   </layout>
                  </item>
-                 <item row="2" column="0">
-                  <layout class="QHBoxLayout" name="horizontalLayout_9">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_30">
                    <item>
                     <widget class="QLabel" name="label_20">
                      <property name="text">
-                      <string>Include:</string>
+                      <string>Stylesheet include file:</string>
                      </property>
                     </widget>
                    </item>
                    <item>
+                    <spacer name="horizontalSpacer_5">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                   <item>
                     <widget class="QLineEdit" name="leHTMLStyleIncFile">
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="toolTip">
                       <string>Path of the CSS include file.</string>
                      </property>
@@ -1075,8 +1104,8 @@ The result has to match the input file encoding.</string>
                    </item>
                   </layout>
                  </item>
-                 <item row="3" column="0">
-                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_14">
                    <item>
                     <widget class="QLabel" name="label">
                      <property name="text">
@@ -1086,6 +1115,12 @@ The result has to match the input file encoding.</string>
                    </item>
                    <item>
                     <widget class="QLineEdit" name="leHTMLCssPrefix">
+                     <property name="maximumSize">
+                      <size>
+                       <width>100</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="toolTip">
                       <string>Add a CSS class name prefix to avoid namespace clashes.</string>
                      </property>
@@ -1096,7 +1131,7 @@ The result has to match the input file encoding.</string>
                    </item>
                   </layout>
                  </item>
-                 <item row="4" column="0">
+                 <item>
                   <spacer name="verticalSpacer_9">
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
@@ -1241,6 +1276,13 @@ The result has to match the input file encoding.</string>
               </widget>
              </item>
              <item>
+              <widget class="Line" name="line_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QCheckBox" name="cbLATEXEmbedStyle">
                <property name="toolTip">
                 <string>Include the style information in each output file.</string>
@@ -1264,6 +1306,12 @@ The result has to match the input file encoding.</string>
                </item>
                <item>
                 <widget class="QLineEdit" name="leLATEXStyleFile">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="toolTip">
                   <string>Name of the referenced  style file.</string>
                  </property>
@@ -1372,6 +1420,12 @@ The result has to match the input file encoding.</string>
                </item>
                <item>
                 <widget class="QLineEdit" name="leTEXStyleFile">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="toolTip">
                   <string>Name of the referenced style file.</string>
                  </property>
@@ -1490,7 +1544,7 @@ You can select the stylesheets in your word processor to reformat additional tex
                 <widget class="QComboBox" name="comboRTFPageSize">
                  <property name="maximumSize">
                   <size>
-                   <width>60</width>
+                   <width>80</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -1562,18 +1616,11 @@ You can select the stylesheets in your word processor to reformat additional tex
            <widget class="QWidget" name="SVGOptions">
             <layout class="QVBoxLayout" name="verticalLayout_8">
              <item>
-              <widget class="QLabel" name="label_10">
-               <property name="text">
-                <string>Image size:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <layout class="QHBoxLayout" name="horizontalLayout_12">
                <item>
                 <widget class="QLabel" name="label_3">
                  <property name="text">
-                  <string>Width:</string>
+                  <string>I&amp;mage width:</string>
                  </property>
                  <property name="buddy">
                   <cstring>leSVGWidth</cstring>
@@ -1644,6 +1691,13 @@ You can select the stylesheets in your word processor to reformat additional tex
               </layout>
              </item>
              <item>
+              <widget class="Line" name="line_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QCheckBox" name="cbSVGEmbedStyle">
                <property name="toolTip">
                 <string>Include the style information in each output file.</string>
@@ -1667,6 +1721,12 @@ You can select the stylesheets in your word processor to reformat additional tex
                </item>
                <item>
                 <widget class="QLineEdit" name="leSVGStyleFile">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="toolTip">
                   <string>Name of the referenced style file.</string>
                  </property>
@@ -1808,6 +1868,12 @@ You can select the stylesheets in your word processor to reformat additional tex
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="toolTip">
               <string>Select a colour theme.</string>
              </property>
@@ -1839,6 +1905,12 @@ This feature is enabled tor C, C++, C# and Java code.</string>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="toolTip">
               <string>Choose a formatting scheme.</string>
              </property>
@@ -1868,6 +1940,12 @@ This feature is enabled tor C, C++, C# and Java code.</string>
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>16777215</height>
+              </size>
              </property>
              <property name="toolTip">
               <string>Select a keyword case.</string>
@@ -1911,6 +1989,12 @@ This feature is enabled tor C, C++, C# and Java code.</string>
            </item>
            <item>
             <widget class="QSpinBox" name="sbTabWidth">
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="toolTip">
               <string>Enter the number of spaces which replace a tab.
 Set the width to 0 to keep tabs.</string>
@@ -1923,49 +2007,40 @@ Set the width to 0 to keep tabs.</string>
           </layout>
          </item>
          <item>
-          <widget class="QSplitter" name="splitter_3">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <widget class="QCheckBox" name="cbWrapping">
-            <property name="toolTip">
-             <string>Enable line wrapping.</string>
-            </property>
-            <property name="text">
-             <string>Line wrapping</string>
-            </property>
-           </widget>
-           <widget class="QSpinBox" name="sbLineLength">
-            <property name="maximumSize">
-             <size>
-              <width>60</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Enter the maximum line length.</string>
-            </property>
-            <property name="minimum">
-             <number>60</number>
-            </property>
-            <property name="maximum">
-             <number>120</number>
-            </property>
-            <property name="singleStep">
-             <number>2</number>
-            </property>
-           </widget>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSplitter" name="splitter_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <widget class="QSplitter" name="splitter">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="cbWrapping">
+             <property name="toolTip">
+              <string>Enable line wrapping.</string>
+             </property>
+             <property name="text">
+              <string>Line wrapping</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QSpinBox" name="sbLineLength">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Enter the maximum line length.</string>
+             </property>
+             <property name="minimum">
+              <number>60</number>
+             </property>
+             <property name="maximum">
+              <number>120</number>
+             </property>
+             <property name="singleStep">
+              <number>2</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
             <widget class="QCheckBox" name="cbAdvWrapping">
              <property name="enabled">
               <bool>false</bool>
@@ -1977,6 +2052,8 @@ Set the width to 0 to keep tabs.</string>
               <string>Intelligent wrapping</string>
              </property>
             </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
             <widget class="QCheckBox" name="cbOmitWrappedLineNumbers">
              <property name="toolTip">
               <string>Do not add line numbering to lines which were automatically wrapped.</string>
@@ -1985,8 +2062,8 @@ Set the width to 0 to keep tabs.</string>
               <string>Omit line numbers of wrapped lines</string>
              </property>
             </widget>
-           </widget>
-          </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_9">
@@ -2004,7 +2081,7 @@ Set the width to 0 to keep tabs.</string>
             <widget class="QFontComboBox" name="comboFontName">
              <property name="maximumSize">
               <size>
-               <width>150</width>
+               <width>120</width>
                <height>16777215</height>
               </size>
              </property>
@@ -2043,7 +2120,7 @@ Set the width to 0 to keep tabs.</string>
              </property>
              <property name="maximumSize">
               <size>
-               <width>150</width>
+               <width>120</width>
                <height>16777215</height>
               </size>
              </property>
