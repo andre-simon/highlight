@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT PLUGIN MANUAL - Version 3.29   -------------------- May 2016 ---
+---  HIGHLIGHT PLUGIN MANUAL - Version 3.31   ----------------- August 2016 ---
 -------------------------------------------------------------------------------
 
 CONTENT
@@ -34,7 +34,7 @@ input or source code folding to the output (see section 6).
 The following script contains the basic plug-in structure which has no effect 
 on the output:
 
-Description="NOOP plugin"
+Description="Plugin Boilerplate"
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
@@ -124,7 +124,6 @@ Read only (other):
 HL_PLUGIN_PARAM: string (set with --plug-in-param)
 HL_LANG_DIR: string (path of language definition directory)
 
-
 Read only (output document format):
 
 HL_OUTPUT: number (selected format)
@@ -149,7 +148,7 @@ DecorateLineBegin: function
 DecorateLineEnd: function
 
 IMPORTANT: Functions will only be executed if they are defined as local
-functions within the "lang" chunk function referenced in the Plugins array. 
+functions within the "lang" chunk referenced in the Plugins array. 
 They will be ignored when defined elsewhere in the script.
 
 
@@ -185,8 +184,8 @@ OnStateChange(oldState, newState, token, kwGroupID)
                          contains the keyword group ID
   Returns:    Correct state to continue OR HL_REJECT
 
-Return HL_REJECT if the recognized token and state should be discarded; only the 
-first character of token will be outputted using the state defined as oldState.
+Return HL_REJECT if the recognized token and state should be discarded; the 
+first character of token will be outputted and highlighted as oldState.
 
 Examples:
 
@@ -197,10 +196,10 @@ function OnStateChange(oldState, newState, token, kwgroup)
    return newState
 end
 
-This function adds the current keyword to the internal keyword list if
-the keyword belongs to keyword group 5. If keyword group 5 is defined by a regex,
-this token will be recognized later as keyword even if the regular expression does
-no longer match.
+This function adds the current keyword to the internal keyword list if the 
+keyword belongs to keyword group 5. If keyword group 5 is defined by a regex,
+this token will be recognized later as keyword even if the regular expression 
+does no longer match.
 
 function OnStateChange(oldState, newState, token)
    if token=="]]" and oldState==HL_STRING and newState==HL_BLOCK_COMMENT_END then
@@ -234,7 +233,7 @@ Examples:
 
 function Decorate(token, state)
   if (state == HL_KEYWORD) then
-    return  string.upper(token)
+    return string.upper(token)
   end
 end
 
@@ -306,6 +305,8 @@ HL_FORMAT_ODT: number
 5. STEP BY STEP
 -------------------------------------------------------------------------------
 
+This example will add reference hyperlinks to Qt keywords:
+
 -- first add a description of what the plug-in does
 Description="Add qtproject.org reference links to HTML, LaTeX or RTF output"
 
@@ -363,7 +364,7 @@ function themeUpdate(desc)
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
     Injections[#Injections+1]=
       "a.hl, a.hl:visited {color:inherit;font-weight:inherit;}"
-	  
+
   -- LaTeX: hyperlinks require the hyperref package, so we add this here
   -- the colorlinks and pdfborderstyle options remove ugly boxes in the output
   elseif (HL_OUTPUT==HL_FORMAT_LATEX) then
@@ -406,7 +407,7 @@ Features:    Uses Decorate to add hyperlinks for a defined set of C++ keywords.
 
 ctags_html_tooltips.lua
 Description: Add tooltips based on a ctags file (default input file: tags)
-Features:    Uses file input (defined by cli option --plug-in-read) and
+Features:    Uses file input (defined by cli option --plug-in-param) and
              parses tags data before Decorate is called.
              
 outhtml_curly_brackets_matcher.lua
@@ -422,6 +423,16 @@ Features:    Uses Decorate to add span tags with unique ids to opening and
              closing brackets.
              Uses OnStateChange to assign an internal ID to each keyword.
              Adds JavaScript with HeaderInjection variable.
+             Inserts additional CSS styles with Injections variable.
+             
+outhtml_codefold.lua
+Description: Adds code folding for C style languages, Pascal, Lua and Ruby to 
+             HTML output
+Features:    Uses DecorateLineBegin and DecorateLineEnd to add ID-spans to each 
+             line.
+             Applies Decorate to each block delimiter to add onClick event 
+             handlers.
+             Adds JavaScript with HeaderInjection and FooterInjection variables.
              Inserts additional CSS styles with Injections variable.
              
  

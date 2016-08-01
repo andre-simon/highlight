@@ -2,7 +2,7 @@
                           help.cpp  -  description
                              -------------------
     begin                : Die Apr 23 2002
-    copyright            : (C) 2002-2015 by Andre Simon
+    copyright            : (C) 2002-2016 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -44,13 +44,10 @@ void printHelp()
     cout<<" -h, --help                     print this help\n";
     cout<<" -i, --input=<file>             name of single input file\n";
     cout<<" -o, --output=<file>            name of single output file\n";
-
-    //cout<<" -p, --list-langs               list installed language definitions (deprecated)\n";
     cout<<" -P, --progress                 print progress bar in batch mode\n";
     cout<<" -q, --quiet                    supress progress info in batch mode\n";
     cout<<" -S, --syntax=<type>            specify type of source code\n";
     cout<<" -v, --verbose                  print debug info\n";
-    //cout<<" -w, --list-themes              list installed colour themes (deprecated)\n";
     cout<<"     --force                    generate output if input syntax is unknown\n";
     cout<<"     --list-scripts=<type>      list installed scripts\n";
     cout<<"                                  <type> = [langs, themes, plugins]\n";
