@@ -36,6 +36,12 @@ Test filetype recognition:
 -force syntax using -S
 
 
+UNNEEDED FILES
+--------------
+
+Remove src/gui-qt/.qmake.stash
+
+
 THIRD PARTY COMPATIBILITY
 -------------------------
 
