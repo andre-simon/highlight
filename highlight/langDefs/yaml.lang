@@ -85,12 +85,13 @@ Comments={
   },
 }
 
-Operators=[[\(|\)|\[|\]|=|\,|\&|\<|\>|\!|\=|\*|\%|\+|\%|\||or|and|not|true|false|yes|no]]
+Operators=[[\(|\)|\[|\]|<|>|\=|\,|\&|\!|\*|\%|\+|\%|\||or|and|not|true|false|yes|no]]
 
 IgnoreCase=true
 
 -- resolve issue with unknown identifiers ending with : (see empty kw group 1)
 -- keyword group cannot be returned, use the first one to highlight tokens which are not listed in group 2 or 3
+
 function OnStateChange(oldState, newState, token, kwgroup)
   if newState==HL_STANDARD and string.sub(token,-1)==":" 
      and not Keywords[1].List[token] and not Keywords[2].List[token] then

@@ -4,31 +4,37 @@ Description="Relax NG"
 
 Keywords={
   { Id=1,
-    List={"datatypes", "div", "element", "empty", "external", "grammar", "include", "inherit", "list", "mixed", "namespace", "notAllowed"},
+    List={"datatypes", "div", "element", "empty", "external", "grammar", "include",
+          "inherit", "list", "mixed", "namespace", "notAllowed"},
   },
   -- allows certain keywords to be used as element/attribute names
   { Id=1,
-	Regex=[[(?<!element )(default|attribute)\\s]]
-	},
+    Regex=[[(?<!element )(default|attribute)\\s]]
+  },
   { Id=1,
-	Regex=[[(?<!attribute )start\\s]]
-	},
-	-- includes xsd datatypes
+    Regex=[[(?<!attribute )start\\s]]
+  },
+  -- includes xsd datatypes
   { Id=2,
-    List={"empty", "string", "text", "token", "xsd", "rng", "anyURI", "base64Binary", "boolean", "byte", "date", "dateTime", "decimal", "double", "duration", "ENTITIES", "ENTITY", "float", "gDay", "gMonth", "gMonthDay", "gYear", "gYearMonth", "hexBinary", "ID", "IDREF", "IDREFS", "int", "integer", "language", "long", "Name", "NCName", "negativeInteger", "NMTOKEN", "NMTOKENS", "nonNegativeInteger", "nonPositiveInteger", "normalizedString", "NOTATION", "positiveInteger", "QName", "short", "string", "token", "unsignedByte", "unsignedInt", "unsignedLong", "unsignedShort"},
+    list={"empty", "string", "text", "token", "xsd", "rng", "anyuri", 
+        "base64binary", "boolean", "byte", "date", "datetime", "decimal", "double", 
+        "duration", "entities", "entity", "float", "gday", "gmonth", "gmonthday", 
+        "gyear", "gyearmonth", "hexbinary", "id", "idref", "idrefs", "int", "integer", 
+        "language", "long", "name", "ncname", "negativeinteger", "nmtoken", "nmtokens", 
+        "nonnegativeinteger", "nonpositiveinteger", "normalizedstring", "notation", 
+        "positiveinteger", "qname", "short", "string", "token", "unsignedbyte", 
+        "unsignedint", "unsignedlong", "unsignedshort"},
   },
   -- allows "time" to be used as element/attribute name
   { Id=2,
-	Regex=[[time(?!-)]]
-	},
+    Regex=[[time(?!-)]]
+  },
   { Id=2,
     List={"defaultValue"},
   },
   { Id=2,
-	Regex=[[a(?=:)]]
-	},
- 
-
+    Regex=[[a(?=:)]]
+  }
 }
 
 Strings={
@@ -43,4 +49,4 @@ Comments={
   },
 }
 
-Operators=[[\[|\]|\{|\}|\;|\.|\<|\>|\!|\=|\/|\%|\+|\~|\&|\=]]
+Operators=[[\[|\]|\{|\}|\;|\.|<|>|\!|\=|\/|\%|\+|\~|\&|\=]]

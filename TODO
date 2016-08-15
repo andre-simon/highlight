@@ -1,4 +1,4 @@
 Planned for future releases:
 
--add localization support for command line interface (gettext)
+-test integration of the language server protocol: https://github.com/microsoft/language-server-protocol
 
