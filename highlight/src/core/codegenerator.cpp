@@ -1026,7 +1026,16 @@ void CodeGenerator::processRootState()
             openTag ( STANDARD );
             break;
         case _EOL:
+            
+            // XTERM256 fix (issue with less cmd)
+            if  (!firstLine || showLineNumbers) {
+                closeTag ( STANDARD ); 
+            }
             insertLineNumber ( !firstLine );
+            if (!firstLine || showLineNumbers) { 
+                flushWs();
+                openTag ( STANDARD );
+            }
             firstLine=false;
             break;
         case _EOF:
@@ -1092,7 +1101,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
             exitState=true;
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while (  !exitState  &&  !eof );
 
     closeTag ( KEYWORD );
     return eof;
@@ -1128,7 +1137,7 @@ bool CodeGenerator::processKeywordState ( State myState )
             exitState= ( myClassID!=currentKeywordClass ) || ( myState!=newState );
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while ( !exitState  &&  !eof );
 
     closeKWTag ( myClassID );
 
@@ -1160,7 +1169,7 @@ bool CodeGenerator::processNumberState()
             exitState=newState!=NUMBER;
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while ( !exitState && !eof );
 
     closeTag ( NUMBER );
     return eof;
@@ -1212,7 +1221,7 @@ bool CodeGenerator::processMultiLineCommentState()
         default:
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while ( !exitState  &&  !eof );
 
     closeTag ( ML_COMMENT );
     return eof;
@@ -1255,7 +1264,7 @@ bool CodeGenerator::processSingleLineCommentState()
         default:
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while ( !exitState  &&  !eof );
 
     closeTag ( SL_COMMENT );
     return eof;
@@ -1311,7 +1320,7 @@ bool CodeGenerator::processDirectiveState()
         default:
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while ( !exitState && !eof );
 
     closeTag ( DIRECTIVE );
     return eof;
@@ -1398,7 +1407,7 @@ bool CodeGenerator::processStringState ( State oldState )
             printMaskedToken();
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while ( !exitState && !eof );
 
     closeTag ( myState );
     return eof;
@@ -1430,7 +1439,7 @@ bool CodeGenerator::processSymbolState()
             exitState=newState!=SYMBOL;
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while ( !exitState && !eof );
 
     closeTag ( SYMBOL );
     return eof;
@@ -1459,7 +1468,7 @@ bool CodeGenerator::processEscapeCharState()
             exitState=newState!=ESC_CHAR;
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while ( !exitState && !eof );
 
     closeTag ( ESC_CHAR );
     return eof;
@@ -1488,7 +1497,7 @@ bool CodeGenerator::processInterpolationState()
             exitState=newState!=STRING_INTERPOLATION;
             break;
         }
-    } while ( ( !exitState ) && ( !eof ) );
+    } while ( !exitState && !eof );
 
     closeTag ( STRING_INTERPOLATION );
     return eof;

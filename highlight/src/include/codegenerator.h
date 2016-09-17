@@ -608,8 +608,10 @@ private:
         return *this;
     }
 
-    /** Insert line number at the beginning of current output line */
-    virtual void insertLineNumber ( bool insertNewLine=true );
+    /** Insert line number at the beginning of current output line 
+        @param insertNewLine set true if newline should be outputted
+     */
+    virtual void insertLineNumber ( bool insertNewLine=true);
 
     /** returns output specific document footer
         @return footer */

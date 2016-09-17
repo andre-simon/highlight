@@ -5,6 +5,7 @@ highlight 3.32
 
 xx.xx.2016
 
+-fixed xterm256 output for paging with less (thanks to Fylwind)
 -fixed operator regex in rnc.lang, crk.lang and yaml.lang (thanks to Joe Klauza)
 -added Pony and Whiley definitions
 

@@ -39,7 +39,6 @@ namespace highlight
 {
 Xterm256Generator::Xterm256Generator() : CodeGenerator ( XTERM256 )
 {
-
     newLineTag = "\n";
     spacer = " ";
 }
