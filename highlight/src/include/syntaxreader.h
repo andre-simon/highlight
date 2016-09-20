@@ -295,7 +295,10 @@ public:
     	\param pluginReadFilePath absolute path of plugin input file
     */
     static void initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginReadFilePath, OutputType outputType=HTML );
-   
+    /*
+    void addVariable(const string& name, const string& value);
+    void addVariable(const string& name, bool value);
+    */
 private:
 
     static const string REGEX_IDENTIFIER;

@@ -153,6 +153,9 @@ private:
     */
     virtual void insertLineNumber ( bool insertNewLine=true );
 
+    /** add Lua state variables specific to the output format */
+   // virtual void addSpecificVars();
+    
     /** Print document header
     */
     string getHeader();

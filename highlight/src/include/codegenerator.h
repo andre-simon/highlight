@@ -578,6 +578,12 @@ protected:
         return StringTools::change_case ( encoding ) !="none";
     }
 
+    /** add Lua state variables specific to the output format */
+    /*
+    virtual void addSpecificVars()
+    {
+    };*/
+
     /** Invoke plugin decorate user function */
     Diluculum::LuaValueList callDecorateFct(const string& token);
     

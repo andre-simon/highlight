@@ -225,17 +225,21 @@ string HtmlGenerator::getStyleDefinition()
     if ( styleDefinitionCache.empty() ) {
         bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
         ostringstream os;
-        os  << "body";
+        
+        string classNameSuffix;
         if (!cssClassName.empty())
-            os<<"."<<cssClassName;
+            classNameSuffix="."+cssClassName;
+
+        os  << "body"<<classNameSuffix;
+        
         os  <<"\t{ background-color:#"
             << ( docStyle.getBgColour().getRed ( HTML ) )
             << ( docStyle.getBgColour().getGreen ( HTML ) )
             << ( docStyle.getBgColour().getBlue ( HTML ) )
             << "; }\n";
-        os << (orderedList ? "ol" : "pre");
-        if (!cssClassName.empty())
-            os<<"."<<cssClassName;
+        
+        os << ( (orderedList) ? "ol" : "pre" ) << classNameSuffix;
+        
         os << "\t{ color:#"
            << ( docStyle.getDefaultStyle().getColour().getRed ( HTML ) )
            << ( docStyle.getDefaultStyle().getColour().getGreen ( HTML ) )
@@ -384,7 +388,16 @@ void HtmlGenerator::insertLineNumber ( bool insertNewLine )
 
 }
 
-
+/** add Lua state variables specific to the output format */
+/*
+void HtmlGenerator::addSpecificVars()
+    {
+        std::cerr<<"addSpecificVars HTML\n";
+        currentSyntax->addVariable("HL_HTML_CSS_CLASSNAME", cssClassName);
+        currentSyntax->addVariable("HL_HTML_ORDERED_LIST", orderedList);
+        currentSyntax->addVariable("HL_HTML_CSS_INLINE", useInlineCSS);
+    }
+*/
 bool HtmlGenerator::printIndexFile ( const vector<string> &fileList,
                                      const string &outPath )
 {

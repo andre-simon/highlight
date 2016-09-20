@@ -15,7 +15,7 @@ Keywords={
           }
   },
   { Id=3,
-    List= { "String", "Integer", "Float", "Boolean", "Element", "Object", "Decimal", "Whole"
+    List= { "String", "Integer", "Float", "Boolean", "Element", "Object", "Decimal", "Whole", "List"
           }
   },
   { Id=4,
@@ -26,7 +26,7 @@ Keywords={
 Strings = {
   Delimiter=[["""|"|']],
   RawPrefix="R",
-  Interpolation=[[ ``[\w\(\)]+?`` ]],
+  Interpolation=[[ ``[\w\(\)]+?``|\\\{.+?\} ]],
 }
 
 Comments = {
@@ -42,7 +42,7 @@ Comments = {
 
 IgnoreCase=false
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~|\|]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\~|\||\?]]
 
 Digits=[[ [\d\.\_]*\d+(?:[eE][\-\+]?\d+)?[kMGTPmunpf]*|#[[:alnum:]\_]+|\$[01_]+ ]]
 

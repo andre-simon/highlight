@@ -80,6 +80,8 @@ SyntaxReader::~SyntaxReader()
     pluginChunks.clear();
 }
 
+//TODO add method to add format dependent variables (like CSS class name) for plug-in access
+//     needs to be called for each loaded syntax in CodeGenerator::loadLanguage
 void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginParameter, OutputType type )
 {
     // initialize Lua state with variables which can be used within scripts
@@ -132,6 +134,17 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
     ls["HL_FORMAT_PANGO"]=PANGO;
     ls["HL_FORMAT_ODT"]=ODTFLAT;
 }
+
+/*
+void SyntaxReader::addVariable(const string& name, const string& value){
+    if (!luaState) return;
+    (*luaState)[name] = value;
+}
+
+void SyntaxReader::addVariable(const string& name, bool value){
+    if (!luaState) return;
+    (*luaState)[name] = value;
+}*/
 
 LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginReadFilePath, OutputType outputType, bool clear )
 {
