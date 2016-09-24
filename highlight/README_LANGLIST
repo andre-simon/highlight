@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT LANGUAGE LIST ------------------------------------- May 2016 ---
+---  HIGHLIGHT LANGUAGE LIST ------------------------------- September 2016 ---
 -------------------------------------------------------------------------------
 
 All supported languages and the syntax definition file names are listed below.
@@ -19,7 +19,7 @@ Packaged language definitions (highlight --list-langs):
 ABAP/4                        : abap4 ( abp )
 ABC                           : abc
 Advanced Backus-Naur Form     : abnf
-Action Script                 : actionscript ( as )
+ActionScript                  : actionscript ( as )
 ADA95                         : ada ( a adb ads gnad )
 Agda                          : agda
 ALGOL 68                      : algol ( alg )
@@ -30,7 +30,7 @@ Arc                           : arc
 ARM                           : arm
 AS/400 CL                     : as400cl
 ASCEND                        : ascend ( a4c )
-ASP                           : asp ( ascx ashx aspx )
+Active Server Pages           : asp ( ascx ashx aspx )
 Abstract                      : aspect ( was wud )
 Assembler                     : assembler ( 29k 68s 68x a51 asm s x86 )
 Applied Type System           : ats ( dats )
@@ -50,9 +50,9 @@ Backus-Naur Form              : bnf
 Boo                           : boo
 C and C++                     : c ( c++ cc cpp cu cxx h hh hpp hxx )
 Ceylon                        : ceylon
-Chapel                        : chpl
 Charmm                        : charmm ( inp )
 CHILL                         : chill ( chl )
+Chapel                        : chpl
 Clean                         : clean ( icl )
 ClearBasic                    : clearbasic ( cb )
 Clipper                       : clipper
@@ -61,13 +61,13 @@ Clips                         : clp
 COBOL                         : cobol ( cbl cob )
 ColdFusion MX                 : coldfusion ( cfc cfm )
 Generic config files          : conf
-Crack                         : crack
 Crack                         : crk
 C#                            : csharp ( cs )
 CSS                           : css
 D                             : d
 Dart                          : dart
 Diff                          : diff ( patch )
+Device Tree Source            : dts ( dtsi )
 Dylan                         : dylan
 Extended Backus-Naur Form     : ebnf
 Eiffel                        : eiffel ( e se )
@@ -101,8 +101,9 @@ INTERLIS                      : interlis ( ili )
 IO                            : io
 Jasmin                        : jasmin ( j )
 Java                          : java ( groovy grv )
-Javascript                    : js
-JSP                           : jsp
+Javascript                    : js ( jsx )
+JSON                          : json
+JavaServer Pages              : jsp
 Julia                         : julia ( jl )
 Kotlin                        : kotlin ( kt )
 LDAP                          : ldif
@@ -121,6 +122,7 @@ Make                          : make ( mak makefile mk )
 Maple                         : maple ( mpl )
 Matlab                        : matlab ( m )
 Maya                          : maya ( mel )
+GitHub Flavored Markdown      : md
 Mercury                       : mercury
 Miranda                       : miranda
 Modula2                       : mod2 ( def mod )
@@ -128,6 +130,7 @@ Modula3                       : mod3 ( i3 m3 )
 Modelica                      : modelica ( mo )
 MoonScript                    : moon
 MaxScript                     : ms
+mIRC Scripting                : msl ( nbs )
 MSSQL                         : mssql
 Magic eXtensible Markup       : mxml
 Notation3 (N3), N-Triples, Turtle, SPARQL: n3 ( nt ttl )
@@ -137,7 +140,8 @@ Nemerle                       : nemerle ( n )
 NetRexx                       : netrexx ( nrx )
 Nginx configuration           : nginx
 Nice                          : nice
-NSIS                          : nsis ( nsi )
+Nim                           : nim
+NSIS                          : nsis ( nsh nsi )
 Not eXactly C                 : nxc
 Oberon                        : oberon ( ooc )
 Objective C                   : objc
@@ -156,6 +160,7 @@ PL/1                          : pl1 ( bdy ff fp fpp rpp sf sp spb spe spp sps wf
 PL/Perl                       : plperl
 PL/Python                     : plpython
 PL/Tcl                        : pltcl
+Pony                          : pony
 POV-Ray                       : pov
 Prolog                        : pro
 Progress                      : progress ( i p w )
@@ -193,6 +198,7 @@ SPIN SQL                      : spn
 PL/SQL                        : sql
 Squirrel                      : squirrel ( nut )
 Stylus                        : styl
+SVG                           : svg
 Swift                         : swift
 Sybase SQL                    : sybase
 Tcl/Tk                        : tcl ( itcl wish )
@@ -207,9 +213,11 @@ Vala                          : vala
 Visual Basic                  : vb ( bas basic bi vbs )
 Verilog                       : verilog ( v )
 VHDL                          : vhd
-XML                           : xml ( dtd ecf ent glade hdr hub jnlp nrm resx sgm sgml svg tld vxml wml xsd xsl )
+Whiley                        : whiley
+XML                           : xml ( csproj dtd ecf ent glade hdr hub jnlp nrm resx sgm sgml tld vxml wml xsd xsl )
 SuperX++                      : xpp
 Yaiff                         : yaiff
+Ansible YAML                  : yaml ( yml )
 Yang                          : yang
 Zonnon                        : znn
 

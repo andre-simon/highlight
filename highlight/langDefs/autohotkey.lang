@@ -73,3 +73,5 @@ Comments={
 }
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\\|\`|%|\.|\+|\-]]
+
+EnableIndentation=true

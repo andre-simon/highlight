@@ -8,7 +8,7 @@ highlight 3.32
 -fixed xterm256 output for paging with less (thanks to Fylwind)
 -fixed operator regex in rnc.lang, crk.lang and yaml.lang (thanks to Joe Klauza)
 -added Pony and Whiley definitions
--updated Ceylon definition
+-updated Ceylon and Julia definitions
 -added Go, AutoHotKey, TypeScript and R to the foldable list in the 
   outhtml_codefold.lua plug-in
 

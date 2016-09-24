@@ -1,6 +1,8 @@
 
 Description="Javascript"
 
+Digits=[[ (?:0x)[0-9a-fA-F]+|(?:0b)[01]+|(?:0o)[0-8]+|\d*[\.]?\d+(?:[eE][\-\+]\d+)?[lLuU]* ]]
+
 Keywords={
   { Id=1,
     List={"abstract", "break", "class", "const", "continue", "debugger",
@@ -47,6 +49,8 @@ Comments={
 }
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|.]]
+
+EnableIndentation=true
 
 -- resolve issue with regex expression which spans strings like "</i>" + VAR + "</i>"
 function OnStateChange(oldState, newState, token, groupID)

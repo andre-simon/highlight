@@ -45,7 +45,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "platform_fs.h"
 #include "enums.h"
 
-#define GLOBAL_INSTANCE_NAME "HL_SRInstance"
+#define GLOBAL_SR_INSTANCE_NAME "HL_SRInstance"
 
 using namespace std;
 
@@ -64,7 +64,6 @@ typedef map <string, string> EmbedLangDelimMap;
 
 * @author Andre  Simon
 */
-
 class SyntaxReader
 {
 
@@ -81,9 +80,8 @@ public:
         \param langDefPath Path of language definition
         \param pluginReadFilePath path to file which is read by plugin
         \param outputType output format
-        \param clear Test if current data should be resetted to defaults
         \return LoadResult  */
-    LoadResult load( const string& langDefPath, const string& pluginReadFilePath,  OutputType outputType=HTML, bool clear=true );
+    LoadResult load( const string& langDefPath, const string& pluginReadFilePath,  OutputType outputType );
 
     /** \return True if the next load() call would load a new language definition
         \param  langDefPath Path to language definition  */
@@ -347,18 +345,16 @@ private:
          assertEqualLength;
 
     // character which is prefix of raw string (c#)
-    unsigned char rawStringPrefix,
+    unsigned char rawStringPrefix;
 
-             //character which continues curreent style on next line
-             continuationChar;
-
-
+    //character which continues curreent style on next line
+    unsigned char continuationChar;
 
     bool readFlag(const Diluculum::LuaVariable& var) ;
 
     // interface for plug-ins: add keywords dynamically
     static int luaAddKeyword (lua_State *L);
-
+    
     // generate a keyword class 
     unsigned int generateNewKWClass ( int classID );
     

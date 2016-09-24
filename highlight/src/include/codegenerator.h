@@ -209,8 +209,7 @@ public:
     */
     void setPreformatting ( WrapMode lineWrappingStyle, unsigned int lineLength,int numberSpaces );
 
-    /** \deprecated
-        \return True if document style was found */
+    /** \return True if document style was found */
     bool styleFound();
 
     /** \return True if reformatting of current input is disabled */
@@ -354,7 +353,6 @@ public:
 
     /** Load the Lua functions og the plug-in script
     	\param script path of the plug-in script
-    	\param scriptInputFile path of the optional file to be read by the plugin
     */
     bool initPluginScript(const string& script);
 

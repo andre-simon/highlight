@@ -29,8 +29,11 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define THEMEREADER_H
 
 #include <string>
+
+#include <Diluculum/LuaState.hpp>
 #include <Diluculum/LuaFunction.hpp>
 #include <Diluculum/LuaVariable.hpp>
+
 #include "elementstyle.h"
 #include "stylecolour.h"
 
@@ -60,7 +63,7 @@ private:
     string errorMsg;
     string desc;
     string themeInjections;
-
+        
     vector<Diluculum::LuaFunction*> pluginChunks;
 
     bool fileOK;
@@ -81,7 +84,6 @@ public:
 
     void addUserChunk(const Diluculum::LuaFunction& chunk)
     {
-
         pluginChunks.push_back(new Diluculum::LuaFunction(chunk));
     }
 

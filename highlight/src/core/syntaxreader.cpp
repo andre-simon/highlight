@@ -135,20 +135,8 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
     ls["HL_FORMAT_ODT"]=ODTFLAT;
 }
 
-/*
-void SyntaxReader::addVariable(const string& name, const string& value){
-    if (!luaState) return;
-    (*luaState)[name] = value;
-}
-
-void SyntaxReader::addVariable(const string& name, bool value){
-    if (!luaState) return;
-    (*luaState)[name] = value;
-}*/
-
-LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginReadFilePath, OutputType outputType, bool clear )
+LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginReadFilePath, OutputType outputType )
 {
-  
     currentPath=langDefPath;
     disableHighlighting=false;
 
@@ -168,8 +156,8 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
         SyntaxReader **s = (SyntaxReader **)lua_newuserdata(ls.getState(), sizeof(SyntaxReader *));
         *s=this;
-        lua_setglobal(ls.getState(), GLOBAL_INSTANCE_NAME);
-
+        lua_setglobal(ls.getState(), GLOBAL_SR_INSTANCE_NAME);
+    
         // ececute script and read values
         ls.doFile (langDefPath);
 
@@ -385,7 +373,7 @@ int SyntaxReader::luaAddKeyword (lua_State *L)
     if (lua_gettop(L)==2) {
         const char*keyword=lua_tostring(L, 1);
         unsigned int kwgroupID=lua_tonumber(L, 2);
-        lua_getglobal(L, GLOBAL_INSTANCE_NAME);
+        lua_getglobal(L, GLOBAL_SR_INSTANCE_NAME);
         SyntaxReader **a=reinterpret_cast<SyntaxReader **>(lua_touserdata(L, 3));
         if (*a) {
             (*a)->addKeyword(kwgroupID, keyword);
@@ -395,7 +383,6 @@ int SyntaxReader::luaAddKeyword (lua_State *L)
     lua_pushboolean(L, retVal);
     return 1;
 }
-
 
 void SyntaxReader::restoreLangEndDelim(const string& langPath)
 {

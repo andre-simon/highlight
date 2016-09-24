@@ -440,9 +440,6 @@ private:
     /** list of plugin file names */
     vector <string> userPlugins;
 
-    /** list lines which should be marked and supplied with help string */
-    map <int, string> markLines;
-
     /** list of file types which should be ignored */
     set <string> ignoredFileTypes;
 
@@ -454,9 +451,6 @@ private:
 
     /** get all entries in the directory defined by wildcard */
     void readDirectory ( const string & wildcard );
-
-    /** \return Boolean value of paramVal */
-    bool getFlag ( const string& paramVal );
 
     /** \return Valid path name */
     string validateDirPath ( const string & path );

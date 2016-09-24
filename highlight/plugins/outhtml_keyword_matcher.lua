@@ -4,7 +4,7 @@ Description="Shows matching keywords in HTML output. Define the keyword group as
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
-  
+      
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
     
     -- can use 1 to 4, depending on the syntax definition

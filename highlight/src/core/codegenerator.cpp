@@ -685,9 +685,6 @@ LoadResult CodeGenerator::loadLanguage ( const string& langDefPath )
             currentSyntax=new SyntaxReader();
             result=currentSyntax->load(langDefPath, pluginReadFile, outputType);
             syntaxReaders[langDefPath]=currentSyntax;
-            
-            //TODO add format specific variables here
-            //addSpecificVars();
         }
 
         if ( result==LOAD_OK ) {
@@ -1673,6 +1670,7 @@ bool CodeGenerator::initPluginScript(const string& script)
     if (script.empty()) return true;
 
     try {
+         
         userScriptError="";
         Diluculum::LuaState ls;
         ls.doFile (script);

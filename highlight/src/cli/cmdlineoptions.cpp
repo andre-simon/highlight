@@ -653,10 +653,6 @@ bool CmdLineOptions::prettySymbols() const
 {
     return opt_pretty_symbols;
 }
-bool CmdLineOptions::getFlag ( const string& paramVal )
-{
-    return StringTools::change_case ( paramVal ) =="true";
-}
 bool CmdLineOptions::orderedList() const
 {
     return opt_ordered_list;
