@@ -96,11 +96,13 @@ CodeGenerator * CodeGenerator::getInstance ( OutputType type )
         generator = new ODTGenerator();
         break;
 #if !defined (QT)
-    case ANSI:
+    case ESC_ANSI:
         generator = new AnsiGenerator();
         break;
-    case XTERM256:
+    case ESC_XTERM256:
+    case ESC_TRUECOLOR:
         generator = new Xterm256Generator();
+        generator->setESCTrueColor(type==ESC_TRUECOLOR);
         break;
 #endif
     default:

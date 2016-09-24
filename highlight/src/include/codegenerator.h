@@ -426,6 +426,10 @@ public:
     /** set SVG page size
      */
     virtual void setSVGSize ( const string&, const string& )  {};
+    
+    /** set True Color flag
+     */
+    virtual void setESCTrueColor ( bool )  {};
 
 protected:
 

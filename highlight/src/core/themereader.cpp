@@ -74,8 +74,9 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
         luaState["HL_FORMAT_TEX"]=TEX;
         luaState["HL_FORMAT_LATEX"]=LATEX;
         luaState["HL_FORMAT_RTF"]=RTF;
-        luaState["HL_FORMAT_ANSI"]=ANSI;
-        luaState["HL_FORMAT_XTERM256"]=XTERM256;
+        luaState["HL_FORMAT_ANSI"]=ESC_ANSI;
+        luaState["HL_FORMAT_XTERM256"]=ESC_XTERM256;
+        luaState["HL_FORMAT_TRUECOLOR"]=ESC_TRUECOLOR;
         luaState["HL_FORMAT_HTML32"]=HTML32;
         luaState["HL_FORMAT_SVG"]=SVG;
         luaState["HL_FORMAT_BBCODE"]=BBCODE;

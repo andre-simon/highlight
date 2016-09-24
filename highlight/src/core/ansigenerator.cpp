@@ -46,7 +46,7 @@ string  AnsiGenerator::getOpenTag ( const string&font,
 }
 
 
-AnsiGenerator::AnsiGenerator() : CodeGenerator ( ANSI )
+AnsiGenerator::AnsiGenerator() : CodeGenerator ( ESC_ANSI )
 {
 
     newLineTag = "\n";

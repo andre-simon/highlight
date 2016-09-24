@@ -37,7 +37,7 @@ namespace highlight
 {
 
 /**
-   \brief This class generates xterm 256 color escape sequences.
+   \brief This class generates xterm 256 and 16m color escape sequences.
 
    It contains information about the resulting document structure (document
    header and footer), the colour system, white space handling and text
@@ -52,6 +52,8 @@ public:
     Xterm256Generator();
     ~Xterm256Generator();
 
+    void setESCTrueColor(bool b) { use16mColours = b; } 
+    
 private:
 
     /** prints document header
@@ -93,6 +95,9 @@ private:
     /** selects the nearest xterm color for a 3xBYTE rgb value
         @param RGB colour string */
     unsigned char rgb2xterm ( unsigned char* rgb );
+    
+    // set true if "True Color" escape codes should be used instead of 256 color approximation
+    bool use16mColours;
 
     /// Flag to determine if colourtable is calculated
     static bool initialized;

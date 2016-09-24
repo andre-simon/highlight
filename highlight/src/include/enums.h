@@ -92,13 +92,14 @@ enum OutputType {
     TEX,
     LATEX,
     RTF,
-    ANSI,
-    XTERM256,
+    ESC_ANSI,
+    ESC_XTERM256,
     HTML32,
     SVG,
     BBCODE,
     PANGO,
-    ODTFLAT
+    ODTFLAT,
+    ESC_TRUECOLOR
 };
 
 }

@@ -203,9 +203,11 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
             else if ( tmp == "rtf" )
                 outputType = highlight::RTF;
             else if ( tmp == "ansi" || tmp == "esc" ) // gnu source-highlight esc parameter
-                outputType = highlight::ANSI;
+                outputType = highlight::ESC_ANSI;
             else if ( tmp == "xterm256" )
-                outputType = highlight::XTERM256;
+                outputType = highlight::ESC_XTERM256;
+            else if ( tmp == "truecolor" )
+                outputType = highlight::ESC_TRUECOLOR;
             else if ( tmp == "svg" )
                 outputType = highlight::SVG;
             else if ( tmp == "bbcode" )
@@ -285,7 +287,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
             StringTools::str2num<int> ( lineNrStart, arg, std::dec );
             break;
         case 'M':
-            outputType=highlight::XTERM256;
+            outputType=highlight::ESC_XTERM256;
             break;
         case 'n':
             opt_ordered_list = opt_linenumbers = true;
@@ -582,7 +584,7 @@ bool CmdLineOptions::printLineNumbers() const
 
 string CmdLineOptions::getThemeName() const
 {
-    return ( ( opt_style ) ? styleName+".theme" : (outputType==highlight::XTERM256)?"edit-vim-dark.theme":"edit-kwrite.theme" );
+    return ( ( opt_style ) ? styleName+".theme" : (outputType==highlight::ESC_XTERM256 || outputType==highlight::ESC_TRUECOLOR)?"edit-vim-dark.theme":"edit-kwrite.theme" );
 }
 bool CmdLineOptions::enableBatchMode() const
 {
@@ -604,9 +606,10 @@ string CmdLineOptions::getOutFileSuffix() const
         return ".tex";
     case highlight::SVG:
         return ".svg";
-    case highlight::ANSI:
+    case highlight::ESC_ANSI:
         return ".ansi";
-    case highlight::XTERM256:
+    case highlight::ESC_XTERM256:
+    case highlight::ESC_TRUECOLOR:
         return ".xterm";
     case highlight::BBCODE:
         return ".bbcode";

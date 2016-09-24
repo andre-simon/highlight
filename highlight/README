@@ -119,18 +119,20 @@ main.cpp as input file:
   highlight --out-format=latex -i main.cpp -o main.cpp.tex
 
   The following output formats may be defined with --out-format:
-  html:     HTML5
-  xhtml:    XHTML 1.1
-  tex:      Plain TeX
-  latex:    LaTeX
-  rtf:      RTF
-  odt:      OpenDocument Text (Flat XML)
-  svg:      SVG
-  bbcode:   BBCode
-  pango:    Pango markup
-  ansi:     Terminal 16 color escape codes
-  xterm256: Terminal 256 color escape codes
+  html:      HTML5
+  xhtml:     XHTML 1.1
+  tex:       Plain TeX
+  latex:     LaTeX
+  rtf:       RTF
+  odt:       OpenDocument Text (Flat XML)
+  svg:       SVG
+  bbcode:    BBCode
+  pango:     Pango markup
+  ansi:      Terminal 16 color escape codes
+  xterm256:  Terminal 256 color escape codes
+  truecolor: Terminal 16m color escape codes
 
+  
   Default output is HTML if no other format is specified.
 
 - Customize font settings:
@@ -184,7 +186,7 @@ Output formatting options:
 
  -O, --out-format=<format>      output file in given format
                                   <format>=[html, xhtml, latex, tex, odt, rtf,
-                                  ansi, xterm256, bbcode, pango, svg]
+                                  ansi, xterm256, truecolor, bbcode, pango, svg]
  -c, --style-outfile=<file>     name of style file or print to stdout, if
                                   'stdout' is given as file argument
  -e, --style-infile=<file>      to be included in style-outfile (deprecated)
@@ -342,6 +344,8 @@ Since there are limited colours defined for ANSI terminal output, there exists
 only one hard coded colour theme with --out-format=ansi. You should therefore
 use --out-format=xterm256 to enable output in 256 colours. The 256 colour mode
 is supported by recent releases of xterm, rxvt and Putty (among others).
+Recent terminal emulators also support 16m colors, this mode is enabled with
+--out-format=truecolors.
 
 highlight --out-format=ansi <inputfile> | less -R
 highlight --out-format=xterm256 <inputfile> | less -R

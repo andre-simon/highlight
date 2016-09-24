@@ -5,6 +5,7 @@ highlight 3.32
 
 24.09.2016
 
+-added support for true color escape codes (--out-format truecolor)
 -fixed xterm256 output for paging with less (thanks to Fylwind)
 -fixed operator regex in rnc.lang, crk.lang and yaml.lang (thanks to Joe Klauza)
 -added Pony and Whiley definitions

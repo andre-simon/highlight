@@ -37,7 +37,9 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace highlight
 {
-Xterm256Generator::Xterm256Generator() : CodeGenerator ( XTERM256 )
+Xterm256Generator::Xterm256Generator() : 
+    CodeGenerator ( ESC_XTERM256 ),
+    use16mColours(false)
 {
     newLineTag = "\n";
     spacer = " ";
@@ -94,14 +96,20 @@ string  Xterm256Generator::getOpenTag ( const ElementStyle &col )
     rgb[2] = ( unsigned char ) strtoll ( c.getBlue ( HTML ).c_str(), NULL, 16 );
 
     ostringstream s;
-    //s  << "\033[38;5;"<< ( int ) rgb2xterm ( rgb ) << "m";
     s  << "\033[";
 
     if ( col.isBold() ) s << "1;";
     if ( col.isItalic() ) s << "3;";
     if ( col.isUnderline() ) s << "4;";
 
-    s << "38;5;"<< ( int ) rgb2xterm ( rgb ) << "m";
+    
+    if (use16mColours){
+        //use 24bit true colour ("888" colours (aka 16 milion))
+        s << "38;2;"<< ( int ) rgb[0] << ";" << ( int ) rgb[1] << ";" << ( int ) rgb[2] << "m";
+    } else {
+        // apply color approximation, 256 colour palette (216 colours + 16 ansi + 24 gray) (colors are 24bit)
+        s << "38;5;"<< ( int ) rgb2xterm ( rgb ) << "m";
+    }
     return  s.str();
 }
 

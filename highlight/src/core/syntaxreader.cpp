@@ -126,8 +126,9 @@ void  SyntaxReader::initLuaState(Diluculum::LuaState& ls, const string& langDefP
     ls["HL_FORMAT_TEX"]=TEX;
     ls["HL_FORMAT_LATEX"]=LATEX;
     ls["HL_FORMAT_RTF"]=RTF;
-    ls["HL_FORMAT_ANSI"]=ANSI;
-    ls["HL_FORMAT_XTERM256"]=XTERM256;
+    ls["HL_FORMAT_ANSI"]=ESC_ANSI;
+    ls["HL_FORMAT_XTERM256"]=ESC_XTERM256;
+    ls["HL_FORMAT_TRUECOLOR"]=ESC_TRUECOLOR;
     ls["HL_FORMAT_HTML32"]=HTML32;
     ls["HL_FORMAT_SVG"]=SVG;
     ls["HL_FORMAT_BBCODE"]=BBCODE;
