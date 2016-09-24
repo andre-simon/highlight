@@ -74,6 +74,8 @@ function syntaxUpdate(desc)
     blockBegin["asm"] = true
     blockBegin["repeat"] = true
     blockBegin["case"] =  true
+    --blockBegin["then"] =  true
+    --blockEnd["else"] = true   
     blockEnd["end"] = true
     blockEnd["until"] = true   
     blockStates[HL_KEYWORD] = true
@@ -87,6 +89,7 @@ function syntaxUpdate(desc)
     blockBegin["then"] = true
     blockBegin["do"] = true
     blockBegin["function"] = true
+    blockEnd["elseif"] = true
     blockEnd["end"] = true
     blockStates[HL_KEYWORD] = true
   elseif desc=="Ruby" then  
@@ -101,6 +104,7 @@ function syntaxUpdate(desc)
     blockBegin["unless"] = true
     blockBegin["until"] = true
     blockEnd["end"] = true
+    --blockEnd["elsif"] = true
     blockStates[HL_KEYWORD] = true
   end
    

@@ -8,7 +8,11 @@ Description="Shows matching curly brackets in HTML output."
 
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
-  
+
+  if (desc=="Bash") then
+     return 
+  end
+    
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
     pID=0     -- just a sequential counter to generate HTML IDs
     pCount=0    -- paranthesis counter to keep track of opening and closing pairs

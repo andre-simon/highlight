@@ -3,14 +3,16 @@ CHANGELOG Highlight
 
 highlight 3.32
 
-20.09.2016
+24.09.2016
 
 -fixed xterm256 output for paging with less (thanks to Fylwind)
 -fixed operator regex in rnc.lang, crk.lang and yaml.lang (thanks to Joe Klauza)
 -added Pony and Whiley definitions
--updated Ceylon and Julia definitions
+-updated Ceylon, Julia and TypeScript definitions
 -added Go, AutoHotKey, TypeScript and R to the foldable list in the 
   outhtml_codefold.lua plug-in
+-removed plugins/bash_ref_linuxmanpages_com.lua
+-GUI: fixed README, ChangeLog and License file paths on Linux
 
 ---
 highlight 3.31

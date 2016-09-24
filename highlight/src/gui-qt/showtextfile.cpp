@@ -56,10 +56,10 @@ void ShowTextFile::changeEvent(QEvent *e)
 
 bool ShowTextFile::setFileName(const QString& fileName)
 {
-#ifndef HL_DOC_DIR
+#ifndef DOC_DIR
     QFile file( QString("%1/%2").arg(QDir::currentPath()).arg( fileName ));
 #else
-    QFile file( QString("%1/%2").arg(HL_DOC_DIR).arg(fileName ));
+    QFile file( QString("%1/%2").arg(DOC_DIR).arg(fileName ));
 #endif
     if ( file.open( QIODevice::ReadOnly) ) {
         QTextStream stream( &file );

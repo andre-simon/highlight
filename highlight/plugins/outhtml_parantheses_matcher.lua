@@ -9,6 +9,10 @@ Description="Shows matching parantheses and curly brackets in HTML output."
 -- optional parameter: syntax description
 function syntaxUpdate(desc)
   
+  if (desc=="Bash") then
+     return 
+  end
+  
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
     pID=0      -- just a sequential counter to generate HTML IDs
     pCnt=0     -- paranthesis counter to keep track of opening and closing pairs
@@ -74,12 +78,12 @@ function syntaxUpdate(desc)
   end
 end
 
-
 function themeUpdate(desc)
   if (HL_OUTPUT == HL_FORMAT_HTML or HL_OUTPUT == HL_FORMAT_XHTML) then
     Injections[#Injections+1]=".hl.box { border-width:1px;border-style:dotted;border-color:gray; cursor: pointer;}"
   end
 end
+
 --The Plugins array assigns code chunks to themes or language definitions.
 --The chunks are interpreted after the theme or lang file were parsed,
 --so you can refer to elements of these files
