@@ -68,13 +68,18 @@ PangoEscape_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const o
 static int
 AnsiEscape_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[])
 {
-    return Execute_Escape_Cmd(highlight::ANSI, interp, objc, objv);
+    return Execute_Escape_Cmd(highlight::ESC_ANSI, interp, objc, objv);
 }
 
 static int
 Xterm256Escape_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[])
 {
-    return Execute_Escape_Cmd(highlight::XTERM256, interp, objc, objv);
+    return Execute_Escape_Cmd(highlight::ESC_XTERM256, interp, objc, objv);
+}
+static int
+TrueColorEscape_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[])
+{
+    return Execute_Escape_Cmd(highlight::ESC_TRUECOLOR, interp, objc, objv);
 }
 /*
  * Tclhighlight_Init -- Called when Tcl loads your extension.
@@ -97,6 +102,7 @@ Tclhighlight_Init(Tcl_Interp *interp)
     Tcl_CreateObjCommand(interp, NS "::pango", PangoEscape_Cmd, NULL, NULL);
     Tcl_CreateObjCommand(interp, NS "::ansi", AnsiEscape_Cmd, NULL, NULL);
     Tcl_CreateObjCommand(interp, NS "::xterm256", Xterm256Escape_Cmd, NULL, NULL);
+    Tcl_CreateObjCommand(interp, NS "::truecolor", TrueColorEscape_Cmd, NULL, NULL);
     return TCL_OK;
 }
 

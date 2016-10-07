@@ -378,7 +378,7 @@ Regex=[[ \$\{(\w+)\}) ]]
 or
 Regex=[[ \$\{(\w+)\} ]], Group=1
 Highlight variable names like ${name}. Only the name is highlighted as keyword.
-A sub.expression is used to achieve this effect. If no sub-expression number
+A sub-expression is used to achieve this effect. If no sub-expression number
 is defined (like in the first example above), the right-most sub match
 (highest sub id) is returned.
 

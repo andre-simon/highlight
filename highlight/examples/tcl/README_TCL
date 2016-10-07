@@ -4,7 +4,7 @@ HIGHLIGHT TCL EXTENSION
 Run make to compile the TCL extension.
 
 The extension provides these functions in the highlight namespace:
-html, tex, latex, xterm256, ansi, bbcode, pango
+html, tex, latex, xterm256, truecolor, ansi, bbcode, pango
 
 tclsh example:
 

@@ -6,7 +6,7 @@ CC=g++
 # default lua lib
 LUA_LIBS=$(shell pkg-config --libs lua)
 
-CFLAGS= -c -Wall -O2 -fPIC -I ../../src/include
+CFLAGS= -c -Wall -O2 -std=c++11 -fPIC -I ../../src/include
 
 LDFLAGS= -shared -fPIC
 

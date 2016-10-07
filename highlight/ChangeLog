@@ -1,6 +1,11 @@
 CHANGELOG Highlight
 
 
+-added vimscript language definition (thanks to Max Christian Pohle)
+-added JSX language definition (suggested by Max Stoiber)
+-updated js definition
+
+---
 highlight 3.32
 
 24.09.2016
