@@ -3,6 +3,7 @@ CHANGELOG Highlight
 
 -added vimscript language definition (thanks to Max Christian Pohle)
 -added JSX language definition (suggested by Max Stoiber)
+-fixed PHP definition (thanks to Christoph Burschka)
 -updated js definition
 
 ---
