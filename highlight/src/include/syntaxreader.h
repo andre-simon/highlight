@@ -57,7 +57,7 @@ class RegexElement;
 /** maps keywords and the corresponding class IDs*/
 typedef map <string, int> KeywordMap;
 
-/** maps embedded langiage names to exit delimiter regexes*/
+/** maps embedded language names to exit delimiter regexes*/
 typedef map <string, string> EmbedLangDelimMap;
 
 /**\brief Contains specific data of the programming language being processed.
@@ -297,6 +297,9 @@ public:
     void addVariable(const string& name, const string& value);
     void addVariable(const string& name, bool value);
     */
+    
+    static KeywordMap nestedStateIds;
+    
 private:
 
     static const string REGEX_IDENTIFIER;
@@ -321,6 +324,7 @@ private:
 
     // collect delimiters or get current delimiter in CodeGenerator::loadEmbeddedLang
     static EmbedLangDelimMap exitDelimiters;
+    
 
     // saves if delimiter pair consists of the same delimiter symbol
     map <int, bool> delimiterDistinct;

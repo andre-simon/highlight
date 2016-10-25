@@ -31,6 +31,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <sstream>
 #include <string>
 #include <iomanip>
+#include <stack>
 
 #include "syntaxreader.h"
 #include "themereader.h"
@@ -543,6 +544,9 @@ protected:
     /** Current state*/
     State currentState;
 
+    /** State to utput nested code delimiters */
+    State nestedCodeDelimState;
+    
     /** keyword class id, used to apply the corresponding keyword style*/
     unsigned int currentKeywordClass;
 
@@ -738,6 +742,8 @@ private:
 
     /** return new state */
     State getCurrentState (State oldState);
+    
+    std::stack<std::string> nestedLangs;
 
     /* Methods that represent a parsing state */
     bool processKeywordState ( State myState );  ///< process keywords

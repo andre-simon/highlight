@@ -1,7 +1,13 @@
 CHANGELOG Highlight
 
 
+highlight 3.33
+
+xx.11.2016
+
+-NestedSections now support recursion
 -added vimscript language definition (thanks to Max Christian Pohle)
+-added Coffeescript language definition (thanks to Jess Austin)
 -added JSX language definition (suggested by Max Stoiber)
 -fixed PHP definition (thanks to Christoph Burschka)
 -updated js definition

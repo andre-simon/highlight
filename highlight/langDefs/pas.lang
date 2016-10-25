@@ -47,7 +47,11 @@ Comments={
 }
 
 NestedSections = {
-  { Lang="assembler", Delimiter= { [[asm]], [[end;]] } }
+  { 
+    Lang="assembler", 
+    Delimiter= { [[asm]], [[end;]] } ,
+    State = HL_STRING
+  }
 }
 
 Operators=[[\(|\)|\[|\]|,|;|:|&|<|>|\!|\=|\/|\*|\%|\+|\-|\@|\.|\^]]

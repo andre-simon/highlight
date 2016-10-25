@@ -373,15 +373,19 @@ void CodeGenerator::setEOLDelimiter(char delim)
 
 void CodeGenerator::reset()
 {
+    //std::cerr<<"RESET\n";
     lineIndex = 0;
     lineNumber = 0;
     line.clear();
     preFormatter.reset();
     inFile.clear();
     outFile.clear();
-    hostLangDefPath.clear();
     embedLangDefPath.clear();
     printNewLines=true;
+  //  while ( ! nestedLangs.empty() )
+   // {
+   //     nestedLangs.pop();
+   // }
 }
 
 string CodeGenerator::getThemeInitError()
@@ -526,6 +530,7 @@ State CodeGenerator::getCurrentState (State oldState)
 
             if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN) {
                 embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
+                nestedCodeDelimState = (State)currentSyntax->nestedStateIds[embedLangDefPath];
             }
 
             if ( regexGroups[oldIndex].state==IDENTIFIER_BEGIN || regexGroups[oldIndex].state==KEYWORD ) {
@@ -937,11 +942,12 @@ void CodeGenerator::closeKWTag ( unsigned int kwClassID )
 
 bool CodeGenerator::loadEmbeddedLang(const string&embedLangDefPath)
 {
-    //save path of host language
-    if (hostLangDefPath.empty()) {
-        hostLangDefPath =currentSyntax->getCurrentPath();
+    if (nestedLangs.empty()) {
+        nestedLangs.push(currentSyntax->getCurrentPath() );
     }
-    //load syntax of embedded langage
+    if (nestedLangs.top() != embedLangDefPath){
+        nestedLangs.push(embedLangDefPath);
+    }
     LoadResult res = loadLanguage(embedLangDefPath);
     //pass end delimiter regex to syntax description
     currentSyntax->restoreLangEndDelim(embedLangDefPath);
@@ -1070,24 +1076,36 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
     State newState=STANDARD;
     bool eof=false,
          exitState=false;
-    openTag ( KEYWORD );
+    //std::cerr<<"OPEN nestedCodeDelimState "<<nestedCodeDelimState<<"\n";
+    openTag ( nestedCodeDelimState );
     do {
+     
+        // FIXME clumsy code...
+        
         if (myState==EMBEDDED_CODE_BEGIN) {
+           
             if (!loadEmbeddedLang(embedLangDefPath)) {
                 // exit or segfault
                 return true;
             }
-            //test current line again to match tokens of the embedded language
-            matchRegex(line);
-        } else if (myState==EMBEDDED_CODE_END) {
+         } else if (myState==EMBEDDED_CODE_END) {
+            
+            if (!nestedLangs.empty()) {
+                nestedLangs.pop();
+            }
             // load host language syntax
-            loadLanguage(hostLangDefPath);
-            //test current line again to match tokens of the host language
-            matchRegex(line);
+            if (!nestedLangs.empty()){
+                loadLanguage(nestedLangs.top());
+            }
         }
-
+        
+        //test current line again to match tokens of the embedded language
+        matchRegex(line);
+       
         printMaskedToken ( newState!=_WS );
+    
         newState= getCurrentState(myState);
+    
         switch ( newState ) {
         case _WS:
             processWsState();
@@ -1104,8 +1122,9 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
             break;
         }
     } while (  !exitState  &&  !eof );
+    closeTag ( nestedCodeDelimState );
+    //std::cerr<<"CLOSE nestedCodeDelimState "<<nestedCodeDelimState<<"\n";
 
-    closeTag ( KEYWORD );
     return eof;
 }
 
@@ -1512,17 +1531,18 @@ void CodeGenerator::processWsState()
         token.clear();
         return;
     }
+
     flushWs();
+
     int cntWs=0;
     lineIndex--;
 
-    // while (iswspace(line[lineIndex])  ) {
     while ( line[lineIndex]==' ' || line[lineIndex]=='\t' ) {
         ++cntWs;
         ++lineIndex;
     }
-
     if ( cntWs>1 ) {
+
         unsigned int styleID=getStyleID ( currentState, currentKeywordClass );
         if ( excludeWs && styleID!=_UNKNOWN ) {
             *out << closeTags[styleID];
