@@ -545,7 +545,7 @@ protected:
     State currentState;
 
     /** State to utput nested code delimiters */
-    State nestedCodeDelimState;
+   // State nestedCodeDelimState;
     
     /** keyword class id, used to apply the corresponding keyword style*/
     unsigned int currentKeywordClass;

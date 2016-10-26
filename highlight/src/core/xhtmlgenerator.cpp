@@ -81,14 +81,14 @@ string XHtmlGenerator::getHeader()
             os << ">\n";
 
 
-    } else {
-        os << "</head>\n<body style=\""
-           << "background-color:#"
-           << ( docStyle.getBgColour().getRed ( HTML ) )
-           << ( docStyle.getBgColour().getGreen ( HTML ) )
-           << ( docStyle.getBgColour().getBlue ( HTML ) )
-           << "\">\n";
-    }
+        } else {
+            os << "</head>\n<body style=\""
+               << "background-color:#"
+               << ( docStyle.getBgColour().getRed ( HTML ) )
+               << ( docStyle.getBgColour().getGreen ( HTML ) )
+               << ( docStyle.getBgColour().getBlue ( HTML ) )
+               << "\">\n";
+        }
     }
     return os.str();
 }

@@ -49,8 +49,7 @@ Comments={
 NestedSections = {
   { 
     Lang="assembler", 
-    Delimiter= { [[asm]], [[end;]] } ,
-    State = HL_STRING
+    Delimiter= { [[asm]], [[end;]] } 
   }
 }
 

@@ -247,12 +247,12 @@ bool CodeGenerator::getFragmentCode()
 }
 void CodeGenerator::setKeepInjections ( bool flag )
 {
-  keepInjections=flag;
+    keepInjections=flag;
 }
 
 bool CodeGenerator::getKeepInjections()
 {
-  return keepInjections;
+    return keepInjections;
 }
 void CodeGenerator::setValidateInput ( bool flag )
 {
@@ -382,10 +382,10 @@ void CodeGenerator::reset()
     outFile.clear();
     embedLangDefPath.clear();
     printNewLines=true;
-  //  while ( ! nestedLangs.empty() )
-   // {
-   //     nestedLangs.pop();
-   // }
+    //  while ( ! nestedLangs.empty() )
+    // {
+    //     nestedLangs.pop();
+    // }
 }
 
 string CodeGenerator::getThemeInitError()
@@ -523,14 +523,13 @@ State CodeGenerator::getCurrentState (State oldState)
     if ( !regexGroups.empty() ) {
         if ( regexGroups.count ( lineIndex ) ) {
             token = line.substr ( lineIndex-1, regexGroups[lineIndex].length );
-    
+
             unsigned int oldIndex= lineIndex;
             if ( regexGroups[oldIndex].length>1 ) lineIndex+= regexGroups[oldIndex].length-1;
 
 
             if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN) {
                 embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
-                nestedCodeDelimState = (State)currentSyntax->nestedStateIds[embedLangDefPath];
             }
 
             if ( regexGroups[oldIndex].state==IDENTIFIER_BEGIN || regexGroups[oldIndex].state==KEYWORD ) {
@@ -568,10 +567,10 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
         resultOfHook = res.size()>=1;
         if (resultOfHook) {
             State validatedState = (State)res[0].asNumber();
-            if ( validatedState== _REJECT){
+            if ( validatedState== _REJECT) {
                 // proceed using only the first character of the token
                 lineIndex -= (token.length() -1);
-                token=token.substr(0, 1); 
+                token=token.substr(0, 1);
                 return oldState;
             }
             return validatedState;
@@ -590,14 +589,15 @@ void CodeGenerator::maskString ( ostream& ss, const string & s )
 }
 
 
-Diluculum::LuaValueList CodeGenerator::callDecorateFct(const string&token){
+Diluculum::LuaValueList CodeGenerator::callDecorateFct(const string&token)
+{
     Diluculum::LuaValueList params;
     params.push_back(Diluculum::LuaValue(token));
     params.push_back(Diluculum::LuaValue(currentState));
     params.push_back(Diluculum::LuaValue(currentKeywordClass));
 
     return currentSyntax->getLuaState()->call ( *currentSyntax->getDecorateFct(),
-                                               params,"getDecorateFct call")  ;
+            params,"getDecorateFct call")  ;
 }
 
 void CodeGenerator::printMaskedToken (bool flushWhiteSpace, StringTools::KeywordCase tcase )
@@ -606,15 +606,15 @@ void CodeGenerator::printMaskedToken (bool flushWhiteSpace, StringTools::Keyword
         flushWs();
     string caseToken = StringTools::change_case ( token, tcase );
     if (currentSyntax->getDecorateFct()) {
-        
-      Diluculum::LuaValueList res=callDecorateFct(caseToken);    
+
+        Diluculum::LuaValueList res=callDecorateFct(caseToken);
         if (res.size()==1) {
             *out<<res[0].asString();
         } else {
             maskString ( *out, caseToken );
         }
     } else {
-      maskString ( *out, caseToken );
+        maskString ( *out, caseToken );
     }
 
     token.clear();
@@ -770,20 +770,22 @@ bool CodeGenerator::validateInputStream()
            || magic_table[magic_index] == magic_utf8;
 }
 
-void CodeGenerator::printHeader(){
-  if ( ! fragmentOutput ) 
-    *out << getHeader();
-  
-  if ( !fragmentOutput || keepInjections) 
-    *out << currentSyntax->getHeaderInjection();
+void CodeGenerator::printHeader()
+{
+    if ( ! fragmentOutput )
+        *out << getHeader();
+
+    if ( !fragmentOutput || keepInjections)
+        *out << currentSyntax->getHeaderInjection();
 }
 
-void CodeGenerator::printFooter(){
-  if ( !fragmentOutput || keepInjections) 
-    *out << currentSyntax->getFooterInjection();
-  
-  if ( ! fragmentOutput )
-    *out << getFooter();
+void CodeGenerator::printFooter()
+{
+    if ( !fragmentOutput || keepInjections)
+        *out << currentSyntax->getFooterInjection();
+
+    if ( ! fragmentOutput )
+        *out << getFooter();
 }
 
 ParseError CodeGenerator::generateFile ( const string &inFileName,
@@ -895,7 +897,7 @@ string CodeGenerator::generateStringFromFile ( const string &inFileName )
     printHeader();
     printBody();
     printFooter();
-    
+
     string result = static_cast<ostringstream*> ( out )->str();
 
     delete out;
@@ -945,7 +947,7 @@ bool CodeGenerator::loadEmbeddedLang(const string&embedLangDefPath)
     if (nestedLangs.empty()) {
         nestedLangs.push(currentSyntax->getCurrentPath() );
     }
-    if (nestedLangs.top() != embedLangDefPath){
+    if (nestedLangs.top() != embedLangDefPath) {
         nestedLangs.push(embedLangDefPath);
     }
     LoadResult res = loadLanguage(embedLangDefPath);
@@ -1034,13 +1036,13 @@ void CodeGenerator::processRootState()
             openTag ( STANDARD );
             break;
         case _EOL:
-            
+
             // XTERM256 fix (issue with less cmd)
             if  (!firstLine || showLineNumbers) {
-                closeTag ( STANDARD ); 
+                closeTag ( STANDARD );
             }
             insertLineNumber ( !firstLine );
-            if (!firstLine || showLineNumbers) { 
+            if (!firstLine || showLineNumbers) {
                 flushWs();
                 openTag ( STANDARD );
             }
@@ -1058,14 +1060,14 @@ void CodeGenerator::processRootState()
         }
     } while ( !eof );
     closeTag ( STANDARD );
-    
+
     if (currentSyntax->getDecorateLineEndFct()) {
-      Diluculum::LuaValueList res=callDecorateLineFct(false);    
-      if (res.size()==1) {
-        *out << res[0].asString();
-      } 
-    } 
-    
+        Diluculum::LuaValueList res=callDecorateLineFct(false);
+        if (res.size()==1) {
+            *out << res[0].asString();
+        }
+    }
+
     printNewLines = !noTrailingNewLine;
     *out << getNewLine();
     *out << flush;
@@ -1076,36 +1078,35 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
     State newState=STANDARD;
     bool eof=false,
          exitState=false;
-    //std::cerr<<"OPEN nestedCodeDelimState "<<nestedCodeDelimState<<"\n";
-    openTag ( nestedCodeDelimState );
+
+    openTag ( KEYWORD );
     do {
-     
+
         // FIXME clumsy code...
-        
+
         if (myState==EMBEDDED_CODE_BEGIN) {
-           
+
             if (!loadEmbeddedLang(embedLangDefPath)) {
                 // exit or segfault
                 return true;
             }
-         } else if (myState==EMBEDDED_CODE_END) {
-            
+        } else if (myState==EMBEDDED_CODE_END) {
             if (!nestedLangs.empty()) {
                 nestedLangs.pop();
             }
             // load host language syntax
-            if (!nestedLangs.empty()){
+            if (!nestedLangs.empty()) {
                 loadLanguage(nestedLangs.top());
             }
         }
-        
+
         //test current line again to match tokens of the embedded language
         matchRegex(line);
-       
+
         printMaskedToken ( newState!=_WS );
-    
+
         newState= getCurrentState(myState);
-    
+
         switch ( newState ) {
         case _WS:
             processWsState();
@@ -1122,8 +1123,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
             break;
         }
     } while (  !exitState  &&  !eof );
-    closeTag ( nestedCodeDelimState );
-    //std::cerr<<"CLOSE nestedCodeDelimState "<<nestedCodeDelimState<<"\n";
+    closeTag ( KEYWORD );
 
     return eof;
 }
@@ -1389,11 +1389,11 @@ bool CodeGenerator::processStringState ( State oldState )
             break;
         case STRING_END:
             if (resultOfHook || currentSyntax->matchesOpenDelimiter (token,  STRING_END, openDelimID)) {
-              if (currentSyntax->assertDelimEqualLength()){
-                exitState= openDelim.length()==token.length();
-              }else {
-                exitState= true;
-              }
+                if (currentSyntax->assertDelimEqualLength()) {
+                    exitState= openDelim.length()==token.length();
+                } else {
+                    exitState= true;
+                }
                 printMaskedToken();
             }
             break;
@@ -1572,38 +1572,39 @@ string CodeGenerator::getNewLine()
     return (printNewLines) ? newLineTag : "";
 }
 
-Diluculum::LuaValueList CodeGenerator::callDecorateLineFct(bool isLineStart){
-       
-   Diluculum::LuaValueList params;
-   params.push_back(Diluculum::LuaValue(lineNumber));
+Diluculum::LuaValueList CodeGenerator::callDecorateLineFct(bool isLineStart)
+{
 
-    return currentSyntax->getLuaState()->call ( isLineStart ? 
-           *currentSyntax->getDecorateLineBeginFct(): *currentSyntax->getDecorateLineEndFct(),
-           params,"getDecorateLineFct call")  ;
-  
+    Diluculum::LuaValueList params;
+    params.push_back(Diluculum::LuaValue(lineNumber));
+
+    return currentSyntax->getLuaState()->call ( isLineStart ?
+            *currentSyntax->getDecorateLineBeginFct(): *currentSyntax->getDecorateLineEndFct(),
+            params,"getDecorateLineFct call")  ;
+
 }
 
 void CodeGenerator::insertLineNumber ( bool insertNewLine )
 {
     if ( insertNewLine ) {
-      if (currentSyntax->getDecorateLineEndFct()) {
-        Diluculum::LuaValueList res=callDecorateLineFct(false);    
-        if (res.size()==1) {
-          wsBuffer +=res[0].asString();
-        } 
-      } 
-      
-      wsBuffer += getNewLine();
+        if (currentSyntax->getDecorateLineEndFct()) {
+            Diluculum::LuaValueList res=callDecorateLineFct(false);
+            if (res.size()==1) {
+                wsBuffer +=res[0].asString();
+            }
+        }
+
+        wsBuffer += getNewLine();
     }
 
-    
+
     if (currentSyntax->getDecorateLineBeginFct()) {
-      Diluculum::LuaValueList res=callDecorateLineFct(true);    
-      if (res.size()==1) {
-        wsBuffer +=res[0].asString();
-      } 
-    } 
-    
+        Diluculum::LuaValueList res=callDecorateLineFct(true);
+        if (res.size()==1) {
+            wsBuffer +=res[0].asString();
+        }
+    }
+
     if ( showLineNumbers ) {
         ostringstream os;
         ostringstream numberPrefix;
@@ -1692,12 +1693,12 @@ bool CodeGenerator::initPluginScript(const string& script)
     if (script.empty()) return true;
 
     try {
-         
+
         userScriptError="";
         Diluculum::LuaState ls;
         ls.doFile (script);
         int listIdx=1;
-        
+
         while (ls["Plugins"][listIdx].value() !=Diluculum::Nil) {
 
             // Theme plugins

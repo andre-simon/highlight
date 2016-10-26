@@ -66,9 +66,9 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
 {
     try {
         fileOK=true;
-        
-        Diluculum::LuaState luaState; 
-        
+
+        Diluculum::LuaState luaState;
+
         luaState["HL_FORMAT_HTML"]=HTML;
         luaState["HL_FORMAT_XHTML"]=XHTML;
         luaState["HL_FORMAT_TEX"]=TEX;

@@ -1,17 +1,17 @@
 
 Description = "vim anotherdark"
 
-Default	= { Colour="#dedede" }
+Default	= { Colour="#99adaf" }
 Canvas	= { Colour="#323232" }
-Number	= { Colour="#ffa0a0" }
+Number	= { Colour="#ff0000" }
 Escape	= { Colour="#ffddad" }
 String	= { Colour="#ffa0a0" }
-BlockComment	= { Colour="#ffa500" }
+BlockComment	= { Colour="#839496", Bold=true}
 StringPreProc = String
 LineComment   = BlockComment
-Operator      = { Colour="#dedede" }
+Operator      = { Colour="#d0da9d" }
 LineNum      = BlockComment
-PreProcessor      = { Colour="#5757ff" }
+PreProcessor      = { Colour="#c9357e" }
 Interpolation  = { Colour="#8BC4D4" }
 
 Keywords = {

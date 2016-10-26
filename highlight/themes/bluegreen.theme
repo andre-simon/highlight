@@ -9,13 +9,13 @@ String	= { Colour="#72A5E4" , Bold=true}
 BlockComment	= { Colour="#DABEA2", Italic=true }
 StringPreProc = String
 LineComment   = BlockComment
-Operator      = Default
+Operator      =  { Colour="#d0d07b" }
 LineNum      = BlockComment
 PreProcessor      = { Colour="#9e76b5" }
 Interpolation  = { Colour="#EE86BC" }
 
 Keywords = {
-  { Colour="#7E75B5" },
+  { Colour="#9087d0" },
   { Colour="#A9EE8A" },
   { Colour="#b5768d" },
   { Colour="#76b57e" },

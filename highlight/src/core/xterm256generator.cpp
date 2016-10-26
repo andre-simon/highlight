@@ -37,7 +37,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace highlight
 {
-Xterm256Generator::Xterm256Generator() : 
+Xterm256Generator::Xterm256Generator() :
     CodeGenerator ( ESC_XTERM256 ),
     use16mColours(false)
 {
@@ -102,8 +102,8 @@ string  Xterm256Generator::getOpenTag ( const ElementStyle &col )
     if ( col.isItalic() ) s << "3;";
     if ( col.isUnderline() ) s << "4;";
 
-    
-    if (use16mColours){
+
+    if (use16mColours) {
         //use 24bit true colour ("888" colours (aka 16 milion))
         s << "38;2;"<< ( int ) rgb[0] << ";" << ( int ) rgb[1] << ";" << ( int ) rgb[2] << "m";
     } else {

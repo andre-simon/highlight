@@ -45,12 +45,12 @@ void DataDir::initSearchDirectories ( const string &userDefinedDir )
 
     possibleDirs.push_back ( Platform::getHomePath() + "/.highlight/" );
     if ( !userDefinedDir.empty() ) possibleDirs.push_back ( userDefinedDir );
-    
+
     char* hlEnvPath=getenv("HIGHLIGHT_DATADIR");
-    if (hlEnvPath!=NULL){
-      possibleDirs.push_back ( hlEnvPath );
+    if (hlEnvPath!=NULL) {
+        possibleDirs.push_back ( hlEnvPath );
     }
-    
+
 #ifdef HL_DATA_DIR
     possibleDirs.push_back ( HL_DATA_DIR );
 #else

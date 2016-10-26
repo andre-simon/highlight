@@ -9,8 +9,8 @@ String	= { Colour="#00884c" }
 BlockComment	= { Colour="#ff5050" }
 StringPreProc = String
 LineComment   = BlockComment
-Operator      = Default
-LineNum      = BlockComment
+Operator      = { Colour="#513d2b" } 
+LineNum      = { Colour="#555555" } 
 PreProcessor      = {  Colour="#660000" }
 Interpolation  = { Colour="#CA6DE1" }
 

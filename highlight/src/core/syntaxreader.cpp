@@ -41,10 +41,10 @@ const string SyntaxReader::REGEX_NUMBER =
 const string SyntaxReader::REGEX_ESCSEQ =
     "\\\\u[[:xdigit:]]{4}|\\\\\\d{3}|\\\\x[[:xdigit:]]{2}|\\\\[ntvbrfa\\\\\\?'\"]";
 
-EmbedLangDelimMap SyntaxReader::exitDelimiters;
+DelimiterMap SyntaxReader::nestedStateEndDelimiters;
 vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
 
-KeywordMap SyntaxReader::nestedStateIds;
+//KeywordMap SyntaxReader::nestedStateIds;
 
 int RegexElement::instanceCnt=0;
 
@@ -160,7 +160,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
         SyntaxReader **s = (SyntaxReader **)lua_newuserdata(ls.getState(), sizeof(SyntaxReader *));
         *s=this;
         lua_setglobal(ls.getState(), GLOBAL_SR_INSTANCE_NAME);
-    
+
         // ececute script and read values
         ls.doFile (langDefPath);
 
@@ -227,10 +227,10 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
                     delimiterDistinct[openDelimId]=openDelim!=closeDelim;
                     delimiterDistinct[closeDelimId]=openDelim!=closeDelim;
-                    delimIds2[closeDelimId]=openDelimId;
+                    matchingDelimiters[closeDelimId]=openDelimId;
 
                 } else {
-                    regex.push_back ( new RegexElement ( SL_COMMENT, SL_COMMENT_END, 
+                    regex.push_back ( new RegexElement ( SL_COMMENT, SL_COMMENT_END,
                                                          StringTools::trim(ls["Comments"][listIdx]["Delimiter"][1].value().asString()), 0, -1 ) );
                 }
                 ++listIdx;
@@ -260,7 +260,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                 regex.push_back (elem );
             }
             if (ls["Strings"]["Interpolation"].value()!=Diluculum::Nil) {
-                RegexElement* elem=new RegexElement ( STRING_INTERPOLATION, STRING_INTERPOLATION_END, 
+                RegexElement* elem=new RegexElement ( STRING_INTERPOLATION, STRING_INTERPOLATION_END,
                                                       StringTools::trim( ls["Strings"]["Interpolation"].value().asString()), 0, -1 );
                 regex.push_back (elem );
             }
@@ -284,7 +284,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                     closeDelimId=elem->instanceId;
                     regex.push_back( elem );
 
-                    delimIds2[closeDelimId]=openDelimId;
+                    matchingDelimiters[closeDelimId]=openDelimId;
 
                     if (ls["Strings"]["DelimiterPairs"][listIdx]["Raw"].value()!=Diluculum::Nil) {
                         rawStringOpenDelims[openDelimId]=ls["Strings"]["DelimiterPairs"][listIdx]["Raw"].value().asBoolean();
@@ -292,7 +292,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                     ++listIdx;
                 }
             }
-            
+
             assertEqualLength=readFlag(ls["Strings"]["AssertEqualLength"]);
 
             string escRegex=(ls["Strings"]["Escape"].value()==Diluculum::Nil)?REGEX_ESCSEQ:ls["Strings"]["Escape"].value().asString();
@@ -322,16 +322,17 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                 regex.insert(regex.begin(), 1, new RegexElement(EMBEDDED_CODE_BEGIN, EMBEDDED_CODE_BEGIN, openDelim, 0, -1, lang));
 
                 string closeDelim=StringTools::trim(ls["NestedSections"][listIdx]["Delimiter"][2].value().asString());
-                exitDelimiters[getNewPath(lang)] = closeDelim;
-                
+                nestedStateEndDelimiters[getNewPath(lang)] = closeDelim;
+
+                /*
                 State nestedId=KEYWORD;
                 if (ls["NestedSections"][listIdx]["State"].value() !=Diluculum::Nil){
                     unsigned int newId = ls["NestedSections"][listIdx]["State"].value().asNumber();
                     if (newId < nestedId) nestedId = (State) newId;
                     //std::cerr<<"nestedId: "<<getNewPath(lang) <<" -> "<<nestedId<<"\n";
-                } 
+                }
                 nestedStateIds[getNewPath(lang)] = nestedId;
-                            
+                */
                 ++listIdx;
             }
         }
@@ -357,7 +358,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
         if (globals.count("DecorateLineEnd")) {
             decorateLineEndFct=new Diluculum::LuaFunction(ls["DecorateLineEnd"].value().asFunction());
         }
-        
+
     } catch (Diluculum::LuaError err) {
         luaErrorMsg = string(err.what());
         return LOAD_FAILED_LUA;
@@ -398,20 +399,20 @@ int SyntaxReader::luaAddKeyword (lua_State *L)
 void SyntaxReader::restoreLangEndDelim(const string& langPath)
 {
     //TODO exitDelimiters be left static?
-    if ( !langPath.empty()&& exitDelimiters.count(langPath) ) {
-        regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, exitDelimiters[langPath] ) );
+    if ( !langPath.empty()&& nestedStateEndDelimiters.count(langPath) ) {
+        regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, nestedStateEndDelimiters[langPath] ) );
     }
 }
 
 unsigned int SyntaxReader::generateNewKWClass ( int classID )
 {
     char className[5]= {0};
-    snprintf(className, sizeof(className), "kw%c", ('a'+classID-1)); 
-    
+    snprintf(className, sizeof(className), "kw%c", ('a'+classID-1));
+
     unsigned int newClassID=0;
     bool found=false;
     while (!keywordClasses.empty() && newClassID<keywordClasses.size() && !found ) {
-      found = ( className==keywordClasses.at(newClassID++) );
+        found = ( className==keywordClasses.at(newClassID++) );
     }
     if ( !found ) {
         newClassID++;
@@ -458,7 +459,7 @@ bool SyntaxReader::matchesOpenDelimiter ( const string& token, State s, int open
         RegexElement *regexElem = getRegexElements() [i];
         if (regexElem->open==s ) {
 
-            if( regex_match( token, what, regexElem->rex ) && delimIds2[regexElem->instanceId]==openDelimId) {
+            if( regex_match( token, what, regexElem->rex ) && matchingDelimiters[regexElem->instanceId]==openDelimId) {
                 return true;
             }
 

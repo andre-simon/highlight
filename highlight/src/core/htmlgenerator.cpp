@@ -130,8 +130,7 @@ void HtmlGenerator::printBody()
                  <<";\">";
         }
     }
-    if ( showLineNumbers && orderedList )
-    {
+    if ( showLineNumbers && orderedList ) {
         *out << "<ol";
         if (!cssClassName.empty())
             *out<<" class=\"" << cssClassName << "\"";
@@ -225,21 +224,21 @@ string HtmlGenerator::getStyleDefinition()
     if ( styleDefinitionCache.empty() ) {
         bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
         ostringstream os;
-        
+
         string classNameSuffix;
         if (!cssClassName.empty())
             classNameSuffix="."+cssClassName;
 
         os  << "body"<<classNameSuffix;
-        
+
         os  <<"\t{ background-color:#"
             << ( docStyle.getBgColour().getRed ( HTML ) )
             << ( docStyle.getBgColour().getGreen ( HTML ) )
             << ( docStyle.getBgColour().getBlue ( HTML ) )
             << "; }\n";
-        
+
         os << ( (orderedList) ? "ol" : "pre" ) << classNameSuffix;
-        
+
         os << "\t{ color:#"
            << ( docStyle.getDefaultStyle().getColour().getRed ( HTML ) )
            << ( docStyle.getDefaultStyle().getColour().getGreen ( HTML ) )
@@ -289,9 +288,9 @@ string HtmlGenerator::maskCharacter ( unsigned char c )
         return "&quot;";
         break;
     case '\'' :
-      return "&apos;";
-      break;
-      
+        return "&apos;";
+        break;
+
     case '@' :
         return "&#64;";
         break;
@@ -311,25 +310,25 @@ string HtmlGenerator::getNewLine()
 
 void HtmlGenerator::insertLineNumber ( bool insertNewLine )
 {
-    if ( insertNewLine ) {      
-  
-      if (currentSyntax->getDecorateLineEndFct()) {
-        Diluculum::LuaValueList res=callDecorateLineFct(false);    
-        if (res.size()==1) {
-          wsBuffer +=res[0].asString();
-        } 
-      }
-      
-      wsBuffer += getNewLine();
+    if ( insertNewLine ) {
+
+        if (currentSyntax->getDecorateLineEndFct()) {
+            Diluculum::LuaValueList res=callDecorateLineFct(false);
+            if (res.size()==1) {
+                wsBuffer +=res[0].asString();
+            }
+        }
+
+        wsBuffer += getNewLine();
     }
-    
+
     if (currentSyntax->getDecorateLineBeginFct()) {
-      Diluculum::LuaValueList res=callDecorateLineFct(true);    
-      if (res.size()==1) {
-        wsBuffer +=res[0].asString();
-      } 
-    } 
-    
+        Diluculum::LuaValueList res=callDecorateLineFct(true);
+        if (res.size()==1) {
+            wsBuffer +=res[0].asString();
+        }
+    }
+
     if ( showLineNumbers ) {
         ostringstream numberPrefix;
         int lineNo = lineNumber+lineNumberOffset;

@@ -188,7 +188,7 @@ string SVGGenerator::getFooter()
 string SVGGenerator::maskCharacter ( unsigned  char c )
 {
     switch ( c ) {
-      case ' ' :
+    case ' ' :
         return spacer;
         break;
     case '<' :
