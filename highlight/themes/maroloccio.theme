@@ -7,10 +7,10 @@ Canvas	= { Colour="#1a202a" }
 Number	= { Colour="#8b8b00" }
 Escape	= { Colour="#bababa" }
 String	= { Colour="#5B5BD0" }
-BlockComment	= { Colour="#006666" }
+BlockComment	= { Colour="#009999" }
 StringPreProc = String
 LineComment   = BlockComment
-Operator      = Default
+Operator      =  { Colour="#778acc" }
 LineNum      = BlockComment
 PreProcessor      =  { Colour="#cc6666" }
 Interpolation  = { Colour="#B19160" }

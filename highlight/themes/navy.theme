@@ -9,7 +9,7 @@ StringPreProc  = { Colour="#ffffff" }
 BlockComment   = { Colour="#ffbb00", Italic=true }
 PreProcessor   = { Colour="#bb00ff" }
 LineNum        = { Colour="#888888" }
-Operator       = { Colour="#ffffff" }
+Operator       = { Colour="#3cb67f" }
 LineComment = BlockComment
 Interpolation  = { Colour="#D674D5" }
 

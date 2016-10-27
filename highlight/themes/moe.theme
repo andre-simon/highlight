@@ -10,7 +10,7 @@ BlockComment   = { Colour="#ff8800" }
 LineComment    = { Colour="#ee7700" }
 PreProcessor   = { Colour="#008844", Bold=true }
 LineNum        = { Colour="#333333" }
-Operator       = { Colour="#000000", Bold=true }
+Operator       = { Colour="#555555", Bold=true }
 Interpolation  = Escape
 
 Keywords = {

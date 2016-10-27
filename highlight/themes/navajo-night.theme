@@ -2,8 +2,8 @@
 
 Description = "vim navajo-night"
 
-Default	= { Colour="#ffffff" }
-Canvas	= { Colour="#35536f" }
+Default	= { Colour="#fbfbfb" }
+Canvas	= { Colour="#243a4d" }
 Number	= { Colour="#3fffa7" }
 Escape	= { Colour="#bfbfef" }
 String	= { Colour="#3fffa7" }
@@ -12,7 +12,7 @@ StringPreProc = String
 LineComment   = BlockComment
 Operator      = Default
 LineNum      = BlockComment
-PreProcessor      = Default
+PreProcessor      = { Colour="#a3743b" } 
 Interpolation  = Escape
 
 Keywords = {

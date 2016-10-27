@@ -10,7 +10,7 @@ String	= { Colour="#92d4ff" }
 BlockComment	= { Colour="#c0c0c0" }
 StringPreProc = String
 LineComment   = BlockComment
-Operator      = Default
+Operator      = { Colour="#d86acd" } 
 LineNum      = BlockComment
 PreProcessor      = { Colour="#7979db" }
 Interpolation  = Escape

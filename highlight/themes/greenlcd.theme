@@ -6,7 +6,7 @@ Canvas         = { Colour="#003000" }
 Number         = { Colour="#3399cc" }
 Escape         = { Colour="#3399cc" }
 String         = { Colour="#dfdfdf" }
-StringPreProc  = { Colour="#dfdfdf" }
+StringPreProc  = { Colour="#7ca23e" }
 BlockComment   = { Colour="#888888", Italic=true }
 PreProcessor   = { Colour="#bfbfbf" }
 LineNum        = { Colour="#bcbcbc" }

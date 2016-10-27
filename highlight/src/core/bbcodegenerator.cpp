@@ -2,7 +2,7 @@
                     bbcodegenerator.cpp  -  description
                              -------------------
     begin                : Jul 21 2009
-    copyright            : (C) 2004-2009 by Andre Simon
+    copyright            : (C) 2004-2016 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -47,7 +47,7 @@ string BBCodeGenerator::getHeader()
 
 void BBCodeGenerator::printBody()
 {
-    *out << "[size="<<getBaseFontSize()<<"]"; // TODO hier pt?
+    *out << "[size="<<getBaseFontSize()<<"]";
     processRootState();
     *out << "[/size]";
 }

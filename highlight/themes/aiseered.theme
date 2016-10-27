@@ -2,7 +2,7 @@
 Description = "vim aiseered"
 
 Default	= { Colour="#f08080" }
-Canvas	= { Colour="#600000" }
+Canvas	= { Colour="#400000" }
 Number	= { Colour="#88ddee" }
 Escape	= { Colour="#ffaa00" }
 String	= { Colour="#ffcc88" }

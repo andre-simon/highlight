@@ -5,7 +5,7 @@ Description="Anjuta IDE"
 Default        = { Colour="#000000" }
 Canvas         = { Colour="#ffffff" }
 Number         = { Colour="#008800" }
-Escape         = { Colour="#ddbb00" }
+Escape         = { Colour="#FF00FF" }
 String         = { Colour="#ddbb00" }
 StringPreProc  = { Colour="#ddbb00" }
 BlockComment   = { Colour="#ff0000", Italic=true }
