@@ -53,7 +53,7 @@ Comments={
 NestedSections = { -- regex as nested language seems to work?
   {
     Lang = "js_regex", -- js.lang might want to use this too
-    Delimiter = { [[/(?!/)]], [[/[msixpodualgcy]*]] },
+    Delimiter = { [[/(?![/\*])]], [[/[msixpodualgcy]*]] },
     --State=HL_STRING
   }
 }

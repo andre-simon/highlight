@@ -1,0 +1,61 @@
+--[[******************************************************************************
+    *                                                                            *
+    *                       PureBASIC Language Definition                        *
+    *                                                                            *
+    *                             v1.0 - 2016/10/27                              *
+    *                                                                            *
+    ******************************************************************************
+    PureBASIC v5.50 -- This language definition emulates the way PureBASIC's native
+    IDE highlights its code. Inline ASM syntax coloring not implemented.
+    Written by Tristano Ajmone:
+        <tajmone@gmail.com>
+        https://github.com/tajmone
+    Released into the public domain according to the Unlicense licsense:
+        http://unlicense.org/
+  ]]
+
+Description="PureBASIC"
+
+Keywords={
+  { Id=1,   -- PureBASIC Keywords > PB IDE color: #006666 (Blue Stone) + Bold
+    List={ 
+        -- The following keywords list was taken and adapted from GuShH's PureBasic language file for GeSHi...
+        "And", "As", "Break", "CallDebugger", "Case", "CompilerCase", "CompilerDefault", "CompilerElse", "CompilerEndIf", "CompilerEndSelect",
+        "CompilerError", "CompilerIf", "CompilerSelect", "Continue", "Data", "DataSection", "EndDataSection", "Debug", "DebugLevel",
+        "Default", "Define", "Dim", "DisableASM", "DisableDebugger", "DisableExplicit", "Else", "ElseIf", "EnableASM",
+        "EnableDebugger", "EnableExplicit", "End", "EndEnumeration", "EndIf", "EndImport", "EndInterface", "EndMacro", "EndProcedure",
+        "EndSelect", "EndStructure", "EndStructureUnion", "EndWith", "Enumeration", "Extends", "FakeReturn", "For", "Next", "ForEach",
+        "ForEver", "Global", "Gosub", "Goto", "If", "Import", "ImportC", "IncludeBinary", "IncludeFile", "IncludePath", "Interface", "Macro",
+        "NewList", "Not", "Or", "ProcedureReturn", "Protected", "Prototype",
+        "PrototypeC", "Read", "ReDim", "Repeat", "Until", "Restore", "Return", "Select", "Shared", "Static", "Step", "Structure", "StructureUnion",
+        "Swap", "To", "Wend", "While", "With", "XIncludeFile", "XOr",
+        "Procedure", "ProcedureC", "ProcedureCDLL", "ProcedureDLL", "Declare", "DeclareC", "DeclareCDLL", "DeclareDLL"
+        },
+    },
+  { Id=2,   -- Constants > PB IDE color: #924B72 (Cannon Pink)
+    Regex=[[ (#[a-zA-Z_]\w*\$?) ]]
+    },
+  { Id=3,   -- Procedure calls > PB IDE color: #006666 (Blue Stone)
+    Regex=[[ ([a-zA-Z_]\w*)(?:(\s*)?\() ]],
+    Group=1
+    },
+  { Id=4,   -- Escaped-String Prefix ("~") > PB IDE color: same as strings
+    Regex=[[ (~)" ]], -- Without this hack the Escaped-Strings Prefix will not color like the rest of the string!
+    Group=1
+    },
+}
+
+Comments={  -- PB IDE color: #00AAAA (Persian Green/Tradewind)
+   { Block=false,
+     Nested=false,
+     Delimiter = { [[ ;.*$ ]] }
+   }
+}
+
+Strings={   -- PB IDE color: #0080FF (Azure Radiance)
+  Delimiter=[[ " ]],
+  RawPrefix=[[ ~ ]],
+  Escape=[=[\\[abfnrtv"\\]]=],
+}
+
+Operators=[[\&|<|>|\!|\||\=|\/|\*|\%|\+|\-|~]]

@@ -8,7 +8,9 @@ xx.11.2016
 -Nested sections now support more nesting levels
 -added vimscript language definition (thanks to Max Christian Pohle)
 -added Coffeescript language definition (thanks to Jess Austin)
+-added PureBasic definition and theme (thanks to Tristano Ajmone)
 -added JSX language definition (suggested by Max Stoiber)
+-added PO translation definition
 -fixed PHP definition (thanks to Christoph Burschka)
 -updated js definition
 -improved various color themes

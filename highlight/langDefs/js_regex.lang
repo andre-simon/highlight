@@ -1,10 +1,16 @@
+
 -- a highlight lang definition for javascript regexes, by Jess Austin
+
 Description = "Javascript Regex"
 
 Keywords = {
    { -- backslash literals
      Id = 1,
      Regex = [=[\\[][0-9'"\\/.?()]]=]
+   },
+   { -- character classes
+     Id = 2,
+     Regex = [[ (\:(alnum|alpha|blank|cntrl|graph|print|punct|xdigit|unicode|word|space|digit|lower|upper)\:) ]], Group=1
    }
 }
 
@@ -14,4 +20,4 @@ Strings = { -- character sets
 }
 
 Operators = [[\.|\+|\*|\^|\$|\||\?:|\?=|\?!|\?|\(|\)]]
-Digits = [[\{\d+,?\d*\}]] -- integer quantifiers
+Digits = [[\{\d+,?\d*\}]] -- integer quantifierso

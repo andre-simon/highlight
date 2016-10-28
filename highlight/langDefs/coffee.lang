@@ -35,7 +35,7 @@ Comments = {
 }
 
 Strings = {
-  Delimiter = [["""|'''|"|']],
+  Delimiter = [["""|'''|"|'|`]],
   Escape = [=[\\u\{[[:xdigit:]]+\}|\\u[[:xdigit:]]{4}|\\x[[:xdigit:]]{2}|\\[\\bfnrtv0'"]]=],
   Interpolation = [[#\{[^}]+}]]
 }
