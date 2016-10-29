@@ -5,15 +5,18 @@ highlight 3.33
 
 xx.11.2016
 
--Nested sections now support more nesting levels
+-nested sections now support more than one nesting levels
+-fixed highlighting of nested section delimiters
 -added vimscript language definition (thanks to Max Christian Pohle)
 -added Coffeescript language definition (thanks to Jess Austin)
 -added PureBasic definition and theme (thanks to Tristano Ajmone)
 -added JSX language definition (suggested by Max Stoiber)
 -added PO translation definition
 -fixed PHP definition (thanks to Christoph Burschka)
+-fixed font family declaration in SVG
 -updated js definition
 -improved various color themes
+-updated Artistic Style lib (SVN Rev. 521)
 
 ---
 highlight 3.32

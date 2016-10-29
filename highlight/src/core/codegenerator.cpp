@@ -2,7 +2,7 @@
                           codegenerator.cpp  -  description
                              -------------------
     begin                : Die Jul 9 2002
-    copyright            : (C) 2002-2015 by Andre Simon
+    copyright            : (C) 2002-2016 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -130,6 +130,8 @@ CodeGenerator::CodeGenerator ( highlight::OutputType type )
      lineNumberOffset ( 0 ),
      includeStyleDef ( false ),
      lineIndex ( 0 ),
+     syntaxChangeIndex(UINT_MAX),
+     syntaxChangeLineNo(UINT_MAX),
      lineNumberWidth ( 5 ),
      maxLineCnt ( UINT_MAX ),
      terminatingChar ( '\0' ),
@@ -137,7 +139,7 @@ CodeGenerator::CodeGenerator ( highlight::OutputType type )
      formattingEnabled ( false ),
      formattingPossible ( false ),
      validateInput ( false ),
-     numberWrappedLines ( true ),	//until now, wrapped lines were always numbered, so this remains the default.
+     numberWrappedLines ( true ),
      noTrailingNewLine(false),
      resultOfHook(false),
      keywordCase ( StringTools::CASE_UNCHANGED ),
@@ -440,7 +442,7 @@ bool CodeGenerator::readNewLine ( string &newLine )
     return eof || ( lineNumber == maxLineCnt );
 }
 
-void CodeGenerator::matchRegex ( const string &line )
+void CodeGenerator::matchRegex ( const string &line, State skipState)
 {
     regexGroups.clear();
     int matchBegin=0;
@@ -450,6 +452,8 @@ void CodeGenerator::matchRegex ( const string &line )
     for ( unsigned int i=0; i<currentSyntax->getRegexElements().size(); i++ ) {
         RegexElement *regexElem = currentSyntax->getRegexElements() [i];
 
+        if (regexElem->open == skipState) continue;
+        
         boost::xpressive::sregex_iterator cur( line.begin(), line.end(), regexElem->rex );
         boost::xpressive::sregex_iterator end;
 
@@ -457,16 +461,15 @@ void CodeGenerator::matchRegex ( const string &line )
             groupID = ( regexElem->capturingGroup<0 ) ? cur->size()-1 : regexElem->capturingGroup;
             matchBegin =  cur->position(groupID);
             regexGroups.insert (
-                make_pair ( matchBegin+1, ReGroup ( regexElem->open, cur->length(groupID), regexElem->kwClass, regexElem->langName ) ) );
+                make_pair ( matchBegin + 1, ReGroup ( regexElem->open, cur->length(groupID), regexElem->kwClass, regexElem->langName ) ) );
         }
     }
 }
 
 unsigned char CodeGenerator::getInputChar()
 {
-    bool eol = lineIndex == line.length();
-
-    if ( eol ) {
+    // end of line?
+    if ( lineIndex == line.length() ) {
         bool eof=false;
         if ( preFormatter.isEnabled() ) {
             if ( !preFormatter.hasMoreLines() ) {
@@ -518,7 +521,15 @@ State CodeGenerator::getCurrentState (State oldState)
         token= c;
         return _WS;
     }
+    
+SKIP_EMBEDDED:
 
+    if (lineIndex >= syntaxChangeIndex-1 ||  syntaxChangeLineNo < lineNumber){
+        matchRegex(line);
+        loadEmbeddedLang(embedLangDefPath);                       
+        syntaxChangeIndex = syntaxChangeLineNo = UINT_MAX;
+    }
+     
     // Test if a regular expression was found at the current position
     if ( !regexGroups.empty() ) {
         if ( regexGroups.count ( lineIndex ) ) {
@@ -527,9 +538,16 @@ State CodeGenerator::getCurrentState (State oldState)
             unsigned int oldIndex= lineIndex;
             if ( regexGroups[oldIndex].length>1 ) lineIndex+= regexGroups[oldIndex].length-1;
 
-
             if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN) {
                 embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
+                              
+                // repeat parsing of this line without nested state recognition
+                syntaxChangeIndex = lineIndex+1;
+                syntaxChangeLineNo = lineNumber;
+                matchRegex(line, EMBEDDED_CODE_BEGIN);
+                lineIndex = oldIndex;
+                
+                goto SKIP_EMBEDDED; 
             }
 
             if ( regexGroups[oldIndex].state==IDENTIFIER_BEGIN || regexGroups[oldIndex].state==KEYWORD ) {
@@ -548,7 +566,6 @@ State CodeGenerator::getCurrentState (State oldState)
     token = c;
     return STANDARD;
 }
-
 
 State CodeGenerator::validateState(State newState, State oldState, unsigned int kwClass)
 {
@@ -672,6 +689,8 @@ bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
         formatter->setFormattingStyle ( astyle::STYLE_LISP );
     } else if ( indentScheme=="vtk") {
         formatter->setFormattingStyle ( astyle::STYLE_VTK );
+    } else if ( indentScheme=="mozilla") {
+        formatter->setFormattingStyle ( astyle::STYLE_MOZILLA );
     } else {
         return false;
     }
@@ -1029,7 +1048,8 @@ void CodeGenerator::processRootState()
             eof=processSymbolState();
             openTag ( STANDARD );
             break;
-        case EMBEDDED_CODE_BEGIN:
+
+//        case EMBEDDED_CODE_BEGIN:
         case EMBEDDED_CODE_END:
             closeTag ( STANDARD );
             eof=processSyntaxChangeState(state);
@@ -1082,15 +1102,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
     openTag ( KEYWORD );
     do {
 
-        // FIXME clumsy code...
-
-        if (myState==EMBEDDED_CODE_BEGIN) {
-
-            if (!loadEmbeddedLang(embedLangDefPath)) {
-                // exit or segfault
-                return true;
-            }
-        } else if (myState==EMBEDDED_CODE_END) {
+        if (myState==EMBEDDED_CODE_END) {
             if (!nestedLangs.empty()) {
                 nestedLangs.pop();
             }
@@ -1099,10 +1111,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
                 loadLanguage(nestedLangs.top());
             }
         }
-
-        //test current line again to match tokens of the embedded language
-        matchRegex(line);
-
+        
         printMaskedToken ( newState!=_WS );
 
         newState= getCurrentState(myState);
@@ -1127,6 +1136,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
 
     return eof;
 }
+
 
 bool CodeGenerator::processKeywordState ( State myState )
 {

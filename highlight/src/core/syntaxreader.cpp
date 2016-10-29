@@ -44,8 +44,6 @@ const string SyntaxReader::REGEX_ESCSEQ =
 DelimiterMap SyntaxReader::nestedStateEndDelimiters;
 vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
 
-//KeywordMap SyntaxReader::nestedStateIds;
-
 int RegexElement::instanceCnt=0;
 
 
@@ -323,16 +321,6 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
                 string closeDelim=StringTools::trim(ls["NestedSections"][listIdx]["Delimiter"][2].value().asString());
                 nestedStateEndDelimiters[getNewPath(lang)] = closeDelim;
-
-                /*
-                State nestedId=KEYWORD;
-                if (ls["NestedSections"][listIdx]["State"].value() !=Diluculum::Nil){
-                    unsigned int newId = ls["NestedSections"][listIdx]["State"].value().asNumber();
-                    if (newId < nestedId) nestedId = (State) newId;
-                    //std::cerr<<"nestedId: "<<getNewPath(lang) <<" -> "<<nestedId<<"\n";
-                }
-                nestedStateIds[getNewPath(lang)] = nestedId;
-                */
                 ++listIdx;
             }
         }

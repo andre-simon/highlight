@@ -684,6 +684,12 @@ private:
     /// contains current position in line
     unsigned int lineIndex;
 
+    /// line index where syntax change takes place
+    unsigned int syntaxChangeIndex;
+
+    /// line number where syntax change takes place
+    unsigned int syntaxChangeLineNo;
+
     /// width of line numbering coloumn
     unsigned int lineNumberWidth;
 
@@ -774,8 +780,9 @@ private:
     map <string, SyntaxReader*> syntaxReaders;
 
     /** test for regular expressions
-        \param line current input line*/
-    void matchRegex ( const string &line );
+        \param line current input line
+        \param skipState state which should be ignored*/
+    void matchRegex ( const string &line, State skipState=_UNKNOWN );
 
     /** \return true if input is no binary stream */
     bool validateInputStream();

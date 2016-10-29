@@ -6,7 +6,7 @@ Description = "Javascript Regex"
 Keywords = {
    { -- backslash literals
      Id = 1,
-     Regex = [=[\\[][0-9'"\\/.?()]]=]
+     Regex = [=[\\.]]=]
    },
    { -- character classes
      Id = 2,

@@ -20,11 +20,11 @@ Keywords={
          "decimal", "enum", "sbyte", "uint", "ulong", "ushort", "void", "undefined"},
   },
 
-  -- replaced by NestedSections
-  --{ Id=3,
-  --  Regex=[[\/[^*\s/].*?[^\\]/[msixpodualgcy]*]],
-  --  Group=0
-  --},
+  -- may be replaced by NestedSections
+  { Id=3,
+    Regex=[[\/[^*\s/].*?[^\\]/[msixpodualgcy]*]],
+    Group=0
+  },
 
   { Id=4,
     Regex=[[(\w+)(\s*[:=]\s*function)?\s*\(]],
@@ -50,13 +50,14 @@ Comments={
   }
 }
 
-NestedSections = { -- regex as nested language seems to work?
-  {
-    Lang = "js_regex", -- js.lang might want to use this too
-    Delimiter = { [[/(?![/\*])]], [[/[msixpodualgcy]*]] },
-    --State=HL_STRING
-  }
-}
+-- FIXME: division oerator, comments
+--NestedSections = { -- regex as nested language seems to work?
+--  {
+--    Lang = "js_regex", -- js.lang might want to use this too
+--    Delimiter = { [[/(?![/\*])]], [[/[msixpodualgcy]*]] },
+--    --State=HL_STRING
+--  }
+--}
 
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|.]]
@@ -64,9 +65,9 @@ Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|.]]
 EnableIndentation=true
 
 -- resolve issue with regex expression which spans strings like "</i>" + VAR + "</i>"
---function OnStateChange(oldState, newState, token, groupID)
---   if string.sub(token,1,1)=="/" and oldState==HL_STRING and newState==HL_KEYWORD and groupID == 3 then
---      return HL_REJECT
---   end
---   return newState
---end
+function OnStateChange(oldState, newState, token, groupID)
+   if string.sub(token,1,1)=="/" and oldState==HL_STRING and newState==HL_KEYWORD and groupID == 3 then
+      return HL_REJECT
+   end
+   return newState
+end

@@ -163,7 +163,12 @@ void RtfGenerator::printBody()
        on the order. We access the keyword style with an ID, which is calculated
        ignoring the alphabetic order.
     */
+    
+    ///FIXME: nested syntax may be highlighted incorrectly if it contains more 
+    //        keyword definitions than the hosting syntax.
+    //        Workaround: Add keyword gruop to hosting syntax (see html.lang)
     vector<string>  keywordClasses = currentSyntax->getKeywordClasses();
+        
     for ( unsigned int i=0; i<keywordClasses.size(); i++ ) {
         *out << getAttributes ( docStyle.getKeywordStyle ( keywordClasses[i] ) );
     }

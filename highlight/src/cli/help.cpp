@@ -78,7 +78,7 @@ void printHelp()
     cout<<" -f, --fragment                 omit document header and footer\n";
     cout<<" -F, --reformat=<style>         reformats and indents output in given style\n";
     cout<<"                                  <style> = [allman, banner, gnu,\n";
-    cout<<"                                  horstmann, java, kr, linux, otbs, vtk,\n";
+    cout<<"                                  horstmann, java, kr, linux, mozilla, otbs, vtk,\n";
     cout<<"                                  stroustrup, whitesmith, google, pico, lisp]\n";
     cout<<" -I, --include-style            include style definition in output file\n";
     cout<<" -J, --line-length=<num>        line length before wrapping (see -V, -W)\n";

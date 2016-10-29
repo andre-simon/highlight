@@ -90,7 +90,6 @@ public:
         return currentPath!=langDefPath;
     }
     
-
     /** \return Failed regular expression */
     string getFailedRegex() const
     {
@@ -288,18 +287,12 @@ public:
     }
 
     /**
-    	\param ls Lua state to be initialized with constants
-    	\param langDefPath absolute path of language definition
-    	\param pluginReadFilePath absolute path of plugin input file
+        \param ls Lua state to be initialized with constants
+        \param langDefPath absolute path of language definition
+        \param pluginReadFilePath absolute path of plugin input file
     */
     static void initLuaState(Diluculum::LuaState& ls, const string& langDefPath, const string& pluginReadFilePath, OutputType outputType=HTML );
-    /*
-    void addVariable(const string& name, const string& value);
-    void addVariable(const string& name, bool value);
-    */
-    
-    //static KeywordMap nestedStateIds;
-    
+       
 private:
 
     static const string REGEX_IDENTIFIER;
