@@ -375,7 +375,6 @@ void CodeGenerator::setEOLDelimiter(char delim)
 
 void CodeGenerator::reset()
 {
-    //std::cerr<<"RESET\n";
     lineIndex = 0;
     lineNumber = 0;
     line.clear();
@@ -384,10 +383,6 @@ void CodeGenerator::reset()
     outFile.clear();
     embedLangDefPath.clear();
     printNewLines=true;
-    //  while ( ! nestedLangs.empty() )
-    // {
-    //     nestedLangs.pop();
-    // }
 }
 
 string CodeGenerator::getThemeInitError()
@@ -538,7 +533,7 @@ SKIP_EMBEDDED:
             unsigned int oldIndex= lineIndex;
             if ( regexGroups[oldIndex].length>1 ) lineIndex+= regexGroups[oldIndex].length-1;
 
-            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN) {
+            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN && currentSyntax->allowsInnerSection(currentSyntax->getCurrentPath()) ) {
                 embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
                               
                 // repeat parsing of this line without nested state recognition

@@ -8,7 +8,7 @@ Keywords = {
     "default", "delete", "do", "else", "export", "extends", "finally", "for",
     "if", "import", "in", "instanceof", "is", "isnt", "loop", "new", "not",
     "of", "or", "return", "super", "switch", "then", "throw", "try", "typeof",
-    "unless", "until", "when", "while", "yield"
+    "unless", "until", "when", "while", "yield", "as", "from"
          }
   },
   {
@@ -35,7 +35,7 @@ Comments = {
 }
 
 Strings = {
-  Delimiter = [["""|'''|"|'|`]],
+  Delimiter = [["""|'''|"|']],
   Escape = [=[\\u\{[[:xdigit:]]+\}|\\u[[:xdigit:]]{4}|\\x[[:xdigit:]]{2}|\\[\\bfnrtv0'"]]=],
   Interpolation = [[#\{[^}]+}]]
 }
@@ -47,7 +47,8 @@ NestedSections = { -- regex as nested language seems to work?
   },
   {
     Lang = "cs_block_regex",
-    Delimiter = { [[///]], [[///[gimuy]*]] }
+    Delimiter = { [[///]], [[///[gimuy]*]] },
+    AllowInnerSections = false
   },
 }
 

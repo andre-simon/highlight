@@ -60,6 +60,9 @@ typedef map <string, int> KeywordMap;
 /** maps embedded language names to exit delimiter regexes*/
 typedef map <string, string> DelimiterMap;
 
+typedef map <string, bool> AllowInnerSectionsMap;
+
+
 /**\brief Contains specific data of the programming language being processed.
 
 * @author Andre  Simon
@@ -225,6 +228,8 @@ public:
     	\param langPath path of embedded language definition
     */
     void restoreLangEndDelim(const string&langPath);
+    
+    bool allowsInnerSection(const string& langPath);
 
     /**
     	\param lang language definition name  (no path, no ".lang" extension)
@@ -317,6 +322,8 @@ private:
 
     // collect delimiters or get current delimiter in CodeGenerator::loadEmbeddedLang
     static DelimiterMap nestedStateEndDelimiters;
+    
+    static AllowInnerSectionsMap allowInnerSections;
     
     // saves if delimiter pair consists of the same delimiter symbol
     map <int, bool> delimiterDistinct;

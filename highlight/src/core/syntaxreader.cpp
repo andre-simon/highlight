@@ -42,6 +42,9 @@ const string SyntaxReader::REGEX_ESCSEQ =
     "\\\\u[[:xdigit:]]{4}|\\\\\\d{3}|\\\\x[[:xdigit:]]{2}|\\\\[ntvbrfa\\\\\\?'\"]";
 
 DelimiterMap SyntaxReader::nestedStateEndDelimiters;
+
+AllowInnerSectionsMap SyntaxReader::allowInnerSections;
+
 vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
 
 int RegexElement::instanceCnt=0;
@@ -321,8 +324,17 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
                 string closeDelim=StringTools::trim(ls["NestedSections"][listIdx]["Delimiter"][2].value().asString());
                 nestedStateEndDelimiters[getNewPath(lang)] = closeDelim;
+                
+                bool allowInnerSectionsFlag=true;
+                if (ls["NestedSections"][listIdx]["AllowInnerSections"].value()!=Diluculum::Nil){
+                    allowInnerSectionsFlag = ls["NestedSections"][listIdx]["AllowInnerSections"].value().asBoolean();
+                }
+                allowInnerSections[getNewPath(lang)] = allowInnerSectionsFlag;
+                
                 ++listIdx;
             }
+            //allow host syntax
+            allowInnerSections[getCurrentPath()] = true;               
         }
 
         if (globals.count("HeaderInjection")) {
@@ -390,6 +402,11 @@ void SyntaxReader::restoreLangEndDelim(const string& langPath)
     if ( !langPath.empty()&& nestedStateEndDelimiters.count(langPath) ) {
         regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, nestedStateEndDelimiters[langPath] ) );
     }
+}
+
+bool SyntaxReader::allowsInnerSection(const string& langPath)
+{
+    return allowInnerSections[langPath];
 }
 
 unsigned int SyntaxReader::generateNewKWClass ( int classID )
