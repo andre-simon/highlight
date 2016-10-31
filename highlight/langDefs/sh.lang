@@ -64,15 +64,15 @@ function OnStateChange(oldState, newState, token)
       hereDoc = nil
       return HL_STRING_END
    end
-   
-   if hereDoc~=nil then
-    return HL_STRING
-   end
-
+      
    if  (string.sub(token,1,1) =="$" )  and oldState==HL_STRING and newState==HL_KEYWORD then
       return HL_INTERPOLATION
    end
-   
+
+  if hereDoc~=nil then
+    return HL_STRING
+   end
+
    --recognize hereDoc multine strings
    if oldState==HL_STANDARD and newState==HL_STRING and not string.find("\"'`", token) then
       hereDoc = string.match(token, "<<%-?'?%s*([%-%a%d_]+)" )

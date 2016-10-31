@@ -437,7 +437,7 @@ bool CodeGenerator::readNewLine ( string &newLine )
     return eof || ( lineNumber == maxLineCnt );
 }
 
-void CodeGenerator::matchRegex ( const string &line, State skipState)
+void CodeGenerator::matchRegex ( const string &line, State skipState, unsigned int offset)
 {
     regexGroups.clear();
     int matchBegin=0;
@@ -456,7 +456,7 @@ void CodeGenerator::matchRegex ( const string &line, State skipState)
             groupID = ( regexElem->capturingGroup<0 ) ? cur->size()-1 : regexElem->capturingGroup;
             matchBegin =  cur->position(groupID);
             regexGroups.insert (
-                make_pair ( matchBegin + 1, ReGroup ( regexElem->open, cur->length(groupID), regexElem->kwClass, regexElem->langName ) ) );
+                make_pair ( matchBegin + 1 + offset, ReGroup ( regexElem->open, cur->length(groupID), regexElem->kwClass, regexElem->langName ) ) );
         }
     }
 }
@@ -516,15 +516,17 @@ State CodeGenerator::getCurrentState (State oldState)
         token= c;
         return _WS;
     }
-    
-SKIP_EMBEDDED:
+        
 
-    if (lineIndex >= syntaxChangeIndex-1 ||  syntaxChangeLineNo < lineNumber){
-        matchRegex(line);
-        loadEmbeddedLang(embedLangDefPath);                       
+    // at this position the syntax change takes place
+    if (lineIndex >= syntaxChangeIndex-1 || syntaxChangeLineNo <= lineNumber){
+        loadEmbeddedLang(embedLangDefPath);  // load new syntax                     
+        matchRegex(line);                    // recognize new patterns in the (remaining) line
         syntaxChangeIndex = syntaxChangeLineNo = UINT_MAX;
     }
-     
+
+SKIP_EMBEDDED:
+    
     // Test if a regular expression was found at the current position
     if ( !regexGroups.empty() ) {
         if ( regexGroups.count ( lineIndex ) ) {
@@ -533,16 +535,23 @@ SKIP_EMBEDDED:
             unsigned int oldIndex= lineIndex;
             if ( regexGroups[oldIndex].length>1 ) lineIndex+= regexGroups[oldIndex].length-1;
 
-            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN && currentSyntax->allowsInnerSection(currentSyntax->getCurrentPath()) ) {
+            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN)
+            //std::cerr<<"currentSyntax->allowsInnerSection("<<currentSyntax->getCurrentPath()<<": "<<currentSyntax->allowsInnerSection(currentSyntax->getCurrentPath())<<" embedLangDefPath_"<<embedLangDefPath<<" ? "<<currentSyntax->allowsInnerSection(embedLangDefPath)<<"\n";
+            
+            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN && currentSyntax->allowsInnerSection(currentSyntax->getCurrentPath())) {
+                
+                if (embedLangDefPath.length()==0 || currentSyntax->allowsInnerSection(embedLangDefPath) ) {
                 embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
-                              
-                // repeat parsing of this line without nested state recognition
+                
+                //remember position 
                 syntaxChangeIndex = lineIndex+1;
                 syntaxChangeLineNo = lineNumber;
+                }
+                
+                // repeat parsing of this line without nested state recognition to highlight opening delimiter in the host syntax
                 matchRegex(line, EMBEDDED_CODE_BEGIN);
                 lineIndex = oldIndex;
-                
-                goto SKIP_EMBEDDED; 
+                goto SKIP_EMBEDDED; // this is how it should be done
             }
 
             if ( regexGroups[oldIndex].state==IDENTIFIER_BEGIN || regexGroups[oldIndex].state==KEYWORD ) {
@@ -1044,7 +1053,6 @@ void CodeGenerator::processRootState()
             openTag ( STANDARD );
             break;
 
-//        case EMBEDDED_CODE_BEGIN:
         case EMBEDDED_CODE_END:
             closeTag ( STANDARD );
             eof=processSyntaxChangeState(state);

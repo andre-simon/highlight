@@ -782,7 +782,7 @@ private:
     /** test for regular expressions
         \param line current input line
         \param skipState state which should be ignored*/
-    void matchRegex ( const string &line, State skipState=_UNKNOWN );
+    void matchRegex ( const string &line, State skipState=_UNKNOWN, unsigned int offset=0 );
 
     /** \return true if input is no binary stream */
     bool validateInputStream();

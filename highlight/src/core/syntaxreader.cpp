@@ -321,13 +321,13 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
                 string lang= ls["NestedSections"][listIdx]["Lang"].value().asString();
                 string openDelim=StringTools::trim(ls["NestedSections"][listIdx]["Delimiter"][1].value().asString());
                 regex.insert(regex.begin(), 1, new RegexElement(EMBEDDED_CODE_BEGIN, EMBEDDED_CODE_BEGIN, openDelim, 0, -1, lang));
-
+                
                 string closeDelim=StringTools::trim(ls["NestedSections"][listIdx]["Delimiter"][2].value().asString());
                 nestedStateEndDelimiters[getNewPath(lang)] = closeDelim;
                 
                 bool allowInnerSectionsFlag=true;
-                if (ls["NestedSections"][listIdx]["AllowInnerSections"].value()!=Diluculum::Nil){
-                    allowInnerSectionsFlag = ls["NestedSections"][listIdx]["AllowInnerSections"].value().asBoolean();
+                if (ls["NestedSections"][listIdx]["Sealed"].value()!=Diluculum::Nil){
+                    allowInnerSectionsFlag = !ls["NestedSections"][listIdx]["Sealed"].value().asBoolean();
                 }
                 allowInnerSections[getNewPath(lang)] = allowInnerSectionsFlag;
                 

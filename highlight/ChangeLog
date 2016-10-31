@@ -7,6 +7,7 @@ xx.11.2016
 
 -nested sections now support more than one nesting levels
 -fixed highlighting of nested section delimiters
+-added Sealed flag in NestedSections
 -added vimscript language definition (thanks to Max Christian Pohle)
 -added Coffeescript language definition (thanks to Jess Austin)
 -added PureBasic definition and theme (thanks to Tristano Ajmone)

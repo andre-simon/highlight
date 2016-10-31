@@ -534,11 +534,11 @@ PreProcessor = { Prefix, Continuation? }
   Continuation:  String, contains continuation character (optional)
 
 
-NestedSections = {Lang, Delimiter= {}, AllowInnerSections? }
+NestedSections = {Lang, Delimiter= {}, Sealed? }
 
   Lang:      String, name of nested language
   Delimiter: List, contains open and close delimiters of the code section
-  AllowInnerSections: Boolean, set to false if no inner section is allowed
+  Sealed:    Boolean, set to true if this section cannot contain other nested parts
 
 
 Description:       String, Defines syntax description

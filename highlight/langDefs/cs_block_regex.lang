@@ -9,7 +9,8 @@ Keywords = {
    { -- interpolation
      Id = 2,
      Regex = [[#\{.*}]]
-   }
+   },
+   
 }
 
 Comments = {
