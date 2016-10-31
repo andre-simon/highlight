@@ -494,6 +494,9 @@ unsigned char CodeGenerator::getInputChar()
     return line[lineIndex++];
 }
 
+/** changing this method requires regression testing with nested syntax files (HTML+PHP+JS+CSS, Coffeescript with block regex, Pas + ASM) 
+    especially nested syntax in one line
+ */
 State CodeGenerator::getCurrentState (State oldState)
 {
     unsigned char c='\0';
@@ -517,9 +520,8 @@ State CodeGenerator::getCurrentState (State oldState)
         return _WS;
     }
         
-
     // at this position the syntax change takes place
-    if (lineIndex >= syntaxChangeIndex-1 || syntaxChangeLineNo <= lineNumber){
+    if (lineIndex >= syntaxChangeIndex-1 || syntaxChangeLineNo < lineNumber){
         loadEmbeddedLang(embedLangDefPath);  // load new syntax                     
         matchRegex(line);                    // recognize new patterns in the (remaining) line
         syntaxChangeIndex = syntaxChangeLineNo = UINT_MAX;
@@ -535,17 +537,15 @@ SKIP_EMBEDDED:
             unsigned int oldIndex= lineIndex;
             if ( regexGroups[oldIndex].length>1 ) lineIndex+= regexGroups[oldIndex].length-1;
 
-            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN)
-            //std::cerr<<"currentSyntax->allowsInnerSection("<<currentSyntax->getCurrentPath()<<": "<<currentSyntax->allowsInnerSection(currentSyntax->getCurrentPath())<<" embedLangDefPath_"<<embedLangDefPath<<" ? "<<currentSyntax->allowsInnerSection(embedLangDefPath)<<"\n";
-            
-            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN && currentSyntax->allowsInnerSection(currentSyntax->getCurrentPath())) {
+            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN /*&& currentSyntax->allowsInnerSection(currentSyntax->getCurrentPath())*/ ) {
                 
+                //do not handle a nested section if the syntax is marked as "sealed" 
                 if (embedLangDefPath.length()==0 || currentSyntax->allowsInnerSection(embedLangDefPath) ) {
-                embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
-                
-                //remember position 
-                syntaxChangeIndex = lineIndex+1;
-                syntaxChangeLineNo = lineNumber;
+                    embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
+                    //remember position 
+                    syntaxChangeIndex = lineIndex+2;
+                    syntaxChangeLineNo = lineNumber;
+                                    
                 }
                 
                 // repeat parsing of this line without nested state recognition to highlight opening delimiter in the host syntax
