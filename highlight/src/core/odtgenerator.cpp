@@ -116,8 +116,12 @@ string ODTGenerator::getAttributes ( const string & elemName,
 
 string ODTGenerator::getHeader()
 {
+      string enc = "UTF-8";
+     if ( encodingDefined() ) {
+        enc = encoding;
+    }
     ostringstream header;
-    header << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"\
+    header << "<?xml version=\"1.0\" encoding=\""<<enc<<"\"?>\n"\
            "<office:document xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\" xmlns:style=\"urn:oasis:names:tc:opendocument:xmlns:style:1.0\""\
            " xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" xmlns:table=\"urn:oasis:names:tc:opendocument:xmlns:table:1.0\""\
            " xmlns:draw=\"urn:oasis:names:tc:opendocument:xmlns:drawing:1.0\" xmlns:fo=\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\""\

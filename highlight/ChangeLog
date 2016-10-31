@@ -3,7 +3,7 @@ CHANGELOG Highlight
 
 highlight 3.33
 
-xx.11.2016
+01.11.2016
 
 -nested sections now support more than one nesting levels
 -fixed highlighting of nested section delimiters
@@ -15,6 +15,7 @@ xx.11.2016
 -added PO translation definition
 -fixed PHP definition (thanks to Christoph Burschka)
 -fixed font family declaration in SVG
+-fixed user defined encoding in ODT
 -updated js definition
 -improved various color themes
 -updated Artistic Style lib (SVN Rev. 521)
