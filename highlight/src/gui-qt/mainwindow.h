@@ -135,6 +135,8 @@ private slots:
 
     void on_action_License_triggered();
     void on_action_Changelog_triggered();
+    void on_action_Plug_Ins_triggered();
+
     void on_action_Manual_triggered();
     void on_action_About_Highlight_triggered();
     void on_action_Exit_triggered();

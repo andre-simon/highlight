@@ -348,9 +348,9 @@ public:
     */
     void setStartingNestedLang(const string &langName);
 
-    /** \param path path of plugin input file
+    /** \param param path of plugin input file
     */
-    void setPluginReadFile ( const string& path );
+    void setPluginParameter ( const string& param );
 
     /** Load the Lua functions og the plug-in script
     	\param script path of the plug-in script
@@ -584,12 +584,6 @@ protected:
         return StringTools::change_case ( encoding ) !="none";
     }
 
-    /** add Lua state variables specific to the output format */
-    /*
-    virtual void addSpecificVars()
-    {
-    };*/
-
     /** Invoke plugin decorate user function */
     Diluculum::LuaValueList callDecorateFct(const string& token);
     
@@ -676,7 +670,7 @@ private:
     string embedLangDefPath;
 
     /// path to plugin input file
-    string pluginReadFile;
+    string pluginParameter;
 
     /// name of nested language which starts the input (ie opening delim missing, but closing delim exists)
     string embedLangStart;

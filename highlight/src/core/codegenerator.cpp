@@ -223,9 +223,9 @@ void CodeGenerator::setStyleOutputPath ( const string& path )
     styleOutputPath = path;
 }
 
-void CodeGenerator::setPluginReadFile ( const string& path )
+void CodeGenerator::setPluginParameter ( const string& param )
 {
-    pluginReadFile = path;
+    pluginParameter = param;
 }
 
 const string&  CodeGenerator::getStyleInputPath()
@@ -545,7 +545,6 @@ SKIP_EMBEDDED:
                     //remember position 
                     syntaxChangeIndex = lineIndex+2;
                     syntaxChangeLineNo = lineNumber;
-                                    
                 }
                 
                 // repeat parsing of this line without nested state recognition to highlight opening delimiter in the host syntax
@@ -713,7 +712,7 @@ LoadResult CodeGenerator::loadLanguage ( const string& langDefPath )
             result=LOAD_OK;
         } else {
             currentSyntax=new SyntaxReader();
-            result=currentSyntax->load(langDefPath, pluginReadFile, outputType);
+            result=currentSyntax->load(langDefPath, pluginParameter, outputType);
             syntaxReaders[langDefPath]=currentSyntax;
         }
 

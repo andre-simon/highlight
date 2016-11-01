@@ -2,7 +2,7 @@
                           syntaxreader.cpp  -  description
                              -------------------
     begin                : Wed Nov 28 2001
-    copyright            : (C) 2001-2015 by Andre Simon
+    copyright            : (C) 2001-2016 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -32,6 +32,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 namespace highlight
 {
 
+//default expressions, can be overridden by syntax definition
 const string SyntaxReader::REGEX_IDENTIFIER =
     "[a-zA-Z_]\\w*";
 
@@ -398,7 +399,6 @@ int SyntaxReader::luaAddKeyword (lua_State *L)
 
 void SyntaxReader::restoreLangEndDelim(const string& langPath)
 {
-    //TODO exitDelimiters be left static?
     if ( !langPath.empty()&& nestedStateEndDelimiters.count(langPath) ) {
         regex.insert (regex.begin(),1, new RegexElement ( EMBEDDED_CODE_END,EMBEDDED_CODE_END, nestedStateEndDelimiters[langPath] ) );
     }
@@ -423,7 +423,6 @@ unsigned int SyntaxReader::generateNewKWClass ( int classID )
         newClassID++;
         keywordClasses.push_back ( className );
     }
-
     return newClassID;
 }
 

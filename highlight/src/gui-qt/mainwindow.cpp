@@ -666,7 +666,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
 
     generator->setPrintLineNumbers( ui->cbIncLineNo->isChecked(), ui->sbLineNoStart->value());
     generator->setPrintZeroes(ui->cbPadZeroes->isEnabled() && ui->cbPadZeroes->isChecked());
-    generator->setPluginReadFile(ui->lePluginReadFilePath->text().toStdString());
+    generator->setPluginParameter(ui->lePluginReadFilePath->text().toStdString());
 
 #ifdef DATA_DIR
     QString themePath = QString("%1themes/%2.theme").arg(
@@ -1156,6 +1156,13 @@ void MainWindow::on_action_Changelog_triggered()
 {
     ShowTextFile show;
     show.setFileName("ChangeLog");
+    show.exec();
+}
+
+void MainWindow::on_action_Plug_Ins_triggered()
+{
+    ShowTextFile show;
+    show.setFileName("README_PLUGINS");
     show.exec();
 }
 

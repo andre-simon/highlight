@@ -555,12 +555,11 @@ PreProcessor = { Prefix, Continuation? }
   Continuation:  String, Definiert Fortsetzungsindikator (optional)
 
 
-NestedSections = {Lang, Delimiter= {}, Sealed?  }
+NestedSections = {Lang, Delimiter= {} }
 
   Lang:      String, Name der eingebetteten Sprache
   Delimiter: Liste, Ausdruecke der oeffnenden und der schliessenden Begrenzer
-  Sealed:    Boolean, True wenn in dieser Einbettung keine weitere erlaubt ist
-
+  
 
 Description:       String, Beschreibung der Syntax
 

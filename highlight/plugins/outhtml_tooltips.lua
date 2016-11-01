@@ -1,3 +1,4 @@
+
 Description="Add HTML tooltips within comments linked to circled numbers (format as @tip[tooltip text])"
 
 function syntaxUpdate(desc)

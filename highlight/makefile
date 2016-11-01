@@ -88,6 +88,7 @@ install:
 	${INSTALL_DATA} ./README_DE ${DESTDIR}${doc_dir}
 	${INSTALL_DATA} ./README_REGEX ${DESTDIR}${doc_dir}
 	${INSTALL_DATA} ./README_LANGLIST ${DESTDIR}${doc_dir}
+	${INSTALL_DATA} ./README_PLUGINS ${DESTDIR}${doc_dir}
 	${INSTALL_DATA} ./ChangeLog ${DESTDIR}${doc_dir}
 	${INSTALL_DATA} ./COPYING ${DESTDIR}${doc_dir}
 	${INSTALL_DATA} ./INSTALL ${DESTDIR}${doc_dir}

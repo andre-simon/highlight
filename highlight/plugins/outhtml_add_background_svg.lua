@@ -4,7 +4,7 @@ Sample plugin file for highlight
 Adds a background pattern using an inline SVG
 ]]
 
-Description="Adds a background inline SVG pattern (edit parameters in the file)"
+Description="Adds a background inline SVG pattern for HTML output (edit parameters in the file)"
 
 -- function to update theme definition
 -- optional parameter: theme description

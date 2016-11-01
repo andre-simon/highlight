@@ -4,7 +4,7 @@ Sample plugin file for highlight
 Adds a shadow and margin to the code box
 ]]
 
-Description="Adds a shadow and margin to the code box (intended for bright themes)"
+Description="Adds a shadow and margin to the code box in HTML output (intended for bright themes)"
 
 -- function to update theme definition
 -- optional parameter: theme description

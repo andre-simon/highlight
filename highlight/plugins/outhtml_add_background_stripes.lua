@@ -4,7 +4,7 @@ Sample plugin file for highlight
 Adds background stripes
 ]]
 
-Description="Adds background stripes"
+Description="Adds background stripes in HTML output "
 
 -- function to update theme definition
 -- optional parameter: theme description

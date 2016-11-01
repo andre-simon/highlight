@@ -5,20 +5,19 @@ highlight 3.33
 
 01.11.2016
 
--nested sections now support more than one nesting levels
 -fixed highlighting of nested section delimiters
--added Sealed flag in NestedSections
+-fixed PHP definition (thanks to Christoph Burschka)
+-fixed font family declaration in SVG
+-fixed user defined encoding in ODT
 -added vimscript language definition (thanks to Max Christian Pohle)
 -added Coffeescript language definition (thanks to Jess Austin)
 -added PureBasic definition and theme (thanks to Tristano Ajmone)
 -added JSX language definition (suggested by Max Stoiber)
 -added PO translation definition
--fixed PHP definition (thanks to Christoph Burschka)
--fixed font family declaration in SVG
--fixed user defined encoding in ODT
+-added plug-in outhtml_add_figure.lua
 -updated js definition
--improved various color themes
 -updated Artistic Style lib (SVN Rev. 521)
+-improved various color themes and syntax definitions
 
 ---
 highlight 3.32

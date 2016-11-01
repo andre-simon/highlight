@@ -451,7 +451,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->setLineNumberWidth ( options.getNumberWidth() );
     generator->setStartingNestedLang( options.getStartNestedLang());
     generator->disableTrailingNL(options.disableTrailingNL());
-    generator->setPluginReadFile(options.getPluginReadFilePath());
+    generator->setPluginParameter(options.getPluginParameter());
 
     bool styleFileWanted = !options.fragmentOutput() || options.styleOutPathDefined();
 

@@ -4,7 +4,7 @@ Sample plugin file for highlight
 Adds modern monospace fonts
 ]]
 
-Description="Adds modern monospace fonts"
+Description="Adds modern monospace fonts in HTML output"
 
 -- function to update theme definition
 -- optional parameter: theme description

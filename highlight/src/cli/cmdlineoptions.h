@@ -337,8 +337,8 @@ public:
     /** \return absolute language definition path name */
     const string& getAbsLangPath() const ;
 
-    /** \return path of input file passed to plugin */
-    const string& getPluginReadFilePath() const ;
+    /** \return parameter passed to plugin */
+    const string& getPluginParameter() const ;
 
     /** \return line number width */
     int getNumberWidth();

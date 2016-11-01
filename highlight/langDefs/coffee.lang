@@ -47,13 +47,11 @@ Strings = {
 NestedSections = { -- regex as nested language seems to work?
   {
     Lang = "cs_block_regex",
-    Delimiter = { [[///]], [[///[gimuy]*]] },
-    --Sealed = true
+    Delimiter = { [[///]], [[///[gimuy]*]] }
   },
   {
     Lang = "js_regex", -- js.lang might want to use this too
-    Delimiter = { [[/(?!//)]], [[(?!\\)/[gimuy]*]] },
-    --Sealed = false
+    Delimiter = { [[/(?!//)]], [[(?!\\)/[gimuy]*]] }
   },
   
 }

@@ -830,7 +830,7 @@ const string& CmdLineOptions::getAbsLangPath() const
 {
     return absLangPath;
 }
-const string& CmdLineOptions::getPluginReadFilePath() const
+const string& CmdLineOptions::getPluginParameter() const
 {
     return pluginParameter;
 }

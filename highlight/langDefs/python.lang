@@ -44,7 +44,7 @@ Strings={
   Delimiter=[["""|'''|"|']],
   RawPrefix="r",
   Escape=[=[\\[ntvbrfa\\\?'"]|\\\d{3}|\\x[[:xdigit:]]{2}]=],
-  Interpolation=[[ %[%#0\-\+\ diouxXeEfFgGcrs]+|%\(\w+\)[sd]? ]]
+  Interpolation=[[ %[%#0\-\+diouxXeEfFgGcrs]+|%\(\w+\)[sd]? ]]
 }
 
 IgnoreCase=false
@@ -56,4 +56,13 @@ Comments={
 }
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\@]]
+
+
+function OnStateChange(oldState, newState, token, groupID)
+   if oldState==HL_STANDARD and string.sub(token,1,1)=="%" then
+      return HL_OPERATOR
+   end
+
+   return newState
+end
 

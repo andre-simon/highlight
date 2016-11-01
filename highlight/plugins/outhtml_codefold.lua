@@ -1,5 +1,5 @@
 
-Description="Adds code folding for C style languages, Pascal, Lua and Ruby to HTML output (not compatible with inline CSS or ordered list output)."
+Description="Adds code folding for C style languages, Pascal, Lua and Ruby and more to HTML output (not compatible with inline CSS or ordered list output)."
 
 function syntaxUpdate(desc)
   

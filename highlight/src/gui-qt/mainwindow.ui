@@ -98,6 +98,7 @@
     </property>
     <addaction name="action_Tips"/>
     <addaction name="action_Manual"/>
+    <addaction name="action_Plug_Ins"/>
     <addaction name="action_Changelog"/>
     <addaction name="action_License"/>
     <addaction name="separator"/>
@@ -2210,6 +2211,11 @@ Set the width to 0 to keep tabs.</string>
    </property>
    <property name="text">
     <string>&amp;Dock floating panels</string>
+   </property>
+  </action>
+  <action name="action_Plug_Ins">
+   <property name="text">
+    <string>Plug-Ins</string>
    </property>
   </action>
  </widget>

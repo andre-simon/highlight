@@ -4,7 +4,7 @@ Sample plugin file for highlight
 Adds a line to the left of the code box
 ]]
 
-Description="Adds a line to the left of the code box"
+Description="Adds a line to the left of the code box in HTML output"
 
 -- function to update theme definition
 -- optional parameter: theme description
