@@ -1,7 +1,7 @@
 
 Description="Assembler"
 
-Digits=[[ (?:0x|0X)[0-9a-fA-F]+|\d*[\.\_]?\d+(?:[eE][\-\+]\d+)?[bBhHlLuU]* ]]
+Digits=[[ (?:0x|0X|\$)[0-9a-fA-F]+|\d*[\.\_]?\d+(?:[eE][\-\+]\d+)?[bBhHlLuU]* ]]
 
 Keywords={
   { Id=1,
@@ -54,6 +54,9 @@ Keywords={
   },
   { Id=3,
     Regex=[[ [\w@]+\: ]]
+  },
+  { Id=4,
+    Regex=[[ @\w+ ]]
   }
 }
 

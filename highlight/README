@@ -531,7 +531,7 @@ Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, Interpolation
 PreProcessor = { Prefix, Continuation? }
 
   Prefix:        String, regular expression which describes open delimiter
-  Continuation:  String, contains continuation character (optional)
+  Continuation:  String, contains line continuation character (optional).
 
 
 NestedSections = {Lang, Delimiter= {} }

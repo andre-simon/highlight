@@ -383,6 +383,9 @@ void CodeGenerator::reset()
     outFile.clear();
     embedLangDefPath.clear();
     printNewLines=true;
+    while (!nestedLangs.empty()) {
+        nestedLangs.pop();
+    }
 }
 
 string CodeGenerator::getThemeInitError()
@@ -1322,10 +1325,13 @@ bool CodeGenerator::processDirectiveState()
             break;
         case _EOL:
             printMaskedToken();
+            
             if ( preFormatter.isEnabled() && preFormatter.isWrappedLine ( lineNumber-1 ) ) {
                 exitState=false;
             } else {
-                exitState= ( terminatingChar!=currentSyntax->getContinuationChar() );
+                if (currentSyntax->getContinuationChar()!=0x13){
+                    exitState= ( terminatingChar!=currentSyntax->getContinuationChar() );
+                } 
             }
             if ( !exitState ) wsBuffer += closeTags[DIRECTIVE];
             insertLineNumber();
