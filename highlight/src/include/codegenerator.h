@@ -156,15 +156,13 @@ public:
         \param indentScheme Name of indentation scheme
         \return true if successfull
      */
-    bool initIndentationScheme ( const string&indentScheme );
+    bool initIndentationScheme ( const string& indentScheme );
 
     /** \param langDefPath Absolute path to language definition, may be used multiple times for a generator instance
-        \return   LOAD_OK,
-    	      LOAD_FAILED,
-    	      LOAD_FAILED_REGEX,
-    	      LOAD_FAILED_LUA
+     *  \param embedded set True if method is called to laod an embedded language
+        \return   LOAD_OK, LOAD_FAILED, LOAD_FAILED_REGEX, LOAD_FAILED_LUA
     */
-    LoadResult loadLanguage ( const string& langDefPath );
+    LoadResult loadLanguage ( const string& langDefPath, bool embedded=false );
 
     /**
      Generate output file from input file

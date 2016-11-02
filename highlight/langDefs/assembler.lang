@@ -56,7 +56,7 @@ Keywords={
     Regex=[[ [\w@]+\: ]]
   },
   { Id=4,
-    Regex=[[ @\w+ ]]
+    Regex=[[ @[\w@]+ ]]
   }
 }
 

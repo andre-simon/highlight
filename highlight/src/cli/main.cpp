@@ -639,6 +639,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     }
 
     if ( i  && !options.includeStyleDef()
+            && !options.inlineCSS()
             && styleFileWanted
             && options.formatSupportsExtStyle() ) {
         string cssOutFile=outDirectory  + options.getStyleOutFilename();

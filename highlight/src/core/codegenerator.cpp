@@ -383,9 +383,7 @@ void CodeGenerator::reset()
     outFile.clear();
     embedLangDefPath.clear();
     printNewLines=true;
-    while (!nestedLangs.empty()) {
-        nestedLangs.pop();
-    }
+    syntaxChangeIndex = syntaxChangeLineNo = UINT_MAX;
 }
 
 string CodeGenerator::getThemeInitError()
@@ -703,9 +701,15 @@ bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
     return formattingEnabled=true;
 }
 
-LoadResult CodeGenerator::loadLanguage ( const string& langDefPath )
+LoadResult CodeGenerator::loadLanguage ( const string& langDefPath, bool embedded )
 {
 
+    if (!embedded) {
+        while (!nestedLangs.empty()) {
+            nestedLangs.pop();
+        }   
+    }
+    
     bool reloadNecessary= currentSyntax ? currentSyntax->needsReload ( langDefPath ): true;
     LoadResult result=LOAD_OK;
 
@@ -975,7 +979,7 @@ bool CodeGenerator::loadEmbeddedLang(const string&embedLangDefPath)
     if (nestedLangs.top() != embedLangDefPath) {
         nestedLangs.push(embedLangDefPath);
     }
-    LoadResult res = loadLanguage(embedLangDefPath);
+    LoadResult res = loadLanguage(embedLangDefPath, true);
     //pass end delimiter regex to syntax description
     currentSyntax->restoreLangEndDelim(embedLangDefPath);
     return res == LOAD_OK;
@@ -1113,7 +1117,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
             }
             // load host language syntax
             if (!nestedLangs.empty()) {
-                loadLanguage(nestedLangs.top());
+                loadLanguage(nestedLangs.top(), true);
             }
         }
         
@@ -1660,11 +1664,7 @@ bool CodeGenerator::printExternalStyle ( const string &outFile )
                         << HIGHLIGHT_VERSION << ", " << HIGHLIGHT_URL
                         << " " << styleCommentClose << "\n";
 
-            *cssOutFile << "\n" << styleCommentOpen
-                        << " Highlighting theme: "
-                        << docStyle.getDescription() <<" "
-                        << styleCommentClose << "\n\n"
-                        << getStyleDefinition()
+            *cssOutFile << getStyleDefinition()
                         << "\n";
             *cssOutFile << readUserStyleDef();
             if ( !outFile.empty() ) delete cssOutFile;

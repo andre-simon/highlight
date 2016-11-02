@@ -261,6 +261,7 @@ string TexGenerator::getStyleDefinition()
 {
     if ( styleDefinitionCache.empty() ) {
         ostringstream os;
+        os << "% highlight theme: "<<docStyle.getDescription()<<"\n";
         os << getAttributes ( STY_NAME_STD, docStyle.getDefaultStyle() );
         os << getAttributes ( STY_NAME_NUM, docStyle.getNumberStyle() );
         os << getAttributes ( STY_NAME_ESC, docStyle.getEscapeCharStyle() );

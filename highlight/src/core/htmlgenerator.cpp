@@ -224,6 +224,8 @@ string HtmlGenerator::getStyleDefinition()
     if ( styleDefinitionCache.empty() ) {
         bool quoteFont=getBaseFont().find_first_of(",'")==string::npos;
         ostringstream os;
+        
+        os << "/* highlight theme: "<<docStyle.getDescription()<<" */\n";
 
         string classNameSuffix;
         if (!cssClassName.empty())

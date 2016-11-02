@@ -3,12 +3,13 @@ CHANGELOG Highlight
 
 highlight 3.33
 
-01.11.2016
+02.11.2016
 
 -fixed highlighting of nested section delimiters
 -fixed PHP definition (thanks to Christoph Burschka)
 -fixed font family declaration in SVG
 -fixed user defined encoding in ODT
+-fixed unnecessary output of style file with --inline-css (thanks to Jens Schleusener)
 -added vimscript language definition (thanks to Max Christian Pohle)
 -added Coffeescript language definition (thanks to Jess Austin)
 -added PureBasic definition and theme (thanks to Tristano Ajmone)
