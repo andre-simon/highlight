@@ -464,23 +464,25 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         inputFileNames.push_back ( "" );
     }
 
-    if ( skipArg.size() ) {
+    if ( skipArg.size() && inputFileNames.size() > 1) {
         istringstream valueStream;
         string elem;
-        string wildcard;
         valueStream.str ( StringTools::change_case ( skipArg,StringTools::CASE_LOWER ) );
 
         while ( getline ( valueStream, elem, ';' ) ) {
             ignoredFileTypes.insert ( elem );
         }
-        for ( vector<string>::iterator file=inputFileNames.begin(); file!=inputFileNames.end(); file++ ) {
+       
+        vector<string>::iterator file=inputFileNames.begin();
+        while ( file!=inputFileNames.end()) {
             for ( set<string>::iterator ext=ignoredFileTypes.begin(); ext!=ignoredFileTypes.end(); ext++ ) {
-                wildcard="*."+*ext;
-                if ( Platform::wildcmp ( wildcard.c_str(), ( *file ).c_str() ) ) {
+                if (file!=inputFileNames.end() && StringTools::endsWith(  *file, *ext )) {
                     file = inputFileNames.erase ( file );
                     break;
                 }
             }
+            if (file!=inputFileNames.end())
+                file++;
         }
     }
 }

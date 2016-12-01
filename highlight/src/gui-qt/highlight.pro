@@ -29,6 +29,9 @@ FORMS += mainwindow.ui \
 RESOURCES = highlight-gui.qrc
 TRANSLATIONS = highlight_de_DE.ts highlight_es_ES.ts highlight_cs_CZ.ts  highlight_zh_CN.ts
 
+QMAKE_CC = clang
+QMAKE_CXX = clang++
+
 QMAKE_CXXFLAGS += -std=c++11
 
 # If Lua 5.2 is not default on your system yet you have to omit 5.1 here:

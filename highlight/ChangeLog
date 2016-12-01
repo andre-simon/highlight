@@ -1,5 +1,9 @@
 CHANGELOG Highlight
 
+-fixed segfault with --skip applied on a single file input list (thanks to Jens Schleusener)
+
+TODO https://fossies.org/linux/rspamd/src/libcryptobox/AsmOp.cmake
+TODO --force-syntax (ign filetypes.conf map)
 
 highlight 3.33
 

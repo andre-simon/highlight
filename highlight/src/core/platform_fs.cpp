@@ -242,6 +242,7 @@ void getFileNames ( const string &directory,const string &wildcard, vector<strin
 // From The Code Project http://www.codeproject.com/string/wildcmp.asp
 // Written by Jack Handy - jakkhandy@hotmail.com
 // Modified to compare case insensitive for Windows (the LC macro)
+
 int wildcmp ( const char *wild, const char *data )
 {
     const char *cp = NULL, *mp = NULL;

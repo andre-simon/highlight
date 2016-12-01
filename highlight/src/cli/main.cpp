@@ -564,7 +564,9 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
                 if ( ! (options.quietMode() || options.isSkippedExt ( suffix )) ) {
                     cerr << "highlight: Unknown source file extension \""
                          << suffix
-                         << "\". Consider using the --skip option.\n";
+                         << "\". Consider the "
+                         << (options.enableBatchMode() ? "--skip" : "--force or --syntax")
+                         << " option.\n";
                 }
                 if ( !options.forceOutput() ) {
                     initError = true;

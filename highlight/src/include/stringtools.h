@@ -84,6 +84,8 @@ bool str2num ( T &val, const std::string& s, std::ios_base& ( *f ) ( std::ios_ba
 int calcWeight(const string&s);
 
 string getPathAcronym(const string&path, char delim);
+
+bool endsWith(std::string const & value, std::string const & ending);
 }
 
 #endif
