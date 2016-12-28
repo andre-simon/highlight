@@ -94,6 +94,16 @@ MainWindow::MainWindow(QWidget *parent)
                              tr("Could not find syntax definitions. Check installation."));
     }
 
+    //avoid ugly buttons in MacOS
+    #ifndef Q_OS_MACOS
+        ui->pbPluginReadFilePath->setMaximumWidth(30);
+        ui->pbOutputDest->setMaximumWidth(30);
+        ui->pbHTMLChooseStyleIncFile->setMaximumWidth(30);
+        ui->pbLATEXChooseStyleIncFile->setMaximumWidth(30);
+        ui->pbTEXChooseStyleIncFile->setMaximumWidth(30);
+        ui->pbSVGChooseStyleIncFile->setMaximumWidth(30);
+    #endif
+
     QObject::connect(ui->pbOpenFiles, SIGNAL(clicked()), this, SLOT(openFiles()));
     QObject::connect(ui->action_Open_files, SIGNAL(triggered()), this, SLOT(openFiles()));
 

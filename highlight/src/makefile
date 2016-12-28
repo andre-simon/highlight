@@ -12,8 +12,8 @@
 
 # See src/gui-qt/highlight.pro for the Qt GUI compilation options
 
-CXX=clang++
-#CXX=g++
+#CXX=clang++
+CXX=g++
 
 # was: qmake-qt5
 QMAKE=qmake

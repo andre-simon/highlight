@@ -287,12 +287,6 @@
                  <height>0</height>
                 </size>
                </property>
-               <property name="maximumSize">
-                <size>
-                 <width>30</width>
-                 <height>16777215</height>
-                </size>
-               </property>
                <property name="toolTip">
                 <string>Select the output directory.</string>
                </property>
@@ -499,6 +493,12 @@
            <layout class="QGridLayout" name="gridLayout_3">
             <item row="0" column="0">
              <widget class="QLabel" name="lblPluginDescription">
+              <property name="maximumSize">
+               <size>
+                <width>250</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="toolTip">
                <string>Shows decription of a selected plug-in script.</string>
               </property>
@@ -552,12 +552,6 @@
                <height>0</height>
               </size>
              </property>
-             <property name="maximumSize">
-              <size>
-               <width>30</width>
-               <height>16777215</height>
-              </size>
-             </property>
              <property name="toolTip">
               <string>Select the plug-in input file.</string>
              </property>
@@ -596,7 +590,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -1116,12 +1110,6 @@ The result has to match the input file encoding.</string>
                        <height>0</height>
                       </size>
                      </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>30</width>
-                       <height>16777215</height>
-                      </size>
-                     </property>
                      <property name="toolTip">
                       <string>Select a CSS include file.</string>
                      </property>
@@ -1364,12 +1352,6 @@ The result has to match the input file encoding.</string>
                    <height>0</height>
                   </size>
                  </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>30</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
                  <property name="toolTip">
                   <string>Select a style include file.</string>
                  </property>
@@ -1476,12 +1458,6 @@ The result has to match the input file encoding.</string>
                   <size>
                    <width>20</width>
                    <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>30</width>
-                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="toolTip">
@@ -1777,12 +1753,6 @@ You can select the stylesheets in your word processor to reformat additional tex
                   <size>
                    <width>20</width>
                    <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>30</width>
-                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="toolTip">
@@ -2215,7 +2185,7 @@ Set the width to 0 to keep tabs.</string>
   </action>
   <action name="action_Plug_Ins">
    <property name="text">
-    <string>Plug-Ins</string>
+    <string>&amp;Plug-Ins</string>
    </property>
   </action>
  </widget>

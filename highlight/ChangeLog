@@ -1,10 +1,14 @@
 CHANGELOG Highlight
 
+highlight 3.34
+
+27.12.2016
+
 -fixed segfault with --skip applied on a single file input list (thanks to Jens Schleusener)
+-added support for Python 3.6 syntax
+-added Github and Sourceforge themes
 
-TODO https://fossies.org/linux/rspamd/src/libcryptobox/AsmOp.cmake
-TODO --force-syntax (ign filetypes.conf map)
-
+---
 highlight 3.33
 
 02.11.2016
