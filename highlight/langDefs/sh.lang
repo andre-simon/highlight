@@ -1,7 +1,7 @@
 
 Description="Bash"
 
-Identifiers=[[ [a-zA-Z_][\w\-]* ]]
+Identifiers=[[ [a-zA-Z_][\w\-]*(?!\/) ]]
 
 Keywords={
   { Id=1,
@@ -41,11 +41,14 @@ Keywords={
   { Id=4,
     Regex=[[ \$[\w\#]+ ]],
   },
+  { Id=2,
+    Regex=[[ \-\-?[\w\-]+ ]],
+  }
 }
 
 -- hereDoc opening delimiter, see OnStateChange to handle end of string
 Strings={
-  Delimiter=[["|'|`|<<[\-"']?\s*[-\w_]+["']?]],
+  Delimiter=[["|'|`|<<[\-]?["']?\s*[-\w_]+["']?]],
 }
 
 IgnoreCase=false
@@ -76,7 +79,7 @@ function OnStateChange(oldState, newState, token)
    --recognize hereDoc multine strings
    if oldState==HL_STANDARD and newState==HL_STRING and not string.find("\"'`", token) then
       hereDoc = string.match(token, "<<%-?'?%s*([%-%a%d_]+)" )
-   end
+    end
 
    return newState
 end
