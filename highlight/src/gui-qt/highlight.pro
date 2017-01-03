@@ -36,7 +36,7 @@ QMAKE_CXXFLAGS += -std=c++11
 
 # If Lua 5.2 is not default on your system yet you have to omit 5.1 here:
 unix {
-	DESTDIR = ../
+    DESTDIR = ../
     LIBS += -L.. -lhighlight
     LIBS += -llua
     CONFIG += link_pkgconfig
@@ -69,4 +69,17 @@ win32 {
 
     RC_FILE = highlight-gui.rc
     QMAKE_POST_LINK = $$quote(D:\Devel\upx391w\upx.exe --best D:\Devel\cpp\syntaxhighlight-code\highlight\highlight-gui.exe)
+}
+
+macx-clang {
+    INCLUDEPATH+=/usr/local/Cellar/lua/5.2.4_4/include/
+    INCLUDEPATH += ../../include
+    INCLUDEPATH+=/usr/local/Cellar/boost/1.62.0/include
+
+    QT_CONFIG -= no-pkg-config
+    CONFIG += link_pkgconfig
+    PKGCONFIG += lua
+    LIBS += -L.. -lhighlight
+    LIBS += -llua
+    ICON = $${PWD}/highlight.icns
 }

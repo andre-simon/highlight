@@ -2,7 +2,7 @@
                                mainwindow.cpp
                              -------------------
     begin                : Mo 16.03.2009
-    copyright            : (C) 2009-2015 by Andre Simon
+    copyright            : (C) 2009-2017 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -42,12 +42,16 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle(QString("Highlight %1").arg( HIGHLIGHT_VERSION));
 
     // Read file open filter
-#ifdef DATA_DIR
-    QFile filterDef(QString(DATA_DIR) + "/gui_files/ext/fileopenfilter.conf");
+#ifdef Q_OS_OSX
+    QFile filterDef(QCoreApplication::applicationDirPath()+"/../Resources/gui_files/ext/fileopenfilter.conf");
 #else
+    #ifdef DATA_DIR
+    QFile filterDef(QString(DATA_DIR) + "/gui_files/ext/fileopenfilter.conf");
+    #else
     QFile filterDef(QDir::currentPath()+"/gui_files/ext/fileopenfilter.conf");
+    #endif
 #endif
-
+    
     QRegExp rx("(\\S+)\\s?\\(\\*\\.([\\w\\d]+)");
 
     if (filterDef.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -67,14 +71,19 @@ MainWindow::MainWindow(QWidget *parent)
     } else {
         fileOpenFilter="All files (*)";
     }
-    
+
     // fill themes combo
-#ifdef DATA_DIR
-    QDir themesDir(QString(DATA_DIR) + "/themes");
+
+#ifdef Q_OS_OSX
+    QDir themesDir(QCoreApplication::applicationDirPath() + "/../Resources/themes");
 #else
+    #ifdef DATA_DIR
+    QDir themesDir(QString(DATA_DIR) + "/themes");
+    #else
     QDir themesDir(QDir::currentPath()+"/themes");
+    #endif
 #endif
-    
+
     QStringList themes = themesDir.entryList(QStringList("*.theme"), QDir::Files, QDir::Name);
     for (QStringList::const_iterator constIterator = themes.constBegin();
             constIterator != themes.constEnd(); ++constIterator) {
@@ -95,7 +104,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     //avoid ugly buttons in MacOS
-    #ifndef Q_OS_MACOS
+    #ifndef Q_OS_OSX
         ui->pbPluginReadFilePath->setMaximumWidth(30);
         ui->pbOutputDest->setMaximumWidth(30);
         ui->pbHTMLChooseStyleIncFile->setMaximumWidth(30);
@@ -208,7 +217,6 @@ void MainWindow::addToView(const QStringList& list, QListWidget* listWidget, con
         listItem->setData(Qt::UserRole, *constIterator);
         if (checkable) listItem->setCheckState( Qt::Unchecked);
         listWidget->addItem(listItem );
-
     }
 }
 
@@ -461,7 +469,6 @@ void MainWindow::readSettings()
     ui->sbLineNoWidth->setValue(settings.value(ui->sbLineNoWidth->property(name).toString(), 2).toInt());
     ui->sbLineNoStart->setValue(settings.value(ui->sbLineNoStart->property(name).toString(), 1).toInt());
 
-
     settings.endGroup();
 }
 
@@ -469,10 +476,14 @@ bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap)
 {
     if (!extMap || !shebangMap) return false;
 
-#ifdef CONFIG_DIR
-    QString filetypesPath = QDir::toNativeSeparators(QString("%1/filetypes.conf").arg(CONFIG_DIR));
+#ifdef Q_OS_OSX
+    QString filetypesPath = QDir::toNativeSeparators(QString("%1/../Resources/filetypes.conf").arg(QCoreApplication::applicationDirPath()));
 #else
+    #ifdef CONFIG_DIR
+    QString filetypesPath = QDir::toNativeSeparators(QString("%1/filetypes.conf").arg(CONFIG_DIR));
+    #else
     QString filetypesPath = QDir::toNativeSeparators(QString("%1/filetypes.conf").arg(QDir::currentPath()));
+    #endif        
 #endif
 
     try {
@@ -507,7 +518,6 @@ string MainWindow::analyzeFile(const string& file)
     string firstLine;
     getline (inFile, firstLine);
     StringMap::iterator it;
-
 
     boost::xpressive::sregex rex;
     boost::xpressive::smatch what;
@@ -678,13 +688,20 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
     generator->setPrintZeroes(ui->cbPadZeroes->isEnabled() && ui->cbPadZeroes->isChecked());
     generator->setPluginParameter(ui->lePluginReadFilePath->text().toStdString());
 
-#ifdef DATA_DIR
+    
+#ifdef Q_OS_OSX
+    QString themePath = QString("%1/../Resources/themes/%2.theme").arg(
+                            QCoreApplication::applicationDirPath()).arg(ui->comboTheme->currentText());
+#else
+    #ifdef DATA_DIR
     QString themePath = QString("%1themes/%2.theme").arg(
                             DATA_DIR).arg(ui->comboTheme->currentText());
-#else
+    #else
     QString themePath = QString("%1/themes/%2.theme").arg(
                             QDir::currentPath()).arg(ui->comboTheme->currentText());
+    #endif
 #endif
+    
 
     for (int i=0; i<ui->lvPluginScripts->count(); i++) {
         if (ui->lvPluginScripts->item(i)->checkState()==Qt::Checked) {
@@ -827,14 +844,19 @@ void MainWindow::on_pbStartConversion_clicked()
 
         statusBar()->showMessage(tr("Processing %1 (%2/%3)").arg(inFilePath).arg(i+1).arg(ui->lvInputFiles->count()));
 
-#ifdef DATA_DIR
-        langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(DATA_DIR).arg(
+#ifdef Q_OS_OSX
+        langDefPath = QDir::toNativeSeparators(QString("%1/../Resources/langDefs/%2.lang").arg(QCoreApplication::applicationDirPath()).arg(
                 QString::fromStdString(getFileType(getFileSuffix(currentFile), currentFile))));
 #else
+    #ifdef DATA_DIR
+        langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(DATA_DIR).arg(
+                QString::fromStdString(getFileType(getFileSuffix(currentFile), currentFile))));
+    #else
         langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(QDir::currentPath()).arg(
                 QString::fromStdString(getFileType(getFileSuffix(currentFile), currentFile))));
+    #endif
 #endif
-
+        
         loadRes=generator->loadLanguage(langDefPath.toStdString());
         if (loadRes==highlight::LOAD_FAILED_REGEX) {
             QMessageBox::warning(this, tr("Language definition error"),
@@ -985,12 +1007,17 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP)
         generator->setTitle(inFileName.toStdString());
     }
 
-#ifdef DATA_DIR
+#ifdef Q_OS_OSX
+    QString langPath = QDir::toNativeSeparators(QString("%1/../Resources//langDefs/%2.lang").arg(
+                           QCoreApplication::applicationDirPath()).arg(QString::fromStdString(suffix)));
+#else
+    #ifdef DATA_DIR
     QString langPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
                            DATA_DIR).arg(QString::fromStdString(suffix)));
-#else
+    #else
     QString langPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
                            QDir::currentPath()).arg(QString::fromStdString(suffix)));
+    #endif
 #endif
 
     if ( generator->loadLanguage(langPath.toStdString()) != highlight::LOAD_FAILED) {
@@ -1115,12 +1142,18 @@ void MainWindow::updatePreview()
         string currentFile = previewInputPath.toStdString();
         suffix = getFileType(getFileSuffix(currentFile), currentFile);
     }
-#ifdef DATA_DIR
+    
+#ifdef Q_OS_OSX
+    QString langPath = QDir::toNativeSeparators(QString("%1/../Resources//langDefs/%2.lang").arg(
+                           QCoreApplication::applicationDirPath()).arg(QString::fromStdString(suffix)));
+#else
+    #ifdef DATA_DIR
     QString langPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
                            DATA_DIR).arg(QString::fromStdString(suffix)));
-#else
+    #else
     QString langPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
                            QDir::currentPath()).arg(QString::fromStdString(suffix)));
+    #endif
 #endif
 
     if ( pwgenerator.loadLanguage(langPath.toStdString()) != highlight::LOAD_FAILED) {
@@ -1145,7 +1178,6 @@ void MainWindow::updatePreview()
                 previewData= QString::fromStdString( pwgenerator.generateStringFromFile(previewInputPath.toStdString()));
             }
         }
-
         ui->browserPreview->setHtml(previewData);
     } else {
         statusBar()->showMessage(tr("Preview of \"%1\" not possible.").arg((getDataFromCP)?tr("clipboard data"):previewInputPath));
@@ -1262,10 +1294,14 @@ void MainWindow::on_pbCopyToCP_clicked()
 
 void MainWindow::on_pbSelectPlugin_clicked()
 {
-#ifdef DATA_DIR
-    QString pluginsPath = QDir::toNativeSeparators(QString("%1/plugins").arg(DATA_DIR));
+#ifdef Q_OS_OSX
+    QString pluginsPath = QString("%1/../Resources/plugins").arg(QCoreApplication::applicationDirPath());
 #else
+    #ifdef DATA_DIR
+    QString pluginsPath = QDir::toNativeSeparators(QString("%1/plugins").arg(DATA_DIR));
+    #else
     QString pluginsPath = QDir::toNativeSeparators(QString("%1/plugins").arg(QDir::currentPath()));
+    #endif
 #endif
 
     QStringList files = QFileDialog::getOpenFileNames(

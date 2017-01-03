@@ -3,7 +3,7 @@
                                showtestfile.cpp
                              -------------------
     begin                : Mo 16.03.2009
-    copyright            : (C) 2009 by Andre Simon
+    copyright            : (C) 2009-2017 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -53,13 +53,16 @@ void ShowTextFile::changeEvent(QEvent *e)
     }
 }
 
-
 bool ShowTextFile::setFileName(const QString& fileName)
 {
-#ifndef DOC_DIR
-    QFile file( QString("%1/%2").arg(QDir::currentPath()).arg( fileName ));
+#ifdef Q_OS_OSX
+    QFile file( QString("%1/../Resources/%2").arg(QCoreApplication::applicationDirPath()).arg( fileName ));
 #else
+    #ifndef DOC_DIR
+    QFile file( QString("%1/%2").arg(QDir::currentPath()).arg( fileName ));
+    #else
     QFile file( QString("%1/%2").arg(DOC_DIR).arg(fileName ));
+    #endif
 #endif
     if ( file.open( QIODevice::ReadOnly) ) {
         QTextStream stream( &file );

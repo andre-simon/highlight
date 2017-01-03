@@ -9,7 +9,7 @@ Keywords={
    },
    { Id=3,
     Regex=[[ (\".+?\")\: ]],
-   },
+   }
 }
 
 Strings = {
