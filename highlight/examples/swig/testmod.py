@@ -11,12 +11,13 @@ import sys
 from optparse import OptionParser
 
 formatList = { "html":  highlight.HTML,
-       "xhtml": highlight.XHTML,
+            "xhtml": highlight.XHTML,
 	   "latex": highlight.LATEX,
 	   "rtf":   highlight.RTF,
 	   "tex":   highlight.TEX,
-	   "ansi":  highlight.ANSI,
-	   "xterm256": highlight.XTERM256,
+	   "ansi":  highlight.ESC_ANSI,
+	   "xterm256": highlight.ESC_XTERM256,
+	   "truecolor": highlight.ESC_TRUECOLOR,
 	   "odt":   highlight.ODTFLAT,
 	   "bbcode":   highlight.BBCODE,
 	   "svg":   highlight.SVG,
@@ -33,12 +34,12 @@ def highlightFile():
 			help="Output format (html, xhtml, latex, tex, rtf, ansi, xterm256, odt, bbcode, svg, pango)")
 	parser.add_option("-d", "--doc-title", default="Source file",
 			help="document title")
-	parser.add_option("-f", "--fragment", action="store_true",
+	parser.add_option("-f", "--fragment", action="store_true", default = False, 
 			help="omit file header and footer")
 	parser.add_option("-F", "--reformat",
 	        choices=('allman','gnu','java','kr','linux', 'banner','stroustrup','whitesmith', 'google', 'pico', 'lisp', 'vtk'),
 			help="reformats and indents output in given style")
-	parser.add_option("-l", "--linenumbers", action="store_true",
+	parser.add_option("-l", "--linenumbers", action="store_true", default = False,
 			help="print line numbers in output file")
 	parser.add_option("-S", "--syntax",
 			help="specify type of source code")
@@ -72,10 +73,9 @@ def highlightFile():
 	else:
 		syntax = infile[infile.rindex(".")+1:]
 
-	print datadir.getLangPath("%s.lang" % syntax)
 	gen.loadLanguage(datadir.getLangPath("%s.lang" % syntax))
 
-	gen.setIncludeStyle(1)
+	gen.setIncludeStyle(True)
 	gen.setTitle(options.doc_title)
 	gen.setFragmentCode(options.fragment)
 	gen.setPrintLineNumbers(options.linenumbers)
