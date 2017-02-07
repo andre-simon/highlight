@@ -5,6 +5,7 @@ highlight 3.35
 xx.xx.2017
 
 -fixed JSON definition (thanks to Timothee Cour)
+-fixed output of unknown syntax warning with applied force switch (thanks to Andy)
 -updated SWIG code samples
 -updated Artistic Style lib (SVN Rev. 553)
 
