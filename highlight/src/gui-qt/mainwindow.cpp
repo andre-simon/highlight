@@ -247,7 +247,6 @@ void MainWindow::writeSettings()
 
     QStringList plugins;
     for (int i=0; i<ui->lvPluginScripts->count(); i++) {
-        //plugins<<ui->lvPluginScripts->item(i)->text();
         plugins<<ui->lvPluginScripts->item(i)->data(Qt::UserRole).toString();
     }
 
@@ -262,8 +261,7 @@ void MainWindow::writeSettings()
                       inFiles);
     settings.setValue(ui->lvPluginScripts->property(name).toString(),
                       plugins);
-    settings.setValue("selectedPlugins",
-                      selectedPlugins);
+    settings.setValue("selectedPlugins", selectedPlugins);
     settings.setValue(ui->leOutputDest->property(name).toString(),
                       ui->leOutputDest->text());
     settings.setValue(ui->cbWrite2Src->property(name).toString(),
@@ -575,7 +573,6 @@ void MainWindow::on_action_About_Highlight_triggered()
 
 highlight::OutputType MainWindow::getOutputType()
 {
-
     switch (ui->comboFormat->currentIndex()) {
     case 0:
         return highlight::HTML;
@@ -688,7 +685,6 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
     generator->setPrintZeroes(ui->cbPadZeroes->isEnabled() && ui->cbPadZeroes->isChecked());
     generator->setPluginParameter(ui->lePluginReadFilePath->text().toStdString());
 
-    
 #ifdef Q_OS_OSX
     QString themePath = QString("%1/../Resources/themes/%2.theme").arg(
                             QCoreApplication::applicationDirPath()).arg(ui->comboTheme->currentText());
@@ -702,7 +698,6 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
     #endif
 #endif
     
-
     for (int i=0; i<ui->lvPluginScripts->count(); i++) {
         if (ui->lvPluginScripts->item(i)->checkState()==Qt::Checked) {
             if (!generator->initPluginScript(ui->lvPluginScripts->item(i)->data(Qt::UserRole).toString().toStdString()) ) {
@@ -758,7 +753,6 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
 
     if (ui->cbReformat->isChecked()) {
         generator->initIndentationScheme(ui->comboReformat->currentText().toLower().toStdString());
-
     }
 }
 
@@ -768,7 +762,6 @@ highlight::WrapMode MainWindow::getWrappingStyle()
         return highlight::WRAP_SIMPLE;
     return (ui->cbWrapping->isChecked())?highlight::WRAP_DEFAULT:highlight::WRAP_DISABLED;
 }
-
 
 void MainWindow::on_pbStartConversion_clicked()
 {
@@ -924,16 +917,6 @@ void MainWindow::on_pbStartConversion_clicked()
             }
         }
     }
-
-    // write external Stylesheet (one for all output files)
-    /*
-    if (!ui->cbWrite2Src->isChecked() && cbEmbed && leStyleFile && !cbEmbed->isChecked()) {
-        QString stylePath=QFileInfo(ui->leOutputDest->text(), leStyleFile->text()).absoluteFilePath();
-        bool styleFileOK=generator -> printExternalStyle(QDir::toNativeSeparators(stylePath).toStdString());
-        if (!styleFileOK) {
-            outputErrors.append(stylePath);
-        }
-    }*/
 
     // write HTML index file
     if (    (outType==highlight::HTML || outType==highlight::XHTML)
@@ -1112,7 +1095,6 @@ void MainWindow::plausibility()
 
 void MainWindow::updatePreview()
 {
-
     //toggle input source flag if file is selcetd or clipboard is pasted
     if (sender()== ui->pbPasteFromCB|| sender()==ui->lvInputFiles) {
         getDataFromCP = sender()==ui->pbPasteFromCB;
@@ -1120,7 +1102,6 @@ void MainWindow::updatePreview()
 
     if ((!getDataFromCP && NULL==ui->lvInputFiles->currentItem())
             || (getDataFromCP && savedClipboardContent.isEmpty())) return;
-
 
     int vScroll = ui->browserPreview->verticalScrollBar()->value();
     int hScroll = ui->browserPreview->horizontalScrollBar()->value();
@@ -1135,6 +1116,7 @@ void MainWindow::updatePreview()
 
     string suffix;
     QString previewInputPath = (getDataFromCP) ? "" : ui->lvInputFiles->currentItem()->data(Qt::UserRole).toString();
+    QString croppedName = QFileInfo(previewInputPath).fileName();
 
     if (getDataFromCP) {
         suffix= getFileType((ui->comboSelectSyntax->itemData(ui->comboSelectSyntax->currentIndex())).toString().toStdString(),"");
@@ -1159,7 +1141,7 @@ void MainWindow::updatePreview()
     if ( pwgenerator.loadLanguage(langPath.toStdString()) != highlight::LOAD_FAILED) {
 
         ui->lbPreview->setText(tr("Preview (%1):").arg(
-                                   (getDataFromCP)?tr("clipboard data"):previewInputPath) );
+                                   (getDataFromCP)?tr("clipboard data"):croppedName) );
 
         statusBar()->showMessage(tr("Current syntax: %1").arg(QString::fromStdString(pwgenerator.getSyntaxDescription())));
         QString previewData;
@@ -1180,7 +1162,7 @@ void MainWindow::updatePreview()
         }
         ui->browserPreview->setHtml(previewData);
     } else {
-        statusBar()->showMessage(tr("Preview of \"%1\" not possible.").arg((getDataFromCP)?tr("clipboard data"):previewInputPath));
+        statusBar()->showMessage(tr("Preview of \"%1\" not possible.").arg((getDataFromCP)?tr("clipboard data"):croppedName));
     }
     ui->browserPreview->verticalScrollBar()->setValue(vScroll);
     ui->browserPreview->horizontalScrollBar()->setValue(hScroll);
@@ -1251,11 +1233,8 @@ void MainWindow::dropEvent(QDropEvent *event)
     if (mimeData && mimeData->hasUrls()) {
         QList<QUrl> urlList = mimeData->urls();
         QStringList localURLs;
-
         for (int i = 0; i < urlList.size(); ++i) {
-
             localURLs << urlList.at(i).toLocalFile();
-
         }
         addToView(localURLs, ui->lvInputFiles);
     }
