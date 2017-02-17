@@ -68,14 +68,15 @@ function syntaxUpdate(desc)
   blockEnd = Set { "}" }
   blockStates = Set{ HL_OPERATOR }
   
+  -- FIX conditional modifiers: add global desc var
+  langDesc = desc
+  
   --delimiters for other languages
   if desc=="Pascal" then   
     blockBegin["begin"] = true
     blockBegin["asm"] = true
     blockBegin["repeat"] = true
     blockBegin["case"] =  true
-    --blockBegin["then"] =  true
-    --blockEnd["else"] = true   
     blockEnd["end"] = true
     blockEnd["until"] = true   
     blockStates[HL_KEYWORD] = true
@@ -104,7 +105,6 @@ function syntaxUpdate(desc)
     blockBegin["unless"] = true
     blockBegin["until"] = true
     blockEnd["end"] = true
-    --blockEnd["elsif"] = true
     blockStates[HL_KEYWORD] = true
   end
    
@@ -214,12 +214,29 @@ function syntaxUpdate(desc)
     end
   end
   
-  function Decorate(token, state)
-    
+  function string.ends(String,End)
+    return End=='' or string.sub(String,-string.len(End))==End
+  end
+  
+  -- FIX conditional modifiers: add two params
+  function Decorate(token, state, kwclass, trace)
     if (not blockStates[state] or notEmbedded==false) then
       return
     end
-    
+
+    -- FIX conditional modifiers: add condition to avoid recognition of delimiters
+    --     if the last state before is a statement
+    if langDesc=="Ruby" and string.len(trace)>1
+        and ((token=="if" or token=="unless" or token=="while" or token=="until") 
+            and (string.ends(trace, ";"..math.floor(HL_KEYWORD)..";") 
+                or string.ends(trace, ";"..math.floor(HL_IDENTIFIER_BEGIN)..";") 
+                or string.ends(trace, ";"..math.floor(HL_NUMBER)..";")
+                or string.ends(trace, ";"..math.floor(HL_STRING)..";") 
+                or string.ends(trace, ";"..math.floor(HL_OPERATOR)..";") ) )
+     then
+        return
+    end
+     
     if blockBegin[ string.lower(token) ] then
       return getOpenParen(token)
     end

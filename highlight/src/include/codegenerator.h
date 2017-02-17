@@ -32,6 +32,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include <iomanip>
 #include <stack>
+#include <vector>
 
 #include "syntaxreader.h"
 #include "themereader.h"
@@ -542,8 +543,8 @@ protected:
     /** Current state*/
     State currentState;
 
-    /** State to utput nested code delimiters */
-   // State nestedCodeDelimState;
+    /** history of preceding states in the current line of input code */
+    vector<State> stateTrace;
     
     /** keyword class id, used to apply the corresponding keyword style*/
     unsigned int currentKeywordClass;

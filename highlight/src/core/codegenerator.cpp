@@ -488,7 +488,7 @@ unsigned char CodeGenerator::getInputChar()
         }
         lineIndex=0;
         matchRegex ( line );
-
+        stateTrace.clear();
         return ( eof ) ?'\0':'\n';
     }
 
@@ -594,10 +594,12 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
                 token=token.substr(0, 1);
                 return oldState;
             }
+            if (validatedState!=STANDARD) stateTrace.push_back(validatedState);
             return validatedState;
         }
     }
     resultOfHook  = false;
+    if (newState!=STANDARD) stateTrace.push_back(newState);
     return newState;
 }
 
@@ -616,6 +618,15 @@ Diluculum::LuaValueList CodeGenerator::callDecorateFct(const string&token)
     params.push_back(Diluculum::LuaValue(token));
     params.push_back(Diluculum::LuaValue(currentState));
     params.push_back(Diluculum::LuaValue(currentKeywordClass));
+    
+    string trace(";");
+    if (stateTrace.size()>1){
+        for (size_t i=0; i<stateTrace.size()-1;i++){
+            trace += std::to_string (stateTrace[i]);
+            trace += ";";
+        }
+    }
+    params.push_back(Diluculum::LuaValue(trace));
 
     return currentSyntax->getLuaState()->call ( *currentSyntax->getDecorateFct(),
             params,"getDecorateFct call")  ;
@@ -949,6 +960,7 @@ void CodeGenerator::openTag ( State s )
 {
     *out << openTags[ ( unsigned int ) s];
     currentState=s;
+
 }
 
 void CodeGenerator::closeTag ( State s )
