@@ -543,7 +543,7 @@ protected:
     /** Current state*/
     State currentState;
 
-    /** history of preceding states in the current line of input code */
+    /** history of preceding states in the current line of input code (max 200 entries) */
     vector<State> stateTrace;
     
     /** keyword class id, used to apply the corresponding keyword style*/

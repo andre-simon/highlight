@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.33 ------------------------ November 2016 ---
+---  HIGHLIGHT MANUAL - Version 3.35 --------------------------- Maerz 2017 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -939,7 +939,6 @@ Im Makefile finden Sie weitere Informationen.
 Andre Simon
 andre.simon1@gmx.de
 http://www.andre-simon.de
-IRC: #highlight (freenode)
 
 sf.net Projekt mit SVN Repository, Download Mirror, Bugtracker, Foren:
 http://sourceforge.net/projects/syntaxhighlight/

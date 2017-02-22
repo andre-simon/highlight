@@ -74,9 +74,10 @@ function syntaxUpdate(desc)
   --delimiters for other languages
   if desc=="Pascal" then   
     blockBegin["begin"] = true
-    blockBegin["asm"] = true
+    --blockBegin["asm"] = true --issue with embedded syntax
     blockBegin["repeat"] = true
     blockBegin["case"] =  true
+    blockBegin["record"] =  true
     blockEnd["end"] = true
     blockEnd["until"] = true   
     blockStates[HL_KEYWORD] = true

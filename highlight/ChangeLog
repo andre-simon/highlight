@@ -4,8 +4,11 @@ highlight 3.35
 
 xx.xx.2017
 
+-fixed code folding plugin to support Ruby conditional modifiers
 -fixed JSON definition (thanks to Timothee Cour)
 -fixed output of unknown syntax warning with applied force switch (thanks to Andy)
+-added state trace parameter to Decorate plug-in function 
+-added GDScript definition and edit-godot theme (thanks to Tristano Ajmone)
 -updated SWIG code samples
 -updated Artistic Style lib (SVN Rev. 553)
 
