@@ -479,7 +479,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
             cerr << "highlight: output format supports no external styles.\n";
             return EXIT_FAILURE;
         }
-        bool useStdout =  options.getStyleOutFilename() =="stdout";
+        bool useStdout =  options.getStyleOutFilename() =="stdout" || options.forceStdout();
         string cssOutFile=options.getOutDirectory()  + options.getStyleOutFilename();
         bool success=generator->printExternalStyle ( useStdout?"":cssOutFile );
         if ( !success ) {
@@ -584,32 +584,32 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
 
         if ( options.enableBatchMode() ) {
             if (usedFileNames.count(inFileName)) {
-                string prefix=inFileList[i].substr (0, pos+1 );
+                string prefix=inFileList[i].substr (2, pos-1 );
                 replace (prefix.begin(), prefix.end(), Platform::pathSeparator, '_');
                 inFileName.insert(0, prefix);
             } else {
                 usedFileNames.insert(inFileName);
             }
-            outFilePath = outDirectory;
-            outFilePath += inFileName;
-            outFilePath += options.getOutFileSuffix();
-
-            if ( !options.quietMode() ) {
+            if (!options.forceStdout()){
+                outFilePath = outDirectory;
+                outFilePath += inFileName;
+                outFilePath += options.getOutFileSuffix();
+            }
+            if ( !options.quietMode() &&  !options.forceStdout() ) {
                 if ( options.printProgress() ) {
                     printProgressBar ( fileCount, i+1 );
                 } else {
                     printCurrentAction ( outFilePath, fileCount, i+1, fileCountWidth );
                 }
             }
-        } else {
+        } else if (!options.forceStdout()) {
             outFilePath = options.getSingleOutFilename();
             if ( outFilePath.size() && outFilePath==options.getSingleInFilename() ) {
-                cerr 	<< "highlight: Output path equals input path: \""
-                        << outFilePath << "\".\n";
+                cerr << "highlight: Output path equals input path: \""
+                     << outFilePath << "\".\n";
                 initError = true;
                 break;
             }
-
         }
 
         if ( options.useFNamesAsAnchors() ) {
@@ -620,7 +620,6 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
                               inFileList[i]:options.getDocumentTitle() );
 
         generator->setKeyWordCase ( options.getKeywordCase() );
-
         highlight::ParseError error = generator->generateFile ( inFileList[i], outFilePath );
 
         if ( error==highlight::BAD_INPUT ) {

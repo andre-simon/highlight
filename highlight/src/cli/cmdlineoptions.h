@@ -107,6 +107,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_PLUGIN_PARAMETER "plug-in-param"
 #define OPT_NO_NUMBER_WL    "wrap-no-numbers"
 #define OPT_KEEP_INJECTIONS "keep-injections"
+#define OPT_FORCE_STDOUT      "stdout"
 
 // Improve CLI option compatibility with GNU source-highlight
 #define OPT_COMPAT_DOC       "doc"
@@ -244,6 +245,9 @@ public:
     
     /** \return True if plug-in injections are outputted despite of --fragment */
     bool keepInjections() const;
+
+    /** \return True if files should be sent to stdout in batch mode */
+    bool forceStdout() const;
 
     /** \return programming syntax */
     const string &getSyntax() const ;
@@ -428,6 +432,8 @@ private:
     bool opt_print_style;
     bool opt_no_trailing_nl;
     bool opt_keep_injections;
+    bool opt_force_stdout;
+
 
     string anchorPrefix;
     string helpLang, encodingName;

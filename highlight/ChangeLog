@@ -2,7 +2,7 @@ CHANGELOG Highlight
 
 highlight 3.35
 
-xx.xx.2017
+24.02.2017
 
 -fixed code folding plugin to support Ruby conditional modifiers
 -fixed JSON definition (thanks to Timothee Cour)
@@ -11,6 +11,8 @@ xx.xx.2017
 -added GDScript definition and edit-godot theme (thanks to Tristano Ajmone)
 -updated SWIG code samples
 -updated Artistic Style lib (SVN Rev. 553)
+-CLI: fixed creation of hidden files if output filename is prepended by its input path
+-CLI: added switch --stdout (https://sourceforge.net/p/syntaxhighlight/bugs/14/)
 
 ---
 highlight 3.34
@@ -331,7 +333,7 @@ highlight 3.10 beta
 -added fontenc package in LaTeX output (patch by Yimin Li)
 -fixed RTF hyperlink output in several plug-ins
 -removed ctags option (functionality was replaced by plug-in)
--CLI: added --wrap-no-numbers option (patch by Michael EnÃlin)
+-CLI: added --wrap-no-numbers option (patch by Michael Enßlin)
 -GUI: replaced Qt file dialogs by native dialogs
 
 ---
@@ -397,7 +399,7 @@ highlight 3.5
 02.06.2011
 
 -updated astyle code to release 2.02
--fixed --force option (thanks to Stefan BÃ¼hler)
+-fixed --force option (thanks to Stefan Bühler)
 
 ---
 highlight 3.4
@@ -725,7 +727,7 @@ highlight 2.6-10
 
 -fixed XHTML output (thanks to Allen McPherson)
 -added Logtalk definition (thanks to Paulo Moura)
--added support for Eiffel ecf project files (thanks to JÃ©rÃ©mie Blaser)
+-added support for Eiffel ecf project files (thanks to Jérémie Blaser)
 -various code improvements (patch by Antonio Diaz Diaz)
 
 ---
@@ -1417,7 +1419,7 @@ highlight 2.0-17
 
 highlight 2.0-16
 
--added new options to wrap long lines (suggested by Johannes Weiï¿½)
+-added new options to wrap long lines (suggested by Johannes Wei�)
 -added new colour themes: vim, vim-dark and ide-codewarrior
 -improved Java, Nice and C parsing
 

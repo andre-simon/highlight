@@ -60,6 +60,7 @@ void printHelp()
     cout<<"                                  (Example: --skip='bak;c~;h~')\n";
     cout<<"     --start-nested=<lang>      define nested language which starts input\n";
     cout<<"                                  without opening delimiter\n";
+    cout<<"     --stdout                   output to stdout (batch mode, --print-style)\n";
     cout<<"     --validate-input           test if input is text, remove Unicode BOM\n";
     cout<<"     --version                  print version and copyright information\n";
     cout<<"\n";

@@ -179,6 +179,7 @@ General options:
                                   (Example: --skip='bak;c~;h~')
      --start-nested=<lang>      define nested language which starts input
                                   without opening delimiter
+     --stdout                   output to stdout (batch mode, --print-style)
      --validate-input           test if input is text, remove Unicode BOM
      --version                  print version and copyright information
 
@@ -188,8 +189,7 @@ Output formatting options:
  -O, --out-format=<format>      output file in given format
                                   <format>=[html, xhtml, latex, tex, odt, rtf,
                                   ansi, xterm256, truecolor, bbcode, pango, svg]
- -c, --style-outfile=<file>     name of style file or print to stdout, if
-                                  'stdout' is given as file argument
+ -c, --style-outfile=<file>     name of style file 
  -e, --style-infile=<file>      to be included in style-outfile (deprecated)
                                   use a plug-in file instead
  -f, --fragment                 omit document header and footer
@@ -390,7 +390,7 @@ highlight -out-format=latex  * --outdir /home/you/latex_code/
 Dieses Kommando konvertiert alle Dateien in LaTeX, und speichert sie in
 /home/you/latex_code/.
 
-highlight -c stdout -s seashell --print-style
+highlight --stdout -s seashell --print-style
 Dieses Kommando gibt nur die CSS-Informationen des angegebenen Stils (hier:
 Seashell) nach stdout aus.
 

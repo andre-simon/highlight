@@ -78,6 +78,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
     opt_print_style(false),
     opt_no_trailing_nl(false),
     opt_keep_injections(false),
+    opt_force_stdout(false),
     anchorPrefix ( "l" ),
     helpLang ( "en" ),
     encodingName ( "ISO-8859-1" )
@@ -95,7 +96,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
         S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH,
         S_OPT_PLUGIN_READFILE, S_OPT_PLUGIN_PARAMETER, S_LIST_SCRIPTS,
-        S_OPT_KEEP_INJECTIONS
+        S_OPT_KEEP_INJECTIONS, S_OPT_FORCE_STDOUT
     };
 
     const Arg_parser::Option options[] = {
@@ -152,28 +153,30 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         { S_OPT_TEST_INPUT,       OPT_TEST_INPUT,   Arg_parser::no  },
         { S_OPT_NO_NUMBER_WL,     OPT_NO_NUMBER_WL, Arg_parser::no  },
         { S_OPT_RTF_CHAR_STYLES,  OPT_RTF_CHAR_STYLES, Arg_parser::no  },
-        { S_OPT_RTF_PAGE_COLOR,   OPT_RTF_PAGE_COLOR, Arg_parser::no  },
-        { S_OPT_SKIP_UNKNOWN,     OPT_SKIP_UNKNOWN, Arg_parser::yes },
-        { S_OPT_START_NESTED,     OPT_START_NESTED,   Arg_parser::yes },
-        { S_OPT_COMPAT_DOC,       OPT_COMPAT_DOC, Arg_parser::no },
-        { S_OPT_COMPAT_NODOC,     OPT_COMPAT_NODOC, Arg_parser::no },
-        { S_OPT_COMPAT_TAB,       OPT_COMPAT_TAB, Arg_parser::yes },
-        { S_OPT_COMPAT_CSS,       OPT_COMPAT_CSS, Arg_parser::yes },
-        { S_OPT_COMPAT_OUTDIR,    OPT_COMPAT_OUTDIR, Arg_parser::yes },
+        { S_OPT_RTF_PAGE_COLOR,   OPT_RTF_PAGE_COLOR,  Arg_parser::no  },
+        { S_OPT_SKIP_UNKNOWN,     OPT_SKIP_UNKNOWN,    Arg_parser::yes },
+        { S_OPT_START_NESTED,     OPT_START_NESTED,    Arg_parser::yes },
+        { S_OPT_COMPAT_DOC,       OPT_COMPAT_DOC,      Arg_parser::no },
+        { S_OPT_COMPAT_NODOC,     OPT_COMPAT_NODOC,    Arg_parser::no },
+        { S_OPT_COMPAT_TAB,       OPT_COMPAT_TAB,      Arg_parser::yes },
+        { S_OPT_COMPAT_CSS,       OPT_COMPAT_CSS,      Arg_parser::yes },
+        { S_OPT_COMPAT_OUTDIR,    OPT_COMPAT_OUTDIR,   Arg_parser::yes },
         { S_OPT_COMPAT_FAILSAFE,  OPT_COMPAT_FAILSAFE, Arg_parser::no },
-        { S_OPT_COMPAT_SRCLANG,   OPT_COMPAT_SRCLANG, Arg_parser::yes },
-        { S_OPT_COMPAT_LINENUM,   OPT_COMPAT_LINENUM, Arg_parser::maybe },
-        { S_OPT_COMPAT_LINEREF,   OPT_COMPAT_LINEREF, Arg_parser::maybe },
-        { S_OPT_PRETTY_SYMBOLS,   OPT_PRETTY_SYMBOLS, Arg_parser::no },
-        { S_OPT_EOL_DELIM_CR,     OPT_EOL_DELIM_CR,   Arg_parser::no },
-        { S_OPT_PRINT_STYLE,      OPT_PRINT_STYLE, Arg_parser::no },
-        { S_OPT_NO_TRAILING_NL,   OPT_NO_TRAILING_NL, Arg_parser::no },
+        { S_OPT_COMPAT_SRCLANG,   OPT_COMPAT_SRCLANG,  Arg_parser::yes },
+        { S_OPT_COMPAT_LINENUM,   OPT_COMPAT_LINENUM,  Arg_parser::maybe },
+        { S_OPT_COMPAT_LINEREF,   OPT_COMPAT_LINEREF,  Arg_parser::maybe },
+        { S_OPT_PRETTY_SYMBOLS,   OPT_PRETTY_SYMBOLS,  Arg_parser::no },
+        { S_OPT_EOL_DELIM_CR,     OPT_EOL_DELIM_CR,    Arg_parser::no },
+        { S_OPT_PRINT_STYLE,      OPT_PRINT_STYLE,     Arg_parser::no },
+        { S_OPT_NO_TRAILING_NL,   OPT_NO_TRAILING_NL,  Arg_parser::no },
         { S_OPT_KEEP_INJECTIONS,  OPT_KEEP_INJECTIONS, Arg_parser::no },
-        { S_OPT_PLUGIN,           OPT_PLUGIN, Arg_parser::yes },
+        { S_OPT_FORCE_STDOUT,     OPT_FORCE_STDOUT,    Arg_parser::no },
+
+        { S_OPT_PLUGIN,           OPT_PLUGIN,          Arg_parser::yes },
         { S_OPT_PLUGIN_READFILE,  OPT_PLUGIN_READFILE, Arg_parser::yes },
         { S_OPT_PLUGIN_PARAMETER, OPT_PLUGIN_PARAMETER, Arg_parser::yes },
-        { S_OPT_ABS_CFG_PATH,     OPT_ABS_CFG_PATH,  Arg_parser::yes},
-        { S_LIST_SCRIPTS,         OPT_LIST_SCRIPTS,  Arg_parser::yes},
+        { S_OPT_ABS_CFG_PATH,     OPT_ABS_CFG_PATH,    Arg_parser::yes},
+        { S_LIST_SCRIPTS,         OPT_LIST_SCRIPTS,    Arg_parser::yes},
 
         { 0, 0, Arg_parser::no }
     };
@@ -434,6 +437,9 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
             break;
         case S_OPT_KEEP_INJECTIONS:
             opt_keep_injections = true;
+            break;
+        case S_OPT_FORCE_STDOUT:
+            opt_force_stdout = true;
             break;
         case S_OPT_ABS_CFG_PATH:
             if (arg.find(".lang")!=string::npos) {
@@ -759,6 +765,10 @@ bool CmdLineOptions::disableTrailingNL() const
 bool CmdLineOptions::keepInjections() const
 {
   return opt_keep_injections;
+}
+bool CmdLineOptions::forceStdout() const
+{
+  return opt_force_stdout;
 }
 const string& CmdLineOptions::getDocumentTitle() const
 {
