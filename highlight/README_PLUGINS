@@ -119,11 +119,6 @@ HL_STRING_END: number
 HL_UNKNOWN: number
 HL_REJECT: number
 
-Read only (other):
-
-HL_PLUGIN_PARAM: string (set with --plug-in-param)
-HL_LANG_DIR: string (path of language definition directory)
-
 Read only (output document format):
 
 HL_OUTPUT: number (selected format)
@@ -138,6 +133,11 @@ HL_FORMAT_SVG: number
 HL_FORMAT_BBCODE: number
 HL_FORMAT_PANGO: number
 HL_FORMAT_ODT: number
+
+Read only (other):
+
+HL_PLUGIN_PARAM: string (set with --plug-in-param)
+HL_LANG_DIR: string (path of language definition directory)
 
 Functions:
 
@@ -227,7 +227,7 @@ Decorate(token, state, kwGroupID, stateTrace)
               kwGroupID:  if state is HL_KEYWORD, the parameter
                           contains the keyword group ID
               stateTrace: string containing past states of the current line;
-                          separated by ';', limited to 100 entries
+                          separated by ';'; limited to 100 entries
   Returns:    Altered token string or nothing if original token should be 
               outputted
 
@@ -284,10 +284,6 @@ Operator: table
 LineComment: table
 Keywords: table
 
-Custom theme items:
-
-Injections: table
-
 Read only (output document format)::
 
 HL_OUTPUT: number
@@ -302,6 +298,10 @@ HL_FORMAT_SVG: number
 HL_FORMAT_BBCODE: number
 HL_FORMAT_PANGO: number
 HL_FORMAT_ODT: number
+
+Add additional stying information:
+
+Injections: table
 
 
 5. STEP BY STEP
@@ -392,10 +392,6 @@ Description: Add function names to keyword list
 Features:    Adds new keyword group based on a regex, defines OnStateChange,
              uses AddKeyword
 
-cpp_qt.lua, cpp_syslog.lua, cpp_wx.lua, java_library.lua
-Description: *
-Features:    Adds and extends keyword groups based on lists and regexes
-
 theme_invert.lua
 Description: Invert colours of the original theme
 Features:    Modifies all color attributes of the theme script, uses Lua
@@ -432,7 +428,7 @@ Description: Adds code folding for C style languages, Pascal, Lua and Ruby to
              HTML output
 Features:    Uses DecorateLineBegin and DecorateLineEnd to add ID-spans to each 
              line.
-             Applies Decorate to each block delimiter to add onClick event 
+             Applies Decorate to each code block delimiter to add onClick event 
              handlers.
              Adds JavaScript with HeaderInjection and FooterInjection variables.
              Inserts additional CSS styles with Injections variable.

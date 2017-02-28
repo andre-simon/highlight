@@ -2,7 +2,7 @@ CHANGELOG Highlight
 
 highlight 3.35
 
-24.02.2017
+28.02.2017
 
 -fixed code folding plugin to support Ruby conditional modifiers
 -fixed JSON definition (thanks to Timothee Cour)
@@ -11,6 +11,7 @@ highlight 3.35
 -added GDScript definition and edit-godot theme (thanks to Tristano Ajmone)
 -updated SWIG code samples
 -updated Artistic Style lib (SVN Rev. 553)
+-revised docs
 -CLI: fixed creation of hidden files if output filename is prepended by its input path
 -CLI: added switch --stdout (https://sourceforge.net/p/syntaxhighlight/bugs/14/)
 

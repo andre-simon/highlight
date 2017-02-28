@@ -114,15 +114,13 @@ namens main.cpp erzeugt:
 - HTML mit direkter CSS-Formatierung ausgeben:
   highlight -i main.cpp -o main.cpp.html --inline-css
 
-- HTML mit Code-Formatierung im "horstmann"-Stil und dem Farbschema "Neon"
+- LaTeX mit Code-Formatierung im "horstmann"-Stil und dem Farbschema "Neon"
   ausgeben:
-  highlight -i main.cpp -o main.cpp.html --reformat horstmann --style neon
-
-- LaTeX ausgeben:
-  highlight --latex -i main.cpp -o main.cpp.tex
+  highlight -O latex -i main.cpp -o main.cpp.tex --reformat horstmann --style neon
 
   Folgende Ausgabeformate koennen mit --out-format bestimmt werden:
-  html:      HTML5
+  
+  html:      HTML5 (Standard)
   xhtml:     XHTML 1.1
   tex:       Plain TeX
   latex:     LaTeX
@@ -134,9 +132,6 @@ namens main.cpp erzeugt:
   ansi:      Terminal 16 color escape codes
   xterm256:  Terminal 256 color escape codes
   truecolor: Terminal 16m color escape codes
-
-  HTML wird als Standard ausgegeben, wenn kein anderes Format mit --out-format
-  bestimmt wurde.
 
 - Font und Schriftgroesse anpassen:
   highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
@@ -321,14 +316,12 @@ Die --outdir Option ist im Batch Modus besonders nuetzlich. In Skripten sollte
 HTML, TeX, LaTeX und SVG Ausgabe:
 --------------------------------
 
-Die HTML, TeX, LaTeX und SVG-Formate erlauben die Einbindung von externen Dateien,
-welche die Formatierungsinformationen enthalten ("Stylesheets").
+Die HTML, TeX, LaTeX und SVG-Formate erlauben die Einbindung von Stylesheets,
+welche die Formatierungsinformationen enthalten.
 
 Bei der HTML- und SVG-Ausgabe enthaelt diese Datei CSS-Definitionen und wird, wenn
-nicht anders angegeben, als "highlight.css" gespeichert.
-
-Bei TeX und LaTeX enthaelt die Datei Makros, und wird per Default als
-"highlight.sty" gespeichert.
+nicht anders angegeben, als "highlight.css" gespeichert. Bei TeX und LaTeX enthaelt
+die Datei Makros, und wird per Default als "highlight.sty" gespeichert.
 
 Name und Pfad des Stylesheets werden mit --style-outfile bestimmt.
 Wenn --outdir definiert ist, wird auch das Stylesheet im angegebenen
@@ -371,15 +364,6 @@ highlight -S txt --out-format=latex README > readme.tex
 
 Beispiele:
 ----------
-
-Die folgenden Kommandos schreiben den Inhalt von hello.c nach hello.html:
-
-highlight -o hello.html -i hello.c
-highlight -o hello.html hello.c
-highlight -o hello.html --syntax c < hello.c
-highlight --syntax c < hello.c > hello.html
-
-Neben hello.html wird highlight.css im aktuellen Verzeichnis erzeugt.
 
 highlight --out-format=xhtml --batch-recursive '*.cpp' --outdir ~/html_code/
 Dieses Kommando konvertiert alle *.cpp Dateien im aktuellen Verzeichnis und den
@@ -454,6 +438,11 @@ UTF8 BOM entfernen:
 
 Geben Sie --validate-input an, um das UTF8 Byte Order Mark (Startsequenz) zu
 entfernen.
+
+Ausgabe in stdout erzwingen
+---------------------------
+
+Mit --stdout wird die Ausgabe auch im Batch-Modus nach stdout ausgegeben.
 
 Portable GUI (Windows build)
 ----------------------------
@@ -690,9 +679,9 @@ Number         = Attributes (Formatierung von Zahlen)
 
 Escape         = Attributes (Formatierung von Escape-Sequenzen)
 
-Interpolation  = Attributes (Formatierung von Interpolationen)
-
 String         = Attributes (Formatierung von Strings)
+
+Interpolation  = Attributes (Formatierung von Interpolationen)
 
 PreProcessor   = Attributes (Formatierung von Praeprozessor-Direktiven)
 
@@ -751,14 +740,14 @@ Makros oder Konstanten gesondert hervorheben moechten.
 Eine Gruppe wird in zwei Schritten definiert:
 
 
- 1. Beschreibung der Gruppe in der Sprachdefinition (Lang-Datei):
+ 1. Beschreibung der Gruppe in der Sprachdefinition:
 
     Keywords = {
       -- fuegen Sie die Beschreibung an:
       {Id=5, List = {"ERROR", "DEBUG", "WARN"} }
     }
 
- 2. Festlegung des dazugehoerigen Farbstils im Farb-Schema (Theme-Datei)
+ 2. Festlegung des dazugehoerigen Farbstils im Farb-Schema:
 
     Keywords= {
       --Stil als fuenften Eintrag hinterlegen:
@@ -927,9 +916,9 @@ In INSTALL befinden sich weitere Informationen zu Paketinhalt und Installation.
 5.2 KOMPILIER-ABHAENGIGKEITEN
 -------------------------------------------------------------------------------
 
-Highlight kompiliert zumindest mit gcc und suncc. Zum Kompilieren sind Boost
+Highlight kompiliert zumindest mit gcc und clang. Zum Kompilieren sind Boost
 Header-Pakete und Lua5.x/LuaJit Development-Pakete noetig.
-Die optionale GUI benoetigt die Qt4/Qt5 Development-Pakete.
+Die optionale GUI benoetigt Qt5 Development-Pakete.
 Im Makefile finden Sie weitere Informationen.
 
 

@@ -36,7 +36,7 @@ CONTENT
    4.1 SAMPLE SCRIPTS
    4.2 SWIG
    4.3 TCL
-   4.3 THIRD PARTY SCRIPTS AND PLUG-INS
+   4.4 THIRD PARTY SCRIPTS AND PLUG-INS
 
 5. BUILDING AND INSTALLING
    5.1 PRECOMPILED PACKAGES
@@ -59,7 +59,7 @@ Language definitions and colour themes are customizable.
 Highlight was designed to offer a flexible but easy to use syntax highlighter
 for several output formats. No syntax or colouring information is hardcoded,
 instead all relevant data is stored in configuration scripts. These Lua scripts
-may be altered or enhanced with plug-in scripts.
+may be altered and enhanced with plug-in scripts.
 
 
 1.2 FEATURE LIST
@@ -102,8 +102,8 @@ main.cpp as input file:
   highlight < main.cpp > main.cpp.html --syntax cpp
 
   You will find the HTML file and highlight.css in the working directory.
-  If you use IO redirection (see 2nd example), you must define the programming
-  language using --syntax.
+  If you use IO redirection (2nd example), you must define the programming
+  language with --syntax.
 
 - Generate HTML with embedded CSS definitions and line numbers:
   highlight -i main.cpp -o main.cpp.html --include-style --line-numbers
@@ -111,15 +111,13 @@ main.cpp as input file:
 - Generate HTML with inline CSS definitions:
   highlight -i main.cpp -o main.cpp.html --inline-css
 
-- Generate HTML using "horstmann" source formatting style and "neon" colour
-  theme:
-  highlight -i main.cpp -o main.cpp.html --reformat horstmann --style neon
-
-- Generate LaTeX:
-  highlight --out-format=latex -i main.cpp -o main.cpp.tex
+- Generate LaTeX using "horstmann" source formatting style and "neon" colour
+  theme: 
+  highlight -O latex -i main.cpp -o main.cpp.tex --reformat horstmann --style neon
 
   The following output formats may be defined with --out-format:
-  html:      HTML5
+  
+  html:      HTML5 (default)
   xhtml:     XHTML 1.1
   tex:       Plain TeX
   latex:     LaTeX
@@ -131,9 +129,6 @@ main.cpp as input file:
   ansi:      Terminal 16 color escape codes
   xterm256:  Terminal 256 color escape codes
   truecolor: Terminal 16m color escape codes
-
-  
-  Default output is HTML if no other format is specified.
 
 - Customize font settings:
   highlight --syntax ada --font-size 12 --font "'Courier New',monospace"
@@ -315,8 +310,8 @@ performance (recommended for usage in shell scripts).
 HTML, TeX, LaTeX and SVG output
 -------------------------------
 
-The HTML, TeX, LaTeX and SVG output formats allow to reference style definition
-files which contain the formatting information (stylesheets).
+The HTML, TeX, LaTeX and SVG output formats allow to reference a stylesheet
+file which contains the formatting information.
 
 In HTML and SVG output, this file contains CSS definitions and is saved as
 'highlight.css'. In LaTeX and TeX, it contains macro definitions, and is saved
@@ -329,8 +324,8 @@ are stored in this directory.
 Use --include-style to embed the style information in the output documents
 without referencing a stylesheet.
 
-Referenced style definitions have the advantage to share all formatting
-information in a single file, which affects all referencing documents.
+Referenced stylesheets have the advantage to share all formatting information
+in a single file, which affects all referencing documents.
 
 With --style-infile you define a file to be included in the final formatting
 information of the document. This way you enhance or redefine the default
@@ -360,16 +355,6 @@ highlight -S txt --out-format=latex README > README.tex
 
 Examples
 --------
-
-The following commands write the content of hello.c to hello.html:
-
-highlight -o hello.html -i hello.c
-highlight -o hello.html hello.c
-highlight -o hello.html --syntax c < hello.c
-highlight --syntax c < hello.c > hello.html
-
-Apart from hello.html, a file highlight.css is generated in the current working
-directory.
 
 highlight --out-format=xhtml  --batch-recursive '*.cpp' --outdir ~/html_code/
 This command converts all *.cpp files in the current directory and its sub-
@@ -416,7 +401,7 @@ Highlight nested code without starting delimiter
 
 If a file starts with an embedded code section which misses an appropriate opening
 delimiter, the --start-nested option will switch to the nested language mode.
-This can happen with LuaTeX files:
+This can be useful with LuaTeX files:
 highlight luatex.tex --latex --start-nested=inc_luatex
 
 inc_luatex is a Lua language definition with TeX line comments.
@@ -440,6 +425,11 @@ Remove an UTF8 BOM:
 -------------------
 
 Use --validate-input to get rid of UTF8 byte order marks.
+
+Force output to stdout
+----------------------
+
+Use --stdout to write output files in batch mode to stdout.
 
 Portable GUI (Windows build)
 ----------------------------
@@ -671,9 +661,9 @@ Number         = Attributes (Formatting of numbers)
 
 Escape         = Attributes (Formatting of escape sequences)
 
-Interpolation  = Attributes (Formatting of interpolation sequences)
-
 String         = Attributes (Formatting of strings)
+
+Interpolation  = Attributes (Formatting of interpolation sequences)
 
 PreProcessor   = Attributes (Formatting of preprocessor directives)
 
@@ -730,14 +720,14 @@ macros, constants etc.
 
 You define a new group in two steps:
 
- 1. Define a new group in your language definition (lang file):
+ 1. Define a new group in your language definition:
 
     Keywords = {
       -- add your keyword description:
       {Id=5, List = {"ERROR", "DEBUG", "WARN"} }
     }
 
- 2. Add a corresponding highlighting style in your colour theme (theme file):
+ 2. Add a corresponding highlighting style in your colour theme:
 
     Keywords= {
       --add your keyword style as 5th item in the list:
@@ -863,7 +853,7 @@ Highlight is written in ISO C++. The following packages are available:
 The website www.andre-simon.de offers links to precompiled packages for several
 operating systems (like Debian, Arch Linux, Ubuntu, Darwin, FreeBSD).
 The website distributes the latest upstream sources.
-Threre is also a Sourceforge project available:
+There is also a Sourceforge project: 
 http://sourceforge.net/projects/syntaxhighlight/
 
 Source tarball
@@ -906,9 +896,9 @@ The file INSTALL contains details about package contents and installation.
 5.2 BUILDING DEPENDENCIES
 -------------------------------------------------------------------------------
 
-Highlight is known to compile with gcc and suncc.
+Highlight is known to compile with gcc and clang.
 It depends on Boost headers and Lua 5.x/LuaJit developer packages.
-The optional GUI depends on Qt4/Qt5 developer packages.
+The optional GUI depends on Qt5 developer packages.
 Please see the makefile for further options.
 
 
