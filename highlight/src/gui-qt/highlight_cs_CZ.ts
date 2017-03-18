@@ -973,6 +973,10 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
         <source>I&amp;mage width:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Plug-Ins</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ShowTextFile</name>
@@ -1010,6 +1014,38 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     <message>
         <source>Reformatting not possible:</source>
         <translation>Přeformátování není možné:</translation>
+    </message>
+</context>
+<context>
+    <name>syntax_chooser</name>
+    <message>
+        <source>Syntax selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select correct syntax</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished">Textový štítek</translation>
+    </message>
+    <message>
+        <source>These entries are configured in filetypes.conf.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The selection will be remembered for this session.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file extension %1 is assigned to multiple syntax definitions.
+Select the correct one:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

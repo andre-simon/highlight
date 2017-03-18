@@ -19,7 +19,7 @@ function syntaxUpdate(desc)
 
    function_items = Set {"chomp", "chop", "chr", "crypt", "hex", "index", "lc",
     "lcfirst", "length", "oct", "ord", "pack", "qq", "reverse", "rindex", "sprintf",
-    "substr", "tr", "uc", "ucfirst,", "", "pos", "quotemeta", "split", "study",
+    "substr", "tr", "uc", "ucfirst,",  "pos", "quotemeta", "split", "study",
     "qr", "abs", "atan2", "cos", "exp", "hex", "int", "log", "oct", "rand", "sin",
     "sqrt", "srand", "each", "keys", "pop", "push", "shift", "splice", "unshift",
     "values", "grep", "join", "map", "qw", "reverse", "sort", "unpack", "delete",
@@ -32,7 +32,7 @@ function syntaxUpdate(desc)
     "mkdir", "open", "opendir", "readlink", "rename", "rmdir", "stat", "symlink",
     "sysopen", "umask", "unlink", "utime", "caller", "continue", "die", "do",
     "dump", "eval", "exit", "goto", "last", "next", "redo", "return", "sub",
-    "wantarray", "", "continue", "", "caller", "import", "local", "my", "our",
+    "wantarray", "continue",  "caller", "import", "local", "my", "our",
     "package", "state", "use", "defined", "dump", "eval", "formline", "local", "my",
     "our", "reset", "scalar", "state", "undef", "wantarray", "alarm", "exec",
     "fork", "getpgrp", "getppid", "getpriority", "kill", "pipe", "qx", "setpgrp",
@@ -83,7 +83,7 @@ function syntaxUpdate(desc)
 
   function Decorate(token, state)
 
-    if (state ~= HL_STANDARD and state ~= HL_KEYWORD) then
+    if  (state ~= HL_STANDARD and state ~= HL_KEYWORD) then
       return
     end
 

@@ -131,7 +131,7 @@ int HLCmdLineApp::printInstalledLanguages()
         suffix = suffix.substr ( 1, suffix.length()- wildcard.length() );
         cout << setw ( 30 ) <<setiosflags ( ios::left ) <<desc<<": "<<suffix;
         int extCnt=0;
-        for (StringMap::iterator it=extensions.begin(); it!=extensions.end(); it++) {
+        for (StringMap::iterator it=assocByExtension.begin(); it!=assocByExtension.end(); it++) {
             if (it->second==suffix ) {
                 cout << ((++extCnt==1)?" ( ":" ")<<it->first;
             }
@@ -211,6 +211,11 @@ void HLCmdLineApp::printConfigInfo ( )
     cout << endl;
 }
 
+string HLCmdLineApp::getFileBaseName(const string& fileName){
+    size_t psPos = fileName.rfind ( /*Platform::pathSeparator*/ '/' );
+    return  (psPos==string::npos) ? fileName : fileName.substr(psPos+1, fileName.length());
+}
+
 string HLCmdLineApp::getFileSuffix(const string& fileName)
 {
     size_t ptPos=fileName.rfind(".");
@@ -221,9 +226,18 @@ string HLCmdLineApp::getFileSuffix(const string& fileName)
     return (psPos!=string::npos && psPos>ptPos) ? "" : fileName.substr(ptPos+1, fileName.length());
 }
 
-bool HLCmdLineApp::loadFileTypeConfig ( const string& confName, StringMap* extMap, StringMap* shebangMap )
+void HLCmdLineApp::readLuaList(const string& paramName, const string& langName,Diluculum::LuaValue &luaVal, StringMap* extMap){
+    int extIdx=1;
+    string val;
+    while (luaVal[paramName][extIdx] !=Diluculum::Nil) {
+        val = luaVal[paramName][extIdx].asString();
+        extMap->insert ( make_pair ( val,  langName ) );
+        extIdx++;
+    }
+}
+
+bool HLCmdLineApp::loadFileTypeConfig ( const string& confName)
 {
-    if ( !extMap || !shebangMap ) return false;
     string confPath=dataDir.getFiletypesConfPath(confName);
     try {
         Diluculum::LuaState ls;
@@ -235,13 +249,11 @@ bool HLCmdLineApp::loadFileTypeConfig ( const string& confName, StringMap* extMa
         while ((mapEntry = ls["FileMapping"][idx].value()) !=Diluculum::Nil) {
             langName = mapEntry["Lang"].asString();
             if (mapEntry["Extensions"] !=Diluculum::Nil) {
-                int extIdx=1;
-                while (mapEntry["Extensions"][extIdx] !=Diluculum::Nil) {
-                    extMap->insert ( make_pair ( mapEntry["Extensions"][extIdx].asString(),  langName ) );
-                    extIdx++;
-                }
+                readLuaList("Extensions", langName, mapEntry,  &assocByExtension);
+            } else if (mapEntry["Filenames"] !=Diluculum::Nil) {
+                readLuaList("Filenames", langName, mapEntry,  &assocByFilename);
             } else if (mapEntry["Shebang"] !=Diluculum::Nil) {
-                shebangMap->insert ( make_pair ( mapEntry["Shebang"].asString(),  langName ) );
+                assocByShebang.insert ( make_pair ( mapEntry["Shebang"].asString(),  langName ) );
             }
             idx++;
         }
@@ -328,7 +340,7 @@ string HLCmdLineApp::analyzeFile ( const string& file )
     StringMap::iterator it;
     boost::xpressive::sregex rex;
     boost::xpressive::smatch what;
-    for ( it=scriptShebangs.begin(); it!=scriptShebangs.end(); it++ ) {
+    for ( it=assocByShebang.begin(); it!=assocByShebang.end(); it++ ) {
         rex = boost::xpressive::sregex::compile( it->first );
         if ( boost::xpressive::regex_search( firstLine, what, rex )  ) return it->second;
     }
@@ -337,9 +349,12 @@ string HLCmdLineApp::analyzeFile ( const string& file )
 
 string HLCmdLineApp::guessFileType ( const string& suffix, const string &inputFile, bool useUserSuffix )
 {
+    string baseName = getFileBaseName(inputFile);
+    if (assocByFilename.count(baseName)) return assocByFilename.find(baseName)->second;
+
     string lcSuffix = StringTools::change_case(suffix);
-    if (extensions.count(lcSuffix)) {
-        return extensions[lcSuffix];
+    if (assocByExtension.count(lcSuffix)) {
+        return assocByExtension[lcSuffix];
     }
 
     if (!useUserSuffix) {
@@ -394,7 +409,7 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     }
 
     //call before printInstalledLanguages!
-    loadFileTypeConfig ( "filetypes", &extensions, &scriptShebangs );
+    loadFileTypeConfig ( "filetypes" );
 
     if ( options.showLangdefs() ) {
         return printInstalledLanguages();

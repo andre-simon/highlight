@@ -34,6 +34,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "showtextfile.h"
 
 #include "io_report.h"
+#include "syntax_chooser.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass), getDataFromCP(false)
@@ -98,7 +99,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboReformat->addItems(fmts);
 
     // load syntax mappings
-    if (!loadFileTypeConfig(&extensions, &shebangs)) {
+    if (!loadFileTypeConfig()) {
         QMessageBox::warning(this, tr("Initialization error"),
                              tr("Could not find syntax definitions. Check installation."));
     }
@@ -183,7 +184,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::openFiles()
 {
-
     QStringList files = QFileDialog::getOpenFileNames(
                             this,
                             tr("Select one or more files to open"),
@@ -470,10 +470,18 @@ void MainWindow::readSettings()
     settings.endGroup();
 }
 
-bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap)
-{
-    if (!extMap || !shebangMap) return false;
+void MainWindow::readLuaList(const string& paramName, const string& langName,Diluculum::LuaValue &luaVal, MMap* extMap){
+    int extIdx=1;
+    string val;
+    while (luaVal[paramName][extIdx] !=Diluculum::Nil) {
+        val = luaVal[paramName][extIdx].asString();
+        extMap->insert ( make_pair ( val,  langName ) );
+        extIdx++;
+    }
+}
 
+bool MainWindow::loadFileTypeConfig()
+{  
 #ifdef Q_OS_OSX
     QString filetypesPath = QDir::toNativeSeparators(QString("%1/../Resources/filetypes.conf").arg(QCoreApplication::applicationDirPath()));
 #else
@@ -493,13 +501,11 @@ bool MainWindow::loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap)
         while ((mapEntry = ls["FileMapping"][idx].value()) !=Diluculum::Nil) {
             langName = mapEntry["Lang"].asString();
             if (mapEntry["Extensions"] !=Diluculum::Nil) {
-                int extIdx=1;
-                while (mapEntry["Extensions"][extIdx] !=Diluculum::Nil) {
-                    extMap->insert ( make_pair ( mapEntry["Extensions"][extIdx].asString(),  langName ) );
-                    extIdx++;
-                }
+                readLuaList("Extensions", langName, mapEntry,  &assocByExtension);
+            } else if (mapEntry["Filenames"] !=Diluculum::Nil) {
+                readLuaList("Filenames", langName, mapEntry,  &assocByFilename);
             } else if (mapEntry["Shebang"] !=Diluculum::Nil) {
-                shebangMap->insert ( make_pair ( mapEntry["Shebang"].asString(),  langName ) );
+                assocByShebang.insert ( make_pair ( mapEntry["Shebang"].asString(),  langName ) );
             }
             idx++;
         }
@@ -515,11 +521,11 @@ string MainWindow::analyzeFile(const string& file)
     ifstream inFile(file.c_str());
     string firstLine;
     getline (inFile, firstLine);
-    StringMap::iterator it;
+    SMap::iterator it;
 
     boost::xpressive::sregex rex;
     boost::xpressive::smatch what;
-    for ( it=shebangs.begin(); it!=shebangs.end(); it++ ) {
+    for ( it=assocByShebang.begin(); it!=assocByShebang.end(); it++ ) {
         rex = boost::xpressive::sregex::compile( it->first );
         if ( boost::xpressive::regex_search( firstLine, what, rex )  ) return it->second;
     }
@@ -528,14 +534,54 @@ string MainWindow::analyzeFile(const string& file)
 
 string MainWindow::getFileType(const string& suffix, const string &inputFile)
 {
+    string baseName = getFileBaseName(inputFile);
+    if (assocByFilename.count(baseName)) return assocByFilename.find(baseName)->second;
+
     string lcSuffix = StringTools::change_case(suffix);
-    if (extensions.count(lcSuffix)) {
-        return extensions[lcSuffix];
+    if (assocByExtension.count(lcSuffix)) {
+
+        string langAssociation;
+        MMap::iterator it = assocByExtension.find(lcSuffix);
+        if (it!=assocByExtension.end()) langAssociation = it->second;
+
+        std::pair <MMap::iterator, MMap::iterator> ret;
+        ret = assocByExtension.equal_range(lcSuffix);
+
+        std::list<std::string> lst;
+        for (MMap::iterator it=ret.first; it!=ret.second; ++it){
+           lst.push_back( it->second );
+        }
+
+        if (lst.size() > 1){
+
+            if (rememberedAssoc.count(lcSuffix)) return rememberedAssoc[lcSuffix];
+
+            syntax_chooser chooser;
+            chooser.setUnclearExtension(QString(lcSuffix.c_str()));
+             for (std::list<string>::iterator it=lst.begin(); it != lst.end(); ++it){
+                 chooser.addSyntaxName(QString((*it).c_str()));
+            }
+            chooser.exec();
+
+            string selectedLang = chooser.getSelection().toStdString();
+
+            if (chooser.getRememberFlag()){
+                rememberedAssoc[lcSuffix]=selectedLang;
+            }
+            return selectedLang;
+        }
+        return langAssociation;
     }
 
-    string shebang =  analyzeFile(inputFile);
+    // Not configured in filetypes.conf, try shebang and finally the unmodified extension
+    string shebang = analyzeFile(inputFile);
     if (!shebang.empty()) return shebang;
     return lcSuffix;
+}
+
+string MainWindow::getFileBaseName(const string& fileName){
+    size_t psPos = fileName.rfind ( /*Platform::pathSeparator*/ '/' );
+    return  (psPos==string::npos) ? fileName : fileName.substr(psPos+1, fileName.length());
 }
 
 string MainWindow::getFileSuffix(const string& fileName)

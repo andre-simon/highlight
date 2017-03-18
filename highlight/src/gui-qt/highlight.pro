@@ -15,16 +15,19 @@ DEFINES += O2 QT
 SOURCES += main.cpp \
     mainwindow.cpp \
     io_report.cpp \
-    showtextfile.cpp
+    showtextfile.cpp \
+    syntax_chooser.cpp
 
 HEADERS += mainwindow.h \
     precomp.h \
     io_report.h \
-    showtextfile.h
+    showtextfile.h \
+    syntax_chooser.h
 
 FORMS += mainwindow.ui \
     io_report.ui \
-    showtextfile.ui
+    showtextfile.ui \
+    syntax_chooser.ui
 
 RESOURCES = highlight-gui.qrc
 TRANSLATIONS = highlight_de_DE.ts highlight_es_ES.ts highlight_cs_CZ.ts  highlight_zh_CN.ts

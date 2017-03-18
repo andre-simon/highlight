@@ -756,17 +756,25 @@ See README_PLUGINS for a detailed description and examples of packaged plugins.
 
 The script filetypes.conf assigns file extensions and shebang descriptions to
 language definitions.
+A configuration is mandatory only if multiple file extensions are linked to
+one syntax or if a extension is ambiguous. Otherwise the syntax definition whose
+name corresponds to the input file extension will be applied.
 
 Format:
 
 FileMapping={
-  {  Lang, Extensions|Shebang },
+  {  Lang, Filenames|Extensions|Shebang },
 }
 
 Lang:       String, name of language definition
+Filenames:  list of strings, contains filenames referring to "Lang"
 Extensions: list of strings, contains file extensions referring to "Lang"
 Shebang:    String, Regular expression which matches the first line of the input
             file
+
+Behaviour upon ambiguous file extensions:
+- CLI: the first association listed here will be used
+- GUI: a syntax selection prompt will be shown
 
 Edit the file gui_files/ext/fileopenfilter.conf to add new syntax types to
 the GUI's file open filter.
@@ -857,7 +865,7 @@ There is also a Sourceforge project:
 http://sourceforge.net/projects/syntaxhighlight/
 
 Source tarball
-Windows executables
+Windows and MacOS executables
 http://www.andre-simon.de
 
 Arch Linux

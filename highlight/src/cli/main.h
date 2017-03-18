@@ -61,8 +61,7 @@ public:
 private:
 
     DataDir dataDir;
-    StringMap extensions;
-    StringMap scriptShebangs;
+    StringMap assocByExtension, assocByFilename, assocByShebang;
     stringstream cin_bufcopy;
 
     /** print version info*/
@@ -98,6 +97,10 @@ private:
     */
     string getFileSuffix ( const string &fileName );
 
+    /** \return base filename
+    */
+    string getFileBaseName(const string& fileName);
+
     /** \return file type deferred from extension or file shebang comment
     */
     string guessFileType ( const string &suffix, const string &inputFile, bool useUserSuffix=false );
@@ -112,10 +115,12 @@ private:
                               bool recursiveSearch );
 
     string analyzeFile ( const string& file );
-    bool loadFileTypeConfig ( const string& name, StringMap* map, StringMap* shebangMap );
+    bool loadFileTypeConfig ( const string& name);
     void printInstalledFiles();
 
     vector <string> collectPluginPaths(const vector<string>& plugins);
+
+    void readLuaList(const string& paramName, const string& langName,Diluculum::LuaValue &luaVal, StringMap* extMap);
 
 };
 

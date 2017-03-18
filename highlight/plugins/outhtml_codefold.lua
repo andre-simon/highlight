@@ -107,6 +107,12 @@ function syntaxUpdate(desc)
     blockBegin["until"] = true
     blockEnd["end"] = true
     blockStates[HL_KEYWORD] = true
+    
+    -- fix  self.class == other.class && @ops == other.ops
+    Identifiers=[[ [a-zA-Z_\.][\w\-]* ]]
+    table.insert( Keywords,
+                  { Id=3, List={".class"}
+                  } )
   end
    
     HeaderInjection=[=[
@@ -224,7 +230,9 @@ function syntaxUpdate(desc)
     if (not blockStates[state] or notEmbedded==false) then
       return
     end
-
+    
+    --io.write("TRC "..trace.."  ")
+    
     -- FIX conditional modifiers: add condition to avoid recognition of delimiters
     --     if the last state before is a statement
     if langDesc=="Ruby" and string.len(trace)>1
@@ -233,6 +241,7 @@ function syntaxUpdate(desc)
                 or string.ends(trace, ";"..math.floor(HL_IDENTIFIER_BEGIN)..";") 
                 or string.ends(trace, ";"..math.floor(HL_NUMBER)..";")
                 or string.ends(trace, ";"..math.floor(HL_STRING)..";") 
+                or string.ends(trace, ";"..math.floor(HL_STANDARD)..";") 
                 or string.ends(trace, ";"..math.floor(HL_OPERATOR)..";") ) )
      then
         return

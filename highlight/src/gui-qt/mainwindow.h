@@ -2,7 +2,7 @@
                                mainwindow.h
                              -------------------
     begin                : Mo 16.03.2009
-    copyright            : (C) 2009 by Andre Simon
+    copyright            : (C) 2009-2017 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -60,10 +60,11 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "codegenerator.h"
 #include "htmlgenerator.h"
 
-
+#include <map>
 #include "enums.h"
 
-typedef map<string, string> StringMap;
+typedef multimap<string, string> MMap;
+typedef map<string, string> SMap;
 
 namespace Ui
 {
@@ -81,7 +82,8 @@ public:
     void addToView(const QStringList& list, QListWidget* listWidget, const QString &iconName=":/file.png", bool checkable=false, bool baseName = false);
 private:
     Ui::MainWindowClass *ui;
-    StringMap extensions,  shebangs;
+    MMap assocByExtension, assocByFilename;
+    SMap assocByShebang, rememberedAssoc;
     QString fileOpenFilter;
     QString savedClipboardContent;
     QShortcut *copyShortcut;
@@ -96,17 +98,19 @@ private:
     QString getOutFileSuffix();
     void applyCtrlValues(highlight::CodeGenerator* generator, bool previewMode);
     void selectSingleFile(QLineEdit*, const QString&, const QString&);
-    bool loadFileTypeConfig(StringMap* extMap, StringMap* shebangMap);
+    bool loadFileTypeConfig();
     void highlight2Clipboard(bool getDataFromCP);
 
     string analyzeFile(const string& file);
     string getFileType(const string& suffix, const string &inputFile);
     string getFileSuffix(const string& fileName);
+    string getFileBaseName(const string& fileName);
+    void readLuaList(const string& paramName, const string& langName, Diluculum::LuaValue &luaVal, MMap* extMap);
 
-     void dragEnterEvent(QDragEnterEvent *event);
-     void dragMoveEvent(QDragMoveEvent *event);
-     void dragLeaveEvent(QDragLeaveEvent *event);
-     void dropEvent(QDropEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dragMoveEvent(QDragMoveEvent *event);
+    void dragLeaveEvent(QDragLeaveEvent *event);
+    void dropEvent(QDropEvent *event);
 
 public slots:
     //This is a slot like the ones we used in our last tutorial

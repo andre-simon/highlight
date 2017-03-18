@@ -776,20 +776,29 @@ Siehe README_PLUGINS um mehr darueber zu erfahren.
 -------------------------------------------------------------------------------
 
 In filetypes.conf werden Dateizuordnungen und Shebang-Definitionen eingetragen.
+Eine Konfiguration ist nur dann zwingend notwendig, wenn es mehrere Dateiendungen
+fuer eine Syntax gibt oder eine Endung nicht eindeutig zugewiesen werden kann.
+Ansonsten wird die Syntax geladen, deren Name mit der Dateiendung der Eingabedatei
+uebereinstimmt.
 
 Format:
 
 FileMapping={
-  {  Lang, Extensions|Shebang },
+  {  Lang, Filenames|Extensions|Shebang },
 }
 
 Lang:       String, Name der Sprachdefinition
+Filenames:  Liste, enthaelt alle Dateinamen, die "Lang" zugeordnet werden
 Extensions: Liste, enthaelt alle Dateiendungen, die "Lang" zugeordnet werden
 Shebang:    String, Regulaerer Ausdruck der mit der ersten Zeile der Eingabe
             verglichen wird
 
+Verhalten der Software bei mehrdeutigen Endungen:
+- CLI: die erste eingetragene Verknuepfung wird angewandt
+- GUI: eine Syntax-Auswahl wird angezeigt
+
 Tragen Sie neue Dateiendungen auch in gui_files/ext/fileopenfilter.conf ein,
-damit diese im GUI-Dateiauswahldialog als Filter angezeigt werden
+damit diese im GUI-Dateiauswahldialog als Filter angezeigt werden.
 
 
 3.8 PFADE DER KONFIG-DATEIEN
@@ -877,7 +886,7 @@ FreeBSD).
 Auf der Website sind immer die aktuellsten Source-Pakete (upstream) verfuegbar.
 
 Source tarball
-Windows executables
+Windows und MacOS executables
 http://www.andre-simon.de
 
 Arch Linux

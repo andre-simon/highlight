@@ -594,18 +594,18 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
                 token=token.substr(0, 1);
                 return oldState;
             }
-            if (validatedState!=STANDARD) {
+     //       if (validatedState!=STANDARD) {
                 stateTrace.push_back(validatedState);
                 if (stateTrace.size()>200) stateTrace.erase(stateTrace.begin(), stateTrace.begin() + 100 );
-            }
+       //     }
             return validatedState;
         }
     }
     resultOfHook  = false;
-    if (newState!=STANDARD) {
+   // if (newState!=STANDARD) {
         stateTrace.push_back(newState);
         if (stateTrace.size()>200) stateTrace.erase(stateTrace.begin(), stateTrace.begin() + 100 );    
-    }
+   // }
     return newState;
 }
 
@@ -624,7 +624,7 @@ Diluculum::LuaValueList CodeGenerator::callDecorateFct(const string&token)
     params.push_back(Diluculum::LuaValue(token));
     params.push_back(Diluculum::LuaValue(currentState));
     params.push_back(Diluculum::LuaValue(currentKeywordClass));
-    string trace;
+    string trace(";");
     if (stateTrace.size()>1){
         for (size_t i=0; i<stateTrace.size()-1;i++){
             trace += std::to_string (stateTrace[i]);

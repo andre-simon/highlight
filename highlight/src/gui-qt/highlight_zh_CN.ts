@@ -127,7 +127,7 @@ Check installation.</source>
 Revise su instalación.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="+93"/>
+        <location filename="mainwindow.cpp" line="+103"/>
         <source>Initialization error</source>
         <translation type="unfinished">初始化错误</translation>
     </message>
@@ -137,7 +137,7 @@ Revise su instalación.</translation>
         <translation type="unfinished">找不到语法定义文件.请检查安装.</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+70"/>
         <source>Always at your service</source>
         <translation type="unfinished"></translation>
     </message>
@@ -147,7 +147,7 @@ Revise su instalación.</translation>
         <translation type="unfinished">选择一个或多个文件打开</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+36"/>
         <source>Select destination directory</source>
         <translation type="unfinished">选择目标路径</translation>
     </message>
@@ -160,7 +160,7 @@ Revise su instalación.</translation>
         <translation type="obsolete">无法读取 &quot;%1&quot; 的Tag信息</translation>
     </message>
     <message>
-        <location line="+550"/>
+        <location line="+587"/>
         <location line="+31"/>
         <source>Output error</source>
         <translation type="unfinished">输出错误</translation>
@@ -181,7 +181,7 @@ Revise su instalación.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+17"/>
         <source>Language definition error</source>
         <translation type="unfinished">语言定义错误</translation>
     </message>
@@ -214,29 +214,29 @@ Lua Syntax error: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+73"/>
         <source>Converted %1 files in %2 ms</source>
         <translation type="unfinished">文件%1 转换完毕，用时 %2 ms</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+95"/>
         <source>Conversion of &quot;%1&quot; not possible.</source>
         <translation type="unfinished">No es posible la conversión de &quot;%1&quot;.</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+108"/>
-        <location line="+22"/>
+        <location line="+113"/>
+        <location line="+21"/>
         <source>clipboard data</source>
         <translation type="unfinished">剪贴板数据</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-72"/>
         <source>%1 options</source>
         <translation type="unfinished">%1 选项</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+50"/>
         <source>Preview (%1):</source>
         <translation type="unfinished">预览 (%1):</translation>
     </message>
@@ -246,12 +246,12 @@ Lua Syntax error: %2</source>
         <translation type="unfinished">当前语言: %1</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+19"/>
         <source>Preview of &quot;%1&quot; not possible.</source>
         <translation type="unfinished">&quot;%1&quot;.的预览不可用.</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+179"/>
         <source>Some plug-in effects may not be visible in the preview.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -260,7 +260,7 @@ Lua Syntax error: %2</source>
         <translation type="obsolete">选择一个ctags文件</translation>
     </message>
     <message>
-        <location line="-141"/>
+        <location line="-142"/>
         <location line="+4"/>
         <location line="+4"/>
         <location line="+5"/>
@@ -286,7 +286,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
 请通过as (at) andre-simon (dot) de联系我.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+67"/>
         <source>Select one or more plug-ins</source>
         <translation type="unfinished">选择一个或多个插件</translation>
     </message>
@@ -299,7 +299,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
 <context>
     <name>MainWindowClass</name>
     <message>
-        <location filename="mainwindow.ui" line="+163"/>
+        <location filename="mainwindow.ui" line="+161"/>
         <source>Choose the source code files you want to convert.</source>
         <translation>选择你想要转换的代码文件.</translation>
     </message>
@@ -320,18 +320,18 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+3"/>
-        <location line="+255"/>
+        <location line="+248"/>
         <source>Clear selection</source>
         <translation>移除选中项</translation>
     </message>
     <message>
-        <location line="-248"/>
+        <location line="-241"/>
         <source>Remove all input files.</source>
         <translation>清除所有输入文件.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+255"/>
+        <location line="+248"/>
         <source>Clear all</source>
         <translation>移除所有</translation>
     </message>
@@ -340,27 +340,27 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Destino de salida</translation>
     </message>
     <message>
-        <location line="-216"/>
+        <location line="-209"/>
         <source>Output directory</source>
         <translation>输出目录</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+19"/>
         <source>Select the output directory.</source>
         <translation>选择输出路径.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+265"/>
-        <location line="+537"/>
-        <location line="+275"/>
-        <location line="+114"/>
-        <location line="+301"/>
+        <location line="+264"/>
+        <location line="+558"/>
+        <location line="+242"/>
+        <location line="+108"/>
+        <location line="+295"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="-1483"/>
+        <location line="-1458"/>
         <source>Save output in the input file directories.</source>
         <translation>将输出保存在输入路径中.</translation>
     </message>
@@ -374,7 +374,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Opciones de salida</translation>
     </message>
     <message>
-        <location line="+291"/>
+        <location line="+290"/>
         <source>General</source>
         <translation>通用</translation>
     </message>
@@ -492,11 +492,16 @@ Removes Unicode BOM mark.</source>
         <translation>设置输出文件的编码格式.</translation>
     </message>
     <message>
+        <location line="+1379"/>
+        <source>&amp;Plug-Ins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Encoding:</source>
         <translation type="obsolete">Codificación:</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-1369"/>
         <source>Select or define the encoding.
 The result has to match the input file encoding.</source>
         <translation>选择或者定义编码格式.
@@ -597,20 +602,20 @@ The result has to match the input file encoding.</source>
     </message>
     <message>
         <location line="+49"/>
-        <location line="+305"/>
-        <location line="+114"/>
-        <location line="+301"/>
+        <location line="+299"/>
+        <location line="+108"/>
+        <location line="+295"/>
         <source>Include the style information in each output file.</source>
         <translation>将样式表信息保存到每个输出文件中.</translation>
     </message>
     <message>
-        <location line="-717"/>
-        <location line="+720"/>
+        <location line="-699"/>
+        <location line="+702"/>
         <source>Embed style (CSS)</source>
         <translation>内嵌样式表 (CSS)</translation>
     </message>
     <message>
-        <location line="-707"/>
+        <location line="-689"/>
         <source>Add CSS information to each tag (do not use CSS class definitions).</source>
         <translation>CSS信息保存到每个Tag中(不使用CSS的类定义).</translation>
     </message>
@@ -624,15 +629,15 @@ The result has to match the input file encoding.</source>
         <translation type="obsolete">Archivo de estilo:</translation>
     </message>
     <message>
-        <location line="+33"/>
-        <location line="+395"/>
-        <location line="+301"/>
+        <location line="+60"/>
+        <location line="+356"/>
+        <location line="+295"/>
         <source>Name of the referenced style file.</source>
         <translation>外链样式表文件的名字.</translation>
     </message>
     <message>
-        <location line="-693"/>
-        <location line="+696"/>
+        <location line="-648"/>
+        <location line="+651"/>
         <source>highlight.css</source>
         <translation></translation>
     </message>
@@ -641,18 +646,18 @@ The result has to match the input file encoding.</source>
         <translation type="obsolete">Archivo de estilo a incluir:</translation>
     </message>
     <message>
-        <location line="-655"/>
-        <location line="+690"/>
+        <location line="-610"/>
+        <location line="+645"/>
         <source>Path of the CSS include file.</source>
         <translation>外链样式表的路径.</translation>
     </message>
     <message>
-        <location line="-671"/>
+        <location line="-632"/>
         <source>Select a CSS include file.</source>
         <translation>选择一个外链的样式表.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="-103"/>
         <source>CSS class prefix:</source>
         <translation>CSS类前缀:</translation>
     </message>
@@ -666,7 +671,7 @@ The result has to match the input file encoding.</source>
         <translation type="obsolete">Archivos de etiquetas e índice</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+175"/>
         <source>Generate an index file with hyperlinks to all outputted files.</source>
         <translation>生成一个包含所有输出文件超链接的index文件.</translation>
     </message>
@@ -787,7 +792,7 @@ See ctags.sf.net for details.</source>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+114"/>
+        <location line="+108"/>
         <source>highlight.sty</source>
         <translation></translation>
     </message>
@@ -796,28 +801,28 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">Incluir estilo:</translation>
     </message>
     <message>
-        <location line="-616"/>
+        <location line="-604"/>
         <source>Set encoding:</source>
         <translation>编码设置：</translation>
     </message>
     <message>
-        <location line="-561"/>
+        <location line="-554"/>
         <source>Output destination:</source>
         <translation>输出路径：</translation>
     </message>
     <message>
-        <location line="+760"/>
-        <location line="+284"/>
-        <location line="+114"/>
-        <location line="+301"/>
+        <location line="+780"/>
+        <location line="+251"/>
+        <location line="+108"/>
+        <location line="+295"/>
         <source>Stylesheet file:</source>
         <translation>外链样式表文件名：</translation>
     </message>
     <message>
-        <location line="-666"/>
-        <location line="+281"/>
-        <location line="+114"/>
-        <location line="+301"/>
+        <location line="-621"/>
+        <location line="+248"/>
+        <location line="+108"/>
+        <location line="+295"/>
         <source>Stylesheet include file:</source>
         <translation>包含的样式表文件：</translation>
     </message>
@@ -826,17 +831,17 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">读取ctags文件：</translation>
     </message>
     <message>
-        <location line="-1725"/>
+        <location line="-1701"/>
         <source>Highlight</source>
         <translation>Highlight</translation>
     </message>
     <message>
-        <location line="+137"/>
+        <location line="+138"/>
         <source>Files</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+213"/>
         <source>Paste clipboard content into the preview window.</source>
         <translation>将剪贴板中的代码粘贴到预览窗口.</translation>
     </message>
@@ -863,7 +868,7 @@ See ctags.sf.net for details.</source>
         <translation>代码语言：</translation>
     </message>
     <message>
-        <location line="-282"/>
+        <location line="-275"/>
         <source>Wi&amp;ndows</source>
         <oldsource>&amp;Windows</oldsource>
         <translation type="unfinished">窗口(&amp;W)</translation>
@@ -875,7 +880,7 @@ See ctags.sf.net for details.</source>
         <translation type="unfinished">代码高亮选项</translation>
     </message>
     <message>
-        <location line="+269"/>
+        <location line="+262"/>
         <source>Select the correct syntax of the code snippet.</source>
         <translation>给代码片段选择对应的语言格式.</translation>
     </message>
@@ -895,7 +900,7 @@ See ctags.sf.net for details.</source>
         <translation>描述</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+12"/>
         <source>Shows decription of a selected plug-in script.</source>
         <translation>显示选中插件的描述.</translation>
     </message>
@@ -917,7 +922,7 @@ See ctags.sf.net for details.</source>
         <translation type="unfinished">传递给插件的一个可选路径</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+13"/>
         <source>Select the plug-in input file.</source>
         <translation>选择传递给插件的文件.</translation>
     </message>
@@ -940,7 +945,7 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">Index/ctags</translation>
     </message>
     <message>
-        <location line="+191"/>
+        <location line="+185"/>
         <source>Line numbering options:</source>
         <translation>行号选项：</translation>
     </message>
@@ -967,15 +972,15 @@ See ctags.sf.net for details.</source>
     </message>
     <message>
         <location line="+80"/>
-        <location line="+114"/>
+        <location line="+108"/>
         <source>Path of the style include file.</source>
         <translatorcomment>Ptah of file to be included in document style</translatorcomment>
         <translation>外链样式表的路径.</translation>
     </message>
     <message>
         <location line="-95"/>
-        <location line="+114"/>
-        <location line="+301"/>
+        <location line="+108"/>
+        <location line="+295"/>
         <source>Select a style include file.</source>
         <translation>选择一个样式表文件.</translation>
     </message>
@@ -984,7 +989,7 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">Opciones de TeX</translation>
     </message>
     <message>
-        <location line="-383"/>
+        <location line="-371"/>
         <source>Embed style (macros)</source>
         <translation>内嵌页面样式 (macros)</translation>
     </message>
@@ -993,7 +998,7 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">Opciones de RTF</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+105"/>
         <source>Add character stylesheets with formatting information.
 You can select the stylesheets in your word processor to reformat additional text.</source>
         <translatorcomment>For RTF output, Openoffice supports character stylesheets</translatorcomment>
@@ -1085,7 +1090,7 @@ You can select the stylesheets in your word processor to reformat additional tex
         <translation>输入SVG图像高度.</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+124"/>
         <source>No options defined.</source>
         <translation>没有可供选择的选项..</translation>
     </message>
@@ -1224,12 +1229,12 @@ Set the width to 0 to keep tabs.</source>
         <translation>停靠浮动面板(&amp;D)</translation>
     </message>
     <message>
-        <location line="-2179"/>
+        <location line="-2149"/>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
     <message>
-        <location line="+314"/>
+        <location line="+308"/>
         <source>Start the conversion of your input files.</source>
         <translation>点击按钮开始转换文件.</translation>
     </message>
@@ -1275,7 +1280,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>移除所有插件.</translation>
     </message>
     <message>
-        <location line="-423"/>
+        <location line="-417"/>
         <source>Output progress:</source>
         <translation>输出进度：</translation>
     </message>
@@ -1290,7 +1295,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location line="+1430"/>
+        <location line="+1406"/>
         <source>Set page color attribute to background color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1305,7 +1310,7 @@ Set the width to 0 to keep tabs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+436"/>
+        <location line="+430"/>
         <source>Do not add line numbering to lines which were automatically wrapped.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1422,6 +1427,45 @@ Set the width to 0 to keep tabs.</source>
         <location line="+17"/>
         <source>Reformatting not possible:</source>
         <translation>不支持代码格式化的文件:</translation>
+    </message>
+</context>
+<context>
+    <name>syntax_chooser</name>
+    <message>
+        <location filename="syntax_chooser.ui" line="+14"/>
+        <source>Syntax selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Select correct syntax</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>These entries are configured in filetypes.conf.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>The selection will be remembered for this session.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Remember selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="syntax_chooser.cpp" line="+57"/>
+        <source>The file extension %1 is assigned to multiple syntax definitions.
+Select the correct one:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

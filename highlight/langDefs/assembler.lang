@@ -1,5 +1,5 @@
 
-Description="Assembler"
+Description="Generic Assembler"
 
 Digits=[[ (?:0x|0X|\$)[0-9a-fA-F]+|\d*[\.\_]?\d+(?:[eE][\-\+]\d+)?[bBhHlLuU]* ]]
 
@@ -18,10 +18,10 @@ Keywords={
         "fnstenv", "fnstsw", "fpatan", "fprem", "fprem1", "fptan", "frndint", "frstor", 
         "fsave", "fscale", "fsetpm", "fsin", "fsincos", "fsqrt", "fst", "fstcw", 
         "fstenv", "fstp", "fstsw", "fsub", "fsubp", "fsubr", "fsubrp", "ftst", "fucom", 
-        "fucomp", "fucompp", "fwait", "fxam", "fxch", "fxtract", "fyl2x", "fyl2xp1", "hlt", "idiv", "imul", 
+        "fucomp", "fucompp", "fwait", "fxam", "fxch", "fxtract", "fyl2x", "fyl2xp1", "hlt", "idiv", 
         "in", "inc", "insb", "insd", "insw", "int", "into", "invd", "invlpg", "iret", 
         "iretd", "ja", "jae", "jb", "jbe", "jc", "jcxz", "je", "jecxz", "jg", "jge", 
-        "jl", "jle", "jmp", "jna", "jnae", "jnb", "jnbe", "", "jnc", "jne", "jng", 
+        "jl", "jle", "jmp", "jna", "jnae", "jnb", "jnbe", "jnc", "jne", "jng", 
         "jnge", "jnl", "jnle", "jno", "jnp", "jns", "jnz", "jo", "jp", "jpe", "jpo", 
         "js", "jz", "lahf", "lar", "lds", "lea", "leave", "les", "lfs", "lgdt", "lgs", 
         "lidt", "lldt", "lmsw", "lock", "lods", "lodsb", "lodsd", "lodsw", "loop", 
@@ -43,7 +43,8 @@ Keywords={
         "le", "length", "local", "lt", "macro", "mask", "name", "near", "org", "page", 
         "proc", "public", "purge", "record", "rept", "seg", "segment", "short", "size", 
         "small", "struc", "subttl", "symtype", "this", "title", "width", "section", 
-        "global", "align", "invoke" , "struct", "import", "entry"},
+        "global", "align", "invoke" , "struct", "import", "entry"
+        },
   },
   { Id=2,
     List={"ah", "al", "and", "ax", "bh", "bl", "bp", "bx", "byte", "ch", "cl", 
