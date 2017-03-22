@@ -44,6 +44,8 @@ const string SyntaxReader::REGEX_ESCSEQ =
 
 DelimiterMap SyntaxReader::nestedStateEndDelimiters;
 
+DelimiterMap SyntaxReader::pluginConfigOverride;
+
 AllowInnerSectionsMap SyntaxReader::allowInnerSections;
 
 vector<Diluculum::LuaFunction*> SyntaxReader::pluginChunks;
@@ -204,7 +206,20 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
             }
             idx++;
         }
-
+        
+        //test balloon
+        //TODO: maskWS, format specific attributes 
+        if (globals.count("ConfigOverride")) {
+            idx=1;
+            while (ls["ConfigOverride"][idx].value() !=Diluculum::Nil) {
+                Diluculum::LuaValue lVal = ls["ConfigOverride"][idx]["Spacer"].value();
+                if (lVal != Diluculum::Nil){
+                    pluginConfigOverride["spacer"] = lVal.asString();
+                }
+                idx++;
+            }
+        }
+        
         if (globals.count("Comments")) {
 
             int listIdx=1;

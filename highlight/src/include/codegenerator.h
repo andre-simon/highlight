@@ -127,7 +127,7 @@ public:
     /**
       Delete CodeGenerator instance (this is intended for SWIG integration only,
       in normal C++ code the result of getInstance() should be saved in an auto_ptr)
-      \param CodeGenerator* CodeGenerator instance
+      \param inst CodeGenerator instance
     */
     static void deleteInstance ( CodeGenerator* inst )
     {
@@ -478,8 +478,6 @@ protected:
     /** String that represents a white space in output */
     string spacer;
 
-    //char inputBuffer [1024*1024];
-
     /** file input*/
     istream *in;
 
@@ -639,13 +637,13 @@ private:
      *  provided in DucumentStyle */
     virtual void initOutputTags() = 0;
 
-    /** \param keyword group id
+    /** \param styleID keyword style id
     	\return  open tag  */
-    virtual string getKeywordOpenTag ( unsigned int ) = 0;
+    virtual string getKeywordOpenTag ( unsigned int styleID) = 0;
 
-    /** \param keyword group id
+    /** \param styleID keyword style id
     	\return  close tag  */
-    virtual string getKeywordCloseTag ( unsigned int ) = 0;
+    virtual string getKeywordCloseTag ( unsigned int styleID) = 0;
 
     /** open a new tag, set current state to s*/
     void openTag ( State s );

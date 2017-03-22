@@ -756,6 +756,14 @@ LoadResult CodeGenerator::loadLanguage ( const string& langDefPath, bool embedde
                 openTags.push_back ( getKeywordOpenTag ( i ) );
                 closeTags.push_back ( getKeywordCloseTag ( i ) );
             }
+            
+            //test balloon
+            string overrideSpacer(currentSyntax->getOverrideConfigVal("spacer"));
+            if (!overrideSpacer.empty()) {
+                spacer = overrideSpacer;
+                maskWs = true;
+            }
+            
         }
     }
     return result;

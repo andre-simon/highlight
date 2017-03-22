@@ -245,6 +245,14 @@ public:
         return currentPath;
     }
 
+     /**
+    	\return absolute path of currently loaded definition
+    */
+    string getOverrideConfigVal(const string& name) const
+    {
+        return pluginConfigOverride.count(name) ? pluginConfigOverride[name] : "";
+    }
+    
     /**
     	\return pointer to state validation function
     */
@@ -323,6 +331,8 @@ private:
     // collect delimiters or get current delimiter in CodeGenerator::loadEmbeddedLang
     static DelimiterMap nestedStateEndDelimiters;
     
+    static DelimiterMap pluginConfigOverride;
+
     static AllowInnerSectionsMap allowInnerSections;
     
     // saves if delimiter pair consists of the same delimiter symbol

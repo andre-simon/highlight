@@ -389,16 +389,6 @@ void HtmlGenerator::insertLineNumber ( bool insertNewLine )
 
 }
 
-/** add Lua state variables specific to the output format */
-/*
-void HtmlGenerator::addSpecificVars()
-    {
-        std::cerr<<"addSpecificVars HTML\n";
-        currentSyntax->addVariable("HL_HTML_CSS_CLASSNAME", cssClassName);
-        currentSyntax->addVariable("HL_HTML_ORDERED_LIST", orderedList);
-        currentSyntax->addVariable("HL_HTML_CSS_INLINE", useInlineCSS);
-    }
-*/
 bool HtmlGenerator::printIndexFile ( const vector<string> &fileList,
                                      const string &outPath )
 {
@@ -471,7 +461,7 @@ string HtmlGenerator::getKeywordCloseTag ( unsigned int styleID )
 void HtmlGenerator::setHTMLOrderedList ( bool b )
 {
     orderedList = b;
-    spacer = b ? "&nbsp;": " ";
+    if( b ) spacer = "&nbsp;";
     maskWs = b;
 
     if (b && !preFormatter.getReplaceTabs()) {
