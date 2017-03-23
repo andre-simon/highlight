@@ -207,16 +207,13 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
             idx++;
         }
         
-        //test balloon
-        //TODO: maskWS, format specific attributes 
-        if (globals.count("ConfigOverride")) {
+        if (globals.count("GeneratorOverride")) {
             idx=1;
-            while (ls["ConfigOverride"][idx].value() !=Diluculum::Nil) {
-                Diluculum::LuaValue lVal = ls["ConfigOverride"][idx]["Spacer"].value();
-                if (lVal != Diluculum::Nil){
-                    pluginConfigOverride["spacer"] = lVal.asString();
-                }
+            Diluculum::LuaValue lVal = ls["GeneratorOverride"][idx].value();
+            while (lVal !=Diluculum::Nil) {
+                pluginConfigOverride[StringTools::change_case(lVal["Param"].asString())] = lVal["Value"].asString();
                 idx++;
+                lVal = ls["GeneratorOverride"][idx].value();
             }
         }
         

@@ -10,8 +10,9 @@ function syntaxUpdate(desc)
   end
 
   -- new element; subject to change
-  ConfigOverride = {
-    { Spacer="&nbsp;" },
+  GeneratorOverride = {
+    { Param="Spacer", Value="&nbsp;" },
+    { Param="MaskWS", Value="true" },
   }
   
   function DecorateLineBegin(lineNumber)

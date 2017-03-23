@@ -594,18 +594,14 @@ State CodeGenerator::validateState(State newState, State oldState, unsigned int 
                 token=token.substr(0, 1);
                 return oldState;
             }
-     //       if (validatedState!=STANDARD) {
-                stateTrace.push_back(validatedState);
-                if (stateTrace.size()>200) stateTrace.erase(stateTrace.begin(), stateTrace.begin() + 100 );
-       //     }
+            stateTrace.push_back(validatedState);
+            if (stateTrace.size()>200) stateTrace.erase(stateTrace.begin(), stateTrace.begin() + 100 );
             return validatedState;
         }
     }
     resultOfHook  = false;
-   // if (newState!=STANDARD) {
-        stateTrace.push_back(newState);
-        if (stateTrace.size()>200) stateTrace.erase(stateTrace.begin(), stateTrace.begin() + 100 );    
-   // }
+    stateTrace.push_back(newState);
+    if (stateTrace.size()>200) stateTrace.erase(stateTrace.begin(), stateTrace.begin() + 100 );    
     return newState;
 }
 
@@ -761,7 +757,10 @@ LoadResult CodeGenerator::loadLanguage ( const string& langDefPath, bool embedde
             string overrideSpacer(currentSyntax->getOverrideConfigVal("spacer"));
             if (!overrideSpacer.empty()) {
                 spacer = overrideSpacer;
-                maskWs = true;
+            }
+            string overrideMaskWS(currentSyntax->getOverrideConfigVal("maskws"));
+            if (!overrideMaskWS.empty()) {
+                maskWs = overrideMaskWS=="true";
             }
             
         }

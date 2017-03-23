@@ -505,7 +505,7 @@ protected:
     /** Test if maskWsBegin and maskWsEnd should be applied */
     bool maskWs;
 
-    /** Test if whitespace sould always be separated from enclosing tokens */
+    /** Test if whitespace should always be separated from enclosing tokens */
     bool excludeWs;
 
     /** Test if header and footer should be omitted */

@@ -7,9 +7,11 @@ xx.03.2017
 
 -fixed code folding plugin to support more Ruby conditional modifiers (thanks to Jens Schleusener)
 -fixed Perl quoted string highlighting (thanks to Jens Schleusener)
+-added new GeneratorOverride syntax definition parameter
 -added Filenames parameter in filetypes.conf to assign input filenames to syntax types
   (suggested by Andy)
 -added FASM definition and edit-fasm theme (thanks to Tristano Ajmone)
+-added outhtml_ie7_webctrl plug-in (suggested by Tristano Ajmone)
 -GUI: file extensions can be configured for multiple languages, triggers syntax selection prompt
 
 ---
