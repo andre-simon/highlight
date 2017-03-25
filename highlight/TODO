@@ -1,4 +1,0 @@
-Planned for future releases:
-
--OnChangeState: return keyword group as second retval
--add localization support for command line interface (gettext)
