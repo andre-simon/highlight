@@ -26,12 +26,12 @@ Installation prüfen.</translation>
         <translation>Stets zu Diensten</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="190"/>
+        <location filename="mainwindow.cpp" line="189"/>
         <source>Select one or more files to open</source>
         <translation>Wähle eine oder mehrere Dateien zum Öffnen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="226"/>
+        <location filename="mainwindow.cpp" line="225"/>
         <source>Select destination directory</source>
         <translation>Wähle das Zielverzeichnis</translation>
     </message>
@@ -44,97 +44,97 @@ Installation prüfen.</translation>
         <translation type="obsolete">Konnte Tags-Informationen in %1 nicht lesen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="813"/>
-        <location filename="mainwindow.cpp" line="844"/>
+        <location filename="mainwindow.cpp" line="823"/>
+        <location filename="mainwindow.cpp" line="854"/>
         <source>Output error</source>
         <translation>Ausgabefehler</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="813"/>
+        <location filename="mainwindow.cpp" line="823"/>
         <source>Output directory does not exist!</source>
         <translation>Zielverzeichnis existert nicht!</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="844"/>
+        <location filename="mainwindow.cpp" line="854"/>
         <source>You must define a style output file!</source>
         <translation>Sie müssen ein Stylesheet zur Ausgabe angeben!</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="874"/>
+        <location filename="mainwindow.cpp" line="884"/>
         <source>Processing %1 (%2/%3)</source>
         <translation>Verarbeite %1 (%2/%3)</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="891"/>
+        <location filename="mainwindow.cpp" line="901"/>
         <source>Language definition error</source>
         <translation>Fehler in Sprachdefinition</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="892"/>
+        <location filename="mainwindow.cpp" line="902"/>
         <source>Invalid regular expression in %1:
 %2</source>
         <translation>Ungültiger regulärer Ausdruck in %1: %2</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="896"/>
+        <location filename="mainwindow.cpp" line="906"/>
         <source>Unknown syntax</source>
         <translation>Unbekannte Syntax</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="896"/>
+        <location filename="mainwindow.cpp" line="906"/>
         <source>Could not convert %1</source>
         <translation>Konnte %1 nicht konvertieren</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="899"/>
+        <location filename="mainwindow.cpp" line="909"/>
         <source>Lua error</source>
         <translation>Lua Fehler</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="899"/>
+        <location filename="mainwindow.cpp" line="909"/>
         <source>Could not convert %1:
 Lua Syntax error: %2</source>
         <translation>Konnte %1 nicht konvertieren:\nLua Syntaxfehler: %2</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="972"/>
+        <location filename="mainwindow.cpp" line="982"/>
         <source>Converted %1 files in %2 ms</source>
         <translation>%1 Dateien in %2 ms konvertiert</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1067"/>
+        <location filename="mainwindow.cpp" line="1077"/>
         <source>Conversion of &quot;%1&quot; not possible.</source>
         <translation>Konnte &quot;%1&quot; nicht konvertieren.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1067"/>
-        <location filename="mainwindow.cpp" line="1180"/>
-        <location filename="mainwindow.cpp" line="1201"/>
+        <location filename="mainwindow.cpp" line="1077"/>
+        <location filename="mainwindow.cpp" line="1190"/>
+        <location filename="mainwindow.cpp" line="1211"/>
         <source>clipboard data</source>
         <translation>Daten der Zwischenablage</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1129"/>
+        <location filename="mainwindow.cpp" line="1139"/>
         <source>%1 options</source>
         <translation>%1-Optionen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1179"/>
+        <location filename="mainwindow.cpp" line="1189"/>
         <source>Preview (%1):</source>
         <translation>Vorschau (%1):</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1182"/>
+        <location filename="mainwindow.cpp" line="1192"/>
         <source>Current syntax: %1</source>
         <translation>Aktuelle Syntax: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1201"/>
+        <location filename="mainwindow.cpp" line="1211"/>
         <source>Preview of &quot;%1&quot; not possible.</source>
         <translation>Vorschau von &quot;%1&quot; nicht möglich.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1380"/>
+        <location filename="mainwindow.cpp" line="1390"/>
         <source>Some plug-in effects may not be visible in the preview.</source>
         <translation>Einige Plug-In Effekte könnten in der Vorschau nicht dargestellt werden.</translation>
     </message>
@@ -143,20 +143,20 @@ Lua Syntax error: %2</source>
         <translation type="obsolete">Wählen Sie eine ctags Datei</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1238"/>
-        <location filename="mainwindow.cpp" line="1242"/>
-        <location filename="mainwindow.cpp" line="1246"/>
-        <location filename="mainwindow.cpp" line="1251"/>
+        <location filename="mainwindow.cpp" line="1248"/>
+        <location filename="mainwindow.cpp" line="1252"/>
+        <location filename="mainwindow.cpp" line="1256"/>
+        <location filename="mainwindow.cpp" line="1261"/>
         <source>Choose a style include file</source>
         <translation>Wählen Sie ein Eingabe-Stylesheet</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1256"/>
+        <location filename="mainwindow.cpp" line="1266"/>
         <source>About providing translations</source>
         <translation>Übersetzungen bereitstellen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1257"/>
+        <location filename="mainwindow.cpp" line="1267"/>
         <source>The GUI was developed using the Qt toolkit, and translations may be provided using the tools Qt Linguist and lrelease.
 The highlight.ts file for Linguist resides in the src/gui-qt subdirectory.
 The qm file generated by lrelease has to be saved in gui-files/l10n.
@@ -169,12 +169,12 @@ Die von lrelease ausgegebene qm-Datei wird in gui-files/l10n gespeichert.
 Bitte senden Sie eine Nachricht an as (at) andre-simon (dot) de, wenn Sie Probleme bei der Übersetzung haben oder wenn Sie eine Übersetzung fertiggestellt bzw. aktualisiert haben.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1324"/>
+        <location filename="mainwindow.cpp" line="1334"/>
         <source>Select one or more plug-ins</source>
         <translation>Wähle ein Plug-in</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1370"/>
+        <location filename="mainwindow.cpp" line="1380"/>
         <source>Choose a plug-in input file</source>
         <translation>Wähle eine Eingabedatei für Plug-Ins aus</translation>
     </message>
@@ -1362,22 +1362,22 @@ Setze die Anzahl auf Null, um Tabs auszugeben.</translation>
         <translation>Syntax bestimmen</translation>
     </message>
     <message>
-        <location filename="syntax_chooser.ui" line="44"/>
+        <location filename="syntax_chooser.ui" line="50"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="syntax_chooser.ui" line="68"/>
+        <location filename="syntax_chooser.ui" line="74"/>
         <source>These entries are configured in filetypes.conf.</source>
         <translation>Diese Einträge werden in der filetypes.conf festgelegt.</translation>
     </message>
     <message>
-        <location filename="syntax_chooser.ui" line="75"/>
+        <location filename="syntax_chooser.ui" line="81"/>
         <source>The selection will be remembered for this session.</source>
         <translation>Die Auswahl wird für diese Sitzung gespeichert.</translation>
     </message>
     <message>
-        <location filename="syntax_chooser.ui" line="78"/>
+        <location filename="syntax_chooser.ui" line="84"/>
         <source>Remember selection</source>
         <translation>Auswahl merken</translation>
     </message>
