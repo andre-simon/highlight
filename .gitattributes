@@ -1,0 +1,4 @@
+/src/w32-projects export-ignore  
+/src/gui-qt/.qmake.stash export-ignore
+.gitattributes export-ignore  
+.gitignore export-ignore

@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.35 --------------------------- Maerz 2017 ---
+---  HIGHLIGHT MANUAL - Version 3.36 --------------------------- Maerz 2017 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -940,3 +940,6 @@ http://www.andre-simon.de
 
 sf.net Projekt mit SVN Repository, Download Mirror, Bugtracker, Foren:
 http://sourceforge.net/projects/syntaxhighlight/
+
+Github Projekt mit Git Repository, Bugtracker:
+https://github.com/andre-simon/highlight

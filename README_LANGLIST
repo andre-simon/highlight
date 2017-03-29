@@ -1,17 +1,11 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT LANGUAGE LIST ------------------------------- September 2016 ---
+---  HIGHLIGHT LANGUAGE LIST ----------------------------------- March 2017 ---
 -------------------------------------------------------------------------------
 
 All supported languages and the syntax definition file names are listed below.
 The parens contain filename extensions configured in filetypes.conf.
 By default, the *.lang files are located in /usr/share/highlight/langDefs/.
 See README for other user defined locations.
-
-Since release 2.12, it is possible to highlight source files with multiple
-languages (ie HTML+PHP), see the NestedSections parameter in README.
-
-Filetypes.conf contains also special filenames without extensions (like 
-makefile) and script shebang expressions.
 
 
 Packaged language definitions (highlight --list-langs):
@@ -32,7 +26,7 @@ AS/400 CL                     : as400cl
 ASCEND                        : ascend ( a4c )
 Active Server Pages           : asp ( ascx ashx aspx )
 Abstract                      : aspect ( was wud )
-Assembler                     : assembler ( 29k 68s 68x a51 asm s x86 )
+Generic Assembler             : assembler ( 29k 68s 68x a51 asm x86 )
 Applied Type System           : ats ( dats )
 AutoHotKey                    : autohotkey ( ahk )
 AutoIt                        : autoit ( au3 )
@@ -59,9 +53,11 @@ Clipper                       : clipper
 Clojure                       : clojure
 Clips                         : clp
 COBOL                         : cobol ( cbl cob )
+Coffeescript                  : coffee
 ColdFusion MX                 : coldfusion ( cfc cfm )
 Generic config files          : conf
 Crack                         : crk
+Coffeescript Block Regex      : cs_block_regex
 C#                            : csharp ( cs )
 CSS                           : css
 D                             : d
@@ -75,6 +71,7 @@ Erlang                        : erlang ( erl hrl )
 Euphoria                      : euphoria ( eu ew ex exw wxu )
 Express                       : express ( exp )
 FAME                          : fame ( fame )
+fasm                          : fasm ( inc )
 Felix                         : felix ( flx )
 Fortran 77                    : fortran77 ( f for ftn )
 Fortran 90                    : fortran90 ( f90 f95 )
@@ -83,6 +80,7 @@ F#                            : fsharp ( fs fsx )
 Java FX                       : fx
 Gambas                        : gambas ( class )
 gdb                           : gdb
+GDScript                      : gdscript ( gd )
 Go                            : go
 Graphviz                      : graphviz ( dot )
 Haskell                       : haskell ( hs )
@@ -101,9 +99,11 @@ INTERLIS                      : interlis ( ili )
 IO                            : io
 Jasmin                        : jasmin ( j )
 Java                          : java ( groovy grv )
-Javascript                    : js ( jsx )
+Javascript                    : js
+Javascript Regex              : js_regex
 JSON                          : json
 JavaServer Pages              : jsp
+JSX                           : jsx
 Julia                         : julia ( jl )
 Kotlin                        : kotlin ( kt )
 LDAP                          : ldif
@@ -160,6 +160,7 @@ PL/1                          : pl1 ( bdy ff fp fpp rpp sf sp spb spe spp sps wf
 PL/Perl                       : plperl
 PL/Python                     : plpython
 PL/Tcl                        : pltcl
+PO translation                : po
 Pony                          : pony
 POV-Ray                       : pov
 Prolog                        : pro
@@ -168,6 +169,7 @@ PostScript                    : ps
 Microsoft PowerShell          : ps1
 PATROL                        : psl
 Pure                          : pure
+PureBASIC                     : purebasic ( pb pbi )
 Pyrex                         : pyrex ( pyx )
 Python                        : python ( py )
 Qore                          : q
@@ -213,6 +215,7 @@ Vala                          : vala
 Visual Basic                  : vb ( bas basic bi vbs )
 Verilog                       : verilog ( v )
 VHDL                          : vhd
+vimscript                     : vimscript ( vim vimrc )
 Whiley                        : whiley
 XML                           : xml ( csproj dtd ecf ent glade hdr hub jnlp nrm resx sgm sgml tld vxml wml xsd xsl )
 SuperX++                      : xpp

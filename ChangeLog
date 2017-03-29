@@ -3,7 +3,7 @@ CHANGELOG Highlight
 
 highlight 3.36
 
-xx.03.2017
+29.03.2017
 
 -fixed code folding plugin to support more Ruby conditional modifiers (thanks to Jens Schleusener)
 -fixed Perl quoted string highlighting (thanks to Jens Schleusener)
