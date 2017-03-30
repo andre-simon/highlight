@@ -320,18 +320,18 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+3"/>
-        <location line="+248"/>
+        <location line="+251"/>
         <source>Clear selection</source>
         <translation>移除选中项</translation>
     </message>
     <message>
-        <location line="-241"/>
+        <location line="-244"/>
         <source>Remove all input files.</source>
         <translation>清除所有输入文件.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+248"/>
+        <location line="+251"/>
         <source>Clear all</source>
         <translation>移除所有</translation>
     </message>
@@ -340,7 +340,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Destino de salida</translation>
     </message>
     <message>
-        <location line="-209"/>
+        <location line="-212"/>
         <source>Output directory</source>
         <translation>输出目录</translation>
     </message>
@@ -351,7 +351,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+3"/>
-        <location line="+264"/>
+        <location line="+267"/>
         <location line="+558"/>
         <location line="+242"/>
         <location line="+108"/>
@@ -360,7 +360,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation>...</translation>
     </message>
     <message>
-        <location line="-1458"/>
+        <location line="-1461"/>
         <source>Save output in the input file directories.</source>
         <translation>将输出保存在输入路径中.</translation>
     </message>
@@ -374,7 +374,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Opciones de salida</translation>
     </message>
     <message>
-        <location line="+290"/>
+        <location line="+293"/>
         <source>General</source>
         <translation>通用</translation>
     </message>
@@ -435,12 +435,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation>添加行号</translation>
     </message>
     <message>
-        <location line="+20"/>
-        <source>Set line numbering start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+19"/>
+        <location line="+39"/>
         <source>Select the line number width.</source>
         <translation>选择行号宽度.</translation>
     </message>
@@ -487,12 +482,11 @@ Removes Unicode BOM mark.</source>
         <translation>验证输入文件</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Set the output file ancoding.</source>
-        <translation>设置输出文件的编码格式.</translation>
+        <translation type="vanished">设置输出文件的编码格式.</translation>
     </message>
     <message>
-        <location line="+1379"/>
+        <location line="+1388"/>
         <source>&amp;Plug-Ins</source>
         <translation type="unfinished"></translation>
     </message>
@@ -806,12 +800,12 @@ See ctags.sf.net for details.</source>
         <translation>编码设置：</translation>
     </message>
     <message>
-        <location line="-554"/>
+        <location line="-557"/>
         <source>Output destination:</source>
         <translation>输出路径：</translation>
     </message>
     <message>
-        <location line="+780"/>
+        <location line="+783"/>
         <location line="+251"/>
         <location line="+108"/>
         <location line="+295"/>
@@ -831,7 +825,7 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">读取ctags文件：</translation>
     </message>
     <message>
-        <location line="-1701"/>
+        <location line="-1704"/>
         <source>Highlight</source>
         <translation>Highlight</translation>
     </message>
@@ -895,7 +889,7 @@ See ctags.sf.net for details.</source>
         <translation>添加插件</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+51"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
@@ -932,7 +926,12 @@ See ctags.sf.net for details.</source>
         <translation>BBCode</translation>
     </message>
     <message>
-        <location line="+292"/>
+        <location line="+42"/>
+        <source>Set line numbering start.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+250"/>
         <source>Stylesheets</source>
         <translation>样式表</translation>
     </message>
@@ -1011,7 +1010,12 @@ You can select the stylesheets in your word processor to reformat additional tex
         <translation>添加字体样式</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+7"/>
+        <source>Set page color attribute to background color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Page size:</source>
         <translation>页面大小：</translation>
     </message>
@@ -1110,14 +1114,13 @@ You can select the stylesheets in your word processor to reformat additional tex
         <translation>选择一个用于高亮的颜色主题.</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Reformat and indent your code.
 This feature is enabled tor C, C++, C# and Java code.</source>
-        <translation>重新格式化排版你的代码.
+        <translation type="vanished">重新格式化排版你的代码.
 这项功能仅支持 C, C++, C# 和 Java.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+18"/>
         <source>Reformat:</source>
         <translation>格式化代码:</translation>
     </message>
@@ -1229,7 +1232,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>停靠浮动面板(&amp;D)</translation>
     </message>
     <message>
-        <location line="-2149"/>
+        <location line="-2152"/>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
@@ -1270,7 +1273,7 @@ Set the width to 0 to keep tabs.</source>
         <translation type="unfinished">插件列表. 打钩激活对应脚本.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+18"/>
         <source>Remove the selected plug-ins.</source>
         <translation>移除所有选中的插件.</translation>
     </message>
@@ -1280,7 +1283,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>移除所有插件.</translation>
     </message>
     <message>
-        <location line="-417"/>
+        <location line="-420"/>
         <source>Output progress:</source>
         <translation>输出进度：</translation>
     </message>
@@ -1295,12 +1298,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location line="+1406"/>
-        <source>Set page color attribute to background color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+1412"/>
         <source>Set page color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1310,7 +1308,13 @@ Set the width to 0 to keep tabs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+430"/>
+        <location line="+263"/>
+        <source>Reformat and indent your code.
+This feature is enabled for C, C++, C# and Java code.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+167"/>
         <source>Do not add line numbering to lines which were automatically wrapped.</source>
         <translation type="unfinished"></translation>
     </message>

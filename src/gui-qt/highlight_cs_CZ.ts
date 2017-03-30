@@ -350,7 +350,7 @@ Podívejte se na ctags.sf.net, abyste se dozvěděl více.</translation>
     <message>
         <source>Reformat and indent your code.
 This feature is enabled tor C, C++, C# and Java code.</source>
-        <translation>Formátovat a odsadit vstupní kód.
+        <translation type="vanished">Formátovat a odsadit vstupní kód.
 Tato funkce je povolena pro C, C++, C# a pro kód Java.</translation>
     </message>
     <message>
@@ -587,7 +587,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Set the output file ancoding.</source>
-        <translation>Nastavte kódování výstupního souboru.</translation>
+        <translation type="vanished">Nastavte kódování výstupního souboru.</translation>
     </message>
     <message>
         <source>Tab width:</source>
@@ -902,10 +902,6 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set line numbering start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>High&amp;lighting options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -946,10 +942,6 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set page color attribute to background color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Set page color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -975,6 +967,23 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>&amp;Plug-Ins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set line numbering start.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the output file encoding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set page color attribute to background color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reformat and indent your code.
+This feature is enabled for C, C++, C# and Java code.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

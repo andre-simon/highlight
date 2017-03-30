@@ -3,7 +3,7 @@ CHANGELOG Highlight
 
 highlight 3.36
 
-29.03.2017
+30.03.2017
 
 -fixed code folding plugin to support more Ruby conditional modifiers (thanks to Jens Schleusener)
 -fixed Perl quoted string highlighting (thanks to Jens Schleusener)
@@ -13,6 +13,7 @@ highlight 3.36
 -added FASM definition and edit-fasm theme (thanks to Tristano Ajmone)
 -added outhtml_ie7_webctrl plug-in (suggested by Tristano Ajmone)
 -GUI: file extensions can be configured for multiple languages, triggers syntax selection prompt
+-GUI: added Italian translation (thanks to Tristano Ajmone)
 
 ---
 highlight 3.35
