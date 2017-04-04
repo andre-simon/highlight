@@ -148,7 +148,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -452,6 +452,9 @@
            <property name="alternatingRowColors">
             <bool>true</bool>
            </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::MultiSelection</enum>
+           </property>
            <property name="sortingEnabled">
             <bool>true</bool>
            </property>
@@ -713,7 +716,7 @@
            <item>
             <widget class="QSpinBox" name="sbLineNoStart">
              <property name="toolTip">
-              <string>Set line numbering start</string>
+              <string>Set line numbering start.</string>
              </property>
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::UpDownArrows</enum>
@@ -802,7 +805,7 @@ Removes Unicode BOM mark.</string>
            <item>
             <widget class="QCheckBox" name="cbEncoding">
              <property name="toolTip">
-              <string>Set the output file ancoding.</string>
+              <string>Set the output file encoding.</string>
              </property>
              <property name="text">
               <string>Set encoding:</string>
@@ -959,7 +962,7 @@ The result has to match the input file encoding.</string>
                 </size>
                </property>
                <property name="currentIndex">
-                <number>1</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="tabWidgetPage1">
                 <attribute name="title">
@@ -1497,7 +1500,7 @@ You can select the stylesheets in your word processor to reformat additional tex
              <item>
               <widget class="QCheckBox" name="cbRTFPageColor">
                <property name="toolTip">
-                <string>Set page color attribute to background color</string>
+                <string>Set page color attribute to background color.</string>
                </property>
                <property name="text">
                 <string>Set page color</string>
@@ -1857,7 +1860,7 @@ You can select the stylesheets in your word processor to reformat additional tex
             <widget class="QCheckBox" name="cbReformat">
              <property name="toolTip">
               <string>Reformat and indent your code.
-This feature is enabled tor C, C++, C# and Java code.</string>
+This feature is enabled for C, C++, C# and Java code.</string>
              </property>
              <property name="text">
               <string>Reformat:</string>

@@ -37,7 +37,8 @@ HEADERS += src/cli/main.h \
 win32:LIBS += -L../../ -lhighlight
 unix:LIBS += -L.. -lhighlight
 
-win32:LIBS += -LD:\Devel\cpp\lua_bin_5.3.0 -llua
+#win32:LIBS += -LD:\Devel\cpp\lua_bin_5.3.0 -llua
+win32:LIBS += -LD:\Devel\cpp\lua_bin_5.3.0_x64 -llua
 
 !contains( LINKTYPE, LUA52 ) {
 unix:LIBS += -L.. -llua5.1
@@ -47,4 +48,4 @@ unix:LIBS += -L.. -llua5.2
 unix:DEFINES += USE_LUA52
 }
 
-win32:QMAKE_POST_LINK = D:\Devel\upx391w\upx.exe --best ..\..\..\highlight.exe
+win32:QMAKE_POST_LINK = D:\Devel\upx393w\upx.exe --best ..\..\..\highlight.exe

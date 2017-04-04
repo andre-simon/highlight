@@ -37,10 +37,9 @@ Conrad Steenberg (Crack)
 Victor Ananjevsky (conf.lang)
 Raphael Droz (Ansible YAML)
 Lydia Duncan (Chapel)
-Tristano Ajmone (GDScript)
 Max Christian Pohle (VIMScript)
 Jess Austin (Coffeescript)
-Tristano Ajmone (PureBasic, GDScript)
+Tristano Ajmone (PureBasic, GDScript, FASM)
 
 Colour themes:
 David (matlab)
@@ -49,7 +48,7 @@ Alexandre Bonneau (Acid)
 Sunrise Telephone Systems Ltd. (ide-xcode)
 Joerg Walter (moe)
 Roger Sperberg (andes, oxygenated)
-Tristano Ajmone (edit-godot)
+Tristano Ajmone (edit-godot. edit-fasm)
 
 
 Patches:
