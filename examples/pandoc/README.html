@@ -69,8 +69,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <article class="markdown-body">
 <h1 id="using-highlight-with-pandoc">Using Highlight With Pandoc</h1>
 <p>by <a href="https://github.com/tajmone">Tristano Ajmone</a>, MIT License (MIT). Last edited: Apr 16, 2017.</p>
-<p>“<em>Highlight PP-Macros</em>” is a set of macros to add in-document access to Highlight within markdown source files via PP (pandoc preprocessor). It allows to fetch an exteranl source file, highlight its syntax, and inject the resulting html into the preprocessed document. It also provides a macro for importing an Highlight theme as an inline CSS stylesheet.</p>
-<pre><code>&quot;Highlight.pp&quot; v1.1 (2017-04-14)</code></pre>
+<p>“<em>Highlight PP-Macros</em>” is a set of macros to add cross-platform in-document access to Highlight within markdown source files via PP (pandoc preprocessor). It allows to fetch an exteranl source file, highlight its syntax, and inject the resulting html into the preprocessed document. It also provides a macro for importing an Highlight theme as an inline CSS stylesheet.</p>
+<pre><code>&quot;Highlight.pp&quot; v1.2 (2017-04-16)</code></pre>
 <hr />
 <h3>
 CONTENTS
@@ -87,7 +87,6 @@ CONTENTS
 <li><a href="#the-highlightinlinetheme-macro">The <code>!HighlightInlineTheme</code> Macro</a></li>
 </ul></li>
 <li><a href="#example-files">Example Files</a></li>
-<li><a href="#using-highlight-macros-under-linux">Using Highlight Macros Under Linux</a></li>
 <li><a href="#external-links">External Links</a></li>
 </ul>
 </nav>
@@ -119,12 +118,7 @@ CONTENTS
 </ul>
 <p>If you intend using Highlight pp-macros, you are strongly adviced to check regularly the above link for updated versions of “<code>Highlight.pp</code>”. The contents of this folder are intended mainly as a starting example of how to integrate Highlight into pandoc workflow, and they may not reflect the latest release of the macros found on the Pandoc Goodies project.</p>
 <h1 id="how-it-works">How It Works</h1>
-<p>Currently, the <em>Highlight PP-Macros</em> module works only under Windows and for html output.</p>
-<div class="flash-messages">
-<div class="flash flash-success">
-<p><strong>Linux</strong> — For adapting the macros to work under Linux, see <a href="#using-highlight-macros-under-linux"><em>Using Highlight Macros Under Linux</em></a>, below.</p>
-</div>
-</div>
+<p>Currently, the <em>Highlight PP-Macros</em> module works only with html output. It works on all OS that support PP.</p>
 <p>There are two macros available:</p>
 <ul>
 <li><code>!HighlightFile(FILE)(LANG)[(OPTIONS)]</code> — imports and syntax-highlights and external file into the document as a raw html <code>&lt;pre&gt;&lt;code&gt;</code> block.</li>
@@ -172,23 +166,21 @@ CONTENTS
 <li><code>example.pb</code> — The external source code file example (PureBASIC).</li>
 <li><code>Highlight.pp</code> — The required PP macros file.</li>
 </ul>
-<p>Ensure that pandoc, PP and Highlight are available on the system <code>%PATH%</code>, then execute the <code>build-example.bat</code> script.</p>
+<p>Ensure that pandoc, PP and Highlight are available on the system <code>PATH</code>, then execute the <code>build-example.bat</code> script.</p>
 <p>The script issues two commands:</p>
 <pre class="bat"><code>pp -import Highlight.pp example.md &gt; example-preprocessed.md
 pandoc example-preprocessed.md -o example.html</code></pre>
+<div class="flash-messages">
+<div class="flash">
+<p><strong>LINUX NOTE</strong> — These two commands will also work on Linux: just type them in the terminal.</p>
+</div>
+</div>
 <p>The first line invokes <code>pp</code> and tells it to <code>-import</code> the contents of <code>Highlight.pp</code> (so that the macros herein defined are loaded in the current environment) and then process the file <code>example.md</code>. Since PP outputs to <code>STDOUT</code>, we redirect (<code>&gt;</code>) its output to <code>example-preprocessed.md</code>.</p>
 <p>If you open <code>example-preprocessed.md</code> in a text editor you’ll see how the macros inside <code>example.md</code> were expanded.</p>
 <p>The second line invokes <code>pandoc</code> and tells it to convert <code>example-preprocessed.md</code> and write the output (<code>-o</code>) to the <code>example.html</code> file (pandoc is smart enough to deduce the desired input and output formats from the files’ extensions).</p>
 <p>In a real work scenario, you would carry out the above task with a single command line, by piping (<code>|</code>) PP’s output directly to pandoc instead of writing it to the <code>example-preprocessed.md</code> file:</p>
 <pre class="bat"><code>pp -import Highlight.pp example.md | pandoc -f markdown -o example.html</code></pre>
 <p>For learning purposes, <code>build-example.bat</code> writes to disk the intermediate preprocessed markdown file, so that you may examine how the macros are expanded by PP before feeding them to pandoc.</p>
-<h1 id="using-highlight-macros-under-linux">Using Highlight Macros Under Linux</h1>
-<p>I’m planning to edit the macros to make them OS aware and work cross-platform, but this might take some time and testing. In the meantime, adapting <code>Highlight.pp</code> to work under Linux should require just a few changes:</p>
-<ul>
-<li>Open <code>Highlight.pp</code> in a text-editor</li>
-<li>Search and replace (case sensitive) all occurences of <code>!cmd</code> with either <code>!bash</code> or <code>!sh</code> (whichever works best for you).</li>
-</ul>
-<p>That’s it, it should work fine (but hasn’t been tested yet).</p>
 <h1 id="external-links">External Links</h1>
 <ul>
 <li><a href="http://pandoc.org" class="uri" title="Pandoc homepage">http://pandoc.org</a></li>
