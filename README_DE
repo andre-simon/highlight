@@ -34,9 +34,10 @@ INHALT
 
 4. HIGHLIGHT INTEGRIEREN
    4.1 BEISPIELSKRIPTE
-   4.2 SWIG
-   4.3 TCL
-   4.4 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
+   4.2 PANDOC
+   4.3 SWIG
+   4.4 TCL
+   4.5 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
 
 5. KOMPILIEREN UND INSTALLIEREN
    5.1 VORKOMPILIERTE PAKETE
@@ -838,20 +839,25 @@ Im /examples Unterverzeichnis befinden sich Beispielskripte in PHP, Perl und
 Python, die highlight aufrufen und die Ausgabe als String auswerten. Diese
 Skripte koennen als Ausgangspunkt fuer neue Erweiterungen genutzt werden.
 
-4.2 SWIG
+4.2 PANDOC
+-------------------------------------------------------------------------------
+
+PP Makros und eine Anleitung dazu liegen in /examples/pandoc.
+
+4.3 SWIG
 -------------------------------------------------------------------------------
 
 Eine SWIG Interface-Datei befindet sich in /examples/swig.
 Installationshinweise finden Sie in README_SWIG, Programmierbeispiele in
 den vorhandenen Skripten.
 
-4.3 TCL
+4.4 TCL
 -------------------------------------------------------------------------------
 
 Eine TCL-Erweiterung befindet sich in /examples/tcl.
 Installationshinweise finden Sie in README_TCL.
 
-4.4 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
+4.5 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
 -------------------------------------------------------------------------------
 
 Im /examples/web_plugins Unterverzeichnis der highlight-Installation befinden

@@ -48,7 +48,7 @@ Keywords={
 Comments={  -- PB IDE color: #00AAAA (Persian Green/Tradewind)
    { Block=false,
      Nested=false,
-     Delimiter = { [[ ;.*$ ]] }
+     Delimiter = { [[ ; ]] }
    }
 }
 
