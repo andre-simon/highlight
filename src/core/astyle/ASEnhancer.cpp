@@ -1,7 +1,7 @@
 // ASEnhancer.cpp
-// Copyright (c) 2016 by Jim Pattee <jimp03@email.com>.
+// Copyright (c) 2017 by Jim Pattee <jimp03@email.com>.
 // This code is licensed under the MIT License.
-// License.txt describes the conditions under which this software may be distributed.
+// License.md describes the conditions under which this software may be distributed.
 
 //-----------------------------------------------------------------------------
 // headers
@@ -624,7 +624,7 @@ void ASEnhancer::parseCurrentLine(string& line, bool isInPreprocessor, bool isIn
 		if (isPotentialKeyword && findKeyword(line, i, ASResource::AS_SWITCH))
 		{
 			switchDepth++;
-			switchStack.push_back(sw);                      // save current variables
+			switchStack.emplace_back(sw);                      // save current variables
 			sw.switchBraceCount = 0;
 			sw.unindentCase = false;                        // don't clear case until end of switch
 			i += 5;                                         // bypass switch statement
