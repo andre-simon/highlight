@@ -2,11 +2,15 @@
     *                                                                            *
     *                       PureBASIC Language Definition                        *
     *                                                                            *
-    *                             v1.0 - 2016/10/27                              *
+    *                             v1.1 - 2017/04/30                              *
     *                                                                            *
     ******************************************************************************
-    PureBASIC v5.50 -- This language definition emulates the way PureBASIC's native
-    IDE highlights its code. Inline ASM syntax coloring not implemented.
+    PureBASIC v5.00-5.60 -- This language definition emulates the way PureBASIC's
+    native IDE highlights its code. Inline ASM syntax coloring not implemented.
+    Keywords from all PureBASIC versions (from 5.00 up to current) are added to
+    the list (deprecated tokens are preserved) to ensure that any code written 
+    for PB >=5.00 will be parsed and highlighted correctcly.
+    ------------------------------------------------------------------------------
     Written by Tristano Ajmone:
         <tajmone@gmail.com>
         https://github.com/tajmone
@@ -19,18 +23,23 @@ Description="PureBASIC"
 Keywords={
   { Id=1,   -- PureBASIC Keywords > PB IDE color: #006666 (Blue Stone) + Bold
     List={ 
-        -- The following keywords list was taken and adapted from GuShH's PureBasic language file for GeSHi...
-        "And", "As", "Break", "CallDebugger", "Case", "CompilerCase", "CompilerDefault", "CompilerElse", "CompilerEndIf", "CompilerEndSelect",
-        "CompilerError", "CompilerIf", "CompilerSelect", "Continue", "Data", "DataSection", "EndDataSection", "Debug", "DebugLevel",
-        "Default", "Define", "Dim", "DisableASM", "DisableDebugger", "DisableExplicit", "Else", "ElseIf", "EnableASM",
-        "EnableDebugger", "EnableExplicit", "End", "EndEnumeration", "EndIf", "EndImport", "EndInterface", "EndMacro", "EndProcedure",
-        "EndSelect", "EndStructure", "EndStructureUnion", "EndWith", "Enumeration", "Extends", "FakeReturn", "For", "Next", "ForEach",
-        "ForEver", "Global", "Gosub", "Goto", "If", "Import", "ImportC", "IncludeBinary", "IncludeFile", "IncludePath", "Interface", "Macro",
-        "NewList", "Not", "Or", "ProcedureReturn", "Protected", "Prototype",
-        "PrototypeC", "Read", "ReDim", "Repeat", "Until", "Restore", "Return", "Select", "Shared", "Static", "Step", "Structure", "StructureUnion",
-        "Swap", "To", "Wend", "While", "With", "XIncludeFile", "XOr",
-        "Procedure", "ProcedureC", "ProcedureCDLL", "ProcedureDLL", "Declare", "DeclareC", "DeclareCDLL", "DeclareDLL"
-        },
+        -- Keywords list built by parsing the tokens inside PureBASIC SDK's
+        -- "SyntaxHilighting.dll" (from each PureBASIC version)...
+        "Align", "And", "Array", "As", "Break", "CallDebugger", "Case", "CompilerCase", "CompilerDefault",
+        "CompilerElse", "CompilerElseIf", "CompilerEndIfCompilerEndSelect", "CompilerEndSelect", "CompilerError",
+        "CompilerIf", "CompilerSelect", "CompilerWarning", "Continue", "Data", "DataSection", "Debug",
+        "DebugLevel", "Declare", "DeclareC", "DeclareCDLL", "DeclareDLL", "DeclareModule", "Default", "Define",
+        "Dim", "DisableASM", "DisableDebugger", "DisableExplicit", "Else", "ElseIf", "EnableASM", "EnableDebugger",
+        "EnableExplicit", "End", "EndDataSectionEndEnumeration", "EndDeclareModule", "EndEnumeration",
+        "EndIfEndImport", "EndImportEndInterface", "EndInterface", "EndMacroEndProcedure", "EndModule",
+        "EndProcedure", "EndProcedureEndProcedure", "EndSelectEndStructure", "EndStructure",
+        "EndStructureUnionEndWith", "EndWith", "Enumeration", "EnumerationBinary", "Extends", "FakeReturn",
+        "For", "ForEach", "ForEver", "Global", "Gosub", "Goto", "If", "Import", "ImportC", "IncludeBinary",
+        "IncludeFile", "IncludePath", "Interface", "List", "Macro", "MacroExpandedCount", "Map", "Module",
+        "NewList", "NewMap", "NextNext", "Not", "Or", "Procedure", "ProcedureC", "ProcedureCDLL", "ProcedureDLL",
+        "ProcedureReturn", "Protected", "Prototype", "PrototypeC", "Read", "ReDim", "Repeat", "Restore",
+        "Return", "Select", "Shared", "Static", "Step", "Structure", "StructureUnion", "Swap", "Threaded", "To",
+        "Until ", "Until", "WendWhile", "With", "XIncludeFile", "XOr"        },
     },
   { Id=2,   -- Constants > PB IDE color: #924B72 (Cannon Pink)
     Regex=[[ (#[a-zA-Z_]\w*\$?) ]]
@@ -48,7 +57,7 @@ Keywords={
 Comments={  -- PB IDE color: #00AAAA (Persian Green/Tradewind)
    { Block=false,
      Nested=false,
-     Delimiter = { [[ ; ]] }
+     Delimiter = { [[ ;.*$ ]] }
    }
 }
 
@@ -59,3 +68,21 @@ Strings={   -- PB IDE color: #0080FF (Azure Radiance)
 }
 
 Operators=[[\&|<|>|\!|\||\=|\/|\*|\%|\+|\-|~]]
+
+--[[==============================================================================
+                                      CHANGELOG                                   
+    ==============================================================================
+    v1.1 - 2017/04/30 (PureBASIC v5.60)
+         - Keywords list now built by extracting them from the PureBASIC SDK's
+           "SyntaxHilighting.dll" (from each PureBASIC version). Tokens from each
+           version are added to the list, and renamed or removed tokens are kept
+           for the sake of covering all versions of the language from PureBASIC
+           v5.00 upward. (NOTE: currently, there are no renamed or deprecated
+           tokens in the keywords list). For more info, see:
+           -- http://www.purebasic.fr/english/viewtopic.php?&p=506269
+           -- https://github.com/tajmone/purebasic-archives/tree/master/syntax-highlighting/guidelines
+    v1.0 - 2016/10/27 (PureBASIC v5.50)
+         - First release. Keywords list taken and adapted from GuShH's PureBasic 
+           language file for GeSHi:
+           -- https://github.com/easybook/geshi/blob/master/geshi/purebasic.php
+]]
