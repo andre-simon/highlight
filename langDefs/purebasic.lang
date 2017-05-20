@@ -2,7 +2,7 @@
     *                                                                            *
     *                       PureBASIC Language Definition                        *
     *                                                                            *
-    *                             v1.2 - 2017/05/11                              *
+    *                             v1.3 - 2017/05/20                              *
     *                                                                            *
     ******************************************************************************
     PureBASIC v5.00-5.60 -- This language definition emulates the way PureBASIC's
@@ -101,7 +101,7 @@ Keywords={
 Comments={  -- PB IDE color: #00AAAA (Persian Green/Tradewind)
    { Block=false,
      Nested=false,
-     Delimiter = { [[ ;.*$ ]] }
+     Delimiter = { [[ ; ]] }
    }
 }
 
@@ -116,7 +116,9 @@ Operators=[[\&|<|>|\!|\||\=|\/|\*|\%|\+|\-|~]]
 --[[==============================================================================
                                       CHANGELOG                                   
     ==============================================================================
-    v1.2 - 2017/05/11 (PureBASIC v5.60)
+   v1.3 - 2017/05/20 ASim 
+         - fixed single line comment delimiter
+   v1.2 - 2017/05/11 (PureBASIC v5.60)
          - Added ASM keywords and support for inline ASM (via "!" syntax).
          - BUG-FIXES:
            - Repaired missing or mispelled PB Keywords (something went wrong in the
