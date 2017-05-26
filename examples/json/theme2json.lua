@@ -44,7 +44,6 @@ function theme2json()
     "Interpolation" : ]]..printAttributes(Interpolation)..[[
     "Keywords": []]..printKeywords()..[[
     ]
-        
 }]])
 end
 

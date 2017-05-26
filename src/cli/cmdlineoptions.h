@@ -2,7 +2,7 @@
                           cmdlineoptions.h  -  description
                              -------------------
     begin                : Sun Nov 25 2001
-    copyright            : (C) 2001-2015 by Andre Simon
+    copyright            : (C) 2001-2017 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -460,6 +460,8 @@ private:
 
     /** \return Valid path name */
     string validateDirPath ( const string & path );
+    
+    void parseRuntimeOptions( const int argc, const char *argv[], bool readInputFilenames=true);
 };
 
 #endif
