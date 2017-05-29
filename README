@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.36 --------------------------- March 2017 ---
+---  HIGHLIGHT MANUAL - Version 3.37 ----------------------------- May 2017 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -21,6 +21,7 @@ CONTENT
    2.4 INPUT AND OUTPUT
    2.5 GNU SOURCE-HIGHLIGHT COMPATIBILITY
    2.6 ADVANCED OPTIONS
+   2.7 ENVIRONMENT VARIABLES
 
 3. CONFIGURATION
    3.1 FILE FORMAT
@@ -439,6 +440,15 @@ Invoke highlight-gui.exe with the --portable switch to save its configuration
 in text files instead of the registry.
 
 
+2.7 ENVIRONMENT VARIABLES
+-------------------------------------------------------------------------------
+
+The command line versuin recognizes these variables:
+
+HIGHLIGHT_DATADIR: sets the path to highlight's configuration scripts
+HIGHLIGHT_OPTIONS: may contain command line options, but no input file paths
+
+
 3. CONFIGURATION
 -------------------------------------------------------------------------------
 
@@ -801,9 +811,6 @@ These subdirectories are expected to contain the corresponding scripts:
 A custom filetypes.conf may be placed directly in ~/.highlight/.
 This search order enables you to enhance the installed scripts without the need
 to copy preinstalled files somewhere else.
-As the --plug-in option of older releases accepted absolute paths only, the 
-given plugin scripts will be searched in the directories above only if the
-absolute file path access fails.
 
 
 4. EMBEDDING HIGHLIGHT

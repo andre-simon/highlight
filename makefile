@@ -70,7 +70,10 @@ install:
 		${DESTDIR}${examples_dir}web_plugins/dokuwiki \
 		${DESTDIR}${examples_dir}web_plugins/movabletype \
 		${DESTDIR}${examples_dir}web_plugins/wordpress \
-		${DESTDIR}${examples_dir}swig
+		${DESTDIR}${examples_dir}swig \
+		${DESTDIR}${examples_dir}pandoc \
+		${DESTDIR}${examples_dir}json \
+		
 	${MKDIR} ${DESTDIR}${data_dir} \
 		${DESTDIR}${data_dir}themes \
 		${DESTDIR}${data_dir}langDefs \
@@ -95,9 +98,9 @@ install:
 	${INSTALL_DATA} ./examples/web_plugins/dokuwiki/* ${DESTDIR}${examples_dir}web_plugins/dokuwiki/
 	${INSTALL_DATA} ./examples/web_plugins/movabletype/* ${DESTDIR}${examples_dir}web_plugins/movabletype/
 	${INSTALL_DATA} ./examples/web_plugins/wordpress/* ${DESTDIR}${examples_dir}web_plugins/wordpress/
-	${INSTALL_DATA} ./examples/swig/*.py ./examples/swig/*.pl ${DESTDIR}${examples_dir}swig
-	${INSTALL_DATA} ./examples/swig/*.i ./examples/swig/makefile ${DESTDIR}${examples_dir}swig
-	${INSTALL_DATA} ./examples/swig/README_SWIG ${DESTDIR}${doc_dir}
+	${INSTALL_DATA} ./examples/swig/* ${DESTDIR}${examples_dir}swig
+	${INSTALL_DATA} ./examples/pandoc/* ${DESTDIR}${examples_dir}pandoc
+	${INSTALL_DATA} ./examples/json/* ${DESTDIR}${examples_dir}json
 	${INSTALL_DATA} ./examples/highlight_pipe.* ${DESTDIR}${examples_dir}
 	${INSTALL_DATA} ./examples/*.py ${DESTDIR}${examples_dir}
 	${INSTALL_PROGRAM} ./src/highlight ${DESTDIR}${bin_dir}
