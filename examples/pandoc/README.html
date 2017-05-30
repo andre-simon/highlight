@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--==============================================================================
+	           "GitHub HTML5 Pandoc Template" v1.2 — by Tristano Ajmone           
+	==============================================================================
+	(c) Tristano Ajmone, 2017, MIT License (MIT). Project's home repository:
+
+	- https://github.com/tajmone/pandoc-goodies
+
+	This template reuses source code taken from the following projects:
+
+	- GitHub Markdown CSS: © Sindre Sorhus, MIT License (MIT):
+	  https://github.com/sindresorhus/github-markdown-css
+
+	- Primer CSS: © 2016 GitHub Inc., MIT License (MIT):
+	  http://primercss.io/
+	==============================================================================-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Tristano Ajmone">
+  <meta name="dcterms.date" content="April 16, 2017">
+  <title>Using Highlight With Pandoc</title>
+  <style type="text/css">@font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,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) format('woff')}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;font-family:-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:16px;line-height:1.5;word-wrap:break-word;box-sizing:border-box;min-width:200px;max-width:980px;margin:0 auto;padding:45px}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body a{background-color:transparent;-webkit-text-decoration-skip:objects;color:#0366d6;text-decoration:none}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body h1{margin:.67em 0}.markdown-body img{border-style:none}.markdown-body svg:not(:root){overflow:hidden}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace}.markdown-body input{font:inherit;margin:0;overflow:visible;font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{box-sizing:content-box;overflow:hidden;background:0 0;border-bottom:1px solid #dfe2e5}.markdown-body hr::before{display:table;content:""}.markdown-body hr::after{display:table;clear:both;content:""}.markdown-body table{border-spacing:0;border-collapse:collapse;display:block;width:100%;overflow:auto}.markdown-body td,.markdown-body th{padding:0}.markdown-body blockquote{margin:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code{font-family:SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace}.markdown-body pre{font:12px SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;word-wrap:normal}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body::before{display:table;content:""}.markdown-body::after{display:table;clear:both;content:""}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:0}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e1e4e8;border:0}.markdown-body blockquote{padding:0 1em;color:#6a737d;border-left:.25em solid #dfe2e5}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{font-size:11px;box-shadow:inset 0 -1px 0 #959da5}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1{padding-bottom:.3em;font-size:2em;border-bottom:1px solid #eaecef}.markdown-body h2{padding-bottom:.3em;font-size:1.5em;border-bottom:1px solid #eaecef}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#6a737d}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:600}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #dfe2e5}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body code{padding:.2em 0;margin:0;font-size:85%;background-color:rgba(27,31,35,.05);border-radius:3px}.markdown-body code::after,.markdown-body code::before{letter-spacing:-.2em;content:"\00a0"}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:0 0;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f6f8fa;border-radius:3px}.markdown-body pre code{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code::after,.markdown-body pre code::before{content:normal}.markdown-body .full-commit .btn-outline:not(:disabled):hover{color:#005cc5;border-color:#005cc5}.markdown-body kbd{display:inline-block;padding:3px 5px;font:11px SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;line-height:10px;color:#444d56;vertical-align:middle;background-color:#fcfcfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5}.markdown-body :checked+.radio-label{position:relative;z-index:1;border-color:#0366d6}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.flash{position:relative;padding:16px;color:#246;background-color:#e2eef9;border:1px solid #bac6d3;border-radius:3px}.flash p:last-child{margin-bottom:0}.flash-messages{margin-bottom:24px}.flash-warn{color:#4c4a42;background-color:#fff9ea;border-color:#dfd8c2}.flash-error{color:#911;background-color:#fcdede;border-color:#d2b2b2}.flash-success{color:#22662c;background-color:#e2f9e5;border-color:#bad3be}.flash-plain{color:#4c4a42;background-color:#f5f5f5;border-color:#c1c1c1}</style>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<article class="markdown-body">
+<h1 id="using-highlight-with-pandoc">Using Highlight With Pandoc</h1>
+<p>by <a href="https://github.com/tajmone">Tristano Ajmone</a>, MIT License (MIT). Last edited: Apr 16, 2017.</p>
+<p>“<em>Highlight PP-Macros</em>” is a set of macros to add cross-platform in-document access to Highlight within markdown source files via PP (pandoc preprocessor). It allows to fetch an exteranl source file, highlight its syntax, and inject the resulting html into the preprocessed document. It also provides a macro for importing an Highlight theme as an inline CSS stylesheet.</p>
+<pre><code>&quot;Highlight.pp&quot; v1.2 (2017-04-16)</code></pre>
+<hr />
+<h3>
+CONTENTS
+</h3>
+<nav id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#pandoc">Pandoc</a></li>
+<li><a href="#pp">PP</a></li>
+<li><a href="#highlight-macros">Highlight Macros</a></li>
+</ul></li>
+<li><a href="#how-it-works">How It Works</a><ul>
+<li><a href="#the-highlightfile-macro">The <code>!HighlightFile</code> Macro</a></li>
+<li><a href="#the-highlightinlinetheme-macro">The <code>!HighlightInlineTheme</code> Macro</a></li>
+</ul></li>
+<li><a href="#example-files">Example Files</a></li>
+<li><a href="#external-links">External Links</a></li>
+</ul>
+</nav>
+<hr />
+<h1 id="introduction">Introduction</h1>
+<p>The solution proposed here relies on three tools to achieve integration of Highlight in pandoc source files:</p>
+<ol type="1">
+<li>Pandoc</li>
+<li>PP (a generic pandoc preprocessor)</li>
+<li>The <code>Highlight.pp</code> macros file found in this folder</li>
+</ol>
+<h2 id="pandoc">Pandoc</h2>
+<ul>
+<li><a href="http://pandoc.org" class="uri" title="Pandoc homepage">http://pandoc.org</a></li>
+</ul>
+<p>Pandoc — aka “the universal markup converter” — is a well known command line tool for converting documents from one format to another, and especially from/to various markdown flavors, including “pandoc markdown” (an extended markdown variant introduced by pandoc itself). This very document was written in markdown and converted to html5 using pandoc and a custom template.</p>
+<p>Pandoc is widely used for academic papers and technical documentation, so it comes with a built-in syntax highlighter. By default, pandoc doesn’t support third party syntax highlighters, and the supported languages are hardcoded into pandoc and not extensible by the end user without recompiling pandoc.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>Furthermore, pandoc doesn’t provide any means to import the source code from an external file — every time the source file changes, you have to manually copy-&amp;-paste its contents.</p>
+<h2 id="pp">PP</h2>
+<ul>
+<li><a href="http://cdsoft.fr/pp/" class="uri" title="PP homepage">http://cdsoft.fr/pp/</a></li>
+</ul>
+<p><em>Highlight PP-Macros</em> leverages PP, a generic preprocessor “written with pandoc in mind”. PP adds to the pandoc workflow the power of user definable macros and a set of built-in macros for cross-platform file I/O operations and conditional branching — and many other great features not cover here.</p>
+<p>Since one of PP’s goals was to introduce literate programming functionality to the pandoc workflow, it provides a solid base for handling external files, invoking third party tools, and perform operations on blocks of source code.</p>
+<h2 id="highlight-macros">Highlight Macros</h2>
+<p>The file “<a href="./Highlight.pp"><code>Highlight.pp</code></a>” contains the macros for integrating Highlight in pandoc workflow. It was taken from the “Pandoc Goodies” project, this file being one of the various macros modules that make up the <em>PP-Macros Library</em> subproject hosted therein:</p>
+<ul>
+<li><a href="https://github.com/tajmone/pandoc-goodies/tree/master/pp" class="uri" title="PP-Macros library at Pandoc-Goodies project">https://github.com/tajmone/pandoc-goodies/tree/master/pp</a></li>
+</ul>
+<p>If you intend using Highlight pp-macros, you are strongly adviced to check regularly the above link for updated versions of “<code>Highlight.pp</code>”. The contents of this folder are intended mainly as a starting example of how to integrate Highlight into pandoc workflow, and they may not reflect the latest release of the macros found on the Pandoc Goodies project.</p>
+<h1 id="how-it-works">How It Works</h1>
+<p>Currently, the <em>Highlight PP-Macros</em> module works only with html output. It works on all OS that support PP.</p>
+<p>There are two macros available:</p>
+<ul>
+<li><code>!HighlightFile(FILE)(LANG)[(OPTIONS)]</code> — imports and syntax-highlights and external file into the document as a raw html <code>&lt;pre&gt;&lt;code&gt;</code> block.</li>
+<li><code>!HighlightInlineTheme(THEME)</code> — retrives a Highlight theme and injects its CSS version into the document.</li>
+</ul>
+<h2 id="the-highlightfile-macro">The <code>!HighlightFile</code> Macro</h2>
+<p>The <code>!HighlightFile</code> macro takes two mandatory parameters and an optional third one:</p>
+<ol type="1">
+<li><code>FILE</code> — the name of the external source code file.</li>
+<li><code>LANG</code> — the language of the source code.</li>
+<li><code>OPTIONS</code> — additional command line options for invoking Highlight.</li>
+</ol>
+<p>The <code>LANG</code> parameter is mandatory even if the source code file has an extension known to Highlight: the macro needs <code>LANG</code> in order to write its value as the class of the <code>&lt;code&gt;</code> tag in the enclosing <code>&lt;pre&gt;&lt;code&gt;</code> block (these tags are written by the macro, not by Highlight). For example, <code>!HighlightFile(somefile.py)(python)</code> will produce:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;pre</span><span class="ot"> class=</span><span class="st">&quot;hl&quot;</span><span class="kw">&gt;&lt;code</span><span class="ot"> class=</span><span class="st">&quot;python&quot;</span><span class="kw">&gt;</span></code></pre></div>
+<p>By default, this macro invokes Highlight with the following basic options:</p>
+<ul>
+<li><code>--fragment</code> — omit document header and footer, get just the highlighted code.</li>
+<li><code>--syntax=&lt;LANG&gt;</code> — set language of source code to <code>LANG</code> parameter.</li>
+<li><code>--no-trailing-nl</code> — omit trailing newline.</li>
+<li><code>--validate-input</code> — strip BOM (if present).</li>
+</ul>
+<p>… followed by the literal string value of the <code>OPTIONS</code> parameter (if any), which must consist of options compatible with the above invocation settings, and keeping in mind that Highlight’s output will be enclosed in <code>&lt;pre&gt;&lt;code&gt;</code> tags.</p>
+<p>Since this macro outputs raw html blocks, pandoc’s built-it highlighter will ignore them. Furthermore, pandoc will still highlight any fenced (or backticked) source code block within the markdown document (ie: unless it’s explicitly invoked with the <code>--no-highlight</code> options). This allows using Highlight side by side with pandoc’s highlighter, and even benefit from dual syntax color themes (this might require some CSS tweaking, or custom stylesheets).</p>
+<h2 id="the-highlightinlinetheme-macro">The <code>!HighlightInlineTheme</code> Macro</h2>
+<p>The macro <code>!HighlightInlineTheme</code> offers a quick solution for theming Highlight code without having to first export a theme to CSS (via Highlight) and then import it back into the final document as an external CSS file v(ia pandoc): the macro imports a Highlight theme directly into the document, as an inline CSS stylesheet.</p>
+<p>It takes a single mandatory parameter:</p>
+<ol type="1">
+<li><code>THEME</code> — the Hihglight theme name to import.</li>
+</ol>
+<p>It invokes Highlight with the following options:</p>
+<ul>
+<li><code>--print-style</code> — print stylesheet only.</li>
+<li><code>--style=&lt;THEME&gt;</code> — select the <code>THEME</code> colour style (theme).</li>
+<li><code>--stdout</code> — print output result to STDOUT.</li>
+</ul>
+<p>The macros encloses Highlight’s CSS output within <code>&lt;style type=&quot;text/css&quot;&gt;</code> tags.</p>
+<p>This macro can be invoked anywhere in the document and will apply to all Highlight code blocks (one theme per document). The imported theme will not affect code blocks highlighted by pandoc.</p>
+<p>Pandoc’s built-in highlighting styles might or might not interfere with imported Highlight themes, depending on the style’s definition ( pandoc’s default style, <code>pygments</code>, usually doesn’t interfere because it doesn’t set a background color). In some cases, slight adjustments to Highlight’s CSS are required to preserve styling integrity.</p>
+<h1 id="example-files">Example Files</h1>
+<ul>
+<li><code>build-example.bat</code> — The batch script to build the example file.</li>
+<li><code>example.md</code> — The example source file (markdown + PP macros).</li>
+<li><code>example-preprocessed.md</code> — The PP-preprocessed version <code>example.md</code>.</li>
+<li><code>example.html</code> — The html conversion of <code>example-preprocessed.md</code> via pandoc.</li>
+<li><code>example.pb</code> — The external source code file example (PureBASIC).</li>
+<li><code>Highlight.pp</code> — The required PP macros file.</li>
+</ul>
+<p>Ensure that pandoc, PP and Highlight are available on the system <code>PATH</code>, then execute the <code>build-example.bat</code> script.</p>
+<p>The script issues two commands:</p>
+<pre class="bat"><code>pp -import Highlight.pp example.md &gt; example-preprocessed.md
+pandoc example-preprocessed.md -o example.html</code></pre>
+<div class="flash-messages">
+<div class="flash">
+<p><strong>LINUX NOTE</strong> — These two commands will also work on Linux: just type them in the terminal.</p>
+</div>
+</div>
+<p>The first line invokes <code>pp</code> and tells it to <code>-import</code> the contents of <code>Highlight.pp</code> (so that the macros herein defined are loaded in the current environment) and then process the file <code>example.md</code>. Since PP outputs to <code>STDOUT</code>, we redirect (<code>&gt;</code>) its output to <code>example-preprocessed.md</code>.</p>
+<p>If you open <code>example-preprocessed.md</code> in a text editor you’ll see how the macros inside <code>example.md</code> were expanded.</p>
+<p>The second line invokes <code>pandoc</code> and tells it to convert <code>example-preprocessed.md</code> and write the output (<code>-o</code>) to the <code>example.html</code> file (pandoc is smart enough to deduce the desired input and output formats from the files’ extensions).</p>
+<p>In a real work scenario, you would carry out the above task with a single command line, by piping (<code>|</code>) PP’s output directly to pandoc instead of writing it to the <code>example-preprocessed.md</code> file:</p>
+<pre class="bat"><code>pp -import Highlight.pp example.md | pandoc -f markdown -o example.html</code></pre>
+<p>For learning purposes, <code>build-example.bat</code> writes to disk the intermediate preprocessed markdown file, so that you may examine how the macros are expanded by PP before feeding them to pandoc.</p>
+<h1 id="external-links">External Links</h1>
+<ul>
+<li><a href="http://pandoc.org" class="uri" title="Pandoc homepage">http://pandoc.org</a></li>
+<li><a href="http://cdsoft.fr/pp/" class="uri" title="PP homepage">http://cdsoft.fr/pp/</a></li>
+<li><a href="https://github.com/tajmone/pandoc-goodies/tree/master/pp#highlight" class="uri" title="Highlight pp-macros at Pandoc-Goodies project">https://github.com/tajmone/pandoc-goodies/tree/master/pp#highlight</a></li>
+</ul>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is the state of things with pandoc v1; with the upcoming release of pandoc version 2 this will change (see <a href="https://github.com/jgm/pandoc/issues/3334">#3334</a>) as dynamic loading of syntax definitions will be supported via the new built-in highlighter. Even so, using Highlight with pandoc will still be possible and desirable because of the features offered by Highlight plugins, or because of syntax definitions not available for pandoc.<a href="#fnref1">↩</a></p></li>
+</ol>
+</section>
+</article>
+</body>
+</html>

@@ -1143,6 +1143,7 @@ bool CodeGenerator::processSyntaxChangeState(State myState)
             if (!nestedLangs.empty()) {
                 loadLanguage(nestedLangs.top(), true);
             }
+            matchRegex(line, EMBEDDED_CODE_BEGIN); // match remaining line using the host syntax
         }
         
         printMaskedToken ( newState!=_WS );

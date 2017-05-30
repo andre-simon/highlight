@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.36 --------------------------- Maerz 2017 ---
+---  HIGHLIGHT MANUAL - Version 3.37 ----------------------------- Mai 2017 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -21,6 +21,7 @@ INHALT
    2.4 EIN- UND AUSGABE
    2.5 GNU SOURCE-HIGHLIGHT KOMPATIBILITAET
    2.6 FORTGESCHRITTENE OPTIONEN
+   2.7 UMGEBUNGSVARIABLEN
 
 3. KONFIGURATION
    3.1 DATEIFORMAT
@@ -34,9 +35,10 @@ INHALT
 
 4. HIGHLIGHT INTEGRIEREN
    4.1 BEISPIELSKRIPTE
-   4.2 SWIG
-   4.3 TCL
-   4.4 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
+   4.2 PANDOC
+   4.3 SWIG
+   4.4 TCL
+   4.5 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
 
 5. KOMPILIEREN UND INSTALLIEREN
    5.1 VORKOMPILIERTE PAKETE
@@ -450,6 +452,15 @@ Portable GUI (Windows build)
 Starten Sie highlight-gui.exe mit der --portable Option, damit die
 Konfiguration in Textdateien und nicht in der Registry gespeichert wird.
 
+2.7 ENVIRONMENT VARIABLES
+-------------------------------------------------------------------------------
+
+Die Kommandozeilenversion beruecksichtigt folgende Variablen:
+
+HIGHLIGHT_DATADIR: setzt den Pfad zum Konfigurationsverzeichnis
+HIGHLIGHT_OPTIONS: kann Kommandozeilenoptionen enthalten, aber keine Pfade zu 
+                   Eingabedateien
+
 
 3. KONFIGURATION
 -------------------------------------------------------------------------------
@@ -823,9 +834,6 @@ enthalten:
 Eine eigene filetypes.conf kann direkt in in ~/.highlight/ gespeichert werden.
 Diese Suchreihenfolge vereinfacht die Erweiterung und Anpassung bestehender
 Skripte, ohne vorinstallierte Dateien umkopieren zu muessen.
-Da die plug-in Option aelterer Versionen nur absolute Pfade akzeptierte, werden
-die angegebenen Skripte nur dann in den obigen Verzeichnissen gesucht wenn
-der Zugriff auf den absoluten Pfad fehlschlaegt.
 
 
 4. HIGHLIGHT EINBETTEN
@@ -838,20 +846,25 @@ Im /examples Unterverzeichnis befinden sich Beispielskripte in PHP, Perl und
 Python, die highlight aufrufen und die Ausgabe als String auswerten. Diese
 Skripte koennen als Ausgangspunkt fuer neue Erweiterungen genutzt werden.
 
-4.2 SWIG
+4.2 PANDOC
+-------------------------------------------------------------------------------
+
+PP Makros und eine Anleitung dazu liegen in /examples/pandoc.
+
+4.3 SWIG
 -------------------------------------------------------------------------------
 
 Eine SWIG Interface-Datei befindet sich in /examples/swig.
 Installationshinweise finden Sie in README_SWIG, Programmierbeispiele in
 den vorhandenen Skripten.
 
-4.3 TCL
+4.4 TCL
 -------------------------------------------------------------------------------
 
 Eine TCL-Erweiterung befindet sich in /examples/tcl.
 Installationshinweise finden Sie in README_TCL.
 
-4.4 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
+4.5 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
 -------------------------------------------------------------------------------
 
 Im /examples/web_plugins Unterverzeichnis der highlight-Installation befinden

@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.36 --------------------------- March 2017 ---
+---  HIGHLIGHT MANUAL - Version 3.37 ----------------------------- May 2017 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -21,6 +21,7 @@ CONTENT
    2.4 INPUT AND OUTPUT
    2.5 GNU SOURCE-HIGHLIGHT COMPATIBILITY
    2.6 ADVANCED OPTIONS
+   2.7 ENVIRONMENT VARIABLES
 
 3. CONFIGURATION
    3.1 FILE FORMAT
@@ -34,9 +35,10 @@ CONTENT
 
 4. EMBEDDING HIGHLIGHT
    4.1 SAMPLE SCRIPTS
-   4.2 SWIG
-   4.3 TCL
-   4.4 THIRD PARTY SCRIPTS AND PLUG-INS
+   4.2 PANDOC
+   4.3 SWIG
+   4.4 TCL
+   4.5 THIRD PARTY SCRIPTS AND PLUG-INS
 
 5. BUILDING AND INSTALLING
    5.1 PRECOMPILED PACKAGES
@@ -438,6 +440,15 @@ Invoke highlight-gui.exe with the --portable switch to save its configuration
 in text files instead of the registry.
 
 
+2.7 ENVIRONMENT VARIABLES
+-------------------------------------------------------------------------------
+
+The command line version recognizes these variables:
+
+HIGHLIGHT_DATADIR: sets the path to highlight's configuration scripts
+HIGHLIGHT_OPTIONS: may contain command line options, but no input file paths.
+
+
 3. CONFIGURATION
 -------------------------------------------------------------------------------
 
@@ -800,9 +811,6 @@ These subdirectories are expected to contain the corresponding scripts:
 A custom filetypes.conf may be placed directly in ~/.highlight/.
 This search order enables you to enhance the installed scripts without the need
 to copy preinstalled files somewhere else.
-As the --plug-in option of older releases accepted absolute paths only, the 
-given plugin scripts will be searched in the directories above only if the
-absolute file path access fails.
 
 
 4. EMBEDDING HIGHLIGHT
@@ -815,21 +823,27 @@ See the examples subdirectory in the highlight package for some scripts in PHP,
 Perl and Python  which invoke highlight and retrieve its output as string.
 These scripts may be used as reference to develop plug-ins for other apps.
 
-4.2 SWIG
+4.2 PANDOC
+-------------------------------------------------------------------------------
+
+PP macros file and tutorial are located in /examples/pandoc.
+See README.html for usage instruction and example files as reference.
+
+4.3 SWIG
 -------------------------------------------------------------------------------
 
 A SWIG interface file is located in /examples/swig.
 See README_SWIG for installation instructions and the example scripts as
 programming reference.
 
-4.3 TCL
+4.4 TCL
 -------------------------------------------------------------------------------
 
 A TCL extension is located in /examples/tcl.
 See README_TCL for installation instructions.
 
 
-4.4 THIRD PARTY SCRIPTS AND PLUG-INS
+4.5 THIRD PARTY SCRIPTS AND PLUG-INS
 -------------------------------------------------------------------------------
 
 See the /examples/web_plugins subdirectory in the highlight package for

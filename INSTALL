@@ -20,8 +20,10 @@ Content
 root of highlight-x.x
 |
 |-- examples            # examples for highlight scripting
-|   |-- web_plugins     # plugins for various web toolkits
+|   |-- json            # Lua to JSON converters
+|   |-- pandoc          # Pandoc macros
 |   |-- tcl             # TCL extension
+|   |-- web_plugins     # plugins for various web toolkits
 |   `-- swig            # SWIG interface and sample code
 |-- gui_files           # supporting files for the optional GUI
 |   |-- ext             # file open filter configuration
@@ -209,3 +211,9 @@ mintsystem provides: /usr/local/bin/highlight
 Calling this script with the true highlight command line options will have no effect. 
 See bug tracker items: https://bugs.launchpad.net/linuxmint/+bug/593583 and
                        https://bugs.launchpad.net/linuxmint/+bug/815005
+                       
+OpenSUSE Leap 42.2 
+
+The lua-devel package installation causes error messages. 
+Workaround: ignore dependency conflict.
+

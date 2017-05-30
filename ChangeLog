@@ -1,6 +1,21 @@
 CHANGELOG Highlight
 
 
+highlight 3.37
+
+30.05.2017
+
+-fixed Perl string highlighting issue
+-fixed highlighting if a line continues after the nested code delimiter
+-updated astyle code to release 3.0
+-added examples/pandoc (thanks to Tristano Ajmone)
+-added syntax mapping for markdown (https://github.com/andre-simon/highlight/issues/11)
+-added syntax mapping for clj (https://github.com/andre-simon/highlight/issues/15)
+-improved Java definition (https://github.com/andre-simon/highlight/issues/13)
+-added theme to JSON converter in  examples/json (https://github.com/andre-simon/highlight/issues/8)
+-CLI: added support for environment variable HIGHLIGHT_OPTIONS (https://github.com/andre-simon/highlight/issues/17)
+
+---
 highlight 3.36
 
 30.03.2017

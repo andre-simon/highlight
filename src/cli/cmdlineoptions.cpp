@@ -2,7 +2,7 @@
                           cmdlineoptions.cpp  -  description
                              -------------------
     begin                : Sun Nov 25 2001
-    copyright            : (C) 2001-2016 by Andre Simon
+    copyright            : (C) 2001-2017 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -28,62 +28,13 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include "datadir.h"
 #include <sstream>
 #include <cstdio>
+#include <list>
 
 #include "arg_parser.h"
 
 using namespace std;
 
-CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
-    numberSpaces ( 0 ),
-    lineNrWidth ( 5 ),
-    lineLength ( 80 ),
-    lineNrStart ( 1 ),
-    wrappingStyle ( highlight::WRAP_DISABLED ),
-    outputType ( highlight::HTML ),
-    keywordCase ( StringTools::CASE_UNCHANGED ),
-    baseFontSize("10"),
-    className ( "hl" ),
-    opt_syntax ( false ),
-    opt_include_style ( false ),
-    opt_help ( false ),
-    opt_version ( false ),
-    opt_verbose ( false ),
-    opt_print_config ( false ),
-    opt_linenumbers ( false ),
-    opt_style ( false ),
-    opt_batch_mode ( false ),
-    opt_fragment ( false ) ,
-    opt_attach_line_anchors ( false ),
-    opt_show_themes ( false ),
-    opt_show_langdefs ( false ),
-    opt_show_plugins (false),
-    opt_printindex ( false ),
-    opt_quiet ( false ),
-    opt_replacequotes ( false ),
-    opt_babel ( false ),
-    opt_print_progress ( false ),
-    opt_fill_zeroes ( false ),
-    opt_stylepath_explicit ( false ),
-    opt_force_output ( false ),
-    opt_ordered_list ( false ),
-    opt_fnames_as_anchors ( false ),
-    opt_validate ( false ),
-    opt_number_wrapped_lines ( true ),
-    opt_inline_css ( false ),
-    opt_enclose_pre ( false ),
-    opt_char_styles ( false ),
-    opt_page_color(false),
-    opt_pretty_symbols ( false ),
-    opt_delim_CR (false),
-    opt_print_style(false),
-    opt_no_trailing_nl(false),
-    opt_keep_injections(false),
-    opt_force_stdout(false),
-    anchorPrefix ( "l" ),
-    helpLang ( "en" ),
-    encodingName ( "ISO-8859-1" )
-{
-    enum Optcode {
+enum Optcode {
         S_OPT_ENCLOSE_PRE = 256, S_OPT_FORCE_OUTPUT,
         S_OPT_INLINE_CSS, S_OPT_KW_CASE,
         S_OPT_PRINT_CONFIG, S_OPT_TEST_INPUT, S_OPT_NO_NUMBER_WL,
@@ -99,7 +50,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         S_OPT_KEEP_INJECTIONS, S_OPT_FORCE_STDOUT
     };
 
-    const Arg_parser::Option options[] = {
+const Arg_parser::Option options[] = {
         { 'a', OPT_ANCHORS,        Arg_parser::no  },
         { 'b', OPT_BABEL,          Arg_parser::no  },
         { 'B', OPT_BATCHREC,       Arg_parser::yes },
@@ -182,11 +133,109 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
     };
 
 
+
+CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
+    numberSpaces ( 0 ),
+    lineNrWidth ( 5 ),
+    lineLength ( 80 ),
+    lineNrStart ( 1 ),
+    wrappingStyle ( highlight::WRAP_DISABLED ),
+    outputType ( highlight::HTML ),
+    keywordCase ( StringTools::CASE_UNCHANGED ),
+    baseFontSize("10"),
+    className ( "hl" ),
+    opt_syntax ( false ),
+    opt_include_style ( false ),
+    opt_help ( false ),
+    opt_version ( false ),
+    opt_verbose ( false ),
+    opt_print_config ( false ),
+    opt_linenumbers ( false ),
+    opt_style ( false ),
+    opt_batch_mode ( false ),
+    opt_fragment ( false ) ,
+    opt_attach_line_anchors ( false ),
+    opt_show_themes ( false ),
+    opt_show_langdefs ( false ),
+    opt_show_plugins (false),
+    opt_printindex ( false ),
+    opt_quiet ( false ),
+    opt_replacequotes ( false ),
+    opt_babel ( false ),
+    opt_print_progress ( false ),
+    opt_fill_zeroes ( false ),
+    opt_stylepath_explicit ( false ),
+    opt_force_output ( false ),
+    opt_ordered_list ( false ),
+    opt_fnames_as_anchors ( false ),
+    opt_validate ( false ),
+    opt_number_wrapped_lines ( true ),
+    opt_inline_css ( false ),
+    opt_enclose_pre ( false ),
+    opt_char_styles ( false ),
+    opt_page_color(false),
+    opt_pretty_symbols ( false ),
+    opt_delim_CR (false),
+    opt_print_style(false),
+    opt_no_trailing_nl(false),
+    opt_keep_injections(false),
+    opt_force_stdout(false),
+    anchorPrefix ( "l" ),
+    helpLang ( "en" ),
+    encodingName ( "ISO-8859-1" )
+{
+    char* hlEnvOptions=getenv("HIGHLIGHT_OPTIONS");
+    if (hlEnvOptions!=NULL) {
+        std::ostringstream envos;
+        envos<<argv[0]<<" "<<hlEnvOptions;
+        std::istringstream ss( envos.str());
+        std::string arg;
+        std::list<std::string> ls;
+        std::vector<char*> options;
+        while (ss >> arg)
+        {
+            ls.push_back(arg); 
+            options.push_back(const_cast<char*>(ls.back().c_str()));
+        }
+        options.push_back(0); 
+        parseRuntimeOptions(options.size()-1, (const char**) &options[0], false);
+    }
+    
+    parseRuntimeOptions(argc, argv);
+    
+    if ( skipArg.size() && inputFileNames.size() > 1) {
+        istringstream valueStream;
+        string elem;
+        valueStream.str ( StringTools::change_case ( skipArg,StringTools::CASE_LOWER ) );
+
+        while ( getline ( valueStream, elem, ';' ) ) {
+            ignoredFileTypes.insert ( elem );
+        }
+       
+        vector<string>::iterator file=inputFileNames.begin();
+        while ( file!=inputFileNames.end()) {
+            for ( set<string>::iterator ext=ignoredFileTypes.begin(); ext!=ignoredFileTypes.end(); ext++ ) {
+                if (file!=inputFileNames.end() && StringTools::endsWith(  *file, *ext )) {
+                    file = inputFileNames.erase ( file );
+                    break;
+                }
+            }
+            if (file!=inputFileNames.end())
+                file++;
+        }
+    }
+}
+
+CmdLineOptions::~CmdLineOptions() {}
+
+void CmdLineOptions::parseRuntimeOptions( const int argc, const char *argv[], bool readInputFilenames) {
+    
+
     Arg_parser parser ( argc, argv, options );
     if ( parser.error().size() ) { // bad option
         cerr << "highlight: "<< parser.error() <<"\n";
-        cerr << "Try `highlight --help' for more information.\n";
-        exit ( 1 );
+        cerr << "Try 'highlight --help' for more information.\n";
+        exit ( EXIT_FAILURE );
     }
     
     int argind = 0;
@@ -460,40 +509,18 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
         }
     }
 
-    if ( argind < parser.arguments() ) { //still args left
-        if ( inputFileNames.empty() ) {
-            while ( argind < parser.arguments() ) {
-                inputFileNames.push_back ( parser.argument ( argind++ ) );
-            }
-        }
-    } else if ( inputFileNames.empty() ) {
-        inputFileNames.push_back ( "" );
-    }
-
-    if ( skipArg.size() && inputFileNames.size() > 1) {
-        istringstream valueStream;
-        string elem;
-        valueStream.str ( StringTools::change_case ( skipArg,StringTools::CASE_LOWER ) );
-
-        while ( getline ( valueStream, elem, ';' ) ) {
-            ignoredFileTypes.insert ( elem );
-        }
-       
-        vector<string>::iterator file=inputFileNames.begin();
-        while ( file!=inputFileNames.end()) {
-            for ( set<string>::iterator ext=ignoredFileTypes.begin(); ext!=ignoredFileTypes.end(); ext++ ) {
-                if (file!=inputFileNames.end() && StringTools::endsWith(  *file, *ext )) {
-                    file = inputFileNames.erase ( file );
-                    break;
+    if (readInputFilenames) {
+        if ( argind < parser.arguments() ) { //still args left
+            if ( inputFileNames.empty() ) {
+                while ( argind < parser.arguments() ) {
+                    inputFileNames.push_back ( parser.argument ( argind++ ) );
                 }
             }
-            if (file!=inputFileNames.end())
-                file++;
+        } else if ( inputFileNames.empty() ) {
+            inputFileNames.push_back ( "" );
         }
     }
 }
-
-CmdLineOptions::~CmdLineOptions() {}
 
 const string &CmdLineOptions::getSingleOutFilename()
 {
