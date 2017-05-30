@@ -3,8 +3,10 @@ CHANGELOG Highlight
 
 highlight 3.37
 
-29.05.2017
+30.05.2017
 
+-fixed Perl string highlighting issue
+-fixed highlighting if a line continues after the nested code delimiter
 -updated astyle code to release 3.0
 -added examples/pandoc (thanks to Tristano Ajmone)
 -added syntax mapping for markdown (https://github.com/andre-simon/highlight/issues/11)

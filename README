@@ -443,10 +443,10 @@ in text files instead of the registry.
 2.7 ENVIRONMENT VARIABLES
 -------------------------------------------------------------------------------
 
-The command line versuin recognizes these variables:
+The command line version recognizes these variables:
 
 HIGHLIGHT_DATADIR: sets the path to highlight's configuration scripts
-HIGHLIGHT_OPTIONS: may contain command line options, but no input file paths
+HIGHLIGHT_OPTIONS: may contain command line options, but no input file paths.
 
 
 3. CONFIGURATION

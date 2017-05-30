@@ -212,9 +212,8 @@ Calling this script with the true highlight command line options will have no ef
 See bug tracker items: https://bugs.launchpad.net/linuxmint/+bug/593583 and
                        https://bugs.launchpad.net/linuxmint/+bug/815005
                        
-                       
 OpenSUSE Leap 42.2 
 
 The lua-devel package installation causes error messages. 
-The Dependency conflict may be ignored.
+Workaround: ignore dependency conflict.
 
