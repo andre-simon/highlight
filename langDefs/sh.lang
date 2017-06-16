@@ -61,6 +61,8 @@ Comments={
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-]]
 
+-- FIXME: : ${SHELL="${CONFIG_SHELL-/bin/sh}"}
+
 function OnStateChange(oldState, newState, token)
 
    if oldState==HL_STRING and token==hereDoc then
@@ -71,7 +73,7 @@ function OnStateChange(oldState, newState, token)
    if  (string.sub(token,1,1) =="$" )  and oldState==HL_STRING and newState==HL_KEYWORD then
       return HL_INTERPOLATION
    end
-
+    
   if hereDoc~=nil then
     return HL_STRING
    end
@@ -80,6 +82,6 @@ function OnStateChange(oldState, newState, token)
    if oldState==HL_STANDARD and newState==HL_STRING and not string.find("\"'`", token) then
       hereDoc = string.match(token, "<<%-?'?%s*([%-%a%d_]+)" )
     end
-
+    
    return newState
 end
