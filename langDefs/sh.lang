@@ -34,9 +34,9 @@ Keywords={
         "printenv", "lp", "tee", "mkfifo", "pathchk", "dd", "od", "hexdump", "m4"},
   },
   
-  -- FIXME issue with expressions like ${SHELL="${CONFIG_SHELL-/bin/sh}"}
+  -- fixes issue with expressions like ${SHELL="${CONFIG_SHELL-/bin/sh}"}
   { Id=4,
-    Regex=[[\$\{.+?\}]],
+    Regex=[[\$\{.+\$\{.+?\}.+?\}|\$\{.+?\} ]],
   },
   { Id=4,
     Regex=[[ \$[\w\#]+ ]],
@@ -60,8 +60,6 @@ Comments={
 }
 
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-]]
-
--- FIXME: : ${SHELL="${CONFIG_SHELL-/bin/sh}"}
 
 function OnStateChange(oldState, newState, token)
 
