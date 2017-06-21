@@ -1,6 +1,15 @@
 CHANGELOG Highlight
 
 
+highlight 3.38
+
+20.06.2017
+
+-fixed Bash variable highlighting issue
+-updated astyle code to release 3.0.1 (https://sourceforge.net/p/astyle/bugs/438/)
+-added bash_ref_man7_org.lua plugin
+
+---
 highlight 3.37
 
 30.05.2017
