@@ -1,7 +1,7 @@
 
 Description="Smalltalk"
 
-Digits=[[ (?:0x|0X)[0-9a-fA-F]+|\d*[\.]?\d+(?:[eE][\-\+]\\d+)?[lLuU]?|\$[\w\$\#\'\"\-] ]]
+Digits=[[ (?:0x|0X)[0-9a-fA-F]+|\d*[\.]?\d+(?:[eE][\-\+]\\d+)?[lLuU]?|\$[\w\$\#\'\-] ]]
 
 Keywords={
   { Id=1,
