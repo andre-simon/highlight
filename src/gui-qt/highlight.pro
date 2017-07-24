@@ -30,7 +30,9 @@ FORMS += mainwindow.ui \
     syntax_chooser.ui
 
 RESOURCES = highlight-gui.qrc
-TRANSLATIONS = highlight_de_DE.ts highlight_es_ES.ts highlight_cs_CZ.ts  highlight_zh_CN.ts  highlight_it_IT.ts
+TRANSLATIONS = highlight_de_DE.ts highlight_es_ES.ts highlight_cs_CZ.ts  highlight_zh_CN.ts
+
+
 
 QMAKE_CXXFLAGS += -std=c++11
 
@@ -55,26 +57,26 @@ unix {
 }
 
 win32 {
-    DESTDIR = ..\\..\\..
+    DESTDIR = ../..
 
     INCLUDEPATH += d:/devel/cpp/lua_bin_5.3.0
-    INCLUDEPATH += ..\\..\\include
+    INCLUDEPATH += ../../include
     INCLUDEPATH += d:/devel/cpp/boost_1_61_0
 
     DEFINES += WIN32
     CONFIG += static
     
     LIBS += -LD:\Devel\cpp\highlight\src -lhighlight
-    LIBS += -LD:\Devel\cpp\lua_bin_5.3.0 -llua
+    #LIBS += -LD:\Devel\cpp\lua_bin_5.3.0 -llua
+    LIBS += -LD:\Devel\cpp\lua_bin_5.3.0_x64 -llua
 
     RC_FILE = highlight-gui.rc
     QMAKE_POST_LINK = $$quote(D:\Devel\upx393w\upx.exe --best D:\Devel\cpp\highlight\highlight-gui.exe)
 }
 
 macx-clang {
-
-    QMAKE_CC = clang
-    QMAKE_CXX = clang++
+QMAKE_CC = clang
+QMAKE_CXX = clang++
     INCLUDEPATH+=/usr/local/Cellar/lua/5.2.4_4/include/
     INCLUDEPATH += ../../include
     INCLUDEPATH+=/usr/local/Cellar/boost/1.62.0/include
