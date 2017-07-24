@@ -122,6 +122,7 @@ void printHelp()
     cout<<"\n";
     cout<<" -b, --babel                    disable Babel package shorthands\n";
     cout<<" -r, --replace-quotes           replace double quotes by \\dq{}\n";
+    cout<<"     --beamer                   replace newline sequence for the Beamer package\n";
     cout<<"     --pretty-symbols           improve appearance of brackets and other symbols\n";
     cout<<"\n";
     cout<<"\n";

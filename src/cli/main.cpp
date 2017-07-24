@@ -435,7 +435,8 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->setLATEXReplaceQuotes ( options.replaceQuotes() );
     generator->setLATEXNoShorthands ( options.disableBabelShorthands() );
     generator->setLATEXPrettySymbols ( options.prettySymbols() );
-
+    generator->setLATEXBeamerMode ( options.enableBeamerMode() );
+    
     generator->setRTFPageSize ( options.getPageSize() );
     generator->setRTFCharStyles ( options.includeCharStyles() );
     generator->setRTFPageColor ( options.includePageColor() );

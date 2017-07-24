@@ -47,12 +47,12 @@ enum Optcode {
         S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
         S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH,
         S_OPT_PLUGIN_READFILE, S_OPT_PLUGIN_PARAMETER, S_LIST_SCRIPTS,
-        S_OPT_KEEP_INJECTIONS, S_OPT_FORCE_STDOUT
+        S_OPT_KEEP_INJECTIONS, S_OPT_FORCE_STDOUT, S_OPT_LATEX_BEAMER
     };
 
 const Arg_parser::Option options[] = {
         { 'a', OPT_ANCHORS,        Arg_parser::no  },
-        { 'b', OPT_BABEL,          Arg_parser::no  },
+        { 'b', OPT_LATEX_BABEL,    Arg_parser::no  },
         { 'B', OPT_BATCHREC,       Arg_parser::yes },
         { 'c', OPT_STYLE_OUT,      Arg_parser::yes },
         { 'C', OPT_INDEXFILE,      Arg_parser::no  },
@@ -122,6 +122,7 @@ const Arg_parser::Option options[] = {
         { S_OPT_NO_TRAILING_NL,   OPT_NO_TRAILING_NL,  Arg_parser::no },
         { S_OPT_KEEP_INJECTIONS,  OPT_KEEP_INJECTIONS, Arg_parser::no },
         { S_OPT_FORCE_STDOUT,     OPT_FORCE_STDOUT,    Arg_parser::no },
+        { S_OPT_LATEX_BEAMER,     OPT_LATEX_BEAMER,    Arg_parser::no },
 
         { S_OPT_PLUGIN,           OPT_PLUGIN,          Arg_parser::yes },
         { S_OPT_PLUGIN_READFILE,  OPT_PLUGIN_READFILE, Arg_parser::yes },
@@ -162,6 +163,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
     opt_quiet ( false ),
     opt_replacequotes ( false ),
     opt_babel ( false ),
+    opt_beamer ( false ),
     opt_print_progress ( false ),
     opt_fill_zeroes ( false ),
     opt_stylepath_explicit ( false ),
@@ -464,6 +466,9 @@ void CmdLineOptions::parseRuntimeOptions( const int argc, const char *argv[], bo
         case S_OPT_PRETTY_SYMBOLS:
             opt_pretty_symbols = true;
             break;
+        case S_OPT_LATEX_BEAMER:
+            opt_beamer = true;
+            break;
         case S_OPT_COMPAT_DOC:
             opt_fragment = false;
             break;
@@ -686,6 +691,10 @@ bool CmdLineOptions::replaceQuotes() const
 bool CmdLineOptions::disableBabelShorthands() const
 {
     return opt_babel;
+}
+bool CmdLineOptions::enableBeamerMode() const
+{
+    return opt_beamer;
 }
 bool CmdLineOptions::prettySymbols() const
 {

@@ -47,7 +47,8 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_ANCHORS        "anchors"
 #define OPT_ANCHOR_FN      "anchor-filename"
 #define OPT_ANCHOR_PFX     "anchor-prefix"
-#define OPT_BABEL          "babel"
+#define OPT_LATEX_BABEL    "babel"
+#define OPT_LATEX_BEAMER   "beamer"
 #define OPT_BASE_FONT      "font"
 #define OPT_BASE_FONT_SIZE "font-size"
 #define OPT_BATCHREC       "batch-recursive"
@@ -224,6 +225,9 @@ public:
 
     /** \return True if shorthands of LaTeX Babel package should be disabled*/
     bool disableBabelShorthands() const;
+    
+    /** \return True if support for the Beamer package should be enabled*/
+    bool enableBeamerMode() const;
 
     /** \return True if input file name should be used as anchor name */
     bool useFNamesAsAnchors() const;
@@ -415,6 +419,7 @@ private:
     bool opt_quiet;
     bool opt_replacequotes;
     bool opt_babel;
+    bool opt_beamer;
     bool opt_print_progress;
     bool opt_fill_zeroes;
     bool opt_stylepath_explicit;

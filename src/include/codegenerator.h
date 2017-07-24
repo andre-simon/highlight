@@ -411,6 +411,8 @@ public:
      */
     virtual void setLATEXPrettySymbols ( bool )  {};
 
+    virtual void setLATEXBeamerMode ( bool )  {};
+        
     /** set RTF page size
      */
     virtual void setRTFPageSize ( const string& )  {};
