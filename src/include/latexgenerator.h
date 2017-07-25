@@ -85,7 +85,8 @@ public:
     */
     void setLATEXBeamerMode ( bool b )
     {
-       newLineTag = b ? "\n" : "\\\\\n";
+       beamerMode = b;
+       newLineTag = beamerMode ? "\n\n" : "\\\\\n";
        longLineTag = "\\hspace*{\\fill}" + newLineTag;
     }
 
@@ -122,6 +123,8 @@ private:
 
     /** test if symbols like <,>,{,},~ should be replaced by nicer definitions */
     bool prettySymbols;
+    
+    bool beamerMode;
     
     string getNewLine();
 
