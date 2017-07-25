@@ -53,7 +53,7 @@ LatexGenerator::~LatexGenerator()
 
 void LatexGenerator::printBody()
 {
-    if (!beamerMode)
+   // if (!beamerMode)
         *out << "\\noindent\n" ;
     if ( ! this->getBaseFont().empty() )
         *out << "\\" << this->getBaseFont() << "\n" ;
