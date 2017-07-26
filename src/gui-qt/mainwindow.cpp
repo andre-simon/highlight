@@ -1392,3 +1392,9 @@ void MainWindow::on_lvPluginScripts_currentRowChanged(int currentRow)
         QMessageBox::warning(this, "Plug-In error", QString::fromStdString( err.what()));
     }
 }
+
+void MainWindow::on_pbCopyAndPaste_clicked()
+{
+    ui->pbPasteFromCB->click();
+    ui->pbCopyToCP->click();
+}

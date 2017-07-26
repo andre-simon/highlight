@@ -320,18 +320,18 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+3"/>
-        <location line="+251"/>
+        <location line="+277"/>
         <source>Clear selection</source>
         <translation>移除选中项</translation>
     </message>
     <message>
-        <location line="-244"/>
+        <location line="-270"/>
         <source>Remove all input files.</source>
         <translation>清除所有输入文件.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+251"/>
+        <location line="+277"/>
         <source>Clear all</source>
         <translation>移除所有</translation>
     </message>
@@ -340,7 +340,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Destino de salida</translation>
     </message>
     <message>
-        <location line="-212"/>
+        <location line="-238"/>
         <source>Output directory</source>
         <translation>输出目录</translation>
     </message>
@@ -351,7 +351,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+3"/>
-        <location line="+267"/>
+        <location line="+293"/>
         <location line="+558"/>
         <location line="+242"/>
         <location line="+108"/>
@@ -360,7 +360,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation>...</translation>
     </message>
     <message>
-        <location line="-1461"/>
+        <location line="-1487"/>
         <source>Save output in the input file directories.</source>
         <translation>将输出保存在输入路径中.</translation>
     </message>
@@ -374,7 +374,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Opciones de salida</translation>
     </message>
     <message>
-        <location line="+293"/>
+        <location line="+319"/>
         <source>General</source>
         <translation>通用</translation>
     </message>
@@ -800,12 +800,12 @@ See ctags.sf.net for details.</source>
         <translation>编码设置：</translation>
     </message>
     <message>
-        <location line="-557"/>
+        <location line="-583"/>
         <source>Output destination:</source>
         <translation>输出路径：</translation>
     </message>
     <message>
-        <location line="+783"/>
+        <location line="+809"/>
         <location line="+251"/>
         <location line="+108"/>
         <location line="+295"/>
@@ -825,7 +825,7 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">读取ctags文件：</translation>
     </message>
     <message>
-        <location line="-1704"/>
+        <location line="-1730"/>
         <source>Highlight</source>
         <translation>Highlight</translation>
     </message>
@@ -835,7 +835,7 @@ See ctags.sf.net for details.</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location line="+213"/>
+        <location line="+231"/>
         <source>Paste clipboard content into the preview window.</source>
         <translation>将剪贴板中的代码粘贴到预览窗口.</translation>
     </message>
@@ -846,7 +846,7 @@ See ctags.sf.net for details.</source>
         <translation type="unfinished">从剪贴板获取代码</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+17"/>
         <source>Copy highlighted code into the clipboard.</source>
         <translation>将高亮代码复制到剪贴板.</translation>
     </message>
@@ -857,12 +857,12 @@ See ctags.sf.net for details.</source>
         <translation type="unfinished">将预览结果复制到剪贴板</translation>
     </message>
     <message>
-        <location line="-25"/>
+        <location line="-39"/>
         <source>Select syntax:</source>
         <translation>代码语言：</translation>
     </message>
     <message>
-        <location line="-275"/>
+        <location line="-261"/>
         <source>Wi&amp;ndows</source>
         <oldsource>&amp;Windows</oldsource>
         <translation type="unfinished">窗口(&amp;W)</translation>
@@ -874,12 +874,12 @@ See ctags.sf.net for details.</source>
         <translation type="unfinished">代码高亮选项</translation>
     </message>
     <message>
-        <location line="+262"/>
+        <location line="+248"/>
         <source>Select the correct syntax of the code snippet.</source>
         <translation>给代码片段选择对应的语言格式.</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+79"/>
         <source>Plug-ins</source>
         <translation>插件</translation>
     </message>
@@ -1232,7 +1232,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>停靠浮动面板(&amp;D)</translation>
     </message>
     <message>
-        <location line="-2152"/>
+        <location line="-2178"/>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
@@ -1262,7 +1262,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>将输出文件内容复制到剪贴板</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+108"/>
         <source>Choose a plug-in script.</source>
         <translation>选择一个插件脚本.</translation>
     </message>
@@ -1283,7 +1283,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>移除所有插件.</translation>
     </message>
     <message>
-        <location line="-420"/>
+        <location line="-446"/>
         <source>Output progress:</source>
         <translation>输出进度：</translation>
     </message>
@@ -1298,7 +1298,22 @@ Set the width to 0 to keep tabs.</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location line="+1412"/>
+        <location line="+338"/>
+        <source>Paste code from clipboard and copy the output back in one step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Paste, Convert and Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+399"/>
+        <source>Set the output file encoding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+698"/>
         <source>Set page color</source>
         <translation type="unfinished"></translation>
     </message>

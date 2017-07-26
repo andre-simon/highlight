@@ -1,6 +1,15 @@
 CHANGELOG Highlight
 
 
+highlight 3.39
+
+25.07.2017
+
+-added syntax for Docker and Elixir
+-improved  HTML, Julia, Kotlin and Smalltalk syntax definitions
+-GUI: added "Paste, Convert and Copy" button (https://sourceforge.net/p/syntaxhighlight/support-requests/4/)
+
+---
 highlight 3.38
 
 20.06.2017

@@ -148,7 +148,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -329,7 +329,7 @@
            </property>
            <property name="font">
             <font>
-             <pointsize>10</pointsize>
+             <pointsize>11</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
@@ -363,20 +363,6 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_15">
          <item>
-          <widget class="QPushButton" name="pbPasteFromCB">
-           <property name="toolTip">
-            <string>Paste clipboard content into the preview window.</string>
-           </property>
-           <property name="text">
-            <string>Paste from clipboard (%1)</string>
-           </property>
-           <property name="icon">
-            <iconset resource="highlight-gui.qrc">
-             <normaloff>:/file.png</normaloff>:/file.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_23">
            <item>
             <widget class="QLabel" name="label_13">
@@ -395,6 +381,20 @@
           </layout>
          </item>
          <item>
+          <widget class="QPushButton" name="pbPasteFromCB">
+           <property name="toolTip">
+            <string>Paste clipboard content into the preview window.</string>
+           </property>
+           <property name="text">
+            <string>Paste from clipboard (%1)</string>
+           </property>
+           <property name="icon">
+            <iconset resource="highlight-gui.qrc">
+             <normaloff>:/file.png</normaloff>:/file.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="pbCopyToCP">
            <property name="font">
             <font>
@@ -407,6 +407,35 @@
            </property>
            <property name="text">
             <string>Copy preview to clipboard (%1)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Minimum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>10</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbCopyAndPaste">
+           <property name="toolTip">
+            <string>Paste code from clipboard and copy the output back in one step</string>
+           </property>
+           <property name="statusTip">
+            <string/>
+           </property>
+           <property name="text">
+            <string>Paste, Convert and Copy</string>
            </property>
           </widget>
          </item>

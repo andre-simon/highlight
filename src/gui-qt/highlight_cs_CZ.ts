@@ -986,6 +986,14 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
 This feature is enabled for C, C++, C# and Java code.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Paste code from clipboard and copy the output back in one step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste, Convert and Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ShowTextFile</name>
