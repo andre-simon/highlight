@@ -153,6 +153,7 @@ private slots:
     void on_pbPluginReadFilePath_clicked();
 
     void on_lvPluginScripts_currentRowChanged(int currentRow);
+    void on_pbBrowseOutDir_clicked();
 };
 
 #endif // MAINWINDOW_H

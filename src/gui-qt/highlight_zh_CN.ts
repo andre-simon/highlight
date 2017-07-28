@@ -160,7 +160,7 @@ Revise su instalación.</translation>
         <translation type="obsolete">无法读取 &quot;%1&quot; 的Tag信息</translation>
     </message>
     <message>
-        <location line="+598"/>
+        <location line="+603"/>
         <location line="+31"/>
         <source>Output error</source>
         <translation type="unfinished">输出错误</translation>
@@ -320,18 +320,18 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+3"/>
-        <location line="+277"/>
+        <location line="+306"/>
         <source>Clear selection</source>
         <translation>移除选中项</translation>
     </message>
     <message>
-        <location line="-270"/>
+        <location line="-299"/>
         <source>Remove all input files.</source>
         <translation>清除所有输入文件.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+277"/>
+        <location line="+306"/>
         <source>Clear all</source>
         <translation>移除所有</translation>
     </message>
@@ -340,7 +340,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Destino de salida</translation>
     </message>
     <message>
-        <location line="-238"/>
+        <location line="-267"/>
         <source>Output directory</source>
         <translation>输出目录</translation>
     </message>
@@ -351,16 +351,16 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+3"/>
-        <location line="+293"/>
+        <location line="+322"/>
         <location line="+558"/>
-        <location line="+242"/>
+        <location line="+252"/>
         <location line="+108"/>
         <location line="+295"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="-1487"/>
+        <location line="-1500"/>
         <source>Save output in the input file directories.</source>
         <translation>将输出保存在输入路径中.</translation>
     </message>
@@ -374,7 +374,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Opciones de salida</translation>
     </message>
     <message>
-        <location line="+319"/>
+        <location line="+322"/>
         <source>General</source>
         <translation>通用</translation>
     </message>
@@ -486,7 +486,7 @@ Removes Unicode BOM mark.</source>
         <translation type="vanished">设置输出文件的编码格式.</translation>
     </message>
     <message>
-        <location line="+1388"/>
+        <location line="+1398"/>
         <source>&amp;Plug-Ins</source>
         <translation type="unfinished"></translation>
     </message>
@@ -495,7 +495,7 @@ Removes Unicode BOM mark.</source>
         <translation type="obsolete">Codificación:</translation>
     </message>
     <message>
-        <location line="-1369"/>
+        <location line="-1379"/>
         <source>Select or define the encoding.
 The result has to match the input file encoding.</source>
         <translation>选择或者定义编码格式.
@@ -596,20 +596,20 @@ The result has to match the input file encoding.</source>
     </message>
     <message>
         <location line="+49"/>
-        <location line="+299"/>
+        <location line="+309"/>
         <location line="+108"/>
         <location line="+295"/>
         <source>Include the style information in each output file.</source>
         <translation>将样式表信息保存到每个输出文件中.</translation>
     </message>
     <message>
-        <location line="-699"/>
-        <location line="+702"/>
+        <location line="-709"/>
+        <location line="+712"/>
         <source>Embed style (CSS)</source>
         <translation>内嵌样式表 (CSS)</translation>
     </message>
     <message>
-        <location line="-689"/>
+        <location line="-699"/>
         <source>Add CSS information to each tag (do not use CSS class definitions).</source>
         <translation>CSS信息保存到每个Tag中(不使用CSS的类定义).</translation>
     </message>
@@ -624,14 +624,14 @@ The result has to match the input file encoding.</source>
     </message>
     <message>
         <location line="+60"/>
-        <location line="+356"/>
+        <location line="+366"/>
         <location line="+295"/>
         <source>Name of the referenced style file.</source>
         <translation>外链样式表文件的名字.</translation>
     </message>
     <message>
-        <location line="-648"/>
-        <location line="+651"/>
+        <location line="-658"/>
+        <location line="+661"/>
         <source>highlight.css</source>
         <translation></translation>
     </message>
@@ -640,13 +640,13 @@ The result has to match the input file encoding.</source>
         <translation type="obsolete">Archivo de estilo a incluir:</translation>
     </message>
     <message>
-        <location line="-610"/>
-        <location line="+645"/>
+        <location line="-620"/>
+        <location line="+655"/>
         <source>Path of the CSS include file.</source>
         <translation>外链样式表的路径.</translation>
     </message>
     <message>
-        <location line="-632"/>
+        <location line="-642"/>
         <source>Select a CSS include file.</source>
         <translation>选择一个外链的样式表.</translation>
     </message>
@@ -753,17 +753,16 @@ See ctags.sf.net for details.</source>
         <translation>替换引号</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Make output Babel compatible.</source>
         <translatorcomment>Make output work with Babel package</translatorcomment>
-        <translation>使输出与Babel宏包兼容.</translation>
+        <translation type="vanished">使输出与Babel宏包兼容.</translation>
     </message>
     <message>
         <source>Babel compatibility</source>
         <translation type="obsolete">Compatibilidad con Babel</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+27"/>
         <source>Replace default symbols (brackets, tilde) by nice redefinitions.</source>
         <translatorcomment>User more pleasant symbols</translatorcomment>
         <translation>用更友好的定义替换默认符号 (如：括号, 波浪符号).</translation>
@@ -795,26 +794,26 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">Incluir estilo:</translation>
     </message>
     <message>
-        <location line="-604"/>
+        <location line="-614"/>
         <source>Set encoding:</source>
         <translation>编码设置：</translation>
     </message>
     <message>
-        <location line="-583"/>
+        <location line="-612"/>
         <source>Output destination:</source>
         <translation>输出路径：</translation>
     </message>
     <message>
-        <location line="+809"/>
-        <location line="+251"/>
+        <location line="+838"/>
+        <location line="+261"/>
         <location line="+108"/>
         <location line="+295"/>
         <source>Stylesheet file:</source>
         <translation>外链样式表文件名：</translation>
     </message>
     <message>
-        <location line="-621"/>
-        <location line="+248"/>
+        <location line="-631"/>
+        <location line="+258"/>
         <location line="+108"/>
         <location line="+295"/>
         <source>Stylesheet include file:</source>
@@ -825,7 +824,7 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">读取ctags文件：</translation>
     </message>
     <message>
-        <location line="-1730"/>
+        <location line="-1769"/>
         <source>Highlight</source>
         <translation>Highlight</translation>
     </message>
@@ -835,7 +834,7 @@ See ctags.sf.net for details.</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location line="+231"/>
+        <location line="+257"/>
         <source>Paste clipboard content into the preview window.</source>
         <translation>将剪贴板中的代码粘贴到预览窗口.</translation>
     </message>
@@ -862,7 +861,7 @@ See ctags.sf.net for details.</source>
         <translation>代码语言：</translation>
     </message>
     <message>
-        <location line="-261"/>
+        <location line="-287"/>
         <source>Wi&amp;ndows</source>
         <oldsource>&amp;Windows</oldsource>
         <translation type="unfinished">窗口(&amp;W)</translation>
@@ -874,12 +873,12 @@ See ctags.sf.net for details.</source>
         <translation type="unfinished">代码高亮选项</translation>
     </message>
     <message>
-        <location line="+248"/>
+        <location line="+274"/>
         <source>Select the correct syntax of the code snippet.</source>
         <translation>给代码片段选择对应的语言格式.</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+82"/>
         <source>Plug-ins</source>
         <translation>插件</translation>
     </message>
@@ -964,7 +963,7 @@ See ctags.sf.net for details.</source>
         <translation>兼容Babel宏包</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+20"/>
         <source>Add pretty symbols</source>
         <translatorcomment>User nicer symbols</translatorcomment>
         <translation>使用更友好的符号</translation>
@@ -1232,12 +1231,12 @@ Set the width to 0 to keep tabs.</source>
         <translation>停靠浮动面板(&amp;D)</translation>
     </message>
     <message>
-        <location line="-2178"/>
+        <location line="-2217"/>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
     <message>
-        <location line="+308"/>
+        <location line="+334"/>
         <source>Start the conversion of your input files.</source>
         <translation>点击按钮开始转换文件.</translation>
     </message>
@@ -1262,7 +1261,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>将输出文件内容复制到剪贴板</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+111"/>
         <source>Choose a plug-in script.</source>
         <translation>选择一个插件脚本.</translation>
     </message>
@@ -1283,7 +1282,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>移除所有插件.</translation>
     </message>
     <message>
-        <location line="-446"/>
+        <location line="-475"/>
         <source>Output progress:</source>
         <translation>输出进度：</translation>
     </message>
@@ -1298,12 +1297,17 @@ Set the width to 0 to keep tabs.</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location line="+338"/>
+        <location line="+216"/>
+        <source>Browse output directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+148"/>
         <source>Paste code from clipboard and copy the output back in one step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+6"/>
         <source>Paste, Convert and Copy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1313,7 +1317,22 @@ Set the width to 0 to keep tabs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+698"/>
+        <location line="+441"/>
+        <source>Adapt output for the Babel package</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Adapt output for the Beamer package</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Add Beamer compatibility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+254"/>
         <source>Set page color</source>
         <translation type="unfinished"></translation>
     </message>

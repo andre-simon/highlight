@@ -579,7 +579,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Make output Babel compatible.</source>
-        <translation>Vytvořit kód, který je slučitelný s Babel.</translation>
+        <translation type="vanished">Vytvořit kód, který je slučitelný s Babel.</translation>
     </message>
     <message>
         <source>Keyword case:</source>
@@ -992,6 +992,22 @@ This feature is enabled for C, C++, C# and Java code.</source>
     </message>
     <message>
         <source>Paste, Convert and Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse output directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adapt output for the Babel package</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adapt output for the Beamer package</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Beamer compatibility</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

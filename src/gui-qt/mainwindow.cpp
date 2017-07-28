@@ -295,6 +295,8 @@ void MainWindow::writeSettings()
                       ui->cbKwCase->isChecked());
     settings.setValue(ui->cbLATEXBabel->property(name).toString(),
                       ui->cbLATEXBabel->isChecked());
+    settings.setValue(ui->cbLATEXBeamer->property(name).toString(),
+                      ui->cbLATEXBeamer->isChecked());
     settings.setValue(ui->cbLATEXEscQuotes->property(name).toString(),
                       ui->cbLATEXEscQuotes->isChecked());
     settings.setValue(ui->cbLATEXPrettySymbols->property(name).toString(),
@@ -423,6 +425,8 @@ void MainWindow::readSettings()
     ui->cbIncLineNo->setChecked(settings.value(ui->cbIncLineNo->property(name).toString()).toBool());
     ui->cbKwCase->setChecked(settings.value(ui->cbKwCase->property(name).toString()).toBool());
     ui->cbLATEXBabel->setChecked(settings.value(ui->cbLATEXBabel->property(name).toString()).toBool());
+    ui->cbLATEXBeamer->setChecked(settings.value(ui->cbLATEXBeamer->property(name).toString()).toBool());
+
     ui->cbLATEXEscQuotes->setChecked(settings.value(ui->cbLATEXEscQuotes->property(name).toString()).toBool());
     ui->cbLATEXPrettySymbols->setChecked(settings.value(ui->cbLATEXPrettySymbols->property(name).toString()).toBool());
 
@@ -719,6 +723,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
         generator->setLATEXReplaceQuotes(ui->cbLATEXEscQuotes->isChecked());
         generator->setLATEXNoShorthands(ui->cbLATEXBabel->isChecked());
         generator->setLATEXPrettySymbols(ui->cbLATEXPrettySymbols->isChecked());
+        generator->setLATEXBeamerMode(ui->cbLATEXBeamer->isChecked());
 
         generator->setRTFPageSize(ui->comboRTFPageSize->currentText().toLower().toStdString());
         generator->setRTFCharStyles(ui->cbRTFCharStyles->isChecked());
@@ -1397,4 +1402,9 @@ void MainWindow::on_pbCopyAndPaste_clicked()
 {
     ui->pbPasteFromCB->click();
     ui->pbCopyToCP->click();
+}
+
+void MainWindow::on_pbBrowseOutDir_clicked()
+{
+    QDesktopServices::openUrl(QUrl::fromLocalFile(ui->leOutputDest->text()));
 }

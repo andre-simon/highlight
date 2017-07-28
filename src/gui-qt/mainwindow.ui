@@ -148,7 +148,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -289,6 +289,32 @@
                </property>
                <property name="text">
                 <string>...</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pbBrowseOutDir">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>20</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Browse output directory</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="highlight-gui.qrc">
+                 <normaloff>:/folder.png</normaloff>:/folder.png</iconset>
                </property>
               </widget>
              </item>
@@ -618,7 +644,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -972,7 +998,7 @@ The result has to match the input file encoding.</string>
             </size>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="HTMLOptions">
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -1275,10 +1301,20 @@ The result has to match the input file encoding.</string>
              <item>
               <widget class="QCheckBox" name="cbLATEXBabel">
                <property name="toolTip">
-                <string>Make output Babel compatible.</string>
+                <string>Adapt output for the Babel package</string>
                </property>
                <property name="text">
                 <string>Add Babel compatibility</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbLATEXBeamer">
+               <property name="toolTip">
+                <string>Adapt output for the Beamer package</string>
+               </property>
+               <property name="text">
+                <string>Add Beamer compatibility</string>
                </property>
               </widget>
              </item>
