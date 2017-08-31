@@ -1,0 +1,25 @@
+Description="E-Mail treated as Markup"
+
+Keywords={
+  { Id=1,
+   Regex=[[^>\s?>\s?>\s?>.+ ]]
+  },
+  { Id=2,
+    Regex=[[^>\s?>\s?>.+]],
+  },
+  { Id=3,
+   Regex=[[^>\s?>.+]],
+  },
+  { Id=4,
+   Regex=[[^>.+]],
+  },
+  { Id=4,
+    Regex=[[ <.+@.+> ]],
+  },
+}
+
+IgnoreCase=false
+
+Digits = [[ \*\*.+?\*\*|\*.+?\*|_.+?_ ]]
+
+Identifiers = [[ [a-zA-Z]\\w* ]]

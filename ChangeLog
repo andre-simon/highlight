@@ -1,6 +1,10 @@
 CHANGELOG Highlight
 
+-added CMake definition (https://github.com/andre-simon/highlight/issues/20)
+-added email definition (https://github.com/andre-simon/highlight/issues/21)
+-linked scm suffix to lisp definition (https://github.com/andre-simon/highlight/issues/22)
 
+---
 highlight 3.39
 
 25.07.2017
