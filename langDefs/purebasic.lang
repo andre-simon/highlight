@@ -2,7 +2,7 @@
     *                                                                            *
     *                       PureBASIC Language Definition                        *
     *                                                                            *
-    *                             v1.5 - 2017/09/28                              *
+    *                             v1.6 - 2017/09/30                             *
     *                                                                            *
     ******************************************************************************
     PureBASIC v5.00-5.60 -- This language definition emulates the way PureBASIC's
@@ -92,7 +92,11 @@ Keywords={
   { Id=3,   -- Procedure calls > PB IDE color: #006666 (Blue Stone)
     Regex=[[ ([a-zA-Z_]\w*)(?:(\s*)?\() ]],
     Group=1
-    }
+    },
+  { Id=4,   -- Escaped-String Prefix ("~") > PB IDE color: same as strings
+    Regex=[[ ~" ]], -- NOTE: In the final doc, this Keyword is converted to become
+                    --       part of the string [see OnStateChange() func below]
+    },
 }
 
 Comments={  -- PB IDE color: #00AAAA (Persian Green/Tradewind)
@@ -103,37 +107,93 @@ Comments={  -- PB IDE color: #00AAAA (Persian Green/Tradewind)
 }
 
 Strings={   -- PB IDE color: #0080FF (Azure Radiance)
-  DelimiterPairs= {
-    { Open=[[ ~?"(?=.*") ]], Close=[[ " ]], Raw=true }
-  },
-  Escape=[=[ \\[abfnrtv"\\] ]=],
+  Delimiter=[[ " ]],
+  Escape=[=[\\[abfnrtv"\\]]=],
 }
 
 Operators=[[\&|<|>|\!|\||\=|\/|\*|\%|\+|\-|~]]
 
 
---[[ Sanitize Escape-Sequences
-     =========================
-     This function ensures that escape sequences occur only inside escapable strings.
-     Otherwise, some Structure vars are incorrectly parsed as esc.seq.
-     (e.g.: The "\v" in "SomeStructure\var1")
-  ]]
+-- FLOATS: PureBASIC strips and ignores all suffixes from float numbers.
+--         Therefore "1.575e+1" and "1.575e+1bananas" are both valid float values
+--         in PureBASIC code (both yelding the smae value of 15.75).
+Digits=[[ (?x)
+        # ============ HEX ============
+        # Pascal style ($FF):
+
+          \$[0-9a-fA-F]+\b
+
+        # ============ BINARY ============
+        | %[01]+\b
+
+
+        # ============ FLOAT ============
+        # With decimal point separator:
+
+        | \b[-]?\d+\.\d+(?:[eE][\-\+]?\d+)?[a-zA-Z]*\b
+
+        # Without decimal point separator:
+        
+        | \b[-]?\d+(?:[eE][\-\+]?\d+)[a-zA-Z]*\b
+
+
+        # ============ DECIMAL ============
+        | (?<!\$)\b\d+\b
+
+
+ 
+       ]]
+
+
 function OnStateChange(oldState, newState, token, kwgroup)
-  if newState==HL_STRING then
-    if token=='~"' then
-      allowEscapes = true
-    elseif token=='"' then
-      allowEscapes = false
+
+--[[ Dismiss Escape-Sequences
+     =========================
+     Currently, I couldn't find a way to preserve escape sequences without causing
+     stray behaviour in string. So, for the time being they are just dismissed. ]]
+  if newState==HL_ESC_SEQ then
+    if oldState==HL_STRING then
+      return HL_STRING
+    else
+      return HL_REJECT
     end
-  elseif newState==HL_ESC_SEQ and (oldState~=HL_STRING or allowEscapes~=true) then
-    return oldState
+
+--[[ Escape Strings (~"...")
+     =======================
+     Keyword 4 (~") is converted to string state, so the tilda becomes part of
+     the actual string. The boolean var `escapedString` tracks this process. ]]
+  elseif newState==HL_KEYWORD and kwgroup==4 then
+    -- If ~" occurs inside a string, it's just a string with a tilda as last char...
+    if oldState==HL_STRING then
+      return HL_REJECT
+    -- In all other cases is an escaped string delimiter (opening) 
+    else
+      escapedString = true
+      return HL_STRING
+    end
+
+--[[ Sanitize String Starts
+     ======================
+     Because Keyword 4 is converted to a string start, we must tell the parser to
+     treat the next string delimiter as a string end! ]]
+  elseif newState==HL_STRING and escapedString==true then
+    escapedString = false
+    return HL_STRING_END
   end
+
   return newState
 end
+
 
 --[[==========================================================================
                                       CHANGELOG                                   
 ==============================================================================
+v1.6 - 2017/09/30 (PureBASIC v5.60) 
+     - IMPROVEMENTS: Added numbers definition (hex, binary, floats an decimals) 
+     - BUG-FIX: String concatenations didn't always parse correctly; now this
+       was fixed (at the expenses of escaped sequences).
+     - ABROGATED: parsing of escape sequences is now disabled because it caused
+       too many problems with strings.
 v1.5 - 2017/09/28 (PureBASIC v5.60) 
      - IMPROVEMENTS:
        - Escaped-String Prefix (~) is no longer handled as a keyword (ID=4/kwd)
