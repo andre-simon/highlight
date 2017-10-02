@@ -2,25 +2,84 @@
     *                                                                            *
     *                       PureBASIC Language Definition                        *
     *                                                                            *
-    *                             v1.6 - 2017/09/30                             *
+    *                             v1.7 - 2017/10/02                              *
     *                                                                            *
     ******************************************************************************
-    PureBASIC v5.00-5.60 -- This language definition emulates the way PureBASIC's
-    native IDE highlights its code, including inline ASM syntax coloring.
+    PureBASIC v5.00-5.60 -- The goal of this language definition is to emulate the
+    way PureBASIC's native IDE highlights its code, including inline Assembly
+    syntax coloring. When used with the "edit-purebasic" theme, PureBASIC code
+    will be highlighted just like in its native IDE.
+
     Keywords from all PureBASIC versions (from 5.00 up to current) are added to
-    the list (deprecated tokens are preserved) to ensure that any code written 
-    for PB >=5.00 will be parsed and highlighted correctcly.
+    the list (deprecated keywords are preserved) to ensure that any code written 
+    for PureBASIC >=5.00 will be parsed and highlighted correctly.
+
+    Comments in color definitions refer to PureBASIC native IDE's default palette.
+    ------------------------------------------------------------------------------
+    This language definition is maintained at the PureBASIC Archives project:
+        https://github.com/tajmone/purebasic-archives/tree/master/syntax-highlighting/highlight
+    
+    (visit the above link for more info and resources on this lang definition)
     ------------------------------------------------------------------------------
     Written by Tristano Ajmone:
         <tajmone@gmail.com>
         https://github.com/tajmone
-    Released into the public domain according to the Unlicense licsense:
+    Released into the public domain according to the Unlicense terms:
         http://unlicense.org/
+    ------------------------------------------------------------------------------
   ]]
 
 Description="PureBASIC"
 
 IgnoreCase=false
+
+Comments={  -- PB IDE color: #00AAAA (Persian Green/Tradewind)
+   { Block=false,
+     Nested=false,
+     Delimiter = { [[ ; ]] }
+   }
+}
+
+Strings={   -- PB IDE color: #0080FF (Azure Radiance)
+  Delimiter=[[ " ]],
+  Escape=[=[\\[abfnrtv"\\]]=], -- PB IDE color: same as String
+}
+--[[ STRINGS NOTE: There's more to PB strings than this delimiter definition.
+        Escaped strings (~"") are handled via `Keyword Id=4` and custom code in
+        the `OnStateChange()` function found below.
+--]]
+
+Operators=[[\&|<|>|\!|\||\=|\/|\*|\%|\+|\-|~]] -- PB IDE color: same as normal text (Black)
+
+-- NUMBERS > PB IDE color: same as normal text (Black)
+Digits=[[ (?x)
+        # ============ HEX ============
+        # Pascal style ($FF):
+
+          \$[0-9a-fA-F]+\b
+
+        # ============ BINARY ============
+        | %[01]+\b
+
+
+        # ============ FLOAT ============
+        # With decimal point separator:
+
+        | \b[-]?\d+\.\d+(?:[eE][\-\+]?\d+)?[a-zA-Z]*\b
+
+        # Without decimal point separator:
+        
+        | \b[-]?\d+(?:[eE][\-\+]?\d+)[a-zA-Z]*\b
+
+
+        # ============ DECIMAL ============
+        | (?<!\$)\b\d+\b
+ 
+       ]]
+-- FLOATS NOTE: PureBASIC strips and ignores all suffixes from float numbers.
+--    Therefore "1.575e+1" and "1.575e+1bananas" are both valid float values
+--    in PureBASIC code (both yelding the smae value of 15.75).
+
 
 Keywords={
   { Id=1,   -- PureBASIC Keywords > PB IDE color: #006666 (Blue Stone) + Bold
@@ -90,7 +149,7 @@ Keywords={
         "TEST", "UD2", "VERR", "VERW", "WAIT", "WBINVD", "WRMSR", "XADD", "XCHG", "XLAT", "XLATB", "XOR" },
     },
   { Id=3,   -- Procedure calls > PB IDE color: #006666 (Blue Stone)
-    Regex=[[ ([a-zA-Z_]\w*)(?:(\s*)?\() ]],
+    Regex=[[ ([a-zA-Z_]\w*)(?:(?:\s*)\() ]],
     Group=1
     },
   { Id=4,   -- Escaped-String Prefix ("~") > PB IDE color: same as strings
@@ -99,50 +158,6 @@ Keywords={
     },
 }
 
-Comments={  -- PB IDE color: #00AAAA (Persian Green/Tradewind)
-   { Block=false,
-     Nested=false,
-     Delimiter = { [[ ; ]] }
-   }
-}
-
-Strings={   -- PB IDE color: #0080FF (Azure Radiance)
-  Delimiter=[[ " ]],
-  Escape=[=[\\[abfnrtv"\\]]=],
-}
-
-Operators=[[\&|<|>|\!|\||\=|\/|\*|\%|\+|\-|~]]
-
-
--- FLOATS: PureBASIC strips and ignores all suffixes from float numbers.
---         Therefore "1.575e+1" and "1.575e+1bananas" are both valid float values
---         in PureBASIC code (both yelding the smae value of 15.75).
-Digits=[[ (?x)
-        # ============ HEX ============
-        # Pascal style ($FF):
-
-          \$[0-9a-fA-F]+\b
-
-        # ============ BINARY ============
-        | %[01]+\b
-
-
-        # ============ FLOAT ============
-        # With decimal point separator:
-
-        | \b[-]?\d+\.\d+(?:[eE][\-\+]?\d+)?[a-zA-Z]*\b
-
-        # Without decimal point separator:
-        
-        | \b[-]?\d+(?:[eE][\-\+]?\d+)[a-zA-Z]*\b
-
-
-        # ============ DECIMAL ============
-        | (?<!\$)\b\d+\b
-
-
- 
-       ]]
 
 
 function OnStateChange(oldState, newState, token, kwgroup)
@@ -153,41 +168,114 @@ function OnStateChange(oldState, newState, token, kwgroup)
      stray behaviour in string. So, for the time being they are just dismissed. ]]
   if newState==HL_ESC_SEQ then
     if oldState==HL_STRING then
-      return HL_STRING
+      -- ESCAPE SEQUENCE FOUND INSIDE A STRING:
+      if escapedString~=true then
+        -- String is Literal (no escaping allowed)...
+        escapeSeq = false
+        if token=='\\"' then
+          -- rejecting a \" will cause the \ to become part of the curr. string
+          -- but the " will be thrown again to the parser, which will mistake it
+          -- for a new string start. We'll use the `forceStringEnd` var to
+          -- prevent this...
+          forceStringEnd = true
+          return HL_REJECT
+        else
+          -- all other escape sequences can be suppresed by assimilating
+          -- them to the current string... 
+          forceStringEnd=false
+          return HL_REJECT --HL_STRING
+        end
+      else
+        -- String is Escapable...
+        escapeSeq = true
+        forceStringEnd=false
+        return HL_ESC_SEQ
+      end
+    -- HANDLE TWO ESCAPRE SEQUENCES IN A ROW: 
+    elseif oldState==HL_ESC_SEQ then
+        escapeSeq = true
+        escapedString = true
+        forceStringEnd=false
+        return HL_ESC_SEQ
     else
-      return HL_REJECT
+      -- ESCAPE SEQUENCE FOUND OUTSIDE A STRING
+      escapeSeq = false
+      forceStringEnd=false
+        escapedString = false
+     return HL_REJECT
     end
 
---[[ Escape Strings (~"...")
-     =======================
+--[[ PB Escape Strings (~"...")
+     ==========================
      Keyword 4 (~") is converted to string state, so the tilda becomes part of
      the actual string. The boolean var `escapedString` tracks this process. ]]
   elseif newState==HL_KEYWORD and kwgroup==4 then
     -- If ~" occurs inside a string, it's just a string with a tilda as last char...
     if oldState==HL_STRING then
-      return HL_REJECT
-    -- In all other cases is an escaped string delimiter (opening) 
+      -- We use the `forceStringEnd` var trick here, like we did with
+      -- rejected \" escape sequences above... 
+      forceStringEnd=true
+      return HL_REJECT -- HL_STRING -- HL_REJECT
+    -- In all other cases it's an escaped string delimiter (opening)...
     else
       escapedString = true
+      escapeSeq = false
+      forceStringEnd=false
       return HL_STRING
     end
+
+--[[ NEW STATE IS STRING: ]]
+  elseif newState==HL_STRING then
+
+--[[ Handle The " After A Rejcted  \" or ~" in Literal String
+     =======================
+     A rejected \" or ~" led to a spurious " being fed to the parser which can 
+     be mistaken for a new string delimiter ]]
+    if forceStringEnd==true then
+      forceStringEnd=false
+      return HL_STRING_END
 
 --[[ Sanitize String Starts
      ======================
      Because Keyword 4 is converted to a string start, we must tell the parser to
      treat the next string delimiter as a string end! ]]
-  elseif newState==HL_STRING and escapedString==true then
-    escapedString = false
-    return HL_STRING_END
-  end
+    elseif escapedString==true then
+      escapedString = false
+      return HL_STRING_END
 
-  return newState
+--[[ Sanitize String After Escape Sequence
+     =====================================
+     Ensure that a " immediately following an escape sequence is treated as
+     a string-end delimiter. ]]
+    elseif token=='"' and escapeSeq==true then
+      escapeSeq = false
+      forceStringEnd=false
+      escapedString = false
+      return HL_STRING_END
+    else
+      escapeSeq = false
+      forceStringEnd=false
+      return HL_STRING
+    end
+
+--[[ FOR ALL OTHER SYNTAX ITEMS:]]
+  elseif oldState~=HL_STRING and oldState~=HL_ESC_SEQ then
+    -- Reset all Trackers' States: This is required to avoid some edge-cases
+    -- of strings corruption in complex source code...
+    escapeSeq = false
+    escapedString = false
+    forceStringEnd=false
+    return newState
+
+  end
 end
 
 
 --[[==========================================================================
                                       CHANGELOG                                   
 ==============================================================================
+v1.7 - 2017/10/02 (PureBASIC v5.60) 
+     - IMPROVEMENTS: Escape sequences are now corretcly parsed and highlighted.
 v1.6 - 2017/09/30 (PureBASIC v5.60) 
      - IMPROVEMENTS: Added numbers definition (hex, binary, floats an decimals) 
      - BUG-FIX: String concatenations didn't always parse correctly; now this
