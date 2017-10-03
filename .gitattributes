@@ -1,5 +1,190 @@
-/src/w32-projects export-ignore  
-/src/gui-qt/.qmake.stash export-ignore
-highlight3.kdev4 export-ignore 
-.gitattributes export-ignore  
-.gitignore export-ignore
+# ==============================================================================
+#                    Excluded Files from Git Archive Exports                    
+# ==============================================================================
+/src/w32-projects           export-ignore  
+/src/gui-qt/.qmake.stash    export-ignore
+highlight3.kdev4            export-ignore 
+.gitattributes              export-ignore  
+.gitignore                  export-ignore
+
+# ==============================================================================
+#                            Line Endings Conversion                            
+# ==============================================================================
+# Set Git's default behaviour to text-files autodetection, in case users don't
+# have `core.autocrlf` set:
+* text=auto
+
+# ------------------------------------------------------------------------------
+#                    Text Files (EOL Normalization Settings)                    
+# ------------------------------------------------------------------------------
+
+## =================
+## LANGDEFS & THEMES
+## =================
+*.lang         text
+*.theme        text
+
+## =================
+## SOURCE CODE FILES
+## =================
+
+## Miscellanea (from /examples/)
+## -----------------------------
+*.i            text
+*.pp           text
+
+## C/C++
+## -----
+*.c            text
+*.c++          text
+*.cc           text
+*.cpp          text
+*.cxx          text
+*.h            text
+*.h++          text
+*.hh           text
+*.hpp          text
+
+## Shell scripts
+## -------------
+*.bat          text eol=crlf
+*.com          text eol=crlf
+*.sh           text eol=lf
+
+## Scripts
+## -------
+*.lua          text
+*.php          text
+*.pl           text
+*.pm           text
+*.py           text
+*.rb           text
+*.sql          text
+*.tcl          text
+
+## ========
+## QT FILES
+## ========
+*.pro          text
+*.pro.user     text
+*.qrc          text
+*.ts           text
+*.ui           text
+
+## ==============
+## RESOURCE FILES
+## ==============
+*.rc           text eol=crlf
+*.xpm          text eol=lf
+
+## ==================
+## MISC. DATA FORMATS
+## ==================
+*.json         text
+*.xml          text
+*.xhtml        text
+
+# =================
+## WEB-RELATED FILES
+## =================
+*.htm          text
+*.html         text
+*.css          text
+*.js           text
+*.sass         text
+*.scss         text
+
+## ===================
+## DOCUMENTATION FILES
+## ===================
+*.txt          text
+*COPYRIGHT*    text
+*README*       text
+AUTHORS        text
+CHANGELOG      text
+CHANGES        text
+CONTRIBUTING   text
+COPYING        text
+copyright      text
+INSTALL        text
+license        text
+LICENSE        text
+NEWS           text
+readme         text
+TODO           text
+
+## ===================
+## CONFIGURATION FILES
+## ===================
+*.conf         text
+*.desktop      text eol=lf
+*.iss          text eol=crlf
+*.kdev4        text eol=lf
+
+## Git settings
+## ----------
+.gitattributes text
+.gitconfig     text
+.gitignore     text
+
+## Make files
+## ----------
+Makefile       text
+makefile       text
+*.Debug        text
+*.Release      text
+
+# ------------------------------------------------------------------------------
+#                                  Binary Files                                 
+# ------------------------------------------------------------------------------
+# Explicitly declare all files that are binary and shouldn't be modified by Git:
+
+## =================
+## COMPILERS' OUTPUT
+## =================
+
+## Shared/Dynamic libraries
+## ------------------------
+*.dll   binary
+*.dylib binary
+*.so    binary
+
+## ========
+## QT FILES
+## ========
+*.qm           binary
+
+## ========
+## GRAPHICS
+## ========
+*.bmp          binary
+*.gif          binary
+*.icns         binary
+*.ico          binary
+*.jpeg         binary
+*.jpg          binary
+*.png          binary
+
+## ========
+## ARCHIVES
+## ========
+*.7z           binary
+*.gz           binary
+*.jar          binary
+*.rar          binary
+*.tar          binary
+*.zip          binary
+
+# ==============================================================================
+#                                GitHub Linguist                                
+# ==============================================================================
+#  -- https://github.com/github/linguist
+# Manually define/override some extension so that GitHub's Linguist library can
+# 1) correctly gather statistics on source files, and
+# 2) use proper syntax highlighting on GitHub's WebUI.
+
+## =================
+## LANGDEFS & THEMES
+## =================
+*.lang         linguist-language=Lua
+*.theme        linguist-language=Lua
