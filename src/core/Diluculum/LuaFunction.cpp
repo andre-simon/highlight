@@ -32,31 +32,41 @@ namespace Diluculum
 {
    // - LuaFunction::LuaFunction -----------------------------------------------
    LuaFunction::LuaFunction (const std::string& luaChunk)
-      : functionType_(LUA_LUA_FUNCTION), size_(luaChunk.size()),
-        data_(new char[size_])
+      : functionType_(LUA_LUA_FUNCTION), size_(luaChunk.size())
    {
-      memcpy(data_.get(), luaChunk.c_str(), size_);
+      data_.typeLuaFunction = new char[size_];
+      memcpy(data_.typeLuaFunction, luaChunk.c_str(), size_);
    }
 
    LuaFunction::LuaFunction (const void* data, size_t size)
-      : functionType_(LUA_LUA_FUNCTION), size_(size), data_(new char[size_])
+      : functionType_(LUA_LUA_FUNCTION), size_(size)
    {
-      memcpy(data_.get(), data, size);
+      data_.typeLuaFunction = new char[size_];
+      memcpy(data_.typeLuaFunction, data, size);
    }
 
    LuaFunction::LuaFunction (lua_CFunction func)
-      : functionType_(LUA_C_FUNCTION), size_(sizeof(lua_CFunction)),
-        data_(new char[sizeof(lua_CFunction)])
+      : functionType_(LUA_C_FUNCTION), size_(sizeof(lua_CFunction))
    {
-      memcpy(data_.get(), reinterpret_cast<lua_CFunction*>(&func),
-             sizeof(lua_CFunction));
+      data_.typeCFunction = func;
    }
 
    LuaFunction::LuaFunction (const LuaFunction& other)
       : functionType_(other.functionType_),
-        size_(other.getSize()), data_(new char[size_])
+        size_(other.getSize())
    {
-      memcpy (data_.get(), other.getData(), getSize());
+      switch (functionType_)
+      {
+         case LUA_LUA_FUNCTION:
+            data_.typeLuaFunction = new char[getSize()];
+            memcpy (getData(), other.getData(), getSize());
+            break;
+
+         default:
+            // no constructor needed.
+            memcpy (&data_, &other.data_, sizeof(PossibleTypes));
+            break;
+      }
    }
 
 
@@ -67,7 +77,7 @@ namespace Diluculum
       assert(functionType_ == LUA_C_FUNCTION
              && "Called LuaFunction::getCFunction() for a non-C function.");
 
-      return *reinterpret_cast<lua_CFunction*>(data_.get());
+      return data_.typeCFunction;
    }
 
 
@@ -75,9 +85,13 @@ namespace Diluculum
    // - LuaFunction::setData ---------------------------------------------------
    void LuaFunction::setData (void* data, size_t size)
    {
+      assert(functionType_ == LUA_LUA_FUNCTION
+             && "Called LuaFunction::setData() for a non-Lua function.");
+
       size_ = size;
-      data_.reset (new char[size]);
-      memcpy(data_.get(), data, size);
+      delete[] data_.typeLuaFunction;
+      data_.typeLuaFunction = new char[size];
+      memcpy(data_.typeLuaFunction, data, size);
    }
 
 
@@ -85,10 +99,24 @@ namespace Diluculum
    // - LuaFunction::operator= -------------------------------------------------
    const LuaFunction& LuaFunction::operator= (const LuaFunction& rhs)
    {
+      destroyObjectAtData();
+
       size_ = rhs.getSize();
       functionType_ = rhs.functionType_;
-      data_.reset (new char[getSize()]);
-      memcpy (getData(), rhs.getData(), getSize());
+
+      switch (functionType_)
+      {
+         case LUA_LUA_FUNCTION:
+            data_.typeLuaFunction = new char[getSize()];
+            memcpy (getData(), rhs.getData(), getSize());
+            break;
+
+         default:
+            // no constructor needed.
+            memcpy (&data_, &rhs.data_, sizeof(PossibleTypes));
+            break;
+      }
+
       return *this;
    }
 
@@ -99,12 +127,26 @@ namespace Diluculum
    {
       if (functionType_ > rhs.functionType_)
          return true;
-      else if (getSize() > rhs.getSize())
-         return true;
-      else if (getSize() < rhs.getSize())
+      if (functionType_ < rhs.functionType_)
          return false;
-      else // getSize() == rhs.getSize()
-         return memcmp (getData(), rhs.getData(), getSize()) > 0;
+      else // functionType_ == rhs.functionType_
+      {
+         if (functionType_ == LUA_C_FUNCTION)
+            return memcmp (&data_.typeCFunction, &rhs.data_.typeCFunction, sizeof(lua_CFunction)) > 0;
+         else if (functionType_ == LUA_LUA_FUNCTION)
+            if (getSize() > rhs.getSize())
+               return true;
+            else if (getSize() < rhs.getSize())
+               return false;
+            else // getSize() == rhs.getSize()
+               return memcmp (getData(), rhs.getData(), getSize()) > 0;
+         else
+         {
+            assert (false && "Unsupported type found at a call "
+                    "to 'LuaFunction::operator>()'");
+            return false; // make the compiler happy.
+         }
+      }
    }
 
 
@@ -114,12 +156,28 @@ namespace Diluculum
    {
       if (functionType_ < rhs.functionType_)
          return true;
-      else if (getSize() < rhs.getSize())
-         return true;
-      else if (getSize() > rhs.getSize())
+      else if (functionType_ > rhs.functionType_)
          return false;
-      else // getSize() == rhs.getSize()
-         return memcmp (getData(), rhs.getData(), getSize()) < 0;
+      else // functionType_ == rhs.functionType_
+      {
+         if (functionType_ == LUA_C_FUNCTION)
+            return memcmp (&data_.typeCFunction, &rhs.data_.typeCFunction, sizeof(lua_CFunction)) < 0;
+         else if (functionType_ == LUA_LUA_FUNCTION)
+         {
+            if (getSize() < rhs.getSize())
+               return true;
+            else if (getSize() > rhs.getSize())
+               return false;
+            else // getSize() == rhs.getSize()
+               return memcmp (getData(), rhs.getData(), getSize()) < 0;
+         }
+         else
+         {
+            assert (false && "Unsupported type found at a call "
+                    "to 'LuaFunction::operator<()'");
+            return false; // make the compiler happy.
+         }
+      }
    }
 
 
@@ -127,9 +185,25 @@ namespace Diluculum
    // - LuaFunction::operator== ------------------------------------------------
    bool LuaFunction::operator== (const LuaFunction& rhs) const
    {
-      return functionType_ == rhs.functionType_
-         && getSize() == rhs.getSize()
-         && memcmp (getData(), rhs.getData(), getSize()) == 0;
+      if (functionType_ != rhs.functionType_)
+         return false;
+      else switch (functionType_)
+      {
+         case LUA_C_FUNCTION:
+            return getCFunction() == rhs.getCFunction();
+
+         case LUA_LUA_FUNCTION:
+            return getSize() == rhs.getSize()
+               && memcmp (getData(), rhs.getData(), getSize()) == 0;
+
+         default:
+         {
+            assert(
+               false
+               && "Invalid type found in a call to 'LuaFunction::operator==()'.");
+            return false; // make compilers happy
+         }
+      }
    }
 
 
@@ -137,9 +211,42 @@ namespace Diluculum
    // - LuaFunction::operator!= ------------------------------------------------
    bool LuaFunction::operator!= (const LuaFunction& rhs) const
    {
-      return functionType_ != rhs.functionType_
-         || getSize() != rhs.getSize()
-         || memcmp (getData(), rhs.getData(), getSize()) != 0;
+      if (functionType_ != rhs.functionType_)
+         return true;
+      else switch (functionType_)
+      {
+         case LUA_C_FUNCTION:
+            return getCFunction() != rhs.getCFunction();
+
+         case LUA_LUA_FUNCTION:
+            return getSize() != rhs.getSize()
+               || memcmp (getData(), rhs.getData(), getSize()) != 0;
+
+         default:
+         {
+            assert(
+               false
+               && "Invalid type found in a call to 'LuaFunction::operator!=()'.");
+            return false; // make compilers happy
+         }
+      }
+   }
+
+
+
+   // - LuaFunction::destroyObjectAtData ---------------------------------------
+   void LuaFunction::destroyObjectAtData()
+   {
+      switch (functionType_)
+      {
+         case LUA_LUA_FUNCTION:
+            delete[] data_.typeLuaFunction;
+            break;
+
+         default:
+            // no destructor needed.
+            break;
+      }
    }
 
 } // namespace Diluculum
