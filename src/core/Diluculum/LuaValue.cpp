@@ -40,7 +40,7 @@ namespace Diluculum
    LuaValue::LuaValue (bool b)
       : dataType_(LUA_TBOOLEAN)
    {
-      memcpy (data_, &b, sizeof(bool));
+      data_.typeBool = b;
    }
 
 
@@ -48,7 +48,7 @@ namespace Diluculum
       : dataType_(LUA_TNUMBER)
    {
       lua_Number num = static_cast<lua_Number>(n);
-      memcpy (data_, &num, sizeof(lua_Number));
+      data_.typeNumber = num;
    }
 
 
@@ -56,7 +56,7 @@ namespace Diluculum
       : dataType_(LUA_TNUMBER)
    {
       lua_Number num = static_cast<lua_Number>(n);
-      memcpy (data_, &num, sizeof(lua_Number));
+      data_.typeNumber = num;
    }
 
 
@@ -64,7 +64,7 @@ namespace Diluculum
       : dataType_(LUA_TNUMBER)
    {
       lua_Number num = static_cast<lua_Number>(n);
-      memcpy (data_, &num, sizeof(lua_Number));
+      data_.typeNumber = num;
    }
 
 
@@ -72,7 +72,7 @@ namespace Diluculum
       : dataType_(LUA_TNUMBER)
    {
       lua_Number num = static_cast<lua_Number>(n);
-      memcpy (data_, &num, sizeof(lua_Number));
+      data_.typeNumber = num;
    }
 
 
@@ -80,7 +80,7 @@ namespace Diluculum
       : dataType_(LUA_TNUMBER)
    {
       lua_Number num = static_cast<lua_Number>(n);
-      memcpy (data_, &num, sizeof(lua_Number));
+      data_.typeNumber = num;
    }
 
 
@@ -88,7 +88,7 @@ namespace Diluculum
       : dataType_(LUA_TNUMBER)
    {
       lua_Number num = static_cast<lua_Number>(n);
-      memcpy (data_, &num, sizeof(lua_Number));
+      data_.typeNumber = num;
    }
 
 
@@ -96,7 +96,7 @@ namespace Diluculum
       : dataType_(LUA_TNUMBER)
    {
       lua_Number num = static_cast<lua_Number>(n);
-      memcpy (data_, &num, sizeof(lua_Number));
+      data_.typeNumber = num;
    }
 
 
@@ -104,7 +104,7 @@ namespace Diluculum
       : dataType_(LUA_TNUMBER)
    {
       lua_Number num = static_cast<lua_Number>(n);
-      memcpy (data_, &num, sizeof(lua_Number));
+      data_.typeNumber = num;
    }
 
 
@@ -112,49 +112,49 @@ namespace Diluculum
       : dataType_(LUA_TNUMBER)
    {
       lua_Number num = static_cast<lua_Number>(n);
-      memcpy (data_, &num, sizeof(lua_Number));
+      data_.typeNumber = num;
    }
 
 
    LuaValue::LuaValue (const std::string& s)
       : dataType_(LUA_TSTRING)
    {
-      new(data_) std::string(s);
+      new(&data_.typeString) std::string(s);
    }
 
 
    LuaValue::LuaValue (const char* s)
       : dataType_(LUA_TSTRING)
    {
-      new(data_) std::string(s);
+      new(&data_.typeString) std::string(s);
    }
 
 
    LuaValue::LuaValue (const LuaValueMap& t)
       : dataType_(LUA_TTABLE)
    {
-      new(data_) LuaValueMap(t);
+      new(&data_.typeLuaValueMap) LuaValueMap(t);
    }
 
 
    LuaValue::LuaValue (lua_CFunction f)
       : dataType_(LUA_TFUNCTION)
    {
-      new(data_) LuaFunction(f);
+      new(&data_.typeFunction) LuaFunction(f);
    }
 
 
    LuaValue::LuaValue (const LuaFunction& f)
       : dataType_(LUA_TFUNCTION)
    {
-      new(data_) LuaFunction(f);
+      new(&data_.typeFunction) LuaFunction(f);
    }
 
 
    LuaValue::LuaValue (const LuaUserData& ud)
       : dataType_(LUA_TUSERDATA)
    {
-      new(data_) LuaUserData(ud);
+      new(&data_.typeUserData) LuaUserData(ud);
    }
 
 
@@ -175,24 +175,24 @@ namespace Diluculum
       switch (dataType_)
       {
          case LUA_TSTRING:
-            new(data_) std::string(other.asString());
+            new(&data_.typeString) std::string(other.asString());
             break;
 
          case LUA_TTABLE:
-            new(data_) LuaValueMap (other.asTable());
+            new(&data_.typeLuaValueMap) LuaValueMap (other.asTable());
             break;
 
          case LUA_TUSERDATA:
-            new(data_) LuaUserData (other.asUserData());
+            new(&data_.typeUserData) LuaUserData (other.asUserData());
             break;
 
          case LUA_TFUNCTION:
-            new(data_) LuaFunction (other.asFunction());
+            new(&data_.typeFunction) LuaFunction (other.asFunction());
             break;
 
          default:
             // no constructor needed.
-            memcpy (data_, other.data_, sizeof(PossibleTypes));
+            memcpy (&data_, &other.data_, sizeof(PossibleTypes));
             break;
       }
    }
@@ -209,24 +209,24 @@ namespace Diluculum
       switch (dataType_)
       {
          case LUA_TSTRING:
-            new(data_) std::string (rhs.asString());
+            new(&data_.typeString) std::string (rhs.asString());
             break;
 
          case LUA_TTABLE:
-            new(data_) LuaValueMap (rhs.asTable());
+            new(&data_.typeLuaValueMap) LuaValueMap (rhs.asTable());
             break;
 
          case LUA_TUSERDATA:
-            new(data_) LuaUserData (rhs.asUserData());
+            new(&data_.typeUserData) LuaUserData (rhs.asUserData());
             break;
 
          case LUA_TFUNCTION:
-            new(data_) LuaFunction (rhs.asFunction());
+            new(&data_.typeFunction) LuaFunction (rhs.asFunction());
             break;
 
          default:
             // no constructor needed.
-            memcpy (data_, rhs.data_, sizeof(PossibleTypes));
+            memcpy (&data_, &rhs.data_, sizeof(PossibleTypes));
             break;
       }
 
@@ -286,8 +286,7 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TNUMBER)
       {
-         const lua_Number* pn = reinterpret_cast<const lua_Number*>(&data_);
-         return *pn;
+         return data_.typeNumber;
       }
       else
       {
@@ -302,9 +301,7 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TNUMBER)
       {
-         const lua_Number* num = reinterpret_cast<const lua_Number*>(&data_);
-         lua_Integer res = static_cast<lua_Integer>(*num);
-         return res;
+         return static_cast<lua_Integer>(data_.typeNumber);
       }
       else
       {
@@ -319,8 +316,7 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TSTRING)
       {
-         const std::string* ps = reinterpret_cast<const std::string*>(&data_);
-         return *ps;
+         return data_.typeString;
       }
       else
       {
@@ -335,8 +331,7 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TBOOLEAN)
       {
-         const bool* pb = reinterpret_cast<const bool*>(&data_);
-         return *pb;
+         return data_.typeBool;
       }
       else
       {
@@ -351,8 +346,7 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TTABLE)
       {
-         const LuaValueMap* pm = reinterpret_cast<const LuaValueMap*>(&data_);
-         return *pm;
+         return data_.typeLuaValueMap;
       }
       else
       {
@@ -367,8 +361,7 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TFUNCTION)
       {
-         const LuaFunction* pf = reinterpret_cast<const LuaFunction*>(&data_);
-         return *pf;
+         return data_.typeFunction;
       }
       else
       {
@@ -383,8 +376,7 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TUSERDATA)
       {
-         const LuaUserData* pd = reinterpret_cast<const LuaUserData*>(&data_);
-         return *pd;
+         return data_.typeUserData;
       }
       else
       {
@@ -396,8 +388,7 @@ namespace Diluculum
    {
       if (dataType_ == LUA_TUSERDATA)
       {
-         LuaUserData* pd = reinterpret_cast<LuaUserData*>(&data_);
-         return *pd;
+         return data_.typeUserData;
       }
       else
       {
@@ -602,7 +593,7 @@ namespace Diluculum
       if (type() != LUA_TTABLE)
          throw TypeMismatchError ("table", typeName());
 
-      LuaValueMap* pTable = reinterpret_cast<LuaValueMap*>(data_);
+      LuaValueMap* pTable = &data_.typeLuaValueMap;
 
       return (*pTable)[key];
    }
@@ -614,7 +605,7 @@ namespace Diluculum
       if (type() != LUA_TTABLE)
          throw TypeMismatchError ("table", typeName());
 
-      const LuaValueMap* pTable = reinterpret_cast<const LuaValueMap*>(data_);
+      const LuaValueMap* pTable = &data_.typeLuaValueMap;
 
       LuaValueMap::const_iterator it = (*pTable).find(key);
 
@@ -633,28 +624,28 @@ namespace Diluculum
       {
          case LUA_TSTRING:
          {
-            std::string* ps = reinterpret_cast<std::string*>(data_);
+            std::string* ps = &data_.typeString;
             ps->~basic_string();
             break;
          }
 
          case LUA_TTABLE:
          {
-            LuaValueMap* pm = reinterpret_cast<LuaValueMap*>(data_);
+            LuaValueMap* pm = &data_.typeLuaValueMap;
             pm->~LuaValueMap();
             break;
          }
 
          case LUA_TUSERDATA:
          {
-            LuaUserData* pd = reinterpret_cast<LuaUserData*>(data_);
+            LuaUserData* pd = &data_.typeUserData;
             pd->~LuaUserData();
             break;
          }
 
          case LUA_TFUNCTION:
          {
-            LuaFunction* pf = reinterpret_cast<LuaFunction*>(data_);
+            LuaFunction* pf = &data_.typeFunction;
             pf->~LuaFunction();
             break;
          }

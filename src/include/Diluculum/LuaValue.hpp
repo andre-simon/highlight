@@ -283,23 +283,26 @@ namespace Diluculum
           */
          void destroyObjectAtData();
 
-         /// This is used just to know the size of the \c data_ member.
+         /// This is used to allow the \c data_ member to store multiple types.
          union PossibleTypes
          {
                lua_Number typeNumber;
-               char typeString[sizeof(std::string)];
+               std::string typeString;
                bool typeBool;
-               char typeLuaValueMap[sizeof(LuaValueMap)];
-               char typeFunction[sizeof(LuaFunction)];
-               char typeUserData[sizeof(LuaUserData)];
+               LuaValueMap typeLuaValueMap;
+               LuaFunction typeFunction;
+               LuaUserData typeUserData;
+
+               PossibleTypes() {}
+               ~PossibleTypes() {}
          };
 
          /** This stores the actual data of this \c LuaValue.
-          *  <p>Implementation details: This member is large enough to store the
-          *  largest value. The values are allocated here using placement new,
-          *  with destructors explicitly called whenever necessary.
+          *  <p>Implementation details: The values are allocated here using
+          *  placement new, with destructors explicitly called whenever
+          *  necessary.
           */
-         char data_[sizeof(PossibleTypes)];
+         PossibleTypes data_;
 
          /** The actual type stored in this \c LuaValue. The values here are the
           *  type constants defined by Lua, like \c LUA_TNUMBER and \c LUA_TNIL.

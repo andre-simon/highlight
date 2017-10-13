@@ -85,6 +85,9 @@ namespace Diluculum
           */
          LuaFunction (const LuaFunction& other);
 
+         /// Destroys the \c LuaFunction, freeing all the resources owned by it.
+         ~LuaFunction() { destroyObjectAtData(); }
+
          /** Assigns a \c LuaFunction to this one. The memory currently
           *  allocated for \c this will be freed, new memory will be allocated,
           *  and the data stored in \c rhs will be copied to \c this.
@@ -110,12 +113,22 @@ namespace Diluculum
          size_t getSize() const { return size_; }
 
          /// Returns a pointer to the data stored in this \c LuaFunction.
-         void* getData() { return data_.get(); }
+         void* getData() {
+            assert(functionType_ == LUA_LUA_FUNCTION
+                   && "Called LuaFunction::getData() for a non-Lua function.");
+
+            return data_.typeLuaFunction;
+         }
 
          /** Returns a \c const pointer to the data stored in this
           *  \c LuaFunction.
           */
-         const void* getData() const { return data_.get(); }
+         const void* getData() const {
+            assert(functionType_ == LUA_LUA_FUNCTION
+                   && "Called LuaFunction::getData() for a non-Lua function.");
+
+            return data_.typeLuaFunction;
+         }
 
          /// Sets the data stored in this \c LuaFunction.
          void setData(void* data, size_t size);
@@ -154,6 +167,12 @@ namespace Diluculum
          bool operator!= (const LuaFunction& rhs) const;
 
       private:
+
+         /** Destroys the object allocated at the \c data_ member, freeing its
+          *  resources.
+          */
+         void destroyObjectAtData();
+
          /** The possible types of functions than possibly be stored in a
           *  \c LuaFunction.
           */
@@ -172,12 +191,18 @@ namespace Diluculum
          /// The number of bytes stored "in" \c data_.
          size_t size_;
 
-         /** A (smart) pointer to the data owned by this
-          * \c LuaFunction. Depending on \c functionType_, the data pointed to
-          * by \c data may store a pointer to a \c lua_CFunction or Lua
-          * bytecode.
+         union PossibleTypes
+         {
+               lua_CFunction typeCFunction;
+               char* typeLuaFunction;
+         };
+
+         /** This stores the actual data of this \c LuaFunction.
+          *  <p>Implementation details: The values are allocated here using
+          *  placement new, with destructors explicitly called whenever
+          *  necessary.
           */
-         boost::scoped_array<char> data_;
+         PossibleTypes data_;
 
          /** A flag used when reading the bytecode data, in calls to \c
           *  lua_load() and its \c lua_Reader.
