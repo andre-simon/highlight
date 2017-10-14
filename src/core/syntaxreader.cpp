@@ -309,7 +309,13 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
 
             assertEqualLength=readFlag(ls["Strings"]["AssertEqualLength"]);
 
-            string escRegex=(ls["Strings"]["Escape"].value()==Diluculum::Nil)?REGEX_ESCSEQ:ls["Strings"]["Escape"].value().asString();
+            string escRegex;
+            if (ls["Strings"]["Escape"].value()==Diluculum::Nil){
+                escRegex=REGEX_ESCSEQ;
+                ls["Escape"] = escRegex; //for --verbose output
+            } else {
+                escRegex=ls["Strings"]["Escape"].value().asString();
+            }
             regex.push_back ( new RegexElement ( ESC_CHAR,ESC_CHAR_END, StringTools::trim(escRegex), 0, -1 ) );
         }
 

@@ -1,8 +1,16 @@
 CHANGELOG Highlight
 
+xx.xx.2017
+
+highlight 3.40
+
+-fixed Ruby string parsing (thanks to Jens Schleusener)
+-fixed segfault on sparc64 (patch by James Clarke)
+-fixed PureBasic definition (https://github.com/andre-simon/highlight/issues/25)
 -added CMake definition (https://github.com/andre-simon/highlight/issues/20)
 -added email definition (https://github.com/andre-simon/highlight/issues/21)
 -linked scm suffix to lisp definition (https://github.com/andre-simon/highlight/issues/22)
+-W32 CLI: support HIGHLIGHT_DATADIR and --data-dir options (https://github.com/andre-simon/highlight/issues/24) 
 
 ---
 highlight 3.39

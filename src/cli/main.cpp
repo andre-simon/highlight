@@ -49,7 +49,7 @@ void HLCmdLineApp::printVersionInfo()
          << "\n\n Argparser class"
          << "\n Copyright (C) 2006-2008 Antonio Diaz Diaz <ant_diaz at teleline.es>"
          << "\n\n Artistic Style Classes (2.06)"
-         << "\n Copyright (C) 2006-2016 by Jim Pattee <jimp03 at email.com>"
+         << "\n Copyright (C) 2006-2017 by Jim Pattee <jimp03 at email.com>"
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
          << "\n\n Diluculum Lua wrapper (1.0)"
          << "\n Copyright (C) 2005-2013 by Leandro Motta Barros"
@@ -179,13 +179,13 @@ void HLCmdLineApp::printDebugInfo ( const highlight::SyntaxReader *lang,
         }
 
     }
-    /*
-    cerr << "\nREGEX:\n";
+    
+    /*cerr << "\nREGEX:\n";
     highlight::RegexElement *re=NULL;
     for ( unsigned int i=0; i<lang->getRegexElements().size(); i++ )
     {
         re = lang->getRegexElements() [i];
-        cerr << "State "<<re->open<<":\t"<<re->rex. <<"\n";
+        cerr << "State "<<re->open<<":\t"<<re->rex <<"\n";
     }*/
     cerr << "\nKEYWORDS:\n";
     highlight::KeywordMap::iterator it;

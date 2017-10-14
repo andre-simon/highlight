@@ -41,16 +41,18 @@ string DataDir::LSB_DOC_DIR="/usr/share/doc/highlight/";
 void DataDir::initSearchDirectories ( const string &userDefinedDir )
 {
 
+#ifndef WIN32
+    possibleDirs.push_back ( Platform::getHomePath() + "/.highlight/" );
+#endif
+    
+    if ( !userDefinedDir.empty() ) possibleDirs.push_back ( userDefinedDir );
+
     char* hlEnvPath=getenv("HIGHLIGHT_DATADIR");
     if (hlEnvPath!=NULL) {
         possibleDirs.push_back ( hlEnvPath );
     }
-    if ( !userDefinedDir.empty() ) possibleDirs.push_back ( userDefinedDir );
-
 
 #ifndef WIN32
-
-    possibleDirs.push_back ( Platform::getHomePath() + "/.highlight/" );
 
 #ifdef HL_DATA_DIR
     possibleDirs.push_back ( HL_DATA_DIR );
