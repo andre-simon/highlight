@@ -312,7 +312,7 @@ LoadResult SyntaxReader::load ( const string& langDefPath, const string& pluginR
             string escRegex;
             if (ls["Strings"]["Escape"].value()==Diluculum::Nil){
                 escRegex=REGEX_ESCSEQ;
-                ls["Escape"] = escRegex; //for --verbose output
+                ls["Strings[Escape]"] = escRegex; //for --verbose output
             } else {
                 escRegex=ls["Strings"]["Escape"].value().asString();
             }

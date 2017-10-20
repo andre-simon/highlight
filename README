@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL - Version 3.37 ----------------------------- May 2017 ---
+---  HIGHLIGHT MANUAL -------  Version 3.40   --------------- November 2017 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -593,7 +593,49 @@ HL_IDENTIFIER_END
 HL_UNKNOWN
 HL_REJECT
 
-Hook functions: see README_PLUGINS.
+The function OnStateChange:
+
+This function is a hook which is called if an internal state changes (e.g. from
+HL_STANDARD to HL_KEYWORD if a keyword is found). It can be used to alter
+the new state or to manipulate syntax elements like keyword lists.
+
+OnStateChange(oldState, newState, token, kwGroupID)
+
+  Hook Event: Highlighting parser state change
+  Parameters: oldState:  old state
+              newState:  intended new state
+              token:     the current token which triggered the new state
+              kwGroupID: if newState is HL_KEYWORD, the parameter
+                         contains the keyword group ID
+  Returns:    Correct state to continue OR HL_REJECT
+
+Return HL_REJECT if the recognized token and state should be discarded; the 
+first character of token will be outputted and highlighted as "oldState".
+
+Examples:
+
+function OnStateChange(oldState, newState, token)
+   if token=="]]" and oldState==HL_STRING and newState==HL_BLOCK_COMMENT_END then
+      return HL_STRING_END
+   end
+   return newState
+end
+
+This function resolves a Lua parsing issue with the "]]" close delimiter which
+ends both comments and strings.
+
+
+function OnStateChange(oldState, newState, token)
+   if token=="'" and oldState==HL_NUMBER and newState==HL_STRING then
+      return HL_NUMBER
+   end   
+   return newState
+end
+
+This hook enables correct parsing of C++14 number separator syntax.
+
+See README_PLUGINS for other available functions.
+
 
 Example:
 --------

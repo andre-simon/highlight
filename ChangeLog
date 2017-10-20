@@ -1,6 +1,6 @@
 CHANGELOG Highlight
 
-xx.xx.2017
+20.10.2017
 
 highlight 3.40
 
@@ -10,7 +10,8 @@ highlight 3.40
 -added CMake definition (https://github.com/andre-simon/highlight/issues/20)
 -added email definition (https://github.com/andre-simon/highlight/issues/21)
 -linked scm suffix to lisp definition (https://github.com/andre-simon/highlight/issues/22)
--W32 CLI: support HIGHLIGHT_DATADIR and --data-dir options (https://github.com/andre-simon/highlight/issues/24) 
+-W32 CLI: support HIGHLIGHT_DATADIR and --data-dir options (https://github.com/andre-simon/highlight/issues/24)
+-revised documentation
 
 ---
 highlight 3.39

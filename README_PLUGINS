@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT PLUGIN MANUAL - Version 3.36   ------------------ March 2017 ---
+---  HIGHLIGHT PLUGIN MANUAL - Version 3.40   --------------- November 2017 ---
 -------------------------------------------------------------------------------
 
 CONTENT
@@ -170,24 +170,10 @@ AddKeyword(keyword, kwGroupID)
 3.2 FUNCTION ONSTATECHANGE
 -------------------------------------------------------------------------------
 
-This function is a hook which is called if an internal state changes (e.g. from
-HL_STANDARD to HL_KEYWORD if a keyword is found). It can be used to alter
-the new state or to manipulate syntax elements.
+As this function is more commonly used in language definitions, refer to README
+for its detailed description.
 
-OnStateChange(oldState, newState, token, kwGroupID)
-
-  Hook Event: Highlighting parser state change
-  Parameters: oldState:  old state
-              newState:  intended new state
-              token:     the current token which triggered the new state
-              kwGroupID: if newState is HL_KEYWORD, the parameter
-                         contains the keyword group ID
-  Returns:    Correct state to continue OR HL_REJECT
-
-Return HL_REJECT if the recognized token and state should be discarded; the 
-first character of token will be outputted and highlighted as oldState.
-
-Examples:
+Example for its usage in a plugin context:
 
 function OnStateChange(oldState, newState, token, kwgroup)
    if newState==HL_KEYWORD and kwgroup==5 then
@@ -200,16 +186,6 @@ This function adds the current keyword to the internal keyword list if the
 keyword belongs to keyword group 5. If keyword group 5 is defined by a regex,
 this token will be recognized later as keyword even if the regular expression 
 does no longer match.
-
-function OnStateChange(oldState, newState, token)
-   if token=="]]" and oldState==HL_STRING and newState==HL_BLOCK_COMMENT_END then
-      return HL_STRING_END
-   end
-   return newState
-end
-
-This function resolves a Lua parsing issue with the "]]" close delimiter which
-ends both comments and strings.
 
 
 3.3 DECORATE FUNCTIONS
