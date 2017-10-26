@@ -1,0 +1,70 @@
+/******************************************************************************
+ *                                                                            *
+ *                             BASIC PAGE STYLING                             *
+ *                                                                            *
+ ******************************************************************************
+ Some basic styling that doesn't affect Highlight code blocks formatting!     */
+
+body {
+    width: 60%;
+    margin: 2em auto;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+pre {
+            overflow: auto;
+}
+/* ~~~~~~ Inline <CODE> elements  ~~~~~~ */
+p  > code,
+h1 > code,
+h2 > code,
+h3 > code,
+h4 > code {
+    background-color: #f0f0f0;
+    padding: 2px 0;
+    border-radius: 4px;
+}
+p  > code::before,
+p  > code::after,
+h1 > code::before,
+h1 > code::after,
+h2 > code::before,
+h2 > code::after,
+h3 > code::before,
+h3 > code::after,
+h4 > code::before,
+h4 > code::after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+/* ~~~~~~ <PRE><CODE> blocks for macro examples ~~~~~~ */
+pre.macro {
+    color:  #fd971f; /* bright orange */
+    color:  #f4bf75; /* orange */
+    color:  #f92672; /* red */
+    color:  #a6e22e; /* green */
+    color:  #66d9ef; /* blue */
+    color:  #a1efe4; /* azure */
+    background-color: #75715e; /* Base03 */
+    background-color: #49483e; /* Base02 */
+    letter-spacing: 0.0625em;
+}
+pre.macro,
+pre.sourceCode.html {
+    padding: 1em;        
+    border-radius: 0.25em;
+    font-size: 14px;
+} 
+/* ~~~~~~ pandoc syntax highlighting > HTML ~~~~~~ */
+pre.sourceCode.html {
+    color:  #222;
+    background-color: #eee;
+}
+code.sourceCode.html > span.co { color: #999999; }   /* Comments     */
+code.sourceCode.html > span.kw,                      /* Keyword &    */
+code.sourceCode.html > span.ot { color: #0000dd; }   /* Attributes   */
+code.sourceCode.html > span.dt,                      /* DataTypes &  */
+code.sourceCode.html > span.st { color: #009944; }   /* Strings      */
+code.sourceCode.html > span.fl { color: #dd0000;     /* Classes      */
+                              font-weight: bold; }       
+

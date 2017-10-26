@@ -68,9 +68,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <body>
 <article class="markdown-body">
 <h1 id="using-highlight-with-pandoc">Using Highlight With Pandoc</h1>
-<p>by <a href="https://github.com/tajmone">Tristano Ajmone</a>, MIT License (MIT). Last edited: Apr 16, 2017.</p>
-<p>“<em>Highlight PP-Macros</em>” is a set of macros to add cross-platform in-document access to Highlight within markdown source files via PP (pandoc preprocessor). It allows to fetch an exteranl source file, highlight its syntax, and inject the resulting html into the preprocessed document. It also provides a macro for importing an Highlight theme as an inline CSS stylesheet.</p>
-<pre><code>&quot;Highlight.pp&quot; v1.2 (2017-04-16)</code></pre>
+<p>by <a href="https://github.com/tajmone">Tristano Ajmone</a>, MIT License (MIT). Last edited: Oct 26, 2017.</p>
+<pre><code>&quot;Highlight.pp&quot; v2.1.1 (2017-10-26)</code></pre>
+<p>“<em>Highlight PP-Macros</em>” is a set of macros to add cross-platform in-document access to Highlight within Markdown and reStructuredText source files via PP (pandoc preprocessor) and pandoc. It will allow the following operations from within source documents:</p>
+<ul>
+<li>Invoke Highlight on an external source code file, and inject the HTML output into the preprocessed document,</li>
+<li>Highlight an in-document code block via Highlight, instead of using pandoc’s built-in syntax highlighter,</li>
+<li>Import a Highlight theme as an inline CSS stylesheet.</li>
+</ul>
 <hr />
 <h3>
 CONTENTS
@@ -84,10 +89,14 @@ CONTENTS
 </ul></li>
 <li><a href="#how-it-works">How It Works</a><ul>
 <li><a href="#the-highlightfile-macro">The <code>!HighlightFile</code> Macro</a></li>
+<li><a href="#the-highlight-macro">The <code>!Highlight</code> Macro</a></li>
 <li><a href="#the-highlightinlinetheme-macro">The <code>!HighlightInlineTheme</code> Macro</a></li>
 </ul></li>
-<li><a href="#example-files">Example Files</a></li>
+<li><a href="#example-files">Example Files</a><ul>
+<li><a href="#building-the-examples">Building The Examples</a></li>
+</ul></li>
 <li><a href="#external-links">External Links</a></li>
+<li><a href="#changelog">Changelog</a></li>
 </ul>
 </nav>
 <hr />
@@ -102,26 +111,31 @@ CONTENTS
 <ul>
 <li><a href="http://pandoc.org" class="uri" title="Pandoc homepage">http://pandoc.org</a></li>
 </ul>
-<p>Pandoc — aka “the universal markup converter” — is a well known command line tool for converting documents from one format to another, and especially from/to various markdown flavors, including “pandoc markdown” (an extended markdown variant introduced by pandoc itself). This very document was written in markdown and converted to html5 using pandoc and a custom template.</p>
-<p>Pandoc is widely used for academic papers and technical documentation, so it comes with a built-in syntax highlighter. By default, pandoc doesn’t support third party syntax highlighters, and the supported languages are hardcoded into pandoc and not extensible by the end user without recompiling pandoc.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-<p>Furthermore, pandoc doesn’t provide any means to import the source code from an external file — every time the source file changes, you have to manually copy-&amp;-paste its contents.</p>
+<p>Pandoc — aka “the universal markup converter” — is a well known command line tool for converting documents from one format to another, and especially from/to various markdown flavors, including “pandoc markdown” (an extended markdown variant introduced by pandoc itself). This very document was written in markdown and converted to HTML5 using pandoc and a custom template.</p>
+<p>Pandoc is widely used for academic papers and technical documentation, and it ships with a built-in syntax highlighter (<a href="https://github.com/jgm/skylighting">skylighting</a>). By default, pandoc doesn’t support third party syntax highlighters, and the supported languages are hardcoded into pandoc and not extensible by end users without recompiling pandoc.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>Furthermore, pandoc doesn’t provide any means to import the source code from an external file — every time the source file changes, you need to manually copy-&amp;-paste its contents again.</p>
 <h2 id="pp">PP</h2>
 <ul>
 <li><a href="http://cdsoft.fr/pp/" class="uri" title="PP homepage">http://cdsoft.fr/pp/</a></li>
 </ul>
-<p><em>Highlight PP-Macros</em> leverages PP, a generic preprocessor “written with pandoc in mind”. PP adds to the pandoc workflow the power of user definable macros and a set of built-in macros for cross-platform file I/O operations and conditional branching — and many other great features not cover here.</p>
-<p>Since one of PP’s goals was to introduce literate programming functionality to the pandoc workflow, it provides a solid base for handling external files, invoking third party tools, and perform operations on blocks of source code.</p>
+<p><em>Highlight PP-Macros</em> leverage PP, a generic preprocessor “written with pandoc in mind.” PP adds to the pandoc workflow the power of user definable macros and a set of built-in macros for cross-platform file I/O operations and conditional branching — and many other great features not covered here.</p>
+<p>Since one of PP’s goals was to introduce literate programming functionality in pandoc workflows, it provides a solid base for handling external files, invoking third party tools, and performing operations on source code blocks.</p>
 <h2 id="highlight-macros">Highlight Macros</h2>
-<p>The file “<a href="./Highlight.pp"><code>Highlight.pp</code></a>” contains the macros for integrating Highlight in pandoc workflow. It was taken from the “Pandoc Goodies” project, this file being one of the various macros modules that make up the <em>PP-Macros Library</em> subproject hosted therein:</p>
+<p>The file “<a href="./Highlight.pp"><code>Highlight.pp</code></a>” contains the definitions of the macros for integrating Highlight in pandoc workflow. It was taken from the “<strong>Pandoc Goodies</strong>” project, this file being one of the various macros modules that make up the <em>PP-Macros Library</em> subproject hosted therein:</p>
 <ul>
 <li><a href="https://github.com/tajmone/pandoc-goodies/tree/master/pp" class="uri" title="PP-Macros library at Pandoc-Goodies project">https://github.com/tajmone/pandoc-goodies/tree/master/pp</a></li>
 </ul>
-<p>If you intend using Highlight pp-macros, you are strongly adviced to check regularly the above link for updated versions of “<code>Highlight.pp</code>”. The contents of this folder are intended mainly as a starting example of how to integrate Highlight into pandoc workflow, and they may not reflect the latest release of the macros found on the Pandoc Goodies project.</p>
+<div class="flash-messages">
+<div class="flash">
+<p><strong>ADVISE</strong>: If you intend using the <em>Highlight PP-Macros</em>, you are strongly adviced to check regularly the above link for updated versions of “<code>Highlight.pp</code>”. The contents of this folder are intended mainly as a starting example of how to integrate Highlight into pandoc workflow, and they may not reflect the latest release of the macros found on the <strong>Pandoc Goodies</strong> project.</p>
+</div>
+</div>
 <h1 id="how-it-works">How It Works</h1>
-<p>Currently, the <em>Highlight PP-Macros</em> module works only with html output. It works on all OS that support PP.</p>
-<p>There are two macros available:</p>
+<p>Currently, the <em>Highlight PP-Macros</em> module works only with HTML output. It works on all OS that support PP.</p>
+<p>There are three macros available:</p>
 <ul>
-<li><code>!HighlightFile(FILE)(LANG)[(OPTIONS)]</code> — imports and syntax-highlights and external file into the document as a raw html <code>&lt;pre&gt;&lt;code&gt;</code> block.</li>
+<li><code>!HighlightFile(FILE)(LANG)[(OPTIONS)]</code> — imports and syntax-highlights an external file into the document as a raw HTML <code>&lt;pre&gt;&lt;code&gt;</code> block.</li>
+<li><code>!Highlight(LANG)([OPTIONS])(CODE BLOCK)</code> — syntax-higlights the block of source code passed as <code>CODE BLOCK</code> parameter (using tilda fences instead of brackets; <a href="#fence-params-note">see Note below</a>).</li>
 <li><code>!HighlightInlineTheme(THEME)</code> — retrives a Highlight theme and injects its CSS version into the document.</li>
 </ul>
 <h2 id="the-highlightfile-macro">The <code>!HighlightFile</code> Macro</h2>
@@ -129,11 +143,11 @@ CONTENTS
 <ol type="1">
 <li><code>FILE</code> — the name of the external source code file.</li>
 <li><code>LANG</code> — the language of the source code.</li>
-<li><code>OPTIONS</code> — additional command line options for invoking Highlight.</li>
+<li><code>OPTIONS</code> — additional command line options to be passed to Highlight.</li>
 </ol>
-<p>The <code>LANG</code> parameter is mandatory even if the source code file has an extension known to Highlight: the macro needs <code>LANG</code> in order to write its value as the class of the <code>&lt;code&gt;</code> tag in the enclosing <code>&lt;pre&gt;&lt;code&gt;</code> block (these tags are written by the macro, not by Highlight). For example, <code>!HighlightFile(somefile.py)(python)</code> will produce:</p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;pre</span><span class="ot"> class=</span><span class="st">&quot;hl&quot;</span><span class="kw">&gt;&lt;code</span><span class="ot"> class=</span><span class="st">&quot;python&quot;</span><span class="kw">&gt;</span></code></pre></div>
-<p>By default, this macro invokes Highlight with the following basic options:</p>
+<p>The <code>LANG</code> parameter is mandatory even if the source code file has an extension known to Highlight: the macro needs <code>LANG</code> in order to write its value as the class of the enclosing <code>&lt;pre&gt;&lt;code&gt;</code> tags (these tags are written by the macro, not by Highlight). For example, <code>!HighlightFile(somefile.py)(python)</code> will produce:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;pre</span><span class="ot"> class=</span><span class="st">&quot;hl python&quot;</span><span class="kw">&gt;&lt;code</span><span class="ot"> class=</span><span class="st">&quot;python&quot;</span><span class="kw">&gt;</span></code></pre></div>
+<p>By default, all Highlight macros invokes Highlight with the following basic options:</p>
 <ul>
 <li><code>--fragment</code> — omit document header and footer, get just the highlighted code.</li>
 <li><code>--syntax=&lt;LANG&gt;</code> — set language of source code to <code>LANG</code> parameter.</li>
@@ -141,12 +155,39 @@ CONTENTS
 <li><code>--validate-input</code> — strip BOM (if present).</li>
 </ul>
 <p>… followed by the literal string value of the <code>OPTIONS</code> parameter (if any), which must consist of options compatible with the above invocation settings, and keeping in mind that Highlight’s output will be enclosed in <code>&lt;pre&gt;&lt;code&gt;</code> tags.</p>
-<p>Since this macro outputs raw html blocks, pandoc’s built-it highlighter will ignore them. Furthermore, pandoc will still highlight any fenced (or backticked) source code block within the markdown document (ie: unless it’s explicitly invoked with the <code>--no-highlight</code> options). This allows using Highlight side by side with pandoc’s highlighter, and even benefit from dual syntax color themes (this might require some CSS tweaking, or custom stylesheets).</p>
+<p>Since this macro outputs raw HTML blocks, pandoc’s built-it highlighter will ignore them. Furthermore, pandoc will still highlight any fenced (or backticked) source code block within the markdown document (ie: unless it’s explicitly invoked with the <code>--no-highlight</code> options). This allows using Highlight side by side with pandoc’s highlighter, and even benefit from dual syntax color themes (this might require some CSS tweaking, or custom stylesheets).</p>
+<h2 id="the-highlight-macro">The <code>!Highlight</code> Macro</h2>
+<p>The <code>!Highlight</code> macro takes two mandatory parameters and an optional third one:</p>
+<ol type="1">
+<li><code>LANG</code> — the language of the source code.</li>
+<li><code>OPTIONS</code> — command line options to be passed to Highlight.</li>
+<li><code>CODE BLOCK</code> — the source code to higlight.</li>
+</ol>
+<p>The <code>CODE BLOCK</code> parameter is passed as fenced code — ie: using two equal-lenght lines of tildas (or backticks) as delimiters, instead of brackets:</p>
+<pre><code>!Highlight( LANG )( OPTIONS )
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CODE BLOCK
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</code></pre>
+<p><span id="fence-params-note"></span></p>
+<p>From PP’s documentation:</p>
+<blockquote>
+<p>The last argument can be enclosed between lines of tildas or backquotes (of the same length) instead of parenthesis, brackets or braces. This is useful for literate programming, diagrams or scripts (see <a href="https://github.com/CDSoft/pp#examples">examples</a>). Code block arguments are not stripped: spaces and blank lines are preserved.</p>
+</blockquote>
+<p>The <code>!Highlight</code> macro has been rewritten to work both under *nix shells and Window’s CMD — the macro detects the OS and PP-invocation context, and based on the findings it invokes the appropriate internal macro variant. (<strong>NOTE</strong>: Git Bash for Windows will trigger the shell variant.)</p>
+<p>When invoked from CMD, each time the <code>!Highlight</code> macro is called it will create a temporary file (named “<code>_pp-tempfileX.tmp</code>”, where <code>X</code> is a numeric counter) in the folder of the invoking script, to temporarily store the code to highlight. At each PP invocation the <code>X</code> counter is reset, and the previous temp files are written over.</p>
+<p>When run inside Shell/Bash (including Git Bash for Windows), <code>!Highlight</code> doesn’t write any temporary files to disk.</p>
+<p>If you wish to change the location where temporary files are written, set the <code>PP_MACROS_PATH</code> environment variable to the path of the desired destination folder. Otherwise, you can add to your batch script a delete command to remove all temporary files created:</p>
+<pre><code>DEL _pp-tempfile*</code></pre>
+<div class="flash-messages">
+<div class="flash flash-warn">
+<p><strong>WARNING</strong>: When using the full “<em>Pandoc-Goodies PP-Macros Library</em>” (as opposed to using the <code>Highlight.pp</code> macros module on its own) you shouldn’t use the <code>PP_MACROS_PATH</code> env var hack just mentioned — this var is set and used by the full library, and you won’t have to concern with temporary files.</p>
+</div>
+</div>
 <h2 id="the-highlightinlinetheme-macro">The <code>!HighlightInlineTheme</code> Macro</h2>
-<p>The macro <code>!HighlightInlineTheme</code> offers a quick solution for theming Highlight code without having to first export a theme to CSS (via Highlight) and then import it back into the final document as an external CSS file v(ia pandoc): the macro imports a Highlight theme directly into the document, as an inline CSS stylesheet.</p>
+<p>The macro <code>!HighlightInlineTheme</code> offers a quick solution for theming Highlight code without having to first export a theme to CSS (via Highlight) and then import it back into the final document as an external CSS file (via pandoc): the macro imports a Highlight theme directly into the document, as an inline CSS stylesheet.</p>
 <p>It takes a single mandatory parameter:</p>
 <ol type="1">
-<li><code>THEME</code> — the Hihglight theme name to import.</li>
+<li><code>THEME</code> — the name of the Hihglight theme to import (without the “<code>.theme</code>” extension).</li>
 </ol>
 <p>It invokes Highlight with the following options:</p>
 <ul>
@@ -156,36 +197,77 @@ CONTENTS
 </ul>
 <p>The macros encloses Highlight’s CSS output within <code>&lt;style type=&quot;text/css&quot;&gt;</code> tags.</p>
 <p>This macro can be invoked anywhere in the document and will apply to all Highlight code blocks (one theme per document). The imported theme will not affect code blocks highlighted by pandoc.</p>
-<p>Pandoc’s built-in highlighting styles might or might not interfere with imported Highlight themes, depending on the style’s definition ( pandoc’s default style, <code>pygments</code>, usually doesn’t interfere because it doesn’t set a background color). In some cases, slight adjustments to Highlight’s CSS are required to preserve styling integrity.</p>
+<div class="flash-messages">
+<div class="flash">
+<p><strong>NOTE</strong>: Pandoc’s built-in highlighting styles might or might not interfere with imported Highlight themes, depending on the style’s definition (pandoc’s default style, <code>pygments</code>, usually doesn’t interfere because it doesn’t set a background color). In some cases, slight adjustments to Highlight’s CSS are required to preserve styling integrity; this can be achived by adding some custom inline CSS that affects the classes used by both highlighters.</p>
+</div>
+</div>
 <h1 id="example-files">Example Files</h1>
 <ul>
 <li><code>build-example.bat</code> — The batch script to build the example file.</li>
+<li><code>build-example.sh</code> — The shell script to build the example file.</li>
 <li><code>example.md</code> — The example source file (markdown + PP macros).</li>
 <li><code>example-preprocessed.md</code> — The PP-preprocessed version <code>example.md</code>.</li>
-<li><code>example.html</code> — The html conversion of <code>example-preprocessed.md</code> via pandoc.</li>
+<li><code>example.html</code> — The HTML conversion of <code>example-preprocessed.md</code> via pandoc.</li>
 <li><code>example.pb</code> — The external source code file example (PureBASIC).</li>
 <li><code>Highlight.pp</code> — The required PP macros file.</li>
 </ul>
-<p>Ensure that pandoc, PP and Highlight are available on the system <code>PATH</code>, then execute the <code>build-example.bat</code> script.</p>
+<h2 id="building-the-examples">Building The Examples</h2>
+<p>This files contains prebuilt version of the example files, but if you want to experiment with them here are the instructions.</p>
+<p>Ensure that pandoc, PP and Highlight are available on the system <code>PATH</code>, then execute the <code>build-example</code> script (<code>build-example.bat</code> in CMD, <code>build-example.sh</code> in Shell/Bash).</p>
 <p>The script issues two commands:</p>
-<pre class="bat"><code>pp -import Highlight.pp example.md &gt; example-preprocessed.md
-pandoc example-preprocessed.md -o example.html</code></pre>
-<div class="flash-messages">
-<div class="flash">
-<p><strong>LINUX NOTE</strong> — These two commands will also work on Linux: just type them in the terminal.</p>
-</div>
-</div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">pp</span> -import Highlight.pp example.md <span class="op">&gt;</span> example-preprocessed.md
+<span class="ex">pandoc</span> --self-contained -S --normalize example-preprocessed.md -o example.html</code></pre></div>
 <p>The first line invokes <code>pp</code> and tells it to <code>-import</code> the contents of <code>Highlight.pp</code> (so that the macros herein defined are loaded in the current environment) and then process the file <code>example.md</code>. Since PP outputs to <code>STDOUT</code>, we redirect (<code>&gt;</code>) its output to <code>example-preprocessed.md</code>.</p>
 <p>If you open <code>example-preprocessed.md</code> in a text editor you’ll see how the macros inside <code>example.md</code> were expanded.</p>
-<p>The second line invokes <code>pandoc</code> and tells it to convert <code>example-preprocessed.md</code> and write the output (<code>-o</code>) to the <code>example.html</code> file (pandoc is smart enough to deduce the desired input and output formats from the files’ extensions).</p>
-<p>In a real work scenario, you would carry out the above task with a single command line, by piping (<code>|</code>) PP’s output directly to pandoc instead of writing it to the <code>example-preprocessed.md</code> file:</p>
-<pre class="bat"><code>pp -import Highlight.pp example.md | pandoc -f markdown -o example.html</code></pre>
-<p>For learning purposes, <code>build-example.bat</code> writes to disk the intermediate preprocessed markdown file, so that you may examine how the macros are expanded by PP before feeding them to pandoc.</p>
+<p>The second line invokes <code>pandoc</code> and tells it to convert <code>example-preprocessed.md</code> and write the output (<code>-o</code>) to the <code>example.html</code> file (pandoc is smart enough to deduce the desired input and output formats from the files’ extensions). The <code>--self-contained</code> option is used to produce a fully standalone HTML file with no external dependencies. The <code>-S</code> (short for <code>--smart</code>) and <code>--normalize</code> options are to produce a nicer output text.</p>
+<div class="flash-messages">
+<div class="flash">
+<p><strong>NOTE</strong>: In a real work scenario, you would carry out the above tasks with a single command, by piping (<code>|</code>) PP’s output directly to pandoc instead of writing it to the <code>example-preprocessed.md</code> file:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">pp</span> -import Highlight.pp example.md <span class="kw">|</span> <span class="ex">pandoc</span> --self-contained -S --normalize -o example.html</code></pre></div>
+<p>For learning purposes, the <code>build-example</code> scripts write to disk the intermediate preprocessed markdown file, so that you may examine how the macros are expanded by PP before feeding them to pandoc.</p>
+</div>
+</div>
+<p>Enjoy…</p>
+<p style="text-align: right">
+Tristano Ajmone</br>(Italy)
+</p>
 <h1 id="external-links">External Links</h1>
 <ul>
 <li><a href="http://pandoc.org" class="uri" title="Pandoc homepage">http://pandoc.org</a></li>
 <li><a href="http://cdsoft.fr/pp/" class="uri" title="PP homepage">http://cdsoft.fr/pp/</a></li>
 <li><a href="https://github.com/tajmone/pandoc-goodies/tree/master/pp#highlight" class="uri" title="Highlight pp-macros at Pandoc-Goodies project">https://github.com/tajmone/pandoc-goodies/tree/master/pp#highlight</a></li>
+</ul>
+<h1 id="changelog">Changelog</h1>
+<h3>
+<code>2017/10/26</code>
+</h3>
+<ul>
+<li>“<code>Highlight.pp</code>” v2.1.1 (PP v2.0):
+<ul>
+<li>Macros updated to work with PP v2.0 (released 2017/10/22).</li>
+<li>Added <code>!Highlight</code> macro to invoke Highlight on a code block inside the document.</li>
+</ul></li>
+</ul>
+<h3>
+<code>2017/04/16</code>
+</h3>
+<ul>
+<li>“<code>Highlight.pp</code>” v1.2 (PP v1.7-2):
+<ul>
+<li>All macros updated to use the new cross-platfrom <code>!exec</code> built-in macro instead of <code>!cmd</code> (requires PP 1.7-2, released the same day).</li>
+</ul></li>
+</ul>
+<h3>
+<code>2017/04/16</code>
+</h3>
+<p>( <em>first release</em> )</p>
+<ul>
+<li>“<code>Highlight.pp</code>” v1.1 (PP v1.5):
+<ul>
+<li><code>!HighlightFile</code> macro (Win CMD only).</li>
+<li><code>!HighlightInlineTheme</code> macro (Win CMD only).</li>
+</ul></li>
 </ul>
 <section class="footnotes">
 <hr />
