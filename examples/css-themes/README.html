@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--==============================================================================
+	           "GitHub HTML5 Pandoc Template" v1.2 — by Tristano Ajmone           
+	==============================================================================
+	(c) Tristano Ajmone, 2017, MIT License (MIT). Project's home repository:
+
+	- https://github.com/tajmone/pandoc-goodies
+
+	This template reuses source code taken from the following projects:
+
+	- GitHub Markdown CSS: © Sindre Sorhus, MIT License (MIT):
+	  https://github.com/sindresorhus/github-markdown-css
+
+	- Primer CSS: © 2016 GitHub Inc., MIT License (MIT):
+	  http://primercss.io/
+	==============================================================================-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Tristano Ajmone">
+  <meta name="dcterms.date" content="October 24, 2017">
+  <title>Highlight CSS-Themes</title>
+  <style type="text/css">@font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,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) format('woff')}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;font-family:-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:16px;line-height:1.5;word-wrap:break-word;box-sizing:border-box;min-width:200px;max-width:980px;margin:0 auto;padding:45px}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body a{background-color:transparent;-webkit-text-decoration-skip:objects;color:#0366d6;text-decoration:none}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body h1{margin:.67em 0}.markdown-body img{border-style:none}.markdown-body svg:not(:root){overflow:hidden}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace}.markdown-body input{font:inherit;margin:0;overflow:visible;font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{box-sizing:content-box;overflow:hidden;background:0 0;border-bottom:1px solid #dfe2e5}.markdown-body hr::before{display:table;content:""}.markdown-body hr::after{display:table;clear:both;content:""}.markdown-body table{border-spacing:0;border-collapse:collapse;display:block;width:100%;overflow:auto}.markdown-body td,.markdown-body th{padding:0}.markdown-body blockquote{margin:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code{font-family:SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace}.markdown-body pre{font:12px SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;word-wrap:normal}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body::before{display:table;content:""}.markdown-body::after{display:table;clear:both;content:""}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:0}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e1e4e8;border:0}.markdown-body blockquote{padding:0 1em;color:#6a737d;border-left:.25em solid #dfe2e5}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{font-size:11px;box-shadow:inset 0 -1px 0 #959da5}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1{padding-bottom:.3em;font-size:2em;border-bottom:1px solid #eaecef}.markdown-body h2{padding-bottom:.3em;font-size:1.5em;border-bottom:1px solid #eaecef}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#6a737d}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:600}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #dfe2e5}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body code{padding:.2em 0;margin:0;font-size:85%;background-color:rgba(27,31,35,.05);border-radius:3px}.markdown-body code::after,.markdown-body code::before{letter-spacing:-.2em;content:"\00a0"}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:0 0;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f6f8fa;border-radius:3px}.markdown-body pre code{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code::after,.markdown-body pre code::before{content:normal}.markdown-body .full-commit .btn-outline:not(:disabled):hover{color:#005cc5;border-color:#005cc5}.markdown-body kbd{display:inline-block;padding:3px 5px;font:11px SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;line-height:10px;color:#444d56;vertical-align:middle;background-color:#fcfcfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5}.markdown-body :checked+.radio-label{position:relative;z-index:1;border-color:#0366d6}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.flash{position:relative;padding:16px;color:#246;background-color:#e2eef9;border:1px solid #bac6d3;border-radius:3px}.flash p:last-child{margin-bottom:0}.flash-messages{margin-bottom:24px}.flash-warn{color:#4c4a42;background-color:#fff9ea;border-color:#dfd8c2}.flash-error{color:#911;background-color:#fcdede;border-color:#d2b2b2}.flash-success{color:#22662c;background-color:#e2f9e5;border-color:#bad3be}.flash-plain{color:#4c4a42;background-color:#f5f5f5;border-color:#c1c1c1}</style>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<article class="markdown-body">
+<h1 id="highlight-css-themes-examples">Highlight CSS-Themes Examples</h1>
+<p>by <a href="https://github.com/tajmone">Tristano Ajmone</a>, MIT License (MIT). Last edited: Oct 24, 2017.</p>
+<hr />
+<h3>
+CONTENTS
+</h3>
+<nav id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#notes-on-highlight-html-output">Notes on Highlight HTML Output</a></li>
+<li><a href="#table-of-language-elements-css-classes">Table of Language Elements’ CSS Classes</a></li>
+<li><a href="#sasscss-boilerplates">Sass/CSS Boilerplates</a></li>
+<li><a href="#unlicense">Unlicense</a></li>
+</ul>
+</nav>
+<hr />
+<h1 id="introduction">Introduction</h1>
+<p>Language definition files define the syntax of language elements. Colour themes define how these language elements should be formatted in the final highlighted document.</p>
+<p>Highlight theme files are Lua files that can handle formatting for various output formats, including HTML. While Highlight themes support basic formatting (<em>Colour</em>, <em>Bold</em>, <em>Italic</em>, and <em>Underline</em>), when targetting HTML output you might desire finer control over styling, especially when working in a website, and thus opt to define your custom CSS themes — or use <a href="http://sass-lang.com/">Sass</a>, <a href="http://lesscss.org/">Less</a>, <a href="http://stylus-lang.com/">Stylus</a>, or some other language for compiling CSS.</p>
+<p>In order to facilitate creating custom CSS Highlight themes, here you’ll find:</p>
+<ol type="1">
+<li>Some <a href="#notes-on-highlight-html-output">introductory notes on how Highlight formats its HTML Output</a>.</li>
+<li>A <a href="#table-of-language-elements-css-classes">reference table</a> listing the various <strong>language elements</strong> and their corresponding CSS classes.</li>
+<li>A <a href="#sasscss-boilerplates">Sass and a CSS boilerplate</a> to start building you custom themes.</li>
+</ol>
+<h1 id="notes-on-highlight-html-output">Notes on Highlight HTML Output</h1>
+<p>Highlight’s default behaviour for HTML output is to enclose the code block within a preformatted block with class <code>hl</code> (<code>&lt;pre class=&quot;hl&quot;&gt;</code>), and then enclose all the various language elements within <code>&lt;span&gt;</code> tags with the <code>hl</code> class along the element’s corresponding class.</p>
+<div class="flash-messages">
+<div class="flash">
+<p><strong>NOTE</strong>: Highlight doesn’t nest <code>&lt;span&gt;</code> tags in its output! Before a new tag is opened, the previous one is always closed.</p>
+</div>
+</div>
+<p>Example source:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># A very simple Python program</span>
+<span class="bu">print</span>(<span class="st">&quot;Hello World!&quot;</span>)</code></pre></div>
+<p>Example HTML output:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;pre</span><span class="ot"> class=</span><span class="st">&quot;hl&quot;</span><span class="kw">&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl slc&quot;</span><span class="kw">&gt;</span># A very simple Python program<span class="kw">&lt;/span&gt;</span>
+<span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl kwa&quot;</span><span class="kw">&gt;</span>print<span class="kw">&lt;/span&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl opt&quot;</span><span class="kw">&gt;</span>(<span class="kw">&lt;/span&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl str&quot;</span><span class="kw">&gt;</span><span class="dv">&amp;quot;</span>Hello World!<span class="dv">&amp;quot;</span><span class="kw">&lt;/span&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl opt&quot;</span><span class="kw">&gt;</span>)<span class="kw">&lt;/span&gt;</span>
+<span class="kw">&lt;/pre&gt;</span></code></pre></div>
+<p>Line numbers too are handled via a span tag with <code>lin</code> class (<code>&lt;span class=&quot;hl lin&quot;&gt;</code>):</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;pre</span><span class="ot"> class=</span><span class="st">&quot;hl&quot;</span><span class="kw">&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl lin&quot;</span><span class="kw">&gt;</span>    1 <span class="kw">&lt;/span&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl slc&quot;</span><span class="kw">&gt;</span># A very simple Python program<span class="kw">&lt;/span&gt;</span>
+<span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl lin&quot;</span><span class="kw">&gt;</span>    2 <span class="kw">&lt;/span&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl kwa&quot;</span><span class="kw">&gt;</span>print<span class="kw">&lt;/span&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl opt&quot;</span><span class="kw">&gt;</span>(<span class="kw">&lt;/span&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl str&quot;</span><span class="kw">&gt;</span><span class="dv">&amp;quot;</span>Hello World!<span class="dv">&amp;quot;</span><span class="kw">&lt;/span&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hl opt&quot;</span><span class="kw">&gt;</span>)<span class="kw">&lt;/span&gt;</span>
+<span class="kw">&lt;/pre&gt;</span></code></pre></div>
+<h1 id="table-of-language-elements-css-classes">Table of Language Elements’ CSS Classes</h1>
+<p>The CSS counterparts of a theme’s <code>Default</code> and <code>Canvas</code> definitions are the definitions of the <code>&lt;pre&gt;</code> tag with <code>hl</code> class:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Element</th>
+<th>CSS</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Default</code></td>
+<td><code>pre.hl { ... }</code></td>
+<td>Attributes of unspecified text</td>
+</tr>
+<tr class="even">
+<td><code>Canvas</code></td>
+<td><code>pre.hl { background: ...; }</code></td>
+<td>Code block background properties</td>
+</tr>
+</tbody>
+</table>
+<p>The rest of the language elements counterparts (including line numbers) concern <code>&lt;span&gt;</code> tags with the following classes:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Element</th>
+<th>CSS</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Number</code></td>
+<td><code>.hl .num</code></td>
+<td>Numbers</td>
+</tr>
+<tr class="even">
+<td><code>Escape</code></td>
+<td><code>.hl .esc</code></td>
+<td>Escape sequences</td>
+</tr>
+<tr class="odd">
+<td><code>Interpolation</code></td>
+<td><code>.hl .ipl</code></td>
+<td>Interpolation sequences</td>
+</tr>
+<tr class="even">
+<td><code>String</code></td>
+<td><code>.hl .str</code></td>
+<td>Strings</td>
+</tr>
+<tr class="odd">
+<td><code>PreProcessor</code></td>
+<td><code>.hl .ppc</code></td>
+<td>Preprocessor directives</td>
+</tr>
+<tr class="even">
+<td><code>StringPreProc</code></td>
+<td><code>.hl .pps</code></td>
+<td>Strings within preprocessor directives</td>
+</tr>
+<tr class="odd">
+<td><code>BlockComment</code></td>
+<td><code>.hl .com</code></td>
+<td>Block comments</td>
+</tr>
+<tr class="even">
+<td><code>LineComment</code></td>
+<td><code>.hl .slc</code></td>
+<td>Single-line comments</td>
+</tr>
+<tr class="odd">
+<td><code>LineNum</code></td>
+<td><code>.hl .lin</code></td>
+<td>Line numbers</td>
+</tr>
+<tr class="even">
+<td><code>Operator</code></td>
+<td><code>.hl .opt</code></td>
+<td>Operators</td>
+</tr>
+<tr class="odd">
+<td><code>Keywords</code>&gt;<code>Id=1</code></td>
+<td><code>.hl .kwa</code></td>
+<td>Keywords group 1 (<code>a</code>)</td>
+</tr>
+<tr class="even">
+<td><code>Keywords</code>&gt;<code>Id=2</code></td>
+<td><code>.hl .kwb</code></td>
+<td>Keywords group 2 (<code>b</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>Keywords</code>&gt;<code>Id=3</code></td>
+<td><code>.hl .kwc</code></td>
+<td>Keywords group 3 (<code>c</code>)</td>
+</tr>
+<tr class="even">
+<td><code>Keywords</code>&gt;<code>Id=4</code></td>
+<td><code>.hl .kwd</code></td>
+<td>Keywords group 4 (<code>d</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="flash-messages">
+<div class="flash">
+<p><strong>NOTE</strong>: To define CSS <code>Keywords</code> groups above <code>Id=4</code>, just keep incrementing the last letter in the “<code>.kw*</code>” class name — Eg: <code>.kwe</code>, <code>.kwf</code>, <code>.kwg</code>, …, <code>.kwz</code>.</p>
+</div>
+</div>
+<h1 id="sasscss-boilerplates">Sass/CSS Boilerplates</h1>
+<p>In this folder you’ll find two boilerplate files that you can use as a starting point to build your custom Highlight CSS themes:</p>
+<ul>
+<li><a href="./hl-theme-boilerplate.scss"><code>hl-theme-boilerplate.scss</code></a> — The Sass SCSS boilerplate.</li>
+<li><a href="./hl-theme-boilerplate.css"><code>hl-theme-boilerplate.css</code></a> — The CSS boilerplate (built by compiling the previous file).</li>
+</ul>
+<p>These boilerplates are useful because they contain all the classes covering Highlight language elements, with comments remind their Lua counterparts names. By using a boilerplate, you’ll be reminded to cover all syntax elements, without the need to lookup any tables.</p>
+<p>There is also an example HTML document showing how the CSS boilerplate looks like:</p>
+<ul>
+<li><a href="./example.html"><code>example.html</code></a></li>
+</ul>
+<h1 id="unlicense">Unlicense</h1>
+<p>All files are released into public domain under the terms of the Unlicense:</p>
+<ul>
+<li><a href="http://unlicense.org" class="uri">http://unlicense.org</a></li>
+</ul>
+</article>
+</body>
+</html>

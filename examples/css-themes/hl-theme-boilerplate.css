@@ -1,0 +1,59 @@
+/*!
+     Highlight Theme Boilerplate (public domain)
+     By Tristano Ajmone, 2017.
+*/
+pre.hl {
+  background-color: #49483e;
+  color: #f8f8f2;
+  border-radius: 4px;
+  border: 1px solid #a59f85;
+  padding: 1em;
+  overflow: auto;
+  font-size: 16px;
+  letter-spacing: 0.0625em;
+}
+
+.hl.num {
+  color: #fd971f;
+}
+.hl.esc {
+  color: #fd971f;
+}
+.hl.ipl {
+  color: #cc6633;
+}
+.hl.str {
+  color: #a6e22e;
+}
+.hl.ppc {
+  color: #ae81ff;
+}
+.hl.pps {
+  color: #a1efe4;
+}
+.hl.com {
+  color: #a59f85;
+  font-style: italic;
+}
+.hl.slc {
+  color: #a59f85;
+  font-style: italic;
+}
+.hl.lin {
+  color: #75715e;
+}
+.hl.opt {
+  color: #f8f8f2;
+}
+.hl.kwa {
+  color: #f92672;
+}
+.hl.kwb {
+  color: #f4bf75;
+}
+.hl.kwc {
+  color: #66d9ef;
+}
+.hl.kwd {
+  color: #ae81ff;
+}

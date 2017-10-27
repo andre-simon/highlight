@@ -1,0 +1,125 @@
+// v1.0 (2017/10/25)
+// ******************************************************************************
+// *                                                                            *
+// *                      Highlight SCSS-Theme Boilerplate                      *
+// *                                                                            *
+// ******************************************************************************
+// A Sass SCSS boilerplate for building custom CSS themes for Highlight.
+// By Tristano Ajmone, released into the public domain through the Unlicense:
+// -- http://unlicense.org
+
+// This template covers all of Highlight syntax elements.
+
+// ==============================================================================
+//                            Colors Scheme Defintion                            
+// ==============================================================================
+// Define here the colors you'd like to assign to the Syntax Elements.
+// 
+// Example color scheme based on Wimer Hazenberg's "Base16 Monokai":
+// -- https://github.com/chriskempson/base16-builder/blob/master/schemes/monokai.yml
+
+$HL-CanvasBG: 		#49483e; // base02 -- Fuscous Gray 
+$HL-Default:  		#f8f8f2; // base05 -- Pearl white
+
+$HL-Border: 		#a59f85; // base04 -- Tallow
+
+$HL-LineNum: 		#75715e; // base03 -- Crocodile
+
+$HL-Number: 		#fd971f; // base09 -- Orange
+$HL-Escape: 		#fd971f; // base09 -- Orange
+$HL-Interpolation: 	#cc6633; // base0F -- Bick-red
+$HL-String: 		#a6e22e; // base0B -- Green
+$HL-PreProcessor: 	#ae81ff; // base0E -- Lavender
+$HL-StringPreProc: 	#a1efe4; // base0C -- Turquoise
+$HL-BlockComment: 	#a59f85; // base04 -- Tallow
+$HL-LineComment:	$HL-BlockComment;
+$HL-Operator: 	 	$HL-Default;
+$HL-Keywords1: 		#f92672; // base08 -- Rose red
+$HL-Keywords2: 		#f4bf75; // base0A -- Pale orange
+$HL-Keywords3: 		#66d9ef; // base0D -- Sky Blue
+$HL-Keywords4: 		#ae81ff; // base0E -- Lavender
+
+/*!
+     Highlight Theme Boilerplate (public domain)
+     By Tristano Ajmone, 2017.
+*/
+
+// ==============================================================================
+//                                Theme Definition                               
+// ==============================================================================
+pre.hl {
+	background-color: $HL-CanvasBG;
+	color: $HL-Default;
+	
+	// Border and padding
+	border-radius: 4px;
+	border: 1px solid $HL-Border;
+	padding: 1em;
+	
+	// Some basic styling, just in case you need it...
+	overflow: auto;
+	font-size: 16px;
+	letter-spacing: 0.0625em; // 16 * 0.0625 = 1px
+}
+
+.hl {
+	&.num {
+		// Numbers
+		color: $HL-Number;
+	}
+	&.esc {
+		// Escape sequences 
+		color: $HL-Escape;
+	}
+	&.ipl {
+		// Interpolation sequences 
+		color: $HL-Interpolation;
+	}
+	&.str {
+		// Strings
+		color: $HL-String;
+	}
+	&.ppc {
+		// Preprocessor directives
+		color: $HL-PreProcessor;
+	}
+	&.pps {
+		// Strings within preprocessor directives
+		color: $HL-StringPreProc;
+	}
+	&.com {
+		// Block comments
+		color: $HL-BlockComment;
+		font-style: italic;
+	}
+	&.slc {
+		// Single-line comments
+		color: $HL-LineComment;
+		font-style: italic;
+	}
+	&.lin {
+		// Line numbers 
+		color: $HL-LineNum;
+	}
+	&.opt {
+		// Operators
+		color: $HL-Operator;
+	}
+	&.kwa {
+		// Keywords group 1
+		color: $HL-Keywords1;
+	}
+	&.kwb {
+		// Keywords group 2
+		color: $HL-Keywords2;
+	}
+	&.kwc {
+		// Keywords group 3
+		color: $HL-Keywords3;
+	}
+	&.kwd {
+		// Keywords group 4
+		color: $HL-Keywords4;
+	}
+}
+
