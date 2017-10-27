@@ -1,30 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Tristano Ajmone" />
+  <title>Highligh.pp Example</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:text/css;charset=utf-8,%0Abody%20%7B%0Awidth%3A%2060%25%3B%0Amargin%3A%202em%20auto%3B%0Afont%2Dfamily%3A%20Verdana%2C%20Arial%2C%20Helvetica%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2016px%3B%0A%7D%0Apre%20%7B%0Aoverflow%3A%20auto%3B%0A%7D%0A%0Ap%20%3E%20code%2C%0Ah1%20%3E%20code%2C%0Ah2%20%3E%20code%2C%0Ah3%20%3E%20code%2C%0Ah4%20%3E%20code%20%7B%0Abackground%2Dcolor%3A%20%23f0f0f0%3B%0Apadding%3A%202px%200%3B%0Aborder%2Dradius%3A%204px%3B%0A%7D%0Ap%20%3E%20code%3A%3Abefore%2C%0Ap%20%3E%20code%3A%3Aafter%2C%0Ah1%20%3E%20code%3A%3Abefore%2C%0Ah1%20%3E%20code%3A%3Aafter%2C%0Ah2%20%3E%20code%3A%3Abefore%2C%0Ah2%20%3E%20code%3A%3Aafter%2C%0Ah3%20%3E%20code%3A%3Abefore%2C%0Ah3%20%3E%20code%3A%3Aafter%2C%0Ah4%20%3E%20code%3A%3Abefore%2C%0Ah4%20%3E%20code%3A%3Aafter%20%7B%0Aletter%2Dspacing%3A%20%2D0%2E2em%3B%0Acontent%3A%20%22%5C00a0%22%3B%0A%7D%0A%0Apre%2Emacro%20%7B%0Acolor%3A%20%23fd971f%3B%20%0Acolor%3A%20%23f4bf75%3B%20%0Acolor%3A%20%23f92672%3B%20%0Acolor%3A%20%23a6e22e%3B%20%0Acolor%3A%20%2366d9ef%3B%20%0Acolor%3A%20%23a1efe4%3B%20%0Abackground%2Dcolor%3A%20%2375715e%3B%20%0Abackground%2Dcolor%3A%20%2349483e%3B%20%0Aletter%2Dspacing%3A%200%2E0625em%3B%0A%7D%0Apre%2Emacro%2C%0Apre%2EsourceCode%2Ehtml%20%7B%0Apadding%3A%201em%3B%20border%2Dradius%3A%200%2E25em%3B%0Afont%2Dsize%3A%2014px%3B%0A%7D%20%0Apre%2EsourceCode%2Ehtml%20%7B%0Acolor%3A%20%23222%3B%0Abackground%2Dcolor%3A%20%23eee%3B%0A%7D%0Acode%2EsourceCode%2Ehtml%20%3E%20span%2Eco%20%7B%20color%3A%20%23999999%3B%20%7D%20%0Acode%2EsourceCode%2Ehtml%20%3E%20span%2Ekw%2C%20%0Acode%2EsourceCode%2Ehtml%20%3E%20span%2Eot%20%7B%20color%3A%20%230000dd%3B%20%7D%20%0Acode%2EsourceCode%2Ehtml%20%3E%20span%2Edt%2C%20%0Acode%2EsourceCode%2Ehtml%20%3E%20span%2Est%20%7B%20color%3A%20%23009944%3B%20%7D%20%0Acode%2EsourceCode%2Ehtml%20%3E%20span%2Efl%20%7B%20color%3A%20%23dd0000%3B%20%0Afont%2Dweight%3A%20bold%3B%20%7D%20" rel="stylesheet" type="text/css" />
+</head>
+<body>
 <h1 id="highlight-pp-macros-usage-example">Highlight PP-Macros Usage Example</h1>
-<h1 id="first-example">First Example</h1>
-<p>We import the PureBASIC example file &quot;<code>example.pb</code>&quot; without passing any extra options to Highlight:</p>
-<pre class="hl"><code class="purebasic"><span class="hl slc">; PureBASIC 5.60 Example</span>
+<h1 id="external-file-examples">External File Examples</h1>
+<p>Through the <code>!HighlightFile</code> macro, external source code files can be passed to Highlight and the HTML output injected into the final document.</p>
+<h2 id="first-example">First Example</h2>
+<p>We’ll import and syntax highlight the PureBASIC example file “<code>example.pb</code>” without passing any extra options to Highlight.</p>
+<p>macro used:</p>
+<pre class="macro"><code>!HighlightFile(example.pb)(purebasic)</code></pre>
+<p>output result:</p>
+<pre class="hl purebasic"><code class="purebasic"><span class="hl slc">; ==============================================================================</span>
+<span class="hl slc">;                             PureBASIC Example File                            </span>
+<span class="hl slc">; ==============================================================================</span>
+<span class="hl slc">; &quot;example.pb&quot; | PureBASIC 5.61</span>
 
 <span class="hl kwa">For</span> i<span class="hl opt">=</span><span class="hl num">5</span> <span class="hl kwa">To</span> <span class="hl num">1</span> <span class="hl kwa">Step</span> <span class="hl opt">-</span><span class="hl num">1</span>
-  TEXT$ <span class="hl opt">=</span> <span class="hl str">&quot;Iteration number: &quot;</span> <span class="hl opt">+</span> <span class="hl kwc">Str</span>(i) <span class="hl opt">+</span> <span class="hl kwd">~</span><span class="hl str">&quot;</span><span class="hl esc">\n\n</span><span class="hl str">Do you wish to continue?&quot;</span>
+  TEXT$ <span class="hl opt">=</span> <span class="hl str">&quot;Iteration number: &quot;</span> <span class="hl opt">+</span> <span class="hl kwc">Str</span>(i) <span class="hl opt">+</span> <span class="hl str">~&quot;</span><span class="hl esc">\n\n</span><span class="hl str">Do you wish to continue?&quot;</span>
   UserChoice <span class="hl opt">=</span> <span class="hl kwc">MessageRequester</span>(<span class="hl str">&quot;Countdown Dialog&quot;</span>, TEXT$, <span class="hl kwb">#PB_MessageRequester_YesNo</span> <span class="hl opt">|</span> <span class="hl kwb">#PB_MessageRequester_Info</span>)
   <span class="hl kwa">If</span> UserChoice <span class="hl opt">=</span> <span class="hl kwb">#PB_MessageRequester_No</span>
     <span class="hl kwa">Break</span>
   <span class="hl kwa">EndIf</span>
 <span class="hl kwa">Next</span></code></pre>
-<h1 id="second-example">Second Example</h1>
-<p>Now we import the same file, this time passing some extra options to Highlight in order to show line numbers:</p>
-<pre class="hl"><code class="purebasic"><span class="hl lin">    1 </span><span class="hl slc">; PureBASIC 5.60 Example</span>
-<span class="hl lin">    2 </span>
-<span class="hl lin">    3 </span><span class="hl kwa">For</span> i<span class="hl opt">=</span><span class="hl num">5</span> <span class="hl kwa">To</span> <span class="hl num">1</span> <span class="hl kwa">Step</span> <span class="hl opt">-</span><span class="hl num">1</span>
-<span class="hl lin">    4 </span>  TEXT$ <span class="hl opt">=</span> <span class="hl str">&quot;Iteration number: &quot;</span> <span class="hl opt">+</span> <span class="hl kwc">Str</span>(i) <span class="hl opt">+</span> <span class="hl kwd">~</span><span class="hl str">&quot;</span><span class="hl esc">\n\n</span><span class="hl str">Do you wish to continue?&quot;</span>
-<span class="hl lin">    5 </span>  UserChoice <span class="hl opt">=</span> <span class="hl kwc">MessageRequester</span>(<span class="hl str">&quot;Countdown Dialog&quot;</span>, TEXT$, <span class="hl kwb">#PB_MessageRequester_YesNo</span> <span class="hl opt">|</span> <span class="hl kwb">#PB_MessageRequester_Info</span>)
-<span class="hl lin">    6 </span>  <span class="hl kwa">If</span> UserChoice <span class="hl opt">=</span> <span class="hl kwb">#PB_MessageRequester_No</span>
-<span class="hl lin">    7 </span>    <span class="hl kwa">Break</span>
-<span class="hl lin">    8 </span>  <span class="hl kwa">EndIf</span>
-<span class="hl lin">    9 </span><span class="hl kwa">Next</span></code></pre>
-<h1 id="add-color-theme">Add Color Theme</h1>
-<p>Now we import Highlight's <code>edit-purebasic</code> theme into the document:</p>
+<h2 id="second-example">Second Example</h2>
+<p>Now we’ll highlight the same external file, this time passing some extra options to Highlight in order to show line numbers.</p>
+<p>macro used:</p>
+<pre class="macro"><code>!HighlightFile(example.pb)(purebasic)(--line-numbers --line-number-length=2)</code></pre>
+<p>output result:</p>
+<pre class="hl purebasic"><code class="purebasic"><span class="hl lin"> 1 </span><span class="hl slc">; ==============================================================================</span>
+<span class="hl lin"> 2 </span><span class="hl slc">;                             PureBASIC Example File                            </span>
+<span class="hl lin"> 3 </span><span class="hl slc">; ==============================================================================</span>
+<span class="hl lin"> 4 </span><span class="hl slc">; &quot;example.pb&quot; | PureBASIC 5.61</span>
+<span class="hl lin"> 5 </span>
+<span class="hl lin"> 6 </span><span class="hl kwa">For</span> i<span class="hl opt">=</span><span class="hl num">5</span> <span class="hl kwa">To</span> <span class="hl num">1</span> <span class="hl kwa">Step</span> <span class="hl opt">-</span><span class="hl num">1</span>
+<span class="hl lin"> 7 </span>  TEXT$ <span class="hl opt">=</span> <span class="hl str">&quot;Iteration number: &quot;</span> <span class="hl opt">+</span> <span class="hl kwc">Str</span>(i) <span class="hl opt">+</span> <span class="hl str">~&quot;</span><span class="hl esc">\n\n</span><span class="hl str">Do you wish to continue?&quot;</span>
+<span class="hl lin"> 8 </span>  UserChoice <span class="hl opt">=</span> <span class="hl kwc">MessageRequester</span>(<span class="hl str">&quot;Countdown Dialog&quot;</span>, TEXT$, <span class="hl kwb">#PB_MessageRequester_YesNo</span> <span class="hl opt">|</span> <span class="hl kwb">#PB_MessageRequester_Info</span>)
+<span class="hl lin"> 9 </span>  <span class="hl kwa">If</span> UserChoice <span class="hl opt">=</span> <span class="hl kwb">#PB_MessageRequester_No</span>
+<span class="hl lin">10 </span>    <span class="hl kwa">Break</span>
+<span class="hl lin">11 </span>  <span class="hl kwa">EndIf</span>
+<span class="hl lin">12 </span><span class="hl kwa">Next</span></code></pre>
+<h1 id="code-block-examples">Code Block Examples</h1>
+<p>With the <code>!Highlight</code> macro it’s possible to invoke Highlight on code blocks inside the document.</p>
+<p>Let’s apply the <code>!Highlight</code> macro to a block of PureBASIC code, with some extra Highlight options for line numbering.</p>
+<p>macro used:</p>
+<pre class="macro"><code>!Highlight(purebasic)(-l -j 2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+; PureBASIC 5.61 Example (inside markdown document)
+
+Truth$ = &quot;André Simon's Highlight is 100% cool!&quot; ; Undeniable!
+
+; Let's build an Ascii frame for this truthful statement:
+; =======================================================
+
+FrameCenter$ = &quot;| &quot; + Truth$ + ~&quot; |\n&quot;
+FrameBorder$ = LSet(&quot;+&quot;, Len(FrameCenter$)-2, &quot;-&quot;) + &quot;+&quot;
+FramedTruth$ = FrameBorder$ + #LF$ + FrameCenter$ + FrameBorder$
+
+; Now by printing FramedTruth$ you'll get:
+; +---------------------------------------+
+; | André Simon's Highlight is 100% cool! |
+; +---------------------------------------+
+
+Debug FramedTruth$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</code></pre>
+<p>output result:</p>
+<pre class="hl purebasic"><code class="purebasic"><span class="hl lin"> 1 </span><span class="hl slc">; PureBASIC 5.61 Example (inside markdown document)</span>
+<span class="hl lin"> 2 </span>
+<span class="hl lin"> 3 </span>Truth$ <span class="hl opt">=</span> <span class="hl str">&quot;André Simon's Highlight is 100% cool!&quot;</span> <span class="hl slc">; Undeniable!</span>
+<span class="hl lin"> 4 </span>
+<span class="hl lin"> 5 </span><span class="hl slc">; Let's build an Ascii frame for this truthful statement:</span>
+<span class="hl lin"> 6 </span><span class="hl slc">; =======================================================</span>
+<span class="hl lin"> 7 </span>
+<span class="hl lin"> 8 </span>FrameCenter$ <span class="hl opt">=</span> <span class="hl str">&quot;| &quot;</span> <span class="hl opt">+</span> Truth$ <span class="hl opt">+</span> <span class="hl str">~&quot; |</span><span class="hl esc">\n</span><span class="hl str">&quot;</span>
+<span class="hl lin"> 9 </span>FrameBorder$ <span class="hl opt">=</span> <span class="hl kwc">LSet</span>(<span class="hl str">&quot;+&quot;</span>, <span class="hl kwc">Len</span>(FrameCenter$)<span class="hl opt">-</span><span class="hl num">2</span>, <span class="hl str">&quot;-&quot;</span>) <span class="hl opt">+</span> <span class="hl str">&quot;+&quot;</span>
+<span class="hl lin">10 </span>FramedTruth$ <span class="hl opt">=</span> FrameBorder$ <span class="hl opt">+</span> <span class="hl kwb">#LF$</span> <span class="hl opt">+</span> FrameCenter$ <span class="hl opt">+</span> FrameBorder$
+<span class="hl lin">11 </span>
+<span class="hl lin">12 </span><span class="hl slc">; Now by printing FramedTruth$ you'll get:</span>
+<span class="hl lin">13 </span><span class="hl slc">; +---------------------------------------+</span>
+<span class="hl lin">14 </span><span class="hl slc">; | André Simon's Highlight is 100% cool! |</span>
+<span class="hl lin">15 </span><span class="hl slc">; +---------------------------------------+</span>
+<span class="hl lin">16 </span>
+<span class="hl lin">17 </span><span class="hl kwa">Debug</span> FramedTruth$</code></pre>
+<h1 id="adding-a-color-theme">Adding A Color Theme</h1>
+<p>Now we’ll import Highlight’s <code>edit-purebasic</code> theme into the document.</p>
+<p>macro used:</p>
+<pre class="macro"><code>!HighlightInlineTheme(edit-purebasic)</code></pre>
+<p>… which will inject the following code in the HTML document’s source:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;style</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="kw">&gt;</span>
+<span class="co">/* Style definition file generated by highlight 3.39, http://www.andre-simon.de/ */</span>
+<span class="co">/* highlight theme: PureBASIC */</span>
+body<span class="fl">.hl</span> <span class="kw">{</span> <span class="kw">background-color:</span><span class="dt">#ffffdf</span><span class="kw">;</span> <span class="kw">}</span>
+pre<span class="fl">.hl</span>  <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#000000</span><span class="kw">;</span> <span class="kw">background-color:</span><span class="dt">#ffffdf</span><span class="kw">;</span> <span class="kw">font-size:</span><span class="dt">10pt</span><span class="kw">;</span> <span class="kw">font-family:</span><span class="st">'Courier New'</span>,<span class="dt">monospace</span><span class="kw">;}</span>
+<span class="fl">.hl.num</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#000000</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.esc</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#0080ff</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.str</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#0080ff</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.pps</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#0080ff</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.slc</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#00aaaa</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.com</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#00aaaa</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.ppc</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#924b72</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.opt</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#000000</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.ipl</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#0080ff</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.lin</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#808080</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.kwa</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#006666</span><span class="kw">;</span> <span class="kw">font-weight:</span><span class="dt">bold</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.kwb</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#924b72</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.kwc</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#006666</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.hl.kwd</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#0080ff</span><span class="kw">;</span> <span class="kw">}</span>
+
+
+<span class="kw">&lt;/style&gt;</span></code></pre></div>
 <style type="text/css">
-/* Style definition file generated by highlight 3.36, http://www.andre-simon.de/ */
+/* Style definition file generated by highlight 3.39, http://www.andre-simon.de/ */
 /* highlight theme: PureBASIC */
 body.hl { background-color:#ffffdf; }
 pre.hl  { color:#000000; background-color:#ffffdf; font-size:10pt; font-family:'Courier New',monospace;}
@@ -42,4 +173,9 @@ pre.hl  { color:#000000; background-color:#ffffdf; font-size:10pt; font-family:'
 .hl.kwb { color:#924b72; }
 .hl.kwc { color:#006666; }
 .hl.kwd { color:#0080ff; }
+
+
 </style>
+<p>Enjoy…</p>
+</body>
+</html>

@@ -1,4 +1,7 @@
-﻿; PureBASIC 5.60 Example
+﻿; ==============================================================================
+;                             PureBASIC Example File                            
+; ==============================================================================
+; "example.pb" | PureBASIC 5.61
 
 For i=5 To 1 Step -1
   TEXT$ = "Iteration number: " + Str(i) + ~"\n\nDo you wish to continue?"
