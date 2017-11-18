@@ -2,10 +2,10 @@
     *                                                                            *
     *                       PureBASIC Language Definition                        *
     *                                                                            *
-    *                             v1.7 - 2017/10/02                              *
+    *                            v1.7.1 - 2017/11/18                             *
     *                                                                            *
     ******************************************************************************
-    PureBASIC v5.00-5.60 -- The goal of this language definition is to emulate the
+    PureBASIC v5.00-5.61 -- The goal of this language definition is to emulate the
     way PureBASIC's native IDE highlights its code, including inline Assembly
     syntax coloring. When used with the "edit-purebasic" theme, PureBASIC code
     will be highlighted just like in its native IDE.
@@ -274,47 +274,48 @@ end
 --[[==========================================================================
                                       CHANGELOG                                   
 ==============================================================================
-v1.7 - 2017/10/02 (PureBASIC v5.60) 
-     - IMPROVEMENTS: Escape sequences are now corretcly parsed and highlighted.
-v1.6 - 2017/09/30 (PureBASIC v5.60) 
-     - IMPROVEMENTS: Added numbers definition (hex, binary, floats an decimals) 
-     - BUG-FIX: String concatenations didn't always parse correctly; now this
-       was fixed (at the expenses of escaped sequences).
-     - ABROGATED: parsing of escape sequences is now disabled because it caused
-       too many problems with strings.
-v1.5 - 2017/09/28 (PureBASIC v5.60) 
-     - IMPROVEMENTS:
-       - Escaped-String Prefix (~) is no longer handled as a keyword (ID=4/kwd)
-         but its recognized as a valid string delimiter.
-       - Escape Sequences are further sanitized so that they can occur only
-         inside strings with the ~" opening delimiter.
-     - ABROGATED:
-       - The lang definition no longer uses Keyword 4 (Escaped-String Prefix).
-v1.4 - 2017/09/27 (PureBASIC v5.60) 
-     - BUG-FIX: Added sanitize function to avoid false positive Escape Sequences
-       in structured vars (eg: "\v" in "SomeStructure\var1").
-       (Thanks to André Simon -- see Issue #23:)
-       -- https://github.com/andre-simon/highlight/issues/23
-v1.3 - 2017/05/20 (PureBASIC v5.60) 
-     - fixed single line comment delimiter
-v1.2 - 2017/05/11 (PureBASIC v5.60)
-     - Added ASM keywords and support for inline ASM (via "!" syntax).
-     - BUG-FIXES:
-       - Repaired missing or mispelled PB Keywords (something went wrong in the
-         keywords list of the v1.1 of this lang definition, some tokens were
-         lost, other fused into a single token -- sorry about that).
-v1.1 - 2017/04/30 (PureBASIC v5.60)
-     - Keywords list now built by extracting them from the PureBASIC SDK's
-       "SyntaxHilighting.dll" (from each PureBASIC version). Tokens from each
-       version are added to the list, and renamed or removed tokens are kept
-       for the sake of covering all versions of the language from PureBASIC
-       v5.00 upward. (NOTE: currently, there are no renamed or deprecated
-       tokens in the keywords list). For more info, see:
-       -- http://www.purebasic.fr/english/viewtopic.php?&p=506269
-       -- https://github.com/tajmone/purebasic-archives/tree/master/syntax-highlighting/guidelines
-v1.0 - 2016/10/27 (PureBASIC v5.50)
-     - First release. Keywords list taken and adapted from GuShH's PureBasic 
-       language file for GeSHi:
-       -- https://github.com/easybook/geshi/blob/master/geshi/purebasic.php
-]]
-
+v1.7.1 - 2017/11/18 (PureBASIC v5.61)
+       - Syntax checked against new PureBASIC v5.61 (no changes detected)
+v1.7   - 2017/10/02 (PureBASIC v5.60) 
+       - IMPROVEMENTS: Escape sequences are now corretcly parsed and highlighted.
+v1.6   - 2017/09/30 (PureBASIC v5.60) 
+       - IMPROVEMENTS: Added numbers definition (hex, binary, floats an decimals) 
+       - BUG-FIX: String concatenations didn't always parse correctly; now this
+         was fixed (at the expenses of escaped sequences).
+       - ABROGATED: parsing of escape sequences is now disabled because it caused
+         too many problems with strings.
+v1.5   - 2017/09/28 (PureBASIC v5.60) 
+       - IMPROVEMENTS:
+         - Escaped-String Prefix (~) is no longer handled as a keyword (ID=4/kwd)
+           but its recognized as a valid string delimiter.
+         - Escape Sequences are further sanitized so that they can occur only
+           inside strings with the ~" opening delimiter.
+       - ABROGATED:
+         - The lang definition no longer uses Keyword 4 (Escaped-String Prefix).
+v1.4   - 2017/09/27 (PureBASIC v5.60) 
+       - BUG-FIX: Added sanitize function to avoid false positive Escape Sequences
+         in structured vars (eg: "\v" in "SomeStructure\var1").
+         (Thanks to André Simon -- see Issue #23:)
+         -- https://github.com/andre-simon/highlight/issues/23
+v1.3   - 2017/05/20 (PureBASIC v5.60) 
+       - fixed single line comment delimiter
+v1.2   - 2017/05/11 (PureBASIC v5.60)
+       - Added ASM keywords and support for inline ASM (via "!" syntax).
+       - BUG-FIXES:
+         - Repaired missing or mispelled PB Keywords (something went wrong in the
+           keywords list of the v1.1 of this lang definition, some tokens were
+           lost, other fused into a single token -- sorry about that).
+v1.1   - 2017/04/30 (PureBASIC v5.60)
+       - Keywords list now built by extracting them from the PureBASIC SDK's
+         "SyntaxHilighting.dll" (from each PureBASIC version). Tokens from each
+         version are added to the list, and renamed or removed tokens are kept
+         for the sake of covering all versions of the language from PureBASIC
+         v5.00 upward. (NOTE: currently, there are no renamed or deprecated
+         tokens in the keywords list). For more info, see:
+         -- http://www.purebasic.fr/english/viewtopic.php?&p=506269
+         -- https://github.com/tajmone/purebasic-archives/tree/master/syntax-highlighting/guidelines
+v1.0   - 2016/10/27 (PureBASIC v5.50)
+       - First release. Keywords list taken and adapted from GuShH's PureBasic 
+         language file for GeSHi:
+         -- https://github.com/easybook/geshi/blob/master/geshi/purebasic.php
+--]]
