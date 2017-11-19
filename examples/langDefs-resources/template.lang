@@ -2,7 +2,7 @@
     *                                                                            *
     *                   Highlight Language Definition Template                   *
     *                                                                            *
-    *                v1.0 (2017/11/18) | Highlight v3.40 | Lua 5.3               *
+    *               v1.0.1 (2017/11/19) | Highlight v3.40 | Lua 5.3              *
     *                                                                            *
     *                             by Tristano Ajmone                             *
     *                                                                            *
@@ -33,6 +33,7 @@
     Highlight provides a default definition to the following syntax elements:
       -- Identifiers
       -- Digits
+      -- Escape
     All other definition are empty/false by default.
     ------------------------------------------------------------------------------
     For more info on creating language definitions, see:
@@ -146,7 +147,8 @@ Strings={
         custom hook via the OnStateChange() function --- see "Hook Preset #01"
         further down.
 --]]
-  Escape=[=[ \\[ntvbrfa\\\?'"]|\\\d{3}|\\x[[:xdigit:]]{2} ]=],
+  -- Highlight's default built-in Escape definition:
+  Escape=[=[ \\u[[:xdigit:]]{4}|\\\d{3}|\\x[[:xdigit:]]{2}|\\[ntvbrfa\\\?'"] ]=],
 --[[------------------------------------------------------------------------------
                                   INTERPOLATION                                 
     ------------------------------------------------------------------------------
@@ -354,7 +356,10 @@ end
 --[[==============================================================================
                                         CHANGELOG                                     
 ==================================================================================
-v1.0 - 2017/11/18 (Highlight v3.40)
-     - First release.
+ v1.0.1 (2017/11/19 | Highlight v3.40)
+    - HIGHLIGHT DEFAULTS FIX: Add `Escape` to list of default definitions, as well
+      as its RegEx string as proposed preset.
+ v1.0   (2017/11/18 | Highlight v3.40)
+    - First release.
 --]]
 
