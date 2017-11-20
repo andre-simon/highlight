@@ -1,0 +1,372 @@
+--[[******************************************************************************
+    *                                                                            *
+    *                   Highlight Language Definition Template                   *
+    *                                                                            *
+    *               v1.0.1 (2017/11/19) | Highlight v3.40 | Lua 5.3              *
+    *                                                                            *
+    *                             by Tristano Ajmone                             *
+    *                                                                            *
+    ******************************************************************************
+    This is a langDef template intended to be a starting point to build your own
+    custom language definition on top of it. Just copy it, rename it, and edit it
+    as required. All possible syntax elements definition are provided, with some
+    dummy values or useful presets. Just discard what you don't need.
+    
+    Guidelines and some common presets are also provided in comments, in case you
+    need them and hoping they might spare you some research or cut-&-pasting.
+
+    The goal here is to provide as much useful information as possible, so that
+    building a custom language definition from scratch is simplified by in-file
+    resources, reducing the need to consult the documentation.
+
+    Hopefully, this template will help both those creating their first langDef as
+    well as experienced users.
+    ------------------------------------------------------------------------------
+    ** MANDATORY ELEMENTS **
+    The bare minimum definitions required for a langDef file to be valid are:
+      -- Description
+      -- Keywords
+    If a langDef file doesn't provide these definitions, Highlight will raise an
+    error. All other definitions are optional.
+    ------------------------------------------------------------------------------
+    ** HIGHLIGHT DEFAULTS **
+    Highlight provides a default definition to the following syntax elements:
+      -- Identifiers
+      -- Digits
+      -- Escape
+    All other definition are empty/false by default.
+    ------------------------------------------------------------------------------
+    For more info on creating language definitions, see:
+    -- https://github.com/andre-simon/highlight/blob/master/README#L486
+    -- http://www.andre-simon.de/doku/highlight/en/highlight.php#ch3_3
+    ------------------------------------------------------------------------------
+    Written by Tristano Ajmone:
+        <tajmone@gmail.com>
+        https://github.com/tajmone
+    Released into the public domain according to the Unlicense terms:
+        http://unlicense.org/
+    ------------------------------------------------------------------------------
+--]]
+
+Description="Lang Name" -- Syntax description
+
+--[[ ** DON'T FORGET TO: **
+     -- Add your new lang's file extensions in "$HL_DIR/filetypes.conf"
+     -- Add comments that might help others take on your work in the future.
+     -- Test the landDef against language edge cases.
+     -- Credit your reference sources.
+--]]
+IgnoreCase=false -- Are keywords case-sensitive? (true/false)
+
+EnableIndentation=false -- Syntax may be reformatted and indented? (true/false)
+
+--[[==============================================================================
+                                     IDENTIFIERS                                  
+    ==============================================================================
+    String, Regular expression which defines identifiers (optional).
+
+    Usually the default Identifiers definition suits most languages; if not, you
+    can customize it to match yout lang needs.
+--]]
+Identifiers=[=[ [a-zA-Z_]\w* ]=] -- Highlight's default Identifiers definition
+
+--[[==============================================================================
+                                       COMMENTS                                   
+    ==============================================================================
+    Comments = { {Block, Nested?, Delimiter=} }
+
+      Block:     Boolean, true if comment is a block comment
+      Nested:    Boolean, true if block comments can be nested (optional)
+      Delimiter: List, contains open delimiter regex (line comment) or open and
+                 close delimiter regexes (block comment)
+--]]
+Comments={
+  -- Define BLOCK-COMMENTS delimiters
+  { Block=true,
+    Nested=false, -- Can block comments be nested? (optional)
+    Delimiter = {
+      -- C style delimiters pair: /* */
+      [=[ \/\* ]=],
+      [=[ \*\/ ]=]
+    }
+  },
+  -- Define SINGLE-LINE-COMMENTS delimiter
+  { Block=false,
+    Delimiter = { [=[ // ]=] } -- C style delimiter: //
+  }
+}
+--[[==============================================================================
+                                       STRINGS                                    
+    ==============================================================================
+    Strings = { Delimiter|DelimiterPairs={Open, Close, Raw?}, Escape?, Interpolation?,
+                RawPrefix?, AssertEqualLength? }
+
+      Delimiter:         String, regular expression which describes string delimiters
+      DelimiterPairs:    List, includes open and close delimiter expressions if not
+                         equal, includes optional Raw flag as boolean which marks
+                         delimiter pair to contain a raw string
+      Escape:            String, regex of escape sequences (optional)
+      Interpolation:     String, regex of interpolation sequences (optional)
+      RawPrefix:         String, defines raw string indicator (optional)
+      AssertEqualLength: Boolean, set true if delimiters must have the same length
+--]]
+Strings={
+
+  --------------------------------------------------------------------------------
+  --                              STRING DELIMITERS                               
+  --------------------------------------------------------------------------------
+
+  -- SYMMETRICAL STRINGS DELIMITERS
+  Delimiter=[=[ "|' ]=], -- Double- and single-quote delimiters: " '
+
+  -- ASSYMMETRICAL STRINGS DELIMITERS
+  -- Example: Lua style string-delimiters:
+  DelimiterPairs= {
+    { Open= [=[ \[=*\[ ]=],  -- [[  [=[  [===[   etc.
+      Close=[=[ \]=*\] ]=],  -- ]]  ]=]  ]===]   etc.
+      Raw=true }
+  },
+  AssertEqualLength=true,  -- Delimiters must have the same length?
+
+  -- RAW-STRING PREFIX (if language supports it)
+  RawPrefix="R",           -- Raw string indicator (optional): R (C style)
+--[[------------------------------------------------------------------------------
+                                 ESCAPE SEQUENCES                               
+  ------------------------------------------------------------------------------
+  If the language at hand supports escape sequences, define a RegEx pattern to
+  capture them.
+
+    -- https://en.wikipedia.org/wiki/Escape_sequences_in_C
+
+  NOTE: Escape sequences are not restricted to occur inside strings only, they
+        will be matched anywhere in the source code (some languages, like Perl
+        and Bash, allow their use anywhere). Usually this doesn't constitute a
+        problem, but in some languages this uncostrained behaviour might cause
+        false positives matches; in such cases you'll need to restrict escape
+        sequences occurence to inside-strings context only by implementing a
+        custom hook via the OnStateChange() function --- see "Hook Preset #01"
+        further down.
+--]]
+  -- Highlight's default built-in Escape definition:
+  Escape=[=[ \\u[[:xdigit:]]{4}|\\\d{3}|\\x[[:xdigit:]]{2}|\\[ntvbrfa\\\?'"] ]=],
+--[[------------------------------------------------------------------------------
+                                  INTERPOLATION                                 
+    ------------------------------------------------------------------------------
+    String, regex of interpolation sequences (optional)
+
+    To understand interpolation, here is an example from Javascript:
+
+        var apples = 6;
+        console.log(`There are ${apples} apples in the basket!`);
+        
+    which will otuput:
+
+        There are 6 apples in the basket!
+
+    References:
+    -- https://en.wikipedia.org/wiki/String_interpolation
+--]]
+  Interpolation=[=[ \$\{.+?\} ]=], -- Javascript Interpolation: ${ ... }
+}
+
+
+--[[==============================================================================
+                                      OPERATORS                                   
+    ==============================================================================
+--]]
+Operators=[=[ \&|<|>|\!|\||\=|\/|\*|\%|\+|\-|~ ]=] -- Match: &<>!|=/*%+-~ 
+
+--[[==============================================================================
+                                        DIGITS                                    
+    ==============================================================================
+    String, Regular expression which defines digits (optional).
+--]]
+-- Highlight's default built-in Digits definition:
+Digits=[=[ (?:0x|0X)[0-9a-fA-F]+|\d*[\.]?\d+(?:[eE][\-\+]\d+)?[lLuU]* ]=]
+
+--[[==============================================================================
+                                       KEYWORDS                                   
+    ==============================================================================
+    Keywords = { Id, List|Regex, Group? }
+
+      Id:    Integer, keyword group id (values 1-4, can be reused for several keyword
+              groups)
+      List:  List, list of keywords
+      Regex: String, regular expression
+      Group: Integer, capturing group id of regular expression, defines part of regex
+             which should be returned as keyword (optional; if not set, the match
+             with the highest group number is returned (counts from left to right))
+
+    NOTE: Keyword group Ids are not limited to 4, you can create as many as you
+          need; but bare in mind that most themes that ship with Highlight usually
+          provide definitions only for Ids 1-4, so in order to syntax-color Keyword
+          groups with Ids greater than 4 you'll need to define a theme that covers
+          their definitions.
+
+--]]
+
+Keywords={
+  --------------------------------------------------------------------------------
+  --                               Keywords by List                               
+  --------------------------------------------------------------------------------
+  { Id=1,
+    List={
+      -- Keywords list
+      "If", "Then", "Else"
+    }
+  },
+  --------------------------------------------------------------------------------
+  --                              Keywords by RegEx                               
+  --------------------------------------------------------------------------------
+  { Id=2,
+    Regex=[=[ (\w+)\s*\:\: ]=],
+    Group=1
+  }
+}
+
+--[=[=============================================================================
+                                   NESTED LANGUAGES                               
+    ==============================================================================
+    If the language at hand may contain other languages in its source code (eg,
+    like HTML sources might contain CSS, JavaScript or PHP code):
+    ------------------------------------------------------------------------------
+        NestedSections = {Lang, Delimiter= {} }
+
+          Lang:      String, name of nested language
+          Delimiter: List, contains open and close delimiters of the code section
+    ------------------------------------------------------------------------------
+    EXAMPLE to allow HTML code to contain PHP and CSS (adapted from "html.lang"):
+
+    NestedSections = {
+      { Lang="php",
+        Delimiter= {
+          [[<\?php]], -- PHP opening delimiter: <?php
+          [[\?>]]     -- PHP closing delimiter: ?>
+        }
+      },
+      { Lang="css",
+        Delimiter= {
+          [[<style\s+type\=[\'\"]text\/css[\'\"]>]], -- <style type="text/css">
+          [[<\/style>]]                              -- </style>
+        }
+      }
+    }
+
+--]=]
+
+--[[******************************************************************************
+    *                                                                            *
+    *                           CUSTOM HOOK-FUNCTIONS                            *
+    *                                                                            *
+    ******************************************************************************
+    In some cases you might need to gain finer control over Highlight parser; you
+    can do so by defininng some custom hooks via the OnStateChange() function.
+
+    For more info, see:
+    -- https://github.com/andre-simon/highlight/blob/master/README#L596
+    -- https://github.com/andre-simon/highlight/blob/master/README_PLUGINS#L170
+
+    ------------------------------------------------------------------------------
+                                   OnStateChange()                                
+    ------------------------------------------------------------------------------
+    This function is a hook which is called if an internal state changes (e.g. 
+    from HL_STANDARD to HL_KEYWORD if a keyword is found). It can be used to alter
+    the new state or to manipulate syntax elements like keyword lists.
+
+        OnStateChange(oldState, newState, token, kwGroupID)
+
+          Hook Event: Highlighting parser state change
+          Parameters: oldState:  old state
+                      newState:  intended new state
+                      token:     the current token which triggered the new state
+                      kwGroupID: if newState is HL_KEYWORD, the parameter
+                                 contains the keyword group ID
+          Returns:    Correct state to continue OR HL_REJECT
+
+    Return HL_REJECT if the recognized token and state should be discarded; the 
+    first character of token will be outputted and highlighted as "oldState".
+    ------------------------------------------------------------------------------
+                                     STATES VARS                                  
+    ------------------------------------------------------------------------------
+    The following integer variables, representing the internal highlighting states,
+    are available within a language definition (read-only):
+
+        HL_STANDARD
+        HL_STRING
+        HL_NUMBER
+        HL_LINE_COMMENT
+        HL_BLOCK_COMMENT
+        HL_ESC_SEQ
+        HL_PREPROC
+        HL_PREPROC_STRING
+        HL_OPERATOR
+        HL_INTERPOLATION
+        HL_LINENUMBER
+        HL_KEYWORD
+        HL_STRING_END
+        HL_LINE_COMMENT_END
+        HL_BLOCK_COMMENT_END
+        HL_ESC_SEQ_END
+        HL_PREPROC_END
+        HL_OPERATOR_END
+        HL_INTERPOLATION_END
+        HL_KEYWORD_END
+        HL_EMBEDDED_CODE_BEGIN
+        HL_EMBEDDED_CODE_END
+        HL_IDENTIFIER_BEGIN
+        HL_IDENTIFIER_END
+        HL_UNKNOWN
+        HL_REJECT
+
+    ******************************************************************************
+    *                             SOME HOOK PRESETS                              *
+    ******************************************************************************
+    Below you'll find some common hooks examples/presets which might come handy in
+    various situation. Just delete what you don't need, or adapt the code to your
+    own needs.
+  --]]
+
+--  ==============================================================================
+--  Hook Preset #01 -- Escape Sequences Only Inside String
+--  ==============================================================================
+function OnStateChange(oldState, newState, token, kwgroup)
+--  This function ensure that escape sequences outside strings are ignored.
+--  Based on André Simon's reply to Issue #23:
+--  -- https://github.com/andre-simon/highlight/issues/23#issuecomment-332002639
+  if newState==HL_ESC_SEQ and oldState~=HL_STRING  then
+    return HL_REJECT
+  end
+  return newState
+end
+
+--[[ ** DON'T FORGET THE CHANGELOG ** 
+     Readapt the changelog found below to your new syntax definition.
+     Changelogs are important for other people who might take on maintaining
+     your langDef from where you left it.
+     
+     Always include in each revision:
+     -- langDef version number*
+     -- date of release
+     -- Highlight version used at the time of release
+     
+     *  Adopt a meaningful release scheme, like MAJOR.MINOR.PATCH, where:
+        -- MAJOR is incremented for backward incompatible changes,
+           (and MINOR and PATCH are set to "0")
+        -- MINOR is incremented for backwards-compatible added functionality 
+           (and PATCH is set to "0")
+        -- PATCH is incremented for backwards-compatible bug fixes and retouches
+
+        For more info, see:
+        -- http://semver.org/
+--]]
+
+--[[==============================================================================
+                                        CHANGELOG                                     
+==================================================================================
+ v1.0.1 (2017/11/19 | Highlight v3.40)
+    - HIGHLIGHT DEFAULTS FIX: Add `Escape` to list of default definitions, as well
+      as its RegEx string as proposed preset.
+ v1.0   (2017/11/18 | Highlight v3.40)
+    - First release.
+--]]
+
