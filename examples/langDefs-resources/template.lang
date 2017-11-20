@@ -196,6 +196,13 @@ Digits=[=[ (?:0x|0X)[0-9a-fA-F]+|\d*[\.]?\d+(?:[eE][\-\+]\d+)?[lLuU]* ]=]
       Group: Integer, capturing group id of regular expression, defines part of regex
              which should be returned as keyword (optional; if not set, the match
              with the highest group number is returned (counts from left to right))
+
+    NOTE: Keyword group Ids are not limited to 4, you can create as many as you
+          need; but bare in mind that most themes that ship with Highlight usually
+          provide definitions only for Ids 1-4, so in order to syntax-color Keyword
+          groups with Ids greater than 4 you'll need to define a theme that covers
+          their definitions.
+
 --]]
 
 Keywords={
