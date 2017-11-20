@@ -274,7 +274,13 @@ public:
 
     /** return number wrapped lines flag */
     bool getNumberWrappedLines ();
+    
+    /** \param  flag true if version info comment should be omitted */
+    void setOmitVersionComment ( bool flag );
 
+    /** return version info comment flag */
+    bool getOmitVersionComment ();
+    
     /** \return style path */
     const string& getStyleName();
 
@@ -525,6 +531,9 @@ protected:
     /** Flag to test if newlines should be printed */
     bool printNewLines;
 
+    /** Test if version info comment printed */
+    bool omitVersionComment;
+    
     /** The base font to use */
     string baseFont ;
 

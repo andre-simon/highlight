@@ -125,6 +125,7 @@ CodeGenerator::CodeGenerator ( highlight::OutputType type )
      showLineNumbers ( false ),
      lineNumberFillZeroes ( false ),
      printNewLines(true),
+     omitVersionComment(false),
      baseFontSize("10"),
      lineNumber ( 0 ),
      lineNumberOffset ( 0 ),
@@ -275,6 +276,16 @@ void CodeGenerator::setNumberWrappedLines ( bool flag )
 bool CodeGenerator::getNumberWrappedLines()
 {
     return numberWrappedLines;
+}
+
+void CodeGenerator::setOmitVersionComment ( bool flag )
+{
+    omitVersionComment=flag;
+}
+
+bool CodeGenerator::getOmitVersionComment ()
+{
+    return omitVersionComment;
 }
 
 void CodeGenerator::setBaseFont ( const string& fontName )

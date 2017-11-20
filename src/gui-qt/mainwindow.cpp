@@ -276,7 +276,9 @@ void MainWindow::writeSettings()
                       ui->cbKeepInjections->isChecked());
     settings.setValue(ui->cbHTMLAnchors->property(name).toString(),
                       ui->cbHTMLAnchors->isChecked());
-
+    settings.setValue(ui->cbOmitVersionInfo->property(name).toString(),
+                      ui->cbOmitVersionInfo->isChecked());
+    
     settings.setValue(ui->cbHTMLEmbedStyle->property(name).toString(),
                       ui->cbHTMLEmbedStyle->isChecked());
     settings.setValue(ui->cbHTMLEnclosePreTags->property(name).toString(),
@@ -356,6 +358,9 @@ void MainWindow::writeSettings()
                       ui->cbLATEXEmbedStyle->isChecked());
     settings.setValue(ui->cbTEXEmbedStyle->property(name).toString(),
                       ui->cbTEXEmbedStyle->isChecked());
+    settings.setValue(ui->cbHTMLPasteMIME->property(name).toString(),
+                      ui->cbHTMLPasteMIME->isChecked());
+
     settings.setValue(ui->leSVGHeight->property(name).toString(),
                       ui->leSVGHeight->text());
     settings.setValue(ui->leSVGWidth->property(name).toString(),
@@ -388,7 +393,7 @@ void MainWindow::readSettings()
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
                        "andre-simon.de", "highlight-gui");
 
-    //QMessageBox::information(this, "path", settings.fileName());
+    // QMessageBox::information(this, "path", settings.fileName());
     if (!QFile(settings.fileName()).exists()) return;
 
     settings.beginGroup("MainWindow");
@@ -415,6 +420,8 @@ void MainWindow::readSettings()
     ui->cbEncoding->setChecked(settings.value(ui->cbEncoding->property(name).toString()).toBool());
     ui->cbFragment->setChecked(settings.value(ui->cbFragment->property(name).toString()).toBool());
     ui->cbKeepInjections->setChecked(settings.value(ui->cbKeepInjections->property(name).toString()).toBool());
+    ui->cbOmitVersionInfo->setChecked(settings.value(ui->cbOmitVersionInfo->property(name).toString()).toBool());
+
     ui->cbHTMLAnchors->setChecked(settings.value(ui->cbHTMLAnchors->property(name).toString()).toBool());
     ui->cbHTMLEmbedStyle->setChecked(settings.value(ui->cbHTMLEmbedStyle->property(name).toString()).toBool());
     ui->cbHTMLEnclosePreTags->setChecked(settings.value(ui->cbHTMLEnclosePreTags->property(name).toString()).toBool());
@@ -445,7 +452,7 @@ void MainWindow::readSettings()
     ui->comboKwCase->setCurrentIndex(settings.value(ui->comboKwCase->property(name).toString()).toInt());
     ui->comboReformat->setCurrentIndex(settings.value(ui->comboReformat->property(name).toString()).toInt());
     ui->comboRTFPageSize->setCurrentIndex(settings.value(ui->comboRTFPageSize->property(name).toString()).toInt());
-    ui->comboTheme->setCurrentIndex(settings.value(ui->comboTheme->property(name).toString()).toInt());
+    ui->comboTheme->setCurrentIndex(settings.value(ui->comboTheme->property(name).toString(),0).toInt());
     ui->comboSelectSyntax->setCurrentIndex(settings.value(ui->comboSelectSyntax->property(name).toString()).toInt());
 
     ui->leHTMLStyleFile->setText(settings.value(ui->leHTMLStyleFile->property(name).toString()).toString());
@@ -465,6 +472,8 @@ void MainWindow::readSettings()
     ui->cbTEXEmbedStyle->setChecked(settings.value(ui->cbTEXEmbedStyle->property(name).toString()).toBool());
     ui->cbLATEXEmbedStyle->setChecked(settings.value(ui->cbLATEXEmbedStyle->property(name).toString()).toBool());
     ui->cbSVGEmbedStyle->setChecked(settings.value(ui->cbSVGEmbedStyle->property(name).toString()).toBool());
+    ui->cbHTMLPasteMIME->setChecked(settings.value(ui->cbHTMLPasteMIME->property(name).toString()).toBool());
+
     ui->tabWidget->setCurrentIndex(settings.value(ui->tabWidget->property(name).toString()).toInt());
     ui->tabIOSelection->setCurrentIndex(settings.value(ui->tabIOSelection->property(name).toString()).toInt());
 
@@ -735,6 +744,7 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
     generator->setPrintLineNumbers( ui->cbIncLineNo->isChecked(), ui->sbLineNoStart->value());
     generator->setPrintZeroes(ui->cbPadZeroes->isEnabled() && ui->cbPadZeroes->isChecked());
     generator->setPluginParameter(ui->lePluginReadFilePath->text().toStdString());
+    generator->setOmitVersionComment(ui->cbHTMLPasteMIME->isChecked() || ui->cbOmitVersionInfo->isChecked());
 
 #ifdef Q_OS_OSX
     QString themePath = QString("%1/../Resources/themes/%2.theme").arg(
@@ -1073,7 +1083,18 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP)
                 mimeData->setData("text/rtf", clipBoardData.toLatin1());
 #endif
                 clipboard->setMimeData(mimeData);
-            } else {
+            } 
+            else if ( (outputType==highlight::HTML || outputType==highlight::XHTML) && ui->cbHTMLPasteMIME->isChecked()) {
+                QMimeData *mimeData = new QMimeData();
+
+                if (ui->cbEncoding->isChecked() && ui->comboEncoding->currentText().toLower()=="utf-8") {
+                    mimeData->setHtml(clipBoardData.toUtf8());
+                } else {
+                    mimeData->setHtml(clipBoardData.toLatin1());
+                }
+                clipboard->setMimeData(mimeData);
+            } 
+            else {
                 clipboard->setText(clipBoardData);
             }
         }

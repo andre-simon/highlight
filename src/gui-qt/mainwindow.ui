@@ -148,7 +148,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_file_io">
         <attribute name="title">
@@ -644,7 +644,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page_general">
         <attribute name="title">
@@ -856,6 +856,16 @@ Removes Unicode BOM mark.</string>
           </widget>
          </item>
          <item>
+          <widget class="QCheckBox" name="cbOmitVersionInfo">
+           <property name="toolTip">
+            <string>Generate output without version information comment.</string>
+           </property>
+           <property name="text">
+            <string>Omit version info comment</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QCheckBox" name="cbEncoding">
@@ -998,7 +1008,7 @@ The result has to match the input file encoding.</string>
             </size>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="HTMLOptions">
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -1264,6 +1274,23 @@ The result has to match the input file encoding.</string>
                    </property>
                    <property name="text">
                     <string>Enclose in pre tags</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="Line" name="line_5">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbHTMLPasteMIME">
+                   <property name="toolTip">
+                    <string>Add HTML MIME Type when copying code to the clipboard</string>
+                   </property>
+                   <property name="text">
+                    <string>Copy with MIME type</string>
                    </property>
                   </widget>
                  </item>
@@ -2130,7 +2157,7 @@ Set the width to 0 to keep tabs.</string>
              </property>
              <property name="currentFont">
               <font>
-               <family>Courier New</family>
+               <family>Liberation Mono</family>
               </font>
              </property>
             </widget>
@@ -2138,7 +2165,7 @@ Set the width to 0 to keep tabs.</string>
            <item row="1" column="0">
             <widget class="QLabel" name="label_4">
              <property name="text">
-              <string>Font size:</string>
+              <string>Font si&amp;ze:</string>
              </property>
              <property name="buddy">
               <cstring>leFontSize</cstring>

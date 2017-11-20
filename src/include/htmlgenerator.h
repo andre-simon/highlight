@@ -118,7 +118,6 @@ protected:
 
     string brTag,       ///< break tag
            hrTag,       ///< horizontal ruler tag
-           idAttr,      ///< ID tag
            fileSuffix,   ///< filename extension
            cssClassName; ///< css class name prefix
 

@@ -547,7 +547,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Font size:</source>
-        <translation>Velikost písma:</translation>
+        <translation type="vanished">Velikost písma:</translation>
     </message>
     <message>
         <source>Select syntax:</source>
@@ -1008,6 +1008,26 @@ This feature is enabled for C, C++, C# and Java code.</source>
     </message>
     <message>
         <source>Add Beamer compatibility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate output without version information comment.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Omit version info comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add HTML MIME Type when copying code to the clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy with MIME type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font si&amp;ze:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

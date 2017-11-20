@@ -34,7 +34,6 @@ XHtmlGenerator::XHtmlGenerator ()
     fileSuffix=".xhtml";
     brTag="<br />";
     hrTag="<hr />";
-    idAttr="id";
     cssClassName="hl";
 }
 

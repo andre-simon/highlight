@@ -1,5 +1,16 @@
 CHANGELOG Highlight
 
+
+xx.11.2017
+
+highlight 3.41
+
+-changed anchor attribute from name to id in HTML output (https://github.com/andre-simon/highlight/issues/36)
+-GUI: fixed initial theme selection
+-GUI: added "Omit version info comment" option
+-GUI: added "Copy with MIME type" option for HTML output (https://github.com/andre-simon/highlight/issues/32) 
+
+---
 20.10.2017
 
 highlight 3.40
