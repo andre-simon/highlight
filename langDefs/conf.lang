@@ -3,14 +3,15 @@ Description="Generic config files"
 
 Keywords={
   { Id=1,
-    Regex=[[^\s*\w+]]
+    Regex=[[^\s*[\w@]+]]
   },
-  { Id=2,
+ { Id=2,
     Regex=[[\d[\d.]*]]
   },
   { Id=3,
-    Regex=[[/\S+]]
-  },
+    Regex=[[/\S+|/]]
+  }
+ 
 }
 
 Strings={
@@ -25,3 +26,7 @@ Comments={
     Delimiter={ [[^;]] },
   },
 }
+
+Operators=[[\,|\;|\.|\:|\~]]
+
+Digits=[[\d*\.?\d+ ]]

@@ -2,7 +2,7 @@
                           help.cpp  -  description
                              -------------------
     begin                : Die Apr 23 2002
-    copyright            : (C) 2002-2016 by Andre Simon
+    copyright            : (C) 2002-2017 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -104,6 +104,7 @@ void printHelp()
     cout<<"     --kw-case=<case>           change case of case insensitive keywords\n";
     cout<<"                                  <case> =  [upper, lower, capitalize]\n";
     cout<<"     --no-trailing-nl           omit trailing newline\n";
+    cout<<"     --no-version-info          omit version info comment\n";
     cout<<"\n\n";
     cout<<"(X)HTML output options:\n";
     cout<<"\n";
@@ -162,9 +163,9 @@ void printHelp()
     cout<<"if neither -c nor -I is given.\n";
     cout<<"Reformatting code (-F) will only work with C, C++, C# and Java input files.\n";
     cout<<"Wrapping lines with -V or -W will cause faulty highlighting of long single\n";
-    cout<<"line comments and directives. Use with caution.\n";
-    cout<<"See README files how to apply plug-ins to customize the output.\n";
-    cout<<"\n";
+    cout<<"line comments and directives. Use with caution.\n\n";
+    cout<<"Run highlight --list-scripts=langs to see all supported syntax types.\n\n";
+    cout<<"Refer to README files how to apply plug-ins to customize the output.\n\n";
     cout<<"Updates and information: http://www.andre-simon.de/\n";
 }
 

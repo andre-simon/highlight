@@ -47,7 +47,7 @@ enum Optcode {
         S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
         S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH,
         S_OPT_PLUGIN_READFILE, S_OPT_PLUGIN_PARAMETER, S_LIST_SCRIPTS,
-        S_OPT_KEEP_INJECTIONS, S_OPT_FORCE_STDOUT, S_OPT_LATEX_BEAMER
+        S_OPT_KEEP_INJECTIONS, S_OPT_FORCE_STDOUT, S_OPT_LATEX_BEAMER, S_OPT_NO_VERSION_INFO
     };
 
 const Arg_parser::Option options[] = {
@@ -123,7 +123,8 @@ const Arg_parser::Option options[] = {
         { S_OPT_KEEP_INJECTIONS,  OPT_KEEP_INJECTIONS, Arg_parser::no },
         { S_OPT_FORCE_STDOUT,     OPT_FORCE_STDOUT,    Arg_parser::no },
         { S_OPT_LATEX_BEAMER,     OPT_LATEX_BEAMER,    Arg_parser::no },
-
+        { S_OPT_NO_VERSION_INFO,  OPT_NO_VERSION_INFO, Arg_parser::no },
+        
         { S_OPT_PLUGIN,           OPT_PLUGIN,          Arg_parser::yes },
         { S_OPT_PLUGIN_READFILE,  OPT_PLUGIN_READFILE, Arg_parser::yes },
         { S_OPT_PLUGIN_PARAMETER, OPT_PLUGIN_PARAMETER, Arg_parser::yes },
@@ -182,6 +183,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
     opt_no_trailing_nl(false),
     opt_keep_injections(false),
     opt_force_stdout(false),
+    opt_no_version_info(false),
     anchorPrefix ( "l" ),
     helpLang ( "en" ),
     encodingName ( "ISO-8859-1" )
@@ -469,6 +471,9 @@ void CmdLineOptions::parseRuntimeOptions( const int argc, const char *argv[], bo
         case S_OPT_LATEX_BEAMER:
             opt_beamer = true;
             break;
+        case S_OPT_NO_VERSION_INFO:
+            opt_no_version_info = true;
+            break;
         case S_OPT_COMPAT_DOC:
             opt_fragment = false;
             break;
@@ -634,6 +639,11 @@ bool CmdLineOptions::fragmentOutput() const
 {
     return opt_fragment;
 }
+
+bool CmdLineOptions::omitVersionInfo() const {
+    return opt_no_version_info;    
+}
+
 string CmdLineOptions::getOutFileSuffix() const
 {
     switch ( outputType ) {

@@ -106,9 +106,10 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_ABS_CFG_PATH   "config-file"
 #define OPT_PLUGIN_READFILE  "plug-in-read"
 #define OPT_PLUGIN_PARAMETER "plug-in-param"
-#define OPT_NO_NUMBER_WL    "wrap-no-numbers"
-#define OPT_KEEP_INJECTIONS "keep-injections"
-#define OPT_FORCE_STDOUT      "stdout"
+#define OPT_NO_NUMBER_WL     "wrap-no-numbers"
+#define OPT_KEEP_INJECTIONS  "keep-injections"
+#define OPT_FORCE_STDOUT     "stdout"
+#define OPT_NO_VERSION_INFO  "no-version-info"
 
 // Improve CLI option compatibility with GNU source-highlight
 #define OPT_COMPAT_DOC       "doc"
@@ -253,6 +254,9 @@ public:
     /** \return True if files should be sent to stdout in batch mode */
     bool forceStdout() const;
 
+     /** \return True if output should not contain version info comment */
+    bool omitVersionInfo() const;
+    
     /** \return programming syntax */
     const string &getSyntax() const ;
 
@@ -438,7 +442,7 @@ private:
     bool opt_no_trailing_nl;
     bool opt_keep_injections;
     bool opt_force_stdout;
-
+    bool opt_no_version_info;
 
     string anchorPrefix;
     string helpLang, encodingName;

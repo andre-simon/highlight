@@ -455,6 +455,8 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->setPrintLineNumbers ( options.printLineNumbers(), options.getNumberStart() );
     generator->setPrintZeroes ( options.fillLineNrZeroes() );
     generator->setFragmentCode ( options.fragmentOutput() );
+    generator->setOmitVersionComment ( options.omitVersionInfo() );
+
     generator->setKeepInjections ( options.keepInjections());
     generator->setPreformatting ( options.getWrappingStyle(),
                                   ( generator->getPrintLineNumbers() ) ?
