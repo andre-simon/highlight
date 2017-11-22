@@ -5,6 +5,7 @@ xx.11.2017
 
 highlight 3.41
 
+-renamed examples directory to extras
 -changed anchor attribute from name to id in HTML output (https://github.com/andre-simon/highlight/issues/36)
 -added fstab.lang and added anacrontab in filetypes.conf
 -CLI: added --no-version-info option

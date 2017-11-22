@@ -19,8 +19,10 @@ Content
 
 root of highlight-x.x
 |
-|-- examples            # examples for highlight scripting
+|-- extras              # extras for highlight scripting
+|   |-- css-themes      # detailed theme explanation
 |   |-- json            # Lua to JSON converters
+|   |-- langdefs-res.   # language definition template with explanations
 |   |-- pandoc          # Pandoc macros
 |   |-- tcl             # TCL extension
 |   |-- web_plugins     # plugins for various web toolkits
@@ -64,7 +66,7 @@ TODO                    # just ideas, no plans
 
 In order to compile highlight, you need to install Lua (5.x or LuaJIT as
 devel package) and Boost (at least the header files).
-The optional GUI requires Qt (4 or 5) and its development tools (qmake).
+The optional GUI requires Qt5 and its development tools (qmake).
 
 
 3. Compilation and installation
@@ -161,6 +163,7 @@ h) Open the pro files in src/w32-projects and src/gui_qt in QtCreator and
 i) Ship highlight with libgcc_s_dw2-1.dll (32 bit) libgcc_s_seh-1.dll (64 bit)  libstdc++-6.dll libwinpthread-1.dll
    (all DLLs are located in the mingw32 installation)
 
+   
 4. Known compiler issues
 ========================
 
@@ -211,7 +214,8 @@ mintsystem provides: /usr/local/bin/highlight
 Calling this script with the true highlight command line options will have no effect. 
 See bug tracker items: https://bugs.launchpad.net/linuxmint/+bug/593583 and
                        https://bugs.launchpad.net/linuxmint/+bug/815005
-                       
+                   
+
 OpenSUSE Leap 42.2 
 
 The lua-devel package installation causes error messages. 

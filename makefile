@@ -21,8 +21,8 @@ man_dir = ${PREFIX}/share/man/man1/
 # Location of the highlight documentation:
 doc_dir = ${PREFIX}/share/doc/highlight/
 
-# Location of the highlight examples:
-examples_dir = ${doc_dir}examples/
+# Location of the highlight extras:
+examples_dir = ${doc_dir}extras/
 
 # Location of the highlight config files:
 conf_dir = /etc/highlight/
@@ -95,20 +95,20 @@ install:
 	${INSTALL_DATA} ./ChangeLog ${DESTDIR}${doc_dir}
 	${INSTALL_DATA} ./COPYING ${DESTDIR}${doc_dir}
 	${INSTALL_DATA} ./INSTALL ${DESTDIR}${doc_dir}
-	${INSTALL_DATA} ./examples/web_plugins/dokuwiki/* ${DESTDIR}${examples_dir}web_plugins/dokuwiki/
-	${INSTALL_DATA} ./examples/web_plugins/movabletype/* ${DESTDIR}${examples_dir}web_plugins/movabletype/
-	${INSTALL_DATA} ./examples/web_plugins/wordpress/* ${DESTDIR}${examples_dir}web_plugins/wordpress/
-	${INSTALL_DATA} ./examples/swig/* ${DESTDIR}${examples_dir}swig
-	${INSTALL_DATA} ./examples/pandoc/* ${DESTDIR}${examples_dir}pandoc
-	${INSTALL_DATA} ./examples/json/* ${DESTDIR}${examples_dir}json
-	${INSTALL_DATA} ./examples/highlight_pipe.* ${DESTDIR}${examples_dir}
-	${INSTALL_DATA} ./examples/*.py ${DESTDIR}${examples_dir}
+	${INSTALL_DATA} ./extras/web_plugins/dokuwiki/* ${DESTDIR}${examples_dir}web_plugins/dokuwiki/
+	${INSTALL_DATA} ./extras/web_plugins/movabletype/* ${DESTDIR}${examples_dir}web_plugins/movabletype/
+	${INSTALL_DATA} ./extras/web_plugins/wordpress/* ${DESTDIR}${examples_dir}web_plugins/wordpress/
+	${INSTALL_DATA} ./extras/swig/* ${DESTDIR}${examples_dir}swig
+	${INSTALL_DATA} ./extras/pandoc/* ${DESTDIR}${examples_dir}pandoc
+	${INSTALL_DATA} ./extras/json/* ${DESTDIR}${examples_dir}json
+	${INSTALL_DATA} ./extras/highlight_pipe.* ${DESTDIR}${examples_dir}
+	${INSTALL_DATA} ./extras/*.py ${DESTDIR}${examples_dir}
 	${INSTALL_PROGRAM} ./src/highlight ${DESTDIR}${bin_dir}
 
 	@echo
 	@echo "Done."
 	@echo "Type highlight --help or man highlight for instructions."
-	@echo "Take a look at ${DESTDIR}${examples_dir} for plugins and SWIG language bindings."
+	@echo "Take a look at ${DESTDIR}${examples_dir} for plugins and SWIG and TCL language bindings."
 	@echo "Execute 'make install-gui' to install the highlight GUI ('make gui')."
 	@echo "Do not hesitate to report problems. Unknown bugs are hard to fix."
 

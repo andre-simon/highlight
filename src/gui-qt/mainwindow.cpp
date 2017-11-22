@@ -164,9 +164,9 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(copyShortcut, SIGNAL(activated()), ui->pbCopyToCP, SLOT(click()));
     QObject::connect(pasteShortcut, SIGNAL(activated()), ui->pbPasteFromCB, SLOT(click()));
 
-    ui->pbCopyToCP->setText(ui->pbCopyToCP->text().arg(QKeySequence(QKeySequence::Copy).toString()));
-    ui->pbPasteFromCB->setText(ui->pbPasteFromCB->text().arg(QKeySequence(QKeySequence::Paste).toString()));
-
+    ui->pbCopyToCP->setText(ui->pbCopyToCP->text().arg(QKeySequence(QKeySequence::Copy).toString(QKeySequence::NativeText)));
+    ui->pbPasteFromCB->setText(ui->pbPasteFromCB->text().arg(QKeySequence(QKeySequence::Paste).toString(QKeySequence::NativeText)));
+    
     setAcceptDrops(true);
 
     readSettings();

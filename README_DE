@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT HANDBUCH -----  Version 3.40   --------------- November 2017 ---
+---  HIGHLIGHT HANDBUCH -----  Version 3.41   --------------- November 2017 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -884,42 +884,40 @@ Skripte, ohne vorinstallierte Dateien umkopieren zu muessen.
 4.1 BEISPIELSKRIPTE
 -------------------------------------------------------------------------------
 
-Im /examples Unterverzeichnis befinden sich Beispielskripte in PHP, Perl und
+Im extras/ Unterverzeichnis befinden sich Beispielskripte in PHP, Perl und
 Python, die highlight aufrufen und die Ausgabe als String auswerten. Diese
 Skripte koennen als Ausgangspunkt fuer neue Erweiterungen genutzt werden.
 
 4.2 PANDOC
 -------------------------------------------------------------------------------
 
-PP Makros und eine Anleitung dazu liegen in /examples/pandoc.
+PP Makros und eine Anleitung dazu liegen in extras/pandoc.
 
 4.3 SWIG
 -------------------------------------------------------------------------------
 
-Eine SWIG Interface-Datei befindet sich in /examples/swig.
-Installationshinweise finden Sie in README_SWIG, Programmierbeispiele in
-den vorhandenen Skripten.
+Eine SWIG Interface-Datei befindet sich in extras/swig.
+Installationshinweise stehen in README_SWIG, Beispiele sind in Perl, PHP und
+Python vorhanden.
 
 4.4 TCL
 -------------------------------------------------------------------------------
 
-Eine TCL-Erweiterung befindet sich in /examples/tcl.
-Installationshinweise finden Sie in README_TCL.
+Eine TCL-Erweiterung befindet sich in /extras/tcl.
+Installationshinweise stehen in README_TCL.
 
 4.5 SKRIPTE UND PLUG-INS FUER DRITTSOFTWARE
 -------------------------------------------------------------------------------
 
-Im /examples/web_plugins Unterverzeichnis der highlight-Installation befinden
-sich einige Plugins, die Highlight in Webanwendungen integrieren:
+Im extras/web_plugins Unterverzeichnis befinden sich einige Plugins, die 
+Highlight in Webanwendungen integrieren:
 
 -DokuWiki
 -MovableType
 -Wordpress
 -Serendipity
 
-Andere Anwendungen von highlight sind im Wiki aufgelistet:
-http://andre-simon.de/dokuwiki/doku.php?id=plugins_and_extensions
-
+Andere Anwendungen von highlight sind auf andre-simon.de aufgelistet.
 Diese Seite verweist auf unterschiedliche Projekte die highlight integrieren, 
 z.B. Webgit, Evolution, Inkscape, Ranger, ...).
 
