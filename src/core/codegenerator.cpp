@@ -2,7 +2,7 @@
                           codegenerator.cpp  -  description
                              -------------------
     begin                : Die Jul 9 2002
-    copyright            : (C) 2002-2016 by Andre Simon
+    copyright            : (C) 2002-2017 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -550,7 +550,6 @@ SKIP_EMBEDDED:
             if ( regexGroups[oldIndex].length>1 ) lineIndex+= regexGroups[oldIndex].length-1;
 
             if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN /*&& currentSyntax->allowsInnerSection(currentSyntax->getCurrentPath())*/ ) {
-                
                 //do not handle a nested section if the syntax is marked as "sealed" 
                 if (embedLangDefPath.length()==0 || currentSyntax->allowsInnerSection(embedLangDefPath) ) {
                     embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);

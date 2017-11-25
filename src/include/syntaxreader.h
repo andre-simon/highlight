@@ -2,7 +2,7 @@
                           syntaxreader.h  -  description
                              -------------------
     begin                : Wed Nov 28 2001
-    copyright            : (C) 2001-2010 by Andre Simon
+    copyright            : (C) 2001-2017 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -246,7 +246,7 @@ public:
     }
 
      /**
-    	\return absolute path of currently loaded definition
+    	\return test function
     */
     string getOverrideConfigVal(const string& name) const
     {

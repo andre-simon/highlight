@@ -38,7 +38,7 @@ void printHelp()
     cout<<"\n";
     cout<<" -B, --batch-recursive=<wc>     convert all matching files, searches subdirs\n";
     cout<<"                                  (Example: -B '*.cpp')\n";
-    cout<<" -D, --data-dir=<directory>     set path to data directory (deprecated)\n";
+    cout<<" -D, --data-dir=<directory>     set path to data directory\n";
     cout<<"     --config-file=<file>       set path to a lang or theme file\n";
     cout<<" -d, --outdir=<directory>       name of output directory\n";
     cout<<" -h, --help                     print this help\n";

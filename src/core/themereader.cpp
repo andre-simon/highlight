@@ -2,7 +2,7 @@
                           themereader.cpp  -  description
                              -------------------
     begin                : Son Nov 10 2002
-    copyright            : (C) 2002-2015 by Andre Simon
+    copyright            : (C) 2002-2017 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -77,7 +77,6 @@ bool ThemeReader::load ( const string &styleDefinitionPath , OutputType type)
         luaState["HL_FORMAT_ANSI"]=ESC_ANSI;
         luaState["HL_FORMAT_XTERM256"]=ESC_XTERM256;
         luaState["HL_FORMAT_TRUECOLOR"]=ESC_TRUECOLOR;
-        luaState["HL_FORMAT_HTML32"]=HTML32;
         luaState["HL_FORMAT_SVG"]=SVG;
         luaState["HL_FORMAT_BBCODE"]=BBCODE;
         luaState["HL_FORMAT_PANGO"]=PANGO;

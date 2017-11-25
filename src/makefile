@@ -4,7 +4,7 @@
 
 # Add -DHL_DATA_DIR=\"/your/path/\" to CFLAGS if you want to define a
 # custom installation directory not listed in INSTALL.
-# Copy *.conf, ./langDefs, ./themes amd ./indentSchemes to /your/path/.
+# Copy *.conf, ./langDefs, ./themes and ./plugins to /your/path/.
 # See ../makefile for the definition of ${data_dir}
 
 # Add -DHL_CONFIG_DIR=\"/your/path/\" to define the configuration directory
@@ -24,7 +24,7 @@ CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG -std=c++11
 
 CFLAGS_DILU=-fno-strict-aliasing
 
-SO_VERSION=3.30
+SO_VERSION=3.41
 
 
 # Source paths

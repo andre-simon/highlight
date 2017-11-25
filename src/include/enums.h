@@ -94,7 +94,7 @@ enum OutputType {
     RTF,
     ESC_ANSI,
     ESC_XTERM256,
-    HTML32,
+    HTML32_UNUSED,
     SVG,
     BBCODE,
     PANGO,
