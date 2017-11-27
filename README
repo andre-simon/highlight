@@ -490,11 +490,11 @@ Arrays may contain variables and can be nested.
 
 A language definition describes all elements of a programming language which
 will be highlighted by different colours and font types.
-Save the new file in $HL_DIR/langDefs, using the following name convention:
+Save the new file in langDefs/, using the following name convention:
 <usual extension of sourcecode files>.lang
 
 Examples: PHP -> php.lang, Java -> java.lang
-If there exist multiple suffixes, list them in $HL_DIR/filetypes.conf.
+If there exist multiple suffixes, list them in filetypes.conf.
 
 
 Syntax elements:
@@ -690,7 +690,7 @@ Please see README_REGEX for the supported regex constructs.
 Colour themes contain the formatting information of the language elements which
 are described in language definitions.
 
-The files have to be stored as *.theme in HL_DIR/themes*.
+The files have to be stored as *.theme in themes/.
 Apply a theme with the --style option.
 
 

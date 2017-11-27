@@ -413,8 +413,8 @@ Dieser Schalter fuehrt zu einem Vergleich der Datei-Header mit einer Liste von
 Verarbeitung mit einer Fehlermeldung ab.
 Mit --validate-input wird zusaetzlich der UTF-8 BOM in der Ausgabe unterdrueckt.
 
-Hervorbung von eingebettetem Code ohne oeffnenden Delimiter
------------------------------------------------------------
+Hervorhebung von eingebettetem Code ohne oeffnenden Delimiter
+-------------------------------------------------------------
 
 Wenn eine Datei mit eingebettetem Code ohne einen fuer diese Syntax ueblichen
 einleitenden Delimiter beginnt, kann mit der --start-nested Option in diese
@@ -505,14 +505,14 @@ Arrays koennen Variablen enthalten und geschachtelt sein.
 
 Eine Sprachdefinition beschreibt die Elemente einer Programmiersprache, die
 durch verschiedene Farben und Schrifttypen hervorgehoben werden.
-Die Datei muss in $HL_DIR/langDefs/ unter folgendem Namen gespeichert werden:
+Die Datei muss in langDefs/ unter folgendem Namen gespeichert werden:
 
 <uebliche Erweiterung der Sourcecodedateien>.lang
 
 Beispiele: PHP -> php.lang, Java -> java.lang
 
 Sollte es mehrere gebrauechliche Erweiterungen geben, werden diese in der Datei
-$HL_DIR/filetypes.conf einer Sprachdefinition zugeordnet.
+filetypes.conf einer Sprachdefinition zugeordnet.
 
 
 Syntax-Elemente:
@@ -710,8 +710,8 @@ Die Datei README_REGEX beschreibt alle unterstuetzten Ausdruecke.
 Farbdefinitionen legen die Formatierung der Sprachelemente fest, die in den
 Sprachdefinitionen beschrieben wurden.
 
-Die Dateien muessen mit der Endung .theme in $HL_DIR/themes (siehe Abschnitt 1)
-gespeichert werden. Mit der --style (-s) Option wird das Farbschema angewandt.
+Die Dateien muessen mit der Endung .theme in themes/ gespeichert werden. 
+Mit der --style (-s) Option wird das Farbschema angewandt.
 
 Formatattribute:
 

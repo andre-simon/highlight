@@ -1109,6 +1109,7 @@ void MainWindow::plausibility()
 {
     ui->leOutputDest->setEnabled(!ui->cbWrite2Src->isChecked());
     ui->pbOutputDest->setEnabled(!ui->cbWrite2Src->isChecked());
+    ui->pbBrowseOutDir->setEnabled(!ui->cbWrite2Src->isChecked());
 
     ui->cbPadZeroes->setEnabled(ui->cbIncLineNo->isChecked());
     ui->cbAdvWrapping->setEnabled(ui->cbWrapping->isChecked());
