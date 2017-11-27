@@ -36,7 +36,7 @@ function syntaxUpdate(desc)
       return
     end
     currentLineNumber = string.format("%d", lineNumber)
-    return '<span id="l_'..currentLineNumber..'" class="hl fld">' 
+    return '<span id="x_'..currentLineNumber..'" class="hl fld">' 
   end
   
   function DecorateLineEnd(lineNumber)  
@@ -138,7 +138,7 @@ function syntaxUpdate(desc)
     elem.title="Click to "+(isFolding? "unfold ": "fold ") + num + " line"+(num>1?"s":"");
   }
   function hlAddBtn(openId)  {
-    elem = document.getElementById('l_' + openId);    
+    elem = document.getElementById('x_' + openId);    
     elem.className = "hl fld hl arrow_unfold";
     elem.addEventListener("click", make_handler(elem));
     hlAddTitle(elem, (endOfBlock[openId]-openId-1), false);
@@ -153,7 +153,7 @@ function syntaxUpdate(desc)
     for (var i=num+1; i<=endOfBlock[num]-1; i++){
       if (!foldedLines[i]) foldedLines[i] = 0 ;
       foldedLines[i] = foldedLines[i] + (isFolding ? 1:-1);
-      elem = document.getElementById('l_'+i);
+      elem = document.getElementById('x_'+i);
       if (    (isFolding || elem.style.display=='block')
            || (!isFolding && foldedLines[i]>=1 && elem.className.indexOf ('_fold') < 0) 
            || (!isFolding && foldedLines[i]>=2 && elem.className.indexOf ('_fold') > 0)) {

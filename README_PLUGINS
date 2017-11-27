@@ -393,8 +393,7 @@ Features:    Uses Decorate to add span tags with unique ids to opening and
              
 outhtml_keyword_matcher.lua
 Description: Shows matching keywords in HTML output.
-Features:    Uses Decorate to add span tags with unique ids to opening and 
-             closing brackets.
+Features:    Uses Decorate to add span tags with unique ids to keywords.
              Uses OnStateChange to assign an internal ID to each keyword.
              Adds JavaScript with HeaderInjection variable.
              Inserts additional CSS styles with Injections variable.

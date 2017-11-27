@@ -1,7 +1,7 @@
 CHANGELOG Highlight
 
 
-25.11.2017
+27.11.2017
 
 highlight 3.41
 
@@ -12,6 +12,7 @@ highlight 3.41
 -removed references to OutputType::HTML32
 -added extras/css-themes and extras/langDefs-resources
   (thanks to Tristano Ajmone)
+-renamed ID prefix in outhtml_codefold plug-in to be compatible with -a IDs
 -CLI: removed deprecated indicator of --data-dir option
 -CLI: added --no-version-info option
 -GUI: fixed initial theme selection
