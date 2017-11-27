@@ -6,14 +6,18 @@ CHANGELOG Highlight
 highlight 3.41
 
 -renamed examples directory to extras
--changed anchor attribute from name to id in HTML output (https://github.com/andre-simon/highlight/issues/36)
+-line anchors (-a) are attached as id attribute to the first span or li tag in 
+  HTML output (https://github.com/andre-simon/highlight/issues/36)
 -added fstab.lang and added anacrontab in filetypes.conf
 -removed references to OutputType::HTML32
+-added extras/css-themes and extras/langDefs-resources
+  (thanks to Tristano Ajmone)
 -CLI: removed deprecated indicator of --data-dir option
 -CLI: added --no-version-info option
 -GUI: fixed initial theme selection
 -GUI: added "Omit version info comment" option
--GUI: added "Copy with MIME type" option for HTML output (https://github.com/andre-simon/highlight/issues/32) 
+-GUI: added "Copy with MIME type" option for HTML output 
+  (https://github.com/andre-simon/highlight/issues/32) 
 
 ---
 20.10.2017
@@ -25,8 +29,10 @@ highlight 3.40
 -fixed PureBasic definition (https://github.com/andre-simon/highlight/issues/25)
 -added CMake definition (https://github.com/andre-simon/highlight/issues/20)
 -added email definition (https://github.com/andre-simon/highlight/issues/21)
--linked scm suffix to lisp definition (https://github.com/andre-simon/highlight/issues/22)
--W32 CLI: support HIGHLIGHT_DATADIR and --data-dir options (https://github.com/andre-simon/highlight/issues/24)
+-linked scm suffix to lisp definition 
+  (https://github.com/andre-simon/highlight/issues/22)
+-W32 CLI: support HIGHLIGHT_DATADIR and --data-dir options 
+  (https://github.com/andre-simon/highlight/issues/24)
 -revised documentation
 
 ---
@@ -36,7 +42,8 @@ highlight 3.39
 
 -added syntax for Docker and Elixir
 -improved HTML, Julia, Kotlin and Smalltalk syntax definitions
--GUI: added "Paste, Convert and Copy" button (https://sourceforge.net/p/syntaxhighlight/support-requests/4/)
+-GUI: added "Paste, Convert and Copy" button 
+  (https://sourceforge.net/p/syntaxhighlight/support-requests/4/)
 
 ---
 highlight 3.38
@@ -44,7 +51,7 @@ highlight 3.38
 20.06.2017
 
 -fixed Bash variable highlighting issue
--updated astyle code to release 3.0.1 (https://sourceforge.net/p/astyle/bugs/438/)
+-updated astyle code to release 3.0.1 (https://sourceforge.net/p/astyle/bugs/438)
 -added bash_ref_man7_org.lua plugin
 
 ---
@@ -56,25 +63,31 @@ highlight 3.37
 -fixed highlighting if a line continues after the nested code delimiter
 -updated astyle code to release 3.0
 -added examples/pandoc (thanks to Tristano Ajmone)
--added syntax mapping for markdown (https://github.com/andre-simon/highlight/issues/11)
--added syntax mapping for clj (https://github.com/andre-simon/highlight/issues/15)
+-added syntax mapping for markdown 
+  (https://github.com/andre-simon/highlight/issues/11)
+-added syntax mapping for clj 
+  (https://github.com/andre-simon/highlight/issues/15)
 -improved Java definition (https://github.com/andre-simon/highlight/issues/13)
--added theme to JSON converter in  examples/json (https://github.com/andre-simon/highlight/issues/8)
--CLI: added support for environment variable HIGHLIGHT_OPTIONS (https://github.com/andre-simon/highlight/issues/17)
+-added theme to JSON converter in  examples/json 
+  (https://github.com/andre-simon/highlight/issues/8)
+-CLI: added support for environment variable HIGHLIGHT_OPTIONS 
+  (https://github.com/andre-simon/highlight/issues/17)
 
 ---
 highlight 3.36
 
 30.03.2017
 
--fixed code folding plugin to support more Ruby conditional modifiers (thanks to Jens Schleusener)
+-fixed code folding plugin to support more Ruby conditional modifiers 
+  (thanks to Jens Schleusener)
 -fixed Perl quoted string highlighting (thanks to Jens Schleusener)
 -added new GeneratorOverride syntax definition parameter
--added Filenames parameter in filetypes.conf to assign input filenames to syntax types
-  (suggested by Andy)
+-added Filenames parameter in filetypes.conf to assign input filenames
+  to syntax types (suggested by Andy)
 -added FASM definition and edit-fasm theme (thanks to Tristano Ajmone)
 -added outhtml_ie7_webctrl plug-in (suggested by Tristano Ajmone)
--GUI: file extensions can be configured for multiple languages, triggers syntax selection prompt
+-GUI: file extensions can be configured for multiple languages, 
+  triggers syntax selection prompt
 -GUI: added Italian translation (thanks to Tristano Ajmone)
 
 ---
@@ -84,21 +97,24 @@ highlight 3.35
 
 -fixed code folding plugin to support Ruby conditional modifiers
 -fixed JSON definition (thanks to Timothee Cour)
--fixed output of unknown syntax warning with applied force switch (thanks to Andy)
+-fixed output of unknown syntax warning with applied force switch 
+  (thanks to Andy)
 -added state trace parameter to Decorate plug-in function 
 -added GDScript definition and edit-godot theme (thanks to Tristano Ajmone)
 -updated SWIG code samples
 -updated Artistic Style lib (SVN Rev. 553)
 -revised docs
--CLI: fixed creation of hidden files if output filename is prepended by its input path
--CLI: added switch --stdout (https://sourceforge.net/p/syntaxhighlight/bugs/14/)
+-CLI: fixed creation of hidden files if output filename is prepended by its
+  input path
+-CLI: added switch --stdout (https://sourceforge.net/p/syntaxhighlight/bugs/14)
 
 ---
 highlight 3.34
 
 27.12.2016
 
--fixed segfault with --skip applied on a single file input list (thanks to Jens Schleusener)
+-fixed segfault with --skip applied on a single file input list 
+  (thanks to Jens Schleusener)
 -added support for Python 3.6 syntax
 -added Github and Sourceforge themes
 
@@ -111,7 +127,8 @@ highlight 3.33
 -fixed PHP definition (thanks to Christoph Burschka)
 -fixed font family declaration in SVG
 -fixed user defined encoding in ODT
--fixed unnecessary output of style file with --inline-css (thanks to Jens Schleusener)
+-fixed unnecessary output of style file with --inline-css 
+  (thanks to Jens Schleusener)
 -added vimscript language definition (thanks to Max Christian Pohle)
 -added Coffeescript language definition (thanks to Jess Austin)
 -added PureBasic definition and theme (thanks to Tristano Ajmone)

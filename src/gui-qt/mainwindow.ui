@@ -126,7 +126,7 @@
     <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
-    <string>High&amp;lighting options</string>
+    <string>Highlighting options</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>

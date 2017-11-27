@@ -868,8 +868,8 @@ See ctags.sf.net for details.</source>
     </message>
     <message>
         <location line="+20"/>
-        <source>High&amp;lighting options</source>
-        <oldsource>Highlighting options</oldsource>
+        <source>Highlighting options</source>
+        <oldsource>High&amp;lighting options</oldsource>
         <translation type="unfinished">代码高亮选项</translation>
     </message>
     <message>

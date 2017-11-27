@@ -1247,9 +1247,9 @@ Setze die Anzahl auf Null, um Tabs auszugeben.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="129"/>
-        <source>High&amp;lighting options</source>
-        <oldsource>Highlighting options</oldsource>
-        <translation>&amp;Hervorhebungs-Optionen</translation>
+        <source>Highlighting options</source>
+        <oldsource>High&amp;lighting options</oldsource>
+        <translation>Hervorhebungs-Optionen</translation>
     </message>
     <message>
         <source>You can apply system shortcuts for copy and paste.</source>

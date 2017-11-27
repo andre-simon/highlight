@@ -716,8 +716,8 @@ Vea ctags.sf.net para más detalles.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="129"/>
-        <source>High&amp;lighting options</source>
-        <oldsource>Highlighting options</oldsource>
+        <source>Highlighting options</source>
+        <oldsource>High&amp;lighting options</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -527,7 +527,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Highlighting options</source>
-        <translation type="vanished">Volby pro zvýrazňování</translation>
+        <translation>Volby pro zvýrazňování</translation>
     </message>
     <message>
         <source>Select a CSS include file.</source>
@@ -899,10 +899,6 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>ODT</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>High&amp;lighting options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

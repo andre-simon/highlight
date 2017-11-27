@@ -21,6 +21,7 @@ Keywords={
 
 Strings={
   Delimiter=[["]],
+    Escape=[[\A(?!x)x]] 
 }
 
 IgnoreCase=false
@@ -31,4 +32,4 @@ Comments={
   },
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\:|\&|\!|\=|\*|\%|\+|\~|\\]]
+Operators=[[\(|\)|\[|\]|\{|\}|\:|\&|\!|\=|\*|\-|\%|\+|\~|\\|/|\.]]
