@@ -59,24 +59,24 @@ unix {
 win32 {
     DESTDIR = ../..
 
-    INCLUDEPATH += d:/devel/cpp/lua_bin_5.3.0
+    INCLUDEPATH += E:/devel/cpp/lua_bin_5.3.0
     INCLUDEPATH += ../../include
-    INCLUDEPATH += d:/devel/cpp/boost_1_61_0
+    INCLUDEPATH += E:/devel/cpp/boost_1_64_0
 
     DEFINES += WIN32
     CONFIG += static
     
-    LIBS += -LD:\Devel\cpp\highlight\src -lhighlight
-    #LIBS += -LD:\Devel\cpp\lua_bin_5.3.0 -llua
-    LIBS += -LD:\Devel\cpp\lua_bin_5.3.0_x64 -llua
+    LIBS += -LE:\Devel\git\highlight\src -lhighlight
+    LIBS += -LE:\Devel\cpp\lua_bin_5.3.0 -llua
+    #LIBS += -LD:\Devel\cpp\lua_bin_5.3.0_x64 -llua
 
     RC_FILE = highlight-gui.rc
-    QMAKE_POST_LINK = $$quote(D:\Devel\upx393w\upx.exe --best D:\Devel\cpp\highlight\highlight-gui.exe)
+    QMAKE_POST_LINK = $$quote(E:\Devel\upx393w\upx.exe --best E:\Devel\git\highlight\highlight-gui.exe)
 }
 
 macx-clang {
-QMAKE_CC = clang
-QMAKE_CXX = clang++
+    QMAKE_CC = clang
+    QMAKE_CXX = clang++
     INCLUDEPATH+=/usr/local/Cellar/lua/5.2.4_4/include/
     INCLUDEPATH += ../../include
     INCLUDEPATH+=/usr/local/Cellar/boost/1.62.0/include
