@@ -1,6 +1,13 @@
 CHANGELOG Highlight
 
+highlight 3.42
 
+xx.xx.2018
+
+-improved Perl6 compatibility
+-GUI: added French translation (thanks to Antoine Belvire) 
+  
+---
 27.11.2017
 
 highlight 3.41
@@ -8,11 +15,11 @@ highlight 3.41
 -renamed examples directory to extras
 -line anchors (-a) are attached as id attribute to the first span or li tag in 
   HTML output (https://github.com/andre-simon/highlight/issues/36)
+-renamed ID prefix in outhtml_codefold plug-in to be compatible with -a IDs
 -added fstab.lang and added anacrontab in filetypes.conf
 -removed references to OutputType::HTML32
 -added extras/css-themes and extras/langDefs-resources
   (thanks to Tristano Ajmone)
--renamed ID prefix in outhtml_codefold plug-in to be compatible with -a IDs
 -CLI: removed deprecated indicator of --data-dir option
 -CLI: added --no-version-info option
 -GUI: fixed initial theme selection
@@ -1303,7 +1310,7 @@ highlight 2.2-5
 -fixed indentation error in LaTeX output and output of "--" in bold font
   (thanks to Michael Suess)
 -added background colour attribute of body element to the CSS output to
-  improve compability with old browsers (NS Communicator 4.8)
+  improve compatibility with old browsers (NS Communicator 4.8)
   (thanks to Wojciech Stryjewski)
 -in CSS output, user defined CSS definitions are now included after highlight
   style definitions to make modifications easier

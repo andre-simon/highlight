@@ -1,12 +1,21 @@
 
 Description="Perl"
 
+--[[==============================================================================
+                                        CHANGELOG                                     
+==================================================================================
+  (2018/01/03 | Highlight v3.42)
+    - improved Perl6 support
+--]]
+
+
 Keywords={
   { Id=1,
     List={"if", "else", "elsif", "unless", "given", "when", "default", "while", "for", "foreach",
     "do", "until", "continue", "return", "last", "next", "redo", "goto", "break", "exit", "sub",
     "package", "use", "no", "dump", "require", "BEGIN", "CHECK", "INIT", "END", "UNITCHECK", 
-    "NEXT", "loop", "class", "in" },
+    "NEXT", "CATCH",  "loop", "class", "in", "say", "loop", "has", "method", "multi", "macro", 
+    "lazy", "gather", "take", "role", "is", "does", "rw" },
   },
   { Id=2,
     Regex=[[ [$@%]\#?\w+ ]],
@@ -40,7 +49,7 @@ Keywords={
     "getprotobyname", "getprotobynumber", "getservbyname",
     "getservbyport", "getpwuid", "getpwnam", "getgrgid", "getgrnam", "getlogin", 
     "getpwent", "getgrent", "gmtime", "localtime", "time", "warn", "formline", 
-    "reset", "scalar", "prototype", "lock", "tied", "untie", "qq", "qx", "eval" },
+    "reset", "scalar", "prototype", "lock", "tied", "untie", "qq", "qx", "eval", "try" },
   },
   { Id=4,
 	Regex=[[->([a-zA-Z0-9_]+)]],
@@ -78,7 +87,7 @@ Comments={
   },
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|~|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\|]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\@|~|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\|]]
 
 -- fix recognition of $ and other Perl perversions
 function OnStateChange(oldState, newState, token, groupID)
