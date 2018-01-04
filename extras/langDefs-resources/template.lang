@@ -2,7 +2,7 @@
     *                                                                            *
     *                   Highlight Language Definition Template                   *
     *                                                                            *
-    *               v1.0.2 (2018/01/03) | Highlight v3.41 | Lua 5.3              *
+    *               v1.0.3 (2018/01/04) | Highlight v3.41 | Lua 5.3              *
     *                                                                            *
     *                             by Tristano Ajmone                             *
     *                                                                            *
@@ -176,7 +176,31 @@ Strings={
   Interpolation=[=[ \$\{.+?\} ]=], -- Javascript Interpolation: ${ ... }
 }
 
+--[[==============================================================================
+                                     PREPROCESSOR                                 
+    ==============================================================================
+    PreProcessor = { Prefix, Continuation? }
 
+      Prefix:        String, regular expression which describes open delimiter
+      Continuation:  String, contains line continuation character (optional).
+
+    NOTE: This element is treated by Highlight parser in a similar way to single-
+          line comments: it swallows up everything from the matching Prefix up to
+          the end of the line -- but unlike comment lines (which can't contain
+          further syntax elements), the parser will still be looking for some 
+          syntax elements (in the current line) which might be reasonably found
+          within a line of preprocessor directives (eg: strings and comments);
+          but once these elements are dealt with, the parser will resume the 
+          PreProcessor state to carry on parsing the rest of the line.
+
+          Furthermore, the Continuation character allows this element to span
+          across multiple line (without the need of an opening and closing pair,
+          unlike multiline comments do).
+--]]
+PreProcessor = {  -- C/C++ PreProcessor example:
+  Prefix=[=[ # ]=],  -- Hash char ('#') marks beginning of preprocessor line
+  Continuation="\\", -- Backslash ('\') marks continuation of preprocessor line
+}
 --[[==============================================================================
                                       OPERATORS                                   
     ==============================================================================
@@ -370,7 +394,7 @@ end
 --[[==============================================================================
                                         CHANGELOG                                     
 ==================================================================================
- v1.0.2 (2018/01/03 | Highlight v3.41)
+ v1.0.3 (2018/01/04 | Highlight v3.41)
     - Minor tweaks.
  v1.0.1 (2017/11/19 | Highlight v3.40)
     - HIGHLIGHT DEFAULTS FIX: Add `Escape` to list of default definitions, as well
