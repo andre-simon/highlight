@@ -2,7 +2,7 @@
     *                                                                            *
     *          Highlight Language Definition "Clean Slate" Boilerplate           *
     *                                                                            *
-    *               v1.0.0 (2018/01/03) | Highlight v3.41 | Lua 5.3              *
+    *               v1.0.1 (2018/01/04) | Highlight v3.41 | Lua 5.3              *
     *                                                                            *
     *                             by Tristano Ajmone                             *
     *                                                                            *
@@ -59,7 +59,16 @@ EnableIndentation=false -- Syntax may be reformatted and indented? (true/false)
     Highlight's default Identifiers definition:
     Identifiers=[=[ [a-zA-Z_]\w* ]=]
 --]]
-Identifiers=[=[ \A(?!x)x ]=] -- Never-Matching RegEx!
+-- UNCOMMENT TO USE NEVER-MATCHING REGEX:
+-- Identifiers=[=[ \A(?!x)x ]=] -- Never-Matching RegEx!
+
+-- ** WARNING ** By setting Identifiers to a never-matching RegEx, Keywords lists
+--               won't be reckognized anymore by the parser! This can be a useful
+--               trick/hack needed in some syntax which rely only on RegEx-defined
+--               Keywords, and to avoid conflicts with other elements in some
+--               edge-cases. Try it only to check if the current (or default)
+--               Identifiers definition might be interfering in the parsing of
+--               other elements.
 
 --[[==============================================================================
                                        COMMENTS                                   
@@ -138,7 +147,19 @@ Strings={
   Interpolation=[=[ \A(?!x)x ]=], -- Never-Matching RegEx!
 }
 
+--[[==============================================================================
+                                     PREPROCESSOR                                 
+    ==============================================================================
+    PreProcessor = { Prefix, Continuation? }
 
+      Prefix:        String, regular expression which describes open delimiter
+      Continuation:  String, contains line continuation character (optional).
+--]]
+PreProcessor = {
+  Prefix=[=[ \A(?!x)x ]=], -- Never-Matching RegEx!
+  -- UNCOMMENT IF YOU NEED CONTINUATION CHARACTER:
+  -- Continuation="", -- A character, not a RegEx! (escaping rules apply)
+}
 --[[==============================================================================
                                       OPERATORS                                   
     ==============================================================================
@@ -195,10 +216,24 @@ Keywords={
   }
 }
 
+--[[******************************************************************************
+    *                                                                            *
+    *                           CUSTOM HOOK-FUNCTIONS                            *
+    *                                                                            *
+    ******************************************************************************
+    In some cases you might need to gain finer control over Highlight parser; you
+    can do so by defininng some custom hooks via the OnStateChange() function.
+
+    For more info, see:
+    -- https://github.com/andre-simon/highlight/blob/master/README#L596
+    -- https://github.com/andre-simon/highlight/blob/master/README_PLUGINS#L170
+
+ --]]
+
 --[[==============================================================================
                                         CHANGELOG                                     
 ==================================================================================
- v1.0.0 (2018/01/03) | Highlight v3.41)
+ v1.0.1 (2018/01/04) | Highlight v3.41)
     - First release.
 --]]
 
