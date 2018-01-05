@@ -2,7 +2,7 @@
     *                                                                            *
     *                   Highlight Language Definition Template                   *
     *                                                                            *
-    *               v1.0.1 (2017/11/19) | Highlight v3.40 | Lua 5.3              *
+    *               v1.0.3 (2018/01/04) | Highlight v3.41 | Lua 5.3              *
     *                                                                            *
     *                             by Tristano Ajmone                             *
     *                                                                            *
@@ -21,6 +21,12 @@
 
     Hopefully, this template will help both those creating their first langDef as
     well as experienced users.
+    ------------------------------------------------------------------------------
+    ** HOW TO DISABLE SYNTAX ELEMENTS **
+    If you wish to suppress a syntax element, you can assign a never matching
+    regular expression to its definition (thanks to André Simon for the tip):
+
+        [=[ \A(?!x)x ]=]
     ------------------------------------------------------------------------------
     ** MANDATORY ELEMENTS **
     The bare minimum definitions required for a langDef file to be valid are:
@@ -124,15 +130,16 @@ Strings={
   DelimiterPairs= {
     { Open= [=[ \[=*\[ ]=],  -- [[  [=[  [===[   etc.
       Close=[=[ \]=*\] ]=],  -- ]]  ]=]  ]===]   etc.
-      Raw=true }
+      Raw=true, -- Are these raw string delimiters? (true/false)
+    }
   },
   AssertEqualLength=true,  -- Delimiters must have the same length?
 
   -- RAW-STRING PREFIX (if language supports it)
   RawPrefix="R",           -- Raw string indicator (optional): R (C style)
 --[[------------------------------------------------------------------------------
-                                 ESCAPE SEQUENCES                               
-  ------------------------------------------------------------------------------
+                                ESCAPE SEQUENCES                               
+  --------------------------------------------------------------------------------
   If the language at hand supports escape sequences, define a RegEx pattern to
   capture them.
 
@@ -169,7 +176,31 @@ Strings={
   Interpolation=[=[ \$\{.+?\} ]=], -- Javascript Interpolation: ${ ... }
 }
 
+--[[==============================================================================
+                                     PREPROCESSOR                                 
+    ==============================================================================
+    PreProcessor = { Prefix, Continuation? }
 
+      Prefix:        String, regular expression which describes open delimiter
+      Continuation:  String, contains line continuation character (optional).
+
+    NOTE: This element is treated by Highlight parser in a similar way to single-
+          line comments: it swallows up everything from the matching Prefix up to
+          the end of the line -- but unlike comment lines (which can't contain
+          further syntax elements), the parser will still be looking for some 
+          syntax elements (in the current line) which might be reasonably found
+          within a line of preprocessor directives (eg: strings and comments);
+          but once these elements are dealt with, the parser will resume the 
+          PreProcessor state to carry on parsing the rest of the line.
+
+          Furthermore, the Continuation character allows this element to span
+          across multiple line (without the need of an opening and closing pair,
+          unlike multiline comments do).
+--]]
+PreProcessor = {  -- C/C++ PreProcessor example:
+  Prefix=[=[ # ]=],  -- Hash char ('#') marks beginning of preprocessor line
+  Continuation="\\", -- Backslash ('\') marks continuation of preprocessor line
+}
 --[[==============================================================================
                                       OPERATORS                                   
     ==============================================================================
@@ -363,6 +394,8 @@ end
 --[[==============================================================================
                                         CHANGELOG                                     
 ==================================================================================
+ v1.0.3 (2018/01/04 | Highlight v3.41)
+    - Minor tweaks.
  v1.0.1 (2017/11/19 | Highlight v3.40)
     - HIGHLIGHT DEFAULTS FIX: Add `Escape` to list of default definitions, as well
       as its RegEx string as proposed preset.
