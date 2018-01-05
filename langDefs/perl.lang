@@ -9,6 +9,9 @@ Description="Perl"
 --]]
 
 
+--TODO handle '
+Identifiers=[[ [a-zA-Z_][\-\w\-]* ]]
+
 Keywords={
   { Id=1,
     List={"if", "else", "elsif", "unless", "given", "when", "default", "while", "for", "foreach",
@@ -18,7 +21,7 @@ Keywords={
     "lazy", "gather", "take", "role", "is", "does", "rw" },
   },
   { Id=2,
-    Regex=[[ [$@%]\#?\w+ ]],
+    Regex=[[ [$@%]\#?[^(\s|\.|\-\>|\"|\'|\(|\[|\)|\]|\{|\}|\>|\<)]+ ]],
   },
   { Id=3,
     List={"defined", "undef", "eq", "ne", "lt", "gt", "ge", "le", "cmp", "not", 
@@ -49,7 +52,7 @@ Keywords={
     "getprotobyname", "getprotobynumber", "getservbyname",
     "getservbyport", "getpwuid", "getpwnam", "getgrgid", "getgrnam", "getlogin", 
     "getpwent", "getgrent", "gmtime", "localtime", "time", "warn", "formline", 
-    "reset", "scalar", "prototype", "lock", "tied", "untie", "qq", "qx", "eval", "try" },
+    "reset", "scalar", "prototype", "lock", "tied", "untie", "qq", "qx", "eval", "try", "constant" },
   },
   { Id=4,
 	Regex=[[->([a-zA-Z0-9_]+)]],
@@ -87,6 +90,7 @@ Comments={
   },
 }
 
+--todo for 1..5
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\@|~|\=|\/|\*|\+|\-|\$|\.|\^|\~|\%|\|]]
 
 -- fix recognition of $ and other Perl perversions
