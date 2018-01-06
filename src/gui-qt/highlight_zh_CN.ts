@@ -127,7 +127,7 @@ Check installation.</source>
 Revise su instalación.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="+103"/>
+        <location filename="mainwindow.cpp" line="+94"/>
         <source>Initialization error</source>
         <translation type="unfinished">初始化错误</translation>
     </message>
@@ -137,7 +137,7 @@ Revise su instalación.</translation>
         <translation type="unfinished">找不到语法定义文件.请检查安装.</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+73"/>
         <source>Always at your service</source>
         <translation type="unfinished"></translation>
     </message>
@@ -160,7 +160,7 @@ Revise su instalación.</translation>
         <translation type="obsolete">无法读取 &quot;%1&quot; 的Tag信息</translation>
     </message>
     <message>
-        <location line="+613"/>
+        <location line="+617"/>
         <location line="+31"/>
         <source>Output error</source>
         <translation type="unfinished">输出错误</translation>
@@ -176,12 +176,12 @@ Revise su instalación.</translation>
         <translation type="unfinished">你必须等译一个style输出文件！</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Processing %1 (%2/%3)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+6"/>
         <source>Language definition error</source>
         <translation type="unfinished">语言定义错误</translation>
     </message>
@@ -219,31 +219,40 @@ Lua Syntax error: %2</source>
         <translation type="unfinished">文件%1 转换完毕，用时 %2 ms</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+98"/>
         <source>Conversion of &quot;%1&quot; not possible.</source>
         <translation type="unfinished">No es posible la conversión de &quot;%1&quot;.</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+113"/>
+        <location line="+110"/>
         <location line="+21"/>
         <source>clipboard data</source>
         <translation type="unfinished">剪贴板数据</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-66"/>
         <source>%1 options</source>
         <translation type="unfinished">%1 选项</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+36"/>
+        <source>(user script)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Preview (%1):</source>
         <translation type="unfinished">预览 (%1):</translation>
     </message>
     <message>
         <location line="+3"/>
+        <source>Current syntax: %1 %2</source>
+        <translation type="unfinished">当前语言: %1 %2</translation>
+    </message>
+    <message>
         <source>Current syntax: %1</source>
-        <translation type="unfinished">当前语言: %1</translation>
+        <translation type="obsolete">当前语言: %1</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -251,7 +260,7 @@ Lua Syntax error: %2</source>
         <translation type="unfinished">&quot;%1&quot;.的预览不可用.</translation>
     </message>
     <message>
-        <location line="+179"/>
+        <location line="+232"/>
         <source>Some plug-in effects may not be visible in the preview.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -260,7 +269,7 @@ Lua Syntax error: %2</source>
         <translation type="obsolete">选择一个ctags文件</translation>
     </message>
     <message>
-        <location line="-142"/>
+        <location line="-195"/>
         <location line="+4"/>
         <location line="+4"/>
         <location line="+5"/>
@@ -286,12 +295,17 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
 请通过as (at) andre-simon (dot) de联系我.</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+58"/>
         <source>Select one or more plug-ins</source>
         <translation type="unfinished">选择一个或多个插件</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+11"/>
+        <source>Select one or more syntax or theme scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+56"/>
         <source>Choose a plug-in input file</source>
         <translation type="unfinished">选择插件输入目录</translation>
     </message>
@@ -299,7 +313,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
 <context>
     <name>MainWindowClass</name>
     <message>
-        <location filename="mainwindow.ui" line="+161"/>
+        <location filename="mainwindow.ui" line="+183"/>
         <source>Choose the source code files you want to convert.</source>
         <translation>选择你想要转换的代码文件.</translation>
     </message>
@@ -320,18 +334,20 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+3"/>
-        <location line="+306"/>
+        <location line="+314"/>
+        <location line="+133"/>
         <source>Clear selection</source>
         <translation>移除选中项</translation>
     </message>
     <message>
-        <location line="-299"/>
+        <location line="-440"/>
         <source>Remove all input files.</source>
         <translation>清除所有输入文件.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+306"/>
+        <location line="+314"/>
+        <location line="+133"/>
         <source>Clear all</source>
         <translation>移除所有</translation>
     </message>
@@ -340,7 +356,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Destino de salida</translation>
     </message>
     <message>
-        <location line="-267"/>
+        <location line="-408"/>
         <source>Output directory</source>
         <translation>输出目录</translation>
     </message>
@@ -351,8 +367,8 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
     </message>
     <message>
         <location line="+3"/>
-        <location line="+322"/>
-        <location line="+568"/>
+        <location line="+330"/>
+        <location line="+643"/>
         <location line="+269"/>
         <location line="+108"/>
         <location line="+295"/>
@@ -360,7 +376,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation>...</translation>
     </message>
     <message>
-        <location line="-1527"/>
+        <location line="-1610"/>
         <source>Save output in the input file directories.</source>
         <translation>将输出保存在输入路径中.</translation>
     </message>
@@ -374,7 +390,7 @@ Please send a note to as (at) andre-simon (dot) de if you have issues during tra
         <translation type="obsolete">Opciones de salida</translation>
     </message>
     <message>
-        <location line="+322"/>
+        <location line="+405"/>
         <source>General</source>
         <translation>通用</translation>
     </message>
@@ -799,12 +815,12 @@ See ctags.sf.net for details.</source>
         <translation>编码设置：</translation>
     </message>
     <message>
-        <location line="-622"/>
+        <location line="-705"/>
         <source>Output destination:</source>
         <translation>输出路径：</translation>
     </message>
     <message>
-        <location line="+848"/>
+        <location line="+931"/>
         <location line="+278"/>
         <location line="+108"/>
         <location line="+295"/>
@@ -824,17 +840,17 @@ See ctags.sf.net for details.</source>
         <translation type="obsolete">读取ctags文件：</translation>
     </message>
     <message>
-        <location line="-1796"/>
+        <location line="-1901"/>
         <source>Highlight</source>
         <translation>Highlight</translation>
     </message>
     <message>
-        <location line="+138"/>
+        <location line="+160"/>
         <source>Files</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location line="+257"/>
+        <location line="+261"/>
         <source>Paste clipboard content into the preview window.</source>
         <translation>将剪贴板中的代码粘贴到预览窗口.</translation>
     </message>
@@ -861,24 +877,24 @@ See ctags.sf.net for details.</source>
         <translation>代码语言：</translation>
     </message>
     <message>
-        <location line="-287"/>
+        <location line="-313"/>
         <source>Wi&amp;ndows</source>
         <oldsource>&amp;Windows</oldsource>
         <translation type="unfinished">窗口(&amp;W)</translation>
     </message>
     <message>
         <location line="+20"/>
-        <source>Highlighting options</source>
-        <oldsource>High&amp;lighting options</oldsource>
+        <source>H&amp;ighlighting options</source>
+        <oldsource>Highlighting options</oldsource>
         <translation type="unfinished">代码高亮选项</translation>
     </message>
     <message>
-        <location line="+274"/>
+        <location line="+300"/>
         <source>Select the correct syntax of the code snippet.</source>
         <translation>给代码片段选择对应的语言格式.</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+86"/>
         <source>Plug-ins</source>
         <translation>插件</translation>
     </message>
@@ -889,11 +905,12 @@ See ctags.sf.net for details.</source>
     </message>
     <message>
         <location line="+51"/>
+        <location line="+133"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="-121"/>
         <source>Shows decription of a selected plug-in script.</source>
         <translation>显示选中插件的描述.</translation>
     </message>
@@ -920,7 +937,7 @@ See ctags.sf.net for details.</source>
         <translation>选择传递给插件的文件.</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+197"/>
         <source>BBCode</source>
         <translation>BBCode</translation>
     </message>
@@ -1230,12 +1247,12 @@ Set the width to 0 to keep tabs.</source>
         <translation>停靠浮动面板(&amp;D)</translation>
     </message>
     <message>
-        <location line="-2244"/>
+        <location line="-2349"/>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
     <message>
-        <location line="+334"/>
+        <location line="+356"/>
         <source>Start the conversion of your input files.</source>
         <translation>点击按钮开始转换文件.</translation>
     </message>
@@ -1250,17 +1267,17 @@ Set the width to 0 to keep tabs.</source>
         <translation>将选中文件的高亮代码复制到剪贴板中.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+15"/>
         <source>Clipboard</source>
         <translation>剪贴板</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="-12"/>
         <source>Copy file to clipboard</source>
         <translation>将输出文件内容复制到剪贴板</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+119"/>
         <source>Choose a plug-in script.</source>
         <translation>选择一个插件脚本.</translation>
     </message>
@@ -1281,7 +1298,7 @@ Set the width to 0 to keep tabs.</source>
         <translation>移除所有插件.</translation>
     </message>
     <message>
-        <location line="-475"/>
+        <location line="-505"/>
         <source>Output progress:</source>
         <translation>输出进度：</translation>
     </message>
@@ -1296,12 +1313,12 @@ Set the width to 0 to keep tabs.</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+238"/>
         <source>Browse output directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+152"/>
         <source>Paste code from clipboard and copy the output back in one step</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1311,7 +1328,47 @@ Set the width to 0 to keep tabs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+397"/>
+        <location line="+167"/>
+        <source>Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Choose a custom syntax or theme script.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Add custom script to pool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>You can check one file of each type (syntax and theme) to override the default behaviour.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Remove the selected scripts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Remove all scripts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Shows decription of a selected script.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Script description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+249"/>
         <source>Generate output without version information comment.</source>
         <translation type="unfinished"></translation>
     </message>

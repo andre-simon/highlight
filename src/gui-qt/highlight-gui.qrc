@@ -5,5 +5,7 @@
         <file>file.png</file>
         <file>plugin.png</file>
         <file>folder.png</file>
+        <file>script.png</file>
+        <file>clipboard.png</file>
     </qresource>
 </RCC>

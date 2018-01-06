@@ -96,6 +96,14 @@ private:
     highlight::OutputType getOutputType();
     highlight::WrapMode getWrappingStyle();
     QString getOutFileSuffix();
+    QString getUserScriptPath(QString type);
+
+    QString getDistThemePath();
+    QString getDistLangPath(const string & suffix);
+    QString getDistPluginPath();
+    QString getDistFileConfigPath();
+    QString getDistFileFilterPath();
+
     void applyCtrlValues(highlight::CodeGenerator* generator, bool previewMode);
     void selectSingleFile(QLineEdit*, const QString&, const QString&);
     bool loadFileTypeConfig();
@@ -129,6 +137,10 @@ private slots:
     void on_pbClearAll_clicked();
     void on_pbClearSelPlugin_clicked();
     void on_pbSelectPlugin_clicked();
+    void on_pbSelectScript_clicked();
+    void on_pbClearAllScripts_clicked();
+    void on_pbClearSelScript_clicked();
+
     void on_pbCopyToCP_clicked();
     void on_pbPasteFromCB_clicked();
     void on_actionAbout_translations_triggered();
@@ -152,8 +164,9 @@ private slots:
     void on_actionDock_floating_panels_toggled(bool arg1);
     void on_pbPluginReadFilePath_clicked();
 
-    void on_lvPluginScripts_currentRowChanged(int currentRow);
     void on_pbBrowseOutDir_clicked();
+    void on_lvUserScripts_itemClicked(QListWidgetItem *item);
+    void on_lvPluginScripts_itemClicked(QListWidgetItem *item);
 };
 
 #endif // MAINWINDOW_H

@@ -43,16 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle(QString("Highlight %1").arg( HIGHLIGHT_VERSION));
 
     // Read file open filter
-#ifdef Q_OS_OSX
-    QFile filterDef(QCoreApplication::applicationDirPath()+"/../Resources/gui_files/ext/fileopenfilter.conf");
-#else
-    #ifdef DATA_DIR
-    QFile filterDef(QString(DATA_DIR) + "/gui_files/ext/fileopenfilter.conf");
-    #else
-    QFile filterDef(QDir::currentPath()+"/gui_files/ext/fileopenfilter.conf");
-    #endif
-#endif
-    
+    QFile  filterDef(getDistFileFilterPath());
     QRegExp rx("(\\S+)\\s?\\(\\*\\.([\\w\\d]+)");
 
     if (filterDef.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -136,6 +127,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     QObject::connect(ui->lvInputFiles, SIGNAL(itemSelectionChanged()), this, SLOT(updatePreview()));
     QObject::connect(ui->lvPluginScripts, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(updatePreview()));
+    QObject::connect(ui->lvUserScripts, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(updatePreview()));
+    QObject::connect(ui->lvUserScripts, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(plausibility()));
+
     QObject::connect(ui->cbIncLineNo, SIGNAL(clicked()), this, SLOT(updatePreview()));
     QObject::connect(ui->cbKwCase, SIGNAL(clicked()), this, SLOT(updatePreview()));
     QObject::connect(ui->cbPadZeroes, SIGNAL(clicked()), this, SLOT(updatePreview()));
@@ -166,7 +160,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->pbCopyToCP->setText(ui->pbCopyToCP->text().arg(QKeySequence(QKeySequence::Copy).toString(QKeySequence::NativeText)));
     ui->pbPasteFromCB->setText(ui->pbPasteFromCB->text().arg(QKeySequence(QKeySequence::Paste).toString(QKeySequence::NativeText)));
-    
+
     setAcceptDrops(true);
 
     readSettings();
@@ -256,12 +250,27 @@ void MainWindow::writeSettings()
             selectedPlugins.push_back(QVariant(i));
     }
 
+    QStringList userScripts;
+    for (int i=0; i<ui->lvUserScripts->count(); i++) {
+        userScripts<<ui->lvUserScripts->item(i)->data(Qt::UserRole).toString();
+    }
+
+    QVariantList selectedUserScripts;
+    for (int i=0; i<ui->lvUserScripts->count(); i++) {
+        if (ui->lvUserScripts->item(i)->checkState()==Qt::Checked )
+            selectedUserScripts.push_back(QVariant(i));
+    }
+
     const char* name="objectName";
     settings.setValue(ui->lvInputFiles->property(name).toString(),
                       inFiles);
     settings.setValue(ui->lvPluginScripts->property(name).toString(),
                       plugins);
     settings.setValue("selectedPlugins", selectedPlugins);
+    settings.setValue(ui->lvUserScripts->property(name).toString(),
+                      userScripts);
+    settings.setValue("selectedUserScripts", selectedUserScripts);
+
     settings.setValue(ui->leOutputDest->property(name).toString(),
                       ui->leOutputDest->text());
     settings.setValue(ui->cbWrite2Src->property(name).toString(),
@@ -278,7 +287,7 @@ void MainWindow::writeSettings()
                       ui->cbHTMLAnchors->isChecked());
     settings.setValue(ui->cbOmitVersionInfo->property(name).toString(),
                       ui->cbOmitVersionInfo->isChecked());
-    
+
     settings.setValue(ui->cbHTMLEmbedStyle->property(name).toString(),
                       ui->cbHTMLEmbedStyle->isChecked());
     settings.setValue(ui->cbHTMLEnclosePreTags->property(name).toString(),
@@ -408,12 +417,16 @@ void MainWindow::readSettings()
 
     addToView(settings.value(ui->lvInputFiles->property(name).toString()).toStringList(), ui->lvInputFiles ) ;
     addToView(settings.value(ui->lvPluginScripts->property(name).toString()).toStringList(), ui->lvPluginScripts, ":/plugin.png", true, true ) ;
+    addToView(settings.value(ui->lvUserScripts->property(name).toString()).toStringList(), ui->lvUserScripts, ":/script.png", true, false ) ;
 
     QVariantList selectedPlugins=settings.value("selectedPlugins").toList();
     for (int i=0; i<selectedPlugins.size(); i++) {
         ui->lvPluginScripts->item(selectedPlugins[i].toInt())->setCheckState(Qt::Checked);
     }
-
+    QVariantList selectedUserScripts=settings.value("selectedUserScripts").toList();
+    for (int i=0; i<selectedUserScripts.size(); i++) {
+        ui->lvUserScripts->item(selectedUserScripts[i].toInt())->setCheckState(Qt::Checked);
+    }
     ui->leOutputDest->setText(settings.value(ui->leOutputDest->property(name).toString()).toString());
     ui->cbWrite2Src->setChecked(settings.value(ui->cbWrite2Src->property(name).toString()).toBool());
     ui->cbAdvWrapping->setChecked(settings.value(ui->cbAdvWrapping->property(name).toString()).toBool());
@@ -494,16 +507,8 @@ void MainWindow::readLuaList(const string& paramName, const string& langName,Dil
 }
 
 bool MainWindow::loadFileTypeConfig()
-{  
-#ifdef Q_OS_OSX
-    QString filetypesPath = QDir::toNativeSeparators(QString("%1/../Resources/filetypes.conf").arg(QCoreApplication::applicationDirPath()));
-#else
-    #ifdef CONFIG_DIR
-    QString filetypesPath = QDir::toNativeSeparators(QString("%1/filetypes.conf").arg(CONFIG_DIR));
-    #else
-    QString filetypesPath = QDir::toNativeSeparators(QString("%1/filetypes.conf").arg(QDir::currentPath()));
-    #endif        
-#endif
+{
+    QString filetypesPath=getDistFileConfigPath();
 
     try {
         Diluculum::LuaState ls;
@@ -746,19 +751,12 @@ void MainWindow::applyCtrlValues(highlight::CodeGenerator* generator, bool previ
     generator->setPluginParameter(ui->lePluginReadFilePath->text().toStdString());
     generator->setOmitVersionComment(ui->cbHTMLPasteMIME->isChecked() || ui->cbOmitVersionInfo->isChecked());
 
-#ifdef Q_OS_OSX
-    QString themePath = QString("%1/../Resources/themes/%2.theme").arg(
-                            QCoreApplication::applicationDirPath()).arg(ui->comboTheme->currentText());
-#else
-    #ifdef DATA_DIR
-    QString themePath = QString("%1themes/%2.theme").arg(
-                            DATA_DIR).arg(ui->comboTheme->currentText());
-    #else
-    QString themePath = QString("%1/themes/%2.theme").arg(
-                            QDir::currentPath()).arg(ui->comboTheme->currentText());
-    #endif
-#endif
-    
+    QString themePath=getUserScriptPath("theme");
+
+    if (themePath.isEmpty()){
+        themePath=getDistThemePath();
+    }
+
     for (int i=0; i<ui->lvPluginScripts->count(); i++) {
         if (ui->lvPluginScripts->item(i)->checkState()==Qt::Checked) {
             if (!generator->initPluginScript(ui->lvPluginScripts->item(i)->data(Qt::UserRole).toString().toStdString()) ) {
@@ -886,6 +884,8 @@ void MainWindow::on_pbStartConversion_clicked()
     highlight::LoadResult loadRes;
 
     QString langDefPath;
+    QString userLangPath = getUserScriptPath("lang");
+
     QString inFileName, inFilePath;
     QString lastStyleDestDir;
     QSet<QString> usedFileNames;
@@ -898,19 +898,8 @@ void MainWindow::on_pbStartConversion_clicked()
 
         statusBar()->showMessage(tr("Processing %1 (%2/%3)").arg(inFilePath).arg(i+1).arg(ui->lvInputFiles->count()));
 
-#ifdef Q_OS_OSX
-        langDefPath = QDir::toNativeSeparators(QString("%1/../Resources/langDefs/%2.lang").arg(QCoreApplication::applicationDirPath()).arg(
-                QString::fromStdString(getFileType(getFileSuffix(currentFile), currentFile))));
-#else
-    #ifdef DATA_DIR
-        langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(DATA_DIR).arg(
-                QString::fromStdString(getFileType(getFileSuffix(currentFile), currentFile))));
-    #else
-        langDefPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(QDir::currentPath()).arg(
-                QString::fromStdString(getFileType(getFileSuffix(currentFile), currentFile))));
-    #endif
-#endif
-        
+        langDefPath = (userLangPath.isEmpty()) ? getDistLangPath(getFileType(getFileSuffix(currentFile), currentFile)) : userLangPath;
+
         loadRes=generator->loadLanguage(langDefPath.toStdString());
         if (loadRes==highlight::LOAD_FAILED_REGEX) {
             QMessageBox::warning(this, tr("Language definition error"),
@@ -1051,18 +1040,10 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP)
         generator->setTitle(inFileName.toStdString());
     }
 
-#ifdef Q_OS_OSX
-    QString langPath = QDir::toNativeSeparators(QString("%1/../Resources//langDefs/%2.lang").arg(
-                           QCoreApplication::applicationDirPath()).arg(QString::fromStdString(suffix)));
-#else
-    #ifdef DATA_DIR
-    QString langPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
-                           DATA_DIR).arg(QString::fromStdString(suffix)));
-    #else
-    QString langPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
-                           QDir::currentPath()).arg(QString::fromStdString(suffix)));
-    #endif
-#endif
+    QString langPath = getUserScriptPath("lang");
+    if (langPath.isEmpty()) {
+        langPath = getDistLangPath(suffix);
+    }
 
     if ( generator->loadLanguage(langPath.toStdString()) != highlight::LOAD_FAILED) {
         QString clipBoardData;
@@ -1083,7 +1064,7 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP)
                 mimeData->setData("text/rtf", clipBoardData.toLatin1());
 #endif
                 clipboard->setMimeData(mimeData);
-            } 
+            }
             else if ( (outputType==highlight::HTML || outputType==highlight::XHTML) && ui->cbHTMLPasteMIME->isChecked()) {
                 QMimeData *mimeData = new QMimeData();
 
@@ -1093,7 +1074,7 @@ void MainWindow::highlight2Clipboard(bool getDataFromCP)
                     mimeData->setHtml(clipBoardData.toLatin1());
                 }
                 clipboard->setMimeData(mimeData);
-            } 
+            }
             else {
                 clipboard->setText(clipBoardData);
             }
@@ -1118,6 +1099,8 @@ void MainWindow::plausibility()
     ui->comboEncoding->setEnabled(ui->cbEncoding->isChecked());
     ui->comboReformat->setEnabled(ui->cbReformat->isChecked());
     ui->comboKwCase->setEnabled(ui->cbKwCase->isChecked());
+    ui->comboTheme->setEnabled(getUserScriptPath("theme").isEmpty());
+
     ui->cbHTMLInlineCSS->setEnabled(ui->cbHTMLEmbedStyle->isChecked());
     ui->cbHTMLFileNameAnchor->setEnabled(ui->cbHTMLAnchors->isChecked());
     ui->leHTMLStyleFile->setEnabled(!ui->cbHTMLEmbedStyle->isChecked());
@@ -1197,26 +1180,20 @@ void MainWindow::updatePreview()
         string currentFile = previewInputPath.toStdString();
         suffix = getFileType(getFileSuffix(currentFile), currentFile);
     }
-    
-#ifdef Q_OS_OSX
-    QString langPath = QDir::toNativeSeparators(QString("%1/../Resources//langDefs/%2.lang").arg(
-                           QCoreApplication::applicationDirPath()).arg(QString::fromStdString(suffix)));
-#else
-    #ifdef DATA_DIR
-    QString langPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
-                           DATA_DIR).arg(QString::fromStdString(suffix)));
-    #else
-    QString langPath = QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
-                           QDir::currentPath()).arg(QString::fromStdString(suffix)));
-    #endif
-#endif
+
+    QString langPath = getUserScriptPath("lang");
+    QString origin=tr("(user script)");
+    if (langPath.isEmpty()) {
+        origin="";
+        langPath = getDistLangPath(suffix);
+    }
 
     if ( pwgenerator.loadLanguage(langPath.toStdString()) != highlight::LOAD_FAILED) {
 
         ui->lbPreview->setText(tr("Preview (%1):").arg(
                                    (getDataFromCP)?tr("clipboard data"):croppedName) );
 
-        statusBar()->showMessage(tr("Current syntax: %1").arg(QString::fromStdString(pwgenerator.getSyntaxDescription())));
+        statusBar()->showMessage(tr("Current syntax: %1 %2").arg(QString::fromStdString(pwgenerator.getSyntaxDescription())).arg(origin));
         QString previewData;
 
         // fix utf-8 data preview - to be improved (other encodings??)
@@ -1346,16 +1323,7 @@ void MainWindow::on_pbCopyToCP_clicked()
 
 void MainWindow::on_pbSelectPlugin_clicked()
 {
-#ifdef Q_OS_OSX
-    QString pluginsPath = QString("%1/../Resources/plugins").arg(QCoreApplication::applicationDirPath());
-#else
-    #ifdef DATA_DIR
-    QString pluginsPath = QDir::toNativeSeparators(QString("%1/plugins").arg(DATA_DIR));
-    #else
-    QString pluginsPath = QDir::toNativeSeparators(QString("%1/plugins").arg(QDir::currentPath()));
-    #endif
-#endif
-
+    QString pluginsPath = getDistPluginPath();
     QStringList files = QFileDialog::getOpenFileNames(
                             this,
                             tr("Select one or more plug-ins"),
@@ -1365,15 +1333,32 @@ void MainWindow::on_pbSelectPlugin_clicked()
     addToView(files, ui->lvPluginScripts, ":/plugin.png",  true, true);
 }
 
+void MainWindow::on_pbSelectScript_clicked()
+{
+    QStringList files = QFileDialog::getOpenFileNames(
+                            this,
+                            tr("Select one or more syntax or theme scripts"),
+                            "",
+                            "Language definitions (*.lang)\nColour themes (*.theme)");
+
+    addToView(files, ui->lvUserScripts, ":/script.png",  true, false);
+}
+
 void MainWindow::on_pbClearSelPlugin_clicked()
 {
-
     QList<QListWidgetItem *> selectedItems = ui->lvPluginScripts->selectedItems();
     for (int i = 0; i < selectedItems.size(); ++i) {
         delete selectedItems.at(i);
     }
 }
 
+void MainWindow::on_pbClearSelScript_clicked()
+{
+    QList<QListWidgetItem *> selectedItems = ui->lvUserScripts->selectedItems();
+    for (int i = 0; i < selectedItems.size(); ++i) {
+        delete selectedItems.at(i);
+    }
+}
 void MainWindow::on_pbClearSelection_clicked()
 {
     QList<QListWidgetItem *> selectedItems = ui->lvInputFiles->selectedItems();
@@ -1391,6 +1376,10 @@ void MainWindow::on_pbClearAllPlugins_clicked()
 {
     ui->lvPluginScripts->clear();
 }
+void MainWindow::on_pbClearAllScripts_clicked()
+{
+    ui->lvUserScripts->clear();
+}
 
 void MainWindow::on_actionVisit_website_triggered()
 {
@@ -1407,19 +1396,6 @@ void MainWindow::on_pbPluginReadFilePath_clicked()
     selectSingleFile(ui->lePluginReadFilePath, tr("Choose a plug-in input file"), "*");
 }
 
-void MainWindow::on_lvPluginScripts_currentRowChanged(int currentRow)
-{
-    if ( !ui->lvPluginScripts->item(currentRow)) return; // Removing item?
-    try {
-        Diluculum::LuaState ls;
-        ls.doFile ( ui->lvPluginScripts->item(currentRow)->data(Qt::UserRole).toString().toStdString());
-        ui->lblPluginDescription->setText(QString::fromStdString(ls["Description"].value().asString()));
-        statusBar()->showMessage(tr("Some plug-in effects may not be visible in the preview."));
-    } catch (Diluculum::LuaError err) {
-        QMessageBox::warning(this, "Plug-In error", QString::fromStdString( err.what()));
-    }
-}
-
 void MainWindow::on_pbCopyAndPaste_clicked()
 {
     ui->pbPasteFromCB->click();
@@ -1429,4 +1405,113 @@ void MainWindow::on_pbCopyAndPaste_clicked()
 void MainWindow::on_pbBrowseOutDir_clicked()
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(ui->leOutputDest->text()));
+}
+
+void MainWindow::on_lvUserScripts_itemClicked(QListWidgetItem *item)
+{
+     QString scriptPath= item->data(Qt::UserRole).toString();
+     try {
+         Diluculum::LuaState ls;
+         ls.doFile ( scriptPath.toStdString());
+         ui->lblScriptDescription->setText(QString::fromStdString(ls["Description"].value().asString()));
+
+         if (item->checkState()==Qt::Checked){
+             QString fileExt=QFileInfo(scriptPath).completeSuffix();
+             for (int i = 0; i < ui->lvUserScripts->count(); ++i) {
+                 if (ui->lvUserScripts->item(i)!=item && ui->lvUserScripts->item(i)->data(Qt::UserRole).toString().endsWith(fileExt)){
+                     ui->lvUserScripts->item(i)->setCheckState(Qt::Unchecked);
+                 }
+             }
+         }
+     } catch (Diluculum::LuaError err) {
+         QMessageBox::warning(this, "User script error", QString::fromStdString( err.what()));
+     }
+}
+
+QString MainWindow::getUserScriptPath(QString type){
+    for (int i = 0; i < ui->lvUserScripts->count(); ++i) {
+        QString path=ui->lvUserScripts->item(i)->data(Qt::UserRole).toString();
+        if (ui->lvUserScripts->item(i)->checkState()==Qt::Checked && path.endsWith(type)){
+            return path;
+        }
+    }
+    return "";
+}
+
+void MainWindow::on_lvPluginScripts_itemClicked(QListWidgetItem *item)
+{
+    try {
+        Diluculum::LuaState ls;
+        ls.doFile ( item->data(Qt::UserRole).toString().toStdString());
+        ui->lblPluginDescription->setText(QString::fromStdString(ls["Description"].value().asString()));
+        statusBar()->showMessage(tr("Some plug-in effects may not be visible in the preview."));
+    } catch (Diluculum::LuaError err) {
+        QMessageBox::warning(this, "Plug-In error", QString::fromStdString( err.what()));
+    }
+}
+
+QString MainWindow::getDistThemePath(){
+#ifdef Q_OS_OSX
+     return QString("%1/../Resources/themes/%2.theme").arg(
+                            QCoreApplication::applicationDirPath()).arg(ui->comboTheme->currentText());
+#else
+    #ifdef DATA_DIR
+     return  QString("%1themes/%2.theme").arg(
+                            DATA_DIR).arg(ui->comboTheme->currentText());
+    #else
+     return  QString("%1/themes/%2.theme").arg(
+                            QDir::currentPath()).arg(ui->comboTheme->currentText());
+    #endif
+#endif
+}
+
+QString MainWindow::getDistLangPath(const string & suffix){
+#ifdef Q_OS_OSX
+    return QDir::toNativeSeparators(QString("%1/../Resources/langDefs/%2.lang").arg(
+                           QCoreApplication::applicationDirPath()).arg(QString::fromStdString(suffix)));
+#else
+    #ifdef DATA_DIR
+    return QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
+                           DATA_DIR).arg(QString::fromStdString(suffix)));
+    #else
+    return QDir::toNativeSeparators(QString("%1/langDefs/%2.lang").arg(
+                           QDir::currentPath()).arg(QString::fromStdString(suffix)));
+    #endif
+#endif
+}
+
+QString MainWindow::getDistPluginPath(){
+#ifdef Q_OS_OSX
+    return QString("%1/../Resources/plugins").arg(QCoreApplication::applicationDirPath());
+#else
+    #ifdef DATA_DIR
+    return QDir::toNativeSeparators(QString("%1/plugins").arg(DATA_DIR));
+    #else
+    return QDir::toNativeSeparators(QString("%1/plugins").arg(QDir::currentPath()));
+    #endif
+#endif
+}
+
+QString MainWindow::getDistFileConfigPath(){
+#ifdef Q_OS_OSX
+    return QDir::toNativeSeparators(QString("%1/../Resources/filetypes.conf").arg(QCoreApplication::applicationDirPath()));
+#else
+    #ifdef CONFIG_DIR
+    return QDir::toNativeSeparators(QString("%1/filetypes.conf").arg(CONFIG_DIR));
+    #else
+    return QDir::toNativeSeparators(QString("%1/filetypes.conf").arg(QDir::currentPath()));
+    #endif
+#endif
+}
+
+QString MainWindow::getDistFileFilterPath(){
+#ifdef Q_OS_OSX
+    return QCoreApplication::applicationDirPath()+"/../Resources/gui_files/ext/fileopenfilter.conf";
+#else
+    #ifdef DATA_DIR
+    return QString(DATA_DIR) + "/gui_files/ext/fileopenfilter.conf";
+    #else
+    return QDir::currentPath()+"/gui_files/ext/fileopenfilter.conf";
+    #endif
+#endif
 }

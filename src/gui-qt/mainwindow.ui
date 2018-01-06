@@ -126,7 +126,7 @@
     <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
-    <string>Highlighting options</string>
+    <string>H&amp;ighlighting options</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -148,9 +148,31 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>3</number>
+       </property>
+       <property name="elideMode">
+        <enum>Qt::ElideNone</enum>
+       </property>
+       <property name="usesScrollButtons">
+        <bool>false</bool>
+       </property>
+       <property name="documentMode">
+        <bool>true</bool>
+       </property>
+       <property name="tabsClosable">
+        <bool>false</bool>
+       </property>
+       <property name="movable">
+        <bool>false</bool>
+       </property>
+       <property name="tabBarAutoHide">
+        <bool>false</bool>
        </property>
        <widget class="QWidget" name="tab_file_io">
+        <attribute name="icon">
+         <iconset resource="highlight-gui.qrc">
+          <normaloff>:/file.png</normaloff>:/file.png</iconset>
+        </attribute>
         <attribute name="title">
          <string>Files</string>
         </attribute>
@@ -384,6 +406,10 @@
         </layout>
        </widget>
        <widget class="QWidget" name="tab_clipboard">
+        <attribute name="icon">
+         <iconset resource="highlight-gui.qrc">
+          <normaloff>:/clipboard.png</normaloff>:/clipboard.png</iconset>
+        </attribute>
         <attribute name="title">
          <string>Clipboard</string>
         </attribute>
@@ -416,7 +442,7 @@
            </property>
            <property name="icon">
             <iconset resource="highlight-gui.qrc">
-             <normaloff>:/file.png</normaloff>:/file.png</iconset>
+             <normaloff>:/clipboard.png</normaloff>:/clipboard.png</iconset>
            </property>
           </widget>
          </item>
@@ -481,6 +507,10 @@
         </layout>
        </widget>
        <widget class="QWidget" name="tab_plugins">
+        <attribute name="icon">
+         <iconset resource="highlight-gui.qrc">
+          <normaloff>:/plugin.png</normaloff>:/plugin.png</iconset>
+        </attribute>
         <attribute name="title">
          <string>Plug-ins</string>
         </attribute>
@@ -615,6 +645,81 @@
             </widget>
            </item>
           </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_scripts">
+        <attribute name="icon">
+         <iconset resource="highlight-gui.qrc">
+          <normaloff>:/script.png</normaloff>:/script.png</iconset>
+        </attribute>
+        <attribute name="title">
+         <string>Scripts</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_18">
+         <item>
+          <widget class="QPushButton" name="pbSelectScript">
+           <property name="toolTip">
+            <string>Choose a custom syntax or theme script.</string>
+           </property>
+           <property name="text">
+            <string>Add custom script to pool</string>
+           </property>
+           <property name="icon">
+            <iconset resource="highlight-gui.qrc">
+             <normaloff>:/script.png</normaloff>:/script.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="lvUserScripts">
+           <property name="toolTip">
+            <string>You can check one file of each type (syntax and theme) to override the default behaviour.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_25">
+           <item>
+            <widget class="QPushButton" name="pbClearSelScript">
+             <property name="toolTip">
+              <string>Remove the selected scripts.</string>
+             </property>
+             <property name="text">
+              <string>Clear selection</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pbClearAllScripts">
+             <property name="toolTip">
+              <string>Remove all scripts.</string>
+             </property>
+             <property name="text">
+              <string>Clear all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupScriptDescription">
+           <property name="title">
+            <string>Description</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <item row="0" column="0">
+             <widget class="QLabel" name="lblScriptDescription">
+              <property name="toolTip">
+               <string>Shows decription of a selected script.</string>
+              </property>
+              <property name="text">
+               <string>Script description</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </item>
         </layout>
        </widget>

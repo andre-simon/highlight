@@ -62,7 +62,7 @@
     </message>
     <message>
         <source>Current syntax: %1</source>
-        <translation>Současná skladba: %1</translation>
+        <translation type="vanished">Současná skladba: %1</translation>
     </message>
     <message>
         <source>clipboard data</source>
@@ -136,6 +136,18 @@ Lua Syntax error: %2</source>
     </message>
     <message>
         <source>Some plug-in effects may not be visible in the preview.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(user script)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current syntax: %1 %2</source>
+        <translation>Současná skladba: %1 %2</translation>
+    </message>
+    <message>
+        <source>Select one or more syntax or theme scripts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -527,7 +539,7 @@ Odstraní značku Unicode BOM.</translation>
     </message>
     <message>
         <source>Highlighting options</source>
-        <translation>Volby pro zvýrazňování</translation>
+        <translation type="vanished">Volby pro zvýrazňování</translation>
     </message>
     <message>
         <source>Select a CSS include file.</source>
@@ -899,7 +911,7 @@ Tyto stylové listy můžete vybrat ve svém textovém editoru, abyste přeform�
     </message>
     <message>
         <source>ODT</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Plug-in parameter</source>
@@ -1024,6 +1036,42 @@ This feature is enabled for C, C++, C# and Java code.</source>
     </message>
     <message>
         <source>Font si&amp;ze:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H&amp;ighlighting options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a custom syntax or theme script.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add custom script to pool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can check one file of each type (syntax and theme) to override the default behaviour.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the selected scripts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove all scripts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shows decription of a selected script.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Script description</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
