@@ -697,8 +697,8 @@ bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
         formatter->setFormattingStyle ( astyle::STYLE_STROUSTRUP );
     } else if ( indentScheme=="whitesmith" ) {
         formatter->setFormattingStyle ( astyle::STYLE_WHITESMITH );
-    } else if ( indentScheme=="banner" ) {
-        formatter->setFormattingStyle ( astyle::STYLE_BANNER );
+    } else if ( indentScheme=="banner" || indentScheme=="ratliff") {
+        formatter->setFormattingStyle ( astyle::STYLE_RATLIFF );
     } else if ( indentScheme=="gnu" ) {
         formatter->setFormattingStyle ( astyle::STYLE_GNU );
     } else if ( indentScheme=="linux" ) {

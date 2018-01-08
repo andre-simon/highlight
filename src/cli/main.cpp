@@ -2,7 +2,7 @@
                           main.cpp  -  description
                              -------------------
     begin                : Die Apr 23 22:16:35 CEST 2002
-    copyright            : (C) 2002-2017 by Andre Simon
+    copyright            : (C) 2002-2018 by Andre Simon
     email                : andre.simon1@gmx.de
 
    Highlight is a universal source code to HTML converter. Syntax highlighting
@@ -45,11 +45,11 @@ void HLCmdLineApp::printVersionInfo()
 {
     cout << "\n highlight version "
          << HIGHLIGHT_VERSION
-         << "\n Copyright (C) 2002-2017 Andre Simon <andre.simon1 at gmx.de>"
+         << "\n Copyright (C) 2002-2018 Andre Simon <andre.simon1 at gmx.de>"
          << "\n\n Argparser class"
          << "\n Copyright (C) 2006-2008 Antonio Diaz Diaz <ant_diaz at teleline.es>"
          << "\n\n Artistic Style Classes (2.06)"
-         << "\n Copyright (C) 2006-2017 by Jim Pattee <jimp03 at email.com>"
+         << "\n Copyright (C) 2006-2018 by Jim Pattee <jimp03 at email.com>"
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
          << "\n\n Diluculum Lua wrapper (1.0)"
          << "\n Copyright (C) 2005-2013 by Leandro Motta Barros"

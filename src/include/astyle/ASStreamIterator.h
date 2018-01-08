@@ -54,6 +54,8 @@ class ASStreamIterator : public ASSourceIterator
 		
 		int getStreamLength() const { return 0; }
 		streamoff tellg() { return 0; }
+		
+        streamoff getPeekStart() const  { return 0; }
 
 	private:
 		istream * inStream;          // pointer to the input stream

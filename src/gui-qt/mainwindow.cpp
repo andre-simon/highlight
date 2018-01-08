@@ -2,7 +2,7 @@
                                mainwindow.cpp
                              -------------------
     begin                : Mo 16.03.2009
-    copyright            : (C) 2009-2017 by Andre Simon
+    copyright            : (C) 2009-2018 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -85,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //does not work in GUI editor when adding > 10 items ?!?
     QStringList fmts;
-    fmts << "Allman" << "Banner" << "GNU" <<"Google"<< "Horstmann"<<"Lisp"<<"Java"<<"K&R"<<"Linux"<<"Mozilla"<<"OTBS"<<"Pico"<<"Stroustrup"<<"VTK"<<"Whitesmith";
+    fmts << "Allman" << "GNU" <<"Google"<< "Horstmann"<<"Lisp"<<"Java"<<"K&R"<<"Linux"<<"Mozilla"<<"OTBS"<<"Pico"<<"Ratliff"<<"Stroustrup"<<"VTK"<<"Whitesmith";
     ui->comboReformat->clear();
     ui->comboReformat->addItems(fmts);
 
@@ -623,9 +623,9 @@ void MainWindow::on_action_About_Highlight_triggered()
     QMessageBox::about( this, "About Highlight",
                         QString("Highlight is a code to formatted text converter.\n\n"
                                 "Highlight GUI %1\n"
-                                "(C) 2002-2017 Andre Simon <andre.simon1 at gmx.de>\n\n"
+                                "(C) 2002-2018 Andre Simon <andre.simon1 at gmx.de>\n\n"
                                 "Artistic Style Classes\n(C) 1998-2002 Tal Davidson\n"
-                                "(C) 2006-2016 Jim Pattee <jimp03 at email.com>\n\n"
+                                "(C) 2006-2018 Jim Pattee <jimp03 at email.com>\n\n"
                                 "Diluculum Lua wrapper\n"
                                 "(C) 2005-2013 by Leandro Motta Barros\n\n"
                                 "Built with Qt version %2\n\n"

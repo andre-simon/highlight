@@ -812,7 +812,7 @@ Siehe ctags.sf.net um mehr darüber zu erfahren.</translation>
     <message>
         <location filename="mainwindow.ui" line="677"/>
         <source>You can check one file of each type (syntax and theme) to override the default behaviour.</source>
-        <translation>Wähle eine Datei jeden Typs (Syntax oder Theme), um die Ausgabe anzupassen.</translation>
+        <translation>Du kannst eine Datei jeden Typs wählen (Syntax oder Theme), um die Ausgabe anzupassen.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="686"/>
