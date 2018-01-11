@@ -110,6 +110,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_KEEP_INJECTIONS  "keep-injections"
 #define OPT_FORCE_STDOUT     "stdout"
 #define OPT_NO_VERSION_INFO  "no-version-info"
+#define OPT_CANVAS           "canvas"
 
 // Improve CLI option compatibility with GNU source-highlight
 #define OPT_COMPAT_DOC       "doc"
@@ -361,6 +362,9 @@ public:
     /** \return Line number start count */
     int getNumberStart();
 
+    /** \return ANSI background color padding width */
+    int getCanvasPadding();
+    
     /** \return Keyword Case (upper, lower, unchanged) */
     StringTools::KeywordCase getKeywordCase() const;
 
@@ -376,6 +380,8 @@ private:
     int lineNrWidth;    // width of line number (left padding)
     int lineLength;    // length of line before wrapping
     int lineNrStart;    // line number start count
+    int canvasPaddingWidth;    // line number start count
+
     highlight::WrapMode wrappingStyle; // line wrapping mode
     highlight::OutputType outputType;
     StringTools::KeywordCase keywordCase;

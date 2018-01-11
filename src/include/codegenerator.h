@@ -439,6 +439,10 @@ public:
      */
     virtual void setESCTrueColor ( bool )  {};
 
+     /** set background padding width (<=0 to disable)
+     */
+    virtual void setESCCanvasPadding ( int )  {};
+
 protected:
 
     static const unsigned int NUMBER_BUILTIN_STATES;  ///< number of token states (without keyword group IDs)
@@ -571,9 +575,12 @@ protected:
     */
     unsigned int getStyleID ( State s, unsigned int kwClassID = 0 );
 
-    /** \return line index */
+    /** \return current line index */
     unsigned int getLineIndex();
 
+    /** \return last line index */
+    unsigned int getLastLineLength();
+    
     /** print all remaining white space*/
     void flushWs();
 
@@ -685,6 +692,9 @@ private:
 
     /// contains current position in line
     unsigned int lineIndex;
+
+    /// contains length of last line
+    unsigned int lastLineLength;
 
     /// line index where syntax change takes place
     unsigned int syntaxChangeIndex;

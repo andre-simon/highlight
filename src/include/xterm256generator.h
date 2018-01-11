@@ -54,6 +54,8 @@ public:
 
     void setESCTrueColor(bool b) { use16mColours = b; } 
     
+    void setESCCanvasPadding(int p) {canvasPadding = p; }
+    
 private:
 
     /** prints document header
@@ -84,6 +86,9 @@ private:
         @return matching sequence to close element formatting*/
     string getKeywordCloseTag ( unsigned int styleID );
 
+    /** @return Newline string */
+    string getNewLine();
+    
     /** convert an xterm color value (0-253) to 3 unsigned chars rgb
         @param color xterm color
         @param rgb RGB destination string */
@@ -98,6 +103,10 @@ private:
     
     // set true if "True Color" escape codes should be used instead of 256 color approximation
     bool use16mColours;
+    
+    string canvasColSeq;
+    
+    int canvasPadding;
 
     /// Flag to determine if colourtable is calculated
     static bool initialized;

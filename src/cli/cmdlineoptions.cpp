@@ -46,7 +46,7 @@ enum Optcode {
         S_OPT_COMPAT_SRCLANG, S_OPT_COMPAT_LINENUM, S_OPT_COMPAT_LINEREF,
         S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
         S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH,
-        S_OPT_PLUGIN_READFILE, S_OPT_PLUGIN_PARAMETER, S_LIST_SCRIPTS,
+        S_OPT_PLUGIN_READFILE, S_OPT_PLUGIN_PARAMETER, S_OPT_LIST_SCRIPTS, S_OPT_CANVAS,
         S_OPT_KEEP_INJECTIONS, S_OPT_FORCE_STDOUT, S_OPT_LATEX_BEAMER, S_OPT_NO_VERSION_INFO
     };
 
@@ -129,7 +129,8 @@ const Arg_parser::Option options[] = {
         { S_OPT_PLUGIN_READFILE,  OPT_PLUGIN_READFILE, Arg_parser::yes },
         { S_OPT_PLUGIN_PARAMETER, OPT_PLUGIN_PARAMETER, Arg_parser::yes },
         { S_OPT_ABS_CFG_PATH,     OPT_ABS_CFG_PATH,    Arg_parser::yes},
-        { S_LIST_SCRIPTS,         OPT_LIST_SCRIPTS,    Arg_parser::yes},
+        { S_OPT_LIST_SCRIPTS,     OPT_LIST_SCRIPTS,    Arg_parser::yes},
+        { S_OPT_CANVAS,           OPT_CANVAS,          Arg_parser::maybe },
 
         { 0, 0, Arg_parser::no }
     };
@@ -141,6 +142,7 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
     lineNrWidth ( 5 ),
     lineLength ( 80 ),
     lineNrStart ( 1 ),
+    canvasPaddingWidth(0),
     wrappingStyle ( highlight::WRAP_DISABLED ),
     outputType ( highlight::HTML ),
     keywordCase ( StringTools::CASE_UNCHANGED ),
@@ -508,12 +510,17 @@ void CmdLineOptions::parseRuntimeOptions( const int argc, const char *argv[], bo
             } else if (arg.find(".theme")!=string::npos) absThemePath=arg;
             else cerr << "highlight: unknown config file type" << endl;
             break;
-        case S_LIST_SCRIPTS:
+        case S_OPT_LIST_SCRIPTS:
             opt_show_themes=(arg=="themes");
             opt_show_plugins=(arg=="plugins");
             opt_show_langdefs=!(opt_show_themes&&opt_show_plugins);
             break;
+        case S_OPT_CANVAS:
+            canvasPaddingWidth=80;
+            if  ( !arg.empty() ) 
+                StringTools::str2num<int> ( canvasPaddingWidth, arg, std::dec );
 
+            break;
         default:
             cerr << "highlight: option parsing failed" << endl;
         }
@@ -905,4 +912,9 @@ int CmdLineOptions::getLineLength()
 int CmdLineOptions::getNumberStart()
 {
     return lineNrStart;
+}
+
+int CmdLineOptions::getCanvasPadding()
+{
+    return canvasPaddingWidth;
 }

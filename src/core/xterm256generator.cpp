@@ -43,6 +43,8 @@ Xterm256Generator::Xterm256Generator() :
 {
     newLineTag = "\n";
     spacer = " ";
+    maskWs=true;
+    
 }
 
 Xterm256Generator::~Xterm256Generator() {}
@@ -84,11 +86,31 @@ void Xterm256Generator::initOutputTags ( )
     for (unsigned int i=0; i<NUMBER_BUILTIN_STATES; i++ ) {
         closeTags.push_back ( "\033[m" );
     }
+    
+ 
+    
 }
 
 string  Xterm256Generator::getOpenTag ( const ElementStyle &col )
 {
-
+    if (canvasColSeq.empty() && canvasPadding > 0 ) {
+        ostringstream bgs;
+        Colour bg=docStyle.getBgColour();
+        unsigned char  bg_rgb[3];
+        bg_rgb[0] = ( unsigned char ) strtoll ( bg.getRed ( HTML ).c_str(), NULL, 16 );
+        bg_rgb[1] = ( unsigned char ) strtoll ( bg.getGreen ( HTML ).c_str(), NULL, 16 );
+        bg_rgb[2] = ( unsigned char ) strtoll ( bg.getBlue ( HTML ).c_str(), NULL, 16 );
+        
+        if (use16mColours) {
+            //use 24bit true colour ("888" colours (aka 16 milion))
+            bgs << "\033[48;2;"<< ( int ) bg_rgb[0] << ";" << ( int ) bg_rgb[1] << ";" << ( int ) bg_rgb[2] << "m";
+        } else {
+            bgs << "\033[48;5;"<< ( int ) rgb2xterm ( bg_rgb ) << "m";
+        }
+        
+        canvasColSeq = bgs.str();
+    }
+    
     Colour c= col.getColour();
     unsigned char  rgb[3];
     rgb[0] = ( unsigned char ) strtoll ( c.getRed ( HTML ).c_str(), NULL, 16 );
@@ -96,6 +118,9 @@ string  Xterm256Generator::getOpenTag ( const ElementStyle &col )
     rgb[2] = ( unsigned char ) strtoll ( c.getBlue ( HTML ).c_str(), NULL, 16 );
 
     ostringstream s;
+    
+    s << canvasColSeq;
+    
     s  << "\033[";
 
     if ( col.isBold() ) s << "1;";
@@ -121,6 +146,24 @@ string Xterm256Generator::getKeywordOpenTag ( unsigned int styleID )
 string Xterm256Generator::getKeywordCloseTag ( unsigned int styleID )
 {
     return "\033[m";
+}
+
+string Xterm256Generator::getNewLine()
+{
+    string nlStr;
+    
+    if (canvasPadding>0) {
+        
+        if (getLastLineLength() > canvasPadding)
+            canvasPadding = getLastLineLength();
+        
+        nlStr += canvasColSeq;
+        nlStr += string(canvasPadding - getLastLineLength(), ' ');
+        nlStr += "\033[m";
+    }
+    
+    nlStr += (printNewLines) ? newLineTag : "";
+    return nlStr;
 }
 
 /* the following functions are based on Wolfgang Frischs xterm256 converter utility:

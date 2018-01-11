@@ -131,6 +131,7 @@ CodeGenerator::CodeGenerator ( highlight::OutputType type )
      lineNumberOffset ( 0 ),
      includeStyleDef ( false ),
      lineIndex ( 0 ),
+     lastLineLength( 0 ),
      syntaxChangeIndex(UINT_MAX),
      syntaxChangeLineNo(UINT_MAX),
      lineNumberWidth ( 5 ),
@@ -497,6 +498,7 @@ unsigned char CodeGenerator::getInputChar()
 
             numberCurrentLine = true;
         }
+        lastLineLength=lineIndex;
         lineIndex=0;
         matchRegex ( line );
         stateTrace.clear();
@@ -1687,6 +1689,10 @@ void CodeGenerator::insertLineNumber ( bool insertNewLine )
 unsigned int CodeGenerator::getLineIndex()
 {
     return lineIndex;
+}
+unsigned int CodeGenerator::getLastLineLength()
+{
+    return lastLineLength;
 }
 
 bool CodeGenerator::printExternalStyle ( const string &outFile )

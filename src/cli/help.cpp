@@ -141,6 +141,11 @@ void printHelp()
     cout<<"     --width                    set image width (see --height)\n";
     cout<<"\n";
     cout<<"\n";
+    cout<<"Terminal escape output options (xterm256 or truecolor):\n";
+    cout<<"\n";
+    cout<<"     --canvas[=width]           set background colour padding (default: 80)\n";
+    cout<<"\n";
+    cout<<"\n";
     cout<<"GNU source-highlight compatibility options:\n";
     cout<<"\n";
     cout<<"     --doc                      create stand alone document\n";

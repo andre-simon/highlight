@@ -443,6 +443,9 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     
     generator->setSVGSize ( options.getSVGWidth(),  options.getSVGHeight() );
 
+//TDOD
+    generator->setESCCanvasPadding ( options.getCanvasPadding() );
+
     if (options.useCRDelimiter())
         generator->setEOLDelimiter('\r');
 
