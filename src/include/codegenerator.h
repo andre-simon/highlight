@@ -441,7 +441,7 @@ public:
 
      /** set background padding width (<=0 to disable)
      */
-    virtual void setESCCanvasPadding ( int )  {};
+    virtual void setESCCanvasPadding ( unsigned int )  {};
 
 protected:
 

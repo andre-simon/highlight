@@ -518,9 +518,9 @@ void CmdLineOptions::parseRuntimeOptions( const int argc, const char *argv[], bo
         case S_OPT_CANVAS:
             canvasPaddingWidth=80;
             if  ( !arg.empty() ) 
-                StringTools::str2num<int> ( canvasPaddingWidth, arg, std::dec );
-
+                StringTools::str2num<unsigned int> ( canvasPaddingWidth, arg, std::dec );
             break;
+            
         default:
             cerr << "highlight: option parsing failed" << endl;
         }

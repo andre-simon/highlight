@@ -54,7 +54,7 @@ public:
 
     void setESCTrueColor(bool b) { use16mColours = b; } 
     
-    void setESCCanvasPadding(int p) {canvasPadding = p; }
+    void setESCCanvasPadding(unsigned int p) { if (p<320) canvasPadding = p; }
     
 private:
 
@@ -106,7 +106,7 @@ private:
     
     string canvasColSeq;
     
-    int canvasPadding;
+    unsigned int canvasPadding;
 
     /// Flag to determine if colourtable is calculated
     static bool initialized;

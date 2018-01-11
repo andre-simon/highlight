@@ -380,7 +380,7 @@ private:
     int lineNrWidth;    // width of line number (left padding)
     int lineLength;    // length of line before wrapping
     int lineNrStart;    // line number start count
-    int canvasPaddingWidth;    // line number start count
+    unsigned int canvasPaddingWidth;    // line number start count
 
     highlight::WrapMode wrappingStyle; // line wrapping mode
     highlight::OutputType outputType;

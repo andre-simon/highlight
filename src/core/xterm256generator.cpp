@@ -43,8 +43,7 @@ Xterm256Generator::Xterm256Generator() :
 {
     newLineTag = "\n";
     spacer = " ";
-    maskWs=true;
-    
+    maskWs=true; // needed if canvasPadding > 0
 }
 
 Xterm256Generator::~Xterm256Generator() {}
@@ -87,8 +86,6 @@ void Xterm256Generator::initOutputTags ( )
         closeTags.push_back ( "\033[m" );
     }
     
- 
-    
 }
 
 string  Xterm256Generator::getOpenTag ( const ElementStyle &col )
@@ -107,7 +104,6 @@ string  Xterm256Generator::getOpenTag ( const ElementStyle &col )
         } else {
             bgs << "\033[48;5;"<< ( int ) rgb2xterm ( bg_rgb ) << "m";
         }
-        
         canvasColSeq = bgs.str();
     }
     
@@ -154,6 +150,7 @@ string Xterm256Generator::getNewLine()
     
     if (canvasPadding>0) {
         
+        //adapt to long lines
         if (getLastLineLength() > canvasPadding)
             canvasPadding = getLastLineLength();
         
