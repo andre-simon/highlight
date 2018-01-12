@@ -2,7 +2,7 @@
                    xterm256generator.cpp  -  description
                              -------------------
     begin                : Oct 13 2006
-    copyright            : (C) 2006 by Andre Simon
+    copyright            : (C) 2006-2018 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -43,7 +43,7 @@ Xterm256Generator::Xterm256Generator() :
 {
     newLineTag = "\n";
     spacer = " ";
-    maskWs=true; // needed if canvasPadding > 0
+    maskWs=true; // needed if canvasPadding > 0; requires tab replacement
 }
 
 Xterm256Generator::~Xterm256Generator() {}
@@ -60,7 +60,7 @@ void Xterm256Generator::printBody()
 
 string Xterm256Generator::getFooter()
 {
-    return string();
+    return string("\033[m");
 }
 
 string Xterm256Generator::maskCharacter ( unsigned char c )
@@ -84,8 +84,7 @@ void Xterm256Generator::initOutputTags ( )
 
     for (unsigned int i=0; i<NUMBER_BUILTIN_STATES; i++ ) {
         closeTags.push_back ( "\033[m" );
-    }
-    
+    }    
 }
 
 string  Xterm256Generator::getOpenTag ( const ElementStyle &col )
@@ -123,7 +122,6 @@ string  Xterm256Generator::getOpenTag ( const ElementStyle &col )
     if ( col.isItalic() ) s << "3;";
     if ( col.isUnderline() ) s << "4;";
 
-
     if (use16mColours) {
         //use 24bit true colour ("888" colours (aka 16 milion))
         s << "38;2;"<< ( int ) rgb[0] << ";" << ( int ) rgb[1] << ";" << ( int ) rgb[2] << "m";
@@ -141,8 +139,9 @@ string Xterm256Generator::getKeywordOpenTag ( unsigned int styleID )
 
 string Xterm256Generator::getKeywordCloseTag ( unsigned int styleID )
 {
-    return "\033[m";
+	return "\033[m";
 }
+
 
 string Xterm256Generator::getNewLine()
 {
@@ -156,9 +155,8 @@ string Xterm256Generator::getNewLine()
         
         nlStr += canvasColSeq;
         nlStr += string(canvasPadding - getLastLineLength(), ' ');
-        nlStr += "\033[m";
-    }
-    
+        nlStr += "\033[m";    
+    } 
     nlStr += (printNewLines) ? newLineTag : "";
     return nlStr;
 }

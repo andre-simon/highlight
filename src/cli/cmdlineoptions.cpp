@@ -517,6 +517,7 @@ void CmdLineOptions::parseRuntimeOptions( const int argc, const char *argv[], bo
             break;
         case S_OPT_CANVAS:
             canvasPaddingWidth=80;
+            numberSpaces=4; // get around problem with maskWs and tab output
             if  ( !arg.empty() ) 
                 StringTools::str2num<unsigned int> ( canvasPaddingWidth, arg, std::dec );
             break;

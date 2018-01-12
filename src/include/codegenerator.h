@@ -2,7 +2,7 @@
                           codegenerator.h  -  description
                              -------------------
     begin                : Die Jul 9 2002
-    copyright            : (C) 2002-2015 by Andre Simon
+    copyright            : (C) 2002-2018 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -519,7 +519,7 @@ protected:
 
     /** Test if whitespace should always be separated from enclosing tokens */
     bool excludeWs;
-
+	
     /** Test if header and footer should be omitted */
     bool fragmentOutput;
 
@@ -620,6 +620,11 @@ protected:
      *  If the line is just the continuation of a wrapped line,
      *  and numberWrappedLines is false, this is set true. */
     bool numberCurrentLine;
+    
+    /** method to fix output type in Lua state for XHTML and Truecolor 
+        @param output type */
+    void setOutputType(OutputType t) { outputType = t; }
+    
 private:
 
     CodeGenerator ( const CodeGenerator& ) {}

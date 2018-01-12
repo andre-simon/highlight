@@ -35,6 +35,7 @@ XHtmlGenerator::XHtmlGenerator ()
     brTag="<br />";
     hrTag="<hr />";
     cssClassName="hl";
+    setOutputType(XHTML);
 }
 
 string XHtmlGenerator::getHeaderStart ( const string &title )

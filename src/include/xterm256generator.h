@@ -2,7 +2,7 @@
                        xterm256generator.h  -  description
                              -------------------
     begin                : Oct 13 2006
-    copyright            : (C) 2006-2007 by Andre Simon
+    copyright            : (C) 2006-2018 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -52,9 +52,14 @@ public:
     Xterm256Generator();
     ~Xterm256Generator();
 
-    void setESCTrueColor(bool b) { use16mColours = b; } 
+    void setESCTrueColor(bool b) { 
+        use16mColours = b; 
+        if (b) setOutputType(ESC_TRUECOLOR); 
+    } 
     
-    void setESCCanvasPadding(unsigned int p) { if (p<320) canvasPadding = p; }
+    void setESCCanvasPadding(unsigned int p) { 
+        if (p<512) canvasPadding = p; 
+    }
     
 private:
 
