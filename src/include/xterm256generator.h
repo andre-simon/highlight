@@ -52,14 +52,13 @@ public:
     Xterm256Generator();
     ~Xterm256Generator();
 
-    void setESCTrueColor(bool b) { 
-        use16mColours = b; 
-        if (b) setOutputType(ESC_TRUECOLOR); 
-    } 
     
-    void setESCCanvasPadding(unsigned int p) { 
-        if (p<512) canvasPadding = p; 
-    }
+    /** @param b toggle truecolor mode */
+    void setESCTrueColor(bool b);
+    
+    
+    /** @param p initial canvas width (0 to disable) */
+    void setESCCanvasPadding(unsigned int p);
     
 private:
 

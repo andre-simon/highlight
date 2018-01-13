@@ -48,7 +48,7 @@ void HLCmdLineApp::printVersionInfo()
          << "\n Copyright (C) 2002-2018 Andre Simon <andre.simon1 at gmx.de>"
          << "\n\n Argparser class"
          << "\n Copyright (C) 2006-2008 Antonio Diaz Diaz <ant_diaz at teleline.es>"
-         << "\n\n Artistic Style Classes (2.06)"
+         << "\n\n Artistic Style Classes (3.1)"
          << "\n Copyright (C) 2006-2018 by Jim Pattee <jimp03 at email.com>"
          << "\n Copyright (C) 1998-2002 by Tal Davidson"
          << "\n\n Diluculum Lua wrapper (1.0)"
@@ -443,7 +443,6 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     
     generator->setSVGSize ( options.getSVGWidth(),  options.getSVGHeight() );
 
-//TDOD
     generator->setESCCanvasPadding ( options.getCanvasPadding() );
 
     if (options.useCRDelimiter())

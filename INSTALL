@@ -216,7 +216,8 @@ See bug tracker items: https://bugs.launchpad.net/linuxmint/+bug/593583 and
                        https://bugs.launchpad.net/linuxmint/+bug/815005
                    
 
-OpenSUSE Leap 42.2 
+OpenSUSE Leap 42.2
+============================
 
 The lua-devel package installation causes error messages. 
 Workaround: ignore dependency conflict.

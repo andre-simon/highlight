@@ -70,6 +70,25 @@ string Xterm256Generator::maskCharacter ( unsigned char c )
 
 void Xterm256Generator::initOutputTags ( )
 {
+    if (canvasPadding > 0 ) {
+
+        ostringstream bgs;
+        Colour bg=docStyle.getBgColour();
+        unsigned char  bg_rgb[3];
+        bg_rgb[0] = ( unsigned char ) strtoll ( bg.getRed ( HTML ).c_str(), NULL, 16 );
+        bg_rgb[1] = ( unsigned char ) strtoll ( bg.getGreen ( HTML ).c_str(), NULL, 16 );
+        bg_rgb[2] = ( unsigned char ) strtoll ( bg.getBlue ( HTML ).c_str(), NULL, 16 );
+        
+        if (use16mColours) {
+            //use 24bit true colour ("888" colours (aka 16 milion))
+            bgs << "\033[48;2;"<< ( int ) bg_rgb[0] << ";" << ( int ) bg_rgb[1] << ";" << ( int ) bg_rgb[2] << "m";
+        } else {
+            int bgApprox=( int ) rgb2xterm ( bg_rgb );
+            if (!bgApprox) bgApprox=16; // workaround transparent 0 value
+            bgs << "\033[48;5;"<< bgApprox << "m";
+        }
+        canvasColSeq = bgs.str();
+    }    
     openTags.push_back ( getOpenTag ( docStyle.getDefaultStyle() ) );
     openTags.push_back ( getOpenTag ( docStyle.getStringStyle() ) );
     openTags.push_back ( getOpenTag ( docStyle.getNumberStyle() ) );
@@ -89,23 +108,6 @@ void Xterm256Generator::initOutputTags ( )
 
 string  Xterm256Generator::getOpenTag ( const ElementStyle &col )
 {
-    if (canvasColSeq.empty() && canvasPadding > 0 ) {
-        ostringstream bgs;
-        Colour bg=docStyle.getBgColour();
-        unsigned char  bg_rgb[3];
-        bg_rgb[0] = ( unsigned char ) strtoll ( bg.getRed ( HTML ).c_str(), NULL, 16 );
-        bg_rgb[1] = ( unsigned char ) strtoll ( bg.getGreen ( HTML ).c_str(), NULL, 16 );
-        bg_rgb[2] = ( unsigned char ) strtoll ( bg.getBlue ( HTML ).c_str(), NULL, 16 );
-        
-        if (use16mColours) {
-            //use 24bit true colour ("888" colours (aka 16 milion))
-            bgs << "\033[48;2;"<< ( int ) bg_rgb[0] << ";" << ( int ) bg_rgb[1] << ";" << ( int ) bg_rgb[2] << "m";
-        } else {
-            bgs << "\033[48;5;"<< ( int ) rgb2xterm ( bg_rgb ) << "m";
-        }
-        canvasColSeq = bgs.str();
-    }
-    
     Colour c= col.getColour();
     unsigned char  rgb[3];
     rgb[0] = ( unsigned char ) strtoll ( c.getRed ( HTML ).c_str(), NULL, 16 );
@@ -139,26 +141,36 @@ string Xterm256Generator::getKeywordOpenTag ( unsigned int styleID )
 
 string Xterm256Generator::getKeywordCloseTag ( unsigned int styleID )
 {
-	return "\033[m";
+    return "\033[m";
 }
-
 
 string Xterm256Generator::getNewLine()
 {
     string nlStr;
     
     if (canvasPadding>0) {
+        unsigned int lastLineLength=getLastLineLength();
         
-        //adapt to long lines
-        if (getLastLineLength() > canvasPadding)
-            canvasPadding = getLastLineLength();
+        //adapt to long lines; avoid lag with very long lines
+        if (lastLineLength<512 && lastLineLength > canvasPadding && lastLineLength)
+            canvasPadding = lastLineLength;
         
         nlStr += canvasColSeq;
-        nlStr += string(canvasPadding - getLastLineLength(), ' ');
+        if (canvasPadding > lastLineLength)
+            nlStr += string(canvasPadding - lastLineLength, ' ');
         nlStr += "\033[m";    
     } 
     nlStr += (printNewLines) ? newLineTag : "";
     return nlStr;
+}
+
+ void Xterm256Generator::setESCTrueColor(bool b) { 
+    use16mColours = b; 
+    if (b) setOutputType(ESC_TRUECOLOR); 
+} 
+    
+void Xterm256Generator::setESCCanvasPadding(unsigned int p) { 
+    if (p<512) canvasPadding = p; 
 }
 
 /* the following functions are based on Wolfgang Frischs xterm256 converter utility:
