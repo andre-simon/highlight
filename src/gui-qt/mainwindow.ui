@@ -148,7 +148,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -538,7 +538,7 @@
             <bool>true</bool>
            </property>
            <property name="selectionMode">
-            <enum>QAbstractItemView::MultiSelection</enum>
+            <enum>QAbstractItemView::SingleSelection</enum>
            </property>
            <property name="sortingEnabled">
             <bool>true</bool>
