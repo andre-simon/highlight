@@ -96,9 +96,18 @@ Keywords={
 }
 
 Strings={
-  Delimiter=[["]],
-  Interpolation=[[ %\w ]],
+  Delimiter=[["|']],
 }
+
+-- Escape sequences only occur inside strings
+function OnStateChange(oldState, newState, token, kwgroup)
+  if newState==HL_ESC_SEQ and oldState~=HL_STRING then
+    return HL_REJECT
+  end
+  return newState
+end
+
+Identifiers=[[ [a-zA-Z][a-zA-Z0-9_']* ]]
 
 IgnoreCase=false
 
@@ -112,5 +121,5 @@ Comments={
   }
 }
 
-Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\.|\'|\#|\@|\$|\\]]
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\%|\+|\-|\.|\#|\@|\$|\\]]
 
