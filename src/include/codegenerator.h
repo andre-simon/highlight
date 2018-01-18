@@ -109,7 +109,7 @@ public:
     
     Parser workflow (neglecting embedded syntax and other details):
     
-    This flow chart shoes the method calls, starting in processRootState:
+    This flow chart shows the method calls, starting in processRootState:
     
     -> lineIndex=0
     -> processRootState()
@@ -121,7 +121,6 @@ public:
                    KEYWORD, COMMENT, IDENTIFIER, NUMBER, STRING, INTERPOLATION, 
                    PREPROCESSOR, OPERATOR, NESTEDSECTIONS
                 -> save position and length of a match for the current line
-                -> 
           -> is there a match at line[lineIndex]?
              -> YES: - token = match substring of line
                      - lineIndex = lineIndex + length of token
