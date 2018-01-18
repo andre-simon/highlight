@@ -614,6 +614,9 @@ OnStateChange(oldState, newState, token, kwGroupID)
 Return HL_REJECT if the recognized token and state should be discarded; the 
 first character of token will be outputted and highlighted as "oldState".
 
+The highlighting is not working as expected? See src/include/codegenerator.hpp
+for details about the parser.
+
 Examples:
 
 function OnStateChange(oldState, newState, token)

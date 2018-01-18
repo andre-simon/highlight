@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT LANGUAGE LIST ----------------------------------- March 2017 ---
+---  HIGHLIGHT LANGUAGE LIST --------------------------------- January 2018 ---
 -------------------------------------------------------------------------------
 
 All supported languages and the syntax definition file names are listed below.
@@ -50,12 +50,13 @@ Chapel                        : chpl
 Clean                         : clean ( icl )
 ClearBasic                    : clearbasic ( cb )
 Clipper                       : clipper
-Clojure                       : clojure
+Clojure                       : clojure ( clj )
 Clips                         : clp
+CMake                         : cmake
 COBOL                         : cobol ( cbl cob )
 Coffeescript                  : coffee
 ColdFusion MX                 : coldfusion ( cfc cfm )
-Generic config files          : conf
+Generic config files          : conf ( anacrontab )
 Crack                         : crk
 Coffeescript Block Regex      : cs_block_regex
 C#                            : csharp ( cs )
@@ -63,12 +64,16 @@ CSS                           : css
 D                             : d
 Dart                          : dart
 Diff                          : diff ( patch )
+Dockerfile                    : docker ( dockerfile )
 Device Tree Source            : dts ( dtsi )
 Dylan                         : dylan
 Extended Backus-Naur Form     : ebnf
+EBNF2                         : ebnf2
 Eiffel                        : eiffel ( e se )
+Elixir                        : elixir ( ex exs )
+E-Mail treated as Markup      : email
 Erlang                        : erlang ( erl hrl )
-Euphoria                      : euphoria ( eu ew ex exw wxu )
+Euphoria                      : euphoria ( eu ew exw wxu )
 Express                       : express ( exp )
 FAME                          : fame ( fame )
 fasm                          : fasm ( inc )
@@ -77,6 +82,7 @@ Fortran 77                    : fortran77 ( f for ftn )
 Fortran 90                    : fortran90 ( f90 f95 )
 Frink                         : frink
 F#                            : fsharp ( fs fsx )
+fstab config file             : fstab
 Java FX                       : fx
 Gambas                        : gambas ( class )
 gdb                           : gdb
@@ -86,7 +92,7 @@ Graphviz                      : graphviz ( dot )
 Haskell                       : haskell ( hs )
 haXe                          : haxe ( hx )
 Hecl                          : hcl
-HTML                          : html ( htm xhtml )
+HTML                          : html ( htm jinja twig xhtml )
 Apache Config                 : httpd
 Icon                          : icon ( icn )
 IDL                           : idl
@@ -98,7 +104,7 @@ Inno Setup                    : innosetup ( iss )
 INTERLIS                      : interlis ( ili )
 IO                            : io
 Jasmin                        : jasmin ( j )
-Java                          : java ( groovy grv )
+Java                          : java ( groovy grv jenkinsfile )
 Javascript                    : js
 Javascript Regex              : js_regex
 JSON                          : json
@@ -112,7 +118,7 @@ Haskell LHS                   : lhs
 Lilypond                      : lilypond ( ly )
 Limbo                         : limbo ( b )
 Linden Script                 : lindenscript ( lsl )
-Lisp                          : lisp ( cl clisp el lsp sbcl scom )
+Lisp                          : lisp ( cl clisp el fas lsp sbcl scm scom )
 Logtalk                       : logtalk ( lgt )
 Lotos                         : lotos
 Lotus                         : lotus ( ls )
@@ -122,7 +128,7 @@ Make                          : make ( mak makefile mk )
 Maple                         : maple ( mpl )
 Matlab                        : matlab ( m )
 Maya                          : maya ( mel )
-GitHub Flavored Markdown      : md
+GitHub Flavored Markdown      : md ( markdown )
 Mercury                       : mercury
 Miranda                       : miranda
 Modula2                       : mod2 ( def mod )
@@ -161,9 +167,10 @@ PL/Perl                       : plperl
 PL/Python                     : plpython
 PL/Tcl                        : pltcl
 PO translation                : po
+PolyGen                       : polygen ( grm )
 Pony                          : pony
 POV-Ray                       : pov
-Prolog                        : pro
+Prolog                        : pro ( pro )
 Progress                      : progress ( i p w )
 PostScript                    : ps
 Microsoft PowerShell          : ps1

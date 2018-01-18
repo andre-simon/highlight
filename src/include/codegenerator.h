@@ -105,8 +105,36 @@ public:
     Codegenerator is a singleton class.<br>
     Use getInstance for a singleton class instance. Then call the init* methods
     and loadLanguage to initialize the parser. Init methods have to be called first.
-    Call generate* methods to get results.
-
+    Call generate* methods to get results.<br><br>
+    
+    Parser workflow (neglecting embedded syntax and other details):
+    
+    This flow chart shoes the method calls, starting in processRootState:
+    
+    -> lineIndex=0
+    -> processRootState()
+       -> state = getCurrentState()
+          -> c = getInputChar()
+             -> increase lineIndex
+             -> if new line: matchRegex()
+                -> cycle through all regexes of Syntaxreader:
+                   KEYWORD, COMMENT, IDENTIFIER, NUMBER, STRING, INTERPOLATION, 
+                   PREPROCESSOR, OPERATOR, NESTEDSECTIONS
+                -> save position and length of a match for the current line
+                -> 
+          -> is there a match at line[lineIndex]?
+             -> YES: - token = match substring of line
+                     - lineIndex = lineIndex + length of token
+                     - call OnStateChange chunk if available
+                     - state = state of the associated regex or OnStateChange return value
+             -> NO:  - token=c
+                     - state = STANDARD
+        -> state is used to determine the next process* method to call. There
+           are process methods for each state (ie processKeywordState, processNumberState).
+           These methods open and close the delimiter tags in the output format, and most
+           importantly decide when the state ends. They also limit the allowed state changes,
+           like INTERPOLATION in STRING.
+          
 * @author Andre Simon
 */
 

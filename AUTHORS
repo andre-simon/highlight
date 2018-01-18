@@ -8,9 +8,6 @@ Developer of the Artistic Style:
 Tal Davidson <davidsont at bigfoot com>
 Jim Pattee <jimp03 at email com>
 
-Developer of Regex classes:
-Jeffery Stuart <mail_address>
-
 Developer of xterm 256 colour best matching functions:
 Wolfgang Frisch <wf at frexx de>
 
@@ -39,7 +36,10 @@ Raphael Droz (Ansible YAML)
 Lydia Duncan (Chapel)
 Max Christian Pohle (VIMScript)
 Jess Austin (Coffeescript)
-Tristano Ajmone (PureBasic, GDScript, FASM)
+Tristano Ajmone (PureBasic, GDScript, FASM, PolyGen, EBNF2)
+Benjamin Kowarsch (Modula2)
+Mate Ory (EBNF)
+Julien Fontanet (BNF)
 
 Colour themes:
 David (matlab)
@@ -48,8 +48,8 @@ Alexandre Bonneau (Acid)
 Sunrise Telephone Systems Ltd. (ide-xcode)
 Joerg Walter (moe)
 Roger Sperberg (andes, oxygenated)
-Tristano Ajmone (edit-godot. edit-fasm)
-
+Tristano Ajmone (edit-godot, edit-fasm)
+Andrei Rosca (edit-flashdevelop)
 
 Patches:
 Marc Duponcheel (gcc 3.x compatibility)

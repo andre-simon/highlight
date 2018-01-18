@@ -551,7 +551,7 @@ SKIP_EMBEDDED:
             unsigned int oldIndex= lineIndex;
             if ( regexGroups[oldIndex].length>1 ) lineIndex+= regexGroups[oldIndex].length-1;
 
-            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN /*&& currentSyntax->allowsInnerSection(currentSyntax->getCurrentPath())*/ ) {
+            if ( regexGroups[oldIndex].state==EMBEDDED_CODE_BEGIN ) {
                 //do not handle a nested section if the syntax is marked as "sealed" 
                 if (embedLangDefPath.length()==0 || currentSyntax->allowsInnerSection(embedLangDefPath) ) {
                     embedLangDefPath = currentSyntax->getNewPath(regexGroups[oldIndex].name);
