@@ -6,11 +6,12 @@ Description="Perl"
 ==================================================================================
   (2018/01/03 | Highlight v3.42)
     - improved Perl6 support
+    - allow _ in hereDoc delimiter
 --]]
 
 
 --TODO handle '
-Identifiers=[[ [a-zA-Z_][\-\w\-]* ]]
+Identifiers=[[ [a-zA-Z_][\-\w]* ]]
 
 Keywords={
   { Id=1,
@@ -74,13 +75,13 @@ Keywords={
 -- hereDoc opening delimiter, see OnStateChange to handle end of string
 -- do not allow digits as heredoc delimiters
 Strings={
-  Delimiter=[=["|'|`|<<["']?[[:alpha:]]+["']?]=],
+  Delimiter=[=["|'|`|<<["']?[\w_]+["']?]=],
   Interpolation=[[ [@\$%]\w+ ]],
-  
 }
 
 IgnoreCase=false
 
+--sample: https://fossies.org/linux/Time-HiRes/HiRes.pm
 Comments={
   { Block=true,
     Nested=false,
@@ -101,16 +102,18 @@ function OnStateChange(oldState, newState, token, groupID)
       return HL_REJECT
    end
 
-   if  (string.sub(token,1,1) =="$" or string.sub(token,1,1) =="@" or string.sub(token,1,1) =="%") and oldState==HL_STRING and newState==HL_KEYWORD then
+   if  (string.sub(token,1,1) =="$" or string.sub(token,1,1) =="@" or string.sub(token,1,1) =="%") 
+      and oldState==HL_STRING and newState==HL_KEYWORD then
       return HL_INTERPOLATION
    end
    
    --recognize hereDoc multine strings
    --do not clear hereDoc if token is ",' or `
-   if (oldState==HL_STANDARD or oldState==HL_STRING) and newState==HL_STRING  and not string.find("\"'`", token) then
-      hereDoc = string.match(token, "<<'?\"?(%a+)" )
+   if (oldState==HL_STANDARD or oldState==HL_STRING) and newState==HL_STRING  
+      and not string.find("\"'`", token) then
+      hereDoc = string.match(token, "<<'?\"?([%a_]+)" )
    end
-   
+
    if oldState==HL_STRING and token==hereDoc then
       hereDoc = nil
       return HL_STRING_END
@@ -141,6 +144,5 @@ function OnStateChange(oldState, newState, token, groupID)
       return HL_STRING_END
    end
   
-   
    return newState
 end

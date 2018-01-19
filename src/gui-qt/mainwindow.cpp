@@ -1100,6 +1100,7 @@ void MainWindow::plausibility()
     ui->comboReformat->setEnabled(ui->cbReformat->isChecked());
     ui->comboKwCase->setEnabled(ui->cbKwCase->isChecked());
     ui->comboTheme->setEnabled(getUserScriptPath("theme").isEmpty());
+    ui->comboSelectSyntax->setEnabled(getUserScriptPath("lang").isEmpty());
 
     ui->cbHTMLInlineCSS->setEnabled(ui->cbHTMLEmbedStyle->isChecked());
     ui->cbHTMLFileNameAnchor->setEnabled(ui->cbHTMLAnchors->isChecked());

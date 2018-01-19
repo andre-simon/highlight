@@ -2,14 +2,17 @@ CHANGELOG Highlight
 
 highlight 3.42
 
-18.01.2018
+19.01.2018
 
 -fixed HL_OUTPUT in Lua state for HL_FORMAT_XHTML and HL_FORMAT_TRUECOLOR values
+-fixed lib-shared make target
 -updated astyle code to release 3.1.0 beta
--added PolyGen and EBNF2 syntax definitions (thanks to Tristano Ajmone)
+-added Polygen and EBNF2 syntax definitions (thanks to Tristano Ajmone)
 -added pywal terminal colouring template in extras/pywal
 -added reformatting style ratliff (replaces banner)
+-added extras/langDefs-resources/cleanslate.lang (thanks to Tristano Ajmone)
 -improved Perl6 compatibility
+-improved Haskell definition (https://github.com/andre-simon/highlight/pull/52)
 -CLI: added --canvas option to define background color padding in ANSI output
   (https://github.com/andre-simon/highlight/issues/40)
 -GUI: added French translation (thanks to Antoine Belvire) 

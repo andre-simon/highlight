@@ -108,7 +108,7 @@ lib-static libhighlight.a: ${CORE_OBJECTS}
 	${AR} ${ARFLAGS} libhighlight.a ${CORE_OBJECTS} ${DILU_OBJECTS}
 
 lib-shared libhighlight.so.1.0: ${CORE_OBJECTS}
-	ld -shared -soname libhighlight.so.1 -o libhighlight.so.${SO_VERSION} -lc ${CORE_OBJECTS}
+	${CXX} -shared -Wl,-soname,libhighlight.so.${SO_VERSION} -o libhighlight.so.${SO_VERSION} -lc ${CORE_OBJECTS}
 
 gui-qt: highlight-gui
 
