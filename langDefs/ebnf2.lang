@@ -2,7 +2,7 @@
     *                                                                           *
     *                          EBNF2 Syntax Definition                          *
     *                                                                           *
-    *              v1.0.0 (2018/01/14) | Highlight v3.41 | Lua 5.3              *
+    *              v1.0.1 (2018/01/18) | Highlight v3.41 | Lua 5.3              *
     *                                                                           *
     *                             by Tristano Ajmone                            *
     *                                                                           *
@@ -11,11 +11,11 @@
     Syntax type: EBNF (Extended Backus–Naur form)
     -----------------------------------------------------------------------------
     I've created this EBNF syntax definition because I needed to syntax highlight
-    the EBNF code of PolyGen Manual, which wasn't being handled properly by the
+    the EBNF code of Polygen Manual, which wasn't being handled properly by the
     existing Highlight *BNF definitions ("ebnf", "abnf", and "bnf"). So I decided
-    to create my own EBNF syntax by adapting the PolyGen Grammars syntax I had
+    to create my own EBNF syntax by adapting the Polygen Grammars syntax I had
     just recently created. Some tweaks were required to make it parse properly
-    the EBNF code found in the PolyGen Manual (see changelog, at the end).
+    the EBNF code found in the Polygen Manual (see changelog, at the end).
 
     Hopefully others might benefit from this new EBNF syntax too. Since there is
     no universal standard for EBNF notation (EBNF being a family of notations),
@@ -100,6 +100,9 @@ Keywords={
 --[[=============================================================================
                                        CHANGELOG
 =================================================================================
+ v1.0.1 (2018/01/18) | Highlight v3.41)
+    - Changed "PolyGen" to "Polygen" (the author has now officially adopted the
+      latter syntax).
  v1.0.0 (2018/01/14) | Highlight v3.41)
     - First release. Created by modifying "polygen.lang" (v1.0.0):
       - Suppressed Escape Sequences (via Never-Matching RegEx)
