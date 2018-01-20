@@ -2,7 +2,7 @@
                                mainwindow.h
                              -------------------
     begin                : Mo 16.03.2009
-    copyright            : (C) 2009-2017 by Andre Simon
+    copyright            : (C) 2009-2018 by Andre Simon
     email                : andre.simon1@gmx.de
  ***************************************************************************/
 
@@ -53,7 +53,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #include <QShortcut>
 #include <QString>
 #include <QTextStream>
-
+#include <QFileSystemWatcher>
 #include <QDesktopServices>
 
 #include "version.h"
@@ -88,6 +88,7 @@ private:
     QString savedClipboardContent;
     QShortcut *copyShortcut;
     QShortcut *pasteShortcut;
+    QFileSystemWatcher scriptWatcher;
 
     bool getDataFromCP;
 

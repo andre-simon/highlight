@@ -1055,10 +1055,6 @@ This feature is enabled for C, C++, C# and Java code.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can check one file of each type (syntax and theme) to override the default behaviour.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Remove the selected scripts.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1072,6 +1068,10 @@ This feature is enabled for C, C++, C# and Java code.</source>
     </message>
     <message>
         <source>Script description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can check one file of each type (syntax and theme) to override the default behaviour. If checked, the scripts will be watched for changes.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

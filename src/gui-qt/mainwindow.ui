@@ -148,7 +148,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -674,7 +674,7 @@
          <item>
           <widget class="QListWidget" name="lvUserScripts">
            <property name="toolTip">
-            <string>You can check one file of each type (syntax and theme) to override the default behaviour.</string>
+            <string>You can check one file of each type (syntax and theme) to override the default behaviour. If checked, the scripts will be watched for changes.</string>
            </property>
           </widget>
          </item>

@@ -115,7 +115,7 @@ install:
 	@echo
 	@echo "Done."
 	@echo "Type highlight --help or man highlight for instructions."
-	@echo "Take a look at ${DESTDIR}${examples_dir} for plugins and SWIG and TCL language bindings."
+	@echo "Take a look at ${DESTDIR}${examples_dir} for web plugins, SWIG and TCL bindings."
 	@echo "Execute 'make install-gui' to install the highlight GUI ('make gui')."
 	@echo "Do not hesitate to report problems. Unknown bugs are hard to fix."
 

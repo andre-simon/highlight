@@ -2,7 +2,7 @@ CHANGELOG Highlight
 
 highlight 3.42
 
-19.01.2018
+20.01.2018
 
 -fixed HL_OUTPUT in Lua state for HL_FORMAT_XHTML and HL_FORMAT_TRUECOLOR values
 -fixed lib-shared make target
@@ -12,12 +12,14 @@ highlight 3.42
 -added reformatting style ratliff (replaces banner)
 -added extras/langDefs-resources/cleanslate.lang (thanks to Tristano Ajmone)
 -improved Perl6 compatibility
+-improved PHP string interpolation
 -improved Haskell definition (https://github.com/andre-simon/highlight/pull/52)
 -CLI: added --canvas option to define background color padding in ANSI output
   (https://github.com/andre-simon/highlight/issues/40)
 -GUI: added French translation (thanks to Antoine Belvire) 
 -GUI: added Scripts tab (suggested by Tristano Ajmone) 
-  
+-GUI: minor bugfixes
+
 ---
 27.11.2017
 

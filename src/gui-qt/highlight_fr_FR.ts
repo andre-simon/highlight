@@ -14,109 +14,109 @@
         <translation>Impossible de trouver les définitions des syntaxes. Vérifiez votre installation.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="168"/>
+        <location filename="mainwindow.cpp" line="169"/>
         <source>Always at your service</source>
         <translation>Toujours à votre service</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="183"/>
+        <location filename="mainwindow.cpp" line="184"/>
         <source>Select one or more files to open</source>
         <translation>Sélectionnez un ou plusieurs fichiers à ouvrir</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="219"/>
+        <location filename="mainwindow.cpp" line="221"/>
         <source>Select destination directory</source>
         <translation>Sélectionnez un répertoire de destination</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="836"/>
-        <location filename="mainwindow.cpp" line="867"/>
+        <location filename="mainwindow.cpp" line="839"/>
+        <location filename="mainwindow.cpp" line="870"/>
         <source>Output error</source>
         <translation>Erreur de sortie</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="836"/>
+        <location filename="mainwindow.cpp" line="839"/>
         <source>Output directory does not exist!</source>
         <translation>Le répertoire de destination n&apos;existe pas !</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="867"/>
+        <location filename="mainwindow.cpp" line="870"/>
         <source>You must define a style output file!</source>
         <translation>Vous devez définir un fichier de style de sortie !</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="899"/>
+        <location filename="mainwindow.cpp" line="902"/>
         <source>Processing %1 (%2/%3)</source>
         <translation>Traitement de %1 (%2/%3)</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="905"/>
+        <location filename="mainwindow.cpp" line="908"/>
         <source>Language definition error</source>
         <translation>Erreur de définition du langage</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="906"/>
+        <location filename="mainwindow.cpp" line="909"/>
         <source>Invalid regular expression in %1:
 %2</source>
         <translation>Expression régulière non valide dans %1 :
 %2</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="910"/>
+        <location filename="mainwindow.cpp" line="913"/>
         <source>Unknown syntax</source>
         <translation>Syntaxe inconnue</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="910"/>
+        <location filename="mainwindow.cpp" line="913"/>
         <source>Could not convert %1</source>
         <translation>Impossible de convertir %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="913"/>
+        <location filename="mainwindow.cpp" line="916"/>
         <source>Lua error</source>
         <translation>Erreur Lua</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="913"/>
+        <location filename="mainwindow.cpp" line="916"/>
         <source>Could not convert %1:
 Lua Syntax error: %2</source>
         <translation>Impossible de convertir %1 :
 Erreur de syntaxe Lua : %2</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="986"/>
+        <location filename="mainwindow.cpp" line="989"/>
         <source>Converted %1 files in %2 ms</source>
         <translation>%1 fichier(s) converti(s) en %2 ms</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1084"/>
+        <location filename="mainwindow.cpp" line="1087"/>
         <source>Conversion of &quot;%1&quot; not possible.</source>
         <translation>Conversion de &quot;%1&quot; impossible.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1084"/>
-        <location filename="mainwindow.cpp" line="1194"/>
-        <location filename="mainwindow.cpp" line="1215"/>
+        <location filename="mainwindow.cpp" line="1087"/>
+        <location filename="mainwindow.cpp" line="1198"/>
+        <location filename="mainwindow.cpp" line="1219"/>
         <source>clipboard data</source>
         <translation>données du presse-papiers</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1149"/>
+        <location filename="mainwindow.cpp" line="1153"/>
         <source>%1 options</source>
         <translation>Options de %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1185"/>
+        <location filename="mainwindow.cpp" line="1189"/>
         <source>(user script)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1193"/>
+        <location filename="mainwindow.cpp" line="1197"/>
         <source>Preview (%1):</source>
         <translation>Aperçu (%1) :</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1196"/>
+        <location filename="mainwindow.cpp" line="1200"/>
         <source>Current syntax: %1 %2</source>
         <translation>Syntaxe actuelle : %1 %2</translation>
     </message>
@@ -125,25 +125,25 @@ Erreur de syntaxe Lua : %2</translation>
         <translation type="vanished">Syntaxe actuelle : %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1215"/>
+        <location filename="mainwindow.cpp" line="1219"/>
         <source>Preview of &quot;%1&quot; not possible.</source>
         <translation>Impossible de donner un aperçu de &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1252"/>
         <location filename="mainwindow.cpp" line="1256"/>
         <location filename="mainwindow.cpp" line="1260"/>
-        <location filename="mainwindow.cpp" line="1265"/>
+        <location filename="mainwindow.cpp" line="1264"/>
+        <location filename="mainwindow.cpp" line="1269"/>
         <source>Choose a style include file</source>
         <translation>Choisissez un fichier de style à inclure</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1270"/>
+        <location filename="mainwindow.cpp" line="1274"/>
         <source>About providing translations</source>
         <translation>À propos des traductions</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1271"/>
+        <location filename="mainwindow.cpp" line="1275"/>
         <source>The GUI was developed using the Qt toolkit, and translations may be provided using the tools Qt Linguist and lrelease.
 The highlight.ts file for Linguist resides in the src/gui-qt subdirectory.
 The qm file generated by lrelease has to be saved in gui-files/l10n.
@@ -156,22 +156,22 @@ Le fichier .qm généré par lrelease doit être sauvegardé dans gui-files/l10n
 Veuillez m&apos;envoyer une note à l&apos;adresse « as (at) andre-simon (dot) de » si vous rencontrez des problèmes durant la traduction ou si vous avez terminé ou mis à jour une traduction.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1329"/>
+        <location filename="mainwindow.cpp" line="1333"/>
         <source>Select one or more plug-ins</source>
         <translation>Sélectionner un ou plusieurs greffons</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1340"/>
+        <location filename="mainwindow.cpp" line="1344"/>
         <source>Select one or more syntax or theme scripts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1396"/>
+        <location filename="mainwindow.cpp" line="1402"/>
         <source>Choose a plug-in input file</source>
         <translation>Choisissez un fichier d&apos;entrée pour le greffon</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1447"/>
+        <location filename="mainwindow.cpp" line="1459"/>
         <source>Some plug-in effects may not be visible in the preview.</source>
         <translation>Certains effets du greffon peuvent ne pas être visibles dans l&apos;aperçu.</translation>
     </message>
@@ -441,7 +441,8 @@ Veuillez m&apos;envoyer une note à l&apos;adresse « as (at) andre-simon (dot) 
     </message>
     <message>
         <location filename="mainwindow.ui" line="677"/>
-        <source>You can check one file of each type (syntax and theme) to override the default behaviour.</source>
+        <source>You can check one file of each type (syntax and theme) to override the default behaviour. If checked, the scripts will be watched for changes.</source>
+        <oldsource>You can check one file of each type (syntax and theme) to override the default behaviour.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

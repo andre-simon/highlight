@@ -151,6 +151,7 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->leFontSize, SIGNAL(textChanged(QString)), this, SLOT(updatePreview()));
     QObject::connect(ui->cbOmitWrappedLineNumbers, SIGNAL(clicked()), this, SLOT(updatePreview()));
 
+    QObject::connect(&scriptWatcher, SIGNAL(fileChanged(QString)), this, SLOT(updatePreview()));
 
     copyShortcut = new QShortcut(QKeySequence(QKeySequence::Copy), this);
     pasteShortcut = new QShortcut(QKeySequence(QKeySequence::Paste), this);
@@ -209,6 +210,7 @@ void MainWindow::addToView(const QStringList& list, QListWidget* listWidget, con
         if (croppedName.isEmpty()) break;
         listItem=new QListWidgetItem(QIcon(iconName), croppedName );
         listItem->setData(Qt::UserRole, *constIterator);
+        listItem->setToolTip(*constIterator);
         if (checkable) listItem->setCheckState( Qt::Unchecked);
         listWidget->addItem(listItem );
     }
@@ -426,6 +428,7 @@ void MainWindow::readSettings()
     QVariantList selectedUserScripts=settings.value("selectedUserScripts").toList();
     for (int i=0; i<selectedUserScripts.size(); i++) {
         ui->lvUserScripts->item(selectedUserScripts[i].toInt())->setCheckState(Qt::Checked);
+        on_lvUserScripts_itemClicked(ui->lvUserScripts->item(selectedUserScripts[i].toInt()));
     }
     ui->leOutputDest->setText(settings.value(ui->leOutputDest->property(name).toString()).toString());
     ui->cbWrite2Src->setChecked(settings.value(ui->cbWrite2Src->property(name).toString()).toBool());
@@ -1351,14 +1354,17 @@ void MainWindow::on_pbClearSelPlugin_clicked()
     for (int i = 0; i < selectedItems.size(); ++i) {
         delete selectedItems.at(i);
     }
+    ui->lblPluginDescription->setText("");
 }
 
 void MainWindow::on_pbClearSelScript_clicked()
 {
     QList<QListWidgetItem *> selectedItems = ui->lvUserScripts->selectedItems();
     for (int i = 0; i < selectedItems.size(); ++i) {
+        scriptWatcher.removePath( ui->lvUserScripts->item(i)->data(Qt::UserRole).toString());
         delete selectedItems.at(i);
     }
+    ui->lblScriptDescription->setText("");
 }
 void MainWindow::on_pbClearSelection_clicked()
 {
@@ -1380,6 +1386,7 @@ void MainWindow::on_pbClearAllPlugins_clicked()
 void MainWindow::on_pbClearAllScripts_clicked()
 {
     ui->lvUserScripts->clear();
+    scriptWatcher.removePaths(scriptWatcher.files());
 }
 
 void MainWindow::on_actionVisit_website_triggered()
@@ -1417,12 +1424,18 @@ void MainWindow::on_lvUserScripts_itemClicked(QListWidgetItem *item)
          ui->lblScriptDescription->setText(QString::fromStdString(ls["Description"].value().asString()));
 
          if (item->checkState()==Qt::Checked){
+             scriptWatcher.addPath(scriptPath);
              QString fileExt=QFileInfo(scriptPath).completeSuffix();
+             QString otherScriptPath;
              for (int i = 0; i < ui->lvUserScripts->count(); ++i) {
-                 if (ui->lvUserScripts->item(i)!=item && ui->lvUserScripts->item(i)->data(Qt::UserRole).toString().endsWith(fileExt)){
+                 otherScriptPath = ui->lvUserScripts->item(i)->data(Qt::UserRole).toString();
+                 if (ui->lvUserScripts->item(i)!=item && otherScriptPath.endsWith(fileExt)){
                      ui->lvUserScripts->item(i)->setCheckState(Qt::Unchecked);
+                     scriptWatcher.removePath(otherScriptPath);
                  }
              }
+         } else {
+             scriptWatcher.removePath(scriptPath);
          }
      } catch (Diluculum::LuaError err) {
          QMessageBox::warning(this, "User script error", QString::fromStdString( err.what()));

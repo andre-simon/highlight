@@ -23,7 +23,7 @@ Keywords={
     List={"int", "integer", "real", "double", "float", "string", "array", "object", "bool", "mixed", "numeric"},
   },
   { Id=3,
-    Regex=[[\$\w+]],
+    Regex=[[\$[\w\-"|'|\>]+|\$?\{.+?\}]],
   },
   { Id=4,
     Regex=[[(\w+)\s*\(]],
@@ -32,9 +32,9 @@ Keywords={
 
 -- hereDoc opening delimiter, see OnStateChange to handle end of string
 Strings={
-  Delimiter=[["|'|<<<'?\w+'?]],
-  --Interpolation=[[ \$[\w\[\]\->]+ ]],
-    Interpolation=[[ [@\$%]\w+ ]]
+  Delimiter=[["|'|<<<'?[\w_]+'?]],
+   Escape=[=[ \\\d{3}|\\u\d{4}|\\x[[:xdigit:]]{2}|\\[ntvbrfa\\\?'"\$] ]=],
+   --Interpolation = [[ \$\w+\[.+?\] ]]
 }
 
 IgnoreCase=true
@@ -59,8 +59,12 @@ function OnStateChange(oldState, newState, token)
    end
 
    
-   if  (string.sub(token,1,1) =="$") and oldState==HL_STRING and newState==HL_KEYWORD then
+   if  (string.sub(token,1,1) =="$" or string.sub(token,1,1) =="{") and oldState==HL_STRING and newState==HL_KEYWORD then
       return HL_INTERPOLATION
+   end
+   
+   if  (string.sub(token,1,1) =="{") and  oldState~=HL_STRING and newState==HL_KEYWORD then
+      return HL_REJECT
    end
    
    if hereDoc~=nil then
@@ -69,7 +73,7 @@ function OnStateChange(oldState, newState, token)
 
    --recognize hereDoc multine strings
    if oldState==HL_STANDARD and newState==HL_STRING and not string.find("\"'", token) then
-      hereDoc = string.match(token, "<<<'?(%a+)" )
+      hereDoc = string.match(token, "<<<'?([%a_]+)" )
    end
    
    if oldState~=HL_STRING and newState==HL_ESC_SEQ then
