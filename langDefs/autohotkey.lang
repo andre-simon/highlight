@@ -46,12 +46,12 @@ Keywords={
         "winwaitactive", "winwaitclose", "winwaitnotactive"},
   },
 -- if :: follows, # is part of a hotkey
-  { Id=1,
-    Regex = [[\#\w+(?!\:\:)]]
-  },
   { Id=2,
-    Regex=[[ [\#\!\^\+\&\<\>\*\~\$]*[\w\&\s]+?\:\: ]],
+    Regex = [[(\#\w+?)\:\:]], Group=1
   },
+ -- { Id=2,
+ --   Regex=[[ [\#\!\^\+\&\<\>\*\~\$]*[\w\&\s]+?\:\: ]],
+ -- },
   { Id=3,
     Regex=[[%\w+?%]],
   },

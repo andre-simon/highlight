@@ -60,5 +60,5 @@ Digits = [=[0[Bb][01]+|0[Oo][0-7]+|0[Xx][[:xdigit:]]+|\d+]=]
 Identifiers = [=[[A-Za-z$_][A-Za-z$_0-9]*]=]
 Operators = [[=|\+|-|\*|\/|%|<|>|&|\||^|!|\?|:|\.|,|@|\(|\)|\[|]|\{|}]]
 
-EnableIndentation = true
+EnableIndentation = false
 IgnoreCase = false

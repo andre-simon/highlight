@@ -5,7 +5,7 @@ Digits = [[ (?:[0-9])(?:0x|0X|0b)[0-9a-fA-F']+|#?\d*[\.]?\d+(?:[eE][\-\+]\d+)?[l
 Keywords={
   {  Id=1,
     List={ "call", "set", "let",  "au", "if", "endif", "else", "has",
-    "autocmd", "augroup", "end"},
+    "autocmd", "augroup", "end", "function", "while", "endwhile", "endfunction"},
   },
   { Id=2,
     List= { "filetype", "ft", "syntax", "colorscheme" }
@@ -14,8 +14,8 @@ Keywords={
     Regex=[[[nvxsoilc]n?o?remap|\&\w+]]
   },
   { Id=4,
-    Regex=[[\w*\((.+\))]], Group=1
-  }  
+    Regex=[[(\w+)\s*\(]]
+  }
 }
 
 Strings = {

@@ -20,6 +20,10 @@ Keywords={
   },
   { Id=4,
     Regex=[[(\w+)\s*\(]]
+  },
+  
+  { Id=2,
+    Regex=[[@\w+]]
   }
 }
 

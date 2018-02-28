@@ -8,7 +8,7 @@ Keywords={
         "from", "get", "global", "greater", "if", "ignoring", "in", "is", "last", 
         "local", "me", "mod", "my", "not", "of", "on", "or", "property", "reopen", 
         "repeat", "return", "script", "set", "tell", "than", "the", "then", "to", 
-        "transaction", "try", "with", "without", "which", "while", "whose"},
+        "transaction", "try", "with", "without", "which", "while", "whose", "times"},
   },
   { Id=3,
     List={"AppleScript", "access", "activate", "after", "alias", "application", 
@@ -24,7 +24,7 @@ Keywords={
         "localized", "make", "matrix", "menu", "menus",  "missing", "month", 
         "months", "name", "new", "number", "offset", "open", "order", "panel", "panels", 
         "path", "popup",  "print", "process", "progress", "properties", "quit", 
-        "read", "response", "row", "rows", 
+        "read", "response", "row", "rows", "do","shell",
         "scroll", "select",  "selected", "selection", "sheet", "size", "sort", 
         "sorted", "source", "specification", "start", "starting",  "stop", "string", 
         "table", "text", "title", "true", "Unicode", "update", "user", "value", 
@@ -47,7 +47,7 @@ Comments={
     Delimiter= { [[--]] },
   },
   { Block=true,
-    Nested=false,
+    Nested=true,
     Delimiter= { [[\(\*]],[[\*\)]],}
   }
 }
