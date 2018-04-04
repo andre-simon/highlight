@@ -1,5 +1,13 @@
 CHANGELOG Highlight
 
+
+-improved several language definitions
+-fixed Matlab string recognition (https://github.com/andre-simon/highlight/issues/61)
+-added excel.lang (https://github.com/andre-simon/highlight/pull/60)
+-improved Qt pro file (https://github.com/andre-simon/highlight/pull/59)
+-GUI: added Bulgarian translation  (thanks to Georgi Sotirov)
+
+---
 highlight 3.42
 
 20.01.2018
@@ -21,9 +29,9 @@ highlight 3.42
 -GUI: minor bugfixes
 
 ---
-27.11.2017
-
 highlight 3.41
+
+27.11.2017
 
 -renamed examples directory to extras
 -line anchors (-a) are attached as id attribute to the first span or li tag in 
@@ -41,9 +49,9 @@ highlight 3.41
   (https://github.com/andre-simon/highlight/issues/32) 
 
 ---
-20.10.2017
-
 highlight 3.40
+
+20.10.2017
 
 -fixed Ruby string parsing (thanks to Jens Schleusener)
 -fixed segfault on sparc64 (patch by James Clarke)
