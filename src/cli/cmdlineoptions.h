@@ -111,6 +111,7 @@ along with Highlight.  If not, see <http://www.gnu.org/licenses/>.
 #define OPT_FORCE_STDOUT     "stdout"
 #define OPT_NO_VERSION_INFO  "no-version-info"
 #define OPT_CANVAS           "canvas"
+#define OPT_REFORMAT_OPT     "reformat-option"
 
 // Improve CLI option compatibility with GNU source-highlight
 #define OPT_COMPAT_DOC       "doc"
@@ -333,8 +334,12 @@ public:
     /** \return class name */
     const string& getClassName() const ;
 
+    /** \return list of plugin file paths */
     const vector <string> &getPluginPaths() const;
 
+    /** \return list of astyle options */
+    const vector <string> &getAStyleOptions() const;
+        
     /** \return True if trailing nl should be omitted */
     bool disableTrailingNL() const ;
 
@@ -461,6 +466,9 @@ private:
     /** list of plugin file names */
     vector <string> userPlugins;
 
+    /** list of additional Artistic Style options */
+    vector <string> astyleOptions;
+    
     /** list of file types which should be ignored */
     set <string> ignoredFileTypes;
 

@@ -517,6 +517,8 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
              << ".\n";
         return EXIT_FAILURE;
     }
+    
+    generator->setIndentationOptions(options.getAStyleOptions());
 
     string outDirectory = options.getOutDirectory();
 #ifndef WIN32

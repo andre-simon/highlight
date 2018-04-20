@@ -1,10 +1,16 @@
 CHANGELOG Highlight
 
 
+highlight 3.43
+
+xx.xx.2018
+
 -improved several language definitions
 -fixed Matlab string recognition (https://github.com/andre-simon/highlight/issues/61)
+-fixed Autohotkey escape sequence recognition (thanks to Klaus Daube)
 -added excel.lang (https://github.com/andre-simon/highlight/pull/60)
 -improved Qt pro file (https://github.com/andre-simon/highlight/pull/59)
+-CLI: added --reformat-option (https://github.com/andre-simon/highlight/issues/62)
 -GUI: added Bulgarian translation  (thanks to Georgi Sotirov)
 
 ---

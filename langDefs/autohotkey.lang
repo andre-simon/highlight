@@ -62,6 +62,7 @@ Keywords={
 
 Strings={
   Delimiter=[["]],
+  Escape = [[ `[ntvbrfa\?"] ]],
 }
 
 IgnoreCase=true
@@ -75,3 +76,5 @@ Comments={
 Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\:|\&|<|>|\!|\=|\/|\*|\\|\`|%|\.|\+|\-]]
 
 EnableIndentation=true
+
+Digits = [[ (?:0x)[0-9a-fA-F']+|\d*[\.]?\d+(?:[eE]\d+)?[blLuU]* ]]

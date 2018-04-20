@@ -185,6 +185,8 @@ public:
         \return true if successfull
      */
     bool initIndentationScheme ( const string& indentScheme );
+    
+    void setIndentationOptions (const vector<string>& options);
 
     /** \param langDefPath Absolute path to language definition, may be used multiple times for a generator instance
      *  \param embedded set True if method is called to laod an embedded language
@@ -842,6 +844,13 @@ private:
      \param kwClass keyword class ID if newState is KEYWORD
      */
     State validateState(State newState, State oldState, unsigned int kwClass);
+  
+    string getParam(const string& arg, const char* op);
+    string getParam(const string& arg, const char* op1, const char* op2);
+    bool isOption(const string& arg, const char* op);
+    bool isOption(const string& arg, const char* op1, const char* op2);
+    bool isParamOption(const string& arg, const char* option);
+    bool isParamOption(const string& arg, const char* option1, const char* option2);
     
     /** \deprecated replace by Lua functionality */
     bool checkSpecialCmd();

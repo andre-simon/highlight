@@ -687,8 +687,6 @@ bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
 
     formatter=new astyle::ASFormatter();
 
-    formatter->setParensHeaderPaddingMode(true);
-
     if ( indentScheme=="allman" || indentScheme=="bsd" || indentScheme=="ansi" ) {
         formatter->setFormattingStyle ( astyle::STYLE_ALLMAN );
     } else if ( indentScheme=="kr"||indentScheme=="k&r"||indentScheme=="k/r" ) {
@@ -719,11 +717,454 @@ bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
         formatter->setFormattingStyle ( astyle::STYLE_VTK );
     } else if ( indentScheme=="mozilla") {
         formatter->setFormattingStyle ( astyle::STYLE_MOZILLA );
-    } else {
+    } else if ( indentScheme!="user" ){
         return false;
     }
     return formattingEnabled=true;
 }
+
+
+/*Helper functions for astyle option parsing*/
+string CodeGenerator::getParam(const string& arg, const char* op)
+{
+	return arg.substr(strlen(op));
+}
+
+string CodeGenerator::getParam(const string& arg, const char* op1, const char* op2)
+{
+	return isParamOption(arg, op1) ? getParam(arg, op1) : getParam(arg, op2);
+}
+
+bool CodeGenerator::isOption(const string& arg, const char* op)
+{
+	return arg.compare(op) == 0;
+}
+
+bool CodeGenerator::isOption(const string& arg, const char* op1, const char* op2)
+{
+	return (isOption(arg, op1) || isOption(arg, op2));
+}
+
+bool CodeGenerator::isParamOption(const string& arg, const char* option)
+{
+	bool retVal = arg.compare(0, strlen(option), option) == 0;
+	// if comparing for short option, 2nd char of arg must be numeric
+	if (retVal && strlen(option) == 1 && arg.length() > 1)
+		if (!isdigit((unsigned char) arg[1]))
+			retVal = false;
+	return retVal;
+}
+
+bool CodeGenerator::isParamOption(const string& arg, const char* option1, const char* option2)
+{
+	return isParamOption(arg, option1) || isParamOption(arg, option2);
+}
+
+//apply the same options as astyle
+void CodeGenerator::setIndentationOptions (const vector<string>& options){
+    if (formatter) {
+        string arg;
+        for (unsigned int i=0; i<options.size(); i++) {
+            arg=options[i];
+            
+            if (isOption(arg, "mode=cs"))
+            {
+                formatter->setSharpStyle();
+                formatter->setModeManuallySet(true);
+            }
+            else if (isOption(arg, "mode=c"))
+            {
+                formatter->setCStyle();
+                formatter->setModeManuallySet(true);
+            }
+            else if (isOption(arg, "mode=java"))
+            {
+                formatter->setJavaStyle();
+                formatter->setModeManuallySet(true);
+            }
+            else if (isParamOption(arg, "t", "indent=tab="))
+            {
+                int spaceNum = 4;
+                string spaceNumParam = getParam(arg, "t", "indent=tab=");
+                if (spaceNumParam.length() > 0)
+                    spaceNum = atoi(spaceNumParam.c_str());
+                if (spaceNum >= 2 && spaceNum <= 20)
+                    formatter->setTabIndentation(spaceNum, false);
+            }
+            else if (isOption(arg, "indent=tab"))
+            {
+                formatter->setTabIndentation(4);
+            }
+            else if (isParamOption(arg, "T", "indent=force-tab="))
+            {
+                int spaceNum = 4;
+                string spaceNumParam = getParam(arg, "T", "indent=force-tab=");
+                if (spaceNumParam.length() > 0)
+                    spaceNum = atoi(spaceNumParam.c_str());
+                if (spaceNum >= 2 && spaceNum <= 20)
+                    formatter->setTabIndentation(spaceNum, true);
+            }
+            else if (isOption(arg, "indent=force-tab"))
+            {
+                formatter->setTabIndentation(4, true);
+            }
+            else if (isParamOption(arg, "xT", "indent=force-tab-x="))
+            {
+                int tabNum = 8;
+                string tabNumParam = getParam(arg, "xT", "indent=force-tab-x=");
+                if (tabNumParam.length() > 0)
+                    tabNum = atoi(tabNumParam.c_str());
+                if (tabNum >= 2 && tabNum <= 20)
+                    formatter->setForceTabXIndentation(tabNum);
+                
+            }
+            else if (isOption(arg, "indent=force-tab-x"))
+            {
+                formatter->setForceTabXIndentation(8);
+            }
+            else if (isParamOption(arg, "s", "indent=spaces="))
+            {
+                int spaceNum = 4;
+                string spaceNumParam = getParam(arg, "s", "indent=spaces=");
+                if (spaceNumParam.length() > 0)
+                    spaceNum = atoi(spaceNumParam.c_str());
+                if (spaceNum >= 2 && spaceNum <= 20)
+                    formatter->setSpaceIndentation(spaceNum);
+            }
+            else if (isOption(arg, "indent=spaces"))
+            {
+                formatter->setSpaceIndentation(4);
+            }
+            else if (isParamOption(arg, "xt", "indent-continuation="))
+            {
+                int contIndent = 1;
+                string contIndentParam = getParam(arg, "xt", "indent-continuation=");
+                if (contIndentParam.length() > 0)
+                    contIndent = atoi(contIndentParam.c_str());
+                if (contIndent > 0 && contIndent < 5)
+                    formatter->setContinuationIndentation(contIndent);
+            }
+            else if (isParamOption(arg, "m", "min-conditional-indent="))
+            {
+                int minIndent = astyle::MINCOND_TWO;
+                string minIndentParam = getParam(arg, "m", "min-conditional-indent=");
+                if (minIndentParam.length() > 0)
+                    minIndent = atoi(minIndentParam.c_str());
+                if (minIndent < astyle::MINCOND_END)
+                    formatter->setMinConditionalIndentOption(minIndent);
+            }
+            else if (isParamOption(arg, "M", "max-continuation-indent="))
+            {
+                int maxIndent = 40;
+                string maxIndentParam = getParam(arg, "M", "max-continuation-indent=");
+                if (maxIndentParam.length() > 0)
+                    maxIndent = atoi(maxIndentParam.c_str());
+                if (maxIndent >= 40 && maxIndent <= 120)
+                    formatter->setMaxContinuationIndentLength(maxIndent);
+            }
+            else if (isOption(arg, "N", "indent-namespaces"))
+            {
+                formatter->setNamespaceIndent(true);
+            }
+            else if (isOption(arg, "C", "indent-classes"))
+            {
+                formatter->setClassIndent(true);
+            }
+            else if (isOption(arg, "xG", "indent-modifiers"))
+            {
+                formatter->setModifierIndent(true);
+            }
+            else if (isOption(arg, "S", "indent-switches"))
+            {
+                formatter->setSwitchIndent(true);
+            }
+            else if (isOption(arg, "K", "indent-cases"))
+            {
+                formatter->setCaseIndent(true);
+            }
+            else if (isOption(arg, "xU", "indent-after-parens"))
+            {
+                formatter->setAfterParenIndent(true);
+            }
+            else if (isOption(arg, "L", "indent-labels"))
+            {
+                formatter->setLabelIndent(true);
+            }
+            else if (isOption(arg, "xW", "indent-preproc-block"))
+            {
+                formatter->setPreprocBlockIndent(true);
+            }
+            else if (isOption(arg, "w", "indent-preproc-define"))
+            {
+                formatter->setPreprocDefineIndent(true);
+            }
+            else if (isOption(arg, "xw", "indent-preproc-cond"))
+            {
+                formatter->setPreprocConditionalIndent(true);
+            }
+            else if (isOption(arg, "y", "break-closing-braces"))
+            {
+                formatter->setBreakClosingHeaderBracesMode(true);
+            }
+            else if (isOption(arg, "O", "keep-one-line-blocks"))
+            {
+                formatter->setBreakOneLineBlocksMode(false);
+            }
+            else if (isOption(arg, "o", "keep-one-line-statements"))
+            {
+                formatter->setBreakOneLineStatementsMode(false);
+            }
+            else if (isOption(arg, "P", "pad-paren"))
+            {
+                formatter->setParensOutsidePaddingMode(true);
+                formatter->setParensInsidePaddingMode(true);
+            }
+            else if (isOption(arg, "d", "pad-paren-out"))
+            {
+                formatter->setParensOutsidePaddingMode(true);
+            }
+            else if (isOption(arg, "xd", "pad-first-paren-out"))
+            {
+                formatter->setParensFirstPaddingMode(true);
+            }
+            else if (isOption(arg, "D", "pad-paren-in"))
+            {
+                formatter->setParensInsidePaddingMode(true);
+            }
+            else if (isOption(arg, "H", "pad-header"))
+            {
+                formatter->setParensHeaderPaddingMode(true);
+            }
+            else if (isOption(arg, "U", "unpad-paren"))
+            {
+                formatter->setParensUnPaddingMode(true);
+            }
+            else if (isOption(arg, "p", "pad-oper"))
+            {
+                formatter->setOperatorPaddingMode(true);
+            }
+            else if (isOption(arg, "xg", "pad-comma"))
+            {
+                formatter->setCommaPaddingMode(true);
+            }
+            else if (isOption(arg, "xe", "delete-empty-lines"))
+            {
+                formatter->setDeleteEmptyLinesMode(true);
+            }
+            else if (isOption(arg, "E", "fill-empty-lines"))
+            {
+                formatter->setEmptyLineFill(true);
+            }
+            else if (isOption(arg, "c", "convert-tabs"))
+            {
+                formatter->setTabSpaceConversionMode(true);
+            }
+            else if (isOption(arg, "xy", "close-templates"))
+            {
+                formatter->setCloseTemplatesMode(true);
+            }
+            else if (isOption(arg, "F", "break-blocks=all"))
+            {
+                formatter->setBreakBlocksMode(true);
+                formatter->setBreakClosingHeaderBlocksMode(true);
+            }
+            else if (isOption(arg, "f", "break-blocks"))
+            {
+                formatter->setBreakBlocksMode(true);
+            }
+            else if (isOption(arg, "e", "break-elseifs"))
+            {
+                formatter->setBreakElseIfsMode(true);
+            }
+            else if (isOption(arg, "xb", "break-one-line-headers"))
+            {
+                formatter->setBreakOneLineHeadersMode(true);
+            }
+            else if (isOption(arg, "j", "add-braces"))
+            {
+                formatter->setAddBracesMode(true);
+            }
+            else if (isOption(arg, "J", "add-one-line-braces"))
+            {
+                formatter->setAddOneLineBracesMode(true);
+            }
+            else if (isOption(arg, "xj", "remove-braces"))
+            {
+                formatter->setRemoveBracesMode(true);
+            }
+            else if (isOption(arg, "Y", "indent-col1-comments"))
+            {
+                formatter->setIndentCol1CommentsMode(true);
+            }
+            else if (isOption(arg, "align-pointer=type"))
+            {
+                formatter->setPointerAlignment(astyle::PTR_ALIGN_TYPE);
+            }
+            else if (isOption(arg, "align-pointer=middle"))
+            {
+                formatter->setPointerAlignment(astyle::PTR_ALIGN_MIDDLE);
+            }
+            else if (isOption(arg, "align-pointer=name"))
+            {
+                formatter->setPointerAlignment(astyle::PTR_ALIGN_NAME);
+            }
+            else if (isParamOption(arg, "k"))
+            {
+                int align = 0;
+                string styleParam = getParam(arg, "k");
+                if (styleParam.length() > 0)
+                    align = atoi(styleParam.c_str());
+                else if (align == 1)
+                    formatter->setPointerAlignment(astyle::PTR_ALIGN_TYPE);
+                else if (align == 2)
+                    formatter->setPointerAlignment(astyle::PTR_ALIGN_MIDDLE);
+                else if (align == 3)
+                    formatter->setPointerAlignment(astyle::PTR_ALIGN_NAME);
+            }
+            else if (isOption(arg, "align-reference=none"))
+            {
+                formatter->setReferenceAlignment(astyle::REF_ALIGN_NONE);
+            }
+            else if (isOption(arg, "align-reference=type"))
+            {
+                formatter->setReferenceAlignment(astyle::REF_ALIGN_TYPE);
+            }
+            else if (isOption(arg, "align-reference=middle"))
+            {
+                formatter->setReferenceAlignment(astyle::REF_ALIGN_MIDDLE);
+            }
+            else if (isOption(arg, "align-reference=name"))
+            {
+                formatter->setReferenceAlignment(astyle::REF_ALIGN_NAME);
+            }
+            else if (isParamOption(arg, "W"))
+            {
+                int align = 0;
+                string styleParam = getParam(arg, "W");
+                if (styleParam.length() > 0)
+                    align = atoi(styleParam.c_str());
+                else if (align == 0)
+                    formatter->setReferenceAlignment(astyle::REF_ALIGN_NONE);
+                else if (align == 1)
+                    formatter->setReferenceAlignment(astyle::REF_ALIGN_TYPE);
+                else if (align == 2)
+                    formatter->setReferenceAlignment(astyle::REF_ALIGN_MIDDLE);
+                else if (align == 3)
+                    formatter->setReferenceAlignment(astyle::REF_ALIGN_NAME);
+            }
+            else if (isParamOption(arg, "max-code-length="))
+            {
+                int maxLength = 50;
+                string maxLengthParam = getParam(arg, "max-code-length=");
+                if (maxLengthParam.length() > 0)
+                    maxLength = atoi(maxLengthParam.c_str());
+                if (maxLength >= 50 && maxLength<= 200)
+                    formatter->setMaxCodeLength(maxLength);
+            }
+            else if (isParamOption(arg, "xC"))
+            {
+                int maxLength = 50;
+                string maxLengthParam = getParam(arg, "xC");
+                if (maxLengthParam.length() > 0)
+                    maxLength = atoi(maxLengthParam.c_str());
+                if (maxLength > 0 && maxLength<= 200)
+                    formatter->setMaxCodeLength(maxLength);
+            }
+            else if (isOption(arg, "xL", "break-after-logical"))
+            {
+                formatter->setBreakAfterMode(true);
+            }
+            else if (isOption(arg, "xc", "attach-classes"))
+            {
+                formatter->setAttachClass(true);
+            }
+            else if (isOption(arg, "xV", "attach-closing-while"))
+            {
+                formatter->setAttachClosingWhile(true);
+            }
+            else if (isOption(arg, "xk", "attach-extern-c"))
+            {
+                formatter->setAttachExternC(true);
+            }
+            else if (isOption(arg, "xn", "attach-namespaces"))
+            {
+                formatter->setAttachNamespace(true);
+            }
+            else if (isOption(arg, "xl", "attach-inlines"))
+            {
+                formatter->setAttachInline(true);
+            }
+            else if (isOption(arg, "xp", "remove-comment-prefix"))
+            {
+                formatter->setStripCommentPrefix(true);
+            }
+            else if (isOption(arg, "xB", "break-return-type"))
+            {
+                formatter->setBreakReturnType(true);
+            }
+            else if (isOption(arg, "xD", "break-return-type-decl"))
+            {
+                formatter->setBreakReturnTypeDecl(true);
+            }
+            else if (isOption(arg, "xf", "attach-return-type"))
+            {
+                formatter->setAttachReturnType(true);
+            }
+            else if (isOption(arg, "xh", "attach-return-type-decl"))
+            {
+                formatter->setAttachReturnTypeDecl(true);
+            }
+            // Objective-C options
+            else if (isOption(arg, "xQ", "pad-method-prefix"))
+            {
+                formatter->setMethodPrefixPaddingMode(true);
+            }
+            else if (isOption(arg, "xR", "unpad-method-prefix"))
+            {
+                formatter->setMethodPrefixUnPaddingMode(true);
+            }
+            else if (isOption(arg, "xq", "pad-return-type"))
+            {
+                formatter->setReturnTypePaddingMode(true);
+            }
+            else if (isOption(arg, "xr", "unpad-return-type"))
+            {
+                formatter->setReturnTypeUnPaddingMode(true);
+            }
+            else if (isOption(arg, "xS", "pad-param-type"))
+            {
+                formatter->setParamTypePaddingMode(true);
+            }
+            else if (isOption(arg, "xs", "unpad-param-type"))
+            {
+                formatter->setParamTypeUnPaddingMode(true);
+            }
+            else if (isOption(arg, "xM", "align-method-colon"))
+            {
+                formatter->setAlignMethodColon(true);
+            }
+            else if (isOption(arg, "xP0", "pad-method-colon=none"))
+            {
+                formatter->setObjCColonPaddingMode(astyle::COLON_PAD_NONE);
+            }
+            else if (isOption(arg, "xP1", "pad-method-colon=all"))
+            {
+                formatter->setObjCColonPaddingMode(astyle::COLON_PAD_ALL);
+            }
+            else if (isOption(arg, "xP2", "pad-method-colon=after"))
+            {
+                formatter->setObjCColonPaddingMode(astyle::COLON_PAD_AFTER);
+            }
+            else if (isOption(arg, "xP3", "pad-method-colon=before"))
+            {
+                formatter->setObjCColonPaddingMode(astyle::COLON_PAD_BEFORE);
+            }
+            
+        }
+    
+    }
+}
+
 
 LoadResult CodeGenerator::loadLanguage ( const string& langDefPath, bool embedded )
 {

@@ -47,7 +47,8 @@ enum Optcode {
         S_OPT_PRETTY_SYMBOLS, S_OPT_EOL_DELIM_CR, S_OPT_START_NESTED,
         S_OPT_PRINT_STYLE, S_OPT_NO_TRAILING_NL, S_OPT_PLUGIN, S_OPT_ABS_CFG_PATH,
         S_OPT_PLUGIN_READFILE, S_OPT_PLUGIN_PARAMETER, S_OPT_LIST_SCRIPTS, S_OPT_CANVAS,
-        S_OPT_KEEP_INJECTIONS, S_OPT_FORCE_STDOUT, S_OPT_LATEX_BEAMER, S_OPT_NO_VERSION_INFO
+        S_OPT_KEEP_INJECTIONS, S_OPT_FORCE_STDOUT, S_OPT_LATEX_BEAMER, S_OPT_NO_VERSION_INFO,
+        S_OPT_REFORMAT_OPT
     };
 
 const Arg_parser::Option options[] = {
@@ -131,6 +132,8 @@ const Arg_parser::Option options[] = {
         { S_OPT_ABS_CFG_PATH,     OPT_ABS_CFG_PATH,    Arg_parser::yes},
         { S_OPT_LIST_SCRIPTS,     OPT_LIST_SCRIPTS,    Arg_parser::yes},
         { S_OPT_CANVAS,           OPT_CANVAS,          Arg_parser::maybe },
+        { S_OPT_REFORMAT_OPT,     OPT_REFORMAT_OPT,    Arg_parser::yes },
+
 
         { 0, 0, Arg_parser::no }
     };
@@ -461,7 +464,9 @@ void CmdLineOptions::parseRuntimeOptions( const int argc, const char *argv[], bo
         case S_OPT_PLUGIN:
             userPlugins.push_back(arg);
             break;
-
+        case S_OPT_REFORMAT_OPT:
+            astyleOptions.push_back(arg);
+            break;
         case S_OPT_PLUGIN_PARAMETER:
         case S_OPT_PLUGIN_READFILE:
             pluginParameter=arg;
@@ -733,6 +738,10 @@ const string &CmdLineOptions::getDataDir() const
 const vector<string> &CmdLineOptions::getPluginPaths() const
 {
     return userPlugins;
+}
+const vector<string> &CmdLineOptions::getAStyleOptions() const
+{
+    return astyleOptions;
 }
 bool CmdLineOptions::printOnlyStyle() const
 {
