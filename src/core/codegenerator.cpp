@@ -717,6 +717,8 @@ bool CodeGenerator::initIndentationScheme ( const string &indentScheme )
         formatter->setFormattingStyle ( astyle::STYLE_VTK );
     } else if ( indentScheme=="mozilla") {
         formatter->setFormattingStyle ( astyle::STYLE_MOZILLA );
+    } else if ( indentScheme=="webkit") {
+        formatter->setFormattingStyle ( astyle::STYLE_WEBKIT );
     } else if ( indentScheme!="user" ){
         return false;
     }

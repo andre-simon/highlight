@@ -80,7 +80,9 @@ void printHelp()
     cout<<" -F, --reformat=<style>         reformats and indents output in given style\n";
     cout<<"                                  <style> = [allman, gnu, google, horstmann,\n";
     cout<<"                                  java, kr, linux, lisp, mozilla, otbs, pico,\n";
-    cout<<"                                  vtk, ratliff, stroustrup, whitesmith, user]\n";
+    cout<<"                                  vtk, ratliff, stroustrup, webkit, whitesmith, user]\n";
+    cout<<"                                  The user style does not apply a predefined scheme.\n";
+    cout<<"                                  Use --reformat-option to define the reformatting.\n";
     cout<<"     --reformat-option=<opt>    apply an astyle cmd line option (assumes -F)\n";
     cout<<" -I, --include-style            include style definition in output file\n";
     cout<<" -J, --line-length=<num>        line length before wrapping (see -V, -W)\n";

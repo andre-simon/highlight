@@ -85,7 +85,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     //does not work in GUI editor when adding > 10 items ?!?
     QStringList fmts;
-    fmts << "Allman" << "GNU" <<"Google"<< "Horstmann"<<"Lisp"<<"Java"<<"K&R"<<"Linux"<<"Mozilla"<<"OTBS"<<"Pico"<<"Ratliff"<<"Stroustrup"<<"VTK"<<"Whitesmith";
+    fmts << "Allman" << "GNU" <<"Google"<< "Horstmann"<<"Lisp"<<"Java"<<"K&R"<<"Linux"
+         <<"Mozilla"<<"OTBS"<<"Pico"<<"Ratliff"<<"Stroustrup"<<"VTK"<<"Webkit"<<"Whitesmith";
     ui->comboReformat->clear();
     ui->comboReformat->addItems(fmts);
 
@@ -194,7 +195,7 @@ void MainWindow::selectSingleFile(QLineEdit* edit, const QString& title, const Q
     if (!fileName.isEmpty()) edit->setText(fileName);
 }
 
-void MainWindow::addToView(const QStringList& list, QListWidget* listWidget, const QString& iconName, bool checkable, bool baseName  )
+void MainWindow::addToView(const QStringList& list, QListWidget* listWidget, const QString& iconName, bool checkable, bool baseName)
 {
     QListWidgetItem *listItem;
     QString croppedName;

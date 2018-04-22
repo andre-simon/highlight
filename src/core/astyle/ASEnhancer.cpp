@@ -20,20 +20,6 @@ namespace astyle {
 //-----------------------------------------------------------------------------
 
 /**
- * ASEnhancer constructor
- */
-ASEnhancer::ASEnhancer()
-{
-}
-
-/**
- * Destructor of ASEnhancer
- */
-ASEnhancer::~ASEnhancer()
-{
-}
-
-/**
  * initialize the ASEnhancer.
  *
  * init() is called each time an ASFormatter object is initialized.

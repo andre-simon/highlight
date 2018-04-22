@@ -85,6 +85,7 @@ enum FormatStyle
 	STYLE_1TBS,
 	STYLE_GOOGLE,
 	STYLE_MOZILLA,
+	STYLE_WEBKIT,
 	STYLE_PICO,
 	STYLE_LISP
 };
@@ -185,12 +186,12 @@ enum LineEndFormat
 class ASSourceIterator
 {
 public:
-	ASSourceIterator() {}
-	virtual ~ASSourceIterator() {}
+	ASSourceIterator() = default;
+	virtual ~ASSourceIterator() = default;
 	virtual streamoff getPeekStart() const = 0;
 	virtual int getStreamLength() const = 0;
 	virtual bool hasMoreLines() const = 0;
-	virtual string nextLine(bool emptyLineWasDeleted = false) = 0;
+	virtual string nextLine(bool emptyLineWasDeleted) = 0;
 	virtual string peekNextLine() = 0;
 	virtual void peekReset() = 0;
 	virtual streamoff tellg() = 0;
@@ -296,10 +297,10 @@ class ASBase : protected ASResource
 {
 private:
 	// all variables should be set by the "init" function
-	int baseFileType;      // a value from enum FileType
+	int baseFileType = C_TYPE;      // a value from enum FileType
 
 protected:
-	ASBase() : baseFileType(C_TYPE) { }
+	ASBase() = default;
 
 protected:  // inline functions
 	void init(int fileTypeArg) { baseFileType = fileTypeArg; }
@@ -333,7 +334,12 @@ class ASBeautifier : protected ASBase
 public:
 	ASBeautifier();
 	virtual ~ASBeautifier();
+	ASBeautifier(const ASBeautifier& other);
+	ASBeautifier& operator=(ASBeautifier const&) = delete;
+	ASBeautifier(ASBeautifier&&)                 = delete;
+	ASBeautifier& operator=(ASBeautifier&&)      = delete;
 	virtual void init(ASSourceIterator* iter);
+
 	virtual string beautify(const string& originalLine);
 	void setCaseIndent(bool state);
 	void setClassIndent(bool state);
@@ -406,9 +412,6 @@ protected:
 	bool isInIndentablePreproc;
 
 private:  // functions
-	ASBeautifier(const ASBeautifier& other);     // inline functions
-	ASBeautifier& operator=(ASBeautifier&);      // not to be implemented
-
 	void adjustObjCMethodDefinitionIndentation(const string& line_);
 	void adjustObjCMethodCallIndentation(const string& line_);
 	void adjustParsedLineIndentation(size_t iPrelim, bool isInExtraHeaderIndent);
@@ -580,8 +583,7 @@ private:  // variables
 class ASEnhancer : protected ASBase
 {
 public:  // functions
-	ASEnhancer();
-	virtual ~ASEnhancer();
+	ASEnhancer() = default;
 	void init(int, int, int, bool, bool, bool, bool, bool, bool, bool,
 	          vector<const pair<const string, const string>* >*);
 	void enhance(string& line, bool isInNamespace, bool isInPreprocessor, bool isInSQL);
@@ -656,10 +658,15 @@ class ASFormatter : public ASBeautifier
 {
 public:	// functions
 	ASFormatter();
-	virtual ~ASFormatter();
-	virtual void init(ASSourceIterator* si);
-	virtual bool hasMoreLines() const;
-	virtual string nextLine();
+	~ASFormatter() override;
+	ASFormatter(const ASFormatter&)            = delete;
+	ASFormatter& operator=(ASFormatter const&) = delete;
+	ASFormatter(ASFormatter&&)                 = delete;
+	ASFormatter& operator=(ASFormatter&&)      = delete;
+	void init(ASSourceIterator* si) override;
+
+	bool hasMoreLines() const;
+	string nextLine();
 	LineEndFormat getLineEndFormat() const;
 	bool getIsLineReady() const;
 	void setFormattingStyle(FormatStyle style);
@@ -722,8 +729,6 @@ public:	// functions
 
 
 private:  // functions
-	ASFormatter(const ASFormatter& copy);       // not to be implemented
-	ASFormatter& operator=(ASFormatter&);       // not to be implemented
 	template<typename T> void deleteContainer(T& container);
 	template<typename T> void initContainer(T& container, T value);
 	char peekNextChar() const;
@@ -752,7 +757,7 @@ private:  // functions
 	bool isMultiStatementLine() const;
 	bool isNextWordSharpNonParenHeader(int startChar) const;
 	bool isNonInStatementArrayBrace() const;
-	bool isNumericVariable(string word) const;
+	bool isNumericVariable(const string& word) const;
 	bool isOkToSplitFormattedLine();
 	bool isPointerOrReference() const;
 	bool isPointerOrReferenceCentered() const;
@@ -834,7 +839,7 @@ private:  // functions
 	string getPreviousWord(const string& line, int currPos) const;
 	string peekNextText(const string& firstLine,
 	                    bool endOnEmptyLine = false,
-	                    shared_ptr<ASPeekStream> streamArg = nullptr) const;
+	                    const shared_ptr<ASPeekStream>& streamArg = nullptr) const;
 
 private:  // variables
 	int formatterFileType;
