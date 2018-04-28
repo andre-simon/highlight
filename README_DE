@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT HANDBUCH -----  Version 3.41   --------------- November 2017 ---
+---  HIGHLIGHT HANDBUCH -----  Version 3.43   ------------------ April 2017 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -931,51 +931,8 @@ z.B. Webgit, Evolution, Inkscape, Ranger, ...).
 5.1 VORKOMPILIERTE PAKETE
 -------------------------------------------------------------------------------
 
-Highlight ist in ISO C++ geschrieben. Es existieren folgende Pakete:
-- UNIX Kommandozeilen- und GUI-Anwendung
-- Windows Kommandozeilen- und GUI-Anwendung
-- Statische/dynamische Bibliothek
-
-Auf der Website www.andre-simon.de sind Links auf vorkompilierte Pakete fuer
-weitere Betriebssysteme vorhanden (z.B. Debian, Arch Linux, Ubuntu, Darwin,
-FreeBSD).
-Auf der Website sind immer die aktuellsten Source-Pakete (upstream) verfuegbar.
-
-Source tarball
-Windows und MacOS executables
-http://www.andre-simon.de
-
-Arch Linux
-http://www.archlinux.org/packages/community/i686/highlight/
-
-Debian GNU/Linux
-https://packages.debian.org/search?keywords=highlight
-
-Fedora
-http://koji.fedoraproject.org/koji/packageinfo?packageID=2044
-
-FreeBSD
-http://www.freshports.org/textproc/highlight/
-
-Gentoo Portage
-https://packages.gentoo.org/packages/app-text/highlight
-
-Mac OS X
-http://braumeister.org/formula/highlight
-
-Slackware
-http://sotirov-bg.net/slackpack/search.cgi?q=highlight
-
-SuSE
-http://packman.links2linux.de/package/highlight
-
-Ubuntu
-http://packages.ubuntu.com/oneiric/allpackages
-
-Windows Chocolatey
-https://chocolatey.org/packages/highlight
-
-In INSTALL befinden sich weitere Informationen zu Paketinhalt und Installation.
+In INSTALL befinden sich Informationen zur Kompilation und zu verfuegbaren 
+Installationspaketen.
 
 
 5.2 KOMPILIER-ABHAENGIGKEITEN
@@ -994,8 +951,8 @@ Andre Simon
 andre.simon1@gmx.de
 http://www.andre-simon.de
 
-sf.net Projekt mit SVN Repository, Download Mirror, Bugtracker, Foren:
-http://sourceforge.net/projects/syntaxhighlight/
-
 Github Projekt mit Git Repository, Bugtracker:
 https://github.com/andre-simon/highlight
+
+sf.net Projekt mit SVN Repository, Download Mirror, Bugtracker, Foren:
+http://sourceforge.net/projects/syntaxhighlight/

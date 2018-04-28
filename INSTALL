@@ -165,6 +165,52 @@ i) Ship highlight with libgcc_s_dw2-1.dll (32 bit) libgcc_s_seh-1.dll (64 bit)  
    (all DLLs are located in the mingw32 installation)
 
    
+3.3 Precompiled packages
+------------------------
+
+Highlight is written in ISO C++. The following packages are available:
+- UNIX console and GUI application
+- Windows console and GUI application
+- statically and dynamically linked library
+
+The website www.andre-simon.de offers links to precompiled packages for several
+operating systems (like Debian, Arch Linux, Ubuntu, Darwin, FreeBSD).
+The website distributes the latest upstream sources.
+
+Windows and MacOS executables
+http://www.andre-simon.de
+
+Arch Linux
+http://www.archlinux.org/packages/community/i686/highlight/
+
+Debian GNU/Linux
+https://packages.debian.org/search?keywords=highlight
+
+Fedora
+http://koji.fedoraproject.org/koji/packageinfo?packageID=2044
+
+FreeBSD
+http://www.freshports.org/textproc/highlight/
+
+Gentoo Portage
+https://packages.gentoo.org/packages/app-text/highlight
+
+Mac OS X
+http://braumeister.org/formula/highlight
+
+Slackware
+http://sotirov-bg.net/slackpack/search.cgi?q=highlight
+
+SuSE
+http://packman.links2linux.de/package/highlight
+
+Ubuntu
+http://packages.ubuntu.com/oneiric/allpackages
+
+Windows Chocolatey
+https://chocolatey.org/packages/highlight
+
+   
 4. Known compiler issues
 ========================
 

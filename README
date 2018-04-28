@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----  HIGHLIGHT MANUAL -------  Version 3.41   --------------- November 2017 ---
+---  HIGHLIGHT MANUAL -------  Version 3.43   ------------------ April 2018 ---
 -------------------------------------------------------------------------------
 
 OSI Certified Open Source Software
@@ -912,52 +912,8 @@ Evolution, Inkscape, Ranger and more.
 5.1 PRECOMPILED PACKAGES
 -------------------------------------------------------------------------------
 
-Highlight is written in ISO C++. The following packages are available:
-- UNIX console and GUI application
-- Windows console and GUI application
-- statically and dynamically linked library
-
-The website www.andre-simon.de offers links to precompiled packages for several
-operating systems (like Debian, Arch Linux, Ubuntu, Darwin, FreeBSD).
-The website distributes the latest upstream sources.
-There is also a Sourceforge project: 
-http://sourceforge.net/projects/syntaxhighlight/
-
-Source tarball
-Windows and MacOS executables
-http://www.andre-simon.de
-
-Arch Linux
-http://www.archlinux.org/packages/community/i686/highlight/
-
-Debian GNU/Linux
-https://packages.debian.org/search?keywords=highlight
-
-Fedora
-http://koji.fedoraproject.org/koji/packageinfo?packageID=2044
-
-FreeBSD
-http://www.freshports.org/textproc/highlight/
-
-Gentoo Portage
-https://packages.gentoo.org/packages/app-text/highlight
-
-Mac OS X
-http://braumeister.org/formula/highlight
-
-Slackware
-http://sotirov-bg.net/slackpack/search.cgi?q=highlight
-
-SuSE
-http://packman.links2linux.de/package/highlight
-
-Ubuntu
-http://packages.ubuntu.com/oneiric/allpackages
-
-Windows Chocolatey
-https://chocolatey.org/packages/highlight
-
-The file INSTALL contains details about package contents and installation.
+The file INSTALL describes the installation from source and includes links to 
+precompiled packages.
 
 
 5.2 BUILDING DEPENDENCIES
@@ -976,8 +932,8 @@ Andre Simon
 andre.simon1@gmx.de
 http://www.andre-simon.de/
 
-sf.net project with SVN repository, download mirror, bug tracker, help forum:
-http://sourceforge.net/projects/syntaxhighlight/
-
 Github project with Git repository, bug tracker:
 https://github.com/andre-simon/highlight
+
+sf.net project with SVN repository, download mirror, bug tracker, help forum:
+http://sourceforge.net/projects/syntaxhighlight/
