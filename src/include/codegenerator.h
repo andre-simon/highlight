@@ -366,7 +366,10 @@ public:
     /** \return Document title */
     string getTitle();
 
-    /** \param cnt maximum number of input lines to be processed */
+    /** \param begin number of the first input line to be processed */
+    void setStartingInputLine ( unsigned int begin );
+
+    /** \param cnt upper limit of input lines to be processed */
     void setMaxInputLineCnt ( unsigned int cnt );
 
     /** \param keyCase Keyword case */
@@ -739,6 +742,10 @@ private:
     /// width of line numbering coloumn
     unsigned int lineNumberWidth;
 
+    /**first input line to be processed*/
+    unsigned int startLineCnt;
+    unsigned int startLineCntCurFile;
+    
     /**maximum count of input lines to be processed*/
     unsigned int maxLineCnt;
     

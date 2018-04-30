@@ -87,6 +87,8 @@ void printHelp()
     cout<<" -I, --include-style            include style definition in output file\n";
     cout<<" -J, --line-length=<num>        line length before wrapping (see -V, -W)\n";
     cout<<" -j, --line-number-length=<num> line number width incl. left padding (default: 5)\n";
+    cout<<"     --line-range=<start-end>   output only lines from number <start> to <end>\n";
+
     cout<<" -k, --font=<font>              set font (specific to output format)\n";
     cout<<" -K, --font-size=<num?>         set font size (specific to output format)\n";
     cout<<" -l, --line-numbers             print line numbers in output file\n";
@@ -171,7 +173,8 @@ void printHelp()
     cout<<"if neither -c nor -I is given.\n";
     cout<<"Reformatting code (-F) will only work with C, C++, C# and Java input files.\n";
     cout<<"Wrapping lines with -V or -W will cause faulty highlighting of long single\n";
-    cout<<"line comments and directives. Use with caution.\n\n";
+    cout<<"line comments and directives. Using line-range might interfere with multi\n";
+    cout<<"line syntax elements. Use with caution.\n\n";
     cout<<"Run highlight --list-scripts=langs to see all supported syntax types.\n\n";
     cout<<"Refer to README files how to apply plug-ins to customize the output.\n\n";
     cout<<"Updates and information: http://www.andre-simon.de/\n";

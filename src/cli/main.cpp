@@ -472,7 +472,12 @@ int HLCmdLineApp::run ( const int argc, const char*argv[] )
     generator->setStartingNestedLang( options.getStartNestedLang());
     generator->disableTrailingNL(options.disableTrailingNL());
     generator->setPluginParameter(options.getPluginParameter());
-
+    
+    if (options.getLineRangeStart()>0 && options.getLineRangeEnd()>0){
+        generator->setStartingInputLine(options.getLineRangeStart());
+        generator->setMaxInputLineCnt(options.getLineRangeEnd());    
+    }
+    
     bool styleFileWanted = !options.fragmentOutput() || options.styleOutPathDefined();
 
     const  vector <string> pluginFileList=collectPluginPaths( options.getPluginPaths());

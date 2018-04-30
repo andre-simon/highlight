@@ -135,6 +135,8 @@ CodeGenerator::CodeGenerator ( highlight::OutputType type )
      syntaxChangeIndex(UINT_MAX),
      syntaxChangeLineNo(UINT_MAX),
      lineNumberWidth ( 5 ),
+     startLineCnt( 1 ),
+     startLineCntCurFile( 1 ),
      maxLineCnt ( UINT_MAX ),
      terminatingChar ( '\0' ),
      formatter ( NULL ),
@@ -349,6 +351,11 @@ bool CodeGenerator::formattingDisabled()
     return !formattingEnabled;
 }
 
+void CodeGenerator::setStartingInputLine ( unsigned int begin )
+{
+    startLineCnt = startLineCntCurFile = begin;
+}
+
 void CodeGenerator::setMaxInputLineCnt ( unsigned int cnt )
 {
     maxLineCnt = cnt;
@@ -396,6 +403,7 @@ void CodeGenerator::reset()
     embedLangDefPath.clear();
     printNewLines=true;
     syntaxChangeIndex = syntaxChangeLineNo = UINT_MAX;
+    startLineCntCurFile = startLineCnt;
 }
 
 string CodeGenerator::getThemeInitError()
@@ -430,17 +438,22 @@ unsigned int CodeGenerator::getLineNumber()
 
 bool CodeGenerator::readNewLine ( string &newLine )
 {
-    bool eof;
+    bool eof=false;
+    
     if ( lineIndex ) terminatingChar=newLine[lineIndex-1];
-    if ( formattingPossible && formattingEnabled ) {
-        eof=!formatter->hasMoreLines();
-        if ( !eof ) {
-            newLine = formatter->nextLine();
+    
+    while (!eof && startLineCntCurFile>0) {
+        if ( formattingPossible && formattingEnabled ) {
+            eof=!formatter->hasMoreLines();
+            if ( !eof ) {
+                newLine = formatter->nextLine();
+            }
+        } else {
+            eof = ! getline ( *in, newLine, eolDelimiter );
         }
-    } else {
-        eof = ! getline ( *in, newLine, eolDelimiter );
+        --startLineCntCurFile;
     }
-
+    startLineCntCurFile=1;
 #ifndef _WIN32
     // drop CR of CRLF files
     if (!newLine.empty() && newLine[newLine.size() - 1] == '\r')
