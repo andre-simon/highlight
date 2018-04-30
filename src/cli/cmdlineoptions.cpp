@@ -146,6 +146,8 @@ CmdLineOptions::CmdLineOptions ( const int argc, const char *argv[] ) :
     lineNrWidth ( 5 ),
     lineLength ( 80 ),
     lineNrStart ( 1 ),
+    lineRangeStart( 0 ),
+    lineRangeEnd( 0 ),
     canvasPaddingWidth(0),
     wrappingStyle ( highlight::WRAP_DISABLED ),
     outputType ( highlight::HTML ),
