@@ -1486,12 +1486,13 @@ void CodeGenerator::processRootState()
 
     if ( currentSyntax->highlightingDisabled() ) {
         string line;
-        while ( getline ( *in, line ) ) {
+        while ( getline ( *in, line ) && lineNumber < maxLineCnt ) {
             ++lineNumber;
             insertLineNumber ( !firstLine );
             flushWs();
             firstLine=false;
-            maskString ( *out, line );
+            if (lineNumber>=startLineCntCurFile && lineNumber <=maxLineCnt)
+                maskString ( *out, line );
         }
         *out << flush;
         return;
