@@ -23,7 +23,7 @@ Keywords={
   },
   -- decorators:
   { Id=2,
-    Regex=[[@\w+]],
+    Regex=[[@[\w\.]+]],
   },
   { Id=3,
     List={  "ArithmeticError", "AssertionError", "AttributeError", 

@@ -867,7 +867,7 @@ Konfigurationsskripte werden in folgenden Verzeichnissen gesucht:
 3. benutzerdefiniertes Verz., definiert mit --data-dir (deprecated)
 4. /usr/share/highlight/
 5. /etc/highlight/ (wegen filetypes.conf)
-6. aktuelles Arbeitsverzeicnnis (Fallback)
+6. aktuelles Arbeitsverzeichnis (Fallback)
 
 Es wird erwartet, dass folgende Unterverzeichnisse die entsprechenden Skripte
 enthalten:
